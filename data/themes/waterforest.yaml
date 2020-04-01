@@ -1,20 +1,20 @@
 # Theme metadata
-name: "Inferno"
+name: "waterforest"
 
 # Is theme light or dark?
 light: true
 
 # Primary
-primary: "#CF4446"
+primary: "#098A9C"
 
 # Links
-link: "#CF4446"
-link_hover: "#F6D645"
+link: "#098A9C"
+link_hover: "#72CCE0"
 
 # Menu
 menu_primary: "#fff"
-menu_text: "#CF4446"
-menu_text_active: "#FB9E07"
+menu_text: "#098A9C"
+menu_text_active: "#72CCE0"
 menu_title: "#494949"
 
 # Home sections

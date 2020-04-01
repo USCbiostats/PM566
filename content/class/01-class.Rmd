@@ -9,23 +9,24 @@ csl: ../../static/bib/chicago-syllabus-no-bib.csl
 output:
   blogdown::html_page:
     template: ../../pandoc/toc-title_html.template
-    toc: true
+    toc: false
 menu:
   class:
     parent: Class sessions
     weight: 1
 type: docs
 weight: 1
-pdf: /slides/01_dataviz_s20_looking_at_data.pdf
-thumb: /slides/01_dataviz_s20_looking_at_data.png    
 editor_options: 
   chunk_output_type: console
 ---
 
+## Lab Exercise
+
+[link](/assignment/01-code)
+
 ## Slides
 
-`r blogdown::shortcode("slides")`
-
+[link](/slides/01-welcome/slides.html)
 
 ## Links
 

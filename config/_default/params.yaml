@@ -9,7 +9,7 @@
 #   Latest themes (may require updating): https://sourcethemes.com/academic/themes/
 #   Browse built-in themes in `themes/academic/data/themes/`
 #   Browse user installed themes in `data/themes/`
-theme: "inferno"
+theme: "waterforest"
 
 # Enable users to switch between day and night mode?
 day_night: false
@@ -37,7 +37,7 @@ font_size: "L"
 site_type: "Course"
 
 # Description for social sharing and search engines. If undefined, superuser role is used in place.
-description: "Course Description"
+description: "Introduction to Health Data Science"
 
 # Display a logo in navigation bar rather than title (optional).
 #   To enable, place an image in `static/img/` and reference its filename below. To disable, set the value to "".
@@ -53,7 +53,7 @@ logo: ""
 highlight: true
 
 # Add support for highlighting additional languages
-highlight_languages: 
+highlight_languages:
   - r
 
 # highlight_style: "github-gist"  # For supported styles, see https://cdnjs.com/libraries/highlight.js/
@@ -74,7 +74,7 @@ privacy_pack: false
 # Enable visitors to edit pages?
 #   `repo` defines the repository URL. `editable` defines which page types can be edited.
 edit_page:
-  repo_url: 'https://github.com/kjhealy/'
+  repo_url: 'https://github.com/uscbiostats/PM566/'
   content_dir: ''
   repo_branch: master
   editable:
@@ -89,21 +89,21 @@ edit_page:
 ## Additionally, for organizations, these details may be used to enrich search engine results.
 ############################
 
-author: Kieran Healy
+author: Emil Hvitfeldt
 
-instructor: 
-  name: Kieran Healy
-  email: kjhealy@soc.duke.edu
-  url: "https://kieranhealy.org"
-  twitter: kjhealy
-  github: kjhealy
-  office: "255 Sociology/Psychology"
+instructor:
+  name: Emil Hvitfeldt
+  email: emilhans@usc.edu
+  url: "https://www.hvitfeldt.me/"
+  twitter: Emil_Hvitfeldt
+  github: EmilHvitfeldt
+  office: "Soto 210-02"
   contact_policy: >-
-    If you have questions or want to discuss things that we're doing in class, it's best to use the course Slack. I strongly encourage you not to be shy about raising queries or asking for help in the &#35;general channel. For other matters (such as absences, etc), email me.
+    If you have questions or want to discuss things please contact me.
 
 course:
-  number: "SOCIOL "
-  semester: ""
+  number: "PM566"
+  semester: "Fall 2020"
   days: ""
   time: ""
   location: ""
@@ -111,13 +111,13 @@ course:
   github: ""
   copyrightYear: ""
 
-university: 
-  name: Duke University
-  url: "https://www.duke.edu"
+university:
+  name: University of Southern California
+  url: "https://www.usc.edu/"
 
 school:
-  name: Sociology Department
-  url: "https://sociology.duke.edu/"
+  name: Department of Preventive Medicine
+  url: "https://preventivemedicine.usc.edu/"
 
 
 ############################
@@ -128,7 +128,7 @@ school:
 sharing_image: "social-image.png"
 
 # Twitter username (without @). Used when a visitor shares your site on Twitter.
-twitter: "kjhealy"
+twitter: "USCBiostat"
 
 
 ############################

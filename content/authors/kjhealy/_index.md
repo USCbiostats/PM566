@@ -1,8 +1,8 @@
 ---
 authors:
-- kjhealy
-name: Kieran Healy
+- EmilHvitfeldt
+name: Emil Hvitfeldt
 superuser: true
 ---
 
-Kieran Healy is Professor of Sociology at Duke University.
+Emil Hvitfeldt is a Research Programmer at University of Southern California.

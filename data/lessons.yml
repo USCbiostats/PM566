@@ -1,31 +1,76 @@
 lessons:
-  
-  - title: "Looking at Data / Up and Running"
+
+  - title: " Introduction to Data Science tools: R, R Markdown"
     date: "Week 1"
     class: "01-class"
     assignment: "01-code"
 
-  - title: "Mapping Data to Visual Elements"    
+  - title: "Version Control & Reproducible Research"
     date: "Week 2"
-    reading: "02-reading"
-    assignment: "02-code"
+    reading: ""
+    assignment: ""
 
-  - title: "Tables, Text, Labels, Notes"
+  - title: "Exploratory data analysis"
     date: "Week 3"
-    reading: "03-reading"
-    assignment: "03-code"
+    reading: ""
+    assignment: ""
 
-  - title: "Working with Models"
+  - title: "Data visualization"
     date: "Week 4"
-    reading: "04-reading"
-    assignment: "04-code"
+    reading: ""
+    assignment: ""
 
-  - title: "Maps"
+  - title: "Advanced R functions, control structures"
     date: "Week 5"
-    reading: "05-reading"
-    assignment: "05-code"
-    
-  - title: "Polishing your Plots"
+    reading: ""
+    assignment: ""
+
+  - title: "Data cleaning and wrangling big data"
     date: "Week 6"
-    reading: "06-reading"
-    assignment: "06-code"    
+    reading: ""
+    assignment: ""
+
+  - title: "Regular Expressions, Big Data, Data scraping using APIs, data security"
+    date: "Week 7"
+    reading: ""
+    assignment: ""
+
+  - title: "Regular Expressions, Big Data, Data scraping, using APIs, text mining"
+    date: "Week 8"
+    reading: ""
+    assignment: ""
+
+  - title: "Midterm Exam"
+    date: "Week 9"
+    reading: ""
+    assignment: ""
+
+  - title: "High performance computing, cloud computing"
+    date: "Week 10"
+    reading: ""
+    assignment: ""
+
+  - title: "Managing big data, SQL and non-SQL languages, Google BigQuery"
+    date: "Week 11"
+    reading: ""
+    assignment: ""
+
+  - title: "Interactive visualization and data communication I"
+    date: "Week 12"
+    reading: ""
+    assignment: ""
+
+  - title: "Interactive visualization and data communication II"
+    date: "Week 13"
+    reading: ""
+    assignment: ""
+
+  - title: "Final project workshop: review project progress, preliminary presentations"
+    date: "Week 14"
+    reading: ""
+    assignment: ""
+
+  - title: "Communicating to stakeholders and end users"
+    date: "Week 15"
+    reading: ""
+    assignment: ""

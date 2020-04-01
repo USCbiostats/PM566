@@ -1,6 +1,10 @@
 ---
 title: "Lab 01 - Hello R!"
-output: tufte::tufte_html
+output: 
+  tufte::tufte_html:
+    css: ../lab.css
+    tufte_variant: "envisioned"
+    highlight: pygments
 link-citations: yes
 ---
 
@@ -15,17 +19,23 @@ link-citations: yes
 
 We've already thrown around a few new terms, so let's define them before we proceed.
 
+```{marginfigure}
+You can think about it as R is the engine of the car, and RStudio is the dashboard.
+```
+
 - **R**: Name of the programming language we will be using throughout the course.
 - **RStudio**: An integrated development environment for R. In other words, a convenient interface for writing and running R code.
+
+```{marginfigure}
+Git is like the "Track Changes" features from Microsoft Word on steroids, and GitHub is the home for your Git-based projects on the internet (like DropBox but much, much better).
+```
+
 - **Git**: A version control system.
 - **GitHub**: A web platform for hosting version controlled files and faciliating collaboration among users.
 - **Repository**: A Git repository repository contains all of your project's files and stores each file's revision history. It's common to refer to a repository as a repo. 
   - In this course, each assignment you work on will be contained in a Git repo. 
   - For individual assignments, only you will have access to the repo. For team assignments, all team members will have access to a single repo where they work collaboratively.
   - All repos associated with this course are housed in a GitHub organization: [`ids-s1-19`](https://github.com/ids-s1-19). The organization is set up such that students can only see repos they have access to, but the course staff can see all of them.
-
-I like to think of R as the engine of the car, and RStudio is the dashboard.
-Git is like the "Track Changes" features from Microsoft Word on steroids, and GitHub is the home for your Git-based projects on the internet (like DropBox but much, much better).
 
 # Starting slow
 
@@ -51,13 +61,21 @@ Go to [github.com](https://github.com/) and create an account (unless you alread
 
 ## Join the course organization
 
-- Go to https://classroom.github.com/classrooms/10712919-pm566 to accept your lab assignment. Since this is the first assignment, clicking on this link will also allow you to join the course GitHub organization. Log in with your GitHub username and password and click on **Authorize github**.
+- Go to https://classroom.github.com/a/CrmxfqIs to accept your lab assignment. Since this is the first assignment, clicking on this link will also allow you to join the course GitHub organization. Log in with your GitHub username and password and click on **Authorize github**.
+
+```{r github-classroom, fig.margin = TRUE, echo = FALSE}
+knitr::include_graphics("img/github-classroom.png")
+```
 
 - In the next screen you will see a course roster with last names and student ID numbers of students enrolled in this course. Select your last name from the list. Note that there may be other students with the same last name, so make sure to confirm your student ID number before making your selection.
 
-- Then, in the next screen, click on **Accept this assignment**. This will create the GitHub repo for the assignment. This repo contains a template you can build on to complete your assignment. Click on the repository link created for you to get started.
+- Then, in the next screen, click on **Accept this assignment**. This will create the  GitHub repo for the assignment. This repo contains a template you can build on to complete your assignment. Click on the repository link created for you to get started.
 
 # Workflow overview
+
+```{marginfigure}
+This action is called *cloning*.
+```
 
 For each assignment in this course you will start with a GitHub repo that I created for you and that contains the starter documents you will build upon when working on your assignment. The first step is always to bring these files into RStudio so that you can edit them, run them, view your results, and interpret them.
 
@@ -67,13 +85,33 @@ The next few steps will walk you through the process of getting information of t
 
 ## 1. Get URL of repo to be cloned
 
-![](/assignment-img/clone-repo-link.png)
+
+```{r clone-repo-link, fig.margin = TRUE, echo = FALSE, fig.width=3}
+knitr::include_graphics("img/clone-repo-link.png")
+```
 
 On GitHub, click on the green **Clone or download** button, select **Use HTTPS** (this might already be selected by default, and if it is, you'll see the text **Clone with HTTPS** as in the image below). Click on the clipboard icon to copy the repo URL.
 
 ## 2. Launch RStudio
 
-TODO setup rstudio cloud for students
+This step is a bit tedious, but it'll soon become second nature. Note that you can access RStudio anywhere using these steps, you don't need to be in the computer lab for it.
+
+- Go to the [course webpage](https://introds.org/), and click on R. 
+  - Note, if you're not already logged in to Learn this step will prompt you to log in.
+  - If this happens, you may need to click on the RStudio link again in Learn.
+  - And if you have pop-up windows blocked, you might need to explicitly allow RStudio to open in a new window.
+  
+```{r noteable-step-1, fig.margin = TRUE, echo = FALSE, fig.width=3}
+knitr::include_graphics("img/noteable-step-1.png")
+```
+
+- In the next window, select RStudio under "Start Personal Notebook", and hit Start. 
+
+```{r noteable-step-2, fig.margin = TRUE, echo = FALSE, fig.width=2}
+knitr::include_graphics("img/noteable-step-2.png")
+```
+
+- And finally, on the top right, click on New, and choose RStudio again. And voila!
 
 <br><br>
 
@@ -81,7 +119,9 @@ TODO setup rstudio cloud for students
 
 And finally we clone the GitHub repo into an RStudio project.
 
-![](/assignment-img/clone-repo-rstudio.png)
+```{r clone-repo-rstudio, fig.fullwidth=TRUE, echo = FALSE}
+knitr::include_graphics("img/clone-repo-rstudio.png")
+```
 
 - In RStudio, click on File > New Project
 - In the next window, select Git
@@ -99,7 +139,9 @@ Open the R Markdown (Rmd) file called `lab-01-hello-r.Rmd`. It will likely ask y
 
 RStudio is comprised of four panes.
 
-![](/assignment-img/rstudio-anatomy.png)
+```{r rstudio-anatomy, fig.fullwidth=TRUE, echo = FALSE}
+knitr::include_graphics("img/rstudio-anatomy.png")
+```
 
 - On the bottom left is the Console, this is where you can write code that will be evaluated. Try typing `2 + 2` here and hit enter, what do you get?
 
@@ -125,6 +167,10 @@ Note that the packages are also loaded with the same commands in your R Markdown
 
 # Hello Git!
 
+```{marginfigure}
+Your email address is the address tied to your GitHub account and your name should be first and last name.
+```
+
 Before we can get started we need to take care of some required housekeeping. Specifically,  we need to do some configuration so that RStudio can communicate with GitHub. This requires two pieces of information: your email address and your name.
 
 Run the following (but update it for your name and email!) in the Console to configure git:
@@ -134,19 +180,21 @@ use_git_config(user.name = "Your Name",
                user.email = "your.email@address.com")
 ``` 
 
-Your email address is the address tied to your GitHub account and your name should be first and last name.
-
 # Warm up
 
 Before we introduce the data, let's warm up with some simple exercises.
 
+```{marginfigure}
 The top portion of your R Markdown file (between the three dashed lines) is called YAML. It stands for "YAML Ain't Markup Language". It is a human friendly data serialization standard for all programming languages. All you need to know is that this area is called the YAML (we will refer to it as such) and that it contains meta information about your document.
+```
 
 ## YAML
 
 Open the R Markdown (Rmd) file in your project, change the author name to your name, and knit the document.
 
-![](/assignment-img/yaml-raw-to-rendered.png)
+```{r yaml-raw-to-rendered, fig.fullwidth=TRUE, echo = FALSE}
+knitr::include_graphics("img/yaml-raw-to-rendered.png")
+```
 
 ## Commit
 
@@ -154,7 +202,9 @@ Then Go to the Git pane in your RStudio.
 
 If you have made changes to your Rmd file, you should see it listed here. Click on it to select it in this list and then click on **Diff**. This shows you the *diff*erence between the last committed state of the document and its current state that includes your changes. If you're happy with these changes, write "Update author name" in the **Commit message** box and hit **Commit**.
 
-![](/assignment-img/update-author-name-commit.png)
+```{r update-author-name-commit, fig.fullwidth=TRUE, echo = FALSE}
+knitr::include_graphics("img/update-author-name-commit.png")
+```
 
 You don't have to commit after every change, this would get quite cumbersome. You should consider committing states that are *meaningful to you* for inspection, comparison, or restoration. In the first few assignments we will tell you exactly when to commit and in some cases, what commit message to use. As the semester progresses we will let you make these decisions.
 
@@ -170,6 +220,10 @@ For which of the above steps (changing project name, making updates to the docum
 
 # Data
 
+```{marginfigure}
+If it's confusing that the data frame is called `datasaurus_dozen` when it contains 13 datasets, you're not alone! Have you heard of a [baker's dozen](https://en.wikipedia.org/wiki/Dozen#Baker's_dozen)?
+```
+
 The data frame we will be working with today is called `datasaurus_dozen` and it's in the `datasauRus` package. Actually, this single data frame contains 13 datasets, designed to show us  why data visualisation is important and how summary statistics alone can be misleading. The different datasets are maked by the `dataset` variable.
 
 To find out more about the dataset, type the following in your Console: `?datasaurus_dozen`. A question mark before the name of an object will always bring up its help file. This command must be ran in the Console.
@@ -181,6 +235,10 @@ Let's take a look at what these datasets are. To do so we can make a *frequency 
 ```{r}
 datasaurus_dozen %>%
   count(dataset)
+```
+
+```{marginfigure}
+Matejka, Justin, and George Fitzmaurice. "Same stats, different graphs: Generating datasets with varied appearance and identical statistics through simulated annealing." Proceedings of the 2017 CHI Conference on Human Factors in Computing Systems. ACM, 2017.
 ```
 
 The original Datasaurus (`dino`) was created by Alberto Cairo in [this great blog post](http://www.thefunctionalart.com/2016/08/download-datasaurus-never-trust-summary.html). The other Dozen were generated using simulated annealing and the process is described in the paper *Same Stats, Different Graphs: Generating Datasets with Varied Appearance and Identical Statistics* through Simulated Annealing by Justin Matejka and George Fitzmaurice. In the paper, the authors simulate a variety of datasets that the same summary statistics to the Datasaurus but have very different distributions.
@@ -217,7 +275,9 @@ For the second part of this exercises, we need to calculate a summary statistic:
 
 But, for illustrative purposes, let's calculate correlation coefficient between `x` and `y`.
 
+```{marginfigure}
 Start with `dino_data` and calculate a summary statistic that we will call `r` as the `cor`relation between `x` and `y`.
+```
 
 ```{r}
 dino_data %>%
@@ -234,7 +294,9 @@ dino_data %>%
 
 *You should pause again, commit changes with the commit message "Added answer for Ex 4", and push.*
 
+```{marginfigure}
 Facet by the dataset variable, placing the plots in a 3 column grid, and don't add a legend.
+```
 
 5. Finally, let's plot all datasets at once. In order to do this we will make use of facetting.
 
@@ -255,17 +317,23 @@ datasaurus_dozen %>%
 
 You're done with the data analysis exercises, but we'd like you to do two more things:
 
-![](/assignment-img/fig-resize-global.png)
+```{r fig-resize-global, fig.margin = TRUE, echo = FALSE, fig.width=3}
+knitr::include_graphics("img/fig-resize-global.png")
+```
 
 - **Resize your figures:** 
 
 Click on the gear icon in on top of the R Markdown document, and select "Output Options..." in the dropdown menu. In the pop up dialogue box go to the Figures tab and change the height and width of the figures, and hit OK when done. Then, knit your document and see how you like the new sizes. Change and knit again and again until you're happy with the figure sizes. Note that these values get saved in the YAML.
 
-![](/assignment-img/fig-resize-local.png)
+```{r fig-resize-local, fig.margin = TRUE, echo = FALSE, fig.width=3}
+knitr::include_graphics("img/fig-resize-local.png")
+```
 
 You can also use different figure sizes for differen figures. To do so click on the gear icon within the chunk where you want to make a change. Changing the figure sizes added new options to these chunks: `fig.width` and `fig.height`. You can change them by defining different values directly in your R Markdown document as well.
 
-![](/assignment-img/theme-highlight.png)
+```{r theme-highlight, fig.margin = TRUE, echo = FALSE, fig.width=3}
+knitr::include_graphics("img/theme-highlight.png")
+```
 
 - **Change the look of your report:** 
 
@@ -273,11 +341,18 @@ Once again click on the gear icon in on top of the R Markdown document, and sele
 
 <br>
 
-*Yay, you're done! Commit all remaining changes, use the commit message "Done with Lab 1!", and push. Before you wrap up the assignment, make sure all documents are updated on your GitHub repo.*
+```{marginfigure}
+Not sure how to use emojis on your computer? Maybe a class mate can help? Or you can ask your tutor as well!
+```
+
+*Yay, you're done! Commit all remaining changes, use the commit message "Done with Lab 1! `r emo::ji("muscle")`", and push. Before you wrap up the assignment, make sure all documents are updated on your GitHub repo.*
 
 <br>
 
 ---
 
-This set of lab exersixes have been adopted from [Mine Çetinkaya-Rundel](https://twitter.com/minebocek)'s class [Introduction to Data Science](https://github.com/ids-s1-19).
+# Getting to know you
+
+If you're done with your lab, use the remaining time to take the [Getting to know you survey](https://forms.office.com/Pages/ResponsePage.aspx?id=sAafLmkWiUWHiRCgaTTcYRiRHjHRDWhOuLE_6JyNA0dUN0FDUVBVMVo5NzhMSTA5MFZGQTNRWkNZVS4u). If time is up for the lab session, complete the survey at home before tomorrow's class.
+
 
