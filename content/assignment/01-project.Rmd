@@ -1,0 +1,7 @@
+---
+title: "Midterm Prjoect"
+editor_options: 
+  chunk_output_type: console
+---
+
+# Task

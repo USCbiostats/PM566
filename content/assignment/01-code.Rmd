@@ -1,0 +1,158 @@
+---
+title: "Code from Week 1"
+editor_options: 
+  chunk_output_type: console
+---
+
+
+# Course Packet
+
+```{r load, eval = FALSE, echo = TRUE}
+
+my_packages <- c("tidyverse", "fs", "devtools")
+install.packages(my_packages)
+
+devtools::install_github("kjhealy/socviz")
+
+```
+
+```{r libs}
+
+library(tidyverse)
+library(socviz)
+
+
+```
+
+To extract the course packet to your desktop: 
+
+```{r extract, eval = FALSE, echo = TRUE}
+
+setup_course_notes()
+```
+
+# First steps
+
+```{r}
+
+library(gapminder)
+
+gapminder
+
+```
+
+
+```{r}
+
+p <- ggplot(data = gapminder,
+            mapping = aes(x = gdpPercap,
+                          y = lifeExp))
+
+p
+
+```
+
+
+```{r ch-03-fig-lexp-gdp-01}
+p + geom_point() 
+```
+
+
+```{r ch-03-fig-lexp-gdp-02, fig.cap='Life Expectancy vs GDP, using a smoother.'}
+
+p <- ggplot(data = gapminder,
+            mapping = aes(x = gdpPercap,
+                          y=lifeExp))
+p + geom_smooth()
+
+```
+
+```{r ch-03-fig-lexp-gdp-04, fig.cap='Life Expectancy vs GDP, points and an ill-advised linear fit.', out.width="100%", fig.width=8, fig.height=5}
+p <- ggplot(data = gapminder,
+            mapping = aes(x = gdpPercap,
+                          y=lifeExp))
+p + geom_point() + geom_smooth(method = "lm") 
+```
+
+
+```{r ch-03-fig-lexp-gdp-05, fig.cap='Life Expectancy vs GDP scatterplot, with a GAM smoother and a log scale on the x-axis.', out.width="100%", fig.width=8, fig.height=5}
+
+p <- ggplot(data = gapminder,
+            mapping = aes(x = gdpPercap,
+                          y=lifeExp))
+p + geom_point() +
+    geom_smooth(method = "gam") +
+    scale_x_log10()
+
+```
+
+
+## Mapping aesthetics vs setting them
+
+```{r ch-03-fig-lexp-gdp-07, fig.cap='What has gone wrong here?', fig.width=8, fig.height=5}
+
+p <- ggplot(data = gapminder,
+            mapping = aes(x = gdpPercap,
+                          y = lifeExp,
+                          color = "purple"))
+p + geom_point() +
+    geom_smooth(method = "loess") +
+    scale_x_log10()
+```
+
+```{r ch-03-fig-lexp-gdp-08, fig.cap='Setting the color attribute of the points directly.', out.width="100%", fig.width=8, fig.height=5}
+
+p <- ggplot(data = gapminder,
+            mapping = aes(x = gdpPercap,
+                          y = lifeExp))
+p + geom_point(color = "purple") +
+    geom_smooth(method = "loess") +
+    scale_x_log10()
+```
+
+
+```{r ch-03-fig-lexp-gdp-10, fig.cap='A more polished plot of Life Expectancy vs GDP.', out.width="100%", fig.width=8, fig.height=5.25}
+
+p <- ggplot(data = gapminder, mapping = aes(x = gdpPercap, y=lifeExp))
+p + geom_point(alpha = 0.3) + geom_smooth(method = "gam") +
+    scale_x_log10(labels = scales::dollar) +
+    labs(x = "GDP Per Capita", y = "Life Expectancy in Years",
+         title = "Economic Growth and Life Expectancy",
+         subtitle = "Data points are country-years",
+         caption = "Source: Gapminder.")
+```
+
+
+```{r ch-03-fig-lexp-gdp-11, fig.cap='Mapping the continent variable to the color aesthetic.', out.width="100%", fig.width=8.5, fig.height=5}
+
+p <- ggplot(data = gapminder,
+            mapping = aes(x = gdpPercap,
+                          y = lifeExp,
+                          color = continent))
+p + geom_point() +
+    geom_smooth(method = "loess") +
+    scale_x_log10()
+```
+
+
+```{r ch-03-fig-lexp-gdp-12, fig.cap='Mapping the continent variable to the color aesthetic, and correcting the error bars using the fill aesthetic.', out.width="100%", fig.width=8.5, fig.height=5}
+
+p <- ggplot(data = gapminder,
+            mapping = aes(x = gdpPercap,
+                          y = lifeExp,
+                          color = continent,
+                          fill = continent))
+p + geom_point() +
+    geom_smooth(method = "loess") +
+    scale_x_log10()
+```
+
+# Aesthetics can be mapped per geom
+
+
+```{r ch-03-fig-lexp-gdp-13, fig.cap='Mapping aesthetics on a per-geom basis. Here color is mapped to continent for the points but not the smoother.', out.width="100%", fig.width=8.5, fig.height=5}
+
+p <- ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp))
+p + geom_point(mapping = aes(color = continent)) + geom_smooth(method = "loess") +
+    scale_x_log10()
+```

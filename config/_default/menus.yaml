@@ -1,0 +1,19 @@
+main:
+  - name: Syllabus
+    url: /syllabus/
+    weight: 1
+  - name: Schedule
+    url: /schedule/
+    weight: 2
+  - name: Readings
+    url: /reading/
+    weight: 3
+  - name: Class
+    url: /class/
+    weight: 4
+  - name: Reference
+    url: /reference/
+    weight: 5
+  - name: RStudio.cloud
+    url: https://rstudio.cloud/
+    weight: 6

@@ -1,0 +1,100 @@
+---
+title: Syllabus
+slug: syllabus
+citeproc: true
+bibliography: ../../static/bib/references.bib
+csl: ../../static/bib/chicago-syllabus-no-bib.csl
+output:
+  blogdown::html_page:
+      toc: TRUE
+---
+
+```{r load-libraries, message=FALSE, warning=FALSE, include=FALSE}
+library(dplyr)
+library(tibble)
+library(pander)
+```
+
+[^courseinfo]: {-}
+  `r blogdown::shortcode("courseinfo")`
+
+
+## Overview
+
+This is a half-semester graduate seminar. It's self-contained, but goes well with its companion on Data Management, taught in the second half on the semester.
+
+## Course objectives
+
+This class will teach you how to use modern, widely-used tools to create insightful, effective, reproducible visualizations of social science data. We will also put the theory and practice of visualization into context. By that I mean that we will think about different ways of looking at social science data, about where data comes from in the first place, and the implications of choosing to represent it in different ways.
+
+By the end of the course you will
+
+- Understand the basic principles behind effective data visualization.
+- Have a practical sense for why some graphs and figures work well,
+  while others may fail to inform or actively mislead.
+- Know how to create a wide range of plots in R using ggplot2.
+- Know how to refine plots for effective presentation.
+
+## Core Texts
+
+I strongly recommend (but do not require) you buy two books: 
+
+- [@Healy:2019] [Draft version free online; print version at [Amazon](https://amzn.to/2vfAixM) and all good bookshops.]
+- [@WickhamGrolemund:2017] [Free online; print version at [Amazon](https://www.amazon.com/R-Data-Science-Hadley-Wickham/dp/1491910399/) and all good bookshops.]
+
+You should also be aware of:
+
+- [@Wilke:2019] [Draft version free online; print version at  [Amazon](https://www.amazon.com/Fundamentals-Data-Visualization-Informative-Compelling/dp/1492031089)]
+
+
+## Other Material 
+
+We may also read other material as we go. I will make it available to you beforehand. It will include material from the following books, amongst other sources:
+
+- [@battle-baptiste18:_w]
+- [@berinato16:_good_chart]
+- [@cairo16:_truth_art]
+- [@cleveland1994]
+- [@few09:_now_you_see_it]
+- [@lupton10:_think_type]
+- [@munzer14:_visual_analy_desig]
+- [@tufte83:_visual_displ_quant_infor]
+- [@ware08:_visual_think_desig]
+- [@yau11:_visual_this]
+
+
+## Software
+
+We will do all of our visualization work in this class using [R](https://cran.r-project.org/). We will use [RStudio](https://www.rstudio.com/) to manage our code and projects. 
+
+You will need to install some software first. Here is what to do:
+
+1. Get the most recent version of R. R is free and available for Windows, Mac, and Linux operating systems. [Download](http://cloud.r-project.org) the version of R compatible with your operating system. If you are running Windows or MacOS, you should choose one of the *precompiled binary* distributions (i.e., ready-to-run applications) linked at the top of the R Project's webpage. 
+2. Once R is installed, [download and install R Studio](http://rstudio.com). R Studio is an "Integrated Development Environment", or IDE. This means it is a front-end for R that makes it much easier to work with. R Studio is also free, and available for Windows, Mac, and Linux platforms.
+3. [Install the tidyverse library](http://tidyverse.org) and several other add-on packages for R. These libraries provide useful functionality that we will take advantage of throughout the book. You can learn more about the tidyverse's family of packages at its website.
+
+   To install the tidyverse, make sure you have an Internet connection and then launch R Studio. Type the following lines of code at R's command prompt, located in the window named "Console", and hit return. In the code below, the `<-` arrow is made up of two keystrokes, first `<` and then the short dash or minus symbol, `-`.
+
+```{r, echo=TRUE, eval=FALSE, tidy = FALSE}
+my_packages <- c("tidyverse", "broom", "cowplot", "drat",
+                 "gapminder", "GGally", "ggforce", "ggrepel", "ggridges", "gridExtra",
+                 "here", "interplot", "margins", "maps", "mapproj",
+                 "mapdata", "MASS", "quantreg", "rlang", "scales",
+                 "survey", "srvyr", "devtools")
+
+install.packages(my_packages, repos = "http://cran.rstudio.com")
+```
+
+R Studio should then download and install these packages for you. It may take a little while to download everything.
+
+With these packages available, you can then install one last library of material that's useful specifically for this course:
+
+```{r, echo=TRUE, eval=FALSE}
+install.packages("socviz", repos = "http://cran.rstudio.com")
+```
+
+## Schedule
+
+`r blogdown::shortcode("topiclist")`
+
+As the weeks go by, consult the [Schedule Page](/schedule/) for more information on weekly topics, problem sets, readings, and other materials. The schedule is likely to change as we go. Links to readings, assignments, and other materials from class will be posted on that page. 

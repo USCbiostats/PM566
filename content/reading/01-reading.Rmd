@@ -1,0 +1,12 @@
+---
+title: "Truth, Beauty, and Data"
+date: "2018-09-04"
+citeproc: false
+bibliography: ../../static/bib/references.bib
+csl: ../../static/bib/chicago-fullnote-bibliography-no-bib.csl
+---
+
+# Required
+
+- [Chapter 1](http://socviz.co/lookatdata.html) in Kieran Healy, *Data Visualization* [@Healy:2019]
+- Chapters 2 and 3 in Alberto Cairo, *The Truthful Art* [@Cairo:2016] (*skim the introduction and chapter 1*)

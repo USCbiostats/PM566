@@ -1,0 +1,31 @@
+lessons:
+  
+  - title: "Looking at Data / Up and Running"
+    date: "Week 1"
+    class: "01-class"
+    assignment: "01-code"
+
+  - title: "Mapping Data to Visual Elements"    
+    date: "Week 2"
+    reading: "02-reading"
+    assignment: "02-code"
+
+  - title: "Tables, Text, Labels, Notes"
+    date: "Week 3"
+    reading: "03-reading"
+    assignment: "03-code"
+
+  - title: "Working with Models"
+    date: "Week 4"
+    reading: "04-reading"
+    assignment: "04-code"
+
+  - title: "Maps"
+    date: "Week 5"
+    reading: "05-reading"
+    assignment: "05-code"
+    
+  - title: "Polishing your Plots"
+    date: "Week 6"
+    reading: "06-reading"
+    assignment: "06-code"    
