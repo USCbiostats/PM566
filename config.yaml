@@ -1,4 +1,4 @@
-baseurl: SITE
+baseurl: https://lucid-mirzakhani-35bd7d.netlify.com
 defaultContentLanguage: en
 title: "Course Title"
 theme: hugo-academic
