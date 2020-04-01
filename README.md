@@ -1,21 +1,8 @@
-# Course website skeleton
+# Course Material for PM566
 
-A template for generating course websites like [socviz880.co](https://socviz880.co/).
-
-Various hugo and blogdown features borrowed more or less directly from [Andrew Heiss](https://www.andrewheiss.com) and his excellent course 
-websites.
+The course website is based off the [course template](https://github.com/kjhealy/course_template) by [Kieran Healy](https://kieranhealy.org/).
 
 This skeleton uses the [Academic Hugo theme](https://sourcethemes.com/academic/), with some slight template modifications found in `/assets/` 
 and `layouts/`. The theme is included as a submodule, so when when cloning for the first time, use this command to get the theme too:
 
-    git clone --recursive https://github.com/gcushen/hugo-academic.git
-
-To get the theme later, use this command:
-
-    git submodule add \
-      https://github.com/gcushen/hugo-academic.git \
-      themes/hugo-academic
-
-To update to the latest version of the theme, use:
-
-    git submodule update --recursive --remote
+    git submodule update --init --recursive
