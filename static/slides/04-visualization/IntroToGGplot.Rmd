@@ -1,0 +1,400 @@
+---
+title: "GGPlot2 for PM566"
+author: "Paul M"
+date: "3/26/2020"
+output:
+  html_document:
+    df_print: paged
+  xaringan::moon_reader:
+    css: metropolis.css ###theme.css  #cccc
+    lib_dir: libs
+    nature:
+      beforeInit: macros.js
+      countIncrementalSlides: no
+      highlightLines: yes
+      highlightStyle: github
+      ratio: '4:3'
+      titleSlideClass:
+      - center
+      - middle
+---
+
+```{r include=FALSE}
+library(knitr)
+library(png)
+hook_output <- knit_hooks$get("output")
+knit_hooks$set(output = function(x, options) {
+  lines <- options$output.lines
+  if (is.null(lines)) {
+    return(hook_output(x, options))  # pass to default hook
+  }
+  x <- unlist(strsplit(x, "\n"))
+  more <- "..."
+  if (length(lines) == 1) {        # first n lines
+    if (length(x) > lines) {
+      # truncate the output, but add ....
+      x <- c(head(x, lines), more)
+    }
+  } else {
+    x <- c(more, x[lines], more)
+  }
+  # paste these lines together
+  x <- paste(c(x, ""), collapse = "\n")
+  hook_output(x, options)
+})
+knit_hooks$set(output = function(x, options) {
+  # this hook is used only when the linewidth option is not NULL
+  if (!is.null(n <- options$linewidth)) {
+    x = knitr:::split_lines(x)
+    # any lines wider than n should be wrapped
+    if (any(nchar(x) > n)) x = strwrap(x, width = n)
+    x = paste(x, collapse = '\n')
+  }
+  hook_output(x, options)
+})
+opts_chunk$set(
+  echo = TRUE,
+  fig.width = 7, 
+  fig.align = 'center',
+  fig.asp = 0.618, # 1 / phi
+  out.width = "700px")
+```
+
+```{r, echo = FALSE}
+library(sass)
+sass(sass_file("theme.sass"), output = "theme.css")
+```
+# What is this lecture?
+
+```{r, out.width='25%', echo=FALSE}
+knitr::include_graphics("img/ggplot2.png")
+```
+
+This lecture provides an introduction to ggplot2, an R package that provides vastly better graphics options than R's default plots, histrograms, etc.
+
+This section is based on chapter 3 of  "R for Data Science", by Grolemund and Wickham:
+https://r4ds.had.co.nz/
+
+------------
+
+
+### Background
+
+ggplot2 is part of the Tidyverse. The tidyverse is..."an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures." (https://www.tidyverse.org/)
+
+You will get to know it better later in the course.
+
+```{r , results='hide'}
+#install.packages("tidyverse")
+library(tidyverse)
+```
+
+---
+
+### Data frames
+ggplot2 is designed to work with data frames. 
+A data frame is a list of vectors (of equal length). The vectors can be of any type.
+For example, the following variable df is a data frame containing three vectors n, s, b.
+```{r}
+index = c(1, 2, 3) 
+animal = c("cat", "dog", "rabbit") 
+owned = c(TRUE, FALSE, FALSE) 
+df = data.frame(index, animal, owned)       # df is a data frame
+print(df)
+```
+The top line of the table is called the header and contains the variable names.
+
+---
+
+Here is a data frame that is part of ggplot2:
+```{r}
+mpg
+head(mpg)
+```
+The variables we will focus on for this example are
+
+* displ, a car’s engine size, in litres.
+* hwy, a car’s fuel efficiency on the highway, in miles per gallon (mpg). 
+
+---
+
+### Basic plot 1
+
+Here's how to create a basic plot in ggplot2
+
+```{r, out.width='40%'}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy))
+```
+As expected, we see that cars with big engines use more fuel.
+
+ggplot2 begins a plot with the function ggplot(), which creates a coordinate system that you can add layers to. The first argument of ggplot() is the dataset to use in the graph.
+
+You complete the graph by adding one or more layers to ggplot().
+
+---
+
+### Basic plot 2
+
+geom_point() adds a layer of points to your plot, to create a scatterplot. 
+
+ggplot2 comes with many geom functions that each add a different type of layer to a plot. 
+
+Each geom function in ggplot2 takes a mapping argument. 
+This defines how variables in your dataset are mapped to visual properties. 
+The mapping argument is always paired with aes(), and the x and y arguments of aes() specify which variables to map to the x and y axes. ggplot2 looks for the mapped variables in the data argument, in this case, mpg.
+
+One common problem when creating ggplot2 graphics is to put the + in the wrong place: it has to come at the end of the line, not the start.
+
+---
+### Coloring by a variable - using aesthetics
+
+You can convey information about your data by mapping the aesthetics in your plot to the variables in your dataset. For example, you can map the colors of your points to the class variable to reveal the class of each car. ggpot chooses colors, and adds a legend, automatically.
+```{r, out.width='50%'}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, color = class))
+```
+We see that 2-seater cars have small engines and unusally high fuel efficiency.
+
+---
+### Determining point size using a variable 
+You can map point size to a variable as well:
+```{r, out.width='50%'}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, size = class))
+```
+---
+
+### Controlling point transparency using the "alpha" aesthetic
+```{r, out.width='50%'}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, alpha = class))
+```
+
+---
+
+### Controlling point shape:
+```{r, out.width='50%'}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, shape = class))
+``` 
+ Note that, by default, ggplot uses up to 6 shapes. If there are more, some of your data is not plotted!! (At least it warns you.)
+
+---
+
+### Manual control of aesthetics
+
+To control aesthetics manually, set the aesthetic by name as an argument of your geom function; i.e. it goes outside of aes().
+```{r, out.width='50%'}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy), color = "blue")
+```
+  
+
+---
+
+### Summary of aesthetics
+```{r table2, echo=FALSE, message=FALSE, warnings=FALSE, results='asis', eval=FALSE}
+tabl <- " 
+|code         |         description       | 
+|-------------|:-------------------------:|
+|     x       |     position on x-axis    |
+|     y       |     position on y-axis    |
+|   shape     |           shape           |
+|   color     |  color of element borders |
+|    fill     |  color inside of elements |
+|    size     |           size            |
+|   alpha     |       transparency        |
+|  linetype   |       type of line        |
+"
+cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
+```
+
+---
+
+#The various aestheticss...
+
+
+
+|code         |         description       | 
+|-------------|:-------------------------:|
+|     x       |     position on x-axis    |
+|     y       |     position on y-axis    |
+|   shape     |           shape           |
+|   color     |  color of element borders |
+|    fill     |  color inside of elements |
+|    size     |           size            |
+|   alpha     |       transparency        |
+|  linetype   |       type of line        |
+
+### Facets 1
+
+Facets are particularly useful for categorical variables...
+
+```{r, out.width='70%'}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) + 
+  facet_wrap(~ class, nrow = 2)
+```
+  
+---
+
+### Facets 2
+Or you can facet on two variables...
+```{r, out.width='70%'}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) + 
+  facet_grid(drv ~ cyl)
+```
+
+---
+
+### Geometric objects 1
+
+Geometric objests are used to control the type of plot you draw.
+So far we have used scatterplots (via 'geom_point'). But now let's try plotting a smoothed line fitted to the data (and note how we do side-by-side plots)
+```{r, message=FALSE, out.width='70%'}
+library(cowplot)
+#library(gridExtra)
+scatterplot <- ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy))
+lineplot <- ggplot(data = mpg) + geom_smooth(mapping = aes(x = displ, y = hwy))
+plot_grid(scatterplot, lineplot, labels = "AUTO")
+#grid.arrange(scatterplot, lineplot, ncol = 2)
+```
+
+---
+
+### Geometric objects 2
+
+Note that not every aesthetic works with every geom function. But now there are some new ones we can use. 
+```{r}
+ggplot(data = mpg) + 
+  geom_smooth(mapping = aes(x = displ, y = hwy, linetype = drv))
+```
+Here we make the line type depend on the cars drivetrain.
+
+---
+
+### Geoms - reference
+
+ggplot2 provides over 40 geoms, and extension packages provide even more (see https://ggplot2.tidyverse.org/reference/ for a sampling). 
+
+The best way to get a comprehensive overview is the ggplot2 cheatsheet, which you can find at https://rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf
+
+```{r, out.width='75%', echo=FALSE}
+knitr::include_graphics("img/geoms.png")
+```
+
+---
+
+
+
+
+---
+
+### File under useless but cool
+
+ggpattern - library for adding pattern fills to histograms. e.g.,
+
+```{r}
+# install.packages("remotes")
+# remotes::install_github("coolbutuseless/ggpattern")
+suppressPackageStartupMessages({
+library(ggpattern)
+})
+df <- data.frame(level = c("a", "b", "c", 'd'), outcome = c(2.3, 1.9, 3.2, 1))
+
+ggplot(df) +
+  geom_col_pattern(
+    aes(level, outcome, pattern_fill = level), 
+    pattern = 'stripe',
+    fill    = 'white',
+    colour  = 'black'
+  ) +
+  theme_bw(18) +
+  theme(legend.position = 'none') + 
+  labs(
+    title    = "ggpattern::geom_pattern_col()",
+    subtitle = "pattern = 'stripe'"
+  ) +
+  coord_fixed(ratio = 1/2)
+```
+
+
+
+
+---
+
+### Reminder - the ggplot2 cheatsheet
+
+https://rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf
+
+Rstudio has a variety of great Cheatsheets.
+
+---
+
+
+### The remaining slides are "notes to self"
+
+Figure placement in Xaringen...
+
+Figures can be placed in the center
+.center[
+![](img/favicon-256.png)
+]
+or by default...
+![](img/favicon-256.png)
+
+---
+
+background-image: url("img/1280.png")
+background-position: center
+background-size: contain
+
+# How to use baxckground images?
+
+This doesn't work when knitted to html...
+
+<span style="color: red;">
+This lecture provides an introduction to ggplot2, an R package that provides vastly better graphics options than R's default plots, histrograms, etc.
+</span>
+
+<span style="color: red;">
+This section is based on chapter 3 of  "R for Data Science", by Grolemund and Wickham:
+https://r4ds.had.co.nz/
+</span>
+
+
+
+---
+
+This is how to introduce slide elements incrementally in Xaringen (i.e. use the --)
+
+The holy passion of Friendship is of so sweet and steady
+and loyal and enduring a nature that it will last through
+a whole lifetime...
+
+--
+
+_if not asked to lend money_.
+
+
+--- Mark Twain
+
+---
+
+background-image: url("`r xaringan:::karl`")
+background-position: center
+ 
+<span style="color: red;">
+And this is how to use a background image of Karl Broman
+</span>
+
+### Other Resources: 
+
+<span style="color: red;">
+"Mastering Software Development in R" - Roger Peng
+which can be found at https://bookdown.org/rdpeng/RProgDA/basic-plotting-with-ggplot2.html
+</span>
+
+---
