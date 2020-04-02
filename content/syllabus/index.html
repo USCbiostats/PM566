@@ -1,0 +1,114 @@
+---
+title: Syllabus
+slug: syllabus
+citeproc: true
+bibliography: ../../static/bib/references.bib
+csl: ../../static/bib/chicago-syllabus-no-bib.csl
+output:
+  blogdown::html_page:
+      toc: TRUE
+---
+
+
+<div id="TOC">
+<ul>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#course-objectives">Course objectives</a></li>
+<li><a href="#core-texts">Core Texts</a></li>
+<li><a href="#other-material">Other Material</a></li>
+<li><a href="#software">Software</a></li>
+<li><a href="#schedule">Schedule</a></li>
+<li><a href="#statement-for-students-with-disabilities">Statement for students with disabilities</a></li>
+<li><a href="#statement-on-academic-conduct-and-support-systems">Statement on academic conduct and support systems</a><ul>
+<li><a href="#academic-conduct">Academic Conduct:</a></li>
+<li><a href="#support-systems">Support Systems:</a></li>
+</ul></li>
+</ul>
+</div>
+
+<div id="overview" class="section level2">
+<h2>Overview</h2>
+<p>This is a semester graduate? seminar. The course is lab-based (60-90 minutes of teaching + 90-120 minutes of lab each week).</p>
+</div>
+<div id="course-objectives" class="section level2">
+<h2>Course objectives</h2>
+</div>
+<div id="core-texts" class="section level2">
+<h2>Core Texts</h2>
+<p>We will be using the book <a href="https://leanpub.com/rprogramming">R Programming for Data Science</a> by <a href="http://www.biostat.jhsph.edu/~rpeng/">Roger D. Peng</a> as our main text. The book is freely avaliable <a href="https://bookdown.org/rdpeng/rprogdatascience/">online</a> but <a href="https://leanpub.com/rprogramming">pdf</a> versions and <a href="http://www.lulu.com/shop/http://www.lulu.com/shop/roger-peng/r-programming-for-data-science/paperback/product-22655166.html">printed</a> versions are avaliable too. Other texts will be used from class to class and will be detailed in <a href="/reading">Readings</a>.</p>
+</div>
+<div id="other-material" class="section level2">
+<h2>Other Material</h2>
+<ul>
+<li><a href="https://r4ds.had.co.nz/">R for Data Science</a> by Garrett Grolemund &amp; Hadley Wickham. Is another highly rated book which covers many of the same topics as R Programming for Data Science.</li>
+</ul>
+</div>
+<div id="software" class="section level2">
+<h2>Software</h2>
+<p>We will do all of our visualization work in this class using <a href="https://cran.r-project.org/">R</a>. We will use <a href="https://www.rstudio.com/">RStudio</a> to manage our code and projects.</p>
+<p>You will need to install some software first. Here is what to do:</p>
+<ol style="list-style-type: decimal">
+<li>Get the most recent version of R. R is free and available for Windows, Mac, and Linux operating systems. <a href="http://cloud.r-project.org">Download</a> the version of R compatible with your operating system. If you are running Windows or MacOS, you should choose one of the <em>precompiled binary</em> distributions (i.e., ready-to-run applications) linked at the top of the R Project’s webpage.</li>
+<li>Once R is installed, <a href="http://rstudio.com">download and install R Studio</a>. R Studio is an “Integrated Development Environment”, or IDE. This means it is a front-end for R that makes it much easier to work with. R Studio is also free, and available for Windows, Mac, and Linux platforms.</li>
+<li><a href="http://tidyverse.org">Install the tidyverse library</a> and several other add-on packages for R. These libraries provide useful functionality that we will take advantage of throughout the book. You can learn more about the tidyverse’s family of packages at its website.</li>
+</ol>
+<p>To install the tidyverse, make sure you have an Internet connection and then launch R Studio. Type the following lines of code at R’s command prompt, located in the window named “Console”, and hit return. In the code below, the <code>&lt;-</code> arrow is made up of two keystrokes, first <code>&lt;</code> and then the short dash or minus symbol, <code>-</code>.</p>
+<pre class="r"><code>my_packages &lt;- c(&quot;tidyverse&quot;)
+
+install.packages(my_packages, repos = &quot;http://cran.rstudio.com&quot;)</code></pre>
+<p>R Studio should then download and install these packages for you. It may take a little while to download everything.</p>
+</div>
+<div id="schedule" class="section level2">
+<h2>Schedule</h2>
+{{% topiclist %}}
+<p>As the weeks go by, consult the <a href="/schedule/">Schedule Page</a> for more information on weekly topics, problem sets, readings, and other materials. The schedule is likely to change as we go. Links to readings, assignments, and other materials from class will be posted on that page.</p>
+</div>
+<div id="statement-for-students-with-disabilities" class="section level2">
+<h2>Statement for students with disabilities</h2>
+<p>Any student requesting academic accommodations based on a disability is required to register with Disability Services and Programs (DSP) each semester. A letter of verification for approved accommodations can be obtained from DSP. Please be sure the letter is delivered to me (or to TA) as early in the semester as possible. DSP is located in STU 301 and is open 8:30 a.m.–5:00 p.m., Monday through Friday. The phone number for DSP is (213) 740-0776.</p>
+</div>
+<div id="statement-on-academic-conduct-and-support-systems" class="section level2">
+<h2>Statement on academic conduct and support systems</h2>
+<div id="academic-conduct" class="section level3">
+<h3>Academic Conduct:</h3>
+<p>Plagiarism – presenting someone else’s ideas as your own, either verbatim or recast in
+your own words – is a serious academic offense with serious consequences. Please
+familiarize yourself with the discussion of plagiarism in SCampus in Part B, Section 11,
+“Behavior Violating University Standards” policy.usc.edu/scampus-part-b. Other forms
+of academic dishonesty are equally unacceptable. See additional information in SCampus
+and university policies on scientific misconduct, policy.usc.edu/scientific-misconduct.</p>
+</div>
+<div id="support-systems" class="section level3">
+<h3>Support Systems:</h3>
+<p><em>Student Health Counseling Services - (213) 740-7711 – 24/7 on call</em><br />
+<a href="engemannshc.usc.edu/counseling">engemannshc.usc.edu/counseling</a><br />
+Free and confidential mental health treatment for students, including short-term psychotherapy, group counseling, stress fitness workshops, and crisis intervention.</p>
+<p><em>National Suicide Prevention Lifeline - 1 (800) 273-8255 – 24/7 on call</em><br />
+<a href="suicidepreventionlifeline.org">suicidepreventionlifeline.org</a><br />
+Free and confidential emotional support to people in suicidal crisis or emotional distress 24 hours a day, 7 days a week.</p>
+<p><em>Relationship and Sexual Violence Prevention Services (RSVP) - (213) 740-4900 – 24/7 on call</em><br />
+<a href="engemannshc.usc.edu/rsvp">engemannshc.usc.edu/rsvp</a><br />
+Free and confidential therapy services, workshops, and training for situations related to gender-based harm.</p>
+<p><em>Office of Equity and Diversity (OED) | Title IX - (213) 740-5086</em><br />
+<a href="equity.usc.edu">equity.usc.edu</a>, <a href="titleix.usc.edu">titleix.usc.edu</a><br />
+Information about how to get help or help a survivor of harassment or discrimination, rights of protected classes, reporting options, and additional resources for students, faculty, staff, visitors, and applicants. The university prohibits discrimination or harassment based on the following protected characteristics: race, color, national origin, ancestry, religion, sex, gender, gender identity, gender expression, sexual orientation, age, physical disability, medical condition, mental disability, marital status, pregnancy, veteran status, genetic information, and any other characteristic which may be specified in applicable laws and governmental regulations.</p>
+<p><em>Bias Assessment Response and Support - (213) 740-2421</em><br />
+<a href="studentaffairs.usc.edu/bias-assessment-response-support">studentaffairs.usc.edu/bias-assessment-response-support</a><br />
+Avenue to report incidents of bias, hate crimes, and microaggressions for appropriate investigation and response.</p>
+<p><em>The Office of Disability Services and Programs - (213) 740-0776</em><br />
+<a href="dsp.usc.edu">dsp.usc.edu</a><br />
+Support and accommodations for students with disabilities. Services include assistance in providing readers/notetakers/interpreters, special accommodations for test taking needs, assistance with architectural barriers, assistive technology, and support for individual needs.</p>
+<p><em>ServicUSC Support and Advocacy - (213) 821-4710</em><br />
+<a href="studentaffairs.usc.edu/ssa">studentaffairs.usc.edu/ssa</a><br />
+Assists students and families in resolving complex personal, financial, and academic issues adversely affecting their success as a student.</p>
+<p><em>Diversity at USC - (213) 740-2101</em><br />
+<a href="diversity.usc.edu">diversity.usc.edu</a><br />
+Information on events, programs and training, the Provost’s Diversity and Inclusion Council, Diversity Liaisons for each academic school, chronology, participation, and various resources for students.</p>
+<p><em>USC Emergency - UPC: (213) 740-4321, HSC: (323) 442-1000 – 24/7 on call</em><br />
+<a href="dps.usc.edu">dps.usc.edu</a>, <a href="emergency.usc.edu">emergency.usc.edu</a><br />
+Emergency assistance and avenue to report a crime. Latest updates regarding safety, including ways in which instruction will be continued if an officially declared emergency makes travel to campus infeasible.</p>
+<p><em>USC Department of Public Safety - UPC: (213) 740-6000, HSC: (323) 442-120 – 24/7 on call</em><br />
+<a href="dps.usc.edu">dps.usc.edu</a><br />
+Non-emergency assistance or information.</p>
+</div>
+</div>

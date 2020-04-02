@@ -1,0 +1,11 @@
+---
+title: "Text mining and Regular Expressions"
+date: "2018-09-04"
+citeproc: false
+bibliography: ../../static/bib/references.bib
+csl: ../../static/bib/chicago-fullnote-bibliography-no-bib.csl
+---
+
+# Required reading
+
+# Optional reading

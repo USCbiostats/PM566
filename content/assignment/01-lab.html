@@ -1,0 +1,255 @@
+---
+title: "Lab 01 - Hello R!"
+output: tufte::tufte_html
+link-citations: yes
+---
+
+
+
+<div id="learning-goals" class="section level1">
+<h1>Learning goals</h1>
+<ul>
+<li>Get acquainted with R and RStudio, which we will be using throughout the course to analyze data as well as to learn the statistical concepts discussed in the course.</li>
+<li>Get practice using with Git and GitHub.</li>
+<li>Appreciate the value of visualization in exploring the relationship between variables.</li>
+<li>Start using R for building plots and calculating summary statistics.</li>
+</ul>
+</div>
+<div id="terminology" class="section level1">
+<h1>Terminology</h1>
+<p>We’ve already thrown around a few new terms, so let’s define them before we proceed.</p>
+<ul>
+<li><strong>R</strong>: Name of the programming language we will be using throughout the course.</li>
+<li><strong>RStudio</strong>: An integrated development environment for R. In other words, a convenient interface for writing and running R code.</li>
+<li><strong>Git</strong>: A version control system.</li>
+<li><strong>GitHub</strong>: A web platform for hosting version controlled files and faciliating collaboration among users.</li>
+<li><strong>Repository</strong>: A Git repository repository contains all of your project’s files and stores each file’s revision history. It’s common to refer to a repository as a repo.
+<ul>
+<li>In this course, each assignment you work on will be contained in a Git repo.</li>
+<li>For individual assignments, only you will have access to the repo. For team assignments, all team members will have access to a single repo where they work collaboratively.</li>
+<li>All repos associated with this course are housed in a GitHub organization: <a href="https://github.com/ids-s1-19"><code>ids-s1-19</code></a>. The organization is set up such that students can only see repos they have access to, but the course staff can see all of them.</li>
+</ul></li>
+</ul>
+<p>I like to think of R as the engine of the car, and RStudio is the dashboard.
+Git is like the “Track Changes” features from Microsoft Word on steroids, and GitHub is the home for your Git-based projects on the internet (like DropBox but much, much better).</p>
+</div>
+<div id="starting-slow" class="section level1">
+<h1>Starting slow</h1>
+<p>As the labs progress, you are encouraged to explore beyond what the labs dictate; a willingness to experiment will make you a much better programmer. Before we get to that stage, however, you need to build some basic fluency in R. Today we begin with the fundamental building blocks of R and RStudio: the interface, reading in data, and basic commands.</p>
+<p>And to make versioning simpler, this is a solo lab. Additionally, we want to make sure everyone gets a significant amount of time at the steering wheel. Next week you’ll learn about collaborating on GitHub and produce a single lab report for your team.</p>
+</div>
+<div id="getting-started" class="section level1">
+<h1>Getting started</h1>
+<p>Before you can get started with the analysis, you will first need a GitHub account, and to associate that account with the GitHub organization.</p>
+<div id="create-a-github-account" class="section level2">
+<h2>Create a GitHub account</h2>
+<p>Go to <a href="https://github.com/">github.com</a> and create an account (unless you already have one). Below are some tips for selecting a username:<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
+<ul>
+<li>Incorporate your actual name.</li>
+<li>Reuse username from other contexts, e.g. Twitter.</li>
+<li>Pick a username you’ll be comfortable revealing to your future boss.</li>
+<li>Shorter is better than longer.</li>
+<li>Be as unique as possible in as few characters as possible.</li>
+<li>Make it timeless. Don’t highlight your current university, employer, etc.</li>
+<li>Avoid words laden with special meaning in programming, like <code>NA</code>.</li>
+</ul>
+</div>
+<div id="join-the-course-organization" class="section level2">
+<h2>Join the course organization</h2>
+<ul>
+<li><p>Go to <a href="https://classroom.github.com/classrooms/10712919-pm566" class="uri">https://classroom.github.com/classrooms/10712919-pm566</a> to accept your lab assignment. Since this is the first assignment, clicking on this link will also allow you to join the course GitHub organization. Log in with your GitHub username and password and click on <strong>Authorize github</strong>.</p></li>
+<li><p>In the next screen you will see a course roster with last names and student ID numbers of students enrolled in this course. Select your last name from the list. Note that there may be other students with the same last name, so make sure to confirm your student ID number before making your selection.</p></li>
+<li><p>Then, in the next screen, click on <strong>Accept this assignment</strong>. This will create the GitHub repo for the assignment. This repo contains a template you can build on to complete your assignment. Click on the repository link created for you to get started.</p></li>
+</ul>
+</div>
+</div>
+<div id="workflow-overview" class="section level1">
+<h1>Workflow overview</h1>
+<p>For each assignment in this course you will start with a GitHub repo that I created for you and that contains the starter documents you will build upon when working on your assignment. The first step is always to bring these files into RStudio so that you can edit them, run them, view your results, and interpret them.</p>
+<p>Then you will work in RStudio on the data analysis, making <em>commit</em>s along the way (snapshots of your changes) and finally <em>push</em> all your work back to GitHub.</p>
+<p>The next few steps will walk you through the process of getting information of the repo to be cloned, launching RStudio, and cloning your repo, and getting started with the analysis.</p>
+<div id="get-url-of-repo-to-be-cloned" class="section level2">
+<h2>1. Get URL of repo to be cloned</h2>
+<p><img src="/assignment-img/clone-repo-link.png" /></p>
+<p>On GitHub, click on the green <strong>Clone or download</strong> button, select <strong>Use HTTPS</strong> (this might already be selected by default, and if it is, you’ll see the text <strong>Clone with HTTPS</strong> as in the image below). Click on the clipboard icon to copy the repo URL.</p>
+</div>
+<div id="launch-rstudio" class="section level2">
+<h2>2. Launch RStudio</h2>
+<p>TODO setup rstudio cloud for students</p>
+<p><br><br></p>
+</div>
+<div id="clone-the-repo" class="section level2">
+<h2>3. Clone the repo</h2>
+<p>And finally we clone the GitHub repo into an RStudio project.</p>
+<p><img src="/assignment-img/clone-repo-rstudio.png" /></p>
+<ul>
+<li>In RStudio, click on File &gt; New Project</li>
+<li>In the next window, select Git</li>
+<li>In the final window:
+<ul>
+<li>Repository URL: Paste repo url you grabbed from GitHub here</li>
+<li>Click the tab button on your keyboard, and the project name will be filled in for you</li>
+<li>Hit Create Project</li>
+</ul></li>
+<li>Enter your GitHub username and password, and you’re good to go!</li>
+</ul>
+</div>
+<div id="get-working" class="section level2">
+<h2>4. Get working!</h2>
+<p>Open the R Markdown (Rmd) file called <code>lab-01-hello-r.Rmd</code>. It will likely ask you if you would like to install a package that is required, click Install.</p>
+</div>
+</div>
+<div id="hello-rstudio" class="section level1">
+<h1>Hello RStudio!</h1>
+<p>RStudio is comprised of four panes.</p>
+<p><img src="/assignment-img/rstudio-anatomy.png" /></p>
+<ul>
+<li><p>On the bottom left is the Console, this is where you can write code that will be evaluated. Try typing <code>2 + 2</code> here and hit enter, what do you get?</p></li>
+<li><p>On the bottom right is the Files pane, as well as other panes that will come handy as we start our analysis.</p></li>
+<li><p>If you click on a file, it will open in the editor, on the top left pane.</p></li>
+<li><p>Finally, the top right pane shows your Environment. If you define a variable it would show up there. Try typing <code>x &lt;- 2</code> in the Console and hit enter, what do you get in the Environment pane? Importantly, this pane is also where the Git interface lives. We will be using that regularly throughout this lab.</p></li>
+</ul>
+</div>
+<div id="packages" class="section level1">
+<h1>Packages</h1>
+<p>R is an open-source language, and developers contribute functionality to R via packages. In this lab we will work with three packages: <code>datasauRus</code> which contains the dataset, <code>tidyverse</code> which is a collection of packages for doing data analysis in a “tidy” way, and <code>usethis</code> for setting our Git credentials.</p>
+<p>Load these packages by running the following in the Console.</p>
+<pre class="r"><code>library(tidyverse) 
+library(datasauRus)
+library(usethis)</code></pre>
+<p>Note that the packages are also loaded with the same commands in your R Markdown document.</p>
+</div>
+<div id="hello-git" class="section level1">
+<h1>Hello Git!</h1>
+<p>Before we can get started we need to take care of some required housekeeping. Specifically, we need to do some configuration so that RStudio can communicate with GitHub. This requires two pieces of information: your email address and your name.</p>
+<p>Run the following (but update it for your name and email!) in the Console to configure git:</p>
+<pre class="r"><code>use_git_config(user.name = &quot;Your Name&quot;, 
+               user.email = &quot;your.email@address.com&quot;)</code></pre>
+<p>Your email address is the address tied to your GitHub account and your name should be first and last name.</p>
+</div>
+<div id="warm-up" class="section level1">
+<h1>Warm up</h1>
+<p>Before we introduce the data, let’s warm up with some simple exercises.</p>
+<p>The top portion of your R Markdown file (between the three dashed lines) is called YAML. It stands for “YAML Ain’t Markup Language”. It is a human friendly data serialization standard for all programming languages. All you need to know is that this area is called the YAML (we will refer to it as such) and that it contains meta information about your document.</p>
+<div id="yaml" class="section level2">
+<h2>YAML</h2>
+<p>Open the R Markdown (Rmd) file in your project, change the author name to your name, and knit the document.</p>
+<p><img src="/assignment-img/yaml-raw-to-rendered.png" /></p>
+</div>
+<div id="commit" class="section level2">
+<h2>Commit</h2>
+<p>Then Go to the Git pane in your RStudio.</p>
+<p>If you have made changes to your Rmd file, you should see it listed here. Click on it to select it in this list and then click on <strong>Diff</strong>. This shows you the <em>diff</em>erence between the last committed state of the document and its current state that includes your changes. If you’re happy with these changes, write “Update author name” in the <strong>Commit message</strong> box and hit <strong>Commit</strong>.</p>
+<p><img src="/assignment-img/update-author-name-commit.png" /></p>
+<p>You don’t have to commit after every change, this would get quite cumbersome. You should consider committing states that are <em>meaningful to you</em> for inspection, comparison, or restoration. In the first few assignments we will tell you exactly when to commit and in some cases, what commit message to use. As the semester progresses we will let you make these decisions.</p>
+</div>
+<div id="push" class="section level2">
+<h2>Push</h2>
+<p>Now that you have made an update and committed this change, it’s time to push these changes to the web! Or more specifically, to your repo on GitHub. Why? So that others can see your changes. And by others, we mean the course teaching team (your repos in this course are private to you and us, only).</p>
+<p>In order to push your changes to GitHub, click on <strong>Push</strong>. This will prompt a dialogue box where you first need to enter your user name, and then your password. This might feel cumbersome. Bear with me… We <em>will</em> teach you how to save your password so you don’t have to enter it every time. But for this one assignment you’ll have to manually enter each time you push in order to gain some experience with it.</p>
+</div>
+<div id="thought-exercise" class="section level2">
+<h2>Thought exercise</h2>
+<p>For which of the above steps (changing project name, making updates to the document, committing, and pushing changes) do you need to have an internet connection? Discuss with your classmates.</p>
+</div>
+</div>
+<div id="data" class="section level1">
+<h1>Data</h1>
+<p>The data frame we will be working with today is called <code>datasaurus_dozen</code> and it’s in the <code>datasauRus</code> package. Actually, this single data frame contains 13 datasets, designed to show us why data visualisation is important and how summary statistics alone can be misleading. The different datasets are maked by the <code>dataset</code> variable.</p>
+<p>To find out more about the dataset, type the following in your Console: <code>?datasaurus_dozen</code>. A question mark before the name of an object will always bring up its help file. This command must be ran in the Console.</p>
+<ol style="list-style-type: decimal">
+<li>Based on the help file, how many rows and how many columns does the <code>datasaurus_dozen</code> file have? What are the variables included in the data frame? Add your responses to your lab report. When you’re done, commit your changes with the commit message “Added answer for Ex 1”, and push.</li>
+</ol>
+<p>Let’s take a look at what these datasets are. To do so we can make a <em>frequency table</em> of the dataset variable:</p>
+<pre class="r"><code>datasaurus_dozen %&gt;%
+  count(dataset)</code></pre>
+<pre><code>## # A tibble: 13 x 2
+##    dataset        n
+##    &lt;chr&gt;      &lt;int&gt;
+##  1 away         142
+##  2 bullseye     142
+##  3 circle       142
+##  4 dino         142
+##  5 dots         142
+##  6 h_lines      142
+##  7 high_lines   142
+##  8 slant_down   142
+##  9 slant_up     142
+## 10 star         142
+## 11 v_lines      142
+## 12 wide_lines   142
+## 13 x_shape      142</code></pre>
+<p>The original Datasaurus (<code>dino</code>) was created by Alberto Cairo in <a href="http://www.thefunctionalart.com/2016/08/download-datasaurus-never-trust-summary.html">this great blog post</a>. The other Dozen were generated using simulated annealing and the process is described in the paper <em>Same Stats, Different Graphs: Generating Datasets with Varied Appearance and Identical Statistics</em> through Simulated Annealing by Justin Matejka and George Fitzmaurice. In the paper, the authors simulate a variety of datasets that the same summary statistics to the Datasaurus but have very different distributions.</p>
+</div>
+<div id="data-visualization-and-summary" class="section level1">
+<h1>Data visualization and summary</h1>
+<ol start="2" style="list-style-type: decimal">
+<li>Plot <code>y</code> vs. <code>x</code> for the <code>dino</code> dataset. Then, calculate the correlation coefficient between <code>x</code> and <code>y</code> for this dataset.</li>
+</ol>
+<p>Below is the code you will need to complete this exercise. Basically, the answer is already given, but you need to include relevant bits in your Rmd document and successfully knit it and view the results.</p>
+<p>Start with the <code>datasaurus_dozen</code> and pipe it into the <code>filter</code> function to filter for observations where <code>dataset == "dino"</code>. Store the resulting filtered data frame as a new data frame called <code>dino_data</code>.</p>
+<pre class="r"><code>dino_data &lt;- datasaurus_dozen %&gt;%
+  filter(dataset == &quot;dino&quot;)</code></pre>
+<p>There is a lot going on here, so let’s slow down and unpack it a bit.</p>
+<p>First, the pipe operator: <code>%&gt;%</code>, takes what comes before it and sends it as the first argument to what comes after it. So here, we’re saying <code>filter</code> the <code>datasaurus_dozen</code> data frame for observations where <code>dataset == "dino"</code>.</p>
+<p>Second, the assignment operator: <code>&lt;-</code>, assigns the name <code>dino_data</code> to the filtered data frame.</p>
+<p>Next, we need to visualize these data. We will use the <code>ggplot</code> function for this. Its first argument is the data you’re visualizing. Next we define the <code>aes</code>thetic mappings. In other words, the columns of the data that get mapped to certain aesthetic features of the plot, e.g. the <code>x</code> axis will represent the variable called <code>x</code> and the <code>y</code> axis will represent the variable called <code>y</code>. Then, we add another layer to this plot where we define which <code>geom</code>etric shapes we want to use to represent each observation in the data. In this case we want these to be points,m hence <code>geom_point</code>.</p>
+<pre class="r"><code>ggplot(data = dino_data, mapping = aes(x = x, y = y)) +
+  geom_point()</code></pre>
+<p><img src="/assignment/01-lab_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>If this seems like a lot, it is. And you will learn about the philosophy of building data visualizations in layer in detail in the next class. For now, follow along with the code that is provided.</p>
+<p>For the second part of this exercises, we need to calculate a summary statistic: the correlation coefficient. Correlation coefficient, often referred to as <span class="math inline">\(r\)</span> in statistics, measures the linear association between two variables. You will see that some of the pairs of variables we plot do not have a linear relationship between them. This is exactly why we want to visualize first: visualize to assess the form of the relationship, and calculate <span class="math inline">\(r\)</span> only if relevant. In this case, calculating a correlation coefficient really doesn’t make sense since the relationship between <code>x</code> and <code>y</code> is definitely not linear – it’s dinosaurial!</p>
+<p>But, for illustrative purposes, let’s calculate correlation coefficient between <code>x</code> and <code>y</code>.</p>
+<p>Start with <code>dino_data</code> and calculate a summary statistic that we will call <code>r</code> as the <code>cor</code>relation between <code>x</code> and <code>y</code>.</p>
+<pre class="r"><code>dino_data %&gt;%
+  summarize(r = cor(x, y))</code></pre>
+<pre><code>## # A tibble: 1 x 1
+##         r
+##     &lt;dbl&gt;
+## 1 -0.0645</code></pre>
+<p><em>This is a good place to pause, commit changes with the commit message “Added answer for Ex 2”, and push.</em></p>
+<ol start="3" style="list-style-type: decimal">
+<li>Plot <code>y</code> vs. <code>x</code> for the <code>star</code> dataset. You can (and should) reuse code we introduced above, just replace the dataset name with the desired dataset. Then, calculate the correlation coefficient between <code>x</code> and <code>y</code> for this dataset. How does this value compare to the <code>r</code> of <code>dino</code>?</li>
+</ol>
+<p><em>This is another good place to pause, commit changes with the commit message “Added answer for Ex 3”, and push.</em></p>
+<ol start="4" style="list-style-type: decimal">
+<li>Plot <code>y</code> vs. <code>x</code> for the <code>circle</code> dataset. You can (and should) reuse code we introduced above, just replace the dataset name with the desired dataset. Then, calculate the correlation coefficient between <code>x</code> and <code>y</code> for this dataset. How does this value compare to the <code>r</code> of <code>dino</code>?</li>
+</ol>
+<p><em>You should pause again, commit changes with the commit message “Added answer for Ex 4”, and push.</em></p>
+<p>Facet by the dataset variable, placing the plots in a 3 column grid, and don’t add a legend.</p>
+<ol start="5" style="list-style-type: decimal">
+<li>Finally, let’s plot all datasets at once. In order to do this we will make use of facetting.</li>
+</ol>
+<pre class="r"><code>ggplot(datasaurus_dozen, aes(x = x, y = y, color = dataset))+
+  geom_point()+
+  facet_wrap(~ dataset, ncol = 3) +
+  theme(legend.position = &quot;none&quot;)</code></pre>
+<p>And we can use the <code>group_by</code> function to generate all correlation coefficients.</p>
+<pre class="r"><code>datasaurus_dozen %&gt;%
+  group_by(dataset) %&gt;%
+  summarize(r = cor(x, y))</code></pre>
+<p>You’re done with the data analysis exercises, but we’d like you to do two more things:</p>
+<p><img src="/assignment-img/fig-resize-global.png" /></p>
+<ul>
+<li><strong>Resize your figures:</strong></li>
+</ul>
+<p>Click on the gear icon in on top of the R Markdown document, and select “Output Options…” in the dropdown menu. In the pop up dialogue box go to the Figures tab and change the height and width of the figures, and hit OK when done. Then, knit your document and see how you like the new sizes. Change and knit again and again until you’re happy with the figure sizes. Note that these values get saved in the YAML.</p>
+<p><img src="/assignment-img/fig-resize-local.png" /></p>
+<p>You can also use different figure sizes for differen figures. To do so click on the gear icon within the chunk where you want to make a change. Changing the figure sizes added new options to these chunks: <code>fig.width</code> and <code>fig.height</code>. You can change them by defining different values directly in your R Markdown document as well.</p>
+<p><img src="/assignment-img/theme-highlight.png" /></p>
+<ul>
+<li><strong>Change the look of your report:</strong></li>
+</ul>
+<p>Once again click on the gear icon in on top of the R Markdown document, and select “Output Options…” in the dropdown menu. In the General tab of the pop up dialogue box try out different syntax highlighting and theme options. Hit OK and knit your document to see how it looks. Play around with these until you’re happy with the look.</p>
+<p><br></p>
+<p><em>Yay, you’re done! Commit all remaining changes, use the commit message “Done with Lab 1!”, and push. Before you wrap up the assignment, make sure all documents are updated on your GitHub repo.</em></p>
+<p><br></p>
+<hr />
+<p>This set of lab exersixes have been adopted from <a href="https://twitter.com/minebocek">Mine Çetinkaya-Rundel</a>’s class <a href="https://github.com/ids-s1-19">Introduction to Data Science</a>.</p>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p><a href="http://happygitwithr.com/github-acct.html#username-advice">Happy git with R</a> by Jenny Bryan<a href="#fnref1" class="footnote-back">↩</a></p></li>
+</ol>
+</div>

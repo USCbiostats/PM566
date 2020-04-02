@@ -1,0 +1,72 @@
+---
+title: References
+slug: reference
+output:
+  blogdown::html_page:
+      toc: TRUE
+---
+
+
+<div id="TOC">
+<ul>
+<li><a href="#markdown">Markdown</a></li>
+<li><a href="#helpers-and-templates">Helpers and Templates</a></li>
+<li><a href="#guides">Guides</a></li>
+<li><a href="#tools">Tools</a></li>
+<li><a href="#paid-applications-and-services">Paid Applications and Services</a></li>
+</ul>
+</div>
+
+<div id="markdown" class="section level2">
+<h2>Markdown</h2>
+<ul>
+<li><a href="http://plain-text.co/">The Plain Person’s Guide to Plain Text Social Science</a>: Why you should write data-based reports using plain-text tools.</li>
+<li><a href="https://www.markdowntutorial.com/">Markdown tutorial</a>: An interactive tutorial to practice using Markdown.</li>
+<li><a href="http://packetlife.net/media/library/16/Markdown.pdf">Markdown cheatsheet</a>: Useful one-page reminder of Markdown syntax.</li>
+</ul>
+</div>
+<div id="helpers-and-templates" class="section level2">
+<h2>Helpers and Templates</h2>
+<ul>
+<li><a href="https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf">RMarkdown Cheatsheet</a> An overview of Markdown and RMarkdown conventions.</li>
+<li><a href="https://rstudio.com/resources/cheatsheets/">RStudio Cheatsheets</a> Other quick guides, including a more comprehensive RMarkdown reference and a information about using RStudio’s IDE, and some of the main tools in R.</li>
+</ul>
+</div>
+<div id="guides" class="section level2">
+<h2>Guides</h2>
+<ul>
+<li><a href="http://adv-r.had.co.nz/Style.html">R Style Guide</a>. Write readable code.</li>
+<li><a href="http://stat545-ubc.github.io/topics.html">Jenny Bryan’s Stat 545</a>. Notes and tutorials for a Data Analysis course taught by <a href="http://www.stat.ubc.ca/~jenny/">Jennifer Bryan</a> at the University of British Columbia. Lots of useful material.</li>
+<li><a href="http://yihui.name/knitr/demos">knitr demos</a> Documentation and examples for <code>knitr</code> by its author, Yihui Xie. There is also a <a href="http://www.amazon.com/dp/1498716962/">knitr book</a> covering the same ground in more detail.</li>
+<li><a href="http://rmarkdown.rstudio.com">Rmarkdown documentation</a> from the makers of RStudio. Lots of good examples.</li>
+<li><a href="http://github.com/kjhealy/plain-text.co">Plain Person’s Guide</a> The git repository for this project.</li>
+<li><a href="http://kbroman.org/pages/tutorials">Karl Broman’s Tutorials and Guides</a> Accurate and concise guides to many of the tools and topics described here, including <a href="http://kbroman.org/steps2rr">getting started with reproducible research</a>, <a href="http://kbroman.org/github_tutorial">using git and GitHub</a>, and <a href="http://kbroman.org/knitr_knutshell">working with knitr</a>.</li>
+<li><a href="http://lincolnmullen.com/blog/makefiles-for-ocr-and-converting-shapefiles">Makefiles for OCR and converting Shapefiles</a>. Some further examples of <code>Makefiles</code> in the data-analysis pipeline, by <a href="http://lincolnmullen.com">Lincoln Mullen</a></li>
+</ul>
+</div>
+<div id="tools" class="section level2">
+<h2>Tools</h2>
+<ul>
+<li><a href="https://developer.apple.com/library/ios/technotes/tn2339/_index.html">Apple’s Developer Tools</a> Unix toolchain. Install directly with <code>xcode-select --install</code>, or just try to use e.g. <code>git</code> from the terminal and have OS X prompt you to install the tools.</li>
+<li><a href="http://brew.sh">Homebrew package manager</a>. A convenient way to install several of the tools here, including Emacs and Pandoc.</li>
+<li><a href="http://r-project.org">R</a>. A platform for statistical computing.</li>
+<li><a href="http://yihui.name/knitr/">knitr</a>. Reproducible plain-text documents from within R.</li>
+<li><a href="http://python.org">Python</a> and <a href="http://www.scipy.org/">SciPy</a>. Python is a general-purpose programming language increasingly used in data manipulation and analysis.</li>
+<li><a href="http://rstudio.com">RStudio</a>. An IDE for R. The most straightforward way to get into using R and RMarkdown.</li>
+<li><a href="http://tug.org">TeX and LaTeX</a>. A typesetting and document preparation system. You can write files in <code>.tex</code> format directly, but it is more useful to just have it available in the background for other tools to use. The <a href="http://tug.org/mactex">MacTeX Distribution</a> is the one to install for macOS.</li>
+<li><a href="http://pandoc.org">Pandoc</a>. Converts plain-text documents to and from a wide variety of formats. Can be installed with Homebrew. Be sure to also install <code>pandoc-citeproc</code> for processing citations and bibliographies, and <code>pandoc-crossref</code> for producing cross-references and labels.</li>
+<li><a href="http://git-scm.org">Git</a>. Version control system. Installs with Apple’s Developer Tools, or get the latest version via Homebrew.</li>
+<li><a href="http://www.gnu.org/software/make">GNU Make</a>. You tell <code>make</code> what the steps are to create the pieces of a document or program. As you edit and change the various pieces, it automatically figures out which pieces need to be updated and recompiled, and issues the commands to do that. See Karl Broman’s <a href="http://kbroman.org/minimal_make/">Minimal Make</a> for a short introduction. Make will be installed automatically with Apple’s developer tools.</li>
+<li><a href="https://github.com/jimhester/lintr">lintr</a> and <a href="https://github.com/flycheck/flycheck">flycheck</a>. Tools that nudge you to write neater code.</li>
+</ul>
+</div>
+<div id="paid-applications-and-services" class="section level2">
+<h2>Paid Applications and Services</h2>
+<ul>
+<li><a href="http://backblaze.com">Backblaze</a>. Secure off-site backup.</li>
+<li><a href="http://github.com">GitHub</a>. Host public Git repositories for free. Pay to host private ones. Also a source for publicly available code (e.g. R packages and utilities) written by other people.</li>
+<li><a href="http://marked2app.com">Marked 2</a>. Live HTML previewing of Markdown documents. Mac OS X only.</li>
+<li><a href="http://sublimetext.com">Sublime Text</a>. Python-based text editor.</li>
+<li><a href="http://zotero.org">Zotero</a>, <a href="http://mendeley.com">Mendeley</a>, and <a href="http://papersapp.com">Papers</a> are citation managers that incorporate PDF storage, annotation and other features. Zotero is free to use. Mendeley has a premium tier. Papers is a paid application after a trial period. I don’t use these tools much, but that’s not for any strong principled reason—mostly just intertia. If you use one and want to integrate with the material here, just make sure it can export to BibTeX/BibLaTeX files. Papers, which I’ve used most recently, can handily output citation keys in pandoc’s format amongst several others.</li>
+</ul>
+</div>
