@@ -3,8 +3,6 @@ title: "GGPlot2 for PM566"
 author: "Paul M"
 date: "3/26/2020"
 output:
-  html_document:
-    df_print: paged
   xaringan::moon_reader:
     css: metropolis.css ###theme.css  #cccc
     lib_dir: libs
@@ -17,6 +15,8 @@ output:
       titleSlideClass:
       - center
       - middle
+  html_document:
+    df_print: paged
 ---
 
 ```{r include=FALSE}
