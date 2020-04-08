@@ -2,21 +2,26 @@
 title: "Version control and reproducible research"
 subtitle: "PM 566: Introduction to Health Data Science"
 author: "George G. Vega Yon"
-output: slidy_presentation
-  # xaringan::moon_reader:
-  #   css: ["theme.css"]
-  #   lib_dir: libs
-  #   nature:
-  #     beforeInit: "macros.js"
-  #     ratio: "16:9"
-  #     highlightStyle: github
-  #     highlightLines: false
-  #     countIncrementalSlides: false
-  #     titleSlideClass: [center, middle]
+output:
+  # slidy_presentation
+  xaringan::moon_reader:
+    css: ["theme.css"]
+    lib_dir: libs
+    nature:
+      beforeInit: "macros.js"
+      ratio: "16:9"
+      highlightStyle: github
+      highlightLines: false
+      countIncrementalSlides: false
+      titleSlideClass: [center, middle]
   #   code_download: true
 ---
 
-# What is version control
+# Part I: intro
+
+---
+
+## What is version control
 
 
 <div style="text-align: center;">
@@ -28,7 +33,7 @@ output: slidy_presentation
       [I]s the <strong>management of changes</strong> to documents [...] <strong>Changes are usually identified</strong> by a number or letter code, termed the "revision number", "revision level", or simply "revision". For example, an initial set of files is "revision 1". When the first change is made, the resulting set is "revision 2", and so on. <strong>Each revision is associated with a timestamp and the person making the change</strong>. Revisions can be <strong>compared</strong>, <strong>restored</strong>, and with some types of files, <strong>merged</strong>. -- <a href="https://en.wikipedia.org/w/index.php?title=Version_control&oldid=948839536" target="_blank">Wiki</a>
       </td>
       <td>
-        <img src="git-wiki.svg" alt="Diagram of version control" width="35%">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Revision_controlled_project_visualization-2010-24-02.svg" alt="Diagram of version control" width="35%">
       </td>
     </tr>
   </table>
@@ -38,7 +43,7 @@ output: slidy_presentation
 
 ---
 
-# Why do we care
+## Why do we care
 
 Have you ever:
 
@@ -56,7 +61,7 @@ Have you ever:
 
 ---
 
-# Why do we care (cont'd)
+## Why do we care (cont'd)
 
 - Wanted to submit a **change** to **someone else's code**?
 
@@ -72,34 +77,27 @@ In these cases, and no doubt others, a version control system should make your l
 
 ---
 
-# Git: The stupid content tracker
+## Git: The stupid content tracker
 
 <div style="text-align: center;">
-  <span>
-  <a hreg="https://commons.wikimedia.org/wiki/File:Git-logo.svg" target="_blank">
-    <img style="width: 200px;vertical-align: middle;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Git-logo.svg/500px-Git-logo.svg.png" alt="Git logo">
-  </a>
-  <a href="https://commons.wikimedia.org/wiki/File:LinuxCon_Europe_Linus_Torvalds_03_(cropped).jpg" target="_blank">
-    <img style="width: 200px;vertical-align: middle;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/LinuxCon_Europe_Linus_Torvalds_03_%28cropped%29.jpg/345px-LinuxCon_Europe_Linus_Torvalds_03_%28cropped%29.jpg" alt="Linus Torvalds">
-  </a>
-  </span><br>
-  <span>
-    <a href="https://commons.wikimedia.org/wiki/File:Git-logo.svg" target="_blank">Git logo</a> and
-    <a href="https://en.wikipedia.org/wiki/Linus_Torvalds" target="_blank">Linus Torvalds (creator of git)</a>
-  </span>
+  <figure>
+  <a href="https://commons.wikimedia.org/wiki/File:Git-logo.svg" target="_blank"><img style="width: 200px;vertical-align: middle;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Git-logo.svg/500px-Git-logo.svg.png" hspace="20px" alt="Git logo"></a>
+  <a href="https://en.wikipedia.org/wiki/Linus_Torvalds" target="_blank"><img style="width: 200px;vertical-align: middle;"  hspace="20px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/LinuxCon_Europe_Linus_Torvalds_03_%28cropped%29.jpg/345px-LinuxCon_Europe_Linus_Torvalds_03_%28cropped%29.jpg" alt="Linus Torvalds"></a>
+  </figure>
+  <figcaption><b>Git logo and Linus Torvalds, creator of git</b></figcaption>
 </div>
 
-- During this class (and perhaps, the entire program) we will be using <a href="https://git-scm.com" target="_blank">Git</a>
+- During this class (and perhaps, the entire program) we will be using [Git](https://git-scm.com).
 
-- Git is used by <a href="https://insights.stackoverflow.com/survey/2018#work-_-version-control" target="_blank">most developers in the world</a>.
+- Git is used by [most developers in the world](https://insights.stackoverflow.com/survey/2018#work-_-version-control).
 
 - A great reference about the tool can be found [here](https://git-scm.com/book)
 
-- More on what's stupid about git <a href="https://en.wikipedia.org/wiki/Git#Naming" target="_blank">here</a>.
+- More on what's stupid about git [here](https://en.wikipedia.org/wiki/Git#Naming).
 
 ---
 
-# How can I use Git
+## How can I use Git
 
 There are sevearl ways to include Git in your work-pipeline. A few are:
 
@@ -117,7 +115,37 @@ More alternatives [here](https://git-scm.com/download/gui).
 
 ---
 
-# Hands on: Introduce yourself
+## A Common workflow
+
+
+1. Start the session by pulling (possible) updates: `git pull`
+
+2. Make changes
+  
+  a. (optional) Add untracked (possibly new) files: `git add [target file]`
+  
+  b. (optional) Stage tracked files that were modified: `git add [target file]`
+  
+  c. (optional) Revert changes on a file: `git checkout [target file]`
+  
+3. Move changes to the staging area (optional): `git add`
+
+4. Commit:
+
+  a. If nothing pending: `git commit -m "Your comments go here."`
+  
+  b. If modifications not staged: `git commit -a -m "Your comments go here."`
+
+5. Upload the commit to the remote repo: `git push`.
+
+
+---
+
+# Part 2: Hands on Git
+
+---
+
+## Hands on: Introduce yourself
 
 Set up your git install with git confing
 
@@ -131,7 +159,7 @@ Try it yourself (5 minutes) (more on how to configure git <a href="https://git-s
 
 ---
 
-# Hands on: Create a local project
+## Hands on: Create a local project
 
 Today we will:
 
@@ -157,13 +185,11 @@ Note 2: Need a text editor? Checkout this website [link](https://alternativeto.n
 
 ---
 
-# Example for .gitignore {#gitignore}
+## Example for .gitignore
 
 Example exctracted directly from Pro-Git [(link)](https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository#_ignoring).
 
-<div style="font-size: 12pt;">
-
-```
+<pre style="font-size: 12pt;">
 # ignore all .a files
 *.a
 
@@ -181,9 +207,8 @@ doc/*.txt
 
 # ignore all .pdf files in the doc/ directory and any of its subdirectories
 doc/**/*.pdf
-```
+</pre>
 
-</div>
 
 ---
 
@@ -195,6 +220,6 @@ doc/**/*.pdf
 
 - Github's website of resources [(link)](https://try.github.io/)
 
-- The "Happy Git with R" book [(link)][https://happygitwithr.com/]
+- The "Happy Git with R" book [(link)](https://happygitwithr.com/)
 
 - Roger Peng's Mastering Software Development Book Section 3.9 Version control and Github [(link)](https://bookdown.org/rdpeng/RProgDA/version-control-and-github.html)
