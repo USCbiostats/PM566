@@ -117,6 +117,16 @@ More alternatives [here](https://git-scm.com/download/gui).
 
 ## A Common workflow
 
+<div style="text-align: center;">
+  <figure>
+    <img style="width: 600px;vertical-align: middle;"  hspace="20px" src="fig/git.svg" alt="Git workflow"
+  </figure>
+  <figcaption><b>A common git workflow</b></figcaption>
+</div>
+
+---
+
+## A Common workflow
 
 1. Start the session by pulling (possible) updates: `git pull`
 
@@ -141,13 +151,13 @@ More alternatives [here](https://git-scm.com/download/gui).
 
 ---
 
-# Part 2: Hands on Git
+# Part 2: Hands-on local git repo
 
 ---
 
-## Hands on: Introduce yourself
+## Hands-on 0: Introduce yourself
 
-Set up your git install with git confing
+Set up your git install with `git confing`, start by telling who you are
 
 
 ```ssh
@@ -159,29 +169,150 @@ Try it yourself (5 minutes) (more on how to configure git <a href="https://git-s
 
 ---
 
-## Hands on: Create a local project
+## Hands-on 1: Local repository
 
-Today we will:
+We will start by working on our very first project. To do so, you are required
+to start using Git and Github so you can share your code with your team. For now,
+you can keep things local and skip Github for now. For this excercise, you need to
 
-1. `mkdir`: Create a new folder.
+a. Create an new folder with the name of your project (you can try
+   `PM566-first-project`)
+   
+b. Initialize git with `git init` command.
 
-1. `git init`: Initialize a local git project.
+c. Create a [`README.md`](https://en.wikipedia.org/wiki/README) file and write a
+   brief description of your project.
+   
+d. Add the file to the tree using the `git add` command, and check the status.
 
-2. Create the (plain text) files <a href="https://en.wikipedia.org/wiki/README">README.md</a> and <a href="https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository#_ignoring" target="_blank">.gitignore</a> (and an example <a href="#(9)" target="_blank">here</a>).
-
-3. `git add`: Start tracking both files.
-
-4. `git status`: Check what's going on
-
-5. Creating a new repository on Github
-
-5. `git remote add`: Adding a remote repository
-
-6. `git push`: Uploading the changes to the repository
+e. Make the first commit using the `git commit` command adding a message, e.g.
+    
+  ```sh
+  $ git commit -m "My first commit ever!"
+  ```
+  
+  And use `git log` to see the history.
+    
 
 Note 1: We are assuming that you already [installed git in your system](https://git-scm.com).
 
 Note 2: Need a text editor? Checkout this website [link](https://alternativeto.net/software/vim/).
+
+---
+
+## Hands-on 1: Local repository (solution)
+
+The following code is fully executable (copy-pastable)
+
+```sh
+# (a) Creating the folder for the project (and getting in there)
+mkdir ~/PM-566-first-project
+cd ~/PM-566-first-project
+
+# (b) Initializing git, creating a file, and adding the file
+git init
+
+# (c) Creating the Readme file
+echo An empty line > README.md
+
+# (d) Adding the file to the tree
+git add README.md
+git status
+
+# (e) Commiting and checkout out the history
+git commit -m "My first commit ever!"
+git log
+```
+
+---
+
+## Hands-on 1: Local repository
+
+Ups! It seems that I added the wrong file to the tree, you can remove files
+from the tree using `git rm --cached`, for example, imagine that you added
+the file `class-notes.docx` (which you are not supposed to track), then you can
+remove it using
+
+```sh
+$ git rm --cached class-notes.docx
+```
+
+This will remove the file from the tree **but not from your computer**. You can
+go further and ask git to avoid adding docx files using the
+[.gitignore file](https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository#_ignoring)
+
+
+---
+
+# Part 3: Hands on cloud
+
+## Hands-on 2: Remote repository
+
+Now that you have something to share, your team-mates are asking you to share
+the code with them. Since you are smart, you know you can do this using something
+like Gitlab or Github. So you now need to:
+
+a. Create an online repository (empty) for your project using [Github](https://github.com).
+
+b. Add the remote using `git remote add`, in particular
+
+  ```sh
+  $ git remote add origin https://github.com/[your user name]/PM-566-first-project.git
+  ```
+  
+  The use the commands `git status` and `git remote -v` to see what's going on.
+  
+c. Push the changes to the remote using `git push` like this:
+   
+  ```sh
+  $ git push -u origin master
+  ```
+  
+  You should also check the status of the project using `git status` to see
+  what git tells you about it. Origin is the tag associated with the remote repo
+  su setted up, while master is the tag associated with the current branch of
+  your repo.
+
+
+Recommended: Complete GitHub's Training team ["Uploading your project to GitHub"](https://lab.github.com/githubtraining/uploading-your-project-to-github)
+
+---
+
+## Hands-on 2: Remote repository (solutions)
+
+<div style="text-align: center;">
+  <figure>
+    <img style="width: 800px;vertical-align: middle;"  hspace="20px" src="fig/new-github-repo-step1.png" alt="New GitHub repo"
+  </figure>
+  <!-- <figcaption><b>A common git workflow</b></figcaption> -->
+</div>
+
+---
+
+## Hands-on 2: Remote repository (solutions cont 1)
+
+<div style="text-align: center;">
+  <figure>
+    <img style="width: 600px;vertical-align: middle;"  hspace="20px" src="fig/new-github-repo-step2.png" alt="New GitHub repo 2"
+  </figure>
+  <!-- <figcaption><b>A common git workflow</b></figcaption> -->
+</div>
+
+---
+
+## Hands-on 2: Remote repository (solutions cont 2)
+
+```sh
+# (b)
+git remote add origin git@github.com:gvegayon/PM-566-first-project.git
+git remote -v
+git status
+
+# (c)
+git push -u origin master
+git status
+```
+
 
 ---
 
@@ -223,3 +354,7 @@ doc/**/*.pdf
 - The "Happy Git with R" book [(link)](https://happygitwithr.com/)
 
 - Roger Peng's Mastering Software Development Book Section 3.9 Version control and Github [(link)](https://bookdown.org/rdpeng/RProgDA/version-control-and-github.html)
+
+- Git exercises by Wojciech Frącz and Jacek Dajda [(link)](https://gitexercises.fracz.com/)
+
+- Checkout GitHub's Training YouTube Channel [(link)](https://www.youtube.com/user/GitHubGuides)
