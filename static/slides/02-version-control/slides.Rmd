@@ -246,6 +246,8 @@ go further and ask git to avoid adding docx files using the
 
 # Part 3: Hands on cloud
 
+---
+
 ## Hands-on 2: Remote repository
 
 Now that you have something to share, your team-mates are asking you to share
@@ -278,7 +280,7 @@ Recommended: Complete GitHub's Training team ["Uploading your project to GitHub"
 
 ---
 
-## Hands-on 2: Remote repository (solutions)
+## Hands-on 2: Remote repository (solutions a)
 
 <div style="text-align: center;">
   <figure>
@@ -289,7 +291,7 @@ Recommended: Complete GitHub's Training team ["Uploading your project to GitHub"
 
 ---
 
-## Hands-on 2: Remote repository (solutions cont 1)
+## Hands-on 2: Remote repository (solutions a)
 
 <div style="text-align: center;">
   <figure>
@@ -300,19 +302,43 @@ Recommended: Complete GitHub's Training team ["Uploading your project to GitHub"
 
 ---
 
-## Hands-on 2: Remote repository (solutions cont 2)
+## Hands-on 2: Remote repository (solutions b)
+
+For part (b), there are a couple of solutions, first, you could try using
+your ssh-key (if you setted up)
 
 ```sh
 # (b)
 git remote add origin git@github.com:gvegayon/PM-566-first-project.git
 git remote -v
 git status
+```
 
+Otherwise, you can use the simple URL (this will propt user+password)
+every time you want to push (and pull, if private).
+
+```sh
+# (b)
+git remote add origin https://github.com/gvegayon/PM-566-first-project.git
+git remote -v
+git status
+```
+
+---
+
+## Hands-on 2: Remote repository (solutions c)
+
+For the first `git push`, you need to specify source (master) and target
+(origin) and set the upstream (the `-u` option):
+
+```sh
 # (c)
 git push -u origin master
 git status
 ```
 
+The `--set-upstream`, which was invoked with `-u`, will set the tracking reference
+for `pull` and `push`.
 
 ---
 
