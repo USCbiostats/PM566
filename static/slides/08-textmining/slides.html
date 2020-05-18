@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>This is a title</title>
+    <title>Text Mining</title>
     <meta charset="utf-8" />
     <meta name="author" content="Emil Hvitfeldt" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="theme.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
 class: center, middle, title-slide
 
-# This is a title
-## This is a subtitle
+# Text Mining
+## PM566 - Week 8
 ### Emil Hvitfeldt
-### 2019-1-29 (Change this date)
 
 ---
 
@@ -22,38 +22,342 @@ class: center, middle, title-slide
 
 
 
-# This is the first title 
+# Plan for the week
 
-Adding some text
+- We will try to turn text into numbers
+- Then use tidy principals to explore those numbers
+
+---
+
+# Tidytext
+
+![](images/tidytext.png)
+
+---
+
+# Why tidytext?
+
+Works seemlessly with ggplot2, dplyr and tidyr.
+
+**Alternatives:**
+
+**R**: quanteda, tm, koRpus
+
+**Python**: nltk, Spacy, gensim
+
+---
+
+# Alice's Adventures in Wonderland
 
 
 ```r
-11 + 2 + 4
+#devtools::install_github("EmilHvitfeldt/tidygutenbergr")
+library(tidygutenbergr)
+
+alice &lt;- alices_adventures()
 ```
 
 ```
-## [1] 17
+## Determining mirror for Project Gutenberg from http://www.gutenberg.org/robot/harvest
 ```
 
-Lorem ipsum dolor sit amet, *consectetur* adipiscing elit
-
-Lorem ipsum dolor sit amet, **consectetur** adipiscing elit
-
-Lorem ipsum dolor sit amet, ~~consectetur~~ adipiscing elit
-
-&gt; Lorem ipsum dolor sit amet, consectetur adipiscing elit
+```
+## Using mirror http://aleph.gutenberg.org
+```
 
 ---
 
-# This is h1
+# Turning the data into a tidy format
 
-## This is h2
 
-### This is h3
+```r
+alice
+```
 
-#### This is h4
+```
+## # A tibble: 3,330 x 3
+##    text                                                            chapter chapter_name      
+##    &lt;chr&gt;                                                             &lt;int&gt; &lt;chr&gt;             
+##  1 "CHAPTER I. Down the Rabbit-Hole"                                     1 Down the Rabbit-H…
+##  2 ""                                                                    1 Down the Rabbit-H…
+##  3 "Alice was beginning to get very tired of sitting by her siste…       1 Down the Rabbit-H…
+##  4 "bank, and of having nothing to do: once or twice she had peep…       1 Down the Rabbit-H…
+##  5 "book her sister was reading, but it had no pictures or conver…       1 Down the Rabbit-H…
+##  6 "it, 'and what is the use of a book,' thought Alice 'without p…       1 Down the Rabbit-H…
+##  7 "conversations?'"                                                     1 Down the Rabbit-H…
+##  8 ""                                                                    1 Down the Rabbit-H…
+##  9 "So she was considering in her own mind (as well as she could,…       1 Down the Rabbit-H…
+## 10 "hot day made her feel very sleepy and stupid), whether the pl…       1 Down the Rabbit-H…
+## # … with 3,320 more rows
+```
 
-##### This is h5
+---
+
+# Turning the data into a tidy format
+
+
+```r
+library(tidytext)
+alice %&gt;%
+  unnest_tokens(token, text)
+```
+
+```
+## # A tibble: 26,683 x 3
+##    chapter chapter_name         token    
+##      &lt;int&gt; &lt;chr&gt;                &lt;chr&gt;    
+##  1       1 Down the Rabbit-Hole chapter  
+##  2       1 Down the Rabbit-Hole i        
+##  3       1 Down the Rabbit-Hole down     
+##  4       1 Down the Rabbit-Hole the      
+##  5       1 Down the Rabbit-Hole rabbit   
+##  6       1 Down the Rabbit-Hole hole     
+##  7       1 Down the Rabbit-Hole alice    
+##  8       1 Down the Rabbit-Hole was      
+##  9       1 Down the Rabbit-Hole beginning
+## 10       1 Down the Rabbit-Hole to       
+## # … with 26,673 more rows
+```
+
+---
+
+# Words as a unit
+
+Now that we have words as the observation unit we can use the **dplyr** toolbox.
+
+---
+
+# Using dplyr verbs
+
+.pull-left[
+
+```r
+library(dplyr)
+alice %&gt;%
+  unnest_tokens(token, text)
+```
+]
+
+.pull-right[
+
+```
+## 
+## Attaching package: 'dplyr'
+```
+
+```
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+```
+
+```
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+```
+
+```
+## # A tibble: 26,683 x 3
+##    chapter chapter_name         token    
+##      &lt;int&gt; &lt;chr&gt;                &lt;chr&gt;    
+##  1       1 Down the Rabbit-Hole chapter  
+##  2       1 Down the Rabbit-Hole i        
+##  3       1 Down the Rabbit-Hole down     
+##  4       1 Down the Rabbit-Hole the      
+##  5       1 Down the Rabbit-Hole rabbit   
+##  6       1 Down the Rabbit-Hole hole     
+##  7       1 Down the Rabbit-Hole alice    
+##  8       1 Down the Rabbit-Hole was      
+##  9       1 Down the Rabbit-Hole beginning
+## 10       1 Down the Rabbit-Hole to       
+## # … with 26,673 more rows
+```
+]
+
+---
+
+# Using dplyr verbs
+
+.pull-left[
+
+```r
+library(dplyr)
+alice %&gt;%
+  unnest_tokens(token, text) %&gt;%
+  count(token)
+```
+]
+
+.pull-right[
+
+```
+## # A tibble: 2,628 x 2
+##    token          n
+##    &lt;chr&gt;      &lt;int&gt;
+##  1 _i_            2
+##  2 a            632
+##  3 abide          1
+##  4 able           1
+##  5 about         94
+##  6 above          3
+##  7 absence        1
+##  8 absurd         2
+##  9 acceptance     1
+## 10 accident       2
+## # … with 2,618 more rows
+```
+]
+
+---
+
+# Using dplyr verbs
+
+.pull-left[
+
+```r
+library(dplyr)
+alice %&gt;%
+  unnest_tokens(token, text) %&gt;%
+  count(token, sort = TRUE)
+```
+]
+
+.pull-right[
+
+```
+## # A tibble: 2,628 x 2
+##    token     n
+##    &lt;chr&gt; &lt;int&gt;
+##  1 the    1643
+##  2 and     872
+##  3 to      729
+##  4 a       632
+##  5 she     541
+##  6 it      530
+##  7 of      514
+##  8 said    462
+##  9 i       408
+## 10 alice   386
+## # … with 2,618 more rows
+```
+]
+
+---
+
+# Using dplyr verbs
+
+.pull-left[
+
+```r
+library(dplyr)
+alice %&gt;%
+  unnest_tokens(token, text) %&gt;%
+  count(chapter, token)
+```
+]
+
+.pull-right[
+
+```
+## # A tibble: 7,370 x 3
+##    chapter token          n
+##      &lt;int&gt; &lt;chr&gt;      &lt;int&gt;
+##  1       1 a             52
+##  2       1 about          8
+##  3       1 across         2
+##  4       1 actually       1
+##  5       1 advice         1
+##  6       1 advise         1
+##  7       1 afraid         1
+##  8       1 after          5
+##  9       1 afterwards     1
+## 10       1 again          4
+## # … with 7,360 more rows
+```
+]
+
+---
+
+# Using dplyr verbs
+
+.pull-left[
+
+```r
+library(dplyr)
+alice %&gt;%
+  unnest_tokens(token, text) %&gt;%
+  group_by(chapter) %&gt;%
+  count(token) %&gt;%
+  top_n(10, n)
+```
+]
+
+.pull-right[
+
+```
+## # A tibble: 121 x 3
+## # Groups:   chapter [12]
+##    chapter token     n
+##      &lt;int&gt; &lt;chr&gt; &lt;int&gt;
+##  1       1 a        52
+##  2       1 alice    27
+##  3       1 and      65
+##  4       1 i        30
+##  5       1 it       62
+##  6       1 of       43
+##  7       1 she      79
+##  8       1 the      92
+##  9       1 to       75
+## 10       1 was      53
+## # … with 111 more rows
+```
+]
+
+---
+
+# Using dplyr verbs and ggplot2
+
+.pull-left[
+
+```r
+library(dplyr)
+library(ggplot2)
+alice %&gt;%
+  unnest_tokens(token, text) %&gt;%
+  count(token) %&gt;%
+  top_n(10, n) %&gt;%
+  ggplot(aes(n, token)) +
+  geom_col()
+```
+]
+
+.pull-right[
+&lt;img src="slides_files/figure-html/unnamed-chunk-11-1.png" width="700px" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+# Using dplyr verbs and ggplot2
+
+.pull-left[
+
+```r
+library(dplyr)
+library(ggplot2)
+library(forcats)
+alice %&gt;%
+  unnest_tokens(token, text) %&gt;%
+  count(token) %&gt;%
+  top_n(10, n) %&gt;%
+  ggplot(aes(n, fct_reorder(token, n))) +
+  geom_col()
+```
+]
+
+.pull-right[
+&lt;img src="slides_files/figure-html/unnamed-chunk-12-1.png" width="700px" style="display: block; margin: auto;" /&gt;
+]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

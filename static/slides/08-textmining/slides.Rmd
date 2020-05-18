@@ -1,11 +1,11 @@
 ---
-title: "This is a title"
-subtitle: "This is a subtitle"
+title: "Text Mining"
+subtitle: "PM566 - Week 8"
 author: "Emil Hvitfeldt"
-date: "2019-1-29 (Change this date)"
+date: ""
 output:
   xaringan::moon_reader:
-    css: ["theme.css"]
+    css: ["theme.css", "default"]
     lib_dir: libs
     nature:
       beforeInit: "macros.js"
@@ -62,30 +62,198 @@ library(sass)
 sass(sass_file("theme.sass"), output = "theme.css")
 ```
 
-# This is the first title 
+# Plan for the week
 
-Adding some text
-
-```{r}
-11 + 2 + 4
-```
-
-Lorem ipsum dolor sit amet, *consectetur* adipiscing elit
-
-Lorem ipsum dolor sit amet, **consectetur** adipiscing elit
-
-Lorem ipsum dolor sit amet, ~~consectetur~~ adipiscing elit
-
-> Lorem ipsum dolor sit amet, consectetur adipiscing elit
+- We will try to turn text into numbers
+- Then use tidy principals to explore those numbers
 
 ---
 
-# This is h1
+# Tidytext
 
-## This is h2
+![](images/tidytext.png)
 
-### This is h3
+---
 
-#### This is h4
+# Why tidytext?
 
-##### This is h5
+Works seemlessly with ggplot2, dplyr and tidyr.
+
+**Alternatives:**
+
+**R**: quanteda, tm, koRpus
+
+**Python**: nltk, Spacy, gensim
+
+---
+
+# Alice's Adventures in Wonderland
+
+```{r}
+#devtools::install_github("EmilHvitfeldt/tidygutenbergr")
+library(tidygutenbergr)
+
+alice <- alices_adventures()
+```
+
+---
+
+# Turning the data into a tidy format
+
+```{r}
+alice
+```
+
+---
+
+# Turning the data into a tidy format
+
+```{r}
+library(tidytext)
+alice %>%
+  unnest_tokens(token, text)
+```
+
+---
+
+# Words as a unit
+
+Now that we have words as the observation unit we can use the **dplyr** toolbox.
+
+---
+
+# Using dplyr verbs
+
+.pull-left[
+```{r dplyr1, eval=FALSE}
+library(dplyr)
+alice %>%
+  unnest_tokens(token, text)
+```
+]
+
+.pull-right[
+```{r ref.label="dplyr1", echo=FALSE}
+```
+]
+
+---
+
+# Using dplyr verbs
+
+.pull-left[
+```{r dplyr2, eval=FALSE}
+library(dplyr)
+alice %>%
+  unnest_tokens(token, text) %>%
+  count(token)
+```
+]
+
+.pull-right[
+```{r ref.label="dplyr2", echo=FALSE}
+```
+]
+
+---
+
+# Using dplyr verbs
+
+.pull-left[
+```{r dplyr3, eval=FALSE}
+library(dplyr)
+alice %>%
+  unnest_tokens(token, text) %>%
+  count(token, sort = TRUE)
+```
+]
+
+.pull-right[
+```{r ref.label="dplyr3", echo=FALSE}
+```
+]
+
+---
+
+# Using dplyr verbs
+
+.pull-left[
+```{r dplyr4, eval=FALSE}
+library(dplyr)
+alice %>%
+  unnest_tokens(token, text) %>%
+  count(chapter, token)
+```
+]
+
+.pull-right[
+```{r ref.label="dplyr4", echo=FALSE}
+```
+]
+
+---
+
+# Using dplyr verbs
+
+.pull-left[
+```{r dplyr5, eval=FALSE}
+library(dplyr)
+alice %>%
+  unnest_tokens(token, text) %>%
+  group_by(chapter) %>%
+  count(token) %>%
+  top_n(10, n)
+```
+]
+
+.pull-right[
+```{r ref.label="dplyr5", echo=FALSE}
+```
+]
+
+---
+
+# Using dplyr verbs and ggplot2
+
+.pull-left[
+```{r dplyr6, eval=FALSE}
+library(dplyr)
+library(ggplot2)
+alice %>%
+  unnest_tokens(token, text) %>%
+  count(token) %>%
+  top_n(10, n) %>%
+  ggplot(aes(n, token)) +
+  geom_col()
+```
+]
+
+.pull-right[
+```{r ref.label="dplyr6", echo=FALSE}
+```
+]
+
+---
+
+# Using dplyr verbs and ggplot2
+
+.pull-left[
+```{r dplyr7, eval=FALSE}
+library(dplyr)
+library(ggplot2)
+library(forcats)
+alice %>%
+  unnest_tokens(token, text) %>%
+  count(token) %>%
+  top_n(10, n) %>%
+  ggplot(aes(n, fct_reorder(token, n))) +
+  geom_col()
+```
+]
+
+.pull-right[
+```{r ref.label="dplyr7", echo=FALSE}
+```
+]
+
+
