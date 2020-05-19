@@ -44,8 +44,8 @@ lessons:
 
   - title: "Text mining and Regular Expressions"
     date: "Week 8"
-    class: ""
-    reading: ""
+    class: "08-class"
+    reading: "08-reading"
     assignment: ""
 
   - title: "Midterm Exam"

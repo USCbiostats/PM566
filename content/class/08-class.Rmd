@@ -22,13 +22,9 @@ editor_options:
 
 ## Lab Exercise
 
-[link](/assignment/01-code)
 
 ## Slides
 
-[link](/slides/01-welcome/slides.html)
+[link](/slides/08-textmining/slides.html)
 
 ## Links
-
-- [The R Project for Statistical Computing](https://www.r-project.org/)
-- [R Studio](https://www.rstudio.com)
