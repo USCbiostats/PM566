@@ -1,0 +1,235 @@
+---
+title: "High performance computing, cloud computing"
+subtitle: "PM 566: Introduction to Health Data Science"
+author: "George G. Vega Yon"
+output:
+  # slidy_presentation
+  xaringan::moon_reader:
+    css: ["theme.css"]
+    lib_dir: libs
+    nature:
+      beforeInit: "macros.js"
+      ratio: "16:9"
+      highlightStyle: github
+      highlightLines: false
+      countIncrementalSlides: false
+      titleSlideClass: [center, middle]
+  #   code_download: true
+---
+
+# Part I: intro
+
+---
+
+## What is HPC
+
+High Performance Computing (HPC) can relate to any of the following:
+
+- **Parallel computing**, i.e. using multiple resources (could be threads, cores, nodes, etc.) simultaneously to complete a task.
+
+- **Big data** working with large datasets (in/out-of-memory).
+
+We will mostly focus on parallel computing.
+
+---
+
+## Serial computation
+
+<div align="center">
+<figure>
+<img src="fig/pll-computing-explained-serial.png" style="width:40%">
+<figcaption>Here we are using a single core. The function is applied one element at a time, leaving the other 3 cores without usage.</figcaption>
+</figure>
+</div>
+
+---
+
+## Parallel computation
+
+<div align="center">
+<figure>
+<img src="fig/pll-computing-explained-parallel.png" style="width:40%">
+<figcaption>In this more intelligent way of computation, we are taking full advantage of our computer by using all 4 cores at the same time. This will translate in a reduced computation time which, in the case of complicated/long calculations, can be an important speed gain.</figcaption>
+</figure>
+</div>
+
+---
+
+## Overview of HPC
+
+Using [Flynn's classical taxonomy](https://en.wikipedia.org/wiki/Flynn%27s_taxonomy), we can classify parallel computing according to the following two dimmensions:
+
+a. Type of instruction: Single vs Multiple
+
+b. Data stream: Single vs Multiple
+
+<figure>
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/SISD.svg/480px-SISD.svg.png" style="width:23%;">
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/MISD.svg/480px-MISD.svg.png" style="width:23%;">
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/SIMD.svg/480px-SIMD.svg.png" style="width:23%;">
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/MIMD.svg/480px-MIMD.svg.png" style="width:23%;">
+<figcaption><a href="https://en.wikipedia.org/wiki/Michael_J._Flynn" target="_blank">Michael Flynn</a>'s Taxonomy (<a href="https://en.wikipedia.org/wiki/Flynn%27s_taxonomy" target="_blank">wiki</a>)</figcaption>
+</figure>
+
+---
+
+## Parallel computing: Hardware
+
+When it comes to parallel computing, there are several ways (levels) in which we can speed up our analysis. From the Bottom up:
+
+- **[Thread level SIMD instructions](https://en.wikipedia.org/wiki/Vector_processor)**: In most modern processors support some level of what is called vectorization, this is, applying a single (same) instruction to streams of data, for example: adding vector `A` and `B`.
+
+- **[Hyper-Tthreading Technology](https://en.wikipedia.org/wiki/Hyper-threading)** (HTT): Intel's hyper-threading generates a virtual partition of a single core (processor) which, while not equivalent to having multiple physical threads, does speedup things.
+
+- **[Multi-core processor](https://en.wikipedia.org/wiki/Multi-core_processor)**: Most modern CPUs (Central Processing Unit) have two or more physical cores. A typical laptop computer has about 8 cores.
+
+- **[General-Purpose Computing on Graphics Processing Unit](https://en.wikipedia.org/wiki/General-purpose_computing_on_graphics_processing_units)** (GP-GPU): While modern CPUs have a couple of dozens of cores, GPUs can hold thousands of those. Designed for image processing, there's an increasing use of GPUs as an alternative of CPUs for scientific computing.
+
+- **[High-Performance Computing Cluster](https://en.wikipedia.org/wiki/Computer_cluster)** (HPC): A collection of computing nodes that are interconnected using a fast Ethernet network.
+
+- **[Grid Computing](https://en.wikipedia.org/wiki/Grid_computing)**: A collection of loosely interconnected machines that may or may not be in the same physical place, for example: HTCondor clusters. 
+
+---
+
+## Parallel computing: CPU components
+
+<div align="center">
+<figure>
+<img src="fig/cpu-slurm.png" style="width:40%">
+<figcaption>Taxonomy of CPUs (Downloaded from <a href="https://slurm.schedmd.com/mc_support.html">https://slurm.schedmd.com/mc_support.html</a>)</figcaption>
+</figure>
+</div>
+
+---
+
+## Parallel computing: Software
+
+Implicit parallelization:
+
+- [tensorflow](https://en.wikipedia.org/wiki/TensorFlow): Machine learning framework
+- [pqR](http://www.pqr-project.org/): Branched version of R.
+- [Microsoft R](https://mran.microsoft.com/open): Microsoft's R private version (based on Revolution Analytics' R version).
+- [data.table](https://cran.r-project.org/package=data.table) (R package): Data wrangling using multiple cores.
+- [caret](https://cran.r-project.org/package=caret) (R package): A meta package, has various implementations using parallel computing.
+
+Explicit parallelization ([DIY](https://en.wikipedia.org/wiki/Do_it_yourself)):
+
+- [CUDA](https://en.wikipedia.org/wiki/CUDA) (C/C++ library): Programming with GP-GPUs.
+- [Open MP](https://openmp.org) (C/C++ library): Multi-core programming (CPUs).
+- [Open MPI](https://open-mpi.org) (C/C++ library): Large scale programming with multi-node systems.
+- [Threading Building Blocks](https://en.wikipedia.org/wiki/Threading_Building_Blocks) (C/C++ library): Intel's parallel computing library.
+- [Kokkos](https://kokkos.org/about/) (C++ library): A hardware-agnostic programming framework for HPC applications.
+- [parallel](https://CRAN.R-project.org/view=HighPerformanceComputing) (R package): R's built-in parallel computing package
+- [future](https://cran.r-project.org/package=future) (R package): Framework for parallelzing R.
+- [RcppParallel](https://cran.r-project.org/package=RcppParallel) (R C++ API wrapper): Header and templates for building [Rcpp](https://cran.r-project.org/package=Rcpp)+multi-threaded programs.
+- [julia](https://julialang.org) (programming language): High-performing, has a framework for parallel computing as well.
+
+---
+
+## Cloud Computing (a.k.a. on-demand computing)
+
+HPC clusters, super-computers, etc. need not to be bought... you can rent:
+
+- [Amazon Web Services (AWS)](https://aws.amazon.com)
+
+- [Google Cloud Computing](https://cloud.google.com)
+
+- [Microsoft Azure](https://azure.microsoft.com)
+
+These services provide more than just computing (storage, data analysis, etc.). But for computing and storage, there are other free resources, e.g.:
+
+- [The  Extreme Science and Engineering Discovery Environment (XSEDE)](https://www.xsede.org/)
+
+---
+
+<div align="center">
+<figure>
+<img src="fig/when_to_parallel.png" style="width:80%;">
+<figcaption>Ask yourself these questions before jumping into HPC!</figcaption>
+</figure>
+</div>
+
+---
+
+# Part II: Local HPC
+
+---
+
+## Motivating Example: SARS-CoV2 simulation
+
+An altered version of Conway's game of life
+
+1. People live in a grid over a torus.
+2. Each individual has 8 neighbors.
+3. Individuals get the virus with the following probabilities (https://onlinelibrary.wiley.com/doi/full/10.1111/anae.15071):
+
+   a. 100% if neither wears a face-mask.
+   
+   b. 50% if a healthy individual wears the face-mask but the sick individual does not.
+   
+   c. 20% if a sick individual wears the face-mask, but the health individual does not.
+   
+   d. 5% if both wear the face-mask.
+    
+4. Sick individuals may die with probability 10%.
+  
+We want to illustrate the importance of wearing face masks. We need to simulate a system with 2,500 (50 x 50) individuals, 1,000 times so we can analyze: (a) contagion curve, (b) death curve.
+
+---
+
+## Conway's Game of Masks
+
+```{r}
+n <- 16
+status <- matrix(0, nrow = sqrt(n), ncol = sqrt(n))
+wears  <- rep(TRUE, n)
+
+# Some constants
+codes  <- c(deseased = -1, susceptible = 0, sick = 1, recovered = 2)
+nc <- ncol(status)
+nr <- nrow(status)
+
+# Function to figure out neighbors
+neighbors <- function(i) {
+  
+  # Getting the neighbors
+  res <- c((i - nr - 2) + 1:3, i - 1, i + 1, (i + nr - 2) + 1:3)
+  print(res)
+  # Adjusting
+  ifelse(res <= 0, n + res, ifelse(res > n, res - n, res))
+  
+}
+
+neighbors(1)
+
+```
+
+
+
+---
+
+# Part III: Cloud HPC
+
+---
+
+## Motivating Example: SARS-CoV2 simulation (on the cloud)
+
+
+---
+
+# Resources
+
+- Git's everyday commands, type `man giteveryday` in your terminal/command line.
+  and the very nice [cheatsheet](https://github.github.com/training-kit/).
+
+- My personal choice for nightstand book: The Pro-git book (free online) [(link)](https://git-scm.com/book)
+
+- Github's website of resources [(link)](https://try.github.io/)
+
+- The "Happy Git with R" book [(link)](https://happygitwithr.com/)
+
+- Roger Peng's Mastering Software Development Book Section 3.9 Version control and Github [(link)](https://bookdown.org/rdpeng/RProgDA/version-control-and-github.html)
+
+- Git exercises by Wojciech Frącz and Jacek Dajda [(link)](https://gitexercises.fracz.com/)
+
+- Checkout GitHub's Training YouTube Channel [(link)](https://www.youtube.com/user/GitHubGuides)
