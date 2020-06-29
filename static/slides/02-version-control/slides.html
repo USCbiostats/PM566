@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Version control and reproducible research</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="George G. Vega Yon" />
+    <link rel="stylesheet" href="theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, title-slide
+
+# Version control and reproducible research
+## PM 566: Introduction to Health Data Science
+### George G. Vega Yon
+
+---
+
+
+# Part I: intro
+
+---
+
+## What is version control
+
+
+&lt;div style="text-align: center;"&gt;
+  &lt;table&gt;
+    &lt;col width="40%"&gt;
+    &lt;col width="40%"&gt;
+    &lt;tr&gt;
+      &lt;td style="text-align: left;"&gt;
+      [I]s the &lt;strong&gt;management of changes&lt;/strong&gt; to documents [...] &lt;strong&gt;Changes are usually identified&lt;/strong&gt; by a number or letter code, termed the "revision number", "revision level", or simply "revision". For example, an initial set of files is "revision 1". When the first change is made, the resulting set is "revision 2", and so on. &lt;strong&gt;Each revision is associated with a timestamp and the person making the change&lt;/strong&gt;. Revisions can be &lt;strong&gt;compared&lt;/strong&gt;, &lt;strong&gt;restored&lt;/strong&gt;, and with some types of files, &lt;strong&gt;merged&lt;/strong&gt;. -- &lt;a href="https://en.wikipedia.org/w/index.php?title=Version_control&amp;oldid=948839536" target="_blank"&gt;Wiki&lt;/a&gt;
+      &lt;/td&gt;
+      &lt;td&gt;
+        &lt;img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Revision_controlled_project_visualization-2010-24-02.svg" alt="Diagram of version control" width="35%"&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/table&gt;
+&lt;/div&gt;
+
+
+
+---
+
+## Why do we care
+
+Have you ever:
+
+- Made a **change to code**, realised it was a **mistake** and wanted to **revert** back?
+
+- **Lost code** or had a backup that was too old?
+
+- Had to **maintain multiple versions** of a product?
+
+- Wanted to see the **difference between** two (or more) **versions** of your code?
+
+- Wanted to prove that a particular **change broke or fixed** a piece of code?
+
+- Wanted to **review the history** of some code?
+
+---
+
+## Why do we care (cont'd)
+
+- Wanted to submit a **change** to **someone else's code**?
+
+- Wanted to **share your code**, or let other people work on your code?
+
+- Wanted to see **how much work** is being done, and where, when and by whom?
+
+- Wanted to **experiment** with a new feature **without interfering** with working code?
+
+In these cases, and no doubt others, a version control system should make your life easier.
+
+-- [Stackoverflow](https://stackoverflow.com/a/1408464/2097171) (by [si618](https://stackoverflow.com/users/44540/si618))
+
+---
+
+## Git: The stupid content tracker
+
+&lt;div style="text-align: center;"&gt;
+  &lt;figure&gt;
+  &lt;a href="https://commons.wikimedia.org/wiki/File:Git-logo.svg" target="_blank"&gt;&lt;img style="width: 200px;vertical-align: middle;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Git-logo.svg/500px-Git-logo.svg.png" hspace="20px" alt="Git logo"&gt;&lt;/a&gt;
+  &lt;a href="https://en.wikipedia.org/wiki/Linus_Torvalds" target="_blank"&gt;&lt;img style="width: 200px;vertical-align: middle;"  hspace="20px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/LinuxCon_Europe_Linus_Torvalds_03_%28cropped%29.jpg/345px-LinuxCon_Europe_Linus_Torvalds_03_%28cropped%29.jpg" alt="Linus Torvalds"&gt;&lt;/a&gt;
+  &lt;/figure&gt;
+  &lt;figcaption&gt;&lt;b&gt;Git logo and Linus Torvalds, creator of git&lt;/b&gt;&lt;/figcaption&gt;
+&lt;/div&gt;
+
+- During this class (and perhaps, the entire program) we will be using [Git](https://git-scm.com).
+
+- Git is used by [most developers in the world](https://insights.stackoverflow.com/survey/2018#work-_-version-control).
+
+- A great reference about the tool can be found [here](https://git-scm.com/book)
+
+- More on what's stupid about git [here](https://en.wikipedia.org/wiki/Git#Naming).
+
+---
+
+## How can I use Git
+
+There are sevearl ways to include Git in your work-pipeline. A few are:
+
+- Through command line
+
+- Through one of the available Git GUIs:
+
+  - RStudio [(link)](https://rstudio.com/products/rstudio/features/)
+  
+  - Git-Cola [(link)](https://git-cola.github.io/)
+  
+  - Github Desktop [(Link)](https://desktop.github.com/)
+
+More alternatives [here](https://git-scm.com/download/gui).
+
+---
+
+## A Common workflow
+
+&lt;div style="text-align: center;"&gt;
+  &lt;figure&gt;
+    &lt;img style="width: 600px;vertical-align: middle;"  hspace="20px" src="fig/git.svg" alt="Git workflow"
+  &lt;/figure&gt;
+  &lt;figcaption&gt;&lt;b&gt;A common git workflow&lt;/b&gt;&lt;/figcaption&gt;
+&lt;/div&gt;
+
+---
+
+## A Common workflow
+
+1. Start the session by pulling (possible) updates: `git pull`
+
+2. Make changes
+  
+  a. (optional) Add untracked (possibly new) files: `git add [target file]`
+  
+  b. (optional) Stage tracked files that were modified: `git add [target file]`
+  
+  c. (optional) Revert changes on a file: `git checkout [target file]`
+  
+3. Move changes to the staging area (optional): `git add`
+
+4. Commit:
+
+  a. If nothing pending: `git commit -m "Your comments go here."`
+  
+  b. If modifications not staged: `git commit -a -m "Your comments go here."`
+
+5. Upload the commit to the remote repo: `git push`.
+
+
+---
+
+# Part 2: Hands-on local git repo
+
+---
+
+## Hands-on 0: Introduce yourself
+
+Set up your git install with `git confing`, start by telling who you are
+
+
+```ssh
+$ git config --global user.name "Juan Perez"
+$ git config --global user.email "jperez@treschanchitos.edu"
+```
+
+Try it yourself (5 minutes) (more on how to configure git &lt;a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration" target="_blank"&gt;here&lt;/a&gt;)
+
+---
+
+## Hands-on 1: Local repository
+
+We will start by working on our very first project. To do so, you are required
+to start using Git and Github so you can share your code with your team. For now,
+you can keep things local and skip Github for now. For this excercise, you need to
+
+a. Create an new folder with the name of your project (you can try
+   `PM566-first-project`)
+   
+b. Initialize git with `git init` command.
+
+c. Create a [`README.md`](https://en.wikipedia.org/wiki/README) file and write a
+   brief description of your project.
+   
+d. Add the file to the tree using the `git add` command, and check the status.
+
+e. Make the first commit using the `git commit` command adding a message, e.g.
+    
+  ```sh
+  $ git commit -m "My first commit ever!"
+  ```
+  
+  And use `git log` to see the history.
+    
+
+Note 1: We are assuming that you already [installed git in your system](https://git-scm.com).
+
+Note 2: Need a text editor? Checkout this website [link](https://alternativeto.net/software/vim/).
+
+---
+
+## Hands-on 1: Local repository (solution)
+
+The following code is fully executable (copy-pastable)
+
+```sh
+# (a) Creating the folder for the project (and getting in there)
+mkdir ~/PM-566-first-project
+cd ~/PM-566-first-project
+
+# (b) Initializing git, creating a file, and adding the file
+git init
+
+# (c) Creating the Readme file
+echo An empty line &gt; README.md
+
+# (d) Adding the file to the tree
+git add README.md
+git status
+
+# (e) Commiting and checkout out the history
+git commit -m "My first commit ever!"
+git log
+```
+
+---
+
+## Hands-on 1: Local repository
+
+Ups! It seems that I added the wrong file to the tree, you can remove files
+from the tree using `git rm --cached`, for example, imagine that you added
+the file `class-notes.docx` (which you are not supposed to track), then you can
+remove it using
+
+```sh
+$ git rm --cached class-notes.docx
+```
+
+This will remove the file from the tree **but not from your computer**. You can
+go further and ask git to avoid adding docx files using the
+[.gitignore file](https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository#_ignoring)
+
+
+---
+
+# Part 3: Hands on cloud
+
+---
+
+## Hands-on 2: Remote repository
+
+Now that you have something to share, your team-mates are asking you to share
+the code with them. Since you are smart, you know you can do this using something
+like Gitlab or Github. So you now need to:
+
+a. Create an online repository (empty) for your project using [Github](https://github.com).
+
+b. Add the remote using `git remote add`, in particular
+
+  ```sh
+  $ git remote add origin https://github.com/[your user name]/PM-566-first-project.git
+  ```
+  
+  The use the commands `git status` and `git remote -v` to see what's going on.
+  
+c. Push the changes to the remote using `git push` like this:
+   
+  ```sh
+  $ git push -u origin master
+  ```
+  
+  You should also check the status of the project using `git status` to see
+  what git tells you about it. Origin is the tag associated with the remote repo
+  su setted up, while master is the tag associated with the current branch of
+  your repo.
+
+
+Recommended: Complete GitHub's Training team ["Uploading your project to GitHub"](https://lab.github.com/githubtraining/uploading-your-project-to-github)
+
+---
+
+## Hands-on 2: Remote repository (solutions a)
+
+&lt;div style="text-align: center;"&gt;
+  &lt;figure&gt;
+    &lt;img style="width: 800px;vertical-align: middle;"  hspace="20px" src="fig/new-github-repo-step1.png" alt="New GitHub repo"
+  &lt;/figure&gt;
+  &lt;!-- &lt;figcaption&gt;&lt;b&gt;A common git workflow&lt;/b&gt;&lt;/figcaption&gt; --&gt;
+&lt;/div&gt;
+
+---
+
+## Hands-on 2: Remote repository (solutions a)
+
+&lt;div style="text-align: center;"&gt;
+  &lt;figure&gt;
+    &lt;img style="width: 600px;vertical-align: middle;"  hspace="20px" src="fig/new-github-repo-step2.png" alt="New GitHub repo 2"
+  &lt;/figure&gt;
+  &lt;!-- &lt;figcaption&gt;&lt;b&gt;A common git workflow&lt;/b&gt;&lt;/figcaption&gt; --&gt;
+&lt;/div&gt;
+
+---
+
+## Hands-on 2: Remote repository (solutions b)
+
+For part (b), there are a couple of solutions, first, you could try using
+your ssh-key (if you setted up)
+
+```sh
+# (b)
+git remote add origin git@github.com:gvegayon/PM-566-first-project.git
+git remote -v
+git status
+```
+
+Otherwise, you can use the simple URL (this will propt user+password)
+every time you want to push (and pull, if private).
+
+```sh
+# (b)
+git remote add origin https://github.com/gvegayon/PM-566-first-project.git
+git remote -v
+git status
+```
+
+---
+
+## Hands-on 2: Remote repository (solutions c)
+
+For the first `git push`, you need to specify source (master) and target
+(origin) and set the upstream (the `-u` option):
+
+```sh
+# (c)
+git push -u origin master
+git status
+```
+
+The `--set-upstream`, which was invoked with `-u`, will set the tracking reference
+for `pull` and `push`.
+
+---
+
+## Example for .gitignore
+
+Example exctracted directly from Pro-Git [(link)](https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository#_ignoring).
+
+&lt;pre style="font-size: 12pt;"&gt;
+# ignore all .a files
+*.a
+
+# but do track lib.a, even though you're ignoring .a files above
+!lib.a
+
+# only ignore the TODO file in the current directory, not subdir/TODO
+/TODO
+
+# ignore all files in any directory named build
+build/
+
+# ignore doc/notes.txt, but not doc/server/arch.txt
+doc/*.txt
+
+# ignore all .pdf files in the doc/ directory and any of its subdirectories
+doc/**/*.pdf
+&lt;/pre&gt;
+
+
+---
+
+# Resources
+
+- Git's everyday commands, type `man giteveryday` in your terminal/command line.
+
+- My personal choice for nightstand book: The Pro-git book (free online) [(link)](https://git-scm.com/book)
+
+- Github's website of resources [(link)](https://try.github.io/)
+
+- The "Happy Git with R" book [(link)](https://happygitwithr.com/)
+
+- Roger Peng's Mastering Software Development Book Section 3.9 Version control and Github [(link)](https://bookdown.org/rdpeng/RProgDA/version-control-and-github.html)
+
+- Git exercises by Wojciech Frącz and Jacek Dajda [(link)](https://gitexercises.fracz.com/)
+
+- Checkout GitHub's Training YouTube Channel [(link)](https://www.youtube.com/user/GitHubGuides)
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": false,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

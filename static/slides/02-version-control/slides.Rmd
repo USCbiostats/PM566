@@ -1,0 +1,387 @@
+---
+title: "Version control and reproducible research"
+subtitle: "PM 566: Introduction to Health Data Science"
+author: "George G. Vega Yon"
+output:
+  # slidy_presentation
+  xaringan::moon_reader:
+    css: ["theme.css"]
+    lib_dir: libs
+    nature:
+      beforeInit: "macros.js"
+      ratio: "16:9"
+      highlightStyle: github
+      highlightLines: false
+      countIncrementalSlides: false
+      titleSlideClass: [center, middle]
+  #   code_download: true
+---
+
+# Part I: intro
+
+---
+
+## What is version control
+
+
+<div style="text-align: center;">
+  <table>
+    <col width="40%">
+    <col width="40%">
+    <tr>
+      <td style="text-align: left;">
+      [I]s the <strong>management of changes</strong> to documents [...] <strong>Changes are usually identified</strong> by a number or letter code, termed the "revision number", "revision level", or simply "revision". For example, an initial set of files is "revision 1". When the first change is made, the resulting set is "revision 2", and so on. <strong>Each revision is associated with a timestamp and the person making the change</strong>. Revisions can be <strong>compared</strong>, <strong>restored</strong>, and with some types of files, <strong>merged</strong>. -- <a href="https://en.wikipedia.org/w/index.php?title=Version_control&oldid=948839536" target="_blank">Wiki</a>
+      </td>
+      <td>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Revision_controlled_project_visualization-2010-24-02.svg" alt="Diagram of version control" width="35%">
+      </td>
+    </tr>
+  </table>
+</div>
+
+
+
+---
+
+## Why do we care
+
+Have you ever:
+
+- Made a **change to code**, realised it was a **mistake** and wanted to **revert** back?
+
+- **Lost code** or had a backup that was too old?
+
+- Had to **maintain multiple versions** of a product?
+
+- Wanted to see the **difference between** two (or more) **versions** of your code?
+
+- Wanted to prove that a particular **change broke or fixed** a piece of code?
+
+- Wanted to **review the history** of some code?
+
+---
+
+## Why do we care (cont'd)
+
+- Wanted to submit a **change** to **someone else's code**?
+
+- Wanted to **share your code**, or let other people work on your code?
+
+- Wanted to see **how much work** is being done, and where, when and by whom?
+
+- Wanted to **experiment** with a new feature **without interfering** with working code?
+
+In these cases, and no doubt others, a version control system should make your life easier.
+
+-- [Stackoverflow](https://stackoverflow.com/a/1408464/2097171) (by [si618](https://stackoverflow.com/users/44540/si618))
+
+---
+
+## Git: The stupid content tracker
+
+<div style="text-align: center;">
+  <figure>
+  <a href="https://commons.wikimedia.org/wiki/File:Git-logo.svg" target="_blank"><img style="width: 200px;vertical-align: middle;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Git-logo.svg/500px-Git-logo.svg.png" hspace="20px" alt="Git logo"></a>
+  <a href="https://en.wikipedia.org/wiki/Linus_Torvalds" target="_blank"><img style="width: 200px;vertical-align: middle;"  hspace="20px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/LinuxCon_Europe_Linus_Torvalds_03_%28cropped%29.jpg/345px-LinuxCon_Europe_Linus_Torvalds_03_%28cropped%29.jpg" alt="Linus Torvalds"></a>
+  </figure>
+  <figcaption><b>Git logo and Linus Torvalds, creator of git</b></figcaption>
+</div>
+
+- During this class (and perhaps, the entire program) we will be using [Git](https://git-scm.com).
+
+- Git is used by [most developers in the world](https://insights.stackoverflow.com/survey/2018#work-_-version-control).
+
+- A great reference about the tool can be found [here](https://git-scm.com/book)
+
+- More on what's stupid about git [here](https://en.wikipedia.org/wiki/Git#Naming).
+
+---
+
+## How can I use Git
+
+There are sevearl ways to include Git in your work-pipeline. A few are:
+
+- Through command line
+
+- Through one of the available Git GUIs:
+
+  - RStudio [(link)](https://rstudio.com/products/rstudio/features/)
+  
+  - Git-Cola [(link)](https://git-cola.github.io/)
+  
+  - Github Desktop [(Link)](https://desktop.github.com/)
+
+More alternatives [here](https://git-scm.com/download/gui).
+
+---
+
+## A Common workflow
+
+<div style="text-align: center;">
+  <figure>
+    <img style="width: 600px;vertical-align: middle;"  hspace="20px" src="fig/git.svg" alt="Git workflow"
+  </figure>
+  <figcaption><b>A common git workflow</b></figcaption>
+</div>
+
+---
+
+## A Common workflow
+
+1. Start the session by pulling (possible) updates: `git pull`
+
+2. Make changes
+  
+  a. (optional) Add untracked (possibly new) files: `git add [target file]`
+  
+  b. (optional) Stage tracked files that were modified: `git add [target file]`
+  
+  c. (optional) Revert changes on a file: `git checkout [target file]`
+  
+3. Move changes to the staging area (optional): `git add`
+
+4. Commit:
+
+  a. If nothing pending: `git commit -m "Your comments go here."`
+  
+  b. If modifications not staged: `git commit -a -m "Your comments go here."`
+
+5. Upload the commit to the remote repo: `git push`.
+
+
+---
+
+# Part 2: Hands-on local git repo
+
+---
+
+## Hands-on 0: Introduce yourself
+
+Set up your git install with `git confing`, start by telling who you are
+
+
+```ssh
+$ git config --global user.name "Juan Perez"
+$ git config --global user.email "jperez@treschanchitos.edu"
+```
+
+Try it yourself (5 minutes) (more on how to configure git <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration" target="_blank">here</a>)
+
+---
+
+## Hands-on 1: Local repository
+
+We will start by working on our very first project. To do so, you are required
+to start using Git and Github so you can share your code with your team. For now,
+you can keep things local and skip Github for now. For this excercise, you need to
+
+a. Create an new folder with the name of your project (you can try
+   `PM566-first-project`)
+   
+b. Initialize git with `git init` command.
+
+c. Create a [`README.md`](https://en.wikipedia.org/wiki/README) file and write a
+   brief description of your project.
+   
+d. Add the file to the tree using the `git add` command, and check the status.
+
+e. Make the first commit using the `git commit` command adding a message, e.g.
+    
+  ```sh
+  $ git commit -m "My first commit ever!"
+  ```
+  
+  And use `git log` to see the history.
+    
+
+Note 1: We are assuming that you already [installed git in your system](https://git-scm.com).
+
+Note 2: Need a text editor? Checkout this website [link](https://alternativeto.net/software/vim/).
+
+---
+
+## Hands-on 1: Local repository (solution)
+
+The following code is fully executable (copy-pastable)
+
+```sh
+# (a) Creating the folder for the project (and getting in there)
+mkdir ~/PM-566-first-project
+cd ~/PM-566-first-project
+
+# (b) Initializing git, creating a file, and adding the file
+git init
+
+# (c) Creating the Readme file
+echo An empty line > README.md
+
+# (d) Adding the file to the tree
+git add README.md
+git status
+
+# (e) Commiting and checkout out the history
+git commit -m "My first commit ever!"
+git log
+```
+
+---
+
+## Hands-on 1: Local repository
+
+Ups! It seems that I added the wrong file to the tree, you can remove files
+from the tree using `git rm --cached`, for example, imagine that you added
+the file `class-notes.docx` (which you are not supposed to track), then you can
+remove it using
+
+```sh
+$ git rm --cached class-notes.docx
+```
+
+This will remove the file from the tree **but not from your computer**. You can
+go further and ask git to avoid adding docx files using the
+[.gitignore file](https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository#_ignoring)
+
+
+---
+
+# Part 3: Hands on cloud
+
+---
+
+## Hands-on 2: Remote repository
+
+Now that you have something to share, your team-mates are asking you to share
+the code with them. Since you are smart, you know you can do this using something
+like Gitlab or Github. So you now need to:
+
+a. Create an online repository (empty) for your project using [Github](https://github.com).
+
+b. Add the remote using `git remote add`, in particular
+
+  ```sh
+  $ git remote add origin https://github.com/[your user name]/PM-566-first-project.git
+  ```
+  
+  The use the commands `git status` and `git remote -v` to see what's going on.
+  
+c. Push the changes to the remote using `git push` like this:
+   
+  ```sh
+  $ git push -u origin master
+  ```
+  
+  You should also check the status of the project using `git status` to see
+  what git tells you about it. Origin is the tag associated with the remote repo
+  su setted up, while master is the tag associated with the current branch of
+  your repo.
+
+
+Recommended: Complete GitHub's Training team ["Uploading your project to GitHub"](https://lab.github.com/githubtraining/uploading-your-project-to-github)
+
+---
+
+## Hands-on 2: Remote repository (solutions a)
+
+<div style="text-align: center;">
+  <figure>
+    <img style="width: 800px;vertical-align: middle;"  hspace="20px" src="fig/new-github-repo-step1.png" alt="New GitHub repo"
+  </figure>
+  <!-- <figcaption><b>A common git workflow</b></figcaption> -->
+</div>
+
+---
+
+## Hands-on 2: Remote repository (solutions a)
+
+<div style="text-align: center;">
+  <figure>
+    <img style="width: 600px;vertical-align: middle;"  hspace="20px" src="fig/new-github-repo-step2.png" alt="New GitHub repo 2"
+  </figure>
+  <!-- <figcaption><b>A common git workflow</b></figcaption> -->
+</div>
+
+---
+
+## Hands-on 2: Remote repository (solutions b)
+
+For part (b), there are a couple of solutions, first, you could try using
+your ssh-key (if you setted up)
+
+```sh
+# (b)
+git remote add origin git@github.com:gvegayon/PM-566-first-project.git
+git remote -v
+git status
+```
+
+Otherwise, you can use the simple URL (this will propt user+password)
+every time you want to push (and pull, if private).
+
+```sh
+# (b)
+git remote add origin https://github.com/gvegayon/PM-566-first-project.git
+git remote -v
+git status
+```
+
+---
+
+## Hands-on 2: Remote repository (solutions c)
+
+For the first `git push`, you need to specify source (master) and target
+(origin) and set the upstream (the `-u` option):
+
+```sh
+# (c)
+git push -u origin master
+git status
+```
+
+The `--set-upstream`, which was invoked with `-u`, will set the tracking reference
+for `pull` and `push`.
+
+---
+
+## Example for .gitignore
+
+Example exctracted directly from Pro-Git [(link)](https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository#_ignoring).
+
+<pre style="font-size: 12pt;">
+# ignore all .a files
+*.a
+
+# but do track lib.a, even though you're ignoring .a files above
+!lib.a
+
+# only ignore the TODO file in the current directory, not subdir/TODO
+/TODO
+
+# ignore all files in any directory named build
+build/
+
+# ignore doc/notes.txt, but not doc/server/arch.txt
+doc/*.txt
+
+# ignore all .pdf files in the doc/ directory and any of its subdirectories
+doc/**/*.pdf
+</pre>
+
+
+---
+
+# Resources
+
+- Git's everyday commands, type `man giteveryday` in your terminal/command line.
+  and the very nice [cheatsheet](https://github.github.com/training-kit/).
+
+- My personal choice for nightstand book: The Pro-git book (free online) [(link)](https://git-scm.com/book)
+
+- Github's website of resources [(link)](https://try.github.io/)
+
+- The "Happy Git with R" book [(link)](https://happygitwithr.com/)
+
+- Roger Peng's Mastering Software Development Book Section 3.9 Version control and Github [(link)](https://bookdown.org/rdpeng/RProgDA/version-control-and-github.html)
+
+- Git exercises by Wojciech Frącz and Jacek Dajda [(link)](https://gitexercises.fracz.com/)
+
+- Checkout GitHub's Training YouTube Channel [(link)](https://www.youtube.com/user/GitHubGuides)
