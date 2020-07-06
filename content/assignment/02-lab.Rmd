@@ -1,5 +1,5 @@
 ---
-title: "Lab 01 - GitHub"
+title: "Lab 02 - GitHub"
 output: tufte::tufte_html
 link-citations: yes
 ---

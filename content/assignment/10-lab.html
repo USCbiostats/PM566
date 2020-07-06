@@ -1,0 +1,46 @@
+
+
+<div id="learning-goals" class="section level1">
+<h1>Learning goals</h1>
+<p>In this lab, you are expected to learn/put in practice the following skills:</p>
+<ul>
+<li>Write a simulation program</li>
+<li>Use the parallel package to parallelize your simulation</li>
+<li>Run the simulation on AWS</li>
+</ul>
+</div>
+<div id="part-one-yeat-another-coronavirus-simulation" class="section level1">
+<h1>Part one: Yeat Another Coronavirus Simulation</h1>
+<p>During this week’s lecture, we saw an example of a simulation program that models SARS-CoV2 using a bi-dimensional torus. In that example, individuals were embedded in a grid (torus), each having a total of 8 neighbors, and were For this week’s lab, you will have to write a simulation program similar to that featured during the lecture and speed up it up using parallel computing.</p>
+<p>The simulation should work under the following rules:</p>
+<ol style="list-style-type: decimal">
+<li><p>The world is a uni-dimensional torus.</p></li>
+<li><p>Each individual has two neighbors (left and right), each representing an independent opportunity of either passing or acquiring the disease.</p></li>
+<li><p>As before, the probability of transmission depends on who wears a face-mask.</p></li>
+<li><p>There are four possible states: susceptible, infected, recovered, and deceased.</p></li>
+<li><p>Time is discrete.</p></li>
+<li><p>The simulation starts with x% of individuals with the virus, with m of them willing to wear the face-mask.</p></li>
+</ol>
+<p>The simulation program should have the following optional parameters: number of steps, the initial number of infected, and the number of people wearing the mask.</p>
+<p>The questions are the following:</p>
+<ol style="list-style-type: decimal">
+<li>Using the simulation program, compute the 95% confidence interval (CI) for the number of deceased individuals under the following parameters:</li>
+</ol>
+<ul>
+<li><p>A population of size 1,000</p></li>
+<li><p>10 individuals have the disease</p></li>
+<li><p>Half of the population wears the mask</p></li>
+<li><p>Simulating a thousand scenarios, each with 20 time points.</p></li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>What would be the 95% CI if three quarters of the population wears the face-masks?</li>
+</ol>
+</div>
+<div id="part-2-speedup-the-simulation" class="section level1">
+<h1>Part 2: Speedup the simulation</h1>
+<p>Using the <code>paralle</code> R package (or any other method), speedup the simulation and measure how much faster the parallel version runs. Is it linear speedup?</p>
+</div>
+<div id="part-4-using-cloud-computing" class="section level1">
+<h1>Part 4: Using cloud computing</h1>
+<p>Using the AWS account set up for you, submit the simulation using R CMD BATCH and retrieve the results from the Webserver.</p>
+</div>

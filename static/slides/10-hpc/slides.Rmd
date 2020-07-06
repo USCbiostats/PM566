@@ -165,15 +165,17 @@ An altered version of Conway's game of life
 
    a. 100% if neither wears a face-mask.
    
-   b. 50% if a healthy individual wears the face-mask but the sick individual does not.
+   b. 50% if a healthy individual wears the face-mask but the infected individual does not.
    
-   c. 20% if a sick individual wears the face-mask, but the health individual does not.
+   c. 20% if a infected individual wears the face-mask, but the health individual does not.
    
    d. 5% if both wear the face-mask.
     
-4. Sick individuals may die with probability 10%.
+4. Infected individuals may die with probability 10%.
   
 We want to illustrate the importance of wearing face masks. We need to simulate a system with 2,500 (50 x 50) individuals, 1,000 times so we can analyze: (a) contagion curve, (b) death curve.
+
+More models like this: The [SIRD model](https://en.wikipedia.org/wiki/Compartmental_models_in_epidemiology#The_SIRD_model) (Susceptible-Infected-Recovered-Deceased)
 
 ---
 
@@ -194,7 +196,7 @@ stats_nobody_wears_masks <- replicate(50, {
     pop_size    = 900,
     nsick       = 10,
     nwears_mask = 0,
-    nsteps      = 20)$statistics[,"deseased"]
+    nsteps      = 20)$statistics[,"deceased"]
   },
   simplify = FALSE
   )
@@ -209,7 +211,7 @@ stats_half_wears_masks <- replicate(50, {
     pop_size    = 900,
     nsick       = 10,
     nwears_mask = 450,
-    nsteps      = 20)$statistics[,"deseased"]
+    nsteps      = 20)$statistics[,"deceased"]
   },
   simplify = FALSE
   )
@@ -224,7 +226,7 @@ stats_all_wears_masks <- replicate(50, {
     pop_size    = 900,
     nsick       = 10,
     nwears_mask = 900,
-    nsteps      = 20)$statistics[,"deseased"]
+    nsteps      = 20)$statistics[,"deceased"]
   },
   simplify = FALSE
   )
@@ -232,7 +234,7 @@ stats_all_wears_masks <- replicate(50, {
 
 ---
 
-```{r boxplot, fig.width=6, fig.height=6, echo=FALSE, fig.align='center', fig.cap="Cumulative number of deseased as a function of whether none, half, or all individuals wear a face mask.", dev='svg'}
+```{r boxplot, fig.width=6, fig.height=6, echo=FALSE, fig.align='center', fig.cap="Cumulative number of deceased as a function of whether none, half, or all individuals wear a face mask.", dev='svg'}
 stats_nobody_wears_masks <- do.call(rbind, stats_nobody_wears_masks)
 stats_half_wears_masks <- do.call(rbind, stats_half_wears_masks)
 stats_all_wears_masks <- do.call(rbind, stats_all_wears_masks)
@@ -244,7 +246,7 @@ boxplot(stats_all_wears_masks, add = TRUE, col = "steelblue")
 
 ---
 
-## Timing
+## Speed things up: Timing under the serial implementation
 
 We will use the function `system.time` to measure how much time it takes to complete 20 simulations in serial versus paralle fashion using 4 cores
 
@@ -255,19 +257,28 @@ time_serial <- system.time({
       pop_size    = 900,
       nsick       = 10,
       nwears_mask = 900,
-      nsteps      = 20)$statistics[,"deseased"]
+      nsteps      = 20)$statistics[,"deceased"]
     },
     simplify = FALSE
     )
 })
+```
 
-time_parallel <- system.time({
+---
+
+## Speed things up: Parallel a Forking Cluster
+
+Alternative 1: If you are using Unix-like system (ubuntu, mac, etc.), you can
+take advantage of process forking, and thus, parallel's `mclapply` function:
+
+```{r timing-mclapply, cache=TRUE}
+time_parallel_fork <- system.time({
   ans_parallel <- parallel::mclapply(1:50, function(i) {
     simulate_covid(
       pop_size    = 900,
       nsick       = 10,
       nwears_mask = 900,
-      nsteps      = 20)$statistics[,"deseased"]
+      nsteps      = 20)$statistics[,"deceased"]
     }, mc.cores = 2L
   )
 })
@@ -275,11 +286,76 @@ time_parallel <- system.time({
 
 ---
 
+## Speed things up: Parallel with a Socket Cluster
+
+
+Alternative 2: Regardless of the operating system, we can use a Socket cluster,
+which is simply a group of fresh R sessions that listen to the parent/main/mother 
+session.
+
 ```{r}
-time_serial;time_parallel
+cl <- parallel::makePSOCKcluster(2L)
 ```
 
-Using 2 cores is about twice as fast.
+```r
+# We could either export all the needed variables
+parallel::clusterExport(
+  cl,
+  c("calc_stats", "codes", "dat", "get_neighbors", "init", "probs_sick",
+    "probs_susc", "simulate_covid", "update_status", "update_status_all"
+    )
+  )
+```
+
+Or simply running the simulation script in the other sessions
+
+```{r parallel-sourcing, echo = TRUE, results='hide'}
+parallel::clusterEvalQ(cl, source("sars-cov2.R"))
+```
+
+---
+
+Bonus: Checking what are the processes running on the system
+
+```r
+(pids <- c(
+  master    = Sys.getpid(),
+  offspring = unlist(parallel::clusterEvalQ(cl, Sys.getpid()))
+  ))
+#      master offspring1 offspring2 
+#     14810      15998      16012 
+```
+
+If you are using unix, you can see more details:
+
+![](fig/ps-in-parallel.png)
+
+---
+
+## Speed things up: Parallel with a Socket Cluster (cont'd)
+
+```{r timing-parlapply, cache=TRUE}
+time_parallel_sock <- system.time({
+  ans_parallel <- parallel::parLapply(cl, 1:50, function(i) {
+    simulate_covid(
+      pop_size    = 900,
+      nsick       = 10,
+      nwears_mask = 900,
+      nsteps      = 20)$statistics[,"deceased"]
+    }
+  )
+})
+parallel::stopCluster(cl)
+```
+
+---
+
+Using two threads/processes, you can obtain the following speedup
+
+```{r}
+time_serial;time_parallel_sock;time_parallel_fork
+```
+
 
 ---
 
