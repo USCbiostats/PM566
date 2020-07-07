@@ -1,3 +1,9 @@
+---
+title: "Lab 10 - HPC"
+output: tufte::tufte_html
+link-citations: yes
+---
+
 
 
 <div id="learning-goals" class="section level1">
@@ -14,7 +20,7 @@
 <p>During this week’s lecture, we saw an example of a simulation program that models SARS-CoV2 using a bi-dimensional torus. In that example, individuals were embedded in a grid (torus), each having a total of 8 neighbors, and were For this week’s lab, you will have to write a simulation program similar to that featured during the lecture and speed up it up using parallel computing.</p>
 <p>The simulation should work under the following rules:</p>
 <ol style="list-style-type: decimal">
-<li><p>The world is a uni-dimensional torus.</p></li>
+<li><p>The world is the contour of a circle.</p></li>
 <li><p>Each individual has two neighbors (left and right), each representing an independent opportunity of either passing or acquiring the disease.</p></li>
 <li><p>As before, the probability of transmission depends on who wears a face-mask.</p></li>
 <li><p>There are four possible states: susceptible, infected, recovered, and deceased.</p></li>
@@ -35,6 +41,7 @@
 <ol start="2" style="list-style-type: decimal">
 <li>What would be the 95% CI if three quarters of the population wears the face-masks?</li>
 </ol>
+<p>A solution (the simulation program, actually) can be found in the website (file named sars-cov2-circle.R).</p>
 </div>
 <div id="part-2-speedup-the-simulation" class="section level1">
 <h1>Part 2: Speedup the simulation</h1>
@@ -42,5 +49,5 @@
 </div>
 <div id="part-4-using-cloud-computing" class="section level1">
 <h1>Part 4: Using cloud computing</h1>
-<p>Using the AWS account set up for you, submit the simulation using R CMD BATCH and retrieve the results from the Webserver.</p>
+<p>Using the AWS account set up for you, submit the simulation using R CMD BATCH and retrieve the results from the EC2 instance.</p>
 </div>
