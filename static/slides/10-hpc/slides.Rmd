@@ -17,6 +17,13 @@ output:
   #   code_download: true
 ---
 
+<!--Yeah... I have really long code chunks, so I just changed the default size :)-->
+<style type="text/css">
+code.r{
+  font-size:medium;
+}
+</style>
+
 # Part I: intro
 
 ---
@@ -189,6 +196,64 @@ source("sars-cov2.R", echo=FALSE)
 
 ---
 
+## First look: How does the simulation looks like?
+
+```{r first-look}
+set.seed(7123)
+one <- simulate_covid(
+    pop_size    = 1600,
+    nsick       = 160,
+    nwears_mask = 1:400,
+    nsteps      = 20,
+    store       = TRUE
+    )
+
+str(one$temporal)
+```
+
+---
+
+## First look: How does the simulation looks like? (contd')
+
+```{r covid-animation, eval=FALSE, echo=TRUE}
+# Location of who wears the facemask
+wears <- which(one$wears, arr.ind = TRUE) - 1
+wears <- wears/(one$nr) * (1 + 1/one$nr)
+
+# Initializing the animation
+fig   <- magick::image_device(600, 600, res = 96/2, pointsize = 24)
+for (i in 1:one$current_step) {
+  
+  # Plot
+  image(
+    one$temporal[,,i], col=c("gray", "tomato", "steelblue","black"),
+    main = paste("Time", i - 1L, "of", one$nsteps),
+    zlim = c(1,4)
+    )
+  points(wears, col="white", pch=20, cex=1.5)
+  legend(
+    "topright",
+    col    = c("gray", "tomato", "steelblue","black", "black"),
+    legend = c(names(codes), "wears a mask"),
+    pch    = c(rep(15, 4), 21)
+  )
+}
+
+# Finalizing plot and writing the animation
+dev.off()
+animation <- magick::image_animate(fig, fps = 2)
+magick::image_write(animation, "covid1.gif")
+```
+
+
+---
+
+<video controls width="400" height="400">
+<source type="video/webm" src="fig/covid1.webm">
+</video>
+
+---
+
 ```{r sim-nobody-wears-mask, cache=TRUE, eval=TRUE}
 set.seed(123355)
 stats_nobody_wears_masks <- replicate(50, {
@@ -196,39 +261,28 @@ stats_nobody_wears_masks <- replicate(50, {
     pop_size    = 900,
     nsick       = 10,
     nwears_mask = 0,
-    nsteps      = 20)$statistics[,"deceased"]
-  },
-  simplify = FALSE
+    nsteps      = 15)$statistics[,"deceased"]
+  }, simplify = FALSE
   )
-```
 
----
-
-```{r half-wears-mask, cache=TRUE, eval=TRUE}
 set.seed(123355)
 stats_half_wears_masks <- replicate(50, {
   simulate_covid(
     pop_size    = 900,
     nsick       = 10,
     nwears_mask = 450,
-    nsteps      = 20)$statistics[,"deceased"]
-  },
-  simplify = FALSE
+    nsteps      = 15)$statistics[,"deceased"]
+  }, simplify = FALSE
   )
-```
 
----
-
-```{r all-wears-mask, cache=TRUE, eval=TRUE}
 set.seed(123355)
 stats_all_wears_masks <- replicate(50, {
   simulate_covid(
     pop_size    = 900,
     nsick       = 10,
     nwears_mask = 900,
-    nsteps      = 20)$statistics[,"deceased"]
-  },
-  simplify = FALSE
+    nsteps      = 15)$statistics[,"deceased"]
+  }, simplify = FALSE
   )
 ```
 

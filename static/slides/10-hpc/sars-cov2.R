@@ -1,6 +1,6 @@
 # Some constants
-codes      <- c(deceased = -1, susceptible = 0, infected = 1, recovered = 2)
-probs_sick <- c(dies = .1, nochange=.4, recovers=.5)
+codes      <- c(susceptible = 1, infected = 2, recovered = 3, deceased = 4)
+probs_sick <- c(deceased = .1, infected=.4, recovered=.5)
 
 # Rows is the current individual, cols is its neighbor.
 probs_susc <- matrix(0, ncol=2, nrow = 2)
@@ -11,28 +11,37 @@ probs_susc[1, 2] <- .2
 probs_susc[2, 1] <- .5
 
 # Initializes the simulation
-init <- function(nsick, nwear, pop_size, nsteps) {
+init <- function(nsick, nwear, pop_size, nsteps, store = FALSE) {
   
   # Parameters
   nc <- sqrt(pop_size)
   nr <- nc
   
-  status      <- matrix(0, nrow = nr, ncol = nc)
+  status      <- matrix(1, nrow = nr, ncol = nc)
   status_prev <- status
   wears       <- matrix(FALSE, nrow = nr, ncol = nc)
   
   # Sampling infected and which wears/doesn't wear a mask
   status_prev[sample.int(n = pop_size, size = nsick, replace = FALSE)] <- codes["infected"]
-  wears[sample.int(n = pop_size, size = nwear, replace = FALSE)]  <- TRUE
+  if (length(nwear) == 1)
+    wears[sample.int(n = pop_size, size = nwear, replace = FALSE)]  <- TRUE
+  else
+    wears[nwear] <- TRUE
   
   # Statistics
   statistics <- matrix(
-    NA_integer_, nrow = nsteps, ncol = length(codes),
-    dimnames = list(1:nsteps, names(codes))
+    NA_integer_, nrow = nsteps + 1L, ncol = length(codes),
+    dimnames = list(0:nsteps, names(codes))
   )
   
+  # Checking if we need to make space for stored
+  if (store) {
+    temporal <- array(NA, dim = c(nr, nc, nsteps + 1L))
+    temporal[,,1L] <- status_prev
+  }
+  
   # This will return all the data created
-  current_step <- 0L
+  current_step <- 1L
   return(environment())
 }
 
@@ -89,7 +98,10 @@ update_status <- function(i, j, data.) {
   # Is it getting better?
   if (data.$status_prev[i, j] == codes["infected"]) {
     
-    data.$status[i,j] <- sample(codes[-2], 1, prob = probs_sick)
+    data.$status[i,j] <- sample(
+      codes[names(probs_sick)], 1,
+      prob = probs_sick
+      )
     
   } else {
     
@@ -106,7 +118,8 @@ update_status <- function(i, j, data.) {
     # Otherwise, depending on whether they wear or not, there will be different
     # probabilities of getting the disease.
     p <- probs_susc[cbind(data.$wears[i,j], data.$wears[local]) + 1L]
-    data.$status[i,j] <- any(runif(length(p)) < p)
+    if (any(runif(length(p)) < p))
+      data.$status[i,j] <- codes["infected"]
     
   }
   
@@ -130,18 +143,32 @@ update_status_all <- function(data.) {
   for (i in 1L:data.$nr)
     for (j in 1L:data.$nc)
       update_status(i, j, data.)
-  
-  # Recording the new state, and updating the statistics
+
+  # Recording the state
+  if (data.$store)
+    data.$temporal[,,data.$current_step] <- data.$status
+    
+  # Updating the statistics
   data.$status_prev <- data.$status
   calc_stats(data.)
   
   return()
 }
 
-simulate_covid <- function(pop_size, nsick, nwears_mask, nsteps) {
+simulate_covid <- function(pop_size, nsick, nwears_mask, nsteps, store = FALSE) {
   
   # Initializing
-  dat <- init(nsick = nsick, nwear = nwears_mask, pop_size = pop_size, nsteps = nsteps)
+  dat <- init(
+    nsick = nsick, nwear = nwears_mask, pop_size = pop_size,
+    nsteps = nsteps, store = store
+    )
+  
+  # Initial calculation
+  calc_stats(dat)
+  
+  # Recording the state
+  if (dat$store)
+    dat$temporal[,,dat$current_step] <- dat$status_prev
   
   # Iterating
   for (t. in 1L:nsteps)
