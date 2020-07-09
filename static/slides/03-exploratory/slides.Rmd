@@ -63,17 +63,23 @@ sass(sass_file("theme.sass"), output = "theme.css")
 
 # Exploratory Data Analysis
 
-- Data science is an exciting discipline that allows you to turn raw data into understanding, insight, and knowledge.
+* Exploratory data analysis is the process of summarizing data
+* It should be the first step in your analysis pipeline
+* It involves:
+  + checking data (import issues, outliers, missing values, data errors)
+  + cleaning data
+  + summary statistics of key variables (univariate and bivariate)
+  + basic plots and graphs
 
---
-
+---
+# Pipeline
 .center[
 ![](img/data-science.png)
 ]
 
+EDA involves Import -> Tidy -> Transform -> Visualize
 ---
 
-![](img/demand.png)
 
 ---
 
