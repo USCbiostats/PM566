@@ -25,12 +25,12 @@ lessons:
     class: ""
     assignment: ""
 
-  - title: "Regular Expressions, Big Data, Data scraping using APIs, data security"
+  - title: "Regular Expressions, Big Data, Data scraping and using APIs, data security"
     date: "Week 6"
     class: ""
     assignment: ""
 
-  - title: "Regular Expressions, Big Data, Data scraping using APIs, text mining"
+  - title: "Regular Expressions, Big Data, Data scraping and using APIs, text mining"
     date: "Week 7"
     class: "07-class"
     assignment: ""
