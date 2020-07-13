@@ -8,8 +8,8 @@ lessons:
 
   - title: "Version Control & Reproducible Research"
     date: "Week 2"
-    class: ""
-    reading: ""
+    class: "02-class"
+    reading: "02-reading"
     assignment: ""
 
   - title: "Exploratory data analysis"
@@ -56,8 +56,8 @@ lessons:
 
   - title: "Managing big data, SQL and non-SQL languages, Google BigQuery"
     date: "Week 10"
-    class: ""
-    reading: ""
+    class: "10-class"
+    reading: "10-reading"
     assignment: ""
 
   - title: "Interactive visualization and effective data communication I"

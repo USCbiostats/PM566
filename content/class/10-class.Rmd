@@ -1,6 +1,6 @@
 ---
-title: "Version control and reproducible research"
-linktitle: "2: Version control"
+title: "High performance computing, cloud computing"
+linktitle: "10: HPC"
 date: "2020-01-10"
 class_date: "2020-01-10"
 citeproc: false
@@ -22,11 +22,11 @@ editor_options:
 
 ## Lab Exercise
 
-[link](/assignment/02-lab)
+[link](/assignment/10-lab/)
 
 ## Slides
 
-[link](/slides/02-version-control/slides.html)
+[link](/slides/10-hpc/slides.html)
 
 ## Links
 
