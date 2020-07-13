@@ -18,42 +18,67 @@ library(pander)
 [^courseinfo]: {-}
   `r blogdown::shortcode("courseinfo")`
 
-
-## Overview
-
-This is a semester graduate? seminar. The course is lab-based (60-90 minutes of teaching + 90-120 minutes of lab each week).
-
 ## Course objectives
 
+This course serves as an introduction to data science with focus on the acquisition and analysis of real-life data. Students will learn the toolsets needed to 1) create workable and reproducible datasets by accessing, scraping, sampling and cleaning data; 2) conduct exploratory data analysis and data visualizations; 3) apply statistical tools to learn from data; and 4) build functions and basic apps. Coding languages R and Python will be used.
 
+## Learning Objectives
 
-## Core Texts
+Through this course, students will become familiar with the techniques used in Data Science, applied to health-related datasets. Students will learn:
 
-We will be using the book [R Programming for Data Science](https://leanpub.com/rprogramming) by [Roger D. Peng](http://www.biostat.jhsph.edu/~rpeng/) as our main text. The book is freely avaliable [online](https://bookdown.org/rdpeng/rprogdatascience/) but [pdf](https://leanpub.com/rprogramming) versions and [printed](http://www.lulu.com/shop/http://www.lulu.com/shop/roger-peng/r-programming-for-data-science/paperback/product-22655166.html) versions are avaliable too. Other texts will be used from class to class and will be detailed in [Readings](/reading).
+- Programming in R, and associated tools Markdown, Git
+- Data visualization – summarizing data through interpretable summaires
+- Data collection – data scraping, wrangling, cleaning, and sampling
+- Exploratory data analysis – generating hypotheses and building intuition
+- Basic statistical algorithms
+- Building software packages and apps
 
-## Other Material 
+**Prerequisite(s):** None
 
-- [R for Data Science](https://r4ds.had.co.nz/) by Garrett Grolemund & Hadley Wickham. Is another highly rated book which covers many of the same topics as R Programming for Data Science.
+**Recommended Preparation:** Undergraduate course in statistics and programming
 
-## Software
+## Course Notes
 
-We will do all of our visualization work in this class using [R](https://cran.r-project.org/). We will use [RStudio](https://www.rstudio.com/) to manage our code and projects. 
+Lecture notes presented in class will be posted on GitHub.
 
-You will need to install some software first. Here is what to do:
+## Technological Proficiency and Hardware/Software Required 
 
-1. Get the most recent version of R. R is free and available for Windows, Mac, and Linux operating systems. [Download](http://cloud.r-project.org) the version of R compatible with your operating system. If you are running Windows or MacOS, you should choose one of the *precompiled binary* distributions (i.e., ready-to-run applications) linked at the top of the R Project's webpage. 
-2. Once R is installed, [download and install R Studio](http://rstudio.com). R Studio is an "Integrated Development Environment", or IDE. This means it is a front-end for R that makes it much easier to work with. R Studio is also free, and available for Windows, Mac, and Linux platforms.
-3. [Install the tidyverse library](http://tidyverse.org) and several other add-on packages for R. These libraries provide useful functionality that we will take advantage of throughout the book. You can learn more about the tidyverse's family of packages at its website.
+Computation using R (downloaded from http://cran.r-project.org), and development tools including Git (https://github.com/) and Markdown will be used throughout the semester.
 
-  To install the tidyverse, make sure you have an Internet connection and then launch R Studio. Type the following lines of code at R's command prompt, located in the window named "Console", and hit return. In the code below, the `<-` arrow is made up of two keystrokes, first `<` and then the short dash or minus symbol, `-`.
+## Readings and Supplementary Materials
 
-```{r, echo=TRUE, eval=FALSE, tidy = FALSE}
-my_packages <- c("tidyverse")
+1. R Programming for Data Science, 2019. Roger Peng. https://bookdown.org/rdpeng/rprogdatas
 
-install.packages(my_packages, repos = "http://cran.rstudio.com")
-```
+## Supplementary References
 
-R Studio should then download and install these packages for you. It may take a little while to download everything.
+1. R for Data Science, 2017 Garrett Grolemund and Hadley Wickham. http://r4ds.had.co.nz/
+1. Exploratory Data Analysis with R, 2020 Roger Peng https://bookdown.org/rdpeng/exdata/
+1. Mastering Software Development in R, 2017 Roger Peng, Sean Kross, Brooke Anderson https://bookdown.org/rdpeng/RProgDA/
+
+## Description and Assessment of Assignments
+
+**Assignments:** There will be 5-6 assignments given throughout the semester, approximately every week. Students may discuss the problems with one another, however, individual solutions must be submitted and copying will not be tolerated. All assignments must be completed in R Markdown, and submitted through the Github classes portal of the course. Late assignments will be penalized by 20% for each day past the due date.
+
+**Exams:** There will be one in-class exam (midterm 2hrs). It will be conducted on your laptop using the tools learned up to that point in the semester.
+
+**Final Project:** The final project will be to develop a reproducible R package, Shiny app, or pipeline for analysis applied to a real-world dataset.
+
+**Labs:** Lab attendance is mandatory and participation in the lab is required and counts as part of the overall lab grade.
+
+## Grading Breakdown
+
+| Assignment           | % of Grade |
+|----------------------|------------|
+| Labs                 | 10%        |
+| Homework (6)         | 30%        |
+| In-Class Quizzes (3) | 10%        |
+| Midterm Exam         | 20%        |
+| Final Project        | 30%        |
+| TOTAL                | 100%       |
+
+## Assignment Submission Policy
+
+Assignments shall be submitted on the Github classroom portal of the course. Late homework assignments will not be accepted without penalty, except when verifiable extenuating circumstances can be demonstrated.
 
 ## Schedule
 
@@ -79,45 +104,37 @@ and university policies on scientific misconduct, policy.usc.edu/scientific-misc
 
 ### Support Systems:
 
-*Student Health Counseling Services - (213) 740-7711 – 24/7 on call*  
-[engemannshc.usc.edu/counseling](engemannshc.usc.edu/counseling)  
-Free and confidential mental health treatment for students, including short-term psychotherapy, group counseling, stress fitness workshops, and crisis intervention.
+*Student Counseling Services (SCS) - (213) 740-7711 – 24/7 on call*  
+Free and confidential mental health treatment for students, including short-term psychotherapy, group counseling, stress fitness workshops, and crisis intervention. https://engemannshc.usc.edu/counseling/
 
-*National Suicide Prevention Lifeline - 1 (800) 273-8255 – 24/7 on call*  
-[suicidepreventionlifeline.org](suicidepreventionlifeline.org)  
-Free and confidential emotional support to people in suicidal crisis or emotional distress 24 hours a day, 7 days a week.
+*National Suicide Prevention Lifeline - 1-800-273-8255*  
+Provides free and confidential emotional support to people in suicidal crisis or emotional distress 24 hours a day, 7 days a week. http://www.suicidepreventionlifeline.org
 
-*Relationship and Sexual Violence Prevention Services (RSVP) - (213) 740-4900 – 24/7 on call*  
-[engemannshc.usc.edu/rsvp](engemannshc.usc.edu/rsvp)  
-Free and confidential therapy services, workshops, and training for situations related to gender-based harm.
+*Relationship and Sexual Violence Prevention Services (RSVP) - (213) 740-4900 - 24/7 on call*  
+Free and confidential therapy services, workshops, and training for situations related to gender-based harm. https://engemannshc.usc.edu/rsvp/
 
-*Office of Equity and Diversity (OED) | Title IX - (213) 740-5086*  
-[equity.usc.edu](equity.usc.edu), [titleix.usc.edu](titleix.usc.edu)  
-Information about how to get help or help a survivor of harassment or discrimination, rights of protected classes, reporting options, and additional resources for students, faculty, staff, visitors, and applicants. The university prohibits discrimination or harassment based on the following protected characteristics: race, color, national origin, ancestry, religion, sex, gender, gender identity, gender expression, sexual orientation, age, physical disability, medical condition, mental disability, marital status, pregnancy, veteran status, genetic information, and any other characteristic which may be specified in applicable laws and governmental regulations.
+*Sexual Assault Resource Center*  
+For more information about how to get help or help a survivor, rights, reporting options, and additional resources, visit the website: http://sarc.usc.edu/
 
-*Bias Assessment Response and Support - (213) 740-2421*  
-[studentaffairs.usc.edu/bias-assessment-response-support](studentaffairs.usc.edu/bias-assessment-response-support)  
-Avenue to report incidents of bias, hate crimes, and microaggressions for appropriate investigation and response.
+*Office of Equity and Diversity (OED)/Title IX compliance – (213) 740-5086*  
+Works with faculty, staff, visitors, applicants, and students around issues of protected class. https://equity.usc.edu/
 
-*The Office of Disability Services and Programs - (213) 740-0776*  
-[dsp.usc.edu](dsp.usc.edu)  
-Support and accommodations for students with disabilities. Services include assistance in providing readers/notetakers/interpreters, special accommodations for test taking needs, assistance with architectural barriers, assistive technology, and support for individual needs.
+*Bias Assessment Response and Support*  
+Incidents of bias, hate crimes and microaggressions need to be reported allowing for appropriate investigation and response. https://studentaffairs.usc.edu/bias-assessment-response-support/
 
-*ServicUSC Support and Advocacy - (213) 821-4710*  
-[studentaffairs.usc.edu/ssa](studentaffairs.usc.edu/ssa)  
-Assists students and families in resolving complex personal, financial, and academic issues adversely affecting their success as a student.
+*The Office of Disability Services and Programs*  
+Provides certification for students with disabilities and helps arrange relevant accommodations. http://dsp.usc.edu
 
-*Diversity at USC - (213) 740-2101*  
-[diversity.usc.edu](diversity.usc.edu)  
-Information on events, programs and training, the Provost’s Diversity and Inclusion Council, Diversity Liaisons for each academic school, chronology, participation, and various resources for students.
+*Student Support and Advocacy – (213) 821-4710*  
+Assists students and families in resolving complex issues adversely affecting their success as a student EX: personal, financial, and academic. https://studentaffairs.usc.edu/ssa/
 
-*USC Emergency - UPC: (213) 740-4321, HSC: (323) 442-1000 – 24/7 on call*  
-[dps.usc.edu](dps.usc.edu), [emergency.usc.edu](emergency.usc.edu)  
-Emergency assistance and avenue to report a crime. Latest updates regarding safety, including ways in which instruction will be continued if an officially declared emergency makes travel to campus infeasible.
+*Diversity at USC*  
+Information on events, programs and training, the Diversity Task Force (including representatives for each school), chronology, participation, and various resources for students. https://diversity.usc.edu/
 
-*USC Department of Public Safety - UPC: (213) 740-6000, HSC: (323) 442-120 – 24/7 on call*  
-[dps.usc.edu](dps.usc.edu)  
-Non-emergency assistance or information.
+*USC Emergency Information*  
+Provides safety and other updates, including ways in which instruction will be continued if an officially declared emergency makes travel to campus infeasible, http://emergency.usc.edu
 
+*USC Department of Public Safety – 213-740-4321 (UPC) and 323-442-1000 (HSC) for 24-hour emergency assistance or to report a crime*  
+Provides overall safety to USC community. http://dps.usc.edu
 
 

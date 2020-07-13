@@ -89,17 +89,14 @@ edit_page:
 ## Additionally, for organizations, these details may be used to enrich search engine results.
 ############################
 
-author: Emil Hvitfeldt
+author: Meredith Franklin, George Vega-Yon, Emil Hvitfeldt
 
 instructor:
-  name: Emil Hvitfeldt
-  email: emilhans@usc.edu
-  url: "https://www.hvitfeldt.me/"
-  twitter: Emil_Hvitfeldt
-  github: EmilHvitfeldt
-  office: "Soto 210-02"
+  name: Meredith Franklin, George Vega-Yon, Emil Hvitfeldt
+  email: meredith.franklin@usc.edu
+  office: "SSB 202A"
   contact_policy: >-
-    If you have questions or want to discuss things please contact me.
+    Office Hours: By Appointment
 
 course:
   number: "PM566"
