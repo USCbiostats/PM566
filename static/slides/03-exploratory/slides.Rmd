@@ -77,20 +77,90 @@ sass(sass_file("theme.sass"), output = "theme.css")
 ![](img/data-science.png)
 ]
 
-EDA involves Import -> Tidy -> Transform -> Visualize
+EDA involves Import -> Tidy -> Transform -> Visualize. Basically it is everything before we do modeling, prediction or inference.
+---
+# EDA Checklist
+
+The goal of EDA is to better understand your data. Let's use the **checklist**:
+
+  1. Formulate a question
+  2. Read in the data
+  3. Check the dimensions and headers and footers of the data
+  4. Check the variable types in the data
+  5. Take a closer look at some/all of the variables
+  6. Validate with an external source
+  7. Conduct some summary statistics to answer the initial question
+  8. Make exploratory graphs
+
+---
+# Case study
+
+We are going to use a dataset created from the National Center for Environmental Information (https://www.ncei.noaa.gov/). The data are 2019 hourly measurements from weather stations across the continental U.S.
 ---
 
+# Formulate a Question
+
+* It is a good idea to first have a question such as:
+--
+
+  + what weather stations reported the hottest and coldest temperatures? 
+  + what are the summary statistics of the continuous variables in my dataset (mean, variance)?
+  + is there covariation between two variables in my dataset?
 
 ---
 
-# What is this course?
+# Read in the Data
 
-This course is a introduction to the world of data science with a focus on application in the health sciences.
+There are several ways to read in data (some depend on the type of data you have):
+
+* read.table() or read.csv() in base R for delimited files
+* readRDS if you have an R dataset
+* read_csv, read_csv2, read_delim, read_fwf from library(readr) that is part of the tidyverse
+* readxl() from library(readxl) for .xls and .xlsx files
+* read_sas, read_spss, read_stata from library(haven)
+* fread from data.table() for efficiently importing large datasets that are regular delimited files
+---
+
+# Read in the Data
+
+Let's load the libraries we need to read in the data:
+```{r}
+library(data.table)
+library(tidyverse)
+```
+---
+
+# Check the data
+
+---
+
+# Check variables
+
+---
+# Check variables more closely
+
+---
+
+# Validate against an external source
+
+---
+
+# Summary statistics
+
+---
+#Exploratory Graphs
+
+* With exploratory graphs we aim to:
 
 --
 
-The course will teach langaugage agnostic skills that are easily tranferable, with examples done in R.
-
----
-
-# More intro slides
+  + debug any issues remaining in the data
+  + understand properties of the data
+  + look for patterns in the data
+  + inform modeling strategies
+  
+--- 
+# Exploratory Graphs
+.center[
+![](img/weather_map.png)
+]
