@@ -50,14 +50,14 @@ lessons:
 
   - title: "High performance computing, cloud computing"
     date: "Week 9"
-    class: ""
-    reading: ""
+    class: "09-class"
+    reading: "09-reading"
     assignment: ""
 
   - title: "Managing big data, SQL and non-SQL languages, Google BigQuery"
     date: "Week 10"
-    class: "10-class"
-    reading: "10-reading"
+    class: ""
+    reading: ""
     assignment: ""
 
   - title: "Interactive visualization and effective data communication I"

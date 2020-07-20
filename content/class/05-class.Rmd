@@ -1,0 +1,35 @@
+---
+title: "Version control and reproducible research"
+linktitle: "2: Version control"
+date: "2020-01-10"
+class_date: "2020-01-10"
+citeproc: false
+bibliography: ../../static/bib/references.bib
+csl: ../../static/bib/chicago-syllabus-no-bib.csl
+output:
+  blogdown::html_page:
+    template: ../../pandoc/toc-title_html.template
+    toc: false
+menu:
+  class:
+    parent: Class sessions
+    weight: 1
+type: docs
+weight: 1
+editor_options: 
+  chunk_output_type: console
+---
+
+## Lab Exercise
+
+[link](/assignment/02-lab)
+
+## Slides
+
+[link](/slides/02-version-control/slides.html)
+
+## Links
+
+- [Git](https://git-scm.com)
+- [GitHub](https://github.com)
+
