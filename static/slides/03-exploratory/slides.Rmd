@@ -114,7 +114,7 @@ We are going to use a dataset created from the National Center for Environmental
 There are several ways to read in data (some depend on the type of data you have):
 
 * read.table() or read.csv() in base R for delimited files
-* readRDS if you have an R dataset
+* readRDS if you have a .rds dataset
 * read_csv, read_csv2, read_delim, read_fwf from library(readr) that is part of the tidyverse
 * readxl() from library(readxl) for .xls and .xlsx files
 * read_sas, read_spss, read_stata from library(haven)
@@ -128,10 +128,17 @@ Let's load the libraries we need to read in the data:
 library(data.table)
 library(tidyverse)
 ```
+Let's load in the data
+```{r}
+met = data.table::fread("https://github.com/USCbiostats/data-science-data/raw/master/met/met_all.gz")
+
+```
 ---
 
 # Check the data
 
+```{r}
+nrow()
 ---
 
 # Check variables
