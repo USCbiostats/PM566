@@ -1,3 +1,12 @@
+---
+name: Weekly contents template
+about: This list the basic files that need to be created to populate each week.
+title: ''
+labels: assignment
+assignees: ''
+
+---
+
 # Discussion for Week [#] assignment
 
 1. The file for this wee's assignment can be downloaded from [here](#). The specific
