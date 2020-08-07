@@ -1,6 +1,6 @@
 ---
-name: Weekly contents template
-about: This list the basic files that need to be created to populate each week.
+name: Assignment template
+about: Lists instructions and links relevant for the assignment
 title: ''
 labels: assignment
 assignees: ''
