@@ -92,11 +92,14 @@ edit_page:
 author: Meredith Franklin, George Vega-Yon, Emil Hvitfeldt
 
 instructor:
-  name: Meredith Franklin, George Vega-Yon, Emil Hvitfeldt
+  name: >-
+    Meredith Franklin,
+    George Vega-Yon,
+    Emil Hvitfeldt
   email: meredith.franklin@usc.edu
   office: "SSB 202A"
   contact_policy: >-
-    Office Hours: By Appointment
+    By Appointment
 
 course:
   number: "PM566"
