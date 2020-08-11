@@ -108,7 +108,7 @@ course:
   time: ""
   location: ""
   dates: ""
-  github: "https://github.com/USCbiostats/PM566"
+  github: "USCbiostats/PM566"
   copyrightYear: "2020"
 
 university:
