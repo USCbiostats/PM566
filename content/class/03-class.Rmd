@@ -1,6 +1,6 @@
 ---
 title: "Exploratory data analysis"
-linktitle: "3: EDA"
+linktitle: "03: EDA"
 date: "2020-09-02"
 class_date: "2020-09-02"
 citeproc: false

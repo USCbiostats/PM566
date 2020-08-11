@@ -1,6 +1,6 @@
 ---
 title: "Midterm Exam"
-linktitle: "8: Midterm Exam"
+linktitle: "08: Midterm Exam"
 date: "2020-10-07"
 class_date: "2020-10-07"
 citeproc: false

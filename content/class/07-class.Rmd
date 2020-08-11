@@ -1,6 +1,6 @@
 ---
 title: "Text mining and Regular Expressions"
-linktitle: "7: text mining"
+linktitle: "07: text mining"
 date: "2020-09-30"
 class_date: "2020-09-30"
 citeproc: false

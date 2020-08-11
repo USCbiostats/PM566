@@ -1,6 +1,6 @@
 ---
 title: "Version control and reproducible research"
-linktitle: "2: Version control"
+linktitle: "02: Version control"
 date: "2020-08-26"
 class_date: "2020-08-26"
 citeproc: false
