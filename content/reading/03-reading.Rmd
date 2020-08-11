@@ -9,7 +9,7 @@ csl: ../../static/bib/chicago-fullnote-bibliography-no-bib.csl
 # Required Reading
 
 ## Exploratory Data Analysis
-- The main text we will use is [Exploratory Data Analysis with R](https://bookdown.org/rdpeng/exdata/)
+- The main text we will use for EDA is another book by Roger Peng, [Exploratory Data Analysis with R](https://bookdown.org/rdpeng/exdata/)
 - Please focus on [Chapter 4](https://bookdown.org/rdpeng/exdata/exploratory-data-analysis-checklist.html), [Chapter 5](https://bookdown.org/rdpeng/exdata/principles-of-analytic-graphics.html) and [Chapter 6](https://bookdown.org/rdpeng/exdata/exploratory-graphs.html)
 
 
