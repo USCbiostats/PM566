@@ -14,13 +14,13 @@ lessons:
 
   - title: "Exploratory data analysis"
     date: "Week 3"
-    class: ""
+    class: "03-class"
     reading: "03-reading"
     assignment: ""
 
   - title: "Data visualization"
     date: "Week 4"
-    class: ""
+    class: "04-class"
     reading: "04-reading"
     assignment: ""
 
@@ -32,7 +32,7 @@ lessons:
 
   - title: "Regular Expressions, Big Data, Data scraping and using APIs, data security"
     date: "Week 6"
-    class: ""
+    class: "06-class"
     reading: "06-reading"
     assignment: ""
 
@@ -44,7 +44,7 @@ lessons:
 
   - title: "Midterm Exam"
     date: "Week 8"
-    class: ""
+    class: "08-class"
     reading: "08-reading"
     assignment: ""
 
@@ -62,24 +62,24 @@ lessons:
 
   - title: "Interactive visualization and effective data communication I"
     date: "Week 11"
-    class: ""
+    class: "11-class"
     reading: "11-reading"
     assignment: ""
 
   - title: "Final project workshop: review project progress, preliminary presentations"
     date: "Week 12"
-    class: ""
+    class: "12-class"
     reading: "12-reading"
     assignment: ""
 
   - title: "Interactive visualization and effective data communication II"
     date: "Week 13"
-    class: ""
+    class: "12-class"
     reading: "13-reading"
     assignment: ""
 
   - title: "Final Project"
     date: "Week 14"
-    class: ""
+    class: "14-class"
     reading: "14-reading"
     assignment: ""
