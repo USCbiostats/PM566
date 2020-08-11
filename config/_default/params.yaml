@@ -108,8 +108,8 @@ course:
   time: ""
   location: ""
   dates: ""
-  github: ""
-  copyrightYear: ""
+  github: "https://github.com/USCbiostats/PM566"
+  copyrightYear: "2020"
 
 university:
   name: University of Southern California
