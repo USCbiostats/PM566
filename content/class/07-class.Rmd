@@ -1,8 +1,8 @@
 ---
 title: "Text mining and Regular Expressions"
 linktitle: "7: text mining"
-date: "2020-01-10"
-class_date: "2020-01-10"
+date: "2020-09-30"
+class_date: "2020-09-30"
 citeproc: false
 bibliography: ../../static/bib/references.bib
 csl: ../../static/bib/chicago-syllabus-no-bib.csl

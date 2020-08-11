@@ -1,8 +1,8 @@
 ---
 title: "Interactive visualization and effective data communication II"
 linktitle: "13: Interactive Visualization II"
-date: "2020-01-10"
-class_date: "2020-01-10"
+date: "2020-11-11"
+class_date: "2020-11-11"
 citeproc: false
 bibliography: ../../static/bib/references.bib
 csl: ../../static/bib/chicago-syllabus-no-bib.csl

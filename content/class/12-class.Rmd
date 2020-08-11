@@ -1,8 +1,8 @@
 ---
 title: "Final project workshop: review project progress, preliminary presentations"
 linktitle: "12: Final project"
-date: "2020-01-10"
-class_date: "2020-01-10"
+date: "2020-11-04"
+class_date: "2020-11-04"
 citeproc: false
 bibliography: ../../static/bib/references.bib
 csl: ../../static/bib/chicago-syllabus-no-bib.csl

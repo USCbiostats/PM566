@@ -1,8 +1,8 @@
 ---
 title: "Final Project"
 linktitle: "14: Final Project"
-date: "2020-01-10"
-class_date: "2020-01-10"
+date: "2020-11-18"
+class_date: "2020-11-18"
 citeproc: false
 bibliography: ../../static/bib/references.bib
 csl: ../../static/bib/chicago-syllabus-no-bib.csl
