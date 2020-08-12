@@ -1,0 +1,72 @@
+---
+title: "Lab 03 - Exploratory Data Analysis"
+output: 
+  tufte::tufte_html:
+    css: ../lab.css
+    tufte_variant: "envisioned"
+    highlight: pygments
+link-citations: yes
+---
+
+
+
+
+```{r setup, message=FALSE, echo=FALSE}
+library(data.table)
+library(leaflet)
+library(tidyverse)
+```
+
+# Learning Goals
+
+- Read in and get familiar with the meteorology dataset shown in the class slides 
+- Step through the EDA "checklist" presented in the class slides
+- Practice making exploratory plots
+
+
+# Lab Description
+
+We will work with the meteorological data presented in lecture. Recall the dataset consists of weather station readings in the continental US. The objective of the lab is to find the met station at the highest point in the US and look at the time series of its wind speed and temperature.
+
+# Steps
+
+## 1. Read in the data
+
+First download and then read in with data.table:fread()
+
+```{r, echo=TRUE, message=FALSE}
+download.file("https://raw.githubusercontent.com/USCbiostats/data-science-data/master/02_met/met_all.gz", "met_all.gz", method="libcurl", timeout = 60)
+met <- data.table::fread("met_all.gz")
+```
+
+2. Check the dimensions, headers, footers. How many columns, rows are there?
+
+```{r}
+dim(met)
+ncol(met)
+nrow(met)
+head(met)
+tail(met)
+```
+3. Take a deeper look at the variables.
+
+```{r}
+str(met)
+```
+You'll see that str() duplicates the information on number of rows and columns we have. It also provides useful information on the types of variables in the data frame.
+
+Let's look at the key variables to see if there are any issues with them 
+
+```{r}
+summary(met$elev)
+summary(met$wind.sp)
+```
+
+It looks like the elevation variable has observations with 9999.0, which is probably an indicator for missing. We should take a deeper look at the data dictionary to confirm. The wind speed variable is ok but there are a lot of missing data.
+
+After checking the data we should make the appropriate modifications. Replace elevations with 9999 as `NA`.
+
+```{r}
+
+```
+

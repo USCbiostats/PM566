@@ -1,0 +1,34 @@
+
+
+<div id="learning-goals" class="section level1">
+<h1>Learning Goals</h1>
+<ul>
+<li>Download, read, and get familiar with an external dataset.</li>
+<li>Step through the EDA “checklist” presented in class</li>
+<li>Practice making exploratory plots</li>
+</ul>
+</div>
+<div id="assignment-description" class="section level1">
+<h1>Assignment Description</h1>
+<p>We will work with air pollution data from the U.S. Environmental Protection Agency (EPA). The EPA has a national monitoring network of air pollution sites that The primary question you will answer is whether daily concentrations of PM<span class="math inline">\(_{2.5}\)</span> (particulate matter air pollution with aerodynamic diameter less than 2.5 <span class="math inline">\(\mu\)</span>m) have decreased in California over the last 15 years (from 2004 to 2019).</p>
+<p>A primer on particulate matter air pollution can be found <a href="https://www.epa.gov/pm-pollution/particulate-matter-pm-basics">here</a>.</p>
+<p>Your assignment should be completed in R markdown or (Jupyter Notebooks).</p>
+</div>
+<div id="steps" class="section level1">
+<h1>Steps</h1>
+<ol style="list-style-type: decimal">
+<li><p>Given the formulated question from the assignment description, you will now conduct EDA Checklist items 2-4. First, download 2004 and 2019 data for all sites in California from the <a href="https://www.epa.gov/outdoor-air-quality-data/download-daily-data">EPA Air Quality Data website</a>. Read in the data using data.table(). For each of the two datasets, check the dimensions, headers, footers, variable names and variable types. Check for any data issues, particularly in the key variable we are analyzing. Make sure you write up a summary of all of your findings.</p></li>
+<li><p>Combine the two years of data into one data frame. Use the Date variable to create a new column for year, which will serve as an identifier. Change the names of the key variables so that they are easier to refer to in your code.</p></li>
+<li><p>Create a basic map in leaflet() that shows the locations of the sites (make sure to use different colors for each year). Summarize the spatial distribution of the monitoring sites.</p></li>
+<li><p>Check for any missing or implausible values of PM<span class="math inline">\(_{2.5}\)</span> in the combined dataset. Explore the proportions of each and provide a summary of any temporal patterns you see in these observations.</p></li>
+<li><p>Filter the data to include only the states in the continential United States.</p></li>
+<li><p>Explore the main question of interest at three different levels:</p>
+<ul>
+<li>nation</li>
+<li>state</li>
+<li>CA counties</li>
+</ul></li>
+</ol>
+<hr />
+<p>This homework has been adapted from the <a href="https://bookdown.org/rdpeng/exdata/data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html">case study</a> in Roger Peng’s <a href="https://bookdown.org/rdpeng/exdata/">Exploratory Data Analysis with R</a></p>
+</div>

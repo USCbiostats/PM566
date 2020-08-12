@@ -63,7 +63,6 @@ We are going to use a dataset created from the National Center for Environmental
 * It is a good idea to first have a question such as:
 --
 
-
   + what weather stations reported the hottest and coldest temperatures? 
   + what are the summary statistics of the continuous variables in my dataset (mean, variance)?
   + is there covariation between two variables in my dataset?
@@ -74,51 +73,100 @@ We are going to use a dataset created from the National Center for Environmental
 
 There are several ways to read in data (some depend on the type of data you have):
 
-* read.table() or read.csv() in base R for delimited files
-* readRDS if you have an R dataset
-* read_csv, read_csv2, read_delim, read_fwf from library(readr) that is part of the tidyverse
-* readxl() from library(readxl) for .xls and .xlsx files
-* read_sas, read_spss, read_stata from library(haven)
-* fread from data.table() for efficiently importing large datasets that are regular delimited files
+* `read.table` or `read.csv` in base R for delimited files
+* `readRDS` if you have a .rds dataset
+* `read_csv`, `read_csv2`, `read_delim`, `read_fwf` from `library(readr)` that is part of the tidyverse
+* `readxl()` from `library(readxl)` for .xls and .xlsx files
+* `read_sas`, `read_spss`, `read_stata` from `library(haven)`
+* `fread` from `library(data.table)` for efficiently importing large datasets that are regular delimited files
 ---
 
 # Read in the Data
 
-Let's load the libraries we need to read in the data:
+We will focus on base R, `data.table` and the `tidyverse`. Let's load the libraries we need to read in the data:
 
 ```r
 library(data.table)
 library(tidyverse)
 ```
+Let's load in the data. I have it stored locally, but we will see how to load it straight from github in the lab.
 
-```
-## ── Attaching packages ───────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.3.0 ──
-```
-
-```
-## ✓ ggplot2 3.3.0     ✓ purrr   0.3.4
-## ✓ tibble  3.0.1     ✓ dplyr   0.8.5
-## ✓ tidyr   1.0.2     ✓ stringr 1.4.0
-## ✓ readr   1.3.1     ✓ forcats 0.5.0
-```
-
-```
-## ── Conflicts ──────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
-## x dplyr::between()   masks data.table::between()
-## x dplyr::filter()    masks stats::filter()
-## x dplyr::first()     masks data.table::first()
-## x dplyr::lag()       masks stats::lag()
-## x dplyr::last()      masks data.table::last()
-## x purrr::transpose() masks data.table::transpose()
+```r
+met = data.table::fread("/Users/meredith/Dropbox (University of Southern California)/Courses/PM566/met_all.gz")
 ```
 ---
 
 # Check the data
 
+We should check the dimensions of the data set. This can be done several ways:
+
+```r
+dim(met)
+```
+
+```
+## [1] 2377343      30
+```
+
+```r
+nrow(met)
+```
+
+```
+## [1] 2377343
+```
+
+```r
+ncol(met)
+```
+
+```
+## [1] 30
+```
+
+We see that there are 2,377,343 records of hourly temperature in August 2019 from all of the weather stations in the US. The data set has 30 variables. 
 ---
 
 # Check variables
 
+```r
+str(met)
+```
+
+```
+## Classes 'data.table' and 'data.frame':	2377343 obs. of  30 variables:
+##  $ USAFID           : int  690150 690150 690150 690150 690150 690150 690150 690150 690150 690150 ...
+##  $ WBAN             : int  93121 93121 93121 93121 93121 93121 93121 93121 93121 93121 ...
+##  $ year             : int  2019 2019 2019 2019 2019 2019 2019 2019 2019 2019 ...
+##  $ month            : int  8 8 8 8 8 8 8 8 8 8 ...
+##  $ day              : int  1 1 1 1 1 1 1 1 1 1 ...
+##  $ hour             : int  0 1 2 3 4 5 6 7 8 9 ...
+##  $ min              : int  56 56 56 56 56 56 56 56 56 56 ...
+##  $ lat              : num  34.3 34.3 34.3 34.3 34.3 34.3 34.3 34.3 34.3 34.3 ...
+##  $ lon              : num  -116 -116 -116 -116 -116 ...
+##  $ elev             : int  696 696 696 696 696 696 696 696 696 696 ...
+##  $ wind.dir         : int  220 230 230 210 120 NA 320 10 320 350 ...
+##  $ wind.dir.qc      : chr  "5" "5" "5" "5" ...
+##  $ wind.type.code   : chr  "N" "N" "N" "N" ...
+##  $ wind.sp          : num  5.7 8.2 6.7 5.1 2.1 0 1.5 2.1 2.6 1.5 ...
+##  $ wind.sp.qc       : chr  "5" "5" "5" "5" ...
+##  $ ceiling.ht       : int  22000 22000 22000 22000 22000 22000 22000 22000 22000 22000 ...
+##  $ ceiling.ht.qc    : int  5 5 5 5 5 5 5 5 5 5 ...
+##  $ ceiling.ht.method: chr  "9" "9" "9" "9" ...
+##  $ sky.cond         : chr  "N" "N" "N" "N" ...
+##  $ vis.dist         : int  16093 16093 16093 16093 16093 16093 16093 16093 16093 16093 ...
+##  $ vis.dist.qc      : chr  "5" "5" "5" "5" ...
+##  $ vis.var          : chr  "N" "N" "N" "N" ...
+##  $ vis.var.qc       : chr  "5" "5" "5" "5" ...
+##  $ temp             : num  37.2 35.6 34.4 33.3 32.8 31.1 29.4 28.9 27.2 26.7 ...
+##  $ temp.qc          : chr  "5" "5" "5" "5" ...
+##  $ dew.point        : num  10.6 10.6 7.2 5 5 5.6 6.1 6.7 7.8 7.8 ...
+##  $ dew.point.qc     : chr  "5" "5" "5" "5" ...
+##  $ atm.press        : num  1010 1010 1011 1012 1013 ...
+##  $ atm.press.qc     : int  5 5 5 5 5 5 5 5 5 5 ...
+##  $ rh               : num  19.9 21.8 18.5 16.9 17.4 ...
+##  - attr(*, ".internal.selfref")=&lt;externalptr&gt;
+```
 ---
 # Check variables more closely
 

@@ -1,0 +1,136 @@
+
+
+<div id="learning-goals" class="section level1">
+<h1>Learning Goals</h1>
+<ul>
+<li>Read in and get familiar with the meteorology dataset shown in the class slides</li>
+<li>Step through the EDA “checklist” presented in the class slides</li>
+<li>Practice making exploratory plots</li>
+</ul>
+</div>
+<div id="lab-description" class="section level1">
+<h1>Lab Description</h1>
+<p>We will work with the meteorological data presented in lecture. Recall the dataset consists of weather station readings in the continental US. The objective of the lab is to find the met station at the highest point in the US and look at the time series of its wind speed and temperature.</p>
+</div>
+<div id="steps" class="section level1">
+<h1>Steps</h1>
+<div id="read-in-the-data" class="section level2">
+<h2>1. Read in the data</h2>
+<p>First download and then read in with data.table:fread()</p>
+<pre class="r"><code>download.file(&quot;https://raw.githubusercontent.com/USCbiostats/data-science-data/master/02_met/met_all.gz&quot;, &quot;met_all.gz&quot;, method=&quot;libcurl&quot;, timeout = 60)
+met &lt;- data.table::fread(&quot;met_all.gz&quot;)</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Check the dimensions, headers, footers. How many columns, rows are there?</li>
+</ol>
+<pre class="r"><code>dim(met)</code></pre>
+<pre><code>## [1] 2377343      30</code></pre>
+<pre class="r"><code>ncol(met)</code></pre>
+<pre><code>## [1] 30</code></pre>
+<pre class="r"><code>nrow(met)</code></pre>
+<pre><code>## [1] 2377343</code></pre>
+<pre class="r"><code>head(met)</code></pre>
+<pre><code>##    USAFID  WBAN year month day hour min  lat      lon elev wind.dir wind.dir.qc
+## 1: 690150 93121 2019     8   1    0  56 34.3 -116.166  696      220           5
+## 2: 690150 93121 2019     8   1    1  56 34.3 -116.166  696      230           5
+## 3: 690150 93121 2019     8   1    2  56 34.3 -116.166  696      230           5
+## 4: 690150 93121 2019     8   1    3  56 34.3 -116.166  696      210           5
+## 5: 690150 93121 2019     8   1    4  56 34.3 -116.166  696      120           5
+## 6: 690150 93121 2019     8   1    5  56 34.3 -116.166  696       NA           9
+##    wind.type.code wind.sp wind.sp.qc ceiling.ht ceiling.ht.qc ceiling.ht.method
+## 1:              N     5.7          5      22000             5                 9
+## 2:              N     8.2          5      22000             5                 9
+## 3:              N     6.7          5      22000             5                 9
+## 4:              N     5.1          5      22000             5                 9
+## 5:              N     2.1          5      22000             5                 9
+## 6:              C     0.0          5      22000             5                 9
+##    sky.cond vis.dist vis.dist.qc vis.var vis.var.qc temp temp.qc dew.point
+## 1:        N    16093           5       N          5 37.2       5      10.6
+## 2:        N    16093           5       N          5 35.6       5      10.6
+## 3:        N    16093           5       N          5 34.4       5       7.2
+## 4:        N    16093           5       N          5 33.3       5       5.0
+## 5:        N    16093           5       N          5 32.8       5       5.0
+## 6:        N    16093           5       N          5 31.1       5       5.6
+##    dew.point.qc atm.press atm.press.qc       rh
+## 1:            5    1009.9            5 19.88127
+## 2:            5    1010.3            5 21.76098
+## 3:            5    1010.6            5 18.48212
+## 4:            5    1011.6            5 16.88862
+## 5:            5    1012.7            5 17.38410
+## 6:            5    1012.7            5 20.01540</code></pre>
+<pre class="r"><code>tail(met)</code></pre>
+<pre><code>##    USAFID  WBAN year month day hour min    lat      lon elev wind.dir
+## 1: 726813 94195 2019     8  31   18  56 43.650 -116.633  741       NA
+## 2: 726813 94195 2019     8  31   19  56 43.650 -116.633  741       70
+## 3: 726813 94195 2019     8  31   20  56 43.650 -116.633  741       NA
+## 4: 726813 94195 2019     8  31   21  56 43.650 -116.633  741       10
+## 5: 726813 94195 2019     8  31   22  56 43.642 -116.636  741       10
+## 6: 726813 94195 2019     8  31   23  56 43.642 -116.636  741       40
+##    wind.dir.qc wind.type.code wind.sp wind.sp.qc ceiling.ht ceiling.ht.qc
+## 1:           9              C     0.0          5      22000             5
+## 2:           5              N     2.1          5      22000             5
+## 3:           9              C     0.0          5      22000             5
+## 4:           5              N     2.6          5      22000             5
+## 5:           1              N     2.1          1      22000             1
+## 6:           1              N     2.1          1      22000             1
+##    ceiling.ht.method sky.cond vis.dist vis.dist.qc vis.var vis.var.qc temp
+## 1:                 9        N    16093           5       N          5 30.0
+## 2:                 9        N    16093           5       N          5 32.2
+## 3:                 9        N    16093           5       N          5 33.3
+## 4:                 9        N    14484           5       N          5 35.0
+## 5:                 9        N    16093           1       9          9 34.4
+## 6:                 9        N    16093           1       9          9 34.4
+##    temp.qc dew.point dew.point.qc atm.press atm.press.qc       rh
+## 1:       5      11.7            5    1013.6            5 32.32509
+## 2:       5      12.2            5    1012.8            5 29.40686
+## 3:       5      12.2            5    1011.6            5 27.60422
+## 4:       5       9.4            5    1010.8            5 20.76325
+## 5:       1       9.4            1    1010.1            1 21.48631
+## 6:       1       9.4            1    1009.6            1 21.48631</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Take a deeper look at the variables.</li>
+</ol>
+<pre class="r"><code>str(met)</code></pre>
+<pre><code>## Classes &#39;data.table&#39; and &#39;data.frame&#39;:   2377343 obs. of  30 variables:
+##  $ USAFID           : int  690150 690150 690150 690150 690150 690150 690150 690150 690150 690150 ...
+##  $ WBAN             : int  93121 93121 93121 93121 93121 93121 93121 93121 93121 93121 ...
+##  $ year             : int  2019 2019 2019 2019 2019 2019 2019 2019 2019 2019 ...
+##  $ month            : int  8 8 8 8 8 8 8 8 8 8 ...
+##  $ day              : int  1 1 1 1 1 1 1 1 1 1 ...
+##  $ hour             : int  0 1 2 3 4 5 6 7 8 9 ...
+##  $ min              : int  56 56 56 56 56 56 56 56 56 56 ...
+##  $ lat              : num  34.3 34.3 34.3 34.3 34.3 34.3 34.3 34.3 34.3 34.3 ...
+##  $ lon              : num  -116 -116 -116 -116 -116 ...
+##  $ elev             : int  696 696 696 696 696 696 696 696 696 696 ...
+##  $ wind.dir         : int  220 230 230 210 120 NA 320 10 320 350 ...
+##  $ wind.dir.qc      : chr  &quot;5&quot; &quot;5&quot; &quot;5&quot; &quot;5&quot; ...
+##  $ wind.type.code   : chr  &quot;N&quot; &quot;N&quot; &quot;N&quot; &quot;N&quot; ...
+##  $ wind.sp          : num  5.7 8.2 6.7 5.1 2.1 0 1.5 2.1 2.6 1.5 ...
+##  $ wind.sp.qc       : chr  &quot;5&quot; &quot;5&quot; &quot;5&quot; &quot;5&quot; ...
+##  $ ceiling.ht       : int  22000 22000 22000 22000 22000 22000 22000 22000 22000 22000 ...
+##  $ ceiling.ht.qc    : int  5 5 5 5 5 5 5 5 5 5 ...
+##  $ ceiling.ht.method: chr  &quot;9&quot; &quot;9&quot; &quot;9&quot; &quot;9&quot; ...
+##  $ sky.cond         : chr  &quot;N&quot; &quot;N&quot; &quot;N&quot; &quot;N&quot; ...
+##  $ vis.dist         : int  16093 16093 16093 16093 16093 16093 16093 16093 16093 16093 ...
+##  $ vis.dist.qc      : chr  &quot;5&quot; &quot;5&quot; &quot;5&quot; &quot;5&quot; ...
+##  $ vis.var          : chr  &quot;N&quot; &quot;N&quot; &quot;N&quot; &quot;N&quot; ...
+##  $ vis.var.qc       : chr  &quot;5&quot; &quot;5&quot; &quot;5&quot; &quot;5&quot; ...
+##  $ temp             : num  37.2 35.6 34.4 33.3 32.8 31.1 29.4 28.9 27.2 26.7 ...
+##  $ temp.qc          : chr  &quot;5&quot; &quot;5&quot; &quot;5&quot; &quot;5&quot; ...
+##  $ dew.point        : num  10.6 10.6 7.2 5 5 5.6 6.1 6.7 7.8 7.8 ...
+##  $ dew.point.qc     : chr  &quot;5&quot; &quot;5&quot; &quot;5&quot; &quot;5&quot; ...
+##  $ atm.press        : num  1010 1010 1011 1012 1013 ...
+##  $ atm.press.qc     : int  5 5 5 5 5 5 5 5 5 5 ...
+##  $ rh               : num  19.9 21.8 18.5 16.9 17.4 ...
+##  - attr(*, &quot;.internal.selfref&quot;)=&lt;externalptr&gt;</code></pre>
+<p>You’ll see that str() duplicates the information on number of rows and columns we have. It also provides useful information on the types of variables in the data frame.</p>
+<p>Let’s look at the key variables to see if there are any issues with them</p>
+<pre class="r"><code>summary(met$elev)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   -13.0   101.0   252.0   415.8   400.0  9999.0</code></pre>
+<pre class="r"><code>summary(met$wind.sp)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+##    0.00    0.00    2.10    2.46    3.60   36.00   79693</code></pre>
+<p>It looks like the elevation variable has observations with 9999.0, which is probably an indicator for missing. We should take a deeper look at the data dictionary to confirm. The wind speed variable is ok but there are a lot of missing data.</p>
+<p>After checking the data we should make the appropriate modifications. Replace elevations with 9999 as <code>NA</code>.</p>
+</div>
+</div>

@@ -113,36 +113,43 @@ We are going to use a dataset created from the National Center for Environmental
 
 There are several ways to read in data (some depend on the type of data you have):
 
-* read.table() or read.csv() in base R for delimited files
-* readRDS if you have a .rds dataset
-* read_csv, read_csv2, read_delim, read_fwf from library(readr) that is part of the tidyverse
-* readxl() from library(readxl) for .xls and .xlsx files
-* read_sas, read_spss, read_stata from library(haven)
-* fread from data.table() for efficiently importing large datasets that are regular delimited files
+* `read.table` or `read.csv` in base R for delimited files
+* `readRDS` if you have a .rds dataset
+* `read_csv`, `read_csv2`, `read_delim`, `read_fwf` from `library(readr)` that is part of the tidyverse
+* `readxl()` from `library(readxl)` for .xls and .xlsx files
+* `read_sas`, `read_spss`, `read_stata` from `library(haven)`
+* `fread` from `library(data.table)` for efficiently importing large datasets that are regular delimited files
 ---
 
 # Read in the Data
 
-Let's load the libraries we need to read in the data:
-```{r}
+We will focus on base R, `data.table` and the `tidyverse`. Let's load the libraries we need to read in the data:
+```{r, message=FALSE}
 library(data.table)
 library(tidyverse)
 ```
-Let's load in the data
+Let's load in the data. I have it stored locally, but we will see how to load it straight from github in the lab.
 ```{r}
-met = data.table::fread("https://github.com/USCbiostats/data-science-data/raw/master/met/met_all.gz")
-
+met = data.table::fread("/Users/meredith/Dropbox (University of Southern California)/Courses/PM566/met_all.gz")
 ```
 ---
 
 # Check the data
 
+We should check the dimensions of the data set. This can be done several ways:
 ```{r}
-nrow()
+dim(met)
+nrow(met)
+ncol(met)
+```
+
+We see that there are 2,377,343 records of hourly temperature in August 2019 from all of the weather stations in the US. The data set has 30 variables. 
 ---
 
 # Check variables
-
+```{r}
+str(met)
+```
 ---
 # Check variables more closely
 
