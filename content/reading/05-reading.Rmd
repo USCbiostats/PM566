@@ -10,8 +10,8 @@ csl: ../../static/bib/chicago-fullnote-bibliography-no-bib.csl
 
 You are expected to have read this when you show up for the session.
 
-- [Chapter 1 Why Git? Why GitHub?](https://happygitwithr.com/big-picture.html) of
-  the "Happy Git and GitHub for the useR" by Jenny Bryan and Jim Hester.
+- The [Introduction to data.table](https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro.html)
+  vignette included in the [data.table R package](https://cran.r-project.com/package=data.table)
 
 - Roger Peng's Mastering Software Development Book Section 3.9 Version control
   and Github

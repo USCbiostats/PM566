@@ -80,13 +80,74 @@ The data.table package:
 
 ---
 
+# Part II: The basics
+
+---
+
+## Packages for the session
+
+For this session we will be using the following two R packages:
+
+```{r loading}
+library(dtplyr)
+library(data.table)
+```
+
+The `dtplyr` R package translates `dplyr` (`tidyverse`) syntax to `data.table`, so that we can still use **the pipe** while at the same time leveraging the performance of `data.table`.
+
+
+---
+
+## Loading the data
+
+The data that we will be using is an already processed version of the MET dataset. We can download (and load) the data directly in our session using the following commands
+
+```{r downloading-data, cache=TRUE}
+# Where are we getting the data from
+met_url <- "https://github.com/USCbiostats/data-science-data/raw/master/02_met/met_all.gz"
+
+# Downloading the data to a tempfile (so it is destroyed afterwards)
+# you can replace this with, for example, your own data:
+tmp <- tempfile(fileext = ".gz")
+
+if (!file.exists(tmp)) {
+  download.file(
+    url      = met_url,
+    destfile = tmp,
+    # method   = "libcurl", timeout = 1000 (you may need this option)
+  )
+}
+
+dat <- fread(tmp)
+```
+
+---
+
+Let's take a look at the data using the `head()` function
+
+```{r}
+head(dat)
+```
+
+Now that we have the data, we can start working with it!
+
+---
+
+## Filtering (subsetting) the data
+
+Need to select records according to some criteria. For example:
+
+```{r select}
+
+```
+
+
+---
+
 ## Generating summary statistics
 
 ```{r read-in, cache=TRUE}
 library(data.table)
-
-# Month of august
-dat <- fread("met_200.gz")
 
 # Generating a date component
 dat[, Date := as.IDate(paste(year, month, day, sep = "-"))]
@@ -119,4 +180,45 @@ dat_daily_plot <- with(
 
 image(dat_daily_plot)
 ```
+
+---
+
+```{r, eval = FALSE}
+library(dtplyr)
+library(dplyr)
+data(diamonds, package="ggplot2")
+dt_tibble <- lazy_dt(diamonds)
+dt_dt     <- lazy_dt(as.data.table(diamonds))
+dt        <- as.data.table(diamonds)
+microbenchmark::microbenchmark(
+  dplyr         = diamonds %>% group_by(carat) %>% summarise(mean(price), .groups="drop") %>% collect(),
+  dtplyr_tibble = dt_tibble %>% group_by(carat) %>% summarise(mean(price)) %>% collect(),
+  dtplyr_dt     = dt_dt %>% group_by(carat) %>% summarise(mean(price), .groups="drop") %>% collect(),
+  data.table    = dt[, mean(price), by = carat]
+)
+
+```
+
+```{r, eval = FALSE}
+tmp <- tempfile(fileext="csv")
+download.file(
+  "https://raw.githubusercontent.com/Rdatatable/data.table/master/vignettes/flights14.csv",
+  destfile = tmp,
+  method   = "libcurl",
+  timeout  = 1000
+  )
+dat_dt <- fread(tmp)
+dat_tb <- as_tibble(dat_dt)
+dat_lz <- lazy_dt(dat_tb)
+```
+
+
+```{r, eval = FALSE}
+microbenchmark::microbenchmark(
+  dplyr         = dat_tb %>% group_by(dest) %>% summarise(mean(air_time), .groups="drop") %>% collect(),
+  dtplyr_tibble = dat_lz %>% group_by(dest) %>% summarise(mean(air_time), .groups="drop") %>% collect(),
+  data.table    = dat_dt[, mean(air_time), by = dest], times = 100
+)
+```
+
 
