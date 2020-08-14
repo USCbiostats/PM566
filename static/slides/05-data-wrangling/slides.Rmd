@@ -1,5 +1,5 @@
 ---
-title: "High performance computing, cloud computing"
+title: "High performance computing, cloud computing "
 subtitle: "PM 566: Introduction to Health Data Science"
 author: "George G. Vega Yon"
 output:
