@@ -22,7 +22,7 @@ editor_options:
 
 ## Lab Exercise
 
-[link](/assignment/01-code)
+[link](/assignment/01-lab)
 
 ## Slides
 

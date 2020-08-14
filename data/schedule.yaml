@@ -4,7 +4,7 @@ lessons:
     date: "Week 1"
     class: "01-class"
     reading: "01-reading"
-    assignment: "01-code"
+    assignment: ""
 
   - title: "Version Control & Reproducible Research"
     date: "Week 2"
