@@ -66,6 +66,8 @@ sass(sass_file("theme.sass"), output = "theme.css")
 * Exploratory data analysis is the process of summarizing data
 * It should be the first step in your analysis pipeline
 * It involves:
+--
+
   + checking data (import issues, outliers, missing values, data errors)
   + cleaning data
   + summary statistics of key variables (univariate and bivariate)
@@ -78,34 +80,55 @@ sass(sass_file("theme.sass"), output = "theme.css")
 ]
 
 EDA involves Import -> Tidy -> Transform -> Visualize. Basically it is everything before we do modeling, prediction or inference.
+
 ---
 # EDA Checklist
 
 The goal of EDA is to better understand your data. Let's use the **checklist**:
+--
 
-  1. Formulate a question
-  2. Read in the data
-  3. Check the dimensions and headers and footers of the data
-  4. Check the variable types in the data
-  5. Take a closer look at some/all of the variables
-  6. Validate with an external source
-  7. Conduct some summary statistics to answer the initial question
-  8. Make exploratory graphs
+1.  Formulate a question
+--
+
+2.  Read in the data
+--
+
+3.  Check the dimensions and headers and footers of the data
+--
+
+4.  Check the variable types in the data
+--
+
+5.  Take a closer look at some/all of the variables
+--
+
+6.  Validate with an external source
+--
+
+7.  Conduct some summary statistics to answer the initial question
+--
+
+8.  Make exploratory graphs
 
 ---
 # Case study
 
 We are going to use a dataset created from the National Center for Environmental Information (https://www.ncei.noaa.gov/). The data are 2019 hourly measurements from weather stations across the continental U.S.
+
+.center[
+![:scale 60%](img/weather.png)
+]
+
 ---
 
 # Formulate a Question
 
-* It is a good idea to first have a question such as:
+- It is a good idea to first have a question such as:
 --
 
-  + what weather stations reported the hottest and coldest temperatures? 
-  + what are the summary statistics of the continuous variables in my dataset (mean, variance)?
-  + is there covariation between two variables in my dataset?
+  * what weather stations reported the hottest and coldest temperatures? 
+  * what are the summary statistics of the continuous variables in my dataset (mean, variance)?
+  * is there covariation between two variables in my dataset?
 
 ---
 
@@ -128,10 +151,22 @@ We will focus on base R, `data.table` and the `tidyverse`. Let's load the librar
 library(data.table)
 library(tidyverse)
 ```
-Let's load in the data. I have it stored locally, but we will see how to load it straight from github in the lab.
+Let's load in the data with `data.table`. I have it stored locally, but we will see how to load it straight from github in the lab.
 ```{r}
 met = data.table::fread("/Users/meredith/Dropbox (University of Southern California)/Courses/PM566/met_all.gz")
 ```
+---
+
+# Read in the Data
+
+`data.table` is a more efficient version of base R's `data.frame`. We create a `data.table` from an external data source by reading it in using `fread()`
+
+We can convert existing `data.frame` or `list` objects to `data.table` by using `setDT()`
+
+The nice thing about `data.table` is that it handles large datasets efficiently and it never reads/converts character type variables to factors, which can be a pain with `data.frame`
+
+The other nice thing about `data.table` is that many of the base R functions work just as if it was a `data.frame`
+
 ---
 
 # Check the data
@@ -143,26 +178,132 @@ nrow(met)
 ncol(met)
 ```
 
-We see that there are 2,377,343 records of hourly temperature in August 2019 from all of the weather stations in the US. The data set has 30 variables. 
+
 ---
+
+# Check the data
+
+* We see that there are 2,377,343 records of hourly temperature in August 2019 from all of the weather stations in the US. The data set has 30 variables. 
+* We should also check the top and bottom of the dataset to make sure that it imported correctly. Use `head(met)` and `tail(met)` for this.
+* Next we can take a deeper dive into the contents of the data with `str()`
+---
+
 
 # Check variables
 ```{r}
 str(met)
 ```
 ---
+
+
+# Check variables
+
+* First, we see that `str()` gives us the class of the data, which in this case is both `data.table` and `data.frame`, as well as the dimensions of the data
+* We also see the variable names and their type (integer, numeric, character) 
+* We can identify major problems with the data at this stage (e.g. a variable that has all missing values)
+
+--
+
+We can get summary statistics on our `data.table` using `summary()` as we would with a regular `data.frame`
+
+---
+
+# Check variables
+
+```{r, out.height="50%", out.width="50%"}
+summary(met[,8:13])
+```
+---
+
 # Check variables more closely
+
+We know that we are supposed to have hourly measurements of weather data for the month of August 2019 for the entire US. We should check that we have all of these components. Let us check:
+
+* the year
+* the month
+* the hours
+* the range of locations (latitude and longitude)
+
+---
+
+# Check variables more closely
+
+We can generate tables for integer values
+```{r}
+table(met$hour)
+table(met$month)
+```
+---
+
+# Check variables more closely
+
+For numeric values we should do a summary to see the quantiles, max, min
+
+```{r}
+table(met$year)
+summary(met$lat)
+summary(met$lon)
+```
+---
+
+# Check variables more closely
+
+Let's check some of the weather variables
+```{r}
+summary(met$temp)
+```
+It looks like the temperatures are in Celcius. A temperature of -40 in August is really cold, we should see if this is an implausiple value.
+
+It also looks like there are a lot of missing data. Let us check the proportion of missings
+
+```{r}
+dim(met[is.na(temp)])[1]/dim(met)[1]
+```
+
+---
+
+
+
+# Check variables more closely
+
+In `data.table` we can easily subset the data and select certain columns
+```{r}
+met_ss = met[temp == -40.00, .(hour, lat, lon, elev, wind.sp)]
+
+dim(met_ss)
+summary(met_ss)
+```
+---
+
+# Check variables more closely
+
+In `dplyr` we can do the same thing using  `filter` 
+```{r}
+met_ss = filter(met, temp == -40.00) %>% 
+        select(USAFID, day, hour, 
+               lat, lon, elev, wind.sp)
+
+dim(met_ss)
+summary(met_ss)
+```
 
 ---
 
 # Validate against an external source
 
+We should check various things to make sure that our data make sense, for example the observation with -40C is suspicious, so we should look up the location of the weather station.
+
+Go to [Google maps](https://www.google.com/maps/) and enter the coordinates for the site with -40C (29.12, -89.55)
+
+.center[
+![:scale 30%](img/map.png)
+]
 ---
 
 # Summary statistics
 
 ---
-#Exploratory Graphs
+# Exploratory Graphs
 
 * With exploratory graphs we aim to:
 

@@ -26,6 +26,8 @@ class: center, middle, title-slide
 * Exploratory data analysis is the process of summarizing data
 * It should be the first step in your analysis pipeline
 * It involves:
+--
+
   + checking data (import issues, outliers, missing values, data errors)
   + cleaning data
   + summary statistics of key variables (univariate and bivariate)
@@ -38,34 +40,55 @@ class: center, middle, title-slide
 ]
 
 EDA involves Import -&gt; Tidy -&gt; Transform -&gt; Visualize. Basically it is everything before we do modeling, prediction or inference.
+
 ---
 # EDA Checklist
 
 The goal of EDA is to better understand your data. Let's use the **checklist**:
+--
 
-  1. Formulate a question
-  2. Read in the data
-  3. Check the dimensions and headers and footers of the data
-  4. Check the variable types in the data
-  5. Take a closer look at some/all of the variables
-  6. Validate with an external source
-  7. Conduct some summary statistics to answer the initial question
-  8. Make exploratory graphs
+1.  Formulate a question
+--
+
+2.  Read in the data
+--
+
+3.  Check the dimensions and headers and footers of the data
+--
+
+4.  Check the variable types in the data
+--
+
+5.  Take a closer look at some/all of the variables
+--
+
+6.  Validate with an external source
+--
+
+7.  Conduct some summary statistics to answer the initial question
+--
+
+8.  Make exploratory graphs
 
 ---
 # Case study
 
 We are going to use a dataset created from the National Center for Environmental Information (https://www.ncei.noaa.gov/). The data are 2019 hourly measurements from weather stations across the continental U.S.
+
+.center[
+![:scale 60%](img/weather.png)
+]
+
 ---
 
 # Formulate a Question
 
-* It is a good idea to first have a question such as:
+- It is a good idea to first have a question such as:
 --
 
-  + what weather stations reported the hottest and coldest temperatures? 
-  + what are the summary statistics of the continuous variables in my dataset (mean, variance)?
-  + is there covariation between two variables in my dataset?
+  * what weather stations reported the hottest and coldest temperatures? 
+  * what are the summary statistics of the continuous variables in my dataset (mean, variance)?
+  * is there covariation between two variables in my dataset?
 
 ---
 
@@ -89,11 +112,23 @@ We will focus on base R, `data.table` and the `tidyverse`. Let's load the librar
 library(data.table)
 library(tidyverse)
 ```
-Let's load in the data. I have it stored locally, but we will see how to load it straight from github in the lab.
+Let's load in the data with `data.table`. I have it stored locally, but we will see how to load it straight from github in the lab.
 
 ```r
 met = data.table::fread("/Users/meredith/Dropbox (University of Southern California)/Courses/PM566/met_all.gz")
 ```
+---
+
+# Read in the Data
+
+`data.table` is a more efficient version of base R's `data.frame`. We create a `data.table` from an external data source by reading it in using `fread()`
+
+We can convert existing `data.frame` or `list` objects to `data.table` by using `setDT()`
+
+The nice thing about `data.table` is that it handles large datasets efficiently and it never reads/converts character type variables to factors, which can be a pain with `data.frame`
+
+The other nice thing about `data.table` is that many of the base R functions work just as if it was a `data.frame`
+
 ---
 
 # Check the data
@@ -124,8 +159,16 @@ ncol(met)
 ## [1] 30
 ```
 
-We see that there are 2,377,343 records of hourly temperature in August 2019 from all of the weather stations in the US. The data set has 30 variables. 
+
 ---
+
+# Check the data
+
+* We see that there are 2,377,343 records of hourly temperature in August 2019 from all of the weather stations in the US. The data set has 30 variables. 
+* We should also check the top and bottom of the dataset to make sure that it imported correctly. Use `head(met)` and `tail(met)` for this.
+* Next we can take a deeper dive into the contents of the data with `str()`
+---
+
 
 # Check variables
 
@@ -168,18 +211,236 @@ str(met)
 ##  - attr(*, ".internal.selfref")=&lt;externalptr&gt;
 ```
 ---
+
+
+# Check variables
+
+* First, we see that `str()` gives us the class of the data, which in this case is both `data.table` and `data.frame`, as well as the dimensions of the data
+* We also see the variable names and their type (integer, numeric, character) 
+* We can identify major problems with the data at this stage (e.g. a variable that has all missing values)
+
+--
+
+We can get summary statistics on our `data.table` using `summary()` as we would with a regular `data.frame`
+
+---
+
+# Check variables
+
+
+```r
+summary(met[,8:13])
+```
+
+```
+##       lat             lon               elev           wind.dir     
+##  Min.   :24.55   Min.   :-124.29   Min.   : -13.0   Min.   :  3     
+##  1st Qu.:33.97   1st Qu.: -98.02   1st Qu.: 101.0   1st Qu.:120     
+##  Median :38.35   Median : -91.71   Median : 252.0   Median :180     
+##  Mean   :37.94   Mean   : -92.15   Mean   : 415.8   Mean   :185     
+##  3rd Qu.:41.94   3rd Qu.: -82.99   3rd Qu.: 400.0   3rd Qu.:260     
+##  Max.   :48.94   Max.   : -68.31   Max.   :9999.0   Max.   :360     
+##                                                     NA's   :785290  
+##  wind.dir.qc        wind.type.code    
+##  Length:2377343     Length:2377343    
+##  Class :character   Class :character  
+##  Mode  :character   Mode  :character  
+##                                       
+##                                       
+##                                       
+## 
+```
+---
+
 # Check variables more closely
+
+We know that we are supposed to have hourly measurements of weather data for the month of August 2019 for the entire US. We should check that we have all of these components. Let us check:
+
+* the year
+* the month
+* the hours
+* the range of locations (latitude and longitude)
+
+---
+
+# Check variables more closely
+
+We can generate tables for integer values
+
+```r
+table(met$hour)
+```
+
+```
+## 
+##      0      1      2      3      4      5      6      7      8      9     10 
+##  99434  93482  93770  96703 110504 112128 106235 101985 100310 102915 101880 
+##     11     12     13     14     15     16     17     18     19     20     21 
+## 100470 103605  97004  96507  97635  94942  94184 100179  94604  94928  96070 
+##     22     23 
+##  94046  93823
+```
+
+```r
+table(met$month)
+```
+
+```
+## 
+##       8 
+## 2377343
+```
+---
+
+# Check variables more closely
+
+For numeric values we should do a summary to see the quantiles, max, min
+
+
+```r
+table(met$year)
+```
+
+```
+## 
+##    2019 
+## 2377343
+```
+
+```r
+summary(met$lat)
+```
+
+```
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   24.55   33.97   38.35   37.94   41.94   48.94
+```
+
+```r
+summary(met$lon)
+```
+
+```
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+## -124.29  -98.02  -91.71  -92.15  -82.99  -68.31
+```
+---
+
+# Check variables more closely
+
+Let's check some of the weather variables
+
+```r
+summary(met$temp)
+```
+
+```
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+##  -40.00   19.60   23.50   23.59   27.80   56.00   60089
+```
+It looks like the temperatures are in Celcius. A temperature of -40 in August is really cold, we should see if this is an implausiple value.
+
+It also looks like there are a lot of missing data. Let us check the proportion of missings
+
+
+```r
+dim(met[is.na(temp)])[1]/dim(met)[1]
+```
+
+```
+## [1] 0.0252757
+```
+
+---
+
+
+
+# Check variables more closely
+
+In `data.table` we can easily subset the data and select certain columns
+
+```r
+met_ss = met[temp == -40.00, .(hour, lat, lon, elev, wind.sp)]
+
+dim(met_ss)
+```
+
+```
+## [1] 36  5
+```
+
+```r
+summary(met_ss)
+```
+
+```
+##       hour            lat             lon              elev       wind.sp   
+##  Min.   : 0.00   Min.   :29.12   Min.   :-89.55   Min.   :36   Min.   : NA  
+##  1st Qu.: 2.75   1st Qu.:29.12   1st Qu.:-89.55   1st Qu.:36   1st Qu.: NA  
+##  Median : 5.50   Median :29.12   Median :-89.55   Median :36   Median : NA  
+##  Mean   : 5.50   Mean   :29.12   Mean   :-89.55   Mean   :36   Mean   :NaN  
+##  3rd Qu.: 8.25   3rd Qu.:29.12   3rd Qu.:-89.55   3rd Qu.:36   3rd Qu.: NA  
+##  Max.   :11.00   Max.   :29.12   Max.   :-89.55   Max.   :36   Max.   : NA  
+##                                                                NA's   :36
+```
+---
+
+# Check variables more closely
+
+In `dplyr` we can do the same thing using  `filter` 
+
+```r
+met_ss = filter(met, temp == -40.00) %&gt;% 
+        select(USAFID, day, hour, 
+               lat, lon, elev, wind.sp)
+
+dim(met_ss)
+```
+
+```
+## [1] 36  7
+```
+
+```r
+summary(met_ss)
+```
+
+```
+##      USAFID            day         hour            lat             lon        
+##  Min.   :720717   Min.   :1   Min.   : 0.00   Min.   :29.12   Min.   :-89.55  
+##  1st Qu.:720717   1st Qu.:1   1st Qu.: 2.75   1st Qu.:29.12   1st Qu.:-89.55  
+##  Median :720717   Median :1   Median : 5.50   Median :29.12   Median :-89.55  
+##  Mean   :720717   Mean   :1   Mean   : 5.50   Mean   :29.12   Mean   :-89.55  
+##  3rd Qu.:720717   3rd Qu.:1   3rd Qu.: 8.25   3rd Qu.:29.12   3rd Qu.:-89.55  
+##  Max.   :720717   Max.   :1   Max.   :11.00   Max.   :29.12   Max.   :-89.55  
+##                                                                               
+##       elev       wind.sp   
+##  Min.   :36   Min.   : NA  
+##  1st Qu.:36   1st Qu.: NA  
+##  Median :36   Median : NA  
+##  Mean   :36   Mean   :NaN  
+##  3rd Qu.:36   3rd Qu.: NA  
+##  Max.   :36   Max.   : NA  
+##               NA's   :36
+```
 
 ---
 
 # Validate against an external source
 
+We should check various things to make sure that our data make sense, for example the observation with -40C is suspicious, so we should look up the location of the weather station.
+
+Go to [Google maps](https://www.google.com/maps/) and enter the coordinates for the site with -40C (29.12, -89.55)
+
+.center[
+![:scale 30%](img/map.png)
+]
 ---
 
 # Summary statistics
 
 ---
-#Exploratory Graphs
+# Exploratory Graphs
 
 * With exploratory graphs we aim to:
 

@@ -16,7 +16,7 @@ We will work with air pollution data from the U.S. Environmental Protection Agen
 
 A primer on particulate matter air pollution can be found [here](https://www.epa.gov/pm-pollution/particulate-matter-pm-basics).
 
-Your assignment should be completed in R markdown or (Jupyter Notebooks).
+Your assignment should be completed in R markdown.
 
 # Steps
 
@@ -28,7 +28,7 @@ Your assignment should be completed in R markdown or (Jupyter Notebooks).
 
 4. Check for any missing or implausible values of PM$_{2.5}$ in the combined dataset. Explore the proportions of each and provide a summary of any temporal patterns you see in these observations.
 
-5. Explore the main question of interest at three different spatial levels. Create exploratory plots and summary statistics that best suit each level of data. Be sure to write up explanations of what you observe in these data.
+5. Explore the main question of interest at three different spatial levels. Create exploratory plots (e.g. boxplots, histograms, line plots) and summary statistics that best suit each level of data. Be sure to write up explanations of what you observe in these data.
 
     - state
     - county
