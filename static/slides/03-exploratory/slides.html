@@ -17,6 +17,16 @@ class: center, middle, title-slide
 ---
 
 
+&lt;!--Yeah... I have really long code chunks, so I just changed the default size :)--&gt;
+&lt;style type="text/css"&gt;
+pre{
+  font-size:medium;
+}
+code.r,code.cpp{
+  font-size:large
+}
+&lt;/style&gt;
+
 
 
 
@@ -101,7 +111,8 @@ There are several ways to read in data (some depend on the type of data you have
 * `read_csv`, `read_csv2`, `read_delim`, `read_fwf` from `library(readr)` that is part of the tidyverse
 * `readxl()` from `library(readxl)` for .xls and .xlsx files
 * `read_sas`, `read_spss`, `read_stata` from `library(haven)`
-* `fread` from `library(data.table)` for efficiently importing large datasets that are regular delimited files
+*  `fread` from `library(data.table)` for efficiently importing large datasets that are regular delimited files 
+
 ---
 
 # Read in the Data
@@ -428,16 +439,22 @@ summary(met_ss)
 
 # Validate against an external source
 
-We should check various things to make sure that our data make sense, for example the observation with -40C is suspicious, so we should look up the location of the weather station.
+We should check outside sources to make sure that our data make sense. For example the observation with -40C is suspicious, so we should look up the location of the weather station.
 
 Go to [Google maps](https://www.google.com/maps/) and enter the coordinates for the site with -40C (29.12, -89.55)
 
 .center[
-![:scale 30%](img/map.png)
+![:scale 40%](img/map.png)
 ]
+
+It doesn't make much sense to have a -40C reading in the Gulf of Mexico off the coast of Louisiana.
 ---
 
 # Summary statistics
+
+If we return to our initial question, what weather stations reported the hottest and coldest temperatures? we need to generate a list of weather stations that are ordered from highest to lowest. We can then examine the top and bottom of this new dataset.
+
+In `data.table` 
 
 ---
 # Exploratory Graphs
