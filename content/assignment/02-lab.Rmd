@@ -148,7 +148,7 @@ For more information checkout [Creating a pull request from a fork
 ](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request-from-a-fork)
 on GitHub.
 
-
+<!--
 # Using GitHub classrooms
 
 When you start work on an exercises or assignment, you will need to complete the
