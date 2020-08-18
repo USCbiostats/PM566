@@ -1,0 +1,15 @@
+---
+title: "Interactive visualization and effective data communication II"
+date: "2020-11-11"
+citeproc: false
+bibliography: ../../static/bib/references.bib
+csl: ../../static/bib/chicago-fullnote-bibliography-no-bib.csl
+---
+
+# Required reading
+
+To be announced
+
+# Optional reading
+
+To be announced

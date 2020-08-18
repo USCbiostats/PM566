@@ -1,8 +1,8 @@
 ---
-title: "Text mining and Regular Expressions"
-linktitle: "8: text mining"
-date: "2020-01-10"
-class_date: "2020-01-10"
+title: "Midterm Exam"
+linktitle: "08: Midterm Exam"
+date: "2020-10-07"
+class_date: "2020-10-07"
 citeproc: false
 bibliography: ../../static/bib/references.bib
 csl: ../../static/bib/chicago-syllabus-no-bib.csl
@@ -22,9 +22,12 @@ editor_options:
 
 ## Lab Exercise
 
+To be announced
 
 ## Slides
 
-[link](/slides/08-textmining/slides.html)
+To be announced
 
 ## Links
+
+To be announced

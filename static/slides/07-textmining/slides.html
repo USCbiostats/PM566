@@ -12,7 +12,7 @@
 class: center, middle, title-slide
 
 # Text Mining
-## PM566 - Week 8
+## PM566 - Week 7
 ### Emil Hvitfeldt
 
 ---
@@ -52,6 +52,25 @@ Works seemlessly with ggplot2, dplyr and tidyr.
 
 ```r
 #devtools::install_github("EmilHvitfeldt/tidygutenbergr")
+library(tidyverse)
+```
+
+```
+## ── Attaching packages ─────────────────────────────────────────────── tidyverse 1.3.0 ──
+```
+
+```
+## ✓ tibble 3.0.3     ✓ purrr  0.3.4
+## ✓ tidyr  1.1.0
+```
+
+```
+## ── Conflicts ────────────────────────────────────────────────── tidyverse_conflicts() ──
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
+```
+
+```r
 library(tidygutenbergr)
 
 alice &lt;- alices_adventures()
@@ -68,18 +87,18 @@ alice
 
 ```
 ## # A tibble: 3,330 x 3
-##    text                                                            chapter chapter_name      
-##    &lt;chr&gt;                                                             &lt;int&gt; &lt;chr&gt;             
-##  1 "CHAPTER I. Down the Rabbit-Hole"                                     1 Down the Rabbit-H…
-##  2 ""                                                                    1 Down the Rabbit-H…
-##  3 "Alice was beginning to get very tired of sitting by her siste…       1 Down the Rabbit-H…
-##  4 "bank, and of having nothing to do: once or twice she had peep…       1 Down the Rabbit-H…
-##  5 "book her sister was reading, but it had no pictures or conver…       1 Down the Rabbit-H…
-##  6 "it, 'and what is the use of a book,' thought Alice 'without p…       1 Down the Rabbit-H…
-##  7 "conversations?'"                                                     1 Down the Rabbit-H…
-##  8 ""                                                                    1 Down the Rabbit-H…
-##  9 "So she was considering in her own mind (as well as she could,…       1 Down the Rabbit-H…
-## 10 "hot day made her feel very sleepy and stupid), whether the pl…       1 Down the Rabbit-H…
+##    text                                                       chapter chapter_name      
+##    &lt;chr&gt;                                                        &lt;int&gt; &lt;chr&gt;             
+##  1 "CHAPTER I. Down the Rabbit-Hole"                                1 Down the Rabbit-H…
+##  2 ""                                                               1 Down the Rabbit-H…
+##  3 "Alice was beginning to get very tired of sitting by her …       1 Down the Rabbit-H…
+##  4 "bank, and of having nothing to do: once or twice she had…       1 Down the Rabbit-H…
+##  5 "book her sister was reading, but it had no pictures or c…       1 Down the Rabbit-H…
+##  6 "it, 'and what is the use of a book,' thought Alice 'with…       1 Down the Rabbit-H…
+##  7 "conversations?'"                                                1 Down the Rabbit-H…
+##  8 ""                                                               1 Down the Rabbit-H…
+##  9 "So she was considering in her own mind (as well as she c…       1 Down the Rabbit-H…
+## 10 "hot day made her feel very sleepy and stupid), whether t…       1 Down the Rabbit-H…
 ## # … with 3,320 more rows
 ```
 
@@ -352,14 +371,14 @@ head(mt_samples)
 
 ```
 ## # A tibble: 6 x 3
-##   description                         medical_specialty   transcription                      
-##   &lt;chr&gt;                               &lt;chr&gt;               &lt;chr&gt;                              
-## 1 A 23-year-old white female present… Allergy / Immunolo… "SUBJECTIVE:,  This 23-year-old wh…
-## 2 Consult for laparoscopic gastric b… Bariatrics          "PAST MEDICAL HISTORY:, He has dif…
-## 3 Consult for laparoscopic gastric b… Bariatrics          "HISTORY OF PRESENT ILLNESS: , I h…
-## 4 2-D M-Mode. Doppler.                Cardiovascular / P… "2-D M-MODE: , ,1.  Left atrial en…
-## 5 2-D Echocardiogram                  Cardiovascular / P… "1.  The left ventricular cavity s…
-## 6 Morbid obesity.  Laparoscopic ante… Bariatrics          "PREOPERATIVE DIAGNOSIS: , Morbid …
+##   description                      medical_specialty   transcription                    
+##   &lt;chr&gt;                            &lt;chr&gt;               &lt;chr&gt;                            
+## 1 A 23-year-old white female pres… Allergy / Immunolo… "SUBJECTIVE:,  This 23-year-old …
+## 2 Consult for laparoscopic gastri… Bariatrics          "PAST MEDICAL HISTORY:, He has d…
+## 3 Consult for laparoscopic gastri… Bariatrics          "HISTORY OF PRESENT ILLNESS: , I…
+## 4 2-D M-Mode. Doppler.             Cardiovascular / P… "2-D M-MODE: , ,1.  Left atrial …
+## 5 2-D Echocardiogram               Cardiovascular / P… "1.  The left ventricular cavity…
+## 6 Morbid obesity.  Laparoscopic a… Bariatrics          "PREOPERATIVE DIAGNOSIS: , Morbi…
 ```
 
 ---
@@ -585,18 +604,18 @@ mt_samples %&gt;%
 
 ```
 ## # A tibble: 2,398,059 x 3
-##    description                                       medical_specialty         ngram         
-##    &lt;chr&gt;                                             &lt;chr&gt;                     &lt;chr&gt;         
-##  1 1-month-old for a healthy checkup - Well child c… Consult - History and Ph… subjective th…
-##  2 1-month-old for a healthy checkup - Well child c… Consult - History and Ph… this is       
-##  3 1-month-old for a healthy checkup - Well child c… Consult - History and Ph… is a          
-##  4 1-month-old for a healthy checkup - Well child c… Consult - History and Ph… a 1           
-##  5 1-month-old for a healthy checkup - Well child c… Consult - History and Ph… 1 month       
-##  6 1-month-old for a healthy checkup - Well child c… Consult - History and Ph… month old     
-##  7 1-month-old for a healthy checkup - Well child c… Consult - History and Ph… old who       
-##  8 1-month-old for a healthy checkup - Well child c… Consult - History and Ph… who comes     
-##  9 1-month-old for a healthy checkup - Well child c… Consult - History and Ph… comes in      
-## 10 1-month-old for a healthy checkup - Well child c… Consult - History and Ph… in for        
+##    description                                    medical_specialty        ngram        
+##    &lt;chr&gt;                                          &lt;chr&gt;                    &lt;chr&gt;        
+##  1 1-month-old for a healthy checkup - Well chil… Consult - History and P… subjective t…
+##  2 1-month-old for a healthy checkup - Well chil… Consult - History and P… this is      
+##  3 1-month-old for a healthy checkup - Well chil… Consult - History and P… is a         
+##  4 1-month-old for a healthy checkup - Well chil… Consult - History and P… a 1          
+##  5 1-month-old for a healthy checkup - Well chil… Consult - History and P… 1 month      
+##  6 1-month-old for a healthy checkup - Well chil… Consult - History and P… month old    
+##  7 1-month-old for a healthy checkup - Well chil… Consult - History and P… old who      
+##  8 1-month-old for a healthy checkup - Well chil… Consult - History and P… who comes    
+##  9 1-month-old for a healthy checkup - Well chil… Consult - History and P… comes in     
+## 10 1-month-old for a healthy checkup - Well chil… Consult - History and P… in for       
 ## # … with 2,398,049 more rows
 ```
 

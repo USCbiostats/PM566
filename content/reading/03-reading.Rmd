@@ -1,6 +1,6 @@
 ---
-title: "Introduction to Data Science tools: R, R Markdown"
-date: "2020-08-04"
+title: "Exploratory data analysis"
+date: "2020-09-02"
 citeproc: false
 bibliography: ../../static/bib/references.bib
 csl: ../../static/bib/chicago-fullnote-bibliography-no-bib.csl
@@ -19,4 +19,5 @@ The following are recommended (but not expected) for you to read
 
 - [Introduction to data.table](https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro.html)
 - [Chapter 7 of R for Data Science](https://r4ds.had.co.nz/exploratory-data-analysis.html)
+
 

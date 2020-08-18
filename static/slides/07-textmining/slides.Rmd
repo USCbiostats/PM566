@@ -1,6 +1,6 @@
 ---
 title: "Text Mining"
-subtitle: "PM566 - Week 8"
+subtitle: "PM566 - Week 7"
 author: "Emil Hvitfeldt"
 date: ""
 output:
@@ -91,6 +91,7 @@ Works seemlessly with ggplot2, dplyr and tidyr.
 
 ```{r}
 #devtools::install_github("EmilHvitfeldt/tidygutenbergr")
+library(tidyverse)
 library(tidygutenbergr)
 
 alice <- alices_adventures()
@@ -297,6 +298,7 @@ mt_samples %>%
 ## Sample transprict
 
 ```{r, echo=FALSE}
+library(stringr)
 mt_samples %>%
   slice(1) %>%
   pull(transcription) %>%
