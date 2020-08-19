@@ -80,6 +80,18 @@ Syllabus, reading materials, slides, labs and assignments
 
 ---
 
+# USC Software Development Help Page
+
+https://uscbiostats.github.io/software-dev-site/
+
+collection of knowledge about 
+
+- computing
+- standards
+- research practices
+
+---
+
 # What is data science?
 
 - Data science is an exciting discipline that allows you to turn raw data into understanding, insight, and knowledge.
@@ -107,3 +119,31 @@ The course will teach language agnostic skills that are easily transferable, wit
 --
 
 You can use any language/tool you prefer. But we can only guarantee help if you are using R and RStudio.
+
+---
+
+# Break time
+
+We will be taking a 15 min break
+
+```{r, echo = FALSE}
+# install.packages("devtools")
+# devtools::install_github("gadenbuie/countdown")
+library(countdown)
+
+countdown(minutes = 15, seconds = 0, right = "33%", bottom = "33%")
+```
+
+---
+
+# First Lab `r emo::ji("tada")`
+
+The lab exercises can be found at: 
+
+Website -> Schedule -> `r fontawesome::fa("chalkboard-teacher")` -> Lab Exercise
+
+https://elastic-khorana-70231e.netlify.app/assignment/01-lab/
+
+Related Github Issue
+
+https://github.com/USCbiostats/PM566/issues/19
