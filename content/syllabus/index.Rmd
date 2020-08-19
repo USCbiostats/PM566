@@ -47,7 +47,7 @@ Computation using R (downloaded from http://cran.r-project.org), and development
 
 ## Readings and Supplementary Materials
 
-1. R Programming for Data Science, 2019. Roger Peng. https://bookdown.org/rdpeng/rprogdatas
+1. R Programming for Data Science, 2019. Roger Peng. https://bookdown.org/rdpeng/rprogdatascience/
 
 ## Supplementary References
 
