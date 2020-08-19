@@ -164,15 +164,7 @@ Over 16,000 packages added to CRAN
 
 # Break time
 
-We will be taking a 15 min break
-
-```{r, echo = FALSE}
-# install.packages("devtools")
-# devtools::install_github("gadenbuie/countdown")
-library(countdown)
-
-countdown(minutes = 15, seconds = 0, right = "33%", bottom = "33%")
-```
+We will be back for labs at 2:30
 
 ---
 
