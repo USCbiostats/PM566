@@ -1,7 +1,6 @@
 ---
 title: "Welcome!"
 subtitle: "PM 566: Introduction to Health Data Science"
-author: "Emil Hvitfeldt"
 output:
   xaringan::moon_reader:
     css: ["theme.css"]
@@ -61,6 +60,26 @@ library(sass)
 sass(sass_file("theme.sass"), output = "theme.css")
 ```
 
+# Instructors
+
+- Meredith Franklin
+- Emil Hansen
+- Abigail Horn
+- George Gerald Vega Yon
+
+---
+
+# Blackboard + Website
+
+https://blackboard.usc.edu/  
+"Official" class website  
+Announcements + Zoom + Grading
+
+https://github.com/USCbiostats/PM566  
+Syllabus, reading materials, slides, labs and assignments
+
+---
+
 # What is data science?
 
 - Data science is an exciting discipline that allows you to turn raw data into understanding, insight, and knowledge.
@@ -83,8 +102,8 @@ This course is a introduction to the world of data science with a focus on appli
 
 --
 
-The course will teach langaugage agnostic skills that are easily tranferable, with examples done in R.
+The course will teach language agnostic skills that are easily transferable, with examples done in R.
 
----
+--
 
-# More intro slides
+You can use any language/tool you prefer. But we can only guarantee help if you are using R and RStudio.

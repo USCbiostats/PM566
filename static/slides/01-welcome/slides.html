@@ -3,7 +3,7 @@
   <head>
     <title>Welcome!</title>
     <meta charset="utf-8" />
-    <meta name="author" content="Emil Hvitfeldt" />
+    <script src="libs/header-attrs-2.3/header-attrs.js"></script>
     <link rel="stylesheet" href="theme.css" type="text/css" />
   </head>
   <body>
@@ -11,8 +11,7 @@
 class: center, middle, title-slide
 
 # Welcome!
-## Introduction to Health Data Science
-### Emil Hvitfeldt
+## PM 566: Introduction to Health Data Science
 
 ---
 
@@ -20,6 +19,26 @@ class: center, middle, title-slide
 
 
 
+
+# Instructors
+
+- Meredith Franklin
+- Emil Hansen
+- Abigail Horn
+- George Gerald Vega Yon
+
+---
+
+# Blackboard + Website
+
+https://blackboard.usc.edu/  
+"Official" class website  
+Announcements + Zoom + Grading
+
+https://github.com/USCbiostats/PM566  
+Syllabus, reading materials, slides, labs and assignments
+
+---
 
 # What is data science?
 
@@ -43,11 +62,11 @@ This course is a introduction to the world of data science with a focus on appli
 
 --
 
-The course will teach langaugage agnostic skills that are easily tranferable, with examples done in R.
+The course will teach language agnostic skills that are easily transferable, with examples done in R.
 
----
+--
 
-# More intro slides
+You can use any language/tool you prefer. But we can only guarantee help if you are using R and RStudio.
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
@@ -99,30 +118,20 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
 })();
 (function() {
   "use strict"
-  /* Replace <script> tags in slides area to make them executable
-   *
-   * Runs after post-processing of markdown source into slides and replaces only
-   * <script>s on the last slide of continued slides using the .has-continuation
-   * class added by xaringan. Finally, any <script>s in the slides area that
-   * aren't executed are commented out.
-   */
+  // Replace <script> tags in slides area to make them executable
   var scripts = document.querySelectorAll(
-    '.remark-slides-area .remark-slide-container:not(.has-continuation) script'
+    '.remark-slides-area .remark-slide-container script'
   );
   if (!scripts.length) return;
   for (var i = 0; i < scripts.length; i++) {
     var s = document.createElement('script');
     var code = document.createTextNode(scripts[i].textContent);
     s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
     scripts[i].parentElement.replaceChild(s, scripts[i]);
-  }
-  var scriptsNotExecuted = document.querySelectorAll(
-    '.remark-slides-area .remark-slide-container.has-continuation script'
-  );
-  if (!scriptsNotExecuted.length) return;
-  for (var i = 0; i < scriptsNotExecuted.length; i++) {
-    var comment = document.createComment(scriptsNotExecuted[i].outerHTML)
-    scriptsNotExecuted[i].parentElement.replaceChild(comment, scriptsNotExecuted[i])
   }
 })();
 (function() {
