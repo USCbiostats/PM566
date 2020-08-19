@@ -122,6 +122,46 @@ You can use any language/tool you prefer. But we can only guarantee help if you 
 
 ---
 
+# What is R?
+
+<img src="https://www.r-project.org/logo/Rlogo.svg" width="150px" alt="R logo">
+
+> R is a language and environment for statistical computing and graphics.
+---https://r-project.org
+
+Created by statisticians for statisticians.
+
+Over 16,000 packages added to CRAN
+
+---
+
+### What is RStudio?
+
+<img src="https://rstudio.com/wp-content/uploads/2018/10/RStudio-Logo.svg" width="400px" alt="RStudio logo">
+
+> RStudio is an integrated development environment (IDE) for R.
+--- https://rstudio.org/products/rstudio
+
+---
+
+<figure>
+<img src="moderndive-r-vs-rstudio.png" alt="motiondive R vs RStudio tweet">
+</figure>
+
+---
+
+## R in the terminal
+
+<img src="r-command-line.png" width="600px">
+
+---
+
+## R + RStudio
+
+<img src="rstudio-now.png" width="900px">
+
+---
+
 # Break time
 
 We will be taking a 15 min break
