@@ -3,36 +3,53 @@
 <div id="learning-goals" class="section level1">
 <h1>Learning Goals</h1>
 <ul>
-<li>Read in and get familiar with the meteorology dataset shown in the class slides</li>
+<li>Read in and get familiar with the meteorology dataset<br />
+</li>
 <li>Step through the EDA “checklist” presented in the class slides</li>
-<li>Practice making exploratory plots</li>
+<li>Practice making exploratory graphs</li>
 </ul>
 </div>
 <div id="lab-description" class="section level1">
 <h1>Lab Description</h1>
-<p>We will work with the meteorological data presented in lecture. Recall the dataset consists of weather station readings in the continental US. The objective of the lab is to find the met station at the highest point in the US and look at the time series of its wind speed and temperature.</p>
+<p>We will work with the meteorological data presented in lecture. Recall the dataset consists of weather station readings in the continental US.</p>
+<p><strong>The objective of the lab is to find the met station with the highest elevation and look at the time series of its wind speed and temperature.</strong></p>
 </div>
 <div id="steps" class="section level1">
 <h1>Steps</h1>
-<div id="read-in-the-data" class="section level2">
-<h2>1. Read in the data</h2>
+<div id="read-in-the-data" class="section level3">
+<h3>1. Read in the data</h3>
 <p>First download and then read in with data.table:fread()</p>
-<pre class="r"><code>download.file(&quot;https://raw.githubusercontent.com/USCbiostats/data-science-data/master/02_met/met_all.gz&quot;, &quot;met_all.gz&quot;, method=&quot;libcurl&quot;, timeout = 60)
+<pre class="r"><code>download.file(&quot;https://raw.githubusercontent.com/USCbiostats/data-science-data/master/02_met/met_all.gz&quot;,
+              &quot;met_all.gz&quot;, method=&quot;libcurl&quot;, timeout = 60)
 met &lt;- data.table::fread(&quot;met_all.gz&quot;)</code></pre>
-<ol start="2" style="list-style-type: decimal">
-<li>Check the dimensions, headers, footers. How many columns, rows are there?</li>
-</ol>
-<pre class="r"><code>dim()
-head()
-tail()</code></pre>
-<ol start="3" style="list-style-type: decimal">
-<li>Take a deeper look at the variables.</li>
-</ol>
-<pre class="r"><code>str()</code></pre>
-<p>Let’s look at the key variables to see if there are any issues with them</p>
-<pre class="r"><code>summary()
-summary()</code></pre>
+</div>
+<div id="check-the-dimensions-headers-footers.-how-many-columns-rows-are-there" class="section level3">
+<h3>2. Check the dimensions, headers, footers. How many columns, rows are there?</h3>
+<pre class="r"><code>dim(met)
+head(met)
+tail(met)</code></pre>
+</div>
+<div id="take-a-look-at-the-variables." class="section level3">
+<h3>3. Take a look at the variables.</h3>
+<pre class="r"><code>str(met)</code></pre>
+</div>
+<div id="lets-take-a-closer-look-at-the-key-variables-to-see-if-there-are-any-issues." class="section level3">
+<h3>4. Let’s take a closer look at the key variables to see if there are any issues.</h3>
+<pre class="r"><code>summary(met$elev)
+summary(met$temp)
+summary(met$wind.sp)</code></pre>
 <p>It looks like the elevation variable has observations with 9999.0, which is probably an indicator for missing. We should take a deeper look at the data dictionary to confirm. The wind speed variable is ok but there are a lot of missing data.</p>
 <p>After checking the data we should make the appropriate modifications. Replace elevations with 9999 as <code>NA</code>.</p>
+<pre class="r"><code>met[met$elev==9999.0] &lt;- NA
+summary(met$elev)</code></pre>
+<p>At what elevation is the highest weather station?</p>
+<p>We also have the issue of the minimum temperature being -40C, so we should remove those observations</p>
+<pre class="r"><code>met &lt;- met[temp&gt;-40]
+met2 &lt;- met[order(temp)]
+head(met2)</code></pre>
+<p>We again notice that there is a -17.2C temperature reading that seems suspicious.</p>
+</div>
+<div id="check-the-data-against-an-external-data-source.-we-should-check-the-suspicious-temperature-value-where-is-it-located-and-validate-that-the-range-of-elevations-make-sense--13-m-to-4113-m." class="section level3">
+<h3>5. Check the data against an external data source. We should check the suspicious temperature value (where is it located?) and validate that the range of elevations make sense (-13 m to 4113 m).</h3>
 </div>
 </div>

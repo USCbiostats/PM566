@@ -466,11 +466,22 @@ There is a clear decrease in temperatures as you increase in latitude (i.e as yo
 
 ---
 # Exploratory Graphs
-We can add a simple linear regression line to this plot using `lm()` and `abline()`
+We can add a simple linear regression line to this plot using `lm()` and `abline()`. We can also add a title and change the axis labels.
 ```{r out.width = '40%', out.height='40%', fig.align = "center"}
 mod<- lm(temp~lat, data=met3)
-plot(met3$lat, met3$temp, pch=19, cex=0.5, main="Temperature and Latitude", xlab="Latitude", ylab="Temperature (deg C)")
+plot(met3$lat, met3$temp, pch=19, cex=0.5, 
+     main="Temperature and Latitude", 
+     xlab="Latitude", ylab="Temperature (deg C)")
 abline(mod, lwd=2, col="red")
 ```
+
+---
+# Summary
+In EDA we:
+
+* have an initial question that we aim to answer
+* import, check, clean the data
+* perform any data transformations to answer the initial question
+* make some basic graphs to examine the data and visualize the initial question
 
 
