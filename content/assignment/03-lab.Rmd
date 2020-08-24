@@ -1,13 +1,8 @@
 ---
-title: "Lab 03 - Exploratory Data Analysis"
-output: 
-  tufte::tufte_html:
-    css: ../lab.css
-    tufte_variant: "envisioned"
-    highlight: pygments
+title: "Lab 01 - Hello R!"
+output: tufte::tufte_html
 link-citations: yes
 ---
-
 
 
 
@@ -41,32 +36,31 @@ met <- data.table::fread("met_all.gz")
 
 2. Check the dimensions, headers, footers. How many columns, rows are there?
 
-```{r}
-dim(met)
-ncol(met)
-nrow(met)
-head(met)
-tail(met)
+```{r, eval=FALSE}
+dim()
+head()
+tail()
 ```
 3. Take a deeper look at the variables.
 
-```{r}
-str(met)
+```{r, eval=FALSE}
+str()
 ```
-You'll see that str() duplicates the information on number of rows and columns we have. It also provides useful information on the types of variables in the data frame.
+
 
 Let's look at the key variables to see if there are any issues with them 
 
-```{r}
-summary(met$elev)
-summary(met$wind.sp)
+```{r, eval=FALSE}
+summary()
+summary()
 ```
 
 It looks like the elevation variable has observations with 9999.0, which is probably an indicator for missing. We should take a deeper look at the data dictionary to confirm. The wind speed variable is ok but there are a lot of missing data.
 
 After checking the data we should make the appropriate modifications. Replace elevations with 9999 as `NA`.
 
-```{r}
+```{r, eval=FALSE}
 
 ```
+
 
