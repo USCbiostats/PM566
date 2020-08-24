@@ -1,5 +1,5 @@
 ---
-title: "Lab 03 - EDA"
+title: "Lab 03 - Exploratory Data Analysis"
 output: tufte::tufte_html
 link-citations: yes
 ---
@@ -23,7 +23,7 @@ library(tidyverse)
 
 We will work with the meteorological data presented in lecture. Recall the dataset consists of weather station readings in the continental US. 
 
-**The objective of the lab is to find the met station with the highest elevation and look at the time series of its wind speed and temperature.**
+**The objective of the lab is to find the weather station with the highest elevation and look at patterns in the time series of its wind speed and temperature.**
 
 # Steps
 
@@ -39,39 +39,34 @@ met <- data.table::fread("met_all.gz")
 
 ### 2. Check the dimensions, headers, footers. How many columns, rows are there?
 
-```{r, eval=FALSE}
-dim(met)
-head(met)
-tail(met)
+```{r}
+
 ```
 ### 3. Take a look at the variables.
 
-```{r, eval=FALSE}
-str(met)
+```{r}
+
 ```
 
 
 ### 4. Take a closer look at the key variables. 
 
-```{r, eval=FALSE}
-summary(met$elev)
-summary(met$temp)
-summary(met$wind.sp)
+```{r}
+
 ```
 
 It looks like the elevation variable has observations with 9999.0, which is probably an indicator for missing. We should take a deeper look at the data dictionary to confirm. The wind speed variable is ok but there are a lot of missing data.
 
 After checking the data we should make the appropriate modifications. Replace elevations with 9999 as `NA`.
 
-```{r, eval=FALSE}
+```{r}
 met[met$elev==9999.0] <- NA
-summary(met$elev)
 ```
 At what elevation is the highest weather station?
 
-We also have the issue of the minimum temperature being -40C, so we should remove those observations
+We also have the issue of the minimum temperature being -40C, so we should remove those observations.
 
-```{r, eval=FALSE}
+```{r}
 met <- met[temp>-40]
 met2 <- met[order(temp)]
 head(met2)
@@ -95,29 +90,51 @@ Fix any problems that arise in your checks.
 
 Remember to keep the initial question in mind. We want to pick out the weather station with maximum elevation and examine its windspeed and temperature.
 
-Some ideas: select the weather station with maximum elevation; look at the correlation between temperature and wind speed; look at the correlation between temperature and wind speed with hour and day of the month
+Some ideas: select the weather station with maximum elevation; look at the correlation between temperature and wind speed; look at the correlation between temperature and wind speed with hour and day of the month.
+
+```{r}
+elev <- met[elev==max(elev)]
+```
+
 ```{r eval=FALSE, echo=FALSE}
-elev <- met[met$elev==max(met$elev),]
-summary(elev)
 cor(elev$temp,elev$wind.sp, use="complete")
 cor(elev$temp, elev$hour, use="complete")
 cor(elev$wind.sp, elev$day, use="complete")
 ```
-### Exploratory graphs
+
+### 7. Exploratory graphs
 
 
 We should look at the distributions of all of the key variables to make sure there are no remaining issues with the data.
 
-```{r eval=FALSE}
+```{r echo=FALSE, eval=FALSE}
 hist(met$elev)
 hist(met$temp)
 hist(met$wind.sp)
 ```
+One thing we should consider for later analyses is to log transform wind speed and elevation as the are very skewed.
 
-Look at where the weather station with highest elevation is located
 
-```{r}
+Look at where the weather station with highest elevation is located.
+
+```{r eval=FALSE}
 leaflet(elev) %>%
   addProviderTiles('OpenStreetMap') %>% 
   addCircles(lat=~lat,lng=~lon, opacity=1, fillOpacity=1, radius=100)
 ```
+Look at the time series of temperature and wind speed at this location. For this we will need to create a date-time variable for the x-axis.
+
+```{r message=FALSE}
+library(lubridate)
+elev$date <- with(elev, ymd_h(paste(year, month, day, hour, sep= ' ')))
+summary(elev$date)
+```
+With the date-time variable we can plot the time series of temperature and wind speed.
+
+```{r eval=FALSE, echo=FALSE}
+plot(elev$date, elev$temp, type="l")
+plot(elev$date, elev$wind.sp, type="l")
+```
+Summarize any trends that you see in these time series plots.
+
+
