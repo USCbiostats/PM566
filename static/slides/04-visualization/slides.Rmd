@@ -98,27 +98,26 @@ ggplot(data=data) +
 ---
 
 ## Data
-Here is a data frame that is part of ggplot2:
+Let us continue with the weather data from last week.  Let's take the daily averages at each site, keeping some of the variables. Let's also create a new variable for region (east and west) for exploratory plotting purposes.
 ```{r}
-mpg
-head(mpg)
+met <- data.table::fread("/Users/meredith/Dropbox (University of Southern California)/Courses/PM566/met_all.gz")
+met_avg<-met[,.(temp=mean(temp), rh=mean(rh), wind.sp=mean(wind.sp), lat=mean(lat), lon=mean(lon), elev=mean(elev)), by=c("USAFID", "day")]
+met_avg$region <- ifelse(met_avg$lon> -98, "east", "west")
 ```
-The variables we will focus on for this example are
+The variables we will focus on for this example are temp and rh (temperature in C and relative humidity %)
 
-* displ, a car???s engine size, in litres.
-* hwy, a car???s fuel efficiency on the highway, in miles per gallon (mpg). 
 
 ---
 
-## Basic plot 1
+## Basic Scatterplot
 
 Here's how to create a basic plot in ggplot2
 
 ```{r, out.width='40%'}
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy))
+ggplot(data = met_avg) + 
+  geom_point(mapping = aes(x = temp, y = rh))
 ```
-As expected, we see that cars with big engines use more fuel.
+We see that as temperature increases, relative humidity decreases.
 
 ggplot2 begins a plot with the function ggplot(), which creates a coordinate system that you can add layers to. The first argument of ggplot() is the dataset to use in the graph.
 
