@@ -8,8 +8,9 @@ csl: ../../static/bib/chicago-fullnote-bibliography-no-bib.csl
 
 # Required reading
 
-To be announced
+Chapter 3 of  [R for Data Science](https://r4ds.had.co.nz/data-visualisation.html)
+
 
 # Optional reading
 
-To be announced
+Chapter 15 of [Exploratory Data Analysis with R](https://bookdown.org/rdpeng/exdata/the-ggplot2-plotting-system-part-2.html)

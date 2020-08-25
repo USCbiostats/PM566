@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Data Visualization</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, title-slide
+
+# Data Visualization
+## PM 566: Introduction to Health Data Science
+
+---
+
+
+
+
+
+
+# What is this lecture?
+
+&lt;img src="img/ggplot2.png" width="25%" style="display: block; margin: auto;" /&gt;
+
+This lecture provides an introduction to ggplot2, an R package that provides vastly better graphics options than R's default plots, histrograms, etc.
+
+This section is based on chapter 3 of  ["R for Data Science"](https://r4ds.had.co.nz/)
+
+---
+
+
+## Background
+
+`ggplot2` is part of the Tidyverse. The tidyverse is..."an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures." (https://www.tidyverse.org/)
+
+
+```r
+library(tidyverse)
+```
+---
+
+## ggplot
+
+* With ggplot2 a plot is initiated with the function `ggplot()`
+* The first argument of `ggplot()` is the dataset to use in the graph
+* Layers are added to `ggplot()` with `+`
+* Layers include `geom` functions such as point, lines, etc
+* Each `geom` function takes a `mapping` argument, which is always paired with `aes()`
+* The `aes()` mapping takes the x and y axes of the plot
+
+
+```r
+ggplot(data=data) +
+    geom_function(mapping=aes(mappings))
+```
+---
+
+## Data
+Here is a data frame that is part of ggplot2:
+
+```r
+mpg
+```
+
+```
+## # A tibble: 234 x 11
+##    manufacturer model    displ  year   cyl trans   drv     cty   hwy fl    class
+##    &lt;chr&gt;        &lt;chr&gt;    &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;
+##  1 audi         a4         1.8  1999     4 auto(l… f        18    29 p     comp…
+##  2 audi         a4         1.8  1999     4 manual… f        21    29 p     comp…
+##  3 audi         a4         2    2008     4 manual… f        20    31 p     comp…
+##  4 audi         a4         2    2008     4 auto(a… f        21    30 p     comp…
+##  5 audi         a4         2.8  1999     6 auto(l… f        16    26 p     comp…
+##  6 audi         a4         2.8  1999     6 manual… f        18    26 p     comp…
+##  7 audi         a4         3.1  2008     6 auto(a… f        18    27 p     comp…
+##  8 audi         a4 quat…   1.8  1999     4 manual… 4        18    26 p     comp…
+##  9 audi         a4 quat…   1.8  1999     4 auto(l… 4        16    25 p     comp…
+## 10 audi         a4 quat…   2    2008     4 manual… 4        20    28 p     comp…
+## # … with 224 more rows
+```
+
+```r
+head(mpg)
+```
+
+```
+## # A tibble: 6 x 11
+##   manufacturer model displ  year   cyl trans      drv     cty   hwy fl    class 
+##   &lt;chr&gt;        &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;      &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; 
+## 1 audi         a4      1.8  1999     4 auto(l5)   f        18    29 p     compa…
+## 2 audi         a4      1.8  1999     4 manual(m5) f        21    29 p     compa…
+## 3 audi         a4      2    2008     4 manual(m6) f        20    31 p     compa…
+## 4 audi         a4      2    2008     4 auto(av)   f        21    30 p     compa…
+## 5 audi         a4      2.8  1999     6 auto(l5)   f        16    26 p     compa…
+## 6 audi         a4      2.8  1999     6 manual(m5) f        18    26 p     compa…
+```
+The variables we will focus on for this example are
+
+* displ, a car???s engine size, in litres.
+* hwy, a car???s fuel efficiency on the highway, in miles per gallon (mpg). 
+
+---
+
+## Basic plot 1
+
+Here's how to create a basic plot in ggplot2
+
+
+```r
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy))
+```
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-7-1.png" width="40%" style="display: block; margin: auto;" /&gt;
+As expected, we see that cars with big engines use more fuel.
+
+ggplot2 begins a plot with the function ggplot(), which creates a coordinate system that you can add layers to. The first argument of ggplot() is the dataset to use in the graph.
+
+You complete the graph by adding one or more layers to ggplot().
+
+---
+
+### Basic plot 2
+
+geom_point() adds a layer of points to your plot, to create a scatterplot. 
+
+ggplot2 comes with many geom functions that each add a different type of layer to a plot. 
+
+Each geom function in ggplot2 takes a mapping argument. 
+This defines how variables in your dataset are mapped to visual properties. 
+The mapping argument is always paired with aes(), and the x and y arguments of aes() specify which variables to map to the x and y axes. ggplot2 looks for the mapped variables in the data argument, in this case, mpg.
+
+One common problem when creating ggplot2 graphics is to put the + in the wrong place: it has to come at the end of the line, not the start.
+
+---
+### Coloring by a variable - using aesthetics
+
+You can convey information about your data by mapping the aesthetics in your plot to the variables in your dataset. For example, you can map the colors of your points to the class variable to reveal the class of each car. ggpot chooses colors, and adds a legend, automatically.
+
+```r
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, color = class))
+```
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-8-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+We see that 2-seater cars have small engines and unusally high fuel efficiency.
+
+---
+### Determining point size using a variable 
+You can map point size to a variable as well:
+
+```r
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, size = class))
+```
+
+```
+## Warning: Using size for a discrete variable is not advised.
+```
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-9-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+---
+
+### Controlling point transparency using the "alpha" aesthetic
+
+```r
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, alpha = class))
+```
+
+```
+## Warning: Using alpha for a discrete variable is not advised.
+```
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-10-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+---
+
+### Controlling point shape:
+
+```r
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, shape = class))
+```
+
+```
+## Warning: The shape palette can deal with a maximum of 6 discrete values because
+## more than 6 becomes difficult to discriminate; you have 7. Consider
+## specifying shapes manually if you must have them.
+```
+
+```
+## Warning: Removed 62 rows containing missing values (geom_point).
+```
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-11-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+ Note that, by default, ggplot uses up to 6 shapes. If there are more, some of your data is not plotted!! (At least it warns you.)
+
+---
+
+### Manual control of aesthetics
+
+To control aesthetics manually, set the aesthetic by name as an argument of your geom function; i.e. it goes outside of aes().
+
+```r
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy), color = "blue")
+```
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-12-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+  
+
+---
+
+### Summary of aesthetics
+The various aesthetics...
+
+
+
+---
+
+
+
+
+
+|code         |         description       | 
+|-------------|:-------------------------:|
+|     x       |     position on x-axis    |
+|     y       |     position on y-axis    |
+|   shape     |           shape           |
+|   color     |  color of element borders |
+|    fill     |  color inside of elements |
+|    size     |           size            |
+|   alpha     |       transparency        |
+|  linetype   |       type of line        |
+
+### Facets 1
+
+Facets are particularly useful for categorical variables...
+
+
+```r
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) + 
+  facet_wrap(~ class, nrow = 2)
+```
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+  
+---
+
+### Facets 2
+Or you can facet on two variables...
+
+```r
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) + 
+  facet_grid(drv ~ cyl)
+```
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+
+### Geometric objects 1
+
+Geometric objects are used to control the type of plot you draw.
+So far we have used scatterplots (via 'geom_point'). But now let's try plotting a smoothed line fitted to the data (and note how we do side-by-side plots)
+
+
+```r
+library(cowplot)
+scatterplot &lt;- ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy))
+lineplot &lt;- ggplot(data = mpg) + geom_smooth(mapping = aes(x = displ, y = hwy))
+plot_grid(scatterplot, lineplot, labels = "AUTO")
+```
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-15-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+cowplot is a package due to Claus Wilke, it..." is a simple add-on to ggplot. It provides various features that help with creating publication-quality figures, such as a set of themes, functions to align plots and arrange them into complex compound figures, and functions that make it easy to annotate plots and or mix plots with images."
+
+---
+
+### Geometric objects 2
+
+Note that not every aesthetic works with every geom function. But now there are some new ones we can use. 
+
+```r
+ggplot(data = mpg) + 
+  geom_smooth(mapping = aes(x = displ, y = hwy, linetype = drv))
+```
+
+```
+## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+```
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-16-1.png" width="700px" style="display: block; margin: auto;" /&gt;
+Here we make the line type depend on the cars drivetrain.
+
+
+---
+
+### Geoms - reference
+
+ggplot2 provides over 40 geoms, and extension packages provide even more (see https://ggplot2.tidyverse.org/reference/ for a sampling). 
+
+The best way to get a comprehensive overview is the ggplot2 cheatsheet, which you can find at https://rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf
+
+&lt;img src="img/geoms.png" width="75%" style="display: block; margin: auto;" /&gt;
+
+---
+
+### Multiple geoms 1
+To display multiple geoms in the same plot, add multiple geom functions to ggplot():
+
+
+```r
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) +
+  geom_smooth(mapping = aes(x = displ, y = hwy))
+```
+
+```
+## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+```
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-18-1.png" width="700px" style="display: block; margin: auto;" /&gt;
+
+---
+
+### Multiple geoms 2
+We can avoid repetition of aethetics by passing a set of mappings to ggplot(). 
+ggplot2 will treat these mappings as global mappings that apply to each geom in the graph. 
+
+
+```r
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+  geom_point() + 
+  geom_smooth()
+```
+
+```
+## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+```
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-19-1.png" width="700px" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+### Multiple geoms 3
+
+If you place mappings in a geom function, ggplot2 will use these mappings to extend or overwrite the global mappings for that layer only. This makes it possible to display different aesthetics in different layers.
+
+
+```r
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point(mapping = aes(color = class)) + 
+  geom_smooth()
+```
+
+```
+## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+```
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-20-1.png" width="700px" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+### Multiple geoms 4
+
+You can use the same idea to specify different data for each layer. Here, our smooth line displays just a subset of the mpg dataset, the subcompact cars. The local data argument in geom_smooth() overrides the global data argument in ggplot() for that layer only.
+
+
+```r
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point(mapping = aes(color = class)) + 
+  geom_smooth(data = filter(mpg, class == "subcompact"), se = FALSE)
+```
+
+```
+## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+```
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-21-1.png" width="700px" style="display: block; margin: auto;" /&gt;
+
+---
+
+### Statistical transformationas - e.g. Bar charts
+
+This example uses the built-in dataset "diamonds".
+
+
+```r
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut))
+```
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-22-1.png" width="700px" style="display: block; margin: auto;" /&gt;
+
+The algorithm uses a built-in statistical trandformation, called a "stat", to calcluate the counts.
+
+---
+
+# Bar charts 2
+
+You can over-ride the stat a geom uses to construct its plot. e.g., if we want to plpot proportions, rather than counts:
+
+
+```r
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, y = stat(prop), group = 1))
+```
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-23-1.png" width="700px" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Coloring barcharts
+
+You can colour a bar chart using either the colour aesthetic, or, more usefully, fill:
+
+
+```r
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, colour = cut))
+```
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-24-1.png" width="700px" style="display: block; margin: auto;" /&gt;
+
+```r
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, fill = cut))
+```
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-24-2.png" width="700px" style="display: block; margin: auto;" /&gt;
+
+More interestingly, you can fill by another variable (here, 'clarity')
+
+
+```r
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, fill = clarity))
+```
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-25-1.png" width="700px" style="display: block; margin: auto;" /&gt;
+
+position = "dodge" places overlapping objects directly beside one another. This makes it easier to compare individual values.
+
+
+```r
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, fill = clarity), position = "dodge")
+```
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-26-1.png" width="700px" style="display: block; margin: auto;" /&gt;
+
+
+
+
+---
+
+### Statistical transformations - another example
+
+You might want to draw greater attention to the statistical transformation in your code. For example, you might use stat_summary(), which summarises the y values for each unique x value, to draw attention to the summary that you???re computing:
+
+
+```r
+ggplot(data = diamonds) + 
+  stat_summary(
+    mapping = aes(x = cut, y = depth),
+    fun.min = min,
+    fun.max = max,
+    fun = median
+  )
+```
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-27-1.png" width="700px" style="display: block; margin: auto;" /&gt;
+
+
+---
+ 
+### Position adjustments
+ 
+An option that can be very useful is position = "jitter".
+This adds a small amount of random noise to each point. This spreads out points that might otherwise be overlapping. e.g., 
+
+
+
+```r
+nojitter &lt;- ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy))
+jitter &lt;- ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy), position = "jitter")
+
+plot_grid(nojitter, jitter, labels = "AUTO")
+```
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-28-1.png" width="700px" style="display: block; margin: auto;" /&gt;
+
+---
+
+### Coordinate systems
+
+Coordinate systems are one of the more complicated corners of ggplot.
+To start with something simple, here's how to flip axes:
+
+
+```r
+unflipped &lt;- ggplot(data = mpg, mapping = aes(x = class, y = hwy)) + 
+  geom_boxplot()
+flipped &lt;- ggplot(data = mpg, mapping = aes(x = class, y = hwy)) + 
+  geom_boxplot() +
+  coord_flip()
+plot_grid(unflipped, flipped, labels = "AUTO")
+```
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-29-1.png" width="700px" style="display: block; margin: auto;" /&gt;
+
+There is also the ability to control the aspect ratio using coord_quickmap()  and to use polar coordinates with coord_polar().
+
+
+```r
+bar &lt;- ggplot(data = diamonds) + 
+  geom_bar(
+    mapping = aes(x = cut, fill = cut), 
+    show.legend = FALSE,
+    width = 1
+  ) + 
+  theme(aspect.ratio = 1) +
+  labs(x = NULL, y = NULL)
+
+bar + coord_flip()
+```
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-30-1.png" width="700px" style="display: block; margin: auto;" /&gt;
+
+```r
+bar + coord_polar()
+```
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-30-2.png" width="700px" style="display: block; margin: auto;" /&gt;
+
+---
+
+### A Great reference
+
+A great (comprehensive) reference for everything you can do with ggplot2 is the R Graphics Cookbook:
+
+https://r-graphics.org/
+
+---
+
+### Reminder - the ggplot2 cheatsheet
+
+A briefer summary can be found here:
+
+https://rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf
+
+Rstudio has a variety of other great Cheatsheets.
+
+---
+
+
+---
+
+### Finally, file under "useless but cool"
+
+ggpattern - is a library for adding pattern fills to histograms. e.g.,
+
+
+---
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

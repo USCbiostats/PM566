@@ -24,6 +24,9 @@ editor_options:
 
 [link](/assignment/01-lab)
 
+
+[Download](/assignment/pm566-01-lab.zip)
+
 ## Slides
 
 [link](/slides/01-welcome/slides.html)
