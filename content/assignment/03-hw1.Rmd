@@ -4,6 +4,9 @@ output: tufte::tufte_html
 link-citations: yes
 ---
 
+# Due Date
+This assignment is due at the end of the day September 9th, 2020
+
 # Learning Goals
 - Download, read, and get familiar with an external dataset. 
 - Step through the EDA "checklist" presented in class

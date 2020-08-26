@@ -101,7 +101,8 @@ ggplot(data=data) +
 Let us continue with the weather data from last week.  Let's take the daily averages at each site, keeping some of the variables. Let's also create a new variable for region (east and west) for exploratory plotting purposes.
 ```{r}
 met <- data.table::fread("/Users/meredith/Dropbox (University of Southern California)/Courses/PM566/met_all.gz")
-met_avg<-met[,.(temp=mean(temp), rh=mean(rh), wind.sp=mean(wind.sp), lat=mean(lat), lon=mean(lon), elev=mean(elev)), by=c("USAFID", "day")]
+met_avg<-met[,.(temp=mean(temp), rh=mean(rh), wind.sp=mean(wind.sp), 
+                lat=mean(lat), lon=mean(lon), elev=mean(elev)), by=c("USAFID", "day")]
 met_avg$region <- ifelse(met_avg$lon> -98, "east", "west")
 ```
 The variables we will focus on for this example are temp and rh (temperature in C and relative humidity %)
@@ -113,58 +114,63 @@ The variables we will focus on for this example are temp and rh (temperature in 
 
 Here's how to create a basic plot in ggplot2
 
-```{r, out.width='40%'}
+```{r, out.width='40%', warning=FALSE}
 ggplot(data = met_avg) + 
   geom_point(mapping = aes(x = temp, y = rh))
 ```
 We see that as temperature increases, relative humidity decreases.
 
-ggplot2 begins a plot with the function ggplot(), which creates a coordinate system that you can add layers to. The first argument of ggplot() is the dataset to use in the graph.
-
-You complete the graph by adding one or more layers to ggplot().
 
 ---
 
-### Basic plot 2
+## Basic Scatterplot 2
 
-geom_point() adds a layer of points to your plot, to create a scatterplot. 
+`geom_point()` adds a layer of points to your plot, to create a scatterplot. 
 
-ggplot2 comes with many geom functions that each add a different type of layer to a plot. 
+--
 
-Each geom function in ggplot2 takes a mapping argument. 
-This defines how variables in your dataset are mapped to visual properties. 
-The mapping argument is always paired with aes(), and the x and y arguments of aes() specify which variables to map to the x and y axes. ggplot2 looks for the mapped variables in the data argument, in this case, mpg.
+`ggplot2` comes with many geom functions that each add a different type of layer to a plot. 
 
-One common problem when creating ggplot2 graphics is to put the + in the wrong place: it has to come at the end of the line, not the start.
+--
+
+Each geom function in `ggplot2` takes a mapping argument. This defines how variables in your dataset are mapped to visual properties. 
+
+--
+
+The mapping argument is always paired with `aes()`, and the x and y arguments of `aes()` specify which variables to map to the x and y axes. ggplot2 looks for the mapped variables in the data argument, in this case, met
+
+--
+
+One common problem when creating ggplot2 graphics is to put the `+` in the wrong place: it has to come at the end of the line, not the start.
 
 ---
-### Coloring by a variable - using aesthetics
+## Coloring by a variable - using aesthetics
 
-You can convey information about your data by mapping the aesthetics in your plot to the variables in your dataset. For example, you can map the colors of your points to the class variable to reveal the class of each car. ggpot chooses colors, and adds a legend, automatically.
-```{r, out.width='50%'}
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy, color = class))
+You can convey information about your data by mapping the aesthetics in your plot to the variables in your dataset. For example, you can map the colors of your points to the class variable to reveal the region of data (west or east). ggplot chooses colors, and adds a legend, automatically.
+```{r, out.width='40%',out.height='40%', warning=FALSE}
+ggplot(data = met_avg) + 
+  geom_point(mapping = aes(x = temp, y = rh, color = region))
 ```
-We see that 2-seater cars have small engines and unusally high fuel efficiency.
+We see that humidity in the east is generally higher than in the west and that the hottest temperatures are in the west.
 
 ---
-### Determining point size using a variable 
+## Determining point size using a variable 
 You can map point size to a variable as well:
-```{r, out.width='50%'}
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy, size = class))
+```{r, out.width='50%', warning=FALSE}
+ggplot(data = met_avg) + 
+  geom_point(mapping = aes(x = temp, y = rh, size = region))
 ```
 ---
 
 ### Controlling point transparency using the "alpha" aesthetic
-```{r, out.width='50%'}
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy, alpha = class))
+```{r, out.width='50%', warning=FALSE}
+ggplot(data = met_avg) + 
+  geom_point(mapping = aes(x = temp, y = rh, alpha = region))
 ```
 
 ---
 
-### Controlling point shape:
+## Controlling point shape:
 ```{r, out.width='50%'}
 ggplot(data = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy, shape = class))
@@ -184,7 +190,7 @@ ggplot(data = mpg) +
 
 ---
 
-### Summary of aesthetics
+## Summary of aesthetics
 The various aesthetics...
 
 ```{r table2, echo=FALSE, message=FALSE, warnings=FALSE, results='asis', eval=FALSE}
@@ -203,11 +209,6 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
----
-
-
-
-
 
 |code         |         description       | 
 |-------------|:-------------------------:|
@@ -220,7 +221,9 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 |   alpha     |       transparency        |
 |  linetype   |       type of line        |
 
-### Facets 1
+
+---
+## Facets 1
 
 Facets are particularly useful for categorical variables...
 
@@ -466,14 +469,4 @@ https://rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf
 
 Rstudio has a variety of other great Cheatsheets.
 
----
 
-
----
-
-### Finally, file under "useless but cool"
-
-ggpattern - is a library for adding pattern fills to histograms. e.g.,
-
-
----

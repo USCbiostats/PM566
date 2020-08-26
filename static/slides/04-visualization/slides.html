@@ -57,106 +57,75 @@ ggplot(data=data) +
 ---
 
 ## Data
-Here is a data frame that is part of ggplot2:
+Let us continue with the weather data from last week.  Let's take the daily averages at each site, keeping some of the variables. Let's also create a new variable for region (east and west) for exploratory plotting purposes.
 
 ```r
-mpg
+met &lt;- data.table::fread("/Users/meredith/Dropbox (University of Southern California)/Courses/PM566/met_all.gz")
+met_avg&lt;-met[,.(temp=mean(temp), rh=mean(rh), wind.sp=mean(wind.sp), 
+                lat=mean(lat), lon=mean(lon), elev=mean(elev)), by=c("USAFID", "day")]
+met_avg$region &lt;- ifelse(met_avg$lon&gt; -98, "east", "west")
 ```
+The variables we will focus on for this example are temp and rh (temperature in C and relative humidity %)
 
-```
-## # A tibble: 234 x 11
-##    manufacturer model    displ  year   cyl trans   drv     cty   hwy fl    class
-##    &lt;chr&gt;        &lt;chr&gt;    &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;
-##  1 audi         a4         1.8  1999     4 auto(l… f        18    29 p     comp…
-##  2 audi         a4         1.8  1999     4 manual… f        21    29 p     comp…
-##  3 audi         a4         2    2008     4 manual… f        20    31 p     comp…
-##  4 audi         a4         2    2008     4 auto(a… f        21    30 p     comp…
-##  5 audi         a4         2.8  1999     6 auto(l… f        16    26 p     comp…
-##  6 audi         a4         2.8  1999     6 manual… f        18    26 p     comp…
-##  7 audi         a4         3.1  2008     6 auto(a… f        18    27 p     comp…
-##  8 audi         a4 quat…   1.8  1999     4 manual… 4        18    26 p     comp…
-##  9 audi         a4 quat…   1.8  1999     4 auto(l… 4        16    25 p     comp…
-## 10 audi         a4 quat…   2    2008     4 manual… 4        20    28 p     comp…
-## # … with 224 more rows
-```
-
-```r
-head(mpg)
-```
-
-```
-## # A tibble: 6 x 11
-##   manufacturer model displ  year   cyl trans      drv     cty   hwy fl    class 
-##   &lt;chr&gt;        &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;      &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; 
-## 1 audi         a4      1.8  1999     4 auto(l5)   f        18    29 p     compa…
-## 2 audi         a4      1.8  1999     4 manual(m5) f        21    29 p     compa…
-## 3 audi         a4      2    2008     4 manual(m6) f        20    31 p     compa…
-## 4 audi         a4      2    2008     4 auto(av)   f        21    30 p     compa…
-## 5 audi         a4      2.8  1999     6 auto(l5)   f        16    26 p     compa…
-## 6 audi         a4      2.8  1999     6 manual(m5) f        18    26 p     compa…
-```
-The variables we will focus on for this example are
-
-* displ, a car???s engine size, in litres.
-* hwy, a car???s fuel efficiency on the highway, in miles per gallon (mpg). 
 
 ---
 
-## Basic plot 1
+## Basic Scatterplot
 
 Here's how to create a basic plot in ggplot2
 
 
 ```r
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy))
+ggplot(data = met_avg) + 
+  geom_point(mapping = aes(x = temp, y = rh))
 ```
 
 &lt;img src="slides_files/figure-html/unnamed-chunk-7-1.png" width="40%" style="display: block; margin: auto;" /&gt;
-As expected, we see that cars with big engines use more fuel.
+We see that as temperature increases, relative humidity decreases.
 
-ggplot2 begins a plot with the function ggplot(), which creates a coordinate system that you can add layers to. The first argument of ggplot() is the dataset to use in the graph.
-
-You complete the graph by adding one or more layers to ggplot().
 
 ---
 
-### Basic plot 2
+## Basic Scatterplot 2
 
-geom_point() adds a layer of points to your plot, to create a scatterplot. 
+`geom_point()` adds a layer of points to your plot, to create a scatterplot. 
 
-ggplot2 comes with many geom functions that each add a different type of layer to a plot. 
+--
 
-Each geom function in ggplot2 takes a mapping argument. 
-This defines how variables in your dataset are mapped to visual properties. 
-The mapping argument is always paired with aes(), and the x and y arguments of aes() specify which variables to map to the x and y axes. ggplot2 looks for the mapped variables in the data argument, in this case, mpg.
+`ggplot2` comes with many geom functions that each add a different type of layer to a plot. 
 
-One common problem when creating ggplot2 graphics is to put the + in the wrong place: it has to come at the end of the line, not the start.
+--
+
+Each geom function in `ggplot2` takes a mapping argument. This defines how variables in your dataset are mapped to visual properties. 
+
+--
+
+The mapping argument is always paired with `aes()`, and the x and y arguments of `aes()` specify which variables to map to the x and y axes. ggplot2 looks for the mapped variables in the data argument, in this case, met
+
+--
+
+One common problem when creating ggplot2 graphics is to put the `+` in the wrong place: it has to come at the end of the line, not the start.
 
 ---
-### Coloring by a variable - using aesthetics
+## Coloring by a variable - using aesthetics
 
-You can convey information about your data by mapping the aesthetics in your plot to the variables in your dataset. For example, you can map the colors of your points to the class variable to reveal the class of each car. ggpot chooses colors, and adds a legend, automatically.
+You can convey information about your data by mapping the aesthetics in your plot to the variables in your dataset. For example, you can map the colors of your points to the class variable to reveal the region of data (west or east). ggplot chooses colors, and adds a legend, automatically.
 
 ```r
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy, color = class))
+ggplot(data = met_avg) + 
+  geom_point(mapping = aes(x = temp, y = rh, color = region))
 ```
 
-&lt;img src="slides_files/figure-html/unnamed-chunk-8-1.png" width="50%" style="display: block; margin: auto;" /&gt;
-We see that 2-seater cars have small engines and unusally high fuel efficiency.
+&lt;img src="slides_files/figure-html/unnamed-chunk-8-1.png" width="40%" height="40%" style="display: block; margin: auto;" /&gt;
+We see that humidity in the east is generally higher than in the west and that the hottest temperatures are in the west.
 
 ---
-### Determining point size using a variable 
+## Determining point size using a variable 
 You can map point size to a variable as well:
 
 ```r
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy, size = class))
-```
-
-```
-## Warning: Using size for a discrete variable is not advised.
+ggplot(data = met_avg) + 
+  geom_point(mapping = aes(x = temp, y = rh, size = region))
 ```
 
 &lt;img src="slides_files/figure-html/unnamed-chunk-9-1.png" width="50%" style="display: block; margin: auto;" /&gt;
@@ -165,19 +134,15 @@ ggplot(data = mpg) +
 ### Controlling point transparency using the "alpha" aesthetic
 
 ```r
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy, alpha = class))
-```
-
-```
-## Warning: Using alpha for a discrete variable is not advised.
+ggplot(data = met_avg) + 
+  geom_point(mapping = aes(x = temp, y = rh, alpha = region))
 ```
 
 &lt;img src="slides_files/figure-html/unnamed-chunk-10-1.png" width="50%" style="display: block; margin: auto;" /&gt;
 
 ---
 
-### Controlling point shape:
+## Controlling point shape:
 
 ```r
 ggplot(data = mpg) + 
@@ -213,13 +178,8 @@ ggplot(data = mpg) +
 
 ---
 
-### Summary of aesthetics
+## Summary of aesthetics
 The various aesthetics...
-
-
-
----
-
 
 
 
@@ -235,7 +195,9 @@ The various aesthetics...
 |   alpha     |       transparency        |
 |  linetype   |       type of line        |
 
-### Facets 1
+
+---
+## Facets 1
 
 Facets are particularly useful for categorical variables...
 
@@ -559,18 +521,6 @@ A briefer summary can be found here:
 https://rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf
 
 Rstudio has a variety of other great Cheatsheets.
-
----
-
-
----
-
-### Finally, file under "useless but cool"
-
-ggpattern - is a library for adding pattern fills to histograms. e.g.,
-
-
----
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
