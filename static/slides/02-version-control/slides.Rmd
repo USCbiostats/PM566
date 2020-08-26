@@ -5,16 +5,16 @@ author: "George G. Vega Yon"
 output:
   # slidy_presentation
   xaringan::moon_reader:
-    css: ["theme.css"]
+    # css: ["theme.css"]
     lib_dir: libs
     nature:
-      beforeInit: "macros.js"
+      # beforeInit: "macros.js"
       ratio: "16:9"
       highlightStyle: github
       highlightLines: false
       countIncrementalSlides: false
       titleSlideClass: [center, middle]
-  #   code_download: true
+    # code_download: true
 ---
 
 # Part I: intro

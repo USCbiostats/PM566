@@ -1,13 +1,8 @@
 ---
 title: "Lab 03 - Exploratory Data Analysis"
-output: 
-  tufte::tufte_html:
-    css: ../lab.css
-    tufte_variant: "envisioned"
-    highlight: pygments
+output: tufte::tufte_html
 link-citations: yes
 ---
-
 
 
 
@@ -19,47 +14,45 @@ library(tidyverse)
 
 # Learning Goals
 
-- Read in and get familiar with the meteorology dataset shown in the class slides 
+- Read in and get familiar with the meteorology dataset  
 - Step through the EDA "checklist" presented in the class slides
-- Practice making exploratory plots
+- Practice making exploratory graphs
 
 
 # Lab Description
 
-We will work with the meteorological data presented in lecture. Recall the dataset consists of weather station readings in the continental US. The objective of the lab is to find the met station at the highest point in the US and look at the time series of its wind speed and temperature.
+We will work with the meteorological data presented in lecture. Recall the dataset consists of weather station readings in the continental US. 
+
+**The objective of the lab is to find the weather station with the highest elevation and look at patterns in the time series of its wind speed and temperature.**
 
 # Steps
 
-## 1. Read in the data
+### 1. Read in the data
 
 First download and then read in with data.table:fread()
 
 ```{r, echo=TRUE, message=FALSE}
-download.file("https://raw.githubusercontent.com/USCbiostats/data-science-data/master/02_met/met_all.gz", "met_all.gz", method="libcurl", timeout = 60)
+download.file("https://raw.githubusercontent.com/USCbiostats/data-science-data/master/02_met/met_all.gz",
+              "met_all.gz", method="libcurl", timeout = 60)
 met <- data.table::fread("met_all.gz")
 ```
 
-2. Check the dimensions, headers, footers. How many columns, rows are there?
+### 2. Check the dimensions, headers, footers. How many columns, rows are there?
 
 ```{r}
-dim(met)
-ncol(met)
-nrow(met)
-head(met)
-tail(met)
+
 ```
-3. Take a deeper look at the variables.
+### 3. Take a look at the variables.
 
 ```{r}
-str(met)
+
 ```
-You'll see that str() duplicates the information on number of rows and columns we have. It also provides useful information on the types of variables in the data frame.
 
-Let's look at the key variables to see if there are any issues with them 
+
+### 4. Take a closer look at the key variables. 
 
 ```{r}
-summary(met$elev)
-summary(met$wind.sp)
+
 ```
 
 It looks like the elevation variable has observations with 9999.0, which is probably an indicator for missing. We should take a deeper look at the data dictionary to confirm. The wind speed variable is ok but there are a lot of missing data.
@@ -67,6 +60,81 @@ It looks like the elevation variable has observations with 9999.0, which is prob
 After checking the data we should make the appropriate modifications. Replace elevations with 9999 as `NA`.
 
 ```{r}
+met[met$elev==9999.0] <- NA
+```
+At what elevation is the highest weather station?
+
+We also have the issue of the minimum temperature being -40C, so we should remove those observations.
+
+```{r}
+met <- met[temp>-40]
+met2 <- met[order(temp)]
+head(met2)
+```
+
+We again notice that there is a -17.2C temperature reading that seems suspicious.
+
+### 5. Check the data against an external data source.
+
+We should check the suspicious temperature value (where is it located?) and validate that the range of elevations make sense (-13 m to 4113 m).
+
+Google is your friend here.
+
+Fix any problems that arise in your checks.
+
+```{r, eval=FALSE}
 
 ```
+
+### 6. Calculate summary statistics
+
+Remember to keep the initial question in mind. We want to pick out the weather station with maximum elevation and examine its windspeed and temperature.
+
+Some ideas: select the weather station with maximum elevation; look at the correlation between temperature and wind speed; look at the correlation between temperature and wind speed with hour and day of the month.
+
+```{r}
+elev <- met[elev==max(elev)]
+```
+
+```{r eval=FALSE, echo=FALSE}
+cor(elev$temp,elev$wind.sp, use="complete")
+cor(elev$temp, elev$hour, use="complete")
+cor(elev$wind.sp, elev$day, use="complete")
+```
+
+### 7. Exploratory graphs
+
+
+We should look at the distributions of all of the key variables to make sure there are no remaining issues with the data.
+
+```{r echo=FALSE, eval=FALSE}
+hist(met$elev)
+hist(met$temp)
+hist(met$wind.sp)
+```
+One thing we should consider for later analyses is to log transform wind speed and elevation as the are very skewed.
+
+
+Look at where the weather station with highest elevation is located.
+
+```{r eval=FALSE}
+leaflet(elev) %>%
+  addProviderTiles('OpenStreetMap') %>% 
+  addCircles(lat=~lat,lng=~lon, opacity=1, fillOpacity=1, radius=100)
+```
+Look at the time series of temperature and wind speed at this location. For this we will need to create a date-time variable for the x-axis.
+
+```{r message=FALSE}
+library(lubridate)
+elev$date <- with(elev, ymd_h(paste(year, month, day, hour, sep= ' ')))
+summary(elev$date)
+```
+With the date-time variable we can plot the time series of temperature and wind speed.
+
+```{r eval=FALSE, echo=FALSE}
+plot(elev$date, elev$temp, type="l")
+plot(elev$date, elev$wind.sp, type="l")
+```
+Summarize any trends that you see in these time series plots.
+
 
