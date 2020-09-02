@@ -59,14 +59,14 @@ It looks like the elevation variable has observations with 9999.0, which is prob
 
 After checking the data we should make the appropriate modifications. Replace elevations with 9999 as `NA`.
 
-```{r eval=FALSE, echo=FALSE}
+```{r}
 met[met$elev==9999.0] <- NA
 ```
 At what elevation is the highest weather station?
 
 We also have the issue of the minimum temperature being -40C, so we should remove those observations.
 
-```{r eval=FALSE, echo=FALSE}
+```{r}
 met <- met[temp>-40]
 met2 <- met[order(temp)]
 head(met2)
@@ -82,7 +82,7 @@ Google is your friend here.
 
 Fix any problems that arise in your checks.
 
-```{r eval=FALSE}
+```{r, eval=FALSE}
 
 ```
 
@@ -118,7 +118,7 @@ Look at where the weather station with highest elevation is located.
 ```
 Look at the time series of temperature and wind speed at this location. For this we will need to create a date-time variable for the x-axis.
 
-```{r message=FALSE, eval=FALSE}
+```{r message=FALSE}
 library(lubridate)
 elev$date <- with(elev, ymd_h(paste(year, month, day, hour, sep= ' ')))
 summary(elev$date)
