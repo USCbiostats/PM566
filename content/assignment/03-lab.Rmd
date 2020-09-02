@@ -59,14 +59,14 @@ It looks like the elevation variable has observations with 9999.0, which is prob
 
 After checking the data we should make the appropriate modifications. Replace elevations with 9999 as `NA`.
 
-```{r}
+```{r eval=FALSE, echo=FALSE}
 met[met$elev==9999.0] <- NA
 ```
 At what elevation is the highest weather station?
 
 We also have the issue of the minimum temperature being -40C, so we should remove those observations.
 
-```{r}
+```{r eval=FALSE, echo=FALSE}
 met <- met[temp>-40]
 met2 <- met[order(temp)]
 head(met2)
@@ -82,7 +82,7 @@ Google is your friend here.
 
 Fix any problems that arise in your checks.
 
-```{r, eval=FALSE}
+```{r eval=FALSE}
 
 ```
 
@@ -97,9 +97,7 @@ elev <- met[elev==max(elev)]
 ```
 
 ```{r eval=FALSE, echo=FALSE}
-cor(elev$temp,elev$wind.sp, use="complete")
-cor(elev$temp, elev$hour, use="complete")
-cor(elev$wind.sp, elev$day, use="complete")
+
 ```
 
 ### 7. Exploratory graphs
@@ -108,9 +106,7 @@ cor(elev$wind.sp, elev$day, use="complete")
 We should look at the distributions of all of the key variables to make sure there are no remaining issues with the data.
 
 ```{r echo=FALSE, eval=FALSE}
-hist(met$elev)
-hist(met$temp)
-hist(met$wind.sp)
+
 ```
 One thing we should consider for later analyses is to log transform wind speed and elevation as the are very skewed.
 
@@ -118,13 +114,11 @@ One thing we should consider for later analyses is to log transform wind speed a
 Look at where the weather station with highest elevation is located.
 
 ```{r eval=FALSE}
-leaflet(elev) %>%
-  addProviderTiles('OpenStreetMap') %>% 
-  addCircles(lat=~lat,lng=~lon, opacity=1, fillOpacity=1, radius=100)
+
 ```
 Look at the time series of temperature and wind speed at this location. For this we will need to create a date-time variable for the x-axis.
 
-```{r message=FALSE}
+```{r message=FALSE, eval=FALSE}
 library(lubridate)
 elev$date <- with(elev, ymd_h(paste(year, month, day, hour, sep= ' ')))
 summary(elev$date)
@@ -132,8 +126,7 @@ summary(elev$date)
 With the date-time variable we can plot the time series of temperature and wind speed.
 
 ```{r eval=FALSE, echo=FALSE}
-plot(elev$date, elev$temp, type="l")
-plot(elev$date, elev$wind.sp, type="l")
+
 ```
 Summarize any trends that you see in these time series plots.
 

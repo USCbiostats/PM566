@@ -14,12 +14,20 @@ class: center, middle, title-slide
 
 ---
 
+&lt;style type="text/css"&gt;
+pre{
+  font-size:20px;
+}
+code.r,code.cpp{
+  font-size:large
+}
+&lt;/style&gt;
 
 
 
 
 
-# What is this lecture?
+## What is this lecture?
 
 &lt;img src="img/ggplot2.png" width="25%" style="display: block; margin: auto;" /&gt;
 
@@ -40,7 +48,15 @@ library(tidyverse)
 ```
 ---
 
-## ggplot
+## ggplot2
+
+`ggplot2` is designed on the principle of adding layers.
+
+&lt;img src="img/layers.png" width="40%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## ggplot2
 
 * With ggplot2 a plot is initiated with the function `ggplot()`
 * The first argument of `ggplot()` is the dataset to use in the graph
@@ -57,13 +73,30 @@ ggplot(data=data) +
 ---
 
 ## Data
-Let us continue with the weather data from last week.  Let's take the daily averages at each site, keeping some of the variables. Let's also create a new variable for region (east and west) for exploratory plotting purposes.
+Let us continue with the weather data from last week.  Let's take the daily averages at each site, keeping some of the variables. Let's also create a new variable for region (east and west) and categorize elevation for exploratory plotting purposes.
 
 ```r
 met &lt;- data.table::fread("/Users/meredith/Dropbox (University of Southern California)/Courses/PM566/met_all.gz")
-met_avg&lt;-met[,.(temp=mean(temp), rh=mean(rh), wind.sp=mean(wind.sp), 
-                lat=mean(lat), lon=mean(lon), elev=mean(elev)), by=c("USAFID", "day")]
+met&lt;-met[met$temp &gt; -10]
+met[met$elev==9999.0] &lt;- NA
+met_avg&lt;-met[,.(temp=mean(temp,na.rm=TRUE), rh=mean(rh,na.rm=TRUE), wind.sp=mean(wind.sp,na.rm=TRUE), 
+                vis.dist=mean(vis.dist,na.rm=TRUE), lat=mean(lat), lon=mean(lon), 
+                elev=mean(elev,na.rm=TRUE)), by=c("USAFID", "day")]
 met_avg$region &lt;- ifelse(met_avg$lon&gt; -98, "east", "west")
+
+met_avg$elev_cat &lt;- ifelse(met_avg$elev&gt; 252, "high", "low")
+hist(met_avg$vis.dist, breaks=400)
+```
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-7-1.png" width="700px" style="display: block; margin: auto;" /&gt;
+
+```r
+met_avg$vis_cat &lt;- cut(
+  met_avg$vis.dist,
+  breaks = c(0, 1000, 6000, 10000, Inf),
+  labels = c("fog", "mist", "haze", "clear"),
+  right  = FALSE
+)
 ```
 The variables we will focus on for this example are temp and rh (temperature in C and relative humidity %)
 
@@ -80,7 +113,7 @@ ggplot(data = met_avg) +
   geom_point(mapping = aes(x = temp, y = rh))
 ```
 
-&lt;img src="slides_files/figure-html/unnamed-chunk-7-1.png" width="40%" style="display: block; margin: auto;" /&gt;
+&lt;img src="slides_files/figure-html/unnamed-chunk-8-1.png" width="40%" style="display: block; margin: auto;" /&gt;
 We see that as temperature increases, relative humidity decreases.
 
 
@@ -100,7 +133,7 @@ Each geom function in `ggplot2` takes a mapping argument. This defines how varia
 
 --
 
-The mapping argument is always paired with `aes()`, and the x and y arguments of `aes()` specify which variables to map to the x and y axes. ggplot2 looks for the mapped variables in the data argument, in this case, met
+The mapping argument is always paired with `aes()`, and the x and y arguments of `aes()` specify which variables to map to the x and y axes. ggplot2 looks for the mapped variables in the data argument, in this case, met_avg
 
 --
 
@@ -109,29 +142,20 @@ One common problem when creating ggplot2 graphics is to put the `+` in the wrong
 ---
 ## Coloring by a variable - using aesthetics
 
-You can convey information about your data by mapping the aesthetics in your plot to the variables in your dataset. For example, you can map the colors of your points to the class variable to reveal the region of data (west or east). ggplot chooses colors, and adds a legend, automatically.
+You can convey information about your data by mapping the aesthetics in your plot to the variables in your dataset. For example, you can map the colors of your points to the class variable to reveal the region of data (west or east). `ggplot2` chooses colors, and adds a legend, automatically.
 
 ```r
 ggplot(data = met_avg) + 
   geom_point(mapping = aes(x = temp, y = rh, color = region))
 ```
 
-&lt;img src="slides_files/figure-html/unnamed-chunk-8-1.png" width="40%" height="40%" style="display: block; margin: auto;" /&gt;
+&lt;img src="slides_files/figure-html/unnamed-chunk-9-1.png" width="40%" height="40%" style="display: block; margin: auto;" /&gt;
 We see that humidity in the east is generally higher than in the west and that the hottest temperatures are in the west.
 
----
-## Determining point size using a variable 
-You can map point size to a variable as well:
 
-```r
-ggplot(data = met_avg) + 
-  geom_point(mapping = aes(x = temp, y = rh, size = region))
-```
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-9-1.png" width="50%" style="display: block; margin: auto;" /&gt;
 ---
 
-### Controlling point transparency using the "alpha" aesthetic
+## Controlling point transparency using the "alpha" aesthetic
 
 ```r
 ggplot(data = met_avg) + 
@@ -145,18 +169,8 @@ ggplot(data = met_avg) +
 ## Controlling point shape:
 
 ```r
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy, shape = class))
-```
-
-```
-## Warning: The shape palette can deal with a maximum of 6 discrete values because
-## more than 6 becomes difficult to discriminate; you have 7. Consider
-## specifying shapes manually if you must have them.
-```
-
-```
-## Warning: Removed 62 rows containing missing values (geom_point).
+ggplot(data = met_avg) + 
+  geom_point(mapping = aes(x = temp, y = rh, shape = region))
 ```
 
 &lt;img src="slides_files/figure-html/unnamed-chunk-11-1.png" width="50%" style="display: block; margin: auto;" /&gt;
@@ -169,8 +183,8 @@ ggplot(data = mpg) +
 To control aesthetics manually, set the aesthetic by name as an argument of your geom function; i.e. it goes outside of aes().
 
 ```r
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy), color = "blue")
+ggplot(data = met_avg) + 
+  geom_point(mapping = aes(x = temp, y = rh), color = "blue")
 ```
 
 &lt;img src="slides_files/figure-html/unnamed-chunk-12-1.png" width="50%" style="display: block; margin: auto;" /&gt;
@@ -203,61 +217,66 @@ Facets are particularly useful for categorical variables...
 
 
 ```r
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy)) + 
-  facet_wrap(~ class, nrow = 2)
+met_avg %&gt;% 
+  filter(!(region %in% NA)) %&gt;% 
+ggplot() + 
+  geom_point(mapping = aes(x = temp, y = rh, color=region)) + 
+  facet_wrap(~ region, nrow = 1)
 ```
 
-&lt;img src="slides_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+&lt;img src="slides_files/figure-html/unnamed-chunk-13-1.png" width="40%" style="display: block; margin: auto;" /&gt;
   
 ---
 
-### Facets 2
+## Facets 2
 Or you can facet on two variables...
 
 ```r
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy)) + 
-  facet_grid(drv ~ cyl)
+met_avg %&gt;% 
+  filter(!(elev_cat %in% NA)) %&gt;% 
+  filter(!(region %in% NA)) %&gt;% 
+  ggplot() + 
+  geom_point(mapping = aes(x = temp, y = rh)) + 
+  facet_grid(region ~ elev_cat)
 ```
 
-&lt;img src="slides_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+&lt;img src="slides_files/figure-html/unnamed-chunk-14-1.png" width="40%" style="display: block; margin: auto;" /&gt;
 
 ---
 
-### Geometric objects 1
+## Geometric objects 1
 
 Geometric objects are used to control the type of plot you draw.
-So far we have used scatterplots (via 'geom_point'). But now let's try plotting a smoothed line fitted to the data (and note how we do side-by-side plots)
+So far we have used scatterplots (via `geom_point`). But now let's try plotting a smoothed line fitted to the data (and note how we do side-by-side plots)
 
 
 ```r
 library(cowplot)
-scatterplot &lt;- ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy))
-lineplot &lt;- ggplot(data = mpg) + geom_smooth(mapping = aes(x = displ, y = hwy))
+scatterplot &lt;- ggplot(data = met_avg) + geom_point(mapping = aes(x = temp, y = rh))
+lineplot &lt;- ggplot(data = met_avg) + geom_smooth(mapping = aes(x = temp, y = rh))
 plot_grid(scatterplot, lineplot, labels = "AUTO")
 ```
 
-&lt;img src="slides_files/figure-html/unnamed-chunk-15-1.png" width="70%" style="display: block; margin: auto;" /&gt;
-cowplot is a package due to Claus Wilke, it..." is a simple add-on to ggplot. It provides various features that help with creating publication-quality figures, such as a set of themes, functions to align plots and arrange them into complex compound figures, and functions that make it easy to annotate plots and or mix plots with images."
+&lt;img src="slides_files/figure-html/unnamed-chunk-15-1.png" width="40%" style="display: block; margin: auto;" /&gt;
+---
+
+## Geometric objects 1
+
+`cowplot` is a package due to Claus Wilke, it "... is a simple add-on to `ggplot`. It provides various features that help with creating publication-quality figures, such as a set of themes, functions to align plots and arrange them into complex compound figures, and functions that make it easy to annotate plots and or mix plots with images."
 
 ---
 
-### Geometric objects 2
+## Geometric objects 2
 
 Note that not every aesthetic works with every geom function. But now there are some new ones we can use. 
 
 ```r
-ggplot(data = mpg) + 
-  geom_smooth(mapping = aes(x = displ, y = hwy, linetype = drv))
+ggplot(data = met_avg) + 
+  geom_smooth(mapping = aes(x = temp, y = rh, linetype = region))
 ```
 
-```
-## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
-```
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-16-1.png" width="700px" style="display: block; margin: auto;" /&gt;
-Here we make the line type depend on the cars drivetrain.
+&lt;img src="slides_files/figure-html/unnamed-chunk-16-1.png" width="30%" style="display: block; margin: auto;" /&gt;
+Here we make the line type depend on the region and we clearly see east has higher rh than west, but generally as temperatures increase rh decreases in both regions.
 
 
 ---
@@ -268,69 +287,76 @@ ggplot2 provides over 40 geoms, and extension packages provide even more (see ht
 
 The best way to get a comprehensive overview is the ggplot2 cheatsheet, which you can find at https://rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf
 
-&lt;img src="img/geoms.png" width="75%" style="display: block; margin: auto;" /&gt;
+&lt;img src="img/geoms.png" width="50%" style="display: block; margin: auto;" /&gt;
 
 ---
 
-### Multiple geoms 1
-To display multiple geoms in the same plot, add multiple geom functions to ggplot():
+## Multiple geoms 1
 
+Let's layer geoms
 
 ```r
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy)) +
-  geom_smooth(mapping = aes(x = displ, y = hwy))
+met_avg %&gt;%
+  filter(!(region %in% NA)) %&gt;% 
+  ggplot() + 
+  geom_point(mapping = aes(x = temp, y = rh, color = region))+
+  geom_smooth(mapping = aes(x = temp, y = rh, linetype = region))
 ```
 
-```
-## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
-```
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-18-1.png" width="700px" style="display: block; margin: auto;" /&gt;
-
+&lt;img src="slides_files/figure-html/unnamed-chunk-18-1.png" width="40%" style="display: block; margin: auto;" /&gt;
 ---
 
-### Multiple geoms 2
+## Multiple geoms 2
 We can avoid repetition of aethetics by passing a set of mappings to ggplot(). 
 ggplot2 will treat these mappings as global mappings that apply to each geom in the graph. 
 
 
 ```r
-ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+met_avg %&gt;%
+  filter(!(region %in% NA)) %&gt;% 
+  ggplot(mapping = aes(x = temp, y = rh, color=region, linetype=region)) +
   geom_point() + 
   geom_smooth()
 ```
 
-```
-## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
-```
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-19-1.png" width="700px" style="display: block; margin: auto;" /&gt;
-
-
+&lt;img src="slides_files/figure-html/unnamed-chunk-19-1.png" width="40%" style="display: block; margin: auto;" /&gt;
 ---
 
-### Multiple geoms 3
-
-If you place mappings in a geom function, ggplot2 will use these mappings to extend or overwrite the global mappings for that layer only. This makes it possible to display different aesthetics in different layers.
+## Multiple geoms 2
+`geom_smooth()` has options. For example if we want a linear regression line we add `method=lm`
 
 
 ```r
-ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
-  geom_point(mapping = aes(color = class)) + 
+met_avg %&gt;%
+  filter(!(region %in% NA)) %&gt;% 
+  ggplot(mapping = aes(x = temp, y = rh, color=region, linetype=region)) +
+  geom_point() + 
+  geom_smooth(method=lm, se=FALSE)
+```
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-20-1.png" width="40%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Multiple geoms 3
+
+If you place mappings in a geom function, `ggplot2` will use these mappings to extend or overwrite the global mappings for that layer only. This makes it possible to display different aesthetics in different layers.
+
+
+```r
+met_avg %&gt;%
+  filter(!(region %in% NA)) %&gt;% 
+  ggplot(data = met_avg, mapping = aes(x = temp, y = rh)) + 
+  geom_point(mapping = aes(color = region)) + 
   geom_smooth()
 ```
 
-```
-## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
-```
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-20-1.png" width="700px" style="display: block; margin: auto;" /&gt;
+&lt;img src="slides_files/figure-html/unnamed-chunk-21-1.png" width="40%" style="display: block; margin: auto;" /&gt;
 
 
 ---
 
-### Multiple geoms 4
+## Multiple geoms 4
 
 You can use the same idea to specify different data for each layer. Here, our smooth line displays just a subset of the mpg dataset, the subcompact cars. The local data argument in geom_smooth() overrides the global data argument in ggplot() for that layer only.
 
@@ -345,7 +371,7 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
 ## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
 ```
 
-&lt;img src="slides_files/figure-html/unnamed-chunk-21-1.png" width="700px" style="display: block; margin: auto;" /&gt;
+&lt;img src="slides_files/figure-html/unnamed-chunk-22-1.png" width="700px" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -355,13 +381,15 @@ This example uses the built-in dataset "diamonds".
 
 
 ```r
-ggplot(data = diamonds) + 
-  geom_bar(mapping = aes(x = cut))
+met_avg %&gt;%
+filter(!(vis_cat %in% NA)) %&gt;% 
+ggplot() + 
+  geom_bar(mapping = aes(x = vis_cat))
 ```
 
-&lt;img src="slides_files/figure-html/unnamed-chunk-22-1.png" width="700px" style="display: block; margin: auto;" /&gt;
+&lt;img src="slides_files/figure-html/unnamed-chunk-23-1.png" width="700px" style="display: block; margin: auto;" /&gt;
 
-The algorithm uses a built-in statistical trandformation, called a "stat", to calcluate the counts.
+The algorithm uses a built-in statistical transformation, called a "stat", to calcluate the counts.
 
 ---
 
@@ -371,11 +399,13 @@ You can over-ride the stat a geom uses to construct its plot. e.g., if we want t
 
 
 ```r
-ggplot(data = diamonds) + 
-  geom_bar(mapping = aes(x = cut, y = stat(prop), group = 1))
+met_avg %&gt;%
+  filter(!(vis_cat %in% NA)) %&gt;% 
+  ggplot() + 
+  geom_bar(mapping = aes(x = vis_cat, y = stat(prop), group = 1))
 ```
 
-&lt;img src="slides_files/figure-html/unnamed-chunk-23-1.png" width="700px" style="display: block; margin: auto;" /&gt;
+&lt;img src="slides_files/figure-html/unnamed-chunk-24-1.png" width="700px" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -385,28 +415,27 @@ You can colour a bar chart using either the colour aesthetic, or, more usefully,
 
 
 ```r
-ggplot(data = diamonds) + 
-  geom_bar(mapping = aes(x = cut, colour = cut))
-```
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-24-1.png" width="700px" style="display: block; margin: auto;" /&gt;
-
-```r
-ggplot(data = diamonds) + 
-  geom_bar(mapping = aes(x = cut, fill = cut))
-```
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-24-2.png" width="700px" style="display: block; margin: auto;" /&gt;
-
-More interestingly, you can fill by another variable (here, 'clarity')
-
-
-```r
-ggplot(data = diamonds) + 
-  geom_bar(mapping = aes(x = cut, fill = clarity))
+met_avg %&gt;%
+  filter(!(vis_cat %in% NA)) %&gt;% 
+  ggplot() + 
+  geom_bar(mapping = aes(x = vis_cat, colour = vis_cat, fill=vis_cat))
 ```
 
 &lt;img src="slides_files/figure-html/unnamed-chunk-25-1.png" width="700px" style="display: block; margin: auto;" /&gt;
+
+More interestingly, you can fill by another variable (here, 'clarity'). We also show that we can change the color scale and theme
+
+
+```r
+met_avg %&gt;%
+  filter(!(vis_cat %in% c(NA,"clear"))) %&gt;% 
+  ggplot() + 
+  geom_bar(mapping = aes(x = vis_cat, fill = region))+
+  scale_fill_viridis_d() + 
+  theme_bw()
+```
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-26-1.png" width="700px" style="display: block; margin: auto;" /&gt;
 
 position = "dodge" places overlapping objects directly beside one another. This makes it easier to compare individual values.
 
@@ -416,7 +445,7 @@ ggplot(data = diamonds) +
   geom_bar(mapping = aes(x = cut, fill = clarity), position = "dodge")
 ```
 
-&lt;img src="slides_files/figure-html/unnamed-chunk-26-1.png" width="700px" style="display: block; margin: auto;" /&gt;
+&lt;img src="slides_files/figure-html/unnamed-chunk-27-1.png" width="700px" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -425,7 +454,7 @@ ggplot(data = diamonds) +
 
 ### Statistical transformations - another example
 
-You might want to draw greater attention to the statistical transformation in your code. For example, you might use stat_summary(), which summarises the y values for each unique x value, to draw attention to the summary that you???re computing:
+You might want to draw greater attention to the statistical transformation in your code. For example, you might use stat_summary(), which summarises the y values for each unique x value, to draw attention to the summary that you're computing:
 
 
 ```r
@@ -438,7 +467,7 @@ ggplot(data = diamonds) +
   )
 ```
 
-&lt;img src="slides_files/figure-html/unnamed-chunk-27-1.png" width="700px" style="display: block; margin: auto;" /&gt;
+&lt;img src="slides_files/figure-html/unnamed-chunk-28-1.png" width="700px" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -459,7 +488,7 @@ jitter &lt;- ggplot(data = mpg) +
 plot_grid(nojitter, jitter, labels = "AUTO")
 ```
 
-&lt;img src="slides_files/figure-html/unnamed-chunk-28-1.png" width="700px" style="display: block; margin: auto;" /&gt;
+&lt;img src="slides_files/figure-html/unnamed-chunk-29-1.png" width="700px" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -478,7 +507,7 @@ flipped &lt;- ggplot(data = mpg, mapping = aes(x = class, y = hwy)) +
 plot_grid(unflipped, flipped, labels = "AUTO")
 ```
 
-&lt;img src="slides_files/figure-html/unnamed-chunk-29-1.png" width="700px" style="display: block; margin: auto;" /&gt;
+&lt;img src="slides_files/figure-html/unnamed-chunk-30-1.png" width="700px" style="display: block; margin: auto;" /&gt;
 
 There is also the ability to control the aspect ratio using coord_quickmap()  and to use polar coordinates with coord_polar().
 
@@ -496,13 +525,13 @@ bar &lt;- ggplot(data = diamonds) +
 bar + coord_flip()
 ```
 
-&lt;img src="slides_files/figure-html/unnamed-chunk-30-1.png" width="700px" style="display: block; margin: auto;" /&gt;
+&lt;img src="slides_files/figure-html/unnamed-chunk-31-1.png" width="700px" style="display: block; margin: auto;" /&gt;
 
 ```r
 bar + coord_polar()
 ```
 
-&lt;img src="slides_files/figure-html/unnamed-chunk-30-2.png" width="700px" style="display: block; margin: auto;" /&gt;
+&lt;img src="slides_files/figure-html/unnamed-chunk-31-2.png" width="700px" style="display: block; margin: auto;" /&gt;
 
 ---
 

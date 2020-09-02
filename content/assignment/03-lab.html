@@ -33,40 +33,8 @@ met &lt;- data.table::fread(&quot;met_all.gz&quot;)</code></pre>
 <h3>4. Take a closer look at the key variables.</h3>
 <p>It looks like the elevation variable has observations with 9999.0, which is probably an indicator for missing. We should take a deeper look at the data dictionary to confirm. The wind speed variable is ok but there are a lot of missing data.</p>
 <p>After checking the data we should make the appropriate modifications. Replace elevations with 9999 as <code>NA</code>.</p>
-<pre class="r"><code>met[met$elev==9999.0] &lt;- NA</code></pre>
 <p>At what elevation is the highest weather station?</p>
 <p>We also have the issue of the minimum temperature being -40C, so we should remove those observations.</p>
-<pre class="r"><code>met &lt;- met[temp&gt;-40]
-met2 &lt;- met[order(temp)]
-head(met2)</code></pre>
-<pre><code>##    USAFID WBAN year month day hour min    lat    lon elev wind.dir wind.dir.qc
-## 1: 722817 3068 2019     8   1    0  56 38.767 -104.3 1838      190           5
-## 2: 722817 3068 2019     8   1    1  56 38.767 -104.3 1838      180           5
-## 3: 722817 3068 2019     8   3   11  56 38.767 -104.3 1838       NA           9
-## 4: 722817 3068 2019     8   3   12  56 38.767 -104.3 1838       NA           9
-## 5: 722817 3068 2019     8   6   21  56 38.767 -104.3 1838      280           5
-## 6: 722817 3068 2019     8   6   22  56 38.767 -104.3 1838      240           5
-##    wind.type.code wind.sp wind.sp.qc ceiling.ht ceiling.ht.qc ceiling.ht.method
-## 1:              N     7.2          5         NA             9                 9
-## 2:              N     7.7          5         NA             9                 9
-## 3:              C     0.0          5         NA             9                 9
-## 4:              C     0.0          5         NA             9                 9
-## 5:              N     2.6          5         NA             9                 9
-## 6:              N     7.7          5         NA             9                 9
-##    sky.cond vis.dist vis.dist.qc vis.var vis.var.qc  temp temp.qc dew.point
-## 1:        N       NA           9       N          5 -17.2       5        NA
-## 2:        N       NA           9       N          5 -17.2       5        NA
-## 3:        N       NA           9       N          5 -17.2       5        NA
-## 4:        N       NA           9       N          5 -17.2       5        NA
-## 5:        N       NA           9       N          5 -17.2       5        NA
-## 6:        N       NA           9       N          5 -17.2       5        NA
-##    dew.point.qc atm.press atm.press.qc rh
-## 1:            9        NA            9 NA
-## 2:            9        NA            9 NA
-## 3:            9        NA            9 NA
-## 4:            9        NA            9 NA
-## 5:            9        NA            9 NA
-## 6:            9        NA            9 NA</code></pre>
 <p>We again notice that there is a -17.2C temperature reading that seems suspicious.</p>
 </div>
 <div id="check-the-data-against-an-external-data-source." class="section level3">
@@ -86,17 +54,10 @@ head(met2)</code></pre>
 <p>We should look at the distributions of all of the key variables to make sure there are no remaining issues with the data.</p>
 <p>One thing we should consider for later analyses is to log transform wind speed and elevation as the are very skewed.</p>
 <p>Look at where the weather station with highest elevation is located.</p>
-<pre class="r"><code>leaflet(elev) %&gt;%
-  addProviderTiles(&#39;OpenStreetMap&#39;) %&gt;% 
-  addCircles(lat=~lat,lng=~lon, opacity=1, fillOpacity=1, radius=100)</code></pre>
 <p>Look at the time series of temperature and wind speed at this location. For this we will need to create a date-time variable for the x-axis.</p>
 <pre class="r"><code>library(lubridate)
 elev$date &lt;- with(elev, ymd_h(paste(year, month, day, hour, sep= &#39; &#39;)))
 summary(elev$date)</code></pre>
-<pre><code>##                  Min.               1st Qu.                Median 
-## &quot;2019-08-01 00:00:00&quot; &quot;2019-08-08 11:00:00&quot; &quot;2019-08-16 22:00:00&quot; 
-##                  Mean               3rd Qu.                  Max. 
-## &quot;2019-08-16 14:09:56&quot; &quot;2019-08-24 11:00:00&quot; &quot;2019-08-31 22:00:00&quot;</code></pre>
 <p>With the date-time variable we can plot the time series of temperature and wind speed.</p>
 <p>Summarize any trends that you see in these time series plots.</p>
 </div>
