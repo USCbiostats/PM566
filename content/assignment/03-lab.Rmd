@@ -1,12 +1,13 @@
 ---
 title: "Lab 03 - Exploratory Data Analysis"
-output: tufte::tufte_html
+output: html_document
 link-citations: yes
 ---
 
 
 
-```{r setup, message=FALSE, echo=FALSE}
+```{r setup, message=FALSE, echo=FALSE, warning=FALSE}
+#install.packages(c("data.table","leaflet"))
 library(data.table)
 library(leaflet)
 library(tidyverse)
@@ -32,27 +33,35 @@ We will work with the meteorological data presented in lecture. Recall the datas
 First download and then read in with data.table:fread()
 
 ```{r, echo=TRUE, message=FALSE}
-download.file("https://raw.githubusercontent.com/USCbiostats/data-science-data/master/02_met/met_all.gz",
-              "met_all.gz", method="libcurl", timeout = 60)
+download.file("https://raw.githubusercontent.com/USCbiostats/data-science-data/master/02_met/met_all.gz", "met_all.gz", method="libcurl", timeout = 60)
 met <- data.table::fread("met_all.gz")
 ```
 
 ### 2. Check the dimensions, headers, footers. How many columns, rows are there?
 
 ```{r}
-
+dim(met)
+head(met)
+tail(met)
 ```
+There are 2,377,343 rows and 30 columns in the met dataset.
+
 ### 3. Take a look at the variables.
 
 ```{r}
-
+str(met)
 ```
 
 
 ### 4. Take a closer look at the key variables. 
 
 ```{r}
-
+table(met$year)
+table(met$day)
+table(met$hour)
+summary(met$temp)
+summary(met$elev)
+summary(met$wind.sp)
 ```
 
 It looks like the elevation variable has observations with 9999.0, which is probably an indicator for missing. We should take a deeper look at the data dictionary to confirm. The wind speed variable is ok but there are a lot of missing data.
@@ -61,8 +70,11 @@ After checking the data we should make the appropriate modifications. Replace el
 
 ```{r}
 met[met$elev==9999.0] <- NA
+summary(met$elev)
 ```
 At what elevation is the highest weather station?
+
+- The weather station with highest elevation is 4113 meters. This is after replacing 9999.0 values with the appropriate code for "missing", which is "NA".
 
 We also have the issue of the minimum temperature being -40C, so we should remove those observations.
 
@@ -82,9 +94,12 @@ Google is your friend here.
 
 Fix any problems that arise in your checks.
 
-```{r, eval=FALSE}
-
+```{r}
+met <- met[temp>-15]
+met2 <- met[order(temp)]
+head(met2)
 ```
+ - Summarize that we removed temperatures colder than -15C. The new dataset has minimum temp -3C which is reasonable.
 
 ### 6. Calculate summary statistics
 
@@ -94,10 +109,15 @@ Some ideas: select the weather station with maximum elevation; look at the corre
 
 ```{r}
 elev <- met[elev==max(elev)]
+summary(elev)
 ```
 
-```{r eval=FALSE, echo=FALSE}
-
+```{r}
+cor(elev$temp, elev$wind.sp, use="complete")
+cor(elev$temp, elev$hour, use="complete")
+cor(elev$wind.sp, elev$day, use="complete")
+cor(elev$wind.sp, elev$hour, use="complete")
+cor(elev$temp, elev$day, use="complete")
 ```
 
 ### 7. Exploratory graphs
@@ -105,16 +125,20 @@ elev <- met[elev==max(elev)]
 
 We should look at the distributions of all of the key variables to make sure there are no remaining issues with the data.
 
-```{r echo=FALSE, eval=FALSE}
-
+```{r }
+hist(met$elev, breaks=100)
+hist(met$temp)
+hist(met$wind.sp)
 ```
 One thing we should consider for later analyses is to log transform wind speed and elevation as the are very skewed.
 
 
 Look at where the weather station with highest elevation is located.
 
-```{r eval=FALSE}
-
+```{r}
+leaflet(elev) %>%
+  addProviderTiles('OpenStreetMap') %>% 
+  addCircles(lat=~lat,lng=~lon, opacity=1, fillOpacity=1, radius=100)
 ```
 Look at the time series of temperature and wind speed at this location. For this we will need to create a date-time variable for the x-axis.
 
@@ -122,11 +146,14 @@ Look at the time series of temperature and wind speed at this location. For this
 library(lubridate)
 elev$date <- with(elev, ymd_h(paste(year, month, day, hour, sep= ' ')))
 summary(elev$date)
+elev <- elev[order(date)]
+head(elev)
 ```
 With the date-time variable we can plot the time series of temperature and wind speed.
 
-```{r eval=FALSE, echo=FALSE}
-
+```{r}
+plot(elev$date, elev$temp, type='l')
+plot(elev$date, elev$wind.sp, type='l')
 ```
 Summarize any trends that you see in these time series plots.
 

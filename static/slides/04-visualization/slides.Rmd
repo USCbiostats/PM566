@@ -68,7 +68,7 @@ library(sass)
 sass(sass_file("theme.sass"), output = "theme.css")
 ```
 
-## What is this lecture?
+## Background
 
 ```{r, out.width='25%', echo=FALSE}
 knitr::include_graphics("img/ggplot2.png")
@@ -116,7 +116,7 @@ ggplot(data=data) +
 ---
 
 ## Data
-Let us continue with the weather data from last week.  Let's take the daily averages at each site, keeping some of the variables. Let's also create a new variable for region (east and west) and categorize elevation for exploratory plotting purposes.
+Continuing with the weather data from last week, let's take the daily averages at each site, keeping some of the variables. Let's also create a new variable for region (east and west), categorize elevation, and create a multi-category variable for visibility for exploratory purposes.
 ```{r}
 met <- data.table::fread("/Users/meredith/Dropbox (University of Southern California)/Courses/PM566/met_all.gz")
 met<-met[met$temp > -10]
@@ -127,14 +127,11 @@ met_avg<-met[,.(temp=mean(temp,na.rm=TRUE), rh=mean(rh,na.rm=TRUE), wind.sp=mean
 met_avg$region <- ifelse(met_avg$lon> -98, "east", "west")
 
 met_avg$elev_cat <- ifelse(met_avg$elev> 252, "high", "low")
-hist(met_avg$vis.dist, breaks=400)
 
-met_avg$vis_cat <- cut(
-  met_avg$vis.dist,
+met_avg$vis_cat <- cut(met_avg$vis.dist,
   breaks = c(0, 1000, 6000, 10000, Inf),
   labels = c("fog", "mist", "haze", "clear"),
-  right  = FALSE
-)
+  right  = FALSE)
 
 ```
 The variables we will focus on for this example are temp and rh (temperature in C and relative humidity %)
@@ -248,10 +245,11 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 |  linetype   |       type of line        |
 
 
+
 ---
 ## Facets 1
 
-Facets are particularly useful for categorical variables...
+Facets are particularly useful for categorical variables.
 
 ```{r, out.width='40%', warning=FALSE}
 met_avg %>% 
@@ -304,8 +302,63 @@ ggplot(data = met_avg) +
 ```
 Here we make the line type depend on the region and we clearly see east has higher rh than west, but generally as temperatures increase rh decreases in both regions.
 
+---
+## Geometric objects 3
+
+Histograms
+
+```{r, out.width='40%', warning=FALSE}
+ggplot(met_avg) + 
+  geom_histogram(mapping = aes(x = temp))
+  
+```
+---
+## Geometric objects 4
+
+Boxplots
+
+```{r, out.width='40%', warning=FALSE}
+ggplot(data=met_avg)+
+ geom_boxplot(mapping=aes(x=elev_cat, y=temp, fill=elev_cat)) 
+```
+
+Note we have to deal with the `NA` category.
 
 ---
+## Geometric objects 5
+
+Lineplots
+
+```{r, out.width='40%', warning=FALSE}
+elev <- met_avg[elev==4113]
+ggplot(data=elev)+
+ geom_line(mapping=aes(x=day, y=temp))
+```
+
+---
+## Geometric objects 5
+
+Polygons
+
+```{r, out.width='40%', warning=FALSE}
+world_map <- map_data("world")
+ggplot(data=world_map) +
+  geom_polygon(mapping= aes(x = long, y = lat, group = group), fill="darkgray", colour = "white")
+```
+---
+## Geometric objects 5
+
+Polygons
+
+```{r, out.width='40%', warning=FALSE}
+us_map <- map_data("state")
+#head(us_map)
+ggplot(data=us_map) +
+  geom_polygon(mapping =aes(x = long, y = lat, fill=region), colour = "white")
+```
+
+---
+
 
 ### Geoms - reference
 
@@ -313,7 +366,7 @@ ggplot2 provides over 40 geoms, and extension packages provide even more (see ht
 
 The best way to get a comprehensive overview is the ggplot2 cheatsheet, which you can find at https://rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf
 
-```{r, out.width='50%', echo=FALSE}
+```{r, out.width='40%', echo=FALSE}
 knitr::include_graphics("img/geoms.png")
 ```
 
@@ -335,7 +388,7 @@ met_avg %>%
 We can avoid repetition of aethetics by passing a set of mappings to ggplot(). 
 ggplot2 will treat these mappings as global mappings that apply to each geom in the graph. 
 
-```{r warning=FALSE,out.width='40%', message=FALSE}
+```{r warning=FALSE,out.width='30%', message=FALSE}
 met_avg %>%
   filter(!(region %in% NA)) %>% 
   ggplot(mapping = aes(x = temp, y = rh, color=region, linetype=region)) +
@@ -361,7 +414,7 @@ met_avg %>%
 
 If you place mappings in a geom function, `ggplot2` will use these mappings to extend or overwrite the global mappings for that layer only. This makes it possible to display different aesthetics in different layers.
 
-```{r warning=FALSE, out.width='40%', message=FALSE}
+```{r warning=FALSE, out.width='30%', message=FALSE}
 met_avg %>%
   filter(!(region %in% NA)) %>% 
   ggplot(data = met_avg, mapping = aes(x = temp, y = rh)) + 
@@ -376,19 +429,18 @@ met_avg %>%
 
 You can use the same idea to specify different data for each layer. Here, our smooth line displays just a subset of the mpg dataset, the subcompact cars. The local data argument in geom_smooth() overrides the global data argument in ggplot() for that layer only.
 
-```{r}
-ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
-  geom_point(mapping = aes(color = class)) + 
-  geom_smooth(data = filter(mpg, class == "subcompact"), se = FALSE)
+```{r warning=FALSE, out.width='30%', message=FALSE}
+ggplot(data = met_avg, mapping = aes(x = temp, y = rh, alpha = 0.5)) + 
+  geom_point(mapping = aes(color = vis_cat)) + 
+  geom_smooth(se = FALSE)
 ```
 
 ---
 
 ### Statistical transformationas - e.g. Bar charts
 
-This example uses the built-in dataset "diamonds".
 
-```{r}
+```{r warning=FALSE, out.width='30%', message=FALSE}
 met_avg %>%
 filter(!(vis_cat %in% NA)) %>% 
 ggplot() + 
@@ -403,7 +455,7 @@ The algorithm uses a built-in statistical transformation, called a "stat", to ca
 
 You can over-ride the stat a geom uses to construct its plot. e.g., if we want to plpot proportions, rather than counts:
 
-```{r}
+```{r warning=FALSE, out.width='30%', message=FALSE}
 met_avg %>%
   filter(!(vis_cat %in% NA)) %>% 
   ggplot() + 
@@ -416,29 +468,37 @@ met_avg %>%
 
 You can colour a bar chart using either the colour aesthetic, or, more usefully, fill:
 
-```{r}
+```{r warning=FALSE, out.width='30%', message=FALSE}
 met_avg %>%
   filter(!(vis_cat %in% NA)) %>% 
   ggplot() + 
   geom_bar(mapping = aes(x = vis_cat, colour = vis_cat, fill=vis_cat))
 ```
 
-More interestingly, you can fill by another variable (here, 'clarity'). We also show that we can change the color scale and theme
+---
 
-```{r}
+# Coloring barcharts
+More interestingly, you can fill by another variable (here, 'clarity'). We also show that we can change the color scale.
+
+```{r warning=FALSE, out.width='30%', message=FALSE}
 met_avg %>%
   filter(!(vis_cat %in% c(NA,"clear"))) %>% 
   ggplot() + 
   geom_bar(mapping = aes(x = vis_cat, fill = region))+
-  scale_fill_viridis_d() + 
-  theme_bw()
+  scale_fill_viridis_d() 
 ```
 
+---
+
+# Coloring barcharts
 position = "dodge" places overlapping objects directly beside one another. This makes it easier to compare individual values.
 
-```{r}
-ggplot(data = diamonds) + 
-  geom_bar(mapping = aes(x = cut, fill = clarity), position = "dodge")
+```{r warning=FALSE, out.width='30%', message=FALSE}
+met_avg %>%
+  filter(!(vis_cat %in% c(NA,"clear"))) %>% 
+  ggplot() + 
+  geom_bar(mapping = aes(x = elev_cat, fill = vis_cat), position = "dodge")
+
 ```
 
 
@@ -450,10 +510,12 @@ ggplot(data = diamonds) +
 
 You might want to draw greater attention to the statistical transformation in your code. For example, you might use stat_summary(), which summarises the y values for each unique x value, to draw attention to the summary that you're computing:
 
-```{r}
-ggplot(data = diamonds) + 
-  stat_summary(
-    mapping = aes(x = cut, y = depth),
+```{r warning=FALSE, out.width='30%', message=FALSE}
+met_avg %>%
+  filter(!(vis_cat %in% c(NA,"clear"))) %>% 
+  ggplot() + 
+    stat_summary(
+    mapping = aes(x = vis_cat, y = temp),
     fun.min = min,
     fun.max = max,
     fun = median
@@ -469,12 +531,11 @@ An option that can be very useful is position = "jitter".
 This adds a small amount of random noise to each point. This spreads out points that might otherwise be overlapping. e.g., 
 
 
-```{r}
-nojitter <- ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy))
-jitter <- ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy), position = "jitter")
-
+```{r warning=FALSE, out.width='30%', message=FALSE}
+nojitter <- ggplot(data = met_avg[1:1000,]) + 
+  geom_point(mapping = aes(x = vis_cat, y = temp))
+jitter <- ggplot(data = met_avg[1:1000,]) + 
+  geom_point(mapping = aes(x = vis_cat, y = temp), position = "jitter")
 plot_grid(nojitter, jitter, labels = "AUTO")
 ```
 
@@ -485,24 +546,21 @@ plot_grid(nojitter, jitter, labels = "AUTO")
 Coordinate systems are one of the more complicated corners of ggplot.
 To start with something simple, here's how to flip axes:
 
-```{r}
-unflipped <- ggplot(data = mpg, mapping = aes(x = class, y = hwy)) + 
-  geom_boxplot()
-flipped <- ggplot(data = mpg, mapping = aes(x = class, y = hwy)) + 
-  geom_boxplot() +
+```{r warning=FALSE, out.width='30%', message=FALSE}
+unflipped <- ggplot(data = met_avg) + 
+  geom_boxplot(mapping = aes(x = vis_cat, y = temp))
+flipped <- ggplot(data = met_avg) + 
+  geom_boxplot(mapping = aes(x = vis_cat, y = temp)) +
   coord_flip()
 plot_grid(unflipped, flipped, labels = "AUTO")
 ```
 
 There is also the ability to control the aspect ratio using coord_quickmap()  and to use polar coordinates with coord_polar().
 
-```{r}
-bar <- ggplot(data = diamonds) + 
-  geom_bar(
-    mapping = aes(x = cut, fill = cut), 
-    show.legend = FALSE,
-    width = 1
-  ) + 
+```{r warning=FALSE, out.width='30%', message=FALSE}
+bar <- ggplot(data = met_avg) + 
+  geom_bar(mapping = aes(x = elev_cat, fill = elev_cat), 
+    show.legend = FALSE, width = 1) + 
   theme(aspect.ratio = 1) +
   labs(x = NULL, y = NULL)
 
@@ -512,7 +570,53 @@ bar + coord_polar()
 
 ---
 
-### A Great reference
+## Modifying labels
+
+```{r warning=FALSE, out.width='30%', message=FALSE}
+met_avg %>%
+  filter(!(region %in% c(NA))) %>% 
+  ggplot()+
+  geom_point(aes(temp, rh, color = region)) + 
+        labs(title = "Weather Station Data") + 
+        labs(x = expression("Temperature"*~degree*C), y = "Relative Humidity")
+
+```
+
+---
+## Changing Themes
+
+```{r warning=FALSE, out.width='30%', message=FALSE}
+met_avg %>%
+  filter(!(region %in% c(NA))) %>% 
+  ggplot()+
+  geom_point(aes(temp, rh, color = region)) + 
+    labs(title = "Weather Station Data") + 
+    labs(x = expression("Temperature"*~degree*C), y = "Relative Humidity")+
+  theme_bw(base_family = "Times")
+```
+
+
+---
+## Changing Colorscales
+
+```{r warning=FALSE, out.width='30%', message=FALSE}
+ggplot(data=met_avg) + 
+  geom_point(mapping=aes(x=temp, y=rh, color=elev))+
+  scale_color_gradient(low="blue", high="red")
+
+```
+
+---
+## Changing Colorscales
+
+```{r warning=FALSE, out.width='30%', message=FALSE}
+  ggplot(data=met_avg) + 
+  geom_point(mapping= aes(x=temp, y=rh, color = cut(elev, b=5))) + 
+  scale_color_manual(values = viridis::viridis(6))
+```
+---
+
+## A Great reference
 
 A great (comprehensive) reference for everything you can do with ggplot2 is the R Graphics Cookbook:
 
@@ -520,7 +624,7 @@ https://r-graphics.org/
 
 ---
 
-### Reminder - the ggplot2 cheatsheet
+## Reminder - the ggplot2 cheatsheet
 
 A briefer summary can be found here:
 
@@ -528,4 +632,28 @@ https://rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf
 
 Rstudio has a variety of other great Cheatsheets.
 
+
+---
+
+## Maps with leaflet
+
+```{r warning=FALSE, out.width='30%', message=FALSE}
+library(leaflet)
+met_avg2<-met[,.(temp=mean(temp,na.rm=TRUE), lat=mean(lat), lon=mean(lon)),  by=c("USAFID")]
+temp.pal = colorNumeric(c('darkgreen','goldenrod','brown'),domain=met_avg2$temp)
+ tempmap <- leaflet(met_avg2) %>% 
+  addProviderTiles('CartoDB.Positron') %>% 
+  addCircles(lat=~lat, lng=~lon, label=~paste0(round(temp,2), ' C'), color=~temp.pal(temp),
+             opacity=1, fillOpacity=1, radius=500) %>%
+  addLegend('bottomleft', pal=temp.pal, values=met_avg2$temp,
+            title='Temperature, C', opacity=1)
+```
+
+---
+
+## Maps with leaflet
+
+```{r warning=FALSE, out.width='30%', message=FALSE}
+tempmap
+```
 

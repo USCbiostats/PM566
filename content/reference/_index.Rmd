@@ -59,3 +59,6 @@ output:
 - Housing data [Zillow](https://www.zillow.com/howto/api/APIOverview.htm)
 - Los Angeles [city data](https://data.lacity.org/)
 - Los Angeles [crime data](http://www.lapdonline.org/crime_mapping_and_compstat)
+- FiveThirtyEight [open data](https://data.fivethirtyeight.com/)
+- World Bank [open data](https://data.worldbank.org/)
+- World Health Organization [WHO data](https://www.who.int/gho/database/en/)
