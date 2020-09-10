@@ -22,5 +22,6 @@ book [R for Data Science](https://r4ds.had.co.nz/)
   [here](https://wiki.python.org/moin/BeginnersGuide/Download) and installing
   jupyter [here](https://jupyter.org/install).
 
+- While we will not be using Pandas, here is a [neat short intro](https://pandas.pydata.org/docs/user_guide/10min.html) to it.
 
 
