@@ -1,0 +1,493 @@
+---
+title: "Week 5: Data Wrangling"
+subtitle: "PM 566: Introduction to Health Data Science"
+author: "George G. Vega Yon"
+output:
+  # slidy_presentation
+  xaringan::moon_reader:
+    css: ["theme.css"]
+    lib_dir: libs
+    nature:
+      beforeInit: "macros.js"
+      ratio: "16:9"
+      highlightStyle: github
+      highlightLines: false
+      countIncrementalSlides: false
+      titleSlideClass: [center, middle]
+  #   code_download: true
+---
+
+<!--Yeah... I have really long code chunks, so I just changed the default size :)-->
+<style type="text/css">
+code.r,code.cpp,code{
+  font-size:medium;
+}
+</style>
+
+
+## Today's goals
+
+We will learn about how to manipulate data, and in particular, creating/modifying variables
+taking the following into consideration:
+
+Part I:
+
+- Basic data types (string, logical, integer, double).
+- Special data types (time, categorical/factor, ordinal, missing, Inf, NaN).
+
+Part II:
+
+- Data filtering: selecting rows and columns.
+- Creating variables.
+
+Part III:
+
+- Summarizing (aggregating) data.
+- Combining datasets (JOINs)
+
+---
+
+# Part I: Data types
+
+---
+
+## Basic data types
+
+- **logical**: Bool true/false type, e.g. dead/alive, sick/healthy, good/bad, yes/no, etc.
+
+- **strings**: string of characters (letters/symbols), e.g. names, text, etc.
+
+- **integer**: Numeric variable with no decimal (discrete), e.g. age, days, counts, etc.
+
+- **double**: Numeric variable with decimals (continuous), e.g. distance, expression level, time.
+
+In C (and other languages), strings, integers, and doubles may be specified 
+with size, e.g. in `python` integers can be of 9, 16, and 32 bits. This is relevant
+when managing large datasets, where saving space can be fundamental
+([more info](https://en.wikipedia.org/wiki/C_data_types#Main_types)).
+
+---
+
+## Special data types
+
+Most programming languages have special types which are built using basic types.
+A few examples:
+
+- **time**: Could be date, date + time, or a combination of both. Usually it has
+  a reference number defined as date 0. In R, the `Date` class has as reference
+  1970-01-01, in other words, "days since January 1st, 1970".
+  
+- **categorical**: Commonly used to represent strata/levels of variables, e.g. a variable
+  "country" could be represented as a factor, where the data is stored as numbers
+  but has a label.
+  
+- **ordinal**: Similar to factor, but it has ordering, e.g.
+  "satisfaction level: 5 very satisfied, ..., 1 very unsatisfied".
+
+Other special data types could be ways to represent missings (usually described as `na` or `NA`),
+or special numeric types, e.g. `+-Inf` and Undefined (`NaN`).
+
+
+---
+
+When storing/sharing datasets, it is a good practice to do it along a dictionary
+describing each column data type/format.
+
+---
+
+## Questions 1: What's the best way to represent the following
+
+- 0, 1, 1, 0, 0, 1
+
+- Diabetes type 1, Diabetes type 2, Diabetes type 1, Diabetes type 2
+
+- on, off, off, on, on, on
+
+- 5, 10, 1, 15, 0, 0, 1
+
+- 1.0, 2.0, 10.0, 6.0
+
+- high, low, medium, medium, high
+
+- -1, 1, -1, -1, 1,
+
+- .2, 1.5, .8, $\pi$
+
+- $\pi$, $\exp{1}$, $\pi$, $\pi$
+
+---
+
+# Part 2: Filter, selection, and creation
+
+---
+
+## Data filtering: Logical conditions
+
+- Based on logical operations, e.g. `condition 1 [and|or condition2 [and|or ...]]`
+
+- Need to be aware of ordering and grouping of `and` and `or` operators.
+
+- Fundamental operators:
+
+```{r operators, echo = FALSE}
+test <- expand.grid(c(TRUE, FALSE),c(TRUE, FALSE))
+ans <- data.frame(
+  x = ifelse(test[,1], "true", "false"),
+  y = ifelse(test[,2], "true", "false"),
+  `(x And y)`       = ifelse(test[,1] & test[,2], "true", "false"),
+  `(x Or y)`        = ifelse(test[,1] | test[,2], "true", "false"),
+  `(x Xor y)`       = ifelse(xor(test[,1], test[,2]), "true", "false"),
+  check.names     = FALSE
+)
+
+knitr::kable(ans, row.names = FALSE, align = "c")
+```
+
+---
+
+## Questions 2: How many ways can you write an XOR operator?
+
+Write a function that takes two arguments `(x,y)` and applies the XOR operator
+element wise. Here you have a template:
+
+```r
+myxor <- function(x, y) {
+  for (i in 1:length(x)) {
+    # do something with x[i] and y[i]
+  }
+}
+```
+
+Or if vectorized (which would be better)
+
+```r
+myxor <- function(x, y) {
+  # INSERT YOUR CODE HERE
+}
+```
+
+
+
+Hint 1: Remember that negating `(x & y)` equals `(!x | !y)`.
+
+Hint 2: Logical operators are a distributive, meaning
+`a * (b + c) = (a * b) + (a + c)`, where `*` and `+` are `&` or `|`.
+
+---
+
+In R
+
+```{r xor-r, eval = TRUE}
+myxor1 <- function(x,y) {(x & !y) | (!x & y)}
+myxor2 <- function(x,y) {!((!x | y) & (x | !y))}
+myxor3 <- function(x,y) {(x | y) & (!x | !y)}
+myxor4 <- function(x,y) {!((!x & !y) | (x & y))}
+cbind(
+  ifelse(xor(test[,1], test[,2]), "true", "false"),
+  ifelse(myxor1(test[,1], test[,2]), "true", "false"),
+  ifelse(myxor2(test[,1], test[,2]), "true", "false"),
+  ifelse(myxor3(test[,1], test[,2]), "true", "false"),
+  ifelse(myxor4(test[,1], test[,2]), "true", "false")
+)
+```
+
+---
+
+Or in python
+
+```{python xor-py}
+# Loading the libraries
+import numpy as np
+import pandas as pa
+
+# Defining the data
+x = [True, True, False, False]
+y = [False, True, True, False]
+ans = {
+    'x'   : x,
+    'y'   : y,
+    'and' : np.logical_and(x, y),
+    'or'  : np.logical_or(x, y),
+    'xor' : np.logical_xor(x, y)
+    }
+pa.DataFrame(ans)
+```
+
+---
+
+Or in python (bis)
+
+```{python xor-py-bis}
+def myxor(x,y):
+    return np.logical_or(
+        np.logical_and(x, np.logical_not(y)),
+        np.logical_and(np.logical_not(x), y)
+    )
+
+ans['myxor'] = myxor(x,y)
+pa.DataFrame(ans)
+```
+
+We will now see applications using the `met` dataset
+
+---
+
+## Creating variables: Data wrangling in R
+
+- For this part we will be mostly using `data.table`
+
+- We will show examples using `data.table`, `pydatatable`, and `dtplyr` (a `dplyr` wrapper of `data.table`).
+
+- We use data.table because of [this](https://h2oai.github.io/db-benchmark/)
+
+---
+
+## Creating variables: Data wrangling in R
+
+Overall, you will find the following approaches:
+
+- base R: Use only base R functions.
+
+- `dplyr`: The tidyverse way.
+
+- `data.table`: High-performing (ideal for large data)
+
+Other methods involve, for example, using external tools such as [Spark](http://spark.apache.org/), [sparkly](https://cran.r-project.org/package=sparklyr).
+
+---
+
+First things first, load the R packages
+
+```{r loading-packages}
+library(data.table)
+library(dtplyr)
+library(dplyr)
+```
+
+The `dtplyr` R package translates `dplyr` (`tidyverse`) syntax to `data.table`, so that we can still use **the pipe** while at the same time leveraging the performance of `data.table`.
+
+---
+
+## Loading the data
+
+The data that we will be using is an already processed version of the MET dataset. We can download (and load) the data directly in our session using the following commands
+
+```{r downloading-data, cache=TRUE}
+# Where are we getting the data from
+met_url <- "https://github.com/USCbiostats/data-science-data/raw/master/02_met/met_all.gz"
+
+# Downloading the data to a tempfile (so it is destroyed afterwards)
+# you can replace this with, for example, your own data:
+# tmp <- tempfile(fileext = ".gz")
+tmp <- "met.gz"
+
+if (!file.exists(tmp)) {
+  download.file(
+    url      = met_url,
+    destfile = tmp,
+    # method   = "libcurl", timeout = 1000 (you may need this option)
+  )
+}
+```
+
+---
+
+In R
+
+
+```{r reading-data}
+# Reading the data
+dat <- fread(tmp)
+
+# Setting up a dplyr wrapper
+dat_tv <- lazy_dt(dat)
+
+str(dat)
+```
+
+---
+
+In python
+
+```{python reading-py, cache=TRUE}
+import datatable as dt
+dat = dt.fread("met.gz")
+dat.head(5)
+```
+
+---
+
+## Filtering (subsetting) the data
+
+Need to select records according to some criteria. For example:
+
+- First day of the month, and
+- Above latitude 40, and
+- Elevation outside the range 500 and 1,000.
+
+---
+
+In R with `data.table`
+
+```{r filter1-dt}
+dat[(day == 1) & (lat > 40) & ((elev < 500) | (elev > 1000))] %>%
+  nrow()
+# dat[day == 1][lat > 40][elev < 500 | elev > 1000] %>% nrow()
+```
+
+---
+
+In R with `dtplyr`
+
+```{r filter1-tv}
+dat_tv %>%
+  filter(day == 1, lat > 40, (elev < 500) | (elev > 1000)) %>%
+  compute() %>% # Notice this line!
+  nrow()
+```
+
+---
+
+In Python
+
+```{python filter1-py-load, echo=FALSE}
+import datatable as dt
+dat = dt.fread("met.gz")
+```
+
+
+```{python filter1-py}
+dat[(dt.f.day == 1) & (dt.f.lat > 40) & ((dt.f.elev < 500) | (dt.f.elev > 1000)), :].nrows
+# dat[dt.f.day == 1,:][dt.f.lat > 40,:][(dt.f.elev < 500) | (dt.f.elev > 1000),:].nrows
+```
+
+---
+
+## Question 3: 
+
+1. How many records have a temperature within 18 and 25?
+
+```{r eval=FALSE}
+nrow(dat[temp >= 18 & temp <= 25])
+```
+
+2. How would you rewrite the previous solution?
+
+```{r eval=FALSE}
+nrow(dat[!(temp < 18 | temp > 25)])
+```
+
+---
+
+## Generating summary statistics
+
+```{r read-in, cache=TRUE}
+# Generating a date component
+dat[, Date := as.IDate(paste(year, month, day, sep = "-"))]
+
+# Generating the daily averages of Atmospheric pressure and temperature per
+# station
+dat_daily <- dat[
+  ,
+  list(
+    atm.press_avg = mean(atm.press, na.rm = TRUE),
+    temp_avg      = mean(temp, na.rm = TRUE)
+  ),
+  by = c("USAFID", "Date", "lat", "lon")
+]
+```
+
+
+---
+
+## Scenarios
+
+1. The 9, 99, 999, ... coding for missigness.
+
+2. The data contains dates
+
+3. The data is a panel dataset with various measures per unit, and we need to create a lag
+
+4. Need to create some summaries at the group level
+
+5. Have two datasets and need to merge them by one or more keys/indices/ids.
+
+6. Create a running mean spanning the last 7 observations.
+
+---
+
+## Data Management: data.table
+
+The data.table package:
+
+- Is very fast
+- Is memory efficient
+- Is 
+
+---
+
+## Benchmarks
+
+- [H2O.ai](https://www.h2o.ai/)'s benchmark ([link](https://h2oai.github.io/db-benchmark/)): Designed by
+  the lead developer of data.table [Matt Dowle](https://rdatatable.gitlab.io/data.table/)
+
+- [RStudio's](https://rstudio.com) benchmark ([link](https://cran.r-project.org/web/packages/vroom/vignettes/benchmarks.html)):
+  Designed as part of the benchmarks with the [vroom](https://cran.r-package.org/package=vroom) package.
+
+---
+
+```{r}
+# Monthly average temperature plot
+library(ggplot2)
+library(akima)
+dat_daily_plot <- with(
+  dat_daily[mday(Date) == 1 & is.finite(temp_avg)],
+  akima::interp(
+    x = lon, y = lat, z = temp_avg
+  )
+)
+
+image(dat_daily_plot)
+```
+
+---
+
+```{r, eval = FALSE}
+library(dtplyr)
+library(dplyr)
+data(diamonds, package="ggplot2")
+dt_tibble <- lazy_dt(diamonds)
+dt_dt     <- lazy_dt(as.data.table(diamonds))
+dt        <- as.data.table(diamonds)
+microbenchmark::microbenchmark(
+  dplyr         = diamonds %>% group_by(carat) %>% summarise(mean(price), .groups="drop") %>% collect(),
+  dtplyr_tibble = dt_tibble %>% group_by(carat) %>% summarise(mean(price)) %>% collect(),
+  dtplyr_dt     = dt_dt %>% group_by(carat) %>% summarise(mean(price), .groups="drop") %>% collect(),
+  data.table    = dt[, mean(price), by = carat]
+)
+
+```
+
+```{r, eval = FALSE}
+tmp <- tempfile(fileext="csv")
+download.file(
+  "https://raw.githubusercontent.com/Rdatatable/data.table/master/vignettes/flights14.csv",
+  destfile = tmp,
+  method   = "libcurl",
+  timeout  = 1000
+  )
+dat_dt <- fread(tmp)
+dat_tb <- as_tibble(dat_dt)
+dat_lz <- lazy_dt(dat_tb)
+```
+
+
+```{r, eval = FALSE}
+microbenchmark::microbenchmark(
+  dplyr         = dat_tb %>% group_by(dest) %>% summarise(mean(air_time), .groups="drop") %>% collect(),
+  dtplyr_tibble = dat_lz %>% group_by(dest) %>% summarise(mean(air_time), .groups="drop") %>% collect(),
+  data.table    = dat_dt[, mean(air_time), by = dest], times = 100
+)
+```
+
+
