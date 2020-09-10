@@ -26,8 +26,8 @@ lessons:
 
   - title: "Data cleaning and wrangling"
     date: "Week 5"
-    class: ""
-    reading: ""
+    class: "05-class"
+    reading: "05-reading"
     assignment: "05-hw2"
 
   - title: "Regular Expressions, Big Data, Data scraping and using APIs, data security"

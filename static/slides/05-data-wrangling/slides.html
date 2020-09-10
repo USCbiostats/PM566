@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Week 5: Data Wrangling</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="George G. Vega Yon" />
+    <link rel="stylesheet" href="theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, title-slide
+
+# Week 5: Data Wrangling
+## PM 566: Introduction to Health Data Science
+### George G. Vega Yon
+
+---
+
+
+&lt;!--Yeah... I have really long code chunks, so I just changed the default size :)--&gt;
+&lt;style type="text/css"&gt;
+code.r,code.cpp,code{
+  font-size:medium;
+}
+&lt;/style&gt;
+
+
+## Today's goals
+
+We will learn about how to manipulate data, and in particular, creating/modifying variables
+taking the following into consideration:
+
+Part I:
+
+- Basic data types (string, logical, integer, double).
+- Special data types (time, categorical/factor, ordinal, missing, Inf, NaN).
+
+Part II:
+
+- Data filtering: selecting rows and columns.
+- Creating variables.
+
+Part III:
+
+- Summarizing (aggregating) data.
+- Combining datasets (JOINs)
+
+---
+
+# Part I: Data types
+
+---
+
+## Basic data types
+
+- **logical**: Bool true/false type, e.g. dead/alive, sick/healthy, good/bad, yes/no, etc.
+
+- **strings**: string of characters (letters/symbols), e.g. names, text, etc.
+
+- **integer**: Numeric variable with no decimal (discrete), e.g. age, days, counts, etc.
+
+- **double**: Numeric variable with decimals (continuous), e.g. distance, expression level, time.
+
+In C (and other languages), strings, integers, and doubles may be specified 
+with size, e.g. in `python` integers can be of 9, 16, and 32 bits. This is relevant
+when managing large datasets, where saving space can be fundamental
+([more info](https://en.wikipedia.org/wiki/C_data_types#Main_types)).
+
+---
+
+## Special data types
+
+Most programming languages have special types which are built using basic types.
+A few examples:
+
+- **time**: Could be date, date + time, or a combination of both. Usually it has
+  a reference number defined as date 0. In R, the `Date` class has as reference
+  1970-01-01, in other words, "days since January 1st, 1970".
+  
+- **categorical**: Commonly used to represent strata/levels of variables, e.g. a variable
+  "country" could be represented as a factor, where the data is stored as numbers
+  but has a label.
+  
+- **ordinal**: Similar to factor, but it has ordering, e.g.
+  "satisfaction level: 5 very satisfied, ..., 1 very unsatisfied".
+
+Other special data types could be ways to represent missings (usually described as `na` or `NA`),
+or special numeric types, e.g. `+-Inf` and Undefined (`NaN`).
+
+
+---
+
+When storing/sharing datasets, it is a good practice to do it along a dictionary
+describing each column data type/format.
+
+---
+
+## Questions 1: What's the best way to represent the following
+
+- 0, 1, 1, 0, 0, 1
+
+- Diabetes type 1, Diabetes type 2, Diabetes type 1, Diabetes type 2
+
+- on, off, off, on, on, on
+
+- 5, 10, 1, 15, 0, 0, 1
+
+- 1.0, 2.0, 10.0, 6.0
+
+- high, low, medium, medium, high
+
+- -1, 1, -1, -1, 1,
+
+- .2, 1.5, .8, `\(\pi\)`
+
+- `\(\pi\)`, `\(\exp{1}\)`, `\(\pi\)`, `\(\pi\)`
+
+---
+
+# Part 2: Filter, selection, and creation
+
+---
+
+## Data filtering: Logical conditions
+
+- Based on logical operations, e.g. `condition 1 [and|or condition2 [and|or ...]]`
+
+- Need to be aware of ordering and grouping of `and` and `or` operators.
+
+- Fundamental operators:
+
+
+|   x   |   y   | (x And y) | (x Or y) | (x Xor y) |
+|:-----:|:-----:|:---------:|:--------:|:---------:|
+| true  | true  |   true    |   true   |   false   |
+| false | true  |   false   |   true   |   true    |
+| true  | false |   false   |   true   |   true    |
+| false | false |   false   |  false   |   false   |
+
+---
+
+## Questions 2: How many ways can you write an XOR operator?
+
+Write a function that takes two arguments `(x,y)` and applies the XOR operator
+element wise. Here you have a template:
+
+```r
+myxor &lt;- function(x, y) {
+  for (i in 1:length(x)) {
+    # do something with x[i] and y[i]
+  }
+}
+```
+
+Or if vectorized (which would be better)
+
+```r
+myxor &lt;- function(x, y) {
+  # INSERT YOUR CODE HERE
+}
+```
+
+
+
+Hint 1: Remember that negating `(x &amp; y)` equals `(!x | !y)`.
+
+Hint 2: Logical operators are a distributive, meaning
+`a * (b + c) = (a * b) + (a + c)`, where `*` and `+` are `&amp;` or `|`.
+
+---
+
+In R
+
+
+```r
+myxor1 &lt;- function(x,y) {(x &amp; !y) | (!x &amp; y)}
+myxor2 &lt;- function(x,y) {!((!x | y) &amp; (x | !y))}
+myxor3 &lt;- function(x,y) {(x | y) &amp; (!x | !y)}
+myxor4 &lt;- function(x,y) {!((!x &amp; !y) | (x &amp; y))}
+cbind(
+  ifelse(xor(test[,1], test[,2]), "true", "false"),
+  ifelse(myxor1(test[,1], test[,2]), "true", "false"),
+  ifelse(myxor2(test[,1], test[,2]), "true", "false"),
+  ifelse(myxor3(test[,1], test[,2]), "true", "false"),
+  ifelse(myxor4(test[,1], test[,2]), "true", "false")
+)
+```
+
+```
+##      [,1]    [,2]    [,3]    [,4]    [,5]   
+## [1,] "false" "false" "false" "false" "false"
+## [2,] "true"  "true"  "true"  "true"  "true" 
+## [3,] "true"  "true"  "true"  "true"  "true" 
+## [4,] "false" "false" "false" "false" "false"
+```
+
+---
+
+Or in python
+
+
+```python
+# Loading the libraries
+import numpy as np
+import pandas as pa
+
+# Defining the data
+x = [True, True, False, False]
+y = [False, True, True, False]
+ans = {
+    'x'   : x,
+    'y'   : y,
+    'and' : np.logical_and(x, y),
+    'or'  : np.logical_or(x, y),
+    'xor' : np.logical_xor(x, y)
+    }
+pa.DataFrame(ans)
+```
+
+```
+##        x      y    and     or    xor
+## 0   True  False  False   True   True
+## 1   True   True   True   True  False
+## 2  False   True  False   True   True
+## 3  False  False  False  False  False
+```
+
+---
+
+Or in python (bis)
+
+
+```python
+def myxor(x,y):
+    return np.logical_or(
+        np.logical_and(x, np.logical_not(y)),
+        np.logical_and(np.logical_not(x), y)
+    )
+
+ans['myxor'] = myxor(x,y)
+pa.DataFrame(ans)
+```
+
+```
+##        x      y    and     or    xor  myxor
+## 0   True  False  False   True   True   True
+## 1   True   True   True   True  False  False
+## 2  False   True  False   True   True   True
+## 3  False  False  False  False  False  False
+```
+
+We will now see applications using the `met` dataset
+
+---
+
+## Creating variables: Data wrangling in R
+
+- For this part we will be mostly using `data.table`
+
+- We will show examples using `data.table`, `pydatatable`, and `dtplyr` (a `dplyr` wrapper of `data.table`).
+
+- We use data.table because of [this](https://h2oai.github.io/db-benchmark/)
+
+---
+
+## Creating variables: Data wrangling in R
+
+Overall, you will find the following approaches:
+
+- base R: Use only base R functions.
+
+- `dplyr`: The tidyverse way.
+
+- `data.table`: High-performing (ideal for large data)
+
+Other methods involve, for example, using external tools such as [Spark](http://spark.apache.org/), [sparkly](https://cran.r-project.org/package=sparklyr).
+
+---
+
+First things first, load the R packages
+
+
+```r
+library(data.table)
+library(dtplyr)
+library(dplyr)
+```
+
+```
+## 
+## Attaching package: 'dplyr'
+```
+
+```
+## The following objects are masked from 'package:data.table':
+## 
+##     between, first, last
+```
+
+```
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+```
+
+```
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+```
+
+The `dtplyr` R package translates `dplyr` (`tidyverse`) syntax to `data.table`, so that we can still use **the pipe** while at the same time leveraging the performance of `data.table`.
+
+---
+
+## Loading the data
+
+The data that we will be using is an already processed version of the MET dataset. We can download (and load) the data directly in our session using the following commands
+
+
+```r
+# Where are we getting the data from
+met_url &lt;- "https://github.com/USCbiostats/data-science-data/raw/master/02_met/met_all.gz"
+
+# Downloading the data to a tempfile (so it is destroyed afterwards)
+# you can replace this with, for example, your own data:
+# tmp &lt;- tempfile(fileext = ".gz")
+tmp &lt;- "met.gz"
+
+if (!file.exists(tmp)) {
+  download.file(
+    url      = met_url,
+    destfile = tmp,
+    # method   = "libcurl", timeout = 1000 (you may need this option)
+  )
+}
+```
+
+---
+
+In R
+
+
+
+```r
+# Reading the data
+dat &lt;- fread(tmp)
+
+# Setting up a dplyr wrapper
+dat_tv &lt;- lazy_dt(dat)
+
+head(dat_tv)
+```
+
+```
+## Source: local data table [?? x 30]
+## Call:   head(`_DT1`, n = 6L)
+## 
+##   USAFID  WBAN  year month   day  hour   min   lat   lon  elev wind.dir
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;    &lt;int&gt;
+## 1 690150 93121  2019     8     1     0    56  34.3 -116.   696      220
+## 2 690150 93121  2019     8     1     1    56  34.3 -116.   696      230
+## 3 690150 93121  2019     8     1     2    56  34.3 -116.   696      230
+## 4 690150 93121  2019     8     1     3    56  34.3 -116.   696      210
+## 5 690150 93121  2019     8     1     4    56  34.3 -116.   696      120
+## 6 690150 93121  2019     8     1     5    56  34.3 -116.   696       NA
+## # … with 19 more variables: wind.dir.qc &lt;chr&gt;, wind.type.code &lt;chr&gt;,
+## #   wind.sp &lt;dbl&gt;, wind.sp.qc &lt;chr&gt;, ceiling.ht &lt;int&gt;, ceiling.ht.qc &lt;int&gt;,
+## #   ceiling.ht.method &lt;chr&gt;, sky.cond &lt;chr&gt;, vis.dist &lt;int&gt;, vis.dist.qc &lt;chr&gt;,
+## #   vis.var &lt;chr&gt;, vis.var.qc &lt;chr&gt;, temp &lt;dbl&gt;, temp.qc &lt;chr&gt;,
+## #   dew.point &lt;dbl&gt;, dew.point.qc &lt;chr&gt;, atm.press &lt;dbl&gt;, atm.press.qc &lt;int&gt;,
+## #   rh &lt;dbl&gt;
+## 
+## # Use as.data.table()/as.data.frame()/as_tibble() to access results
+```
+
+---
+
+In python
+
+
+```python
+import datatable as dt
+dat = dt.fread("met.gz")
+dat.head(5)
+```
+
+```
+## [1m   [0;90m|[0;1m USAFID   WBAN  year  month  day  hour  min   lat       lon  [0;2m~[0;1m  dew[2m~[0;1m  dew.point.qc  atm.press  atm.press.qc       rh[0m
+## [90m-- + ------  -----  ----  -----  ---  ----  ---  ----  --------     ----  ------------  ---------  ------------  -------[0m
+## [90m 0 |[0m 690150  93121  2019      8    1     0   56  34.3  -116.166  [2m~[0m  10.6  5                1009.9             5  19.8813
+## [90m 1 |[0m 690150  93121  2019      8    1     1   56  34.3  -116.166  [2m~[0m  10.6  5                1010.3             5  21.761 
+## [90m 2 |[0m 690150  93121  2019      8    1     2   56  34.3  -116.166  [2m~[0m   7.2  5                1010.6             5  18.4821
+## [90m 3 |[0m 690150  93121  2019      8    1     3   56  34.3  -116.166  [2m~[0m   5    5                1011.6             5  16.8886
+## [90m 4 |[0m 690150  93121  2019      8    1     4   56  34.3  -116.166  [2m~[0m   5    5                1012.7             5  17.3841
+## 
+## [2m[5 rows x 30 columns][0m
+```
+
+---
+
+## Filtering (subsetting) the data
+
+Need to select records according to some criteria. For example:
+
+- First day of the month, and
+- Above latitude 40, and
+- Elevation outside the range 500 and 1,000.
+
+---
+
+In R with `data.table`
+
+
+```r
+dat[day == 1 &amp; lat &gt; 40 &amp; ((elev &lt; 500) | (elev &gt; 1000))] %&gt;%
+  nrow
+```
+
+```
+## [1] 27623
+```
+
+```r
+# dat[day == 1][lat &gt; 40][elev &lt; 500 | elev &gt; 1000]
+```
+
+---
+
+In R with `dtplyr`
+
+
+```r
+dat_tv %&gt;%
+  filter(day == 1, lat &gt; 40, elev &lt; 500 | elev &gt; 1000) %&gt;%
+  compute() %&gt;% # Notice this line!
+  nrow()
+```
+
+```
+## [1] 27623
+```
+
+---
+
+In Python
+
+
+
+
+
+```python
+dat[(dt.f.day == 1) &amp; (dt.f.lat &gt; 40) &amp; ((dt.f.elev &lt; 500) | (dt.f.elev &gt; 1000)),:].nrows
+# dat[dt.f.day == 1,:][dt.f.lat &gt; 40,:][(dt.f.elev &lt; 500) | (dt.f.elev &gt; 1000),:].nrows
+```
+
+```
+## 27623
+```
+
+---
+
+## Generating summary statistics
+
+
+```r
+# Generating a date component
+dat[, Date := as.IDate(paste(year, month, day, sep = "-"))]
+
+# Generating the daily averages of Atmospheric pressure and temperature per
+# station
+dat_daily &lt;- dat[
+  ,
+  list(
+    atm.press_avg = mean(atm.press, na.rm = TRUE),
+    temp_avg      = mean(temp, na.rm = TRUE)
+  ),
+  by = c("USAFID", "Date", "lat", "lon")
+]
+```
+
+
+---
+
+## Scenarios
+
+1. The 9, 99, 999, ... coding for missigness.
+
+2. The data contains dates
+
+3. The data is a panel dataset with various measures per unit, and we need to create a lag
+
+4. Need to create some summaries at the group level
+
+5. Have two datasets and need to merge them by one or more keys/indices/ids.
+
+6. Create a running mean spanning the last 7 observations.
+
+---
+
+## Data Management: data.table
+
+The data.table package:
+
+- Is very fast
+- Is memory efficient
+- Is 
+
+---
+
+## Benchmarks
+
+- [H2O.ai](https://www.h2o.ai/)'s benchmark ([link](https://h2oai.github.io/db-benchmark/)): Designed by
+  the lead developer of data.table [Matt Dowle](https://rdatatable.gitlab.io/data.table/)
+
+- [RStudio's](https://rstudio.com) benchmark ([link](https://cran.r-project.org/web/packages/vroom/vignettes/benchmarks.html)):
+  Designed as part of the benchmarks with the [vroom](https://cran.r-package.org/package=vroom) package.
+
+---
+
+
+```r
+# Monthly average temperature plot
+library(ggplot2)
+library(akima)
+dat_daily_plot &lt;- with(
+  dat_daily[mday(Date) == 1 &amp; is.finite(temp_avg)],
+  akima::interp(
+    x = lon, y = lat, z = temp_avg
+  )
+)
+
+image(dat_daily_plot)
+```
+
+![](slides_files/figure-html/unnamed-chunk-1-1.png)&lt;!-- --&gt;
+
+---
+
+
+```r
+library(dtplyr)
+library(dplyr)
+data(diamonds, package="ggplot2")
+dt_tibble &lt;- lazy_dt(diamonds)
+dt_dt     &lt;- lazy_dt(as.data.table(diamonds))
+dt        &lt;- as.data.table(diamonds)
+microbenchmark::microbenchmark(
+  dplyr         = diamonds %&gt;% group_by(carat) %&gt;% summarise(mean(price), .groups="drop") %&gt;% collect(),
+  dtplyr_tibble = dt_tibble %&gt;% group_by(carat) %&gt;% summarise(mean(price)) %&gt;% collect(),
+  dtplyr_dt     = dt_dt %&gt;% group_by(carat) %&gt;% summarise(mean(price), .groups="drop") %&gt;% collect(),
+  data.table    = dt[, mean(price), by = carat]
+)
+```
+
+
+```r
+tmp &lt;- tempfile(fileext="csv")
+download.file(
+  "https://raw.githubusercontent.com/Rdatatable/data.table/master/vignettes/flights14.csv",
+  destfile = tmp,
+  method   = "libcurl",
+  timeout  = 1000
+  )
+dat_dt &lt;- fread(tmp)
+dat_tb &lt;- as_tibble(dat_dt)
+dat_lz &lt;- lazy_dt(dat_tb)
+```
+
+
+
+```r
+microbenchmark::microbenchmark(
+  dplyr         = dat_tb %&gt;% group_by(dest) %&gt;% summarise(mean(air_time), .groups="drop") %&gt;% collect(),
+  dtplyr_tibble = dat_lz %&gt;% group_by(dest) %&gt;% summarise(mean(air_time), .groups="drop") %&gt;% collect(),
+  data.table    = dat_dt[, mean(air_time), by = dest], times = 100
+)
+```
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": false,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

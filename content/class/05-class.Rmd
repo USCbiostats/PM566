@@ -1,8 +1,8 @@
 ---
-title: "Version control and reproducible research"
-linktitle: "2: Version control"
+title: "Data cleaning and wrangling"
+linktitle: "5: Data Wrangling"
 date: "2020-01-10"
-class_date: "2020-01-10"
+class_date: "2020-09-16"
 citeproc: false
 bibliography: ../../static/bib/references.bib
 csl: ../../static/bib/chicago-syllabus-no-bib.csl
@@ -22,14 +22,15 @@ editor_options:
 
 ## Lab Exercise
 
-[link](/assignment/02-lab)
+[link](/assignment/05-lab)
 
 ## Slides
 
-[link](/slides/02-version-control/slides.html)
+[link](/slides/05-data-wrangling/slides.html)
 
 ## Links
 
-- [Git](https://git-scm.com)
-- [GitHub](https://github.com)
+- R [data.table](https://rdatatable.gitlab.io/data.table/)
+- python [data.table](https://github.com/h2oai/datatable)
+- [Python](https://www.python.org/) and [Jupyter](https://jupyter.org/) 
 
