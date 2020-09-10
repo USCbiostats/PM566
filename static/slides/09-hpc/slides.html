@@ -252,16 +252,16 @@ clusterEvalQ(cl, {
 
 ```
 ## [[1]]
-## [1] "Hello from process #24675. I see x and it is equal to 20"
+## [1] "Hello from process #9691. I see x and it is equal to 20"
 ## 
 ## [[2]]
-## [1] "Hello from process #24676. I see x and it is equal to 20"
+## [1] "Hello from process #9689. I see x and it is equal to 20"
 ## 
 ## [[3]]
-## [1] "Hello from process #24674. I see x and it is equal to 20"
+## [1] "Hello from process #9692. I see x and it is equal to 20"
 ## 
 ## [[4]]
-## [1] "Hello from process #24673. I see x and it is equal to 20"
+## [1] "Hello from process #9690. I see x and it is equal to 20"
 ```
 
 ```r
@@ -296,13 +296,13 @@ X[1:6, 1:5]
 ```
 
 ```
-##          x001        x002       x003       x004      x005
-## 1  0.61827227  1.72847041 -1.4810695 -0.2471871 1.4776281
-## 2  0.96777456 -0.19358426 -0.8176465  0.6356714 0.7292221
-## 3 -0.04303734 -0.06692844  0.9048826 -1.9277964 2.2947675
-## 4  0.84237608 -1.13685605 -1.8559158  0.4687967 0.9881953
-## 5 -1.91921443  1.83865873  0.5937039 -0.1410556 0.6507415
-## 6  0.59146153  0.81743419  0.3348553 -1.8771819 0.8181764
+##         x001       x002       x003       x004       x005
+## 1  0.5983806 -1.2920114  0.7317368 -1.0184339 -0.6186080
+## 2 -0.3607890  1.4456891 -0.8507421  0.8934013 -0.2774105
+## 3 -1.3510075 -1.5761328  0.4741303  0.8043521  0.4770461
+## 4 -0.3662285  1.5853490 -0.2184903 -2.1488158 -1.2233995
+## 5 -1.2363653  0.6228042 -0.7436500  1.1997468  0.1943254
+## 6 -0.6751276  0.6775012  0.9102290 -0.8985802 -1.4500698
 ```
 
 ```r
@@ -310,7 +310,7 @@ str(y)
 ```
 
 ```
-##  num [1:500] -0.8188 -0.5438 1.0209 0.0467 -0.4501 ...
+##  num [1:500] -0.205 -0.636 -0.827 -0.75 0.598 ...
 ```
 
 ---
@@ -362,9 +362,9 @@ ans[,1:5]
 ```
 
 ```
-##                    x001        x002        x003        x004        x005
-## (Intercept) -0.03449819 -0.03339681 -0.03728140 -0.03644192 -0.03717344
-## x           -0.06082548  0.02748265 -0.01327855 -0.08012361 -0.04067826
+##                    x001        x002        x003        x004         x005
+## (Intercept) -0.02094065 -0.01630664 -0.01565541 -0.01848773 -0.015305816
+## x            0.09269758 -0.05233096  0.02893588  0.02404687  0.009151671
 ```
 
 ---
@@ -390,9 +390,9 @@ microbenchmark::microbenchmark(
 
 ```
 ## Unit: relative
-##      expr      min       lq     mean  median       uq      max neval
-##  parallel 1.000000 1.000000 1.000000 1.00000 1.000000 1.000000   100
-##    serial 1.884909 1.828216 1.756495 1.79781 1.724543 1.500506   100
+##      expr      min       lq     mean   median       uq      max neval
+##  parallel 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000   100
+##    serial 1.699206 1.689288 1.649544 1.648299 1.651084 1.601018   100
 ```
 
 
@@ -662,17 +662,17 @@ time_serial;time_parallel_sock;time_parallel_fork
 
 ```
 ##    user  system elapsed 
-##  23.344   0.172  23.818
+##  29.084   0.000  29.092
 ```
 
 ```
 ##    user  system elapsed 
-##   0.004   0.000  14.472
+##   0.001   0.000  23.109
 ```
 
 ```
 ##    user  system elapsed 
-##   9.380   0.044  11.560
+##  17.641   0.260  19.626
 ```
 
 
@@ -893,10 +893,10 @@ microbenchmark::microbenchmark(
 
 ```
 ## Unit: relative
-##                    expr      min       lq     mean   median      uq      max
-##                 dist(x) 1.733452 1.735796 1.691463 1.718409 1.71903 1.426328
-##  dist_par(x, cores = 1) 1.292001 1.299863 1.326148 1.289010 1.32564 1.408813
-##  dist_par(x, cores = 2) 1.000000 1.000000 1.000000 1.000000 1.00000 1.000000
+##                    expr      min       lq     mean   median       uq       max
+##                 dist(x) 1.405649 1.525962 1.352042 1.400599 1.308988 1.1169631
+##  dist_par(x, cores = 1) 1.140635 1.173187 1.052898 1.090355 1.014328 0.8586771
+##  dist_par(x, cores = 2) 1.000000 1.000000 1.000000 1.000000 1.000000 1.0000000
 ##  neval
 ##     10
 ##     10
@@ -974,9 +974,9 @@ microbenchmark::microbenchmark(
 
 ```
 ## Unit: relative
-##      expr      min       lq     mean   median       uq      max neval
-##  parallel 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000     1
-##    serial 1.888322 1.888322 1.888322 1.888322 1.888322 1.888322     1
+##      expr     min      lq    mean  median      uq     max neval
+##  parallel 1.00000 1.00000 1.00000 1.00000 1.00000 1.00000     1
+##    serial 2.00598 2.00598 2.00598 2.00598 2.00598 2.00598     1
 ```
 
 ---
@@ -987,12 +987,17 @@ microbenchmark::microbenchmark(
 ```
 ## R version 4.0.2 (2020-06-22)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
-## Running under: Ubuntu 18.04.4 LTS
+## Running under: Ubuntu 18.04.5 LTS
 ## 
 ## Matrix products: default
 ## BLAS:   /usr/lib/x86_64-linux-gnu/atlas/libblas.so.3.10.3
 ## LAPACK: /usr/lib/x86_64-linux-gnu/atlas/liblapack.so.3.10.3
 ## 
+## Random number generation:
+##  RNG:     L'Ecuyer-CMRG 
+##  Normal:  Inversion 
+##  Sample:  Rejection 
+##  
 ## locale:
 ##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
 ##  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
@@ -1002,17 +1007,20 @@ microbenchmark::microbenchmark(
 ## [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
 ## 
 ## attached base packages:
-## [1] stats     graphics  grDevices utils     datasets  methods   base     
-## 
-## other attached packages:
-## [1] microbenchmark_1.4-7
+## [1] parallel  stats     graphics  grDevices utils     datasets  methods  
+## [8] base     
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] Rcpp_1.0.5       codetools_0.2-16 digest_0.6.25    magrittr_1.5    
-##  [5] evaluate_0.14    highr_0.8        xaringan_0.16    rlang_0.4.6     
-##  [9] stringi_1.4.6    rmarkdown_2.3    tools_4.0.2      stringr_1.4.0   
-## [13] xfun_0.15        yaml_2.2.1       parallel_4.0.2   compiler_4.0.2  
-## [17] htmltools_0.5.0  knitr_1.29
+##  [1] Rcpp_1.0.5                codetools_0.2-16         
+##  [3] digest_0.6.25             magrittr_1.5             
+##  [5] evaluate_0.14             highr_0.8                
+##  [7] xaringan_0.16             rlang_0.4.6              
+##  [9] stringi_1.4.6             RcppArmadillo_0.9.900.1.0
+## [11] rmarkdown_2.3             tools_4.0.2              
+## [13] stringr_1.4.0             xfun_0.15                
+## [15] yaml_2.2.1                compiler_4.0.2           
+## [17] microbenchmark_1.4-7      htmltools_0.5.0          
+## [19] knitr_1.29
 ```
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>

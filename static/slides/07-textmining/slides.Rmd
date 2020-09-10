@@ -1,0 +1,501 @@
+---
+title: "Text Mining"
+subtitle: "PM566 - Week 7"
+author: "Emil Hvitfeldt"
+date: ""
+output:
+  xaringan::moon_reader:
+    css: ["theme.css", "default"]
+    lib_dir: libs
+    nature:
+      beforeInit: "macros.js"
+      ratio: "16:9"
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      titleSlideClass: [center, middle]
+---
+
+```{r include=FALSE}
+library(knitr)
+hook_output <- knit_hooks$get("output")
+knit_hooks$set(output = function(x, options) {
+  lines <- options$output.lines
+  if (is.null(lines)) {
+    return(hook_output(x, options))  # pass to default hook
+  }
+  x <- unlist(strsplit(x, "\n"))
+  more <- "..."
+  if (length(lines) == 1) {        # first n lines
+    if (length(x) > lines) {
+      # truncate the output, but add ....
+      x <- c(head(x, lines), more)
+    }
+  } else {
+    x <- c(more, x[lines], more)
+  }
+  # paste these lines together
+  x <- paste(c(x, ""), collapse = "\n")
+  hook_output(x, options)
+})
+knit_hooks$set(output = function(x, options) {
+  # this hook is used only when the linewidth option is not NULL
+  if (!is.null(n <- options$linewidth)) {
+    x = knitr:::split_lines(x)
+    # any lines wider than n should be wrapped
+    if (any(nchar(x) > n)) x = strwrap(x, width = n)
+    x = paste(x, collapse = '\n')
+  }
+  hook_output(x, options)
+})
+
+opts_chunk$set(
+  echo = TRUE,
+  fig.width = 7, 
+  fig.align = 'center',
+  fig.asp = 0.618, # 1 / phi
+  out.width = "700px")
+```
+
+```{r, echo = FALSE}
+library(sass)
+sass(sass_file("theme.sass"), output = "theme.css")
+```
+
+# Plan for the week
+
+- We will try to turn text into numbers
+- Then use tidy principals to explore those numbers
+
+---
+
+# Tidytext
+
+![](images/tidytext.png)
+
+---
+
+# Why tidytext?
+
+Works seemlessly with ggplot2, dplyr and tidyr.
+
+**Alternatives:**
+
+**R**: quanteda, tm, koRpus
+
+**Python**: nltk, Spacy, gensim
+
+---
+
+# Alice's Adventures in Wonderland
+
+```{r}
+#devtools::install_github("EmilHvitfeldt/tidygutenbergr")
+library(tidyverse)
+library(tidygutenbergr)
+
+alice <- alices_adventures()
+```
+
+---
+
+# Turning the data into a tidy format
+
+```{r}
+alice
+```
+
+---
+
+# Turning the data into a tidy format
+
+```{r}
+library(tidytext)
+alice %>%
+  unnest_tokens(token, text)
+```
+
+---
+
+# Words as a unit
+
+Now that we have words as the observation unit we can use the **dplyr** toolbox.
+
+---
+
+# Using dplyr verbs
+
+.pull-left[
+```{r dplyr1, eval=FALSE}
+library(dplyr)
+alice %>%
+  unnest_tokens(token, text)
+```
+]
+
+.pull-right[
+```{r ref.label="dplyr1", echo=FALSE}
+```
+]
+
+---
+
+# Using dplyr verbs
+
+.pull-left[
+```{r dplyr2, eval=FALSE}
+library(dplyr)
+alice %>%
+  unnest_tokens(token, text) %>%
+  count(token)
+```
+]
+
+.pull-right[
+```{r ref.label="dplyr2", echo=FALSE}
+```
+]
+
+---
+
+# Using dplyr verbs
+
+.pull-left[
+```{r dplyr3, eval=FALSE}
+library(dplyr)
+alice %>%
+  unnest_tokens(token, text) %>%
+  count(token, sort = TRUE)
+```
+]
+
+.pull-right[
+```{r ref.label="dplyr3", echo=FALSE}
+```
+]
+
+---
+
+# Using dplyr verbs
+
+.pull-left[
+```{r dplyr4, eval=FALSE}
+library(dplyr)
+alice %>%
+  unnest_tokens(token, text) %>%
+  count(chapter, token)
+```
+]
+
+.pull-right[
+```{r ref.label="dplyr4", echo=FALSE}
+```
+]
+
+---
+
+# Using dplyr verbs
+
+.pull-left[
+```{r dplyr5, eval=FALSE}
+library(dplyr)
+alice %>%
+  unnest_tokens(token, text) %>%
+  group_by(chapter) %>%
+  count(token) %>%
+  top_n(10, n)
+```
+]
+
+.pull-right[
+```{r ref.label="dplyr5", echo=FALSE}
+```
+]
+
+---
+
+# Using dplyr verbs and ggplot2
+
+.pull-left[
+```{r dplyr6, eval=FALSE}
+library(dplyr)
+library(ggplot2)
+alice %>%
+  unnest_tokens(token, text) %>%
+  count(token) %>%
+  top_n(10, n) %>%
+  ggplot(aes(n, token)) +
+  geom_col()
+```
+]
+
+.pull-right[
+```{r ref.label="dplyr6", echo=FALSE}
+```
+]
+
+---
+
+# Using dplyr verbs and ggplot2
+
+.pull-left[
+```{r dplyr7, eval=FALSE}
+library(dplyr)
+library(ggplot2)
+library(forcats)
+alice %>%
+  unnest_tokens(token, text) %>%
+  count(token) %>%
+  top_n(10, n) %>%
+  ggplot(aes(n, fct_reorder(token, n))) +
+  geom_col()
+```
+]
+
+.pull-right[
+```{r ref.label="dplyr7", echo=FALSE}
+```
+]
+
+---
+
+### Medical Transcriptions
+
+Loading in reference transcription samples from https://www.mtsamples.com/
+
+```{r, warning=FALSE, message=FALSE}
+library(readr)
+mt_samples <- read_csv("mtsamples.csv")
+mt_samples <- mt_samples %>%
+  select(description, medical_specialty, transcription)
+
+head(mt_samples)
+```
+
+---
+
+## What specialties do we have?
+
+
+
+```{r}
+mt_samples %>%
+  count(medical_specialty)
+```
+
+---
+
+## What specialties do we have?
+
+```{r}
+mt_samples %>%
+  count(medical_specialty, sort = TRUE)
+```
+
+
+---
+
+## Sample transprict
+
+```{r, echo=FALSE}
+library(stringr)
+mt_samples %>%
+  slice(1) %>%
+  pull(transcription) %>%
+  str_wrap() %>%
+  cat()
+```
+
+---
+
+# Your turn 1
+
+- Tokenize the the words in the `transcription` column
+- Count the number of times each token appears
+- Visualize the top 20 most frequent words
+
+---
+
+# Your turn 1 - Solutions
+
+```{r, echo=FALSE}
+mt_samples %>%
+  unnest_tokens(word, transcription) %>%
+  count(word, sort = TRUE)
+```
+
+---
+
+# Your turn 1 - Solutions
+
+```{r, echo=FALSE}
+mt_samples %>%
+  unnest_tokens(word, transcription) %>%
+  count(word, sort = TRUE) %>%
+  slice(1:20) %>%
+  ggplot(aes(n, fct_reorder(word, n))) +
+  geom_col() +
+  labs(y = "word")
+```
+
+---
+
+A lot of the words don't tell us very much. Words such as "the", "and", "at" and "for" appear a lot in English text but doens't add much to the context.
+
+Words such as these are called **stop words**
+
+For more information about differences in stop words and when to remove them read this chapter https://smltar.com/stopwords
+
+---
+
+## Stop words in tidytext
+
+tidytext comes with a data.frame of stop words
+
+```{r}
+stop_words
+```
+
+
+---
+
+## Removing stopwords
+
+We can use an `anti_join()` to remove the tokens that also appear in the `stop_words` data.frame
+
+```{r}
+mt_samples %>%
+  unnest_tokens(word, transcription) %>%
+  anti_join(stop_words, by = c("word")) %>%
+  count(word, sort = TRUE)
+```
+
+---
+
+## Your turn 2
+
+- Redo visualization but remove stopwords before
+- Bonus points if you remove numbers as well
+
+---
+
+## Your turn 2 - solution
+
+```{r, echo=FALSE}
+mt_samples %>%
+  unnest_tokens(word, transcription) %>%
+  anti_join(stop_words, by = "word") %>%
+  anti_join(tibble(word = as.character(seq_len(100) - 1)), by = "word") %>%
+  count(word, sort = TRUE) %>%
+  slice(1:20) %>%
+  ggplot(aes(n, fct_reorder(word, n))) +
+  geom_col() +
+  labs(y = "word")
+```
+
+---
+
+## Which words appears together?
+
+ngrams are n coonsecutive word, we can count these to see what words appears together.
+
+- ngram with n = 1 are called unigrams: "which", "words", "appears", "together"
+- ngram with n = 2 are called bigrams: "which words", "words appears", "appears together"
+- ngram with n = 3 are called trigrams: "which words appears", "words appears together"
+
+---
+
+## Which words appears together?
+
+We can extract bigrams using `unnest_ngrams()` with `n = 2`
+
+```{r}
+mt_samples %>%
+  unnest_ngrams(ngram, transcription, n = 2)
+```
+
+---
+
+# Which words appears together?
+
+Tallying up the bi-grams still shows a lot of stop words but it able to pick up retationhips with patients
+
+```{r}
+mt_samples %>%
+  unnest_ngrams(ngram, transcription, n = 2) %>%
+  count(ngram, sort = TRUE)
+```
+
+---
+
+# Which words appears together?
+
+```{r}
+mt_samples %>%
+  unnest_ngrams(ngram, transcription, n = 2) %>%
+  separate(ngram, into = c("word1", "word2"), sep = " ") %>%
+  select(word1, word2)
+```
+
+---
+
+# Your turn 3 
+
+- Pick a word and count the words that appears after and before it
+- how does the result change if you look at trigrams
+
+---
+
+# Your turn 3 - solution
+
+I picked the word "blood". These are the most common words to appear after
+
+```{r, echo=FALSE}
+mt_samples %>%
+  unnest_ngrams(ngram, transcription, n = 2) %>%
+  separate(ngram, into = c("word1", "word2"), sep = " ") %>%
+  select(word1, word2) %>%
+  filter(word1 == "blood") %>%
+  count(word2, sort = TRUE)
+```
+
+---
+
+# Your turn 3 - solution
+
+These are the most common words to appear before
+
+```{r, echo=FALSE}
+mt_samples %>%
+  unnest_ngrams(ngram, transcription, n = 2) %>%
+  separate(ngram, into = c("word1", "word2"), sep = " ") %>%
+  select(word1, word2) %>%
+  filter(word2 == "blood") %>%
+  count(word1, sort = TRUE)
+```
+
+---
+
+# Your turn 3 - solution
+
+These are the most common pair of words to appear after "blood"
+
+```{r, echo=FALSE}
+mt_samples %>%
+  unnest_ngrams(ngram, transcription, n = 3) %>%
+  separate(ngram, into = c("word1", "word2", "word3"), sep = " ") %>%
+  select(word1, word2, word3) %>%
+  filter(word1 == "blood") %>%
+  count(word2, word3, sort = TRUE)
+```
+
+---
+
+# Your turn 4
+
+Find your own insight in the data:
+
+Ideas:
+
+- Interesting ngrams
+- See if certain words are used more in some specialties then others
