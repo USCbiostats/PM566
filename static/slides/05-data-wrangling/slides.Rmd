@@ -5,7 +5,7 @@ author: "George G. Vega Yon"
 output:
   # slidy_presentation
   xaringan::moon_reader:
-    css: ["theme.css"]
+    # css: ["theme.css"]
     lib_dir: libs
     nature:
       beforeInit: "macros.js"
@@ -19,8 +19,8 @@ output:
 
 <!--Yeah... I have really long code chunks, so I just changed the default size :)-->
 <style type="text/css">
-code.r,code.cpp,code{
-  font-size:medium;
+code.*, .remark-code, pre {
+  font-size:16px;
 }
 </style>
 
@@ -143,6 +143,9 @@ ans <- data.frame(
 knitr::kable(ans, row.names = FALSE, align = "c")
 ```
 
+<div align="center">
+<img src="https://d33wubrfki0l68.cloudfront.net/01f4b6d39d2be8269740a3ad7946faa79f7243cf/8369a/diagrams/transform-logical.png" width="350px">
+</div>
 ---
 
 ## Questions 2: How many ways can you write an XOR operator?
@@ -152,9 +155,11 @@ element wise. Here you have a template:
 
 ```r
 myxor <- function(x, y) {
+  res <- logical(length(x))
   for (i in 1:length(x)) {
     # do something with x[i] and y[i]
   }
+  return(res)
 }
 ```
 
@@ -232,17 +237,7 @@ We will now see applications using the `met` dataset
 
 ---
 
-## Creating variables: Data wrangling in R
-
-- For this part we will be mostly using `data.table`
-
-- We will show examples using `data.table`, `pydatatable`, and `dtplyr` (a `dplyr` wrapper of `data.table`).
-
-- We use data.table because of [this](https://h2oai.github.io/db-benchmark/)
-
----
-
-## Creating variables: Data wrangling in R
+## Data wrangling in R
 
 Overall, you will find the following approaches:
 
@@ -254,7 +249,22 @@ Overall, you will find the following approaches:
 
 Other methods involve, for example, using external tools such as [Spark](http://spark.apache.org/), [sparkly](https://cran.r-project.org/package=sparklyr).
 
+We besides of the `data.table` documentation, there is a very neat cheat sheet by
+[Erik Petrovski](http://www.petrovski.dk/) [here](https://github.com/rstudio/cheatsheets/raw/master/datatable.pdf).
+
 ---
+
+## Today's session
+
+- For this part we will be mostly using `data.table`
+
+- We will show examples using `data.table`, `pydatatable`, and `dtplyr` (a `dplyr` wrapper of `data.table`).
+
+- We use data.table because of [this](https://h2oai.github.io/db-benchmark/)
+
+---
+
+
 
 First things first, load the R packages
 
@@ -264,13 +274,17 @@ library(dtplyr)
 library(dplyr)
 ```
 
-The `dtplyr` R package translates `dplyr` (`tidyverse`) syntax to `data.table`, so that we can still use **the pipe** while at the same time leveraging the performance of `data.table`.
+The `dtplyr` R package translates `dplyr` (`tidyverse`) syntax to `data.table`,
+so that we can still use **the dplyr verbs** while at the same time leveraging the
+performance of `data.table`.
 
 ---
 
 ## Loading the data
 
-The data that we will be using is an already processed version of the MET dataset. We can download (and load) the data directly in our session using the following commands
+The data that we will be using is an already processed version of the MET
+dataset. We can download (and load) the data directly in our session using the
+following commands:
 
 ```{r downloading-data, cache=TRUE}
 # Where are we getting the data from
@@ -281,6 +295,8 @@ met_url <- "https://github.com/USCbiostats/data-science-data/raw/master/02_met/m
 # tmp <- tempfile(fileext = ".gz")
 tmp <- "met.gz"
 
+# We sould be downloading this, ONLY IF this was not downloaded already.
+# otherwise is just a waste of time.
 if (!file.exists(tmp)) {
   download.file(
     url      = met_url,
@@ -290,19 +306,16 @@ if (!file.exists(tmp)) {
 }
 ```
 
+Now we can load the data using the `fread()` function.
+
 ---
 
 In R
 
-
 ```{r reading-data}
 # Reading the data
 dat <- fread(tmp)
-
-# Setting up a dplyr wrapper
-dat_tv <- lazy_dt(dat)
-
-str(dat)
+head(dat)
 ```
 
 ---
@@ -314,6 +327,19 @@ import datatable as dt
 dat = dt.fread("met.gz")
 dat.head(5)
 ```
+
+---
+
+## A note on Data Table's Syntax
+
+- As you have seen in previous lectures, in `data.table` all happens within the
+square brackets. Here is common way to imagine DT:
+
+<div align="center">
+<img src="datatable-syntax-paths.svg" width="600px">
+</div>
+
+<!-- - It also seems that [data.table can be useful for small data](https://github.com/Rdatatable/data.table/wiki/Convenience-features-of-fread). -->
 
 ---
 
@@ -329,6 +355,10 @@ Need to select records according to some criteria. For example:
 
 In R with `data.table`
 
+- `(day == 1)` First day of the month, and
+- `(lat > 40)` Above latitude 40, and
+- `((elev < 500) | (elev > 1000))` Elevation outside the range 500 and 1,000.
+
 ```{r filter1-dt}
 dat[(day == 1) & (lat > 40) & ((elev < 500) | (elev > 1000))] %>%
   nrow()
@@ -340,6 +370,9 @@ dat[(day == 1) & (lat > 40) & ((elev < 500) | (elev > 1000))] %>%
 In R with `dtplyr`
 
 ```{r filter1-tv}
+# Setting up a dplyr wrapper
+dat_tv <- lazy_dt(dat)
+
 dat_tv %>%
   filter(day == 1, lat > 40, (elev < 500) | (elev > 1000)) %>%
   compute() %>% # Notice this line!
@@ -355,11 +388,20 @@ import datatable as dt
 dat = dt.fread("met.gz")
 ```
 
+- `(dt.f.day == 1)` First day of the month, and
+- `(dt.f.lat > 40)` Above latitude 40, and
+- `((dt.f.elev < 500) | (dt.f.elev > 1000))` Elevation outside the range 500 and 1,000.
 
 ```{python filter1-py}
 dat[(dt.f.day == 1) & (dt.f.lat > 40) & ((dt.f.elev < 500) | (dt.f.elev > 1000)), :].nrows
 # dat[dt.f.day == 1,:][dt.f.lat > 40,:][(dt.f.elev < 500) | (dt.f.elev > 1000),:].nrows
 ```
+
+In the case of pydatatable we use `dt.f.` to refer to a column. `df.` is what
+we use to refer to datatable's [namespace](https://en.wikipedia.org/wiki/Namespace).
+
+The [`f.` is a symbol](https://datatable.readthedocs.io/en/latest/manual/f-expressions.html)
+that allows accessing column names in a datatable's `Frame`.
 
 ---
 
@@ -367,36 +409,104 @@ dat[(dt.f.day == 1) & (dt.f.lat > 40) & ((dt.f.elev < 500) | (dt.f.elev > 1000))
 
 1. How many records have a temperature within 18 and 25?
 
-```{r eval=FALSE}
-nrow(dat[temp >= 18 & temp <= 25])
+```r
+
 ```
 
-2. How would you rewrite the previous solution?
+---
 
-```{r eval=FALSE}
-nrow(dat[!(temp < 18 | temp > 25)])
+## Selecting columns
+
+How can we select the columns `USAFID`, `lat`, and `lon`
+
+```{r select1-dt}
+dat[, list(USAFID, lat, lon)]
 ```
+
+In the case of `data.table`, What happens if instead of `list()` you used `c()`?
+
+---
+
+Using `dplyr` syntax
+
+```{r select1-tv}
+dat_tv %>% select(USAFID, lat, lon)
+```
+
+
+---
+
+In Python
+
+```{python select1-py}
+dat[:,["USAFID", "lat", "lon"]]
+```
+
+What happens if instead of `["USAFID", "lat", "lon"]` you used `{"USAFID", "lat", "lon"}` (vector vs set).
+
+---
+
+## Variable creation
+
+In the case of `data.table`, to generate (or modify) variables we use the following syntax:
+
+
+
 
 ---
 
 ## Generating summary statistics
 
-```{r read-in, cache=TRUE}
+```{r group-dt1, cache=TRUE}
 # Generating a date component
 dat[, Date := as.IDate(paste(year, month, day, sep = "-"))]
 
-# Generating the daily averages of Atmospheric pressure and temperature per
-# station
-dat_daily <- dat[
-  ,
+dat[,
   list(
-    atm.press_avg = mean(atm.press, na.rm = TRUE),
-    temp_avg      = mean(temp, na.rm = TRUE)
+    wind.sp   = mean(wind.sp, na.rm = TRUE),
+    temp      = mean(temp, na.rm = TRUE),
+    atm.press = mean(atm.press, na.rm = TRUE)
+  ), by = c("USAFID", "Date")
+  ]
+
+head(dat)
+```
+
+---
+
+The previous is equivalent to write (compare both using the `identical()` function in R)
+
+```r
+dat_daily2 <- dat[
+  ,
+  .(
+    wind.sp   = mean(wind.sp, na.rm = TRUE),
+    temp      = mean(temp, na.rm = TRUE),
+    atm.press = mean(atm.press, na.rm = TRUE)
   ),
-  by = c("USAFID", "Date", "lat", "lon")
+  by = .(USAFID, Date)
 ]
 ```
 
+---
+
+When dealing with too many variables, we can use the `.SD` special symbol:
+
+
+```{r group-dt2, cache=TRUE}
+# Generating a date component
+dat[, Date := as.IDate(paste(year, month, day, sep = "-"))]
+
+# Listing the names
+in_names  <- c("wind.sp", "temp", "atm.press")
+out_names <- paste0(in_names, "_avg")
+
+dat[,
+  c(out_names) := lapply(.SD, mean, na.rm = TRUE),
+  .SDcols = in_names,
+  by      = c("USAFID", "Date")
+  ]
+```
 
 ---
 
@@ -436,7 +546,7 @@ The data.table package:
 
 ---
 
-```{r}
+```{r eval=FALSE}
 # Monthly average temperature plot
 library(ggplot2)
 library(akima)

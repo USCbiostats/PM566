@@ -4,7 +4,8 @@
     <title>Week 5: Data Wrangling</title>
     <meta charset="utf-8" />
     <meta name="author" content="George G. Vega Yon" />
-    <link rel="stylesheet" href="theme.css" type="text/css" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
   </head>
   <body>
     <textarea id="source">
@@ -19,8 +20,8 @@ class: center, middle, title-slide
 
 &lt;!--Yeah... I have really long code chunks, so I just changed the default size :)--&gt;
 &lt;style type="text/css"&gt;
-code.r,code.cpp,code{
-  font-size:medium;
+code.*, .remark-code, pre {
+  font-size:16px;
 }
 &lt;/style&gt;
 
@@ -137,6 +138,9 @@ describing each column data type/format.
 | true  | false |   false   |   true   |   true    |
 | false | false |   false   |  false   |   false   |
 
+&lt;div align="center"&gt;
+&lt;img src="https://d33wubrfki0l68.cloudfront.net/01f4b6d39d2be8269740a3ad7946faa79f7243cf/8369a/diagrams/transform-logical.png" width="350px"&gt;
+&lt;/div&gt;
 ---
 
 ## Questions 2: How many ways can you write an XOR operator?
@@ -146,9 +150,11 @@ element wise. Here you have a template:
 
 ```r
 myxor &lt;- function(x, y) {
+  res &lt;- logical(length(x))
   for (i in 1:length(x)) {
     # do something with x[i] and y[i]
   }
+  return(res)
 }
 ```
 
@@ -253,17 +259,7 @@ We will now see applications using the `met` dataset
 
 ---
 
-## Creating variables: Data wrangling in R
-
-- For this part we will be mostly using `data.table`
-
-- We will show examples using `data.table`, `pydatatable`, and `dtplyr` (a `dplyr` wrapper of `data.table`).
-
-- We use data.table because of [this](https://h2oai.github.io/db-benchmark/)
-
----
-
-## Creating variables: Data wrangling in R
+## Data wrangling in R
 
 Overall, you will find the following approaches:
 
@@ -275,7 +271,22 @@ Overall, you will find the following approaches:
 
 Other methods involve, for example, using external tools such as [Spark](http://spark.apache.org/), [sparkly](https://cran.r-project.org/package=sparklyr).
 
+We besides of the `data.table` documentation, there is a very neat cheat sheet by
+[Erik Petrovski](http://www.petrovski.dk/) [here](https://github.com/rstudio/cheatsheets/raw/master/datatable.pdf).
+
 ---
+
+## Today's session
+
+- For this part we will be mostly using `data.table`
+
+- We will show examples using `data.table`, `pydatatable`, and `dtplyr` (a `dplyr` wrapper of `data.table`).
+
+- We use data.table because of [this](https://h2oai.github.io/db-benchmark/)
+
+---
+
+
 
 First things first, load the R packages
 
@@ -309,13 +320,17 @@ library(dplyr)
 ##     intersect, setdiff, setequal, union
 ```
 
-The `dtplyr` R package translates `dplyr` (`tidyverse`) syntax to `data.table`, so that we can still use **the pipe** while at the same time leveraging the performance of `data.table`.
+The `dtplyr` R package translates `dplyr` (`tidyverse`) syntax to `data.table`,
+so that we can still use **the dplyr verbs** while at the same time leveraging the
+performance of `data.table`.
 
 ---
 
 ## Loading the data
 
-The data that we will be using is an already processed version of the MET dataset. We can download (and load) the data directly in our session using the following commands
+The data that we will be using is an already processed version of the MET
+dataset. We can download (and load) the data directly in our session using the
+following commands:
 
 
 ```r
@@ -327,6 +342,8 @@ met_url &lt;- "https://github.com/USCbiostats/data-science-data/raw/master/02_me
 # tmp &lt;- tempfile(fileext = ".gz")
 tmp &lt;- "met.gz"
 
+# We sould be downloading this, ONLY IF this was not downloaded already.
+# otherwise is just a waste of time.
 if (!file.exists(tmp)) {
   download.file(
     url      = met_url,
@@ -336,42 +353,48 @@ if (!file.exists(tmp)) {
 }
 ```
 
+Now we can load the data using the `fread()` function.
+
 ---
 
 In R
 
 
-
 ```r
 # Reading the data
 dat &lt;- fread(tmp)
-
-# Setting up a dplyr wrapper
-dat_tv &lt;- lazy_dt(dat)
-
-head(dat_tv)
+head(dat)
 ```
 
 ```
-## Source: local data table [?? x 30]
-## Call:   head(`_DT1`, n = 6L)
-## 
-##   USAFID  WBAN  year month   day  hour   min   lat   lon  elev wind.dir
-##    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;    &lt;int&gt;
-## 1 690150 93121  2019     8     1     0    56  34.3 -116.   696      220
-## 2 690150 93121  2019     8     1     1    56  34.3 -116.   696      230
-## 3 690150 93121  2019     8     1     2    56  34.3 -116.   696      230
-## 4 690150 93121  2019     8     1     3    56  34.3 -116.   696      210
-## 5 690150 93121  2019     8     1     4    56  34.3 -116.   696      120
-## 6 690150 93121  2019     8     1     5    56  34.3 -116.   696       NA
-## # … with 19 more variables: wind.dir.qc &lt;chr&gt;, wind.type.code &lt;chr&gt;,
-## #   wind.sp &lt;dbl&gt;, wind.sp.qc &lt;chr&gt;, ceiling.ht &lt;int&gt;, ceiling.ht.qc &lt;int&gt;,
-## #   ceiling.ht.method &lt;chr&gt;, sky.cond &lt;chr&gt;, vis.dist &lt;int&gt;, vis.dist.qc &lt;chr&gt;,
-## #   vis.var &lt;chr&gt;, vis.var.qc &lt;chr&gt;, temp &lt;dbl&gt;, temp.qc &lt;chr&gt;,
-## #   dew.point &lt;dbl&gt;, dew.point.qc &lt;chr&gt;, atm.press &lt;dbl&gt;, atm.press.qc &lt;int&gt;,
-## #   rh &lt;dbl&gt;
-## 
-## # Use as.data.table()/as.data.frame()/as_tibble() to access results
+##    USAFID  WBAN year month day hour min  lat      lon elev wind.dir wind.dir.qc
+## 1: 690150 93121 2019     8   1    0  56 34.3 -116.166  696      220           5
+## 2: 690150 93121 2019     8   1    1  56 34.3 -116.166  696      230           5
+## 3: 690150 93121 2019     8   1    2  56 34.3 -116.166  696      230           5
+## 4: 690150 93121 2019     8   1    3  56 34.3 -116.166  696      210           5
+## 5: 690150 93121 2019     8   1    4  56 34.3 -116.166  696      120           5
+## 6: 690150 93121 2019     8   1    5  56 34.3 -116.166  696       NA           9
+##    wind.type.code wind.sp wind.sp.qc ceiling.ht ceiling.ht.qc ceiling.ht.method
+## 1:              N     5.7          5      22000             5                 9
+## 2:              N     8.2          5      22000             5                 9
+## 3:              N     6.7          5      22000             5                 9
+## 4:              N     5.1          5      22000             5                 9
+## 5:              N     2.1          5      22000             5                 9
+## 6:              C     0.0          5      22000             5                 9
+##    sky.cond vis.dist vis.dist.qc vis.var vis.var.qc temp temp.qc dew.point
+## 1:        N    16093           5       N          5 37.2       5      10.6
+## 2:        N    16093           5       N          5 35.6       5      10.6
+## 3:        N    16093           5       N          5 34.4       5       7.2
+## 4:        N    16093           5       N          5 33.3       5       5.0
+## 5:        N    16093           5       N          5 32.8       5       5.0
+## 6:        N    16093           5       N          5 31.1       5       5.6
+##    dew.point.qc atm.press atm.press.qc       rh
+## 1:            5    1009.9            5 19.88127
+## 2:            5    1010.3            5 21.76098
+## 3:            5    1010.6            5 18.48212
+## 4:            5    1011.6            5 16.88862
+## 5:            5    1012.7            5 17.38410
+## 6:            5    1012.7            5 20.01540
 ```
 
 ---
@@ -399,6 +422,19 @@ dat.head(5)
 
 ---
 
+## A note on Data Table's Syntax
+
+- As you have seen in previous lectures, in `data.table` all happens within the
+square brackets. Here is common way to imagine DT:
+
+&lt;div align="center"&gt;
+&lt;img src="datatable-syntax-paths.svg" width="600px"&gt;
+&lt;/div&gt;
+
+&lt;!-- - It also seems that [data.table can be useful for small data](https://github.com/Rdatatable/data.table/wiki/Convenience-features-of-fread). --&gt;
+
+---
+
 ## Filtering (subsetting) the data
 
 Need to select records according to some criteria. For example:
@@ -411,10 +447,14 @@ Need to select records according to some criteria. For example:
 
 In R with `data.table`
 
+- `(day == 1)` First day of the month, and
+- `(lat &gt; 40)` Above latitude 40, and
+- `((elev &lt; 500) | (elev &gt; 1000))` Elevation outside the range 500 and 1,000.
+
 
 ```r
-dat[day == 1 &amp; lat &gt; 40 &amp; ((elev &lt; 500) | (elev &gt; 1000))] %&gt;%
-  nrow
+dat[(day == 1) &amp; (lat &gt; 40) &amp; ((elev &lt; 500) | (elev &gt; 1000))] %&gt;%
+  nrow()
 ```
 
 ```
@@ -422,7 +462,7 @@ dat[day == 1 &amp; lat &gt; 40 &amp; ((elev &lt; 500) | (elev &gt; 1000))] %&gt;
 ```
 
 ```r
-# dat[day == 1][lat &gt; 40][elev &lt; 500 | elev &gt; 1000]
+# dat[day == 1][lat &gt; 40][elev &lt; 500 | elev &gt; 1000] %&gt;% nrow()
 ```
 
 ---
@@ -431,8 +471,11 @@ In R with `dtplyr`
 
 
 ```r
+# Setting up a dplyr wrapper
+dat_tv &lt;- lazy_dt(dat)
+
 dat_tv %&gt;%
-  filter(day == 1, lat &gt; 40, elev &lt; 500 | elev &gt; 1000) %&gt;%
+  filter(day == 1, lat &gt; 40, (elev &lt; 500) | (elev &gt; 1000)) %&gt;%
   compute() %&gt;% # Notice this line!
   nrow()
 ```
@@ -447,16 +490,137 @@ In Python
 
 
 
+- `(dt.f.day == 1)` First day of the month, and
+- `(dt.f.lat &gt; 40)` Above latitude 40, and
+- `((dt.f.elev &lt; 500) | (dt.f.elev &gt; 1000))` Elevation outside the range 500 and 1,000.
 
 
 ```python
-dat[(dt.f.day == 1) &amp; (dt.f.lat &gt; 40) &amp; ((dt.f.elev &lt; 500) | (dt.f.elev &gt; 1000)),:].nrows
+dat[(dt.f.day == 1) &amp; (dt.f.lat &gt; 40) &amp; ((dt.f.elev &lt; 500) | (dt.f.elev &gt; 1000)), :].nrows
 # dat[dt.f.day == 1,:][dt.f.lat &gt; 40,:][(dt.f.elev &lt; 500) | (dt.f.elev &gt; 1000),:].nrows
 ```
 
 ```
 ## 27623
 ```
+
+In the case of pydatatable we use `dt.f.` to refer to a column. `df.` is what
+we use to refer to datatable's [namespace](https://en.wikipedia.org/wiki/Namespace).
+
+The [`f.` is a symbol](https://datatable.readthedocs.io/en/latest/manual/f-expressions.html)
+that allows accessing column names in a datatable's `Frame`.
+
+---
+
+## Question 3: 
+
+1. How many records have a temperature within 18 and 25?
+
+```r
+
+```
+
+---
+
+## Selecting columns
+
+How can we select the columns `USAFID`, `lat`, and `lon`
+
+
+```r
+dat[, list(USAFID, lat, lon)]
+```
+
+```
+##          USAFID    lat      lon
+##       1: 690150 34.300 -116.166
+##       2: 690150 34.300 -116.166
+##       3: 690150 34.300 -116.166
+##       4: 690150 34.300 -116.166
+##       5: 690150 34.300 -116.166
+##      ---                       
+## 2377339: 726813 43.650 -116.633
+## 2377340: 726813 43.650 -116.633
+## 2377341: 726813 43.650 -116.633
+## 2377342: 726813 43.642 -116.636
+## 2377343: 726813 43.642 -116.636
+```
+
+In the case of `data.table`, What happens if instead of `list()` you used `c()`?
+
+---
+
+Using `dplyr` syntax
+
+
+```r
+dat_tv %&gt;% select(USAFID, lat, lon)
+```
+
+```
+## Source: local data table [?? x 3]
+## Call:   `_DT1`[, .(USAFID, lat, lon)]
+## 
+##   USAFID   lat   lon
+##    &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 690150  34.3 -116.
+## 2 690150  34.3 -116.
+## 3 690150  34.3 -116.
+## 4 690150  34.3 -116.
+## 5 690150  34.3 -116.
+## 6 690150  34.3 -116.
+## 
+## # Use as.data.table()/as.data.frame()/as_tibble() to access results
+```
+
+
+---
+
+In Python
+
+
+```python
+dat[:,["USAFID", "lat", "lon"]]
+```
+
+```
+## [1m        [0;90m|[0;1m USAFID      lat       lon[0m
+## [90m------- + ------  -------  --------[0m
+## [90m      0 |[0m 690150   34.3    -116.166
+## [90m      1 |[0m 690150   34.3    -116.166
+## [90m      2 |[0m 690150   34.3    -116.166
+## [90m      3 |[0m 690150   34.3    -116.166
+## [90m      4 |[0m 690150   34.3    -116.166
+## [90m      5 |[0m 690150   34.3    -116.166
+## [90m      6 |[0m 690150   34.3    -116.166
+## [90m      7 |[0m 690150   34.3    -116.166
+## [90m      8 |[0m 690150   34.3    -116.166
+## [90m      9 |[0m 690150   34.3    -116.166
+## [90m     10 |[0m 690150   34.296  -116.162
+## [90m     11 |[0m 690150   34.296  -116.162
+## [90m     12 |[0m 690150   34.3    -116.166
+## [90m     13 |[0m 690150   34.3    -116.166
+## [90m     14 |[0m 690150   34.3    -116.166
+## [90m    [0;2m...[0;90m |[0m    [2m...[0m  ...       ...    
+## [90m2377338 |[0m 726813   43.65   -116.633
+## [90m2377339 |[0m 726813   43.65   -116.633
+## [90m2377340 |[0m 726813   43.65   -116.633
+## [90m2377341 |[0m 726813   43.642  -116.636
+## [90m2377342 |[0m 726813   43.642  -116.636
+## 
+## [2m[2377343 rows x 3 columns][0m
+```
+
+What happens if instead of `["USAFID", "lat", "lon"]` you used `{"USAFID", "lat", "lon"}` (vector vs set).
+
+---
+
+## Variable creation
+
+In the case of `data.table`, to generate (or modify) variables we use the following syntax:
+
+
+
 
 ---
 
@@ -467,18 +631,101 @@ dat[(dt.f.day == 1) &amp; (dt.f.lat &gt; 40) &amp; ((dt.f.elev &lt; 500) | (dt.f
 # Generating a date component
 dat[, Date := as.IDate(paste(year, month, day, sep = "-"))]
 
-# Generating the daily averages of Atmospheric pressure and temperature per
-# station
-dat_daily &lt;- dat[
-  ,
+dat[,
   list(
-    atm.press_avg = mean(atm.press, na.rm = TRUE),
-    temp_avg      = mean(temp, na.rm = TRUE)
+    wind.sp   = mean(wind.sp, na.rm = TRUE),
+    temp      = mean(temp, na.rm = TRUE),
+    atm.press = mean(atm.press, na.rm = TRUE)
+  ), by = c("USAFID", "Date")
+  ]
+```
+
+```
+##        USAFID       Date  wind.sp     temp atm.press
+##     1: 690150 2019-08-01 2.895833 32.59583  1012.675
+##     2: 690150 2019-08-02 4.154167 33.54167  1012.121
+##     3: 690150 2019-08-03 4.433333 34.30833  1010.750
+##     4: 690150 2019-08-04 4.245833 34.72083  1010.625
+##     5: 690150 2019-08-05 3.660870 34.77391  1010.687
+##    ---                                              
+## 49104: 726813 2019-08-27 1.579167 20.05833  1017.096
+## 49105: 726813 2019-08-28 1.175000 21.18333  1013.579
+## 49106: 726813 2019-08-29 1.733333 24.32083  1010.708
+## 49107: 726813 2019-08-30 3.508333 24.54583  1012.808
+## 49108: 726813 2019-08-31 1.208333 24.27917  1012.817
+```
+
+```r
+head(dat)
+```
+
+```
+##    USAFID  WBAN year month day hour min  lat      lon elev wind.dir wind.dir.qc
+## 1: 690150 93121 2019     8   1    0  56 34.3 -116.166  696      220           5
+## 2: 690150 93121 2019     8   1    1  56 34.3 -116.166  696      230           5
+## 3: 690150 93121 2019     8   1    2  56 34.3 -116.166  696      230           5
+## 4: 690150 93121 2019     8   1    3  56 34.3 -116.166  696      210           5
+## 5: 690150 93121 2019     8   1    4  56 34.3 -116.166  696      120           5
+## 6: 690150 93121 2019     8   1    5  56 34.3 -116.166  696       NA           9
+##    wind.type.code wind.sp wind.sp.qc ceiling.ht ceiling.ht.qc ceiling.ht.method
+## 1:              N     5.7          5      22000             5                 9
+## 2:              N     8.2          5      22000             5                 9
+## 3:              N     6.7          5      22000             5                 9
+## 4:              N     5.1          5      22000             5                 9
+## 5:              N     2.1          5      22000             5                 9
+## 6:              C     0.0          5      22000             5                 9
+##    sky.cond vis.dist vis.dist.qc vis.var vis.var.qc temp temp.qc dew.point
+## 1:        N    16093           5       N          5 37.2       5      10.6
+## 2:        N    16093           5       N          5 35.6       5      10.6
+## 3:        N    16093           5       N          5 34.4       5       7.2
+## 4:        N    16093           5       N          5 33.3       5       5.0
+## 5:        N    16093           5       N          5 32.8       5       5.0
+## 6:        N    16093           5       N          5 31.1       5       5.6
+##    dew.point.qc atm.press atm.press.qc       rh       Date
+## 1:            5    1009.9            5 19.88127 2019-08-01
+## 2:            5    1010.3            5 21.76098 2019-08-01
+## 3:            5    1010.6            5 18.48212 2019-08-01
+## 4:            5    1011.6            5 16.88862 2019-08-01
+## 5:            5    1012.7            5 17.38410 2019-08-01
+## 6:            5    1012.7            5 20.01540 2019-08-01
+```
+
+---
+
+The previous is equivalent to write (compare both using the `identical()` function in R)
+
+```r
+dat_daily2 &lt;- dat[
+  ,
+  .(
+    wind.sp   = mean(wind.sp, na.rm = TRUE),
+    temp      = mean(temp, na.rm = TRUE),
+    atm.press = mean(atm.press, na.rm = TRUE)
   ),
-  by = c("USAFID", "Date", "lat", "lon")
+  by = .(USAFID, Date)
 ]
 ```
 
+---
+
+When dealing with too many variables, we can use the `.SD` special symbol:
+
+
+
+```r
+# Generating a date component
+dat[, Date := as.IDate(paste(year, month, day, sep = "-"))]
+
+# Listing the names
+in_names  &lt;- c("wind.sp", "temp", "atm.press")
+out_names &lt;- paste0(in_names, "_avg")
+
+dat[,
+  c(out_names) := lapply(.SD, mean, na.rm = TRUE),
+  .SDcols = in_names,
+  by      = c("USAFID", "Date")
+  ]
+```
 
 ---
 
@@ -532,8 +779,6 @@ dat_daily_plot &lt;- with(
 
 image(dat_daily_plot)
 ```
-
-![](slides_files/figure-html/unnamed-chunk-1-1.png)&lt;!-- --&gt;
 
 ---
 
