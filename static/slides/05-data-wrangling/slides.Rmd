@@ -3,19 +3,15 @@ title: "Week 5: Data Wrangling"
 subtitle: "PM 566: Introduction to Health Data Science"
 author: "George G. Vega Yon"
 output:
-  # slidy_presentation
-  xaringan::moon_reader:
-    # css: ["theme.css"]
-    lib_dir: libs
-    nature:
-      beforeInit: "macros.js"
-      ratio: "16:9"
-      highlightStyle: github
-      highlightLines: false
-      countIncrementalSlides: false
-      titleSlideClass: [center, middle]
-  #   code_download: true
+  slidy_presentation:
+    slide_level: 1
 ---
+
+```{r setup, echo = FALSE}
+knitr::opts_chunk$set(eval = TRUE, results = "hold")
+slides_eval <- FALSE
+```
+
 
 <!--Yeah... I have really long code chunks, so I just changed the default size :)-->
 <style type="text/css">
@@ -27,97 +23,202 @@ code.*, .remark-code, pre {
 
 ## Today's goals
 
-We will learn about how to manipulate data, and in particular, creating/modifying variables
-taking the following into consideration:
+We will learn about how to manipulate data, and in particular,
 
-Part I:
-
-- Basic data types (string, logical, integer, double).
-- Special data types (time, categorical/factor, ordinal, missing, Inf, NaN).
-
-Part II:
-
-- Data filtering: selecting rows and columns.
+- Selecting variables.
+- Filtering data.
 - Creating variables.
+- Summarize data.
 
-Part III:
+Throughout the session we will see examples using: 
 
-- Summarizing (aggregating) data.
-- Combining datasets (JOINs)
+- [**data.table**](https://cran.r-project.org/package=data.table) in R,
+- [**dtplyr**](https://cran.r-project.org/package=dplyr) in R, and
+- [**pydatatable**](https://github.com/h2oai/datatable)
 
----
-
-# Part I: Data types
-
----
-
-## Basic data types
-
-- **logical**: Bool true/false type, e.g. dead/alive, sick/healthy, good/bad, yes/no, etc.
-
-- **strings**: string of characters (letters/symbols), e.g. names, text, etc.
-
-- **integer**: Numeric variable with no decimal (discrete), e.g. age, days, counts, etc.
-
-- **double**: Numeric variable with decimals (continuous), e.g. distance, expression level, time.
-
-In C (and other languages), strings, integers, and doubles may be specified 
-with size, e.g. in `python` integers can be of 9, 16, and 32 bits. This is relevant
-when managing large datasets, where saving space can be fundamental
-([more info](https://en.wikipedia.org/wiki/C_data_types#Main_types)).
+All with the [MET](https://github.com/USCbiostats/data-science-data/) dataset.
 
 ---
 
-## Special data types
+## Data wrangling in R
 
-Most programming languages have special types which are built using basic types.
-A few examples:
+Overall, you will find the following approaches:
 
-- **time**: Could be date, date + time, or a combination of both. Usually it has
-  a reference number defined as date 0. In R, the `Date` class has as reference
-  1970-01-01, in other words, "days since January 1st, 1970".
+- **base R**: Use only base R functions.
+
+- **dplyr**: Using "verbs".
+
+- **data.table**: High-performing (ideal for large data)
+
+- **dplyr + data.table = dtplyr**: High-performing + dplyr verbs.
+
+Other methods involve, for example, using external tools such as [Spark](http://spark.apache.org/), [sparkly](https://cran.r-project.org/package=sparklyr).
+
+We will be focusing on data.table because of [this](https://h2oai.github.io/db-benchmark/)
+
+Take a look at this very neat cheat sheet by
+[Erik Petrovski](http://www.petrovski.dk/) [here](https://github.com/rstudio/cheatsheets/raw/master/datatable.pdf).
+
+---
+
+## Selecting variables: Load the packages
+
+```{r loading-packages, eval = TRUE}
+library(data.table)
+library(dtplyr)
+library(dplyr)
+```
+
+The `dtplyr` R package translates `dplyr` (`tidyverse`) syntax to `data.table`,
+so that we can still use **the dplyr verbs** while at the same time leveraging the
+performance of `data.table`.
+
+---
+
+## Loading the data
+
+The data that we will be using is an already processed version of the MET
+dataset. We can download (and load) the data directly in our session using the
+following commands:
+
+```{r downloading-data, cache=slides_eval}
+# Where are we getting the data from
+met_url <- "https://github.com/USCbiostats/data-science-data/raw/master/02_met/met_all.gz"
+
+# Downloading the data to a tempfile (so it is destroyed afterwards)
+# you can replace this with, for example, your own data:
+# tmp <- tempfile(fileext = ".gz")
+tmp <- "met.gz"
+
+# We sould be downloading this, ONLY IF this was not downloaded already.
+# otherwise is just a waste of time.
+if (!file.exists(tmp)) {
+  download.file(
+    url      = met_url,
+    destfile = tmp,
+    # method   = "libcurl", timeout = 1000 (you may need this option)
+  )
+}
+```
+
+Now we can load the data using the `fread()` function.
+
+---
+
+In R
+
+```{r reading-data, eval = TRUE, echo = TRUE, results='hide'}
+# Reading the data
+dat <- fread(tmp)
+head(dat)
+```
+
+In Python
+
+```{python reading-py, eval = TRUE, echo = TRUE, results='hide'}
+import datatable as dt
+dat = dt.fread("met.gz")
+dat.head(5)
+```
+
+Before we continue, let's learn a bit more on `data.table` and `dtplyr`
+
+---
+
+## `data.table` and `dtplyr`:Data Table's Syntax
+
+- As you have seen in previous lectures, in `data.table` all happens within the
+square brackets. Here is common way to imagine DT:
+
+<div align="center">
+<img src="datatable-syntax-paths.svg" width="700px">
+</div>
+
+- Any time that you see **:=** in **j** that is "Assignment by reference." Using
+  **=** within **j** only works in some specific cases.
   
-- **categorical**: Commonly used to represent strata/levels of variables, e.g. a variable
-  "country" could be represented as a factor, where the data is stored as numbers
-  but has a label.
+---
+
+## `data.table` and `dtplyr`:Data Table's Syntax
+
+- Operations applied in **j** are evaluated *within* the data, meaning that
+  names work as symbols. e.g.
   
-- **ordinal**: Similar to factor, but it has ordering, e.g.
-  "satisfaction level: 5 very satisfied, ..., 1 very unsatisfied".
-
-Other special data types could be ways to represent missings (usually described as `na` or `NA`),
-or special numeric types, e.g. `+-Inf` and Undefined (`NaN`).
-
-
----
-
-When storing/sharing datasets, it is a good practice to do it along a dictionary
-describing each column data type/format.
-
----
-
-## Questions 1: What's the best way to represent the following
-
-- 0, 1, 1, 0, 0, 1
-
-- Diabetes type 1, Diabetes type 2, Diabetes type 1, Diabetes type 2
-
-- on, off, off, on, on, on
-
-- 5, 10, 1, 15, 0, 0, 1
-
-- 1.0, 2.0, 10.0, 6.0
-
-- high, low, medium, medium, high
-
-- -1, 1, -1, -1, 1,
-
-- .2, 1.5, .8, $\pi$
-
-- $\pi$, $\exp{1}$, $\pi$, $\pi$
+  ```{r error-j, eval=FALSE}
+  data(USArrests)
+  USArrests_dt <- data.table(USArrests)
+  
+  # This returns an error
+  USArrests[, Murder]
+  
+  # This works fine
+  USArrests_dt[, Murder]
+  ```
+  
+  Furthermore, we can do things like this:
+  
+```{r load-usarrests, echo = FALSE}
+data("USArrests")
+USArrests_dt <- data.table(USArrests)
+```
+  
+  
+  ```{r plot-usarrests}
+  USArrests_dt[, plot(Murder, UrbanPop)]
+  ```
+  
+  
 
 ---
 
-# Part 2: Filter, selection, and creation
+## `data.table` and `dtplyr`: Lazy table
+
+- The `dtplyr` package provides a way to translate `dplyr` verbs to `data.table` syntax.
+
+- The key lies on the function `lazy_dt` from `dtplyr` (see `?dtplyr::lazy_dt`).
+
+- This function creates a wrapper that "points" to a `data.table` object
+
+---
+
+## `data.table` and `dtplyr`: Lazy table (cont.)
+
+```{r lazy-dt}
+# Creating a lazy table object
+dat_ldt <- lazy_dt(dat, immutable = FALSE)
+
+# We can use the address() function from data.table
+address(dat)
+address(dat_ldt$parent)
+```
+
+<div align="center">
+<img src="pointer-paths.svg" width="800px">
+</div>
+
+Question: What is the `immutable = FALSE` option used for?
+
+---
+
+## Selecting columns
+
+How can we select the columns `USAFID`, `lat`, and `lon`
+
+```{r select1-dt, eval = slides_eval}
+# data.table
+dat[, list(USAFID, lat, lon)]
+
+# dplyr verb
+dat_ldt %>% select(USAFID, lat, lon)
+```
+
+In the case of `data.table`, What happens if instead of `list()` you used `c()`? Now, in Python
+
+```{python select1-py, eval = slides_eval}
+dat[:,["USAFID", "lat", "lon"]]
+```
+
+What happens if instead of `["USAFID", "lat", "lon"]` you used `{"USAFID", "lat", "lon"}` (vector vs set).
 
 ---
 
@@ -127,25 +228,26 @@ describing each column data type/format.
 
 - Need to be aware of ordering and grouping of `and` and `or` operators.
 
-- Fundamental operators:
+- Fundamental **logical** operators:
+  
+  ```{r operators, echo = FALSE}
+  test <- expand.grid(c(TRUE, FALSE),c(TRUE, FALSE))
+  ans <- data.frame(
+    x = ifelse(test[,1], "true", "false"),
+    y = ifelse(test[,2], "true", "false"),
+    `Negate<br>!x`       = ifelse(!test[,1] , "true", "false"),
+    `And<br>x & y`       = ifelse(test[,1] & test[,2], "true", "false"),
+    `Or<br>x | y`        = ifelse(test[,1] | test[,2], "true", "false"),
+    `Xor<br>xor(x, y)`       = ifelse(xor(test[,1], test[,2]), "true", "false"),
+    check.names     = FALSE
+  )
+  
+  knitr::kable(ans, row.names = FALSE, align = "c")
+  ```
 
-```{r operators, echo = FALSE}
-test <- expand.grid(c(TRUE, FALSE),c(TRUE, FALSE))
-ans <- data.frame(
-  x = ifelse(test[,1], "true", "false"),
-  y = ifelse(test[,2], "true", "false"),
-  `(x And y)`       = ifelse(test[,1] & test[,2], "true", "false"),
-  `(x Or y)`        = ifelse(test[,1] | test[,2], "true", "false"),
-  `(x Xor y)`       = ifelse(xor(test[,1], test[,2]), "true", "false"),
-  check.names     = FALSE
-)
+- Fundamental **relational** operators, in R: `<`, `>`, `<=`, `>=`, `==`, `!=`.
 
-knitr::kable(ans, row.names = FALSE, align = "c")
-```
 
-<div align="center">
-<img src="https://d33wubrfki0l68.cloudfront.net/01f4b6d39d2be8269740a3ad7946faa79f7243cf/8369a/diagrams/transform-logical.png" width="350px">
-</div>
 ---
 
 ## Questions 2: How many ways can you write an XOR operator?
@@ -157,7 +259,7 @@ element wise. Here you have a template:
 myxor <- function(x, y) {
   res <- logical(length(x))
   for (i in 1:length(x)) {
-    # do something with x[i] and y[i]
+    res[i] <- # do something with x[i] and y[i]
   }
   return(res)
 }
@@ -182,7 +284,7 @@ Hint 2: Logical operators are a distributive, meaning
 
 In R
 
-```{r xor-r, eval = TRUE}
+```{r xor-r}
 myxor1 <- function(x,y) {(x & !y) | (!x & y)}
 myxor2 <- function(x,y) {!((!x | y) & (x | !y))}
 myxor3 <- function(x,y) {(x | y) & (!x | !y)}
@@ -237,112 +339,6 @@ We will now see applications using the `met` dataset
 
 ---
 
-## Data wrangling in R
-
-Overall, you will find the following approaches:
-
-- base R: Use only base R functions.
-
-- `dplyr`: The tidyverse way.
-
-- `data.table`: High-performing (ideal for large data)
-
-Other methods involve, for example, using external tools such as [Spark](http://spark.apache.org/), [sparkly](https://cran.r-project.org/package=sparklyr).
-
-We besides of the `data.table` documentation, there is a very neat cheat sheet by
-[Erik Petrovski](http://www.petrovski.dk/) [here](https://github.com/rstudio/cheatsheets/raw/master/datatable.pdf).
-
----
-
-## Today's session
-
-- For this part we will be mostly using `data.table`
-
-- We will show examples using `data.table`, `pydatatable`, and `dtplyr` (a `dplyr` wrapper of `data.table`).
-
-- We use data.table because of [this](https://h2oai.github.io/db-benchmark/)
-
----
-
-
-
-First things first, load the R packages
-
-```{r loading-packages}
-library(data.table)
-library(dtplyr)
-library(dplyr)
-```
-
-The `dtplyr` R package translates `dplyr` (`tidyverse`) syntax to `data.table`,
-so that we can still use **the dplyr verbs** while at the same time leveraging the
-performance of `data.table`.
-
----
-
-## Loading the data
-
-The data that we will be using is an already processed version of the MET
-dataset. We can download (and load) the data directly in our session using the
-following commands:
-
-```{r downloading-data, cache=TRUE}
-# Where are we getting the data from
-met_url <- "https://github.com/USCbiostats/data-science-data/raw/master/02_met/met_all.gz"
-
-# Downloading the data to a tempfile (so it is destroyed afterwards)
-# you can replace this with, for example, your own data:
-# tmp <- tempfile(fileext = ".gz")
-tmp <- "met.gz"
-
-# We sould be downloading this, ONLY IF this was not downloaded already.
-# otherwise is just a waste of time.
-if (!file.exists(tmp)) {
-  download.file(
-    url      = met_url,
-    destfile = tmp,
-    # method   = "libcurl", timeout = 1000 (you may need this option)
-  )
-}
-```
-
-Now we can load the data using the `fread()` function.
-
----
-
-In R
-
-```{r reading-data}
-# Reading the data
-dat <- fread(tmp)
-head(dat)
-```
-
----
-
-In python
-
-```{python reading-py, cache=TRUE}
-import datatable as dt
-dat = dt.fread("met.gz")
-dat.head(5)
-```
-
----
-
-## A note on Data Table's Syntax
-
-- As you have seen in previous lectures, in `data.table` all happens within the
-square brackets. Here is common way to imagine DT:
-
-<div align="center">
-<img src="datatable-syntax-paths.svg" width="600px">
-</div>
-
-<!-- - It also seems that [data.table can be useful for small data](https://github.com/Rdatatable/data.table/wiki/Convenience-features-of-fread). -->
-
----
-
 ## Filtering (subsetting) the data
 
 Need to select records according to some criteria. For example:
@@ -359,7 +355,7 @@ In R with `data.table`
 - `(lat > 40)` Above latitude 40, and
 - `((elev < 500) | (elev > 1000))` Elevation outside the range 500 and 1,000.
 
-```{r filter1-dt}
+```{r filter1-dt, eval = slides_eval}
 dat[(day == 1) & (lat > 40) & ((elev < 500) | (elev > 1000))] %>%
   nrow()
 # dat[day == 1][lat > 40][elev < 500 | elev > 1000] %>% nrow()
@@ -369,11 +365,8 @@ dat[(day == 1) & (lat > 40) & ((elev < 500) | (elev > 1000))] %>%
 
 In R with `dtplyr`
 
-```{r filter1-tv}
-# Setting up a dplyr wrapper
-dat_tv <- lazy_dt(dat)
-
-dat_tv %>%
+```{r filter1-tv, eval = slides_eval}
+dat_ldt %>%
   filter(day == 1, lat > 40, (elev < 500) | (elev > 1000)) %>%
   compute() %>% # Notice this line!
   nrow()
@@ -383,7 +376,7 @@ dat_tv %>%
 
 In Python
 
-```{python filter1-py-load, echo=FALSE}
+```{python filter1-py-load, eval = slides_eval}
 import datatable as dt
 dat = dt.fread("met.gz")
 ```
@@ -392,7 +385,7 @@ dat = dt.fread("met.gz")
 - `(dt.f.lat > 40)` Above latitude 40, and
 - `((dt.f.elev < 500) | (dt.f.elev > 1000))` Elevation outside the range 500 and 1,000.
 
-```{python filter1-py}
+```{python filter1-py, eval = slides_eval}
 dat[(dt.f.day == 1) & (dt.f.lat > 40) & ((dt.f.elev < 500) | (dt.f.elev > 1000)), :].nrows
 # dat[dt.f.day == 1,:][dt.f.lat > 40,:][(dt.f.elev < 500) | (dt.f.elev > 1000),:].nrows
 ```
@@ -409,46 +402,120 @@ that allows accessing column names in a datatable's `Frame`.
 
 1. How many records have a temperature within 18 and 25?
 
-```r
+2. Some records have missings. Count how many records have `temp` as `NA`?
 
-```
-
----
-
-## Selecting columns
-
-How can we select the columns `USAFID`, `lat`, and `lon`
-
-```{r select1-dt}
-dat[, list(USAFID, lat, lon)]
-```
-
-In the case of `data.table`, What happens if instead of `list()` you used `c()`?
+3. Following the previous question, plot a sample of 1,000 of `(lat, lon)` 
 
 ---
 
-Using `dplyr` syntax
+```{r echo=FALSE, eval = FALSE}
+# Question 1
+nrow(dat[(temp < 25) & (temp > 18)])
+# dat[temp %between% c(18, 25), .N] 
 
-```{r select1-tv}
-dat_tv %>% select(USAFID, lat, lon)
+dat_ldt %>% filter(between(temp, 18, 25)) %>% compute() %>% nrow()
+
+# Question 2
+dat[is.na(temp), .N]
+
+# Question 3
+set.seed(123)
+dat[is.na(temp)][sample.int(.N, 1000), plot(lon, lat, col = "blue")]
+dat[!is.na(temp)][sample.int(.N, 1000), points(lon, lat, col = "red")]
+
 ```
 
 
 ---
 
-In Python
+## Creating variables: Data types
 
-```{python select1-py}
-dat[:,["USAFID", "lat", "lon"]]
-```
+- **logical**: Bool true/false type, e.g. dead/alive, sick/healthy, good/bad, yes/no, etc.
 
-What happens if instead of `["USAFID", "lat", "lon"]` you used `{"USAFID", "lat", "lon"}` (vector vs set).
+- **strings**: string of characters (letters/symbols), e.g. names, text, etc.
+
+- **integer**: Numeric variable with no decimal (discrete), e.g. age, days, counts, etc.
+
+- **double**: Numeric variable with decimals (continuous), e.g. distance, expression level, time.
+
+In C (and other languages), strings, integers, and doubles may be specified 
+with size, e.g. in `python` integers can be of 9, 16, and 32 bits. This is relevant
+when managing large datasets, where saving space can be fundamental
+([more info](https://en.wikipedia.org/wiki/C_data_types#Main_types)).
+
+---
+
+## Creating variables: Special data types
+
+Most programming languages have special types which are built using basic types.
+A few examples:
+
+- **time**: Could be date, date + time, or a combination of both. Usually it has
+  a reference number defined as date 0. In R, the `Date` class has as reference
+  1970-01-01, in other words, "days since January 1st, 1970".
+  
+- **categorical**: Commonly used to represent strata/levels of variables, e.g. a variable
+  "country" could be represented as a factor, where the data is stored as numbers
+  but has a label.
+  
+- **ordinal**: Similar to factor, but it has ordering, e.g.
+  "satisfaction level: 5 very satisfied, ..., 1 very unsatisfied".
+
+Other special data types could be ways to represent missings (usually described as `na` or `NA`),
+or special numeric types, e.g. `+-Inf` and Undefined (`NaN`).
+
+
+When storing/sharing datasets, it is a good practice to do it along a dictionary
+describing each column data type/format.
+
+---
+
+## Questions 1: What's the best way to represent the following
+
+- 0, 1, 1, 0, 0, 1
+
+- Diabetes type 1, Diabetes type 2, Diabetes type 1, Diabetes type 2
+
+- on, off, off, on, on, on
+
+- 5, 10, 1, 15, 0, 0, 1
+
+- 1.0, 2.0, 10.0, 6.0
+
+- high, low, medium, medium, high
+
+- -1, 1, -1, -1, 1,
+
+- .2, 1.5, .8, $\pi$
+
+- $\pi$, $\exp{1}$, $\pi$, $\pi$
 
 ---
 
 ## Variable creation
 
-In the case of `data.table`, to generate (or modify) variables we use the following syntax:
+If we wanted to create two variables, `elev^2` and the scaled version of `wind.sp` by it's
+standard error, we could do the following
+
+With `data.table`
+
+```{r eval=slides_eval}
+dat[, elev2         := elev^2]
+dat[, windsp_scaled := wind.sp/sd(wind.sp, na.rm = TRUE)]
+# Alternatively:
+# dat[, c("elev2", "windsp_scaled") := .(elev^2, wind.sp/sd(wind.sp,na.rm=TRUE)) ]
+```
+
+With dtplyr
+
+```{r eval=slides_eval}
+dat[, c("elev2", "windsp_scaled") := NULL] # This to delete these variables
+dat_ldt %>%
+  mutate(
+    elev2         = elev ^ 2,
+    windsp_scaled = wind.sp/sd(wind.sp,na.rm=TRUE)
+  ) %>% compute()
+```
 
 
 
@@ -457,7 +524,7 @@ In the case of `data.table`, to generate (or modify) variables we use the follow
 
 ## Generating summary statistics
 
-```{r group-dt1, cache=TRUE}
+```{r group-dt1, eval = slides_eval}
 # Generating a date component
 dat[, Date := as.IDate(paste(year, month, day, sep = "-"))]
 
@@ -493,10 +560,7 @@ dat_daily2 <- dat[
 When dealing with too many variables, we can use the `.SD` special symbol:
 
 
-```{r group-dt2, cache=TRUE}
-# Generating a date component
-dat[, Date := as.IDate(paste(year, month, day, sep = "-"))]
-
+```{r group-dt2, eval = slides_eval}
 # Listing the names
 in_names  <- c("wind.sp", "temp", "atm.press")
 out_names <- paste0(in_names, "_avg")
