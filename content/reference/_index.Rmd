@@ -65,6 +65,7 @@ to get data.
 - The Gene Ontology [Project](http://geneontology.org/)
 - US Center for Disease Control and Prevention [Data](https://data.cdc.gov/)
 - California Health and Human Services [Open Data Portal](https://data.chhs.ca.gov/)
+- Covid Data [CovidTracker](https://covidtracking.com/)
 
 ### Academic Publications and related
 
