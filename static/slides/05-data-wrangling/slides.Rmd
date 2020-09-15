@@ -18,6 +18,9 @@ slides_eval <- FALSE
 code.*, .remark-code, pre {
   font-size:16px;
 }
+p,h1,h2,h3,h4 {
+  font-family: system-ui
+}
 </style>
 
 
@@ -250,7 +253,7 @@ What happens if instead of `["USAFID", "lat", "lon"]` you used `{"USAFID", "lat"
 
 ---
 
-## Questions 2: How many ways can you write an XOR operator?
+## Questions 1: How many ways can you write an XOR operator?
 
 Write a function that takes two arguments `(x,y)` and applies the XOR operator
 element wise. Here you have a template:
@@ -355,13 +358,10 @@ In R with `data.table`
 - `(lat > 40)` Above latitude 40, and
 - `((elev < 500) | (elev > 1000))` Elevation outside the range 500 and 1,000.
 
-```{r filter1-dt, eval = slides_eval}
+```{r filter1-dt1, eval = slides_eval}
 dat[(day == 1) & (lat > 40) & ((elev < 500) | (elev > 1000))] %>%
   nrow()
-# dat[day == 1][lat > 40][elev < 500 | elev > 1000] %>% nrow()
 ```
-
----
 
 In R with `dtplyr`
 
@@ -398,31 +398,40 @@ that allows accessing column names in a datatable's `Frame`.
 
 ---
 
-## Question 3: 
+## Questions 2
 
 1. How many records have a temperature within 18 and 25?
 
 2. Some records have missings. Count how many records have `temp` as `NA`?
 
-3. Following the previous question, plot a sample of 1,000 of `(lat, lon)` 
+3. Following the previous question, plot a sample of 1,000 of `(lat, lon)` of the
+   stations with temp as NA and those with data.
 
----
+--- 
 
-```{r echo=FALSE, eval = FALSE}
+## Solutions
+
+```{r echo=FALSE, eval = TRUE, cache = TRUE}
 # Question 1
-nrow(dat[(temp < 25) & (temp > 18)])
+message("Question 1: ", nrow(dat[(temp < 25) & (temp > 18)]))
 # dat[temp %between% c(18, 25), .N] 
 
-dat_ldt %>% filter(between(temp, 18, 25)) %>% compute() %>% nrow()
+# dat_ldt %>% filter(between(temp, 18, 25)) %>% compute() %>% nrow()
 
 # Question 2
-dat[is.na(temp), .N]
+message("Question 2: ", dat[is.na(temp), .N])
 
 # Question 3
 set.seed(123)
-dat[is.na(temp)][sample.int(.N, 1000), plot(lon, lat, col = "blue")]
-dat[!is.na(temp)][sample.int(.N, 1000), points(lon, lat, col = "red")]
-
+message("Question 3")
+dat[is.na(temp)][sample.int(.N, 1000), plot(lon, lat, col = "steelblue", pch=8)]
+dat[!is.na(temp)][sample.int(.N, 1000), points(lon, lat, col = "tomato", pch=8)]
+legend(
+  "bottomleft",
+  fill = c("steelblue", "tomato"),
+  legend = c("temp is NA", "temp is not NA"),
+  bt = "n"
+  )
 ```
 
 
@@ -470,7 +479,7 @@ describing each column data type/format.
 
 ---
 
-## Questions 1: What's the best way to represent the following
+## Questions 3: What's the best way to represent the following
 
 - 0, 1, 1, 0, 0, 1
 
@@ -517,17 +526,146 @@ dat_ldt %>%
   ) %>% compute()
 ```
 
+Notice that, since `dat_ldt` is a pointer, the variables are now in `dat`.
 
+---
+
+## Merging data
+
+- While building the MET dataset, we dropped the State data.
+
+- We can use the original Stations dataset and *merge* it to the MET dataset.
+
+- But we cannot do it right away. We need to process the data somewhat first.
 
 
 ---
 
-## Generating summary statistics
+## Merging data (cont. 1)
 
-```{r group-dt1, eval = slides_eval}
-# Generating a date component
-dat[, Date := as.IDate(paste(year, month, day, sep = "-"))]
+```{r stations-data, cache = TRUE, warning=FALSE}
+stations <- fread("ftp://ftp.ncdc.noaa.gov/pub/data/noaa/isd-history.csv")
+stations[, USAF := as.integer(USAF)]
 
+# Dealing with NAs and 999999
+stations[, USAF   := fifelse(USAF == 999999, NA_integer_, USAF)]
+stations[, CTRY   := fifelse(CTRY == "", NA_character_, CTRY)]
+stations[, STATE  := fifelse(STATE == "", NA_character_, STATE)]
+
+# Selecting the three relevant columns, and keeping unique records
+stations <- unique(stations[, list(USAF, CTRY, STATE)])
+
+# Dropping NAs
+stations <- stations[!is.na(USAF)]
+
+head(stations)
+```
+
+Notice the function `fifelse()`. Now, let's try to merge the data!
+
+---
+
+## Merging data (cont. 2)
+
+```{r merge-try1, cache = TRUE}
+merge(
+  # Data
+  x     = dat,      
+  y     = stations, 
+  # List of variables to match
+  by.x  = "USAFID",
+  by.y  = "USAF", 
+  # Which obs to keep?
+  all.x = TRUE,      
+  all.y = FALSE
+  ) %>% nrow()
+```
+
+This is more rows! The original dataset, `dat`, has `r nrow(dat)`. This means
+that the `stations` dataset has duplicated IDs. We can fix this:
+
+```{r drop-dpl, results='hide'}
+stations[, n := 1:.N, by = .(USAF)]
+stations <- stations[n == 1,][, n := NULL]
+```
+
+---
+
+## Merging data (cont. 3)
+
+We now can use the function `merge()` to add the extra data
+
+```{r merge, eval = TRUE}
+dat <- merge(
+  # Data
+  x     = dat,      
+  y     = stations, 
+  # List of variables to match
+  by.x  = "USAFID",
+  by.y  = "USAF", 
+  # Which obs to keep?
+  all.x = TRUE,      
+  all.y = FALSE
+  )
+
+head(dat[, list(USAFID, WBAN, STATE)])
+```
+
+What happens when you change the options `all.x` and `all.y`?
+
+```{r merging-all-x-y, include = FALSE}
+merge(x = dat, y = stations, by.x = "USAFID", by.y = "USAF",all.x = TRUE, all.y = FALSE) %>% nrow()
+merge(x = dat, y = stations, by.x = "USAFID", by.y = "USAF",all.x = TRUE, all.y = TRUE) %>% nrow()
+merge(x = dat, y = stations, by.x = "USAFID", by.y = "USAF",all.x = FALSE, all.y = TRUE) %>% nrow()
+merge(x = dat, y = stations, by.x = "USAFID", by.y = "USAF",all.x = FALSE, all.y = FALSE) %>% nrow()
+```
+
+---
+
+## Aggregating data: Adding groupped variables
+
+- Many times we need to either impute some data, or generate variables by strata.
+
+- If we, for example, wanted to impute missing temperature with the daily state
+  average, we could use **by** together with the **data.table::fcoalesce()** function:
+  
+  ```{r group-dt1, eval = TRUE}
+  # Generating a date component
+  dat[, temp_imp := fcoalesce(temp, mean(temp, na.rm = TRUE)), by = .(month, day, year, STATE)]
+  ```
+
+- In the case of dplyr, we can do the following using **dplyr::group_by** together
+  with **dplyr::coalesce()**:
+  
+  ```{r group-tv1, eval = TRUE, results='hide'}
+  # We need to create the lazy table again, since we replaced it in the merge
+  dat_ldt <- lazy_dt(dat, immutable = FALSE)
+  
+  dat_ldt %>%
+    group_by(month, day, year, STATE) %>%
+    mutate(
+      temp_imp2 = coalesce(temp, mean(temp, na.rm = TRUE))
+      ) %>% compute()
+  ```
+
+---
+
+## Aggregating data: Adding groupped variables (cont.)
+
+Let's see how it looks like
+
+```{r plot-groupped}
+dat[USAFID == 720172][order(USAFID, year, month, day)][{
+  op <- par(mfrow = c(1, 2))
+  plot(temp, type = "l", col = "tomato")
+  plot(temp_imp, type = "l", col = "steelblue")
+  par(op)
+}]
+```
+
+---
+
+```{r eval=FALSE}
 dat[,
   list(
     wind.sp   = mean(wind.sp, na.rm = TRUE),
@@ -560,7 +698,7 @@ dat_daily2 <- dat[
 When dealing with too many variables, we can use the `.SD` special symbol:
 
 
-```{r group-dt2, eval = slides_eval}
+```{r group-dt2, eval = FALSE}
 # Listing the names
 in_names  <- c("wind.sp", "temp", "atm.press")
 out_names <- paste0(in_names, "_avg")
@@ -571,6 +709,26 @@ dat[,
   by      = c("USAFID", "Date")
   ]
 ```
+
+---
+
+## Other data.table goodies
+
+- `shift()` Fast lead/lag for vectors and lists.
+
+- `fifelse()` Fast if-else, similar to base R's `ifelse()`.
+
+- `fcoalesce()` Fast coalescing of missing values.
+
+- `%between%` A short form of `(x < lb) & (x > up)`
+
+- `%inrange%` A short form of `x %in% lb:up`
+
+- `%chin%` Fast match of character vectors, equivalent to `x %in% X`,
+  where both `x` and `X` are character vectors.
+  
+- `nafill()` Fill missing values using a constant, last observed value, or
+  the next observed value.
 
 ---
 

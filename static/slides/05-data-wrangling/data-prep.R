@@ -1,6 +1,6 @@
 library(data.table)
 
-dat <- fread("static/slides/05-data-wrangling/met_all.gz")
+dat <- fread("met_all.gz")
 
 # We will work with a sample of 200 stations, there are about 1,600
 stations <- dat[, list(count = .N), by = "USAFID"]$USAFID
