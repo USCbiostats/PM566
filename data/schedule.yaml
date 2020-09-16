@@ -30,13 +30,13 @@ lessons:
     reading: "05-reading"
     assignment: "05-hw2"
 
-  - title: "Regular Expressions, Big Data, Data scraping and using APIs, data security"
+  - title: "Text Mining"
     date: "Week 6"
     class: "06-class"
     reading: "06-reading"
     assignment: ""
 
-  - title: "Regular Expressions, Big Data, Data scraping and using APIs, text mining"
+  - title: "Version Control and Github"
     date: "Week 7"
     class: "07-class"
     reading: "07-reading"
