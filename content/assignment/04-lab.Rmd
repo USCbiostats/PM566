@@ -35,7 +35,13 @@ We will again work with the meteorological data presented in lecture.
 First download and then read in with data.table:fread()
 
 ```{r, echo=TRUE, message=FALSE}
-download.file("https://raw.githubusercontent.com/USCbiostats/data-science-data/master/02_met/met_all.gz", "met_all.gz", method="libcurl", timeout = 60)
+if (!file.exists("met_all.gz"))
+  download.file(
+    url = "https://raw.githubusercontent.com/USCbiostats/data-science-data/master/02_met/met_all.gz",
+    destfile = "met_all.gz",
+    method   = "libcurl",
+    timeout  = 60
+    )
 met <- data.table::fread("met_all.gz")
 ```
 
@@ -48,7 +54,6 @@ met <- data.table::fread("met_all.gz")
 - Create a categorical variable for elevation as in the lecture slides
 
 ```{r}
-met <- data.table::fread("/Users/meredith/Dropbox (University of Southern California)/Courses/PM566/met_all.gz")
 met<-met[met$temp > -17]
 met[met$elev==9999.0] <- NA
 
