@@ -18,11 +18,11 @@ This markdown document should be rendered using `github_document` document.
 
 # Part 1: Setup the Git project and the GitHub repository
 
-1. Go to your documents (or wherever you are planning to store the data) in your computer, and create a folder for this project, for example, "PM566-lab05"
+1. Go to your documents (or wherever you are planning to store the data) in your computer, and create a folder for this project, for example, "PM566-labs"
 
-2. In that folder, save [this template]() as "README.Rmd". This will be the markdown file where all the magic will happen.
+2. In that folder, save [this template](https://raw.githubusercontent.com/USCbiostats/PM566/master/content/assignment/05-lab.Rmd) as "README.Rmd". This will be the markdown file where all the magic will happen.
 
-3. Go to your GitHub account and create a new repository, hopefully of the same name that this folder has, i.e., "PM566-lab05".
+3. Go to your GitHub account and create a new repository, hopefully of the same name that this folder has, i.e., "PM566-labs".
 
 4. Initialize the Git project, add the "README.Rmd" file, and make your first commit.
 
@@ -33,8 +33,8 @@ Most of the steps can be done using command line:
 ```sh
 # Step 1
 cd ~/Documents
-mkdir PM566-lab05
-cd PM566-lab05
+mkdir PM566-labs
+cd PM566-labs
 
 # Step 2
 wget https://raw.githubusercontent.com/USCbiostats/PM566/master/content/assignment/05-lab.Rmd 
@@ -49,7 +49,7 @@ git add README.Rmd
 git commit -m "First commit"
 
 # Step 5
-git remote add origin git@github.com:[username]/PM566-lab05
+git remote add origin git@github.com:[username]/PM566-labs
 git push -u origin master
 ```
 
@@ -58,8 +58,8 @@ You can also complete the steps in R (replace with your paths/username when need
 ```r
 # Step 1
 setwd("~/Documents")
-dir.create("PM566-lab05")
-setwd("PM566-lab05")
+dir.create("PM566-labs")
+setwd("PM566-labs")
 
 # Step 2
 download.file(
@@ -74,7 +74,7 @@ system("git init && git add README.Rmd")
 system('git commit -m "First commit"')
 
 # Step 5
-system("git remote add origin git@github.com:[username]/PM566-lab05")
+system("git remote add origin git@github.com:[username]/PM566-labs")
 system("git push -u origin master")
 ```
 
@@ -102,7 +102,9 @@ stations <- unique(stations[, list(USAF, CTRY, STATE)])
 # Dropping NAs
 stations <- stations[!is.na(USAF)]
 
-head(stations, n = 4)
+# Removing duplicates
+stations[, n := 1:.N, by = .(USAF)]
+stations <- stations[n == 1,][, n := NULL]
 ```
 
 3. Merge the data as we did during the lecture.
@@ -120,7 +122,7 @@ Knit the document, commit your changes, and Save it on GitHub. Don't forget to a
 
 ## Question 2: Representative station per state
 
-Just like the previous question, you are asked to identify what is the most representative, the median, station per state. This time, instead of looking at one variable at a time, look at the euclidean distance.
+Just like the previous question, you are asked to identify what is the most representative, the median, station per state. This time, instead of looking at one variable at a time, look at the euclidean distance. If multiple stations show in the median, select the one located at the lowest latitude.
 
 ```{r}
 
@@ -135,4 +137,42 @@ For each state, identify what is the station that is closest to the mid-point of
 ```{r}
 
 ```
+
+Knit the doc and save it on GitHub.
+
+## Question 4: Means of means
+
+Using the `quantile()` function, generate a summary table that shows the number of states included, average temperature, wind-speed, and atmospheric pressure by the variable "average temperature level," which you'll need to create. 
+
+Start by computing the states' average temperature. Use that measurement to classify them according to the following criteria: 
+
+- low: temp < 20
+- Mid: temp >= 20 and temp < 25
+- High: temp >= 25
+
+```{r}
+
+```
+
+Once you are done with that, you can compute the following:
+
+- Number of entries (records),
+- Number of NA entries,
+- Number of stations,
+- Number of states included, and
+- Mean temperature, wind-speed, and atmospheric pressure.
+
+All by the levels described before.
+
+```{r}
+
+```
+
+Knit the document, commit your changes, and push them to GitHub. If you'd like, you can take this time to include the link of [the issue of the week](https://github.com/USCbiostats/PM566/issues/23) so that you let us know when you are done, e.g.,
+
+```bash
+git commit -a -m "Finalizing lab 5 https://github.com/USCbiostats/PM566/issues/23"
+```
+
+
 
