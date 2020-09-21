@@ -607,9 +607,9 @@ as_tibble(dat_ldt) %>%
   mutate(
     across(
       all_of(in_names),
-      sd,
-      .names = "{col}_scaled2",
-      na.rm = TRUE)
+      function(x) x/sd(x, na.rm = TRUE),
+      .names = "{col}_scaled2"
+      )
   ) %>%
   # Just to print the last columns
   select(ends_with("_scaled2")) %>%

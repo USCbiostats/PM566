@@ -1,0 +1,244 @@
+---
+title: "Untitled"
+output:
+  xaringan::moon_reader:
+    css: ["theme.css", "default"]
+    lib_dir: libs
+    nature:
+      beforeInit: "macros.js"
+      ratio: "16:9"
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      titleSlideClass: [center, middle]
+---
+
+## Today's goals
+
+- Introduction to Regular Expressions
+
+- Understand the fundamentals of Web Scrapping
+
+- Learn how to use an API
+
+---
+
+## Regular Expressions: What is it?
+
+---
+
+## Regular Expressions 101: Type of fields
+
+Most common:
+
+- `.` Any character
+- `[0-9]` Numbers (without decimals or points)
+- `[a-z]` Lower-case letters
+- `[A-Z]` Upper-case letters
+- `[a-zA-Z]` Lower or upper case letters.
+- `[a-zA-Z0-9]` Any alpha-numeric
+
+Other important characters
+
+- `\s` space
+- `^` beginning of the text
+- `$` end of the text
+- `|` or (logical or)
+
+---
+
+## Regular Expressions 101: Type of fields (cont. 1)
+
+These usually come together with specifying how many times (repetition):
+
+- `[...]?` Zero or one match.
+- `[...]*` Zero or more matches
+- `[...]+` One or more matches
+- `[...]{n,}` At least `n` matches
+- `[...]{,m}` at most `m` matches
+- `[...]{n,m}` Between `n` and `m` matches.
+
+Take a look at https://regex101.com/
+
+---
+
+## Regular Expressions 101: Type of fields (cont. 2)
+
+A few examples:
+
+```{r}
+c("History 123")
+```
+
+
+---
+
+## Regular Expressions 101: Common examples
+
+1. Lookup text: `base::grepl()`, `stringr::str_match()`.
+
+2. Replace text: `base::gsub()`, `stringr::str_replace()`.
+
+3. Extract text: `base::regmatches()`, `stringr::str_extract()`.
+
+---
+
+## Data
+
+This week we will continue using Textmining dataset
+
+```{r load-data}
+library(data.table)
+library(stringr)
+
+fn <- "mtsamples.csv"
+if (!file.exists(fn))
+  download.file(
+    url = "https://github.com/USCbiostats/data-science-data/raw/master/00_mtsamples/mtsamples.csv",
+    destfile = fn
+  )
+mtsamples <- fread(fn, sep = ",", header = TRUE)
+```
+
+
+---
+
+## Regex Lookup Text: Tumor
+
+We would like to see if this is tumor related entry. For that we can simply use
+the following code:
+
+```{r lookup-tumor}
+# How many entries contain the word tumor
+mtsamples[grepl("tumor", description, ignore.case = TRUE), .N] 
+
+# Generating a column tagging tumor
+mtsamples[, tumor_related := grepl("tumor", description)]
+
+# Taking a look at a few examples
+mtsamples[tumor_related == TRUE, .(description)][1:3,]
+```
+
+---
+
+## Regex Lookup text: Gender of the patient
+
+Now, let's try to guess the gender of the patient. To do so, we could tag by
+using the words *he, she, him, her, his, hers* (see [this article on sexist text](https://dictionary.cambridge.org/grammar/british-grammar/sexist-language?q=He%2C+she%2C+him%2C+her%2C+his%2C+hers)):
+
+```{r}
+mtsamples[, gender := str_extract(
+  string  = tolower(transcription),
+  pattern = "he|his|him|she|hers|her"
+)]
+```
+
+What is the problem with this approach?
+
+---
+
+## Regex Lookup text: Gender of the patient (cont. 1)
+
+For this we use the following regular expression:
+
+`(?<=\\W|^)(he|his|him|she|hers|her)(?=\\W|$)`
+
+- `(?<=\\W|^)` Look back `(?<=)`, and in this case, look back for the beginning of the sentence `^`, or `|` a word `\W`.
+- `he|his|him...` any of these words
+- `(?=\\w|$)` Look forward `(?=)` 
+
+```{r gender-regex}
+# Lower case everything
+mtsamples[, gender := tolower(transcription)]
+mtsamples[, gender := str_extract(
+  string  = gender, 
+  pattern = "(?<=\\W|^)(he|his|him|she|hers|her)(?=\\W|$)"
+  )]
+mtsamples[1:10, gender]
+```
+
+---
+
+## Regex Lookup text: Gender of the patient (cont. 2)
+
+```{r gender-regex-cont}
+mtsamples[, female := fifelse(gender %in% c("he", "his", "him"), FALSE, TRUE)]
+mtsamples[, table(gender, female, useNA = "always")]
+```
+
+
+---
+
+## Regex Extract Text: Type of Cancer
+
+- Imagine now that you need to see the types of Cancer mentioned in the data.
+
+- For simplicity, let's assume that, if specified, it is in the form of `TYPE cancer`, i.e. single word.
+
+- We are interested in the word before cancer, how can we capture this?
+
+---
+
+## Regex Extract Text: Type of Cancer
+
+We can just try to **extract** the phrase `"[some word] cancer"`, in particular, we could use the
+following regular expression
+
+`[a-zA-Z0-9-_]{4,}\\s*cancer`
+
+Where
+
+- `[a-zA-Z0-9-_]{4,}` captures any character in the ranges `a-zA-Z0-9` including `-` and `_`. 
+   Furthermore, for this match to work there must be at least 4 characters,
+- `\\s*` captures 0 or more white-spaces, and
+- `cancer` captures the word cancer:
+
+```{r cancer-regex}
+mtsamples[, cancer_type := str_extract(tolower(keywords), "[a-zA-Z0-9-_]{4,}\\s*cancer")]
+mtsamples[, table(cancer_type)]
+```
+
+
+---
+
+## Fundamentals of Web Scrapping: What
+
+Define what is is
+
+
+---
+
+## Fundamentals of Web Scrapping: How
+
+- Raw HTML data (unstructured)
+
+- Direct data download v1 (download a plain-text-file)
+
+- Use an Application Programming Interface (API) (structured data)
+
+---
+
+
+
+
+```{r donwload-climate-data, include = FALSE, eval = FALSE}
+library(httr)
+token <- readLines("vegayon-noaa-api-token.txt")
+ans <- GET(
+  url    = "https://www.ncdc.noaa.gov/cdo-web/api/v2/locations",
+  config = add_headers(token = token),
+  query = list(limit = 1000, locationcategoryid="ST")
+  )
+dat_api <- httr::content(ans)
+
+stations_api <- GET(
+  url    = "https://www.ncdc.noaa.gov/cdo-web/api/v2/stations",
+  config = add_headers(token = token),
+  query  = list(limit = 1000)
+)
+stations_api2 <- httr::content(stations_api)
+
+```
+
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
