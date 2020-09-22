@@ -1,0 +1,228 @@
+---
+title: "Lab 07 - Web scraping and Regular Expressions"
+output: html_document
+---
+
+```{r setup}
+knitr::opts_chunk$set(eval = FALSE, include  = FALSE)
+```
+
+
+# Learning goals
+
+- Use the `merge()` function to join two datasets.
+- Deal with missings and impute data.
+- Identify relevant observations using `quantile()`.
+- Practice your GitHub skills.
+
+# Lab description
+
+For this lab we will be, again, dealing with the meteorological dataset downloaded from the NOAA, the `met`. In this case, we will use `data.table` to answer some questions regarding the `met` dataset, while at the same time practice your Git+GitHub skills for this project.
+
+This markdown document should be rendered using `github_document` document.
+
+# Part 1: Setup the Git project and the GitHub repository
+
+1. Go to your documents (or wherever you are planning to store the data) in your computer, and create a folder for this project, for example, "PM566-labs"
+
+2. In that folder, save [this template](https://raw.githubusercontent.com/USCbiostats/PM566/master/content/assignment/05-lab.Rmd) as "README.Rmd". This will be the markdown file where all the magic will happen.
+
+3. Go to your GitHub account and create a new repository, hopefully of the same name that this folder has, i.e., "PM566-labs".
+
+4. Initialize the Git project, add the "README.Rmd" file, and make your first commit.
+
+5. Add the repo you just created on GitHub.com to the list of remotes, and push your commit to origin while setting the upstream.
+
+Most of the steps can be done using command line:
+
+```sh
+# Step 1
+cd ~/Documents
+mkdir PM566-labs
+cd PM566-labs
+
+# Step 2
+wget https://raw.githubusercontent.com/USCbiostats/PM566/master/content/assignment/05-lab.Rmd 
+mv 05-lab.Rmd README.md
+
+# Step 3
+# Happens on github
+
+# Step 4
+git init
+git add README.Rmd
+git commit -m "First commit"
+
+# Step 5
+git remote add origin git@github.com:[username]/PM566-labs
+git push -u origin master
+```
+
+You can also complete the steps in R (replace with your paths/username when needed)
+
+```r
+# Step 1
+setwd("~/Documents")
+dir.create("PM566-labs")
+setwd("PM566-labs")
+
+# Step 2
+download.file(
+  "https://raw.githubusercontent.com/USCbiostats/PM566/master/content/assignment/05-lab.Rmd",
+  destfile = "README.Rmd"
+  )
+
+# Step 3: Happens on Github
+
+# Step 4
+system("git init && git add README.Rmd")
+system('git commit -m "First commit"')
+
+# Step 5
+system("git remote add origin git@github.com:[username]/PM566-labs")
+system("git push -u origin master")
+```
+
+Once you are done setting up the project, you can now start working with the MET data.
+
+## Setup in R
+
+1. Load the `data.table` (and the `dtplyr` and `dplyr` packages if you plan to work with those).
+
+2. Load the met data from https://raw.githubusercontent.com/USCbiostats/data-science-data/master/02_met/met_all.gz, and also the station data. For the later, you can use the code we used during lecture to pre-process the stations data:
+
+```{r stations-data, eval = FALSE}
+# Download the data
+stations <- fread("ftp://ftp.ncdc.noaa.gov/pub/data/noaa/isd-history.csv")
+stations[, USAF := as.integer(USAF)]
+
+# Dealing with NAs and 999999
+stations[, USAF   := fifelse(USAF == 999999, NA_integer_, USAF)]
+stations[, CTRY   := fifelse(CTRY == "", NA_character_, CTRY)]
+stations[, STATE  := fifelse(STATE == "", NA_character_, STATE)]
+
+# Selecting the three relevant columns, and keeping unique records
+stations <- unique(stations[, list(USAF, CTRY, STATE)])
+
+# Dropping NAs
+stations <- stations[!is.na(USAF)]
+
+# Removing duplicates
+stations[, n := 1:.N, by = .(USAF)]
+stations <- stations[n == 1,][, n := NULL]
+```
+
+3. Merge the data as we did during the lecture.
+
+## Question 1: Academic publications on COVID19 and Hawaii
+
+You need to query the following
+The parameters passed to the query are documented [here](https://www.ncbi.nlm.nih.gov/books/NBK25499/).
+
+Use the function `httr::GET()` to make the following query:
+
+1. Baseline URL: https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi
+
+2. Query parameters:
+
+    - db: pubmed
+    - term: covid19 hawaii
+
+
+```{r}
+library(httr)
+query_ids <- GET(
+  url   = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi",
+  query = list(
+    db     = "pubmed",
+    term   = "covid19 hawaii",
+    retmax = 1000
+  )
+)
+query_ids
+```
+
+The query will return an XML object, we can turn it into a list using the function
+`xml2::as_list()`. And from there, access the relevant output, which is the list
+of IDs:
+
+```{r get-ids}
+# Processing the ids
+ids <- xml2::as_list(content(query_ids))
+ids <- unique(unlist(ids$eSearchResult$IdList, recursive = TRUE))
+```
+
+With the ids in hand, we can now try to get the abstracts of the papers. As
+before, we will need to coerce the contents (results) to a list using `as_list()`
+
+
+```{r get-abstracts}
+query_details <- GET(
+  url   = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi",
+  query = list(
+    db     = "pubmed",
+    id     = I(paste(ids, collapse = ",")),
+    retmax = 10000,
+    rettype = "abstract"
+  )
+)
+
+abstracts <- content(query_details)
+abstracts <- xml2::as_list(abstracts)
+```
+
+```{r abstract-processing}
+# How many abstracts are out there?
+length(abstracts$PubmedArticleSet)
+
+# Extracting the abstracts only
+abstracts_txt <- character(length(abstracts$PubmedArticleSet))
+authors       <- abstracts_txt
+for (i in 1:length(abstracts_txt)) {
+  
+  # Extracting the abstract ---------------------------------------------------
+  tmp <- abstracts$PubmedArticleSet[[i]]$MedlineCitation$Article$Abstract$AbstractText[[1]]
+  
+  # Is it length greater than zero?
+  if (length(tmp))
+    abstracts_txt[i] <- unlist(tmp, recursive = TRUE)
+  
+  # Extracting the authors ----------------------------------------------------
+  tmp <- abstracts$PubmedArticleSet[[i]]$MedlineCitation$Article$AuthorList
+  tmp <- lapply(tmp, "[[", "AffiliationInfo")
+  authors[i] <- paste(unlist(tmp, recursive = TRUE), collapse = ";")
+}
+
+```
+
+## Question 2: Distribution of universities, schools, and departments
+
+Using the function `stringr::str_extract_all()` applied on `authors`, capture all the terms of the form:
+
+1.    University of ...
+2.    ... Institute of ...
+
+```{r}
+institution <- stringr::str_extract_all(
+  authors,
+  "University of [a-zA-Z]+|[a-zA-Z]+ Institute of [a-zA-Z]+"
+  ) 
+institution <- unlist(institution)
+table(institution)
+```
+
+Repeat the exercise and this time focus on schools and departments
+
+1.    School of ...
+2.    Department of ...
+
+```{r}
+stringr::str_extract_all(
+  authors,
+  "Department of [a-zA-Z]+|University of [a-zA-Z]+|Division of [a-zA-Z]+|School of [a-zA-Z]+|[a-zA-Z]+ Institute of [a-zA-Z]+"
+  )
+```
+
+## Question 3: 
+
+

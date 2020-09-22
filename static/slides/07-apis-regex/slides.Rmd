@@ -210,35 +210,152 @@ Define what is is
 
 ## Fundamentals of Web Scrapping: How
 
-- Raw HTML data (unstructured)
-
 - Direct data download v1 (download a plain-text-file)
+
+- Raw HTML data (unstructured)
 
 - Use an Application Programming Interface (API) (structured data)
 
 ---
 
+## Web scraping with `xml2` and the `rvest` package
+
+- The [`rvest`](https://cran.r-project.org/package=rvest) R package provides various tools for reading and processing web data.
+
+- Under-the-hood, `rvest` is a wrapper of the [`xml2`](https://cran.r-project.org/package=xml2)
+and [`httr`](https://cran.r-project.org/package=httr) R packages.
 
 
+```{r setup-scrape}
+library(rvest)
 
-```{r donwload-climate-data, include = FALSE, eval = FALSE}
-library(httr)
-token <- readLines("vegayon-noaa-api-token.txt")
-ans <- GET(
-  url    = "https://www.ncdc.noaa.gov/cdo-web/api/v2/locations",
-  config = add_headers(token = token),
-  query = list(limit = 1000, locationcategoryid="ST")
+# Reading the HTML table
+covid <- read_html(
+  x = "https://en.wikipedia.org/wiki/COVID-19_pandemic_death_rates_by_country"
   )
-dat_api <- httr::content(ans)
 
+# Let's the the output
+covid
+```
+
+---
+
+## Web scraping with `xml2` and the `rvest` package (cont. 1)
+
+- We want to get the HTML table that shows up in the doc To do such, we can use the
+  function `xml2::xml_find_all()` and `rvest::html_table()`
+
+- The first will locate the place in the document that matches a given XPath
+  expression.
+  
+- [XPath](), XML Path Language, is a query language to select nodes in a XML
+  document.
+  
+- A nice tutorial can be found [here](https://www.w3schools.com/xml/xpath_intro.asp)
+
+- Modern Web browsers make it easy to use XPath!
+
+Live Example
+  
+---
+
+## Web scraping with `xml2` and the `rvest` package (cont. 2)
+
+Now that we know what is the path, let's use that and extract
+
+```{r}
+table <- xml_find_all(covid, xpath = "/html/body/div[3]/div[3]/div[5]/div[1]/table[2]")
+table <- html_table(table) # This returns a list of tables
+head(table[[1]])
+```
+
+```{r}
+pb <- read_html("https://pubmed.ncbi.nlm.nih.gov/?term=flu&page=2")
+pb <- xml_find_all(pb, xpath = "/html/body/main/div[9]/div[2]/div[2]/div[1]/span")
+xml_text(pb)
+```
+
+
+---
+
+## Setup for the APIs
+
+For this part, we will be using the `httr()` package, which is a wrapper of the
+`curl()` package, which in turn provides access to the `curl` library that
+is used to communicate with APIs.
+
+```{r setup-api}
+library(httr)
+```
+
+
+---
+
+Electronic Prescribing Adoption and Use by County
+
+https://dashboard.healthit.gov/datadashboard/documentation/electronic-prescribing-adoption-use-data-documentation-county.php
+
+```{r eval = FALSE}
+ans <- GET(
+  url    = "https://dashboard.healthit.gov/api/open-api.php",
+  query  = list(source="AHA_2008-2015.csv", region="California", period=2020),
+  config = config(connecttimeout = 1300)
+)
+```
+
+---
+
+## API Example 1: Using a Token
+
+- Sometimes, APIs are not completely open, you need to register.
+
+- In this example, I'm using a token which I obtained [here](https://www.ncdc.noaa.gov/cdo-web/token)
+
+- You can find information about the [National Centers for Environmental Information](https://www.ncdc.noaa.gov/)
+  API [here](https://www.ncdc.noaa.gov/cdo-web/webservices/v2)
+
+---
+
+## API Example 1: Using a Token (cont. 1)
+
+- The way to pass the token will depend on the API service.
+
+- Some require authentication, others need you to pass it as an argument of the query,
+  i.e., directly in the URL.
+  
+- In this case, we pass it on the header.
+
+
+```{r donwload-climate-data, eval = Sys.info()["login"] == "george", cache = TRUE}
+token        <- readLines("vegayon-noaa-api-token.txt")
 stations_api <- GET(
   url    = "https://www.ncdc.noaa.gov/cdo-web/api/v2/stations",
   config = add_headers(token = token),
   query  = list(limit = 1000)
 )
-stations_api2 <- httr::content(stations_api)
-
 ```
+
+
+This is equivalent to using the following query
+
+```bash
+curl --header "token: [YOURTOKEN]" \
+  https://www.ncdc.noaa.gov/cdo-web/api/v2/stations?limit=1000
+```
+
+---
+
+Again, we can recover the data using the `content()` function:
+
+```{r download-climate-data-cont, eval = Sys.info()["login"] == "george"}
+ans <- content(stations_api)
+ans$results[[1]]
+```
+
+---
+
+## API Example 2: Using a Token (cont. 2)
+
 
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
