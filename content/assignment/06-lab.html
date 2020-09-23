@@ -18,6 +18,16 @@ output: html_document
 <h1>Lab description</h1>
 <p>For this lab we will be working with a new dataset. The dataset contains transcription samples from <a href="https://www.mtsamples.com/" class="uri">https://www.mtsamples.com/</a>. And is loaded and “fairly” cleaned at <a href="https://raw.githubusercontent.com/USCbiostats/data-science-data/master/00_mtsamples/mtsamples.csv" class="uri">https://raw.githubusercontent.com/USCbiostats/data-science-data/master/00_mtsamples/mtsamples.csv</a>.</p>
 <p>This markdown document should be rendered using <code>github_document</code> document.</p>
+</div>
+<div id="setup-the-git-project-and-the-github-repository" class="section level1">
+<h1>Setup the Git project and the GitHub repository</h1>
+<ol style="list-style-type: decimal">
+<li><p>Go to your documents (or wherever you are planning to store the data) in your computer, and create a folder for this project, for example, “PM566-labs”</p></li>
+<li><p>In that folder, save <a href="https://raw.githubusercontent.com/USCbiostats/PM566/master/content/assignment/06-lab.Rmd">this template</a> as “README.Rmd”. This will be the markdown file where all the magic will happen.</p></li>
+<li><p>Go to your GitHub account and create a new repository, hopefully of the same name that this folder has, i.e., “PM566-labs”.</p></li>
+<li><p>Initialize the Git project, add the “README.Rmd” file, and make your first commit.</p></li>
+<li><p>Add the repo you just created on GitHub.com to the list of remotes, and push your commit to origin while setting the upstream.</p></li>
+</ol>
 <div id="setup-packages" class="section level3">
 <h3>Setup packages</h3>
 <p>You should load in <code>dplyr</code>, (or <code>data.table</code> if you want to work that way), <code>ggplot2</code> and <code>tidytext</code>.

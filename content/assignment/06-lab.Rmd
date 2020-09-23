@@ -18,6 +18,18 @@ For this lab we will be working with a new dataset. The dataset contains transcr
 
 This markdown document should be rendered using `github_document` document.
 
+# Setup the Git project and the GitHub repository
+
+1. Go to your documents (or wherever you are planning to store the data) in your computer, and create a folder for this project, for example, "PM566-labs"
+
+2. In that folder, save [this template](https://raw.githubusercontent.com/USCbiostats/PM566/master/content/assignment/06-lab.Rmd) as "README.Rmd". This will be the markdown file where all the magic will happen.
+
+3. Go to your GitHub account and create a new repository, hopefully of the same name that this folder has, i.e., "PM566-labs".
+
+4. Initialize the Git project, add the "README.Rmd" file, and make your first commit.
+
+5. Add the repo you just created on GitHub.com to the list of remotes, and push your commit to origin while setting the upstream.
+
 ### Setup packages
 
 You should load in `dplyr`, (or `data.table` if you want to work that way), `ggplot2` and `tidytext`.
