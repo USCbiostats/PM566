@@ -1,6 +1,6 @@
 ---
-title: "Regular Expressions, Big Data, Data scraping and using APIs, data security"
-linktitle: "06: Data scraping"
+title: "Text mining"
+linktitle: "06: Text Mining"
 date: "2020-09-23"
 class_date: "2020-09-23"
 citeproc: false
@@ -22,12 +22,14 @@ editor_options:
 
 ## Lab Exercise
 
-To be announced
+[link](/assignment/06-lab)
 
 ## Slides
 
-To be announced
+[link](/slides/06-textmining/slides.html)
 
 ## Links
 
-To be announced
+- R [tidytext](https://juliasilge.github.io/tidytext/) package
+- [Text Mining with R](https://www.tidytextmining.com/)
+- [Supervised Machine Learning for Text Analysis in R](https://smltar.com/)
