@@ -4,115 +4,23 @@ output: html_document
 ---
 
 ```{r setup}
-knitr::opts_chunk$set(eval = FALSE, include  = FALSE)
+knitr::opts_chunk$set(eval = FALSE, include  = TRUE)
 ```
 
 
 # Learning goals
 
-- Use the `merge()` function to join two datasets.
-- Deal with missings and impute data.
-- Identify relevant observations using `quantile()`.
+- Use a real world API to make queries and process the data.
+- Use regular expressions to parse the information.
 - Practice your GitHub skills.
 
 # Lab description
 
-For this lab we will be, again, dealing with the meteorological dataset downloaded from the NOAA, the `met`. In this case, we will use `data.table` to answer some questions regarding the `met` dataset, while at the same time practice your Git+GitHub skills for this project.
+In this lab, we will be working with the [NCBI API](https://www.ncbi.nlm.nih.gov/home/develop/api/)
+to make queries and extract information using XML and regular expressions. For this lab, we will
+be using the `httr`, `xml2`, and `stringr` R packages.
 
 This markdown document should be rendered using `github_document` document.
-
-# Part 1: Setup the Git project and the GitHub repository
-
-1. Go to your documents (or wherever you are planning to store the data) in your computer, and create a folder for this project, for example, "PM566-labs"
-
-2. In that folder, save [this template](https://raw.githubusercontent.com/USCbiostats/PM566/master/content/assignment/05-lab.Rmd) as "README.Rmd". This will be the markdown file where all the magic will happen.
-
-3. Go to your GitHub account and create a new repository, hopefully of the same name that this folder has, i.e., "PM566-labs".
-
-4. Initialize the Git project, add the "README.Rmd" file, and make your first commit.
-
-5. Add the repo you just created on GitHub.com to the list of remotes, and push your commit to origin while setting the upstream.
-
-Most of the steps can be done using command line:
-
-```sh
-# Step 1
-cd ~/Documents
-mkdir PM566-labs
-cd PM566-labs
-
-# Step 2
-wget https://raw.githubusercontent.com/USCbiostats/PM566/master/content/assignment/05-lab.Rmd 
-mv 05-lab.Rmd README.md
-
-# Step 3
-# Happens on github
-
-# Step 4
-git init
-git add README.Rmd
-git commit -m "First commit"
-
-# Step 5
-git remote add origin git@github.com:[username]/PM566-labs
-git push -u origin master
-```
-
-You can also complete the steps in R (replace with your paths/username when needed)
-
-```r
-# Step 1
-setwd("~/Documents")
-dir.create("PM566-labs")
-setwd("PM566-labs")
-
-# Step 2
-download.file(
-  "https://raw.githubusercontent.com/USCbiostats/PM566/master/content/assignment/05-lab.Rmd",
-  destfile = "README.Rmd"
-  )
-
-# Step 3: Happens on Github
-
-# Step 4
-system("git init && git add README.Rmd")
-system('git commit -m "First commit"')
-
-# Step 5
-system("git remote add origin git@github.com:[username]/PM566-labs")
-system("git push -u origin master")
-```
-
-Once you are done setting up the project, you can now start working with the MET data.
-
-## Setup in R
-
-1. Load the `data.table` (and the `dtplyr` and `dplyr` packages if you plan to work with those).
-
-2. Load the met data from https://raw.githubusercontent.com/USCbiostats/data-science-data/master/02_met/met_all.gz, and also the station data. For the later, you can use the code we used during lecture to pre-process the stations data:
-
-```{r stations-data, eval = FALSE}
-# Download the data
-stations <- fread("ftp://ftp.ncdc.noaa.gov/pub/data/noaa/isd-history.csv")
-stations[, USAF := as.integer(USAF)]
-
-# Dealing with NAs and 999999
-stations[, USAF   := fifelse(USAF == 999999, NA_integer_, USAF)]
-stations[, CTRY   := fifelse(CTRY == "", NA_character_, CTRY)]
-stations[, STATE  := fifelse(STATE == "", NA_character_, STATE)]
-
-# Selecting the three relevant columns, and keeping unique records
-stations <- unique(stations[, list(USAF, CTRY, STATE)])
-
-# Dropping NAs
-stations <- stations[!is.na(USAF)]
-
-# Removing duplicates
-stations[, n := 1:.N, by = .(USAF)]
-stations <- stations[n == 1,][, n := NULL]
-```
-
-3. Merge the data as we did during the lecture.
 
 ## Question 1: Academic publications on COVID19 and Hawaii
 
@@ -127,102 +35,143 @@ Use the function `httr::GET()` to make the following query:
 
     - db: pubmed
     - term: covid19 hawaii
+    - retmax: 1000
 
 
 ```{r}
 library(httr)
 query_ids <- GET(
-  url   = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi",
-  query = list(
-    db     = "pubmed",
-    term   = "covid19 hawaii",
-    retmax = 1000
-  )
+  url   = "BASELINE URL",
+  query = list("QUERY PARAMETERS")
 )
-query_ids
+
+# Extracting the content of the response of GET
+ids <- httr::content(query_ids)
 ```
 
-The query will return an XML object, we can turn it into a list using the function
-`xml2::as_list()`. And from there, access the relevant output, which is the list
-of IDs:
+The query will return an XML object, we can turn it into a character list to
+analyze the text directly with `as.character()`. Another way of processing the
+data could be using lists with the function `xml2::as_list()`. We will skip the
+latter for now.
+
+Take a look at the data, and continue with the next question (don't forget to 
+commit and push your results to your GitHub repo!).
+
+## Question 2: Get details about the articles
+
+The Ids are wrapped around text in the following way: `<Id>... id number ...</Id>`.
+we can use a regular expression that extract that information. Fill out the
+following lines of code:
 
 ```{r get-ids}
-# Processing the ids
-ids <- xml2::as_list(content(query_ids))
-ids <- unique(unlist(ids$eSearchResult$IdList, recursive = TRUE))
+# Turn the result into a character vector
+ids <- as.character(ids)
+
+# Find all the ids 
+ids <- stringr::str_extract_all(ids, "PATTERN")[[1]]
+
+# Remove all the leading and trailing <Id> </Id>. Make use of "|"
+ids <- stringr::str_remove_all(ids, "PATTERN")
 ```
 
 With the ids in hand, we can now try to get the abstracts of the papers. As
-before, we will need to coerce the contents (results) to a list using `as_list()`
+before, we will need to coerce the contents (results) to a list using:
 
+1. Baseline url: https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi
 
+2. Query parameters:
+    - db: pubmed
+    - id: A character with all the ids separated by comma, e.g., "1232131,546464,13131"
+    - retmax: 1000
+    - rettype: abstract
+    
+**Pro-tip**: If you want `GET()` to take some element literal, wrap it around `I()` (as you would do in a formula in R). For example, the text `"123,456"` is replaced with `"123%2C456"`. If you don't want that behavior, you would need to do the following `I("123,456")`.
+    
 ```{r get-abstracts}
-query_details <- GET(
-  url   = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi",
-  query = list(
-    db     = "pubmed",
-    id     = I(paste(ids, collapse = ",")),
-    retmax = 10000,
-    rettype = "abstract"
-  )
+publications <- GET(
+  url   = "BASELINE URL HERE",
+  query = list("PARAMETERS OF THE QUERY")
 )
 
-abstracts <- content(query_details)
-abstracts <- xml2::as_list(abstracts)
+# Turning the output into character vector
+publications <- httr::content(publications)
+publications_txt <- as.character(publications)
 ```
 
-```{r abstract-processing}
-# How many abstracts are out there?
-length(abstracts$PubmedArticleSet)
+With this in hand, we can now analyze the data.
 
-# Extracting the abstracts only
-abstracts_txt <- character(length(abstracts$PubmedArticleSet))
-authors       <- abstracts_txt
-for (i in 1:length(abstracts_txt)) {
-  
-  # Extracting the abstract ---------------------------------------------------
-  tmp <- abstracts$PubmedArticleSet[[i]]$MedlineCitation$Article$Abstract$AbstractText[[1]]
-  
-  # Is it length greater than zero?
-  if (length(tmp))
-    abstracts_txt[i] <- unlist(tmp, recursive = TRUE)
-  
-  # Extracting the authors ----------------------------------------------------
-  tmp <- abstracts$PubmedArticleSet[[i]]$MedlineCitation$Article$AuthorList
-  tmp <- lapply(tmp, "[[", "AffiliationInfo")
-  authors[i] <- paste(unlist(tmp, recursive = TRUE), collapse = ";")
-}
+## Question 3: Distribution of universities, schools, and departments
 
-```
-
-## Question 2: Distribution of universities, schools, and departments
-
-Using the function `stringr::str_extract_all()` applied on `authors`, capture all the terms of the form:
+Using the function `stringr::str_extract_all()` applied on `publications_txt`, capture all the terms of the form:
 
 1.    University of ...
 2.    ... Institute of ...
 
+Write a regular expression that captures all such instances
+
 ```{r}
-institution <- stringr::str_extract_all(
-  authors,
-  "University of [a-zA-Z]+|[a-zA-Z]+ Institute of [a-zA-Z]+"
+institution <- str_extract_all(
+  publications_txt,
+  "[YOUR REGULAR EXPRESSION HERE]"
   ) 
 institution <- unlist(institution)
 table(institution)
 ```
 
-Repeat the exercise and this time focus on schools and departments
+Repeat the exercise and this time focus on schools and departments in the form of
 
 1.    School of ...
 2.    Department of ...
 
+And tabulate the results
+
 ```{r}
-stringr::str_extract_all(
-  authors,
-  "Department of [a-zA-Z]+|University of [a-zA-Z]+|Division of [a-zA-Z]+|School of [a-zA-Z]+|[a-zA-Z]+ Institute of [a-zA-Z]+"
+schools_and_deps <- str_extract_all(
+  abstracts_txt,
+  "YOUR REGULAR EXPRESSION HERE"
   )
+table(schools_and_deps)
 ```
 
-## Question 3: 
+## Question 4: Form a database
 
+We want to build a dataset which includes the title and the abstract of the
+paper. The title of all records is enclosed by the HTML tag `ArticleTitle`, and
+the abstract by `Abstract`. 
+
+Before applying the functions to extract text directly, it will help to process
+the XML a bit. We will use the `xml2::xml_children()` function to keep one element
+per id. This way, if a paper is missing the abstract, we will be able to see.
+
+
+```{r one-string-per-response}
+pub_char_list <- xml2::xml_children(publications)
+pub_char_list <- sapply(pub_char_list, as.character)
+```
+
+Now, extract the abstract and article title for each one of the elements of
+`pub_char_list`. You can either use `sapply()` as we just did, or simply
+take advantage of vectorization of `stringr::str_extract`
+
+```{r extracting-last-bit}
+abstracts <- stringr::str_extract(pub_char_list, "[YOUR REGULAR EXPRESSION]")
+ str_remove_all(titles, "[CLEAN ALL THE HTML TAGS]")
+```
+
+How many of these don't have an abstract? Now, the title
+
+```{r}
+titles <- str_extract(pub_char_list, "[YOUR REGULAR EXPRESSION]")
+titles <- str_remove_all(titles, "[CLEAN ALL THE HTML TAGS]")
+```
+
+Finally, put everything together into a single `data.frame` and use
+`knitr::kable` to print the results
+
+```{r}
+database <- data.frame(
+  "[DATA TO CONCATENATE]"
+)
+knitr::kable(database)
+```
 
