@@ -1,5 +1,7 @@
 ---
-title: "Untitled"
+title: "Week 7: Scraping, APIs, and Regular Expressions"
+subtitle: "PM 566: Introduction to Health Data Science"
+author: "George G. Vega Yon"
 output:
   xaringan::moon_reader:
     css: ["theme.css", "default"]
@@ -11,6 +13,10 @@ output:
       highlightLines: true
       countIncrementalSlides: false
       titleSlideClass: [center, middle]
+    # md_extensions:
+    #   - -tex_math_single_backslash
+    # keep_md: true
+    mathjax: null
 ---
 
 ## Today's goals
@@ -25,22 +31,42 @@ output:
 
 ## Regular Expressions: What is it?
 
+> A regular expression (shortened as regex or regexp; also referred to as rational expression) is a sequence of characters that define a search pattern. -- [Wikipedia](https://en.wikipedia.org/wiki/Regular_expression)
+
+<img src="https://imgs.xkcd.com/comics/regular_expressions.png" width="450px">
+
+---
+
+## Regular Expressions: Why should you care?
+
+We can use Regular Expressions for:
+
+- Validating data fields, email address, numbers, etc.
+
+- Searching text in various formats, e.g., addresses, there are many ways to write an address.
+
+- Replace text, e.g., correcting spelling, `uhman|hiuman|uman` to `human`
+
+- Remove text, e.g., tags from an HTML text, `<name>George</name>` to `George`.
+
 ---
 
 ## Regular Expressions 101: Type of fields
 
 Most common:
 
-- `.` Any character
+- `.` Any character except new line
 - `[0-9]` Numbers (without decimals or points)
 - `[a-z]` Lower-case letters
 - `[A-Z]` Upper-case letters
 - `[a-zA-Z]` Lower or upper case letters.
 - `[a-zA-Z0-9]` Any alpha-numeric
+- `[^0-9]` any except numbers in the range 0-9
+- `[^./ ]` any except dot, slash, and space.
 
 Other important characters
 
-- `\s` space
+- `\s` white space, equivalent to `[\r\n\t\f\v ]`
 - `^` beginning of the text
 - `$` end of the text
 - `|` or (logical or)
@@ -51,41 +77,109 @@ Other important characters
 
 These usually come together with specifying how many times (repetition):
 
-- `[...]?` Zero or one match.
-- `[...]*` Zero or more matches
-- `[...]+` One or more matches
-- `[...]{n,}` At least `n` matches
-- `[...]{,m}` at most `m` matches
-- `[...]{n,m}` Between `n` and `m` matches.
+- `regex?` Zero or one match.
+- `regex*` Zero or more matches
+- `regex+` One or more matches
+- `regex{n,}` At least `n` matches
+- `regex{,m}` at most `m` matches
+- `regex{n,m}` Between `n` and `m` matches.
 
-Take a look at https://regex101.com/
+Where `regex` is a regular expression
 
 ---
 
 ## Regular Expressions 101: Type of fields (cont. 2)
 
-A few examples:
+There are other operators that can be very useful,
 
-```{r}
-c("History 123")
-```
+- `(regex)` Group capture.
+- `(?:regex)` Group operation without capture.
+- `(?=regex)` Look ahead (match)
+- `(?!regex)` Look ahead (don't match)
+- `(?<=regex)` Look behind (match)
+- `(?<!regex)` Look behind (don't match)
+
+Group captures can be reused with `\1`, `\2`, ...
+
+More (great) information here https://regex101.com/
 
 
 ---
 
-## Regular Expressions 101: Common examples
+## Regular Expressions 101: Examples 
 
-1. Lookup text: `base::grepl()`, `stringr::str_match()`.
+Here we are extracting the first occurrence of the following regular expressions
+(using `stringr::str_extract()`):
 
-2. Replace text: `base::gsub()`, `stringr::str_replace()`.
+```{r regex-examples-extract, echo = FALSE, results='asis'}
+txt <- c("Hanna Perez [name]", "The year was 1999", "HaHa, @abc said that", "GoGo trojans #2020!")
+regex <- c(
+  ".{5}",
+  "n{2}",
+  "[0-9]+",
+  "\\s[a-zA-Z]+\\s",
+  "[a-zA-Z]+ [a-zA-Z]+", 
+  "([a-zA-Z]+\\s?){2}",
+  "([a-zA-Z]+)\\1",
+  "(@|#)[a-z0-9]+",
+  "(?:@|#)[a-z0-9]+",
+  "(?<=#|@)[a-z0-9]+",
+  "\\[[a-z]+\\]"
+  )
+ans <- lapply(regex, stringr::str_extract, string = txt)
+ans <- do.call(rbind, ans)
+colnames(ans) <- txt
+ans <- cbind(regex = regex, ans)
+ans[is.na(ans)] <- ""
+ans[nrow(ans),1] <- "&#92&#91&#91a-z&#93+&#92&#93"
+knitr::kable(ans, format = "html", escape = FALSE)
+```
 
-3. Extract text: `base::regmatches()`, `stringr::str_extract()`.
+---
+## Regular Expressions 101: Examples (cont. 1)
+
+1. `r regex[1]` Match **any character** (except line end) five times.
+
+2. `r regex[2]` Match the letter **n** twice.
+
+3. `r regex[3]` Match **any number** at least once
+
+4. `r regex[4]` Match a **space**, **any lower or upper case letter** at least once, and a **space**. 
+
+5. `r regex[5]` Match two sets of letters separated by one space.
+
+6. `r regex[6]` Match **any lower or upper case letter** at least once, maybe followed by a white space, twice.
+
+7. `r regex[7]` Match **any lower or upper case letter** at least once, and then match the same pattern again.
+
+8. `r regex[8]` Match either the `@` or `#` symbol, followed by one or more **lower case letter** or **number**.
+
+9. `r regex[9]` Match either the `@` or `#` symbol, without capturing the group, followed by one or more **lower case letter** or **number**.
+
+10. `r regex[10]` Match one or more **lower case letter** or **number** that follows either the `@` or `#` symbol.
+
+11. \\ [[a-z]+\\ ] Match the symbol `[`, at least one **lower case letter**, and the symbol `]`.
+
+
+---
+
+## Regular Expressions 101: Functions in R
+
+1. Lookup text: `base::grepl()`, `stringr::str_detect()`.
+
+2. Find position: `base::grep()`, `stringr::str_which()`
+
+3. Replace the first instance: `base::sub()`, `stringr::str_replace()`
+
+4. Replace all instances: `base::gsub()`, `stringr::str_replace_all()`
+
+5. Extract text: `base::regmatches()`, `stringr::str_extract()` and `stringr::str_extract_all()`.
 
 ---
 
 ## Data
 
-This week we will continue using Textmining dataset
+This week we will continue using Textmining dataset (together with the `data.table` and `stringr` packages)
 
 ```{r load-data}
 library(data.table)
@@ -113,11 +207,13 @@ the following code:
 mtsamples[grepl("tumor", description, ignore.case = TRUE), .N] 
 
 # Generating a column tagging tumor
-mtsamples[, tumor_related := grepl("tumor", description)]
+mtsamples[, tumor_related := grepl("tumor", description, ignore.case = TRUE)]
 
 # Taking a look at a few examples
 mtsamples[tumor_related == TRUE, .(description)][1:3,]
 ```
+
+Notice the `ignore.case = TRUE`. This is equivalent to transforming the text to lower case using `tolower()` before passing the text to the regular expression function.
 
 ---
 
@@ -141,11 +237,15 @@ What is the problem with this approach?
 
 For this we use the following regular expression:
 
-`(?<=\\W|^)(he|his|him|she|hers|her)(?=\\W|$)`
+`(?<=\W|^)(he|his|him|she|hers|her)(?=\W|$)`
 
-- `(?<=\\W|^)` Look back `(?<=)`, and in this case, look back for the beginning of the sentence `^`, or `|` a word `\W`.
-- `he|his|him...` any of these words
-- `(?=\\w|$)` Look forward `(?=)` 
+- `(?<=regex)` lookback search.
+- `\W` any non-word character, this is equivalent to `[^a-zA-Z0-9_]`, `|` or
+- `^` the begging of text,
+- `he|his|him...` any of these words,
+- `(?=regex)` followed by,
+- `\W` any non-word character, this is equivalent to `[^a-zA-Z0-9_]`, `|` or
+- `$` the end of the text.
 
 ```{r gender-regex}
 # Lower case everything
@@ -179,18 +279,18 @@ mtsamples[, table(gender, female, useNA = "always")]
 
 ---
 
-## Regex Extract Text: Type of Cancer
+## Regex Extract Text: Type of Cancer (cont 1.)
 
 We can just try to **extract** the phrase `"[some word] cancer"`, in particular, we could use the
 following regular expression
 
-`[a-zA-Z0-9-_]{4,}\\s*cancer`
+`[a-zA-Z0-9-_]{4,}\s*cancer`
 
 Where
 
 - `[a-zA-Z0-9-_]{4,}` captures any character in the ranges `a-zA-Z0-9` including `-` and `_`. 
    Furthermore, for this match to work there must be at least 4 characters,
-- `\\s*` captures 0 or more white-spaces, and
+- `\s*` captures 0 or more white-spaces, and
 - `cancer` captures the word cancer:
 
 ```{r cancer-regex}
@@ -203,33 +303,38 @@ mtsamples[, table(cancer_type)]
 
 ## Fundamentals of Web Scrapping: What
 
-Define what is is
+> Web scraping, web harvesting, or web data extraction is data scraping used for extracting data from websites -- [Wikipedia](https://en.wikipedia.org/wiki/Web_scraping)
 
 
 ---
 
 ## Fundamentals of Web Scrapping: How
 
-- Direct data download v1 (download a plain-text-file)
+- Direct data download (download a plain-text-file) (already done this with MET, so we will skip)
 
-- Raw HTML data (unstructured)
+- Raw HTML data (somewhat unstructured)
 
 - Use an Application Programming Interface (API) (structured data)
 
 ---
 
-## Web scraping with `xml2` and the `rvest` package
+## Fundamentals of Web Scrapping: How (cont.)
 
 - The [`rvest`](https://cran.r-project.org/package=rvest) R package provides various tools for reading and processing web data.
 
 - Under-the-hood, `rvest` is a wrapper of the [`xml2`](https://cran.r-project.org/package=xml2)
 and [`httr`](https://cran.r-project.org/package=httr) R packages.
 
+---
+
+## Web scraping raw HTML: Example
+
+We would like to capture the table of COVID-19 death rates per country directly from Wikipedia.
 
 ```{r setup-scrape}
-library(rvest)
+library(rvest) # This loads the xml2 R package
 
-# Reading the HTML table
+# Reading the HTML table with the function xml2::read_html
 covid <- read_html(
   x = "https://en.wikipedia.org/wiki/COVID-19_pandemic_death_rates_by_country"
   )
@@ -240,22 +345,23 @@ covid
 
 ---
 
-## Web scraping with `xml2` and the `rvest` package (cont. 1)
+## Web scraping raw HTML: Example (cont 1.)
 
 - We want to get the HTML table that shows up in the doc To do such, we can use the
   function `xml2::xml_find_all()` and `rvest::html_table()`
 
-- The first will locate the place in the document that matches a given XPath
+- The first will locate the place in the document that matches a given **XPath**
   expression.
   
-- [XPath](), XML Path Language, is a query language to select nodes in a XML
+- [XPath](https://en.wikipedia.org/wiki/XPath), XML Path Language, is a query language to select nodes in a XML
   document.
   
 - A nice tutorial can be found [here](https://www.w3schools.com/xml/xpath_intro.asp)
 
 - Modern Web browsers make it easy to use XPath!
 
-Live Example
+Live Example! (inspect elements in [Google Chrome](https://developers.google.com/web/tools/chrome-devtools/open),
+[Mozilla Firefox](https://developer.mozilla.org/en-US/docs/Tools/Page_Inspector/How_to/Open_the_Inspector), [Internet Explorer](https://docs.microsoft.com/en-us/microsoft-edge/devtools-guide-chromium/ie-mode), and [Safari](https://developer.apple.com/library/archive/documentation/NetworkingInternetWeb/Conceptual/Web_Inspector_Tutorial/EditingCode/EditingCode.html#//apple_ref/doc/uid/TP40017576-CH4-DontLinkElementID_25))
   
 ---
 
@@ -263,22 +369,15 @@ Live Example
 
 Now that we know what is the path, let's use that and extract
 
-```{r}
+```{r get-table-covid}
 table <- xml_find_all(covid, xpath = "/html/body/div[3]/div[3]/div[5]/div[1]/table[2]")
 table <- html_table(table) # This returns a list of tables
 head(table[[1]])
 ```
 
-```{r}
-pb <- read_html("https://pubmed.ncbi.nlm.nih.gov/?term=flu&page=2")
-pb <- xml_find_all(pb, xpath = "/html/body/main/div[9]/div[2]/div[2]/div[1]/span")
-xml_text(pb)
-```
-
-
 ---
 
-## Setup for the APIs
+## Web Scraping with APIs
 
 For this part, we will be using the `httr()` package, which is a wrapper of the
 `curl()` package, which in turn provides access to the `curl` library that
@@ -286,21 +385,6 @@ is used to communicate with APIs.
 
 ```{r setup-api}
 library(httr)
-```
-
-
----
-
-Electronic Prescribing Adoption and Use by County
-
-https://dashboard.healthit.gov/datadashboard/documentation/electronic-prescribing-adoption-use-data-documentation-county.php
-
-```{r eval = FALSE}
-ans <- GET(
-  url    = "https://dashboard.healthit.gov/api/open-api.php",
-  query  = list(source="AHA_2008-2015.csv", region="California", period=2020),
-  config = config(connecttimeout = 1300)
-)
 ```
 
 ---
@@ -325,12 +409,12 @@ ans <- GET(
   
 - In this case, we pass it on the header.
 
-
-```{r donwload-climate-data, eval = Sys.info()["login"] == "george", cache = TRUE}
-token        <- readLines("vegayon-noaa-api-token.txt")
+```{r donwload-climate-data, eval = FALSE}
 stations_api <- GET(
   url    = "https://www.ncdc.noaa.gov/cdo-web/api/v2/stations",
-  config = add_headers(token = token),
+  config = add_headers(
+    token = "UOPHhvGGZBOcoAeVWxTIjDImbzal"
+    ),
   query  = list(limit = 1000)
 )
 ```
@@ -347,15 +431,92 @@ curl --header "token: [YOURTOKEN]" \
 
 Again, we can recover the data using the `content()` function:
 
-```{r download-climate-data-cont, eval = Sys.info()["login"] == "george"}
+```{r download-climate-data-cont, eval = FALSE}
 ans <- content(stations_api)
 ans$results[[1]]
+## $elevation
+## [1] 139
+## 
+## $mindate
+## [1] "1948-01-01"
+## 
+## $maxdate
+## [1] "2014-01-01"
+## 
+## $latitude
+## [1] 31.5702
+## 
+## $name
+## [1] "ABBEVILLE, AL US"
+## 
+## $datacoverage
+## [1] 0.8813
+## 
+## $id
+## [1] "COOP:010008"
 ```
 
 ---
 
-## API Example 2: Using a Token (cont. 2)
+## Detour on CURL options
 
+Sometimes you will need to change the default set of options in CURL. You can
+checkout the list of options in `curl::curl_options()`. A common hack is to 
+extend the time-limit before dropping the conection, e.g.:
 
+Using the **Health IT** API from the US government, we can obtain the
+**Electronic Prescribing Adoption and Use by County** (see docs
+[here](https://dashboard.healthit.gov/datadashboard/documentation/electronic-prescribing-adoption-use-data-documentation-county.php))
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+The problem is that it usually takes longer to get the data, so we pass 
+the config option `connecttimeout` (which corresponds to the flag `--connect-timeout`)
+in the curl call (see next slide)
+
+---
+
+## Detour on CURL options (cont.)
+
+```{r eval = FALSE}
+ans <- httr::GET(
+  url    = "https://dashboard.healthit.gov/api/open-api.php",
+  query  = list(
+    source = "AHA_2008-2015.csv",
+    region = "California",
+    period = 2015
+    ),
+  config = config(
+    connecttimeout = 60
+    )
+)
+```
+
+```r
+> ans$request
+# <request>
+# GET https://dashboard.healthit.gov/api/open-api.php?source=AHA_2008-2015.csv&region=California&period=2015
+# Output: write_memory
+# Options:
+# * useragent: libcurl/7.58.0 r-curl/4.3 httr/1.4.1
+# * connecttimeout: 60
+# * httpget: TRUE
+# Headers:
+# * Accept: application/json, text/xml, application/xml, */*
+```
+
+---
+
+## Regular Expressions: Email validation
+
+This is the official regex for email validation implemented by [RCF 5322](http://www.ietf.org/rfc/rfc5322.txt) 
+
+```
+(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08
+\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?
+:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[
+0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0
+-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\
+x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])
+```
+
+See the corresponding post in [StackOverflow](https://stackoverflow.com/a/201378/2097171) 
+

@@ -90,7 +90,9 @@ before, we will need to coerce the contents (results) to a list using:
 ```{r get-abstracts}
 publications <- GET(
   url   = "BASELINE URL HERE",
-  query = list("PARAMETERS OF THE QUERY")
+  query = list(
+    "PARAMETERS OF THE QUERY"
+    )
 )
 
 # Turning the output into character vector
@@ -128,7 +130,7 @@ And tabulate the results
 ```{r}
 schools_and_deps <- str_extract_all(
   abstracts_txt,
-  "YOUR REGULAR EXPRESSION HERE"
+  "[YOUR REGULAR EXPRESSION HERE]"
   )
 table(schools_and_deps)
 ```
@@ -154,8 +156,9 @@ Now, extract the abstract and article title for each one of the elements of
 take advantage of vectorization of `stringr::str_extract`
 
 ```{r extracting-last-bit}
-abstracts <- stringr::str_extract(pub_char_list, "[YOUR REGULAR EXPRESSION]")
- str_remove_all(titles, "[CLEAN ALL THE HTML TAGS]")
+abstracts <- str_extract(pub_char_list, "[YOUR REGULAR EXPRESSION]")
+abstracts <- str_remove_all(abstracts, "[CLEAN ALL THE HTML TAGS]")
+abstracts <- str_remove_all(abstracts, "[CLEAN ALL EXTRA WHITE SPACE AND NEW LINES]")
 ```
 
 How many of these don't have an abstract? Now, the title
