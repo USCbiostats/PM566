@@ -14,7 +14,7 @@ This is an example of web scrapping. We built this program to extract the
 cross-reference links from a given GitHub issue, including details such as timestamp,
 the user, and the commit message.
 
-You can download the program [here](lost_cross_ref.R)
+You can download the program [here](list_cross_ref.R)
 
 ```{r}
 library(data.table)
