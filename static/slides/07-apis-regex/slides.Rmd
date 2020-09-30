@@ -45,35 +45,57 @@ We can use Regular Expressions for:
 
 - Searching text in various formats, e.g., addresses, there are many ways to write an address.
 
-- Replace text, e.g., correcting spelling, `uhman|hiuman|uman` to `human`
+- Replace text, e.g., different spellings, `Storm`, `Stôrm`, `Stórm` to `Storm`.
 
 - Remove text, e.g., tags from an HTML text, `<name>George</name>` to `George`.
 
 ---
 
-## Regular Expressions 101: Type of fields
+## Regular Expressions 101: Metacharacters
 
-Most common:
+What makes *regex* special is metacharacters. While we can always use *regex* to match literals like `dog`, `human`, `1999`, we only make use of all *regex* power when using metacharacters:
 
 - `.` Any character except new line
-- `[0-9]` Numbers (without decimals or points)
-- `[a-z]` Lower-case letters
-- `[A-Z]` Upper-case letters
-- `[a-zA-Z]` Lower or upper case letters.
-- `[a-zA-Z0-9]` Any alpha-numeric
-- `[^0-9]` any except numbers in the range 0-9
-- `[^./ ]` any except dot, slash, and space.
-
-Other important characters
-
-- `\s` white space, equivalent to `[\r\n\t\f\v ]`
 - `^` beginning of the text
 - `$` end of the text
-- `|` or (logical or)
+- `[regex]` Match a single character in `regex`, e.g.
+
+    - `[0123456789]` Any number
+    - `[0-9]` Any number in the range 0-9
+    - `[a-z]` Lower-case letters
+    - `[A-Z]` Upper-case letters
+    - `[a-zA-Z]` Lower or upper case letters.
+    - `[a-zA-Z0-9]` Any alpha-numeric
+
+- `[^regex]` Match any except those in `regex`, e.g.
+
+    - `[^0123456789]` Match any except a number
+    - `[^0-9]` Match anything except in the range 0-9
+    - `[^./ ]` any except dot, slash, and space.
 
 ---
 
-## Regular Expressions 101: Type of fields (cont. 1)
+## Regular Expressions 101: Metacharacters (cont. 1)
+
+Ranges, e.g., `0-9` or `a-z`, are locale- and implementation-dependent, meaning that the range of lower case letters may vary depending on the OS's language. To solve for this problem, you could use [Character classes](https://en.wikipedia.org/wiki/Regular_expression#Character_classes). Some examples:
+
+- `[:lower:]` lower case letters in the current locale, could be `[a-z]`
+- `[:upper:]` upper case letters in the current locale, could be `[A-Z]`
+- `[:alpha:]` upper and lower case letters in the current locale, could be `[a-zA-Z]`
+- `[:digit:]` Digits: 0 1 2 3 4 5 6 7 8 9
+- `[:alnum:]` Alpha numeric characters `[:alpha:]` and `[:digit:]`.
+- `[:punct:]` Punctuation characters: ! " \# $ % & ' ( ) * + , - . / : ; < = > ? @ [ \\ ] ^ _ &#96; \{ | \} ~.
+
+For example, in the locale `en_US`, the word `Ḧóla` IS NOT fully matched by `[a-zA-Z]+`, but IT IS fully matched by `[[:alpha:]]+`.
+
+Other important Metacharacters:
+
+- `\s` white space, equivalent to `[\r\n\t\f\v ]`
+- `|` or (logical or).
+
+---
+
+## Regular Expressions 101: Metacharacters (cont. 2)
 
 These usually come together with specifying how many times (repetition):
 
@@ -88,7 +110,7 @@ Where `regex` is a regular expression
 
 ---
 
-## Regular Expressions 101: Type of fields (cont. 2)
+## Regular Expressions 101: Metacharacters (cont. 3)
 
 There are other operators that can be very useful,
 
@@ -99,10 +121,9 @@ There are other operators that can be very useful,
 - `(?<=regex)` Look behind (match)
 - `(?<!regex)` Look behind (don't match)
 
-Group captures can be reused with `\1`, `\2`, ...
+Group captures can be reused with `\1`, `\2`, ..., `\n`.
 
 More (great) information here https://regex101.com/
-
 
 ---
 
@@ -112,17 +133,17 @@ Here we are extracting the first occurrence of the following regular expressions
 (using `stringr::str_extract()`):
 
 ```{r regex-examples-extract, echo = FALSE, results='asis'}
-txt <- c("Hanna Perez [name]", "The year was 1999", "HaHa, @abc said that", "GoGo trojans #2020!")
+txt <- c("Hanna Perez [name]", "The 年 year was 1999", "HaHa, @abc said that", "GoGo trojans #2020!")
 regex <- c(
   ".{5}",
   "n{2}",
   "[0-9]+",
   "\\s[a-zA-Z]+\\s",
+  "\\s[[:alpha:]]+\\s",
   "[a-zA-Z]+ [a-zA-Z]+", 
   "([a-zA-Z]+\\s?){2}",
   "([a-zA-Z]+)\\1",
   "(@|#)[a-z0-9]+",
-  "(?:@|#)[a-z0-9]+",
   "(?<=#|@)[a-z0-9]+",
   "\\[[a-z]+\\]"
   )
@@ -146,20 +167,19 @@ knitr::kable(ans, format = "html", escape = FALSE)
 
 4. `r regex[4]` Match a **space**, **any lower or upper case letter** at least once, and a **space**. 
 
-5. `r regex[5]` Match two sets of letters separated by one space.
+5. `r regex[5]` Same as before but this time . 
 
-6. `r regex[6]` Match **any lower or upper case letter** at least once, maybe followed by a white space, twice.
+6. `r regex[6]` Match two sets of letters separated by one space.
 
-7. `r regex[7]` Match **any lower or upper case letter** at least once, and then match the same pattern again.
+7. `r regex[7]` Match **any lower or upper case letter** at least once, maybe followed by a white space, twice.
 
-8. `r regex[8]` Match either the `@` or `#` symbol, followed by one or more **lower case letter** or **number**.
+8. `r regex[8]` Match **any lower or upper case letter** at least once, and then match the same pattern again.
 
-9. `r regex[9]` Match either the `@` or `#` symbol, without capturing the group, followed by one or more **lower case letter** or **number**.
+9. `r regex[9]` Match either the `@` or `#` symbol, followed by one or more **lower case letter** or **number**.
 
 10. `r regex[10]` Match one or more **lower case letter** or **number** that follows either the `@` or `#` symbol.
 
 11. \\ [[a-z]+\\ ] Match the symbol `[`, at least one **lower case letter**, and the symbol `]`.
-
 
 ---
 
@@ -239,19 +259,19 @@ For this we use the following regular expression:
 
 `(?<=\W|^)(he|his|him|she|hers|her)(?=\W|$)`
 
+Bit by bit this is:
+
 - `(?<=regex)` lookback search.
-- `\W` any non-word character, this is equivalent to `[^a-zA-Z0-9_]`, `|` or
-- `^` the begging of text,
+    - `\W` any no alpha numeric character, this is equivalent to `[^[:alnum:]]`, `|` or
+    - `^` the begging of text,
 - `he|his|him...` any of these words,
 - `(?=regex)` followed by,
-- `\W` any non-word character, this is equivalent to `[^a-zA-Z0-9_]`, `|` or
-- `$` the end of the text.
+    - `\W` any no alpha numeric character, this is equivalent to `[^[:alnum:]]`, `|` or
+    - `$` the end of the text.
 
 ```{r gender-regex}
-# Lower case everything
-mtsamples[, gender := tolower(transcription)]
 mtsamples[, gender := str_extract(
-  string  = gender, 
+  string  = tolower(transcription), 
   pattern = "(?<=\\W|^)(he|his|him|she|hers|her)(?=\\W|$)"
   )]
 mtsamples[1:10, gender]
@@ -301,24 +321,13 @@ mtsamples[, table(cancer_type)]
 
 ---
 
-## Fundamentals of Web Scrapping: What
+## Fundamentals of Web Scrapping
+
+**What?**
 
 > Web scraping, web harvesting, or web data extraction is data scraping used for extracting data from websites -- [Wikipedia](https://en.wikipedia.org/wiki/Web_scraping)
 
-
----
-
-## Fundamentals of Web Scrapping: How
-
-- Direct data download (download a plain-text-file) (already done this with MET, so we will skip)
-
-- Raw HTML data (somewhat unstructured)
-
-- Use an Application Programming Interface (API) (structured data)
-
----
-
-## Fundamentals of Web Scrapping: How (cont.)
+**How?**
 
 - The [`rvest`](https://cran.r-project.org/package=rvest) R package provides various tools for reading and processing web data.
 
@@ -377,7 +386,19 @@ head(table[[1]])
 
 ---
 
-## Web Scraping with APIs
+## Web APIs
+
+**What?**
+
+> A Web API is an application programming interface for either a web server or a web browser. -- [Wikipedia](https://en.wikipedia.org/wiki/Web_API)
+
+Some examples include: [twitter API](https://developer.twitter.com/en), [facebook API](https://developers.facebook.com/), [Gene Ontology API](http://api.geneontology.org/api)
+
+**How?**
+
+You can request data, the **GET method**, post data, the **POST method**, and do many other things using the [HTTP protocol](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol).
+
+**How in R?**
 
 For this part, we will be using the `httr()` package, which is a wrapper of the
 `curl()` package, which in turn provides access to the `curl` library that
@@ -389,7 +410,89 @@ library(httr)
 
 ---
 
-## API Example 1: Using a Token
+## Web API Example 1: Gene Ontology
+
+We will request information regarding genes that are annotated with the go term [GO:0140374](http://amigo.geneontology.org/amigo/term/GO:0140374) (antiviral innate immune response), that have evidence code [ECO:0000006](https://evidenceontology.org/browse/#ECO_0000006) (experimental evidence)
+
+```{r example-gene-ontology, cache=TRUE}
+go_query <- GET(
+  # In this case, a parameter of the query is passed directly in the URL
+  url   = "http://api.geneontology.org/api/bioentity/function/GO:0140374/genes",
+  query = list(
+    evidence          = "ECO:0000006",
+    relationship_type = "involved_in"
+  ),
+  # May need to pass this option to curl to allow to wait 
+  config = config(
+    connecttimeout = 60
+    )
+)
+
+go_query
+```
+
+---
+
+## Web API Example 1: Gene Ontology (cont. 1)
+
+Let's take a look at the curl call:
+
+```bash
+curl -X GET "http://api.geneontology.org/api/bioentity/function/GO:0140374/genes?evidence=ECO%3A0000006&relationship_type=involved_in" -H "accept: application/json"
+```
+
+What `httr::GET()` does:
+
+```r
+> go_query$request
+## <request>
+## GET http://api.geneontology.org/api/bioentity/function/GO:0140374/genes?evidence=ECO%3A0000006&relationship_type=involved_in
+## Output: write_memory
+## Options:
+## * useragent: libcurl/7.58.0 r-curl/4.3 httr/1.4.1
+## * connecttimeout: 60
+## * httpget: TRUE
+## Headers:
+## * Accept: application/json, text/xml, application/xml, */*
+```
+
+---
+
+## Web API Example 1: Gene Ontology (cont. 1)
+
+We can extract the results using the `httr::content()` function
+
+```{r get-contents-go}
+dat <- content(go_query)
+dat <- lapply(dat$associations, function(a) {
+  data.frame(
+    Gene        = a$subject$id,
+    taxon_id    = a$subject$taxon$id,
+    taxon_label = a$subject$taxon$label
+  )
+})
+dat <- do.call(rbind, dat)
+str(dat)
+```
+
+
+---
+
+## Web API Example 1: Gene Ontology (cont. 2)
+
+The structure of the result will depend on the API. In this case, the output was a JSON file, so the content function returns a list in R. In other scenarios it could return an XML object (we will see more in the lab)
+
+```{r get-contents-go-print}
+knitr::kable(
+  head(dat),
+  caption =
+    "Genes experimentally annotated with the function **antiviral innate immune response** (GO:0140374)"
+  )
+```
+
+---
+
+## API Example 2: Using a Token
 
 - Sometimes, APIs are not completely open, you need to register.
 
@@ -400,7 +503,7 @@ library(httr)
 
 ---
 
-## API Example 1: Using a Token (cont. 1)
+## API Example 2: Using a Token (cont. 1)
 
 - The way to pass the token will depend on the API service.
 

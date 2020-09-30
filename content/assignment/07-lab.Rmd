@@ -4,7 +4,7 @@ output: html_document
 ---
 
 ```{r setup}
-knitr::opts_chunk$set(eval = FALSE, include  = TRUE)
+knitr::opts_chunk$set(include  = TRUE)
 ```
 
 
@@ -22,7 +22,33 @@ be using the `httr`, `xml2`, and `stringr` R packages.
 
 This markdown document should be rendered using `github_document` document.
 
-## Question 1: Academic publications on COVID19 and Hawaii
+## Question 1: How many sars-cov-2 papers?
+
+Build an automatic counter of sars-cov-2 papers using PubMed. You will need to apply XPath as we did during the lecture to extract the number of results returned by PubMed in the following web address:
+
+```
+https://pubmed.ncbi.nlm.nih.gov/?term=sars-cov-2
+```
+
+Complete the lines of code:
+
+```{r counter-pubmed, eval=FALSE}
+# Downloading the website
+website <- xml2::read_html("[URL]")
+
+# Finding the counts
+counts <- xml2::xml_find_first(website, "[XPath]")
+
+# Turning it into text
+counts <- as.character(counts)
+
+# Extracting the data using regex
+stringr::str_extract(counts, "[REGEX FOR NUMBERS WITH COMMAS/DOTS]")
+```
+
+Don't forget to commit your work!
+
+## Question 2: Academic publications on COVID19 and Hawaii
 
 You need to query the following
 The parameters passed to the query are documented [here](https://www.ncbi.nlm.nih.gov/books/NBK25499/).
@@ -38,7 +64,7 @@ Use the function `httr::GET()` to make the following query:
     - retmax: 1000
 
 
-```{r}
+```{r papers-covid-hawaii, eval=FALSE}
 library(httr)
 query_ids <- GET(
   url   = "BASELINE URL",
@@ -57,13 +83,13 @@ latter for now.
 Take a look at the data, and continue with the next question (don't forget to 
 commit and push your results to your GitHub repo!).
 
-## Question 2: Get details about the articles
+## Question 3: Get details about the articles
 
 The Ids are wrapped around text in the following way: `<Id>... id number ...</Id>`.
 we can use a regular expression that extract that information. Fill out the
 following lines of code:
 
-```{r get-ids}
+```{r get-ids, eval = FALSE}
 # Turn the result into a character vector
 ids <- as.character(ids)
 
@@ -87,7 +113,7 @@ before, we will need to coerce the contents (results) to a list using:
     
 **Pro-tip**: If you want `GET()` to take some element literal, wrap it around `I()` (as you would do in a formula in R). For example, the text `"123,456"` is replaced with `"123%2C456"`. If you don't want that behavior, you would need to do the following `I("123,456")`.
     
-```{r get-abstracts}
+```{r get-abstracts, eval = FALSE}
 publications <- GET(
   url   = "BASELINE URL HERE",
   query = list(
@@ -100,9 +126,9 @@ publications <- httr::content(publications)
 publications_txt <- as.character(publications)
 ```
 
-With this in hand, we can now analyze the data.
+With this in hand, we can now analyze the data. This is also a good time for committing and pushing your work!
 
-## Question 3: Distribution of universities, schools, and departments
+## Question 4: Distribution of universities, schools, and departments
 
 Using the function `stringr::str_extract_all()` applied on `publications_txt`, capture all the terms of the form:
 
@@ -111,7 +137,7 @@ Using the function `stringr::str_extract_all()` applied on `publications_txt`, c
 
 Write a regular expression that captures all such instances
 
-```{r}
+```{r univ-institute-regex, eval = FALSE}
 institution <- str_extract_all(
   publications_txt,
   "[YOUR REGULAR EXPRESSION HERE]"
@@ -127,7 +153,7 @@ Repeat the exercise and this time focus on schools and departments in the form o
 
 And tabulate the results
 
-```{r}
+```{r school-department, eval = FALSE}
 schools_and_deps <- str_extract_all(
   abstracts_txt,
   "[YOUR REGULAR EXPRESSION HERE]"
@@ -135,7 +161,7 @@ schools_and_deps <- str_extract_all(
 table(schools_and_deps)
 ```
 
-## Question 4: Form a database
+## Question 5: Form a database
 
 We want to build a dataset which includes the title and the abstract of the
 paper. The title of all records is enclosed by the HTML tag `ArticleTitle`, and
@@ -143,10 +169,10 @@ the abstract by `Abstract`.
 
 Before applying the functions to extract text directly, it will help to process
 the XML a bit. We will use the `xml2::xml_children()` function to keep one element
-per id. This way, if a paper is missing the abstract, we will be able to see.
+per id. This way, if a paper is missing the abstract, or something else, we will be able to properly match PUBMED IDS with their corresponding records.
 
 
-```{r one-string-per-response}
+```{r one-string-per-response, eval = FALSE}
 pub_char_list <- xml2::xml_children(publications)
 pub_char_list <- sapply(pub_char_list, as.character)
 ```
@@ -155,7 +181,7 @@ Now, extract the abstract and article title for each one of the elements of
 `pub_char_list`. You can either use `sapply()` as we just did, or simply
 take advantage of vectorization of `stringr::str_extract`
 
-```{r extracting-last-bit}
+```{r extracting-last-bit, eval = FALSE}
 abstracts <- str_extract(pub_char_list, "[YOUR REGULAR EXPRESSION]")
 abstracts <- str_remove_all(abstracts, "[CLEAN ALL THE HTML TAGS]")
 abstracts <- str_remove_all(abstracts, "[CLEAN ALL EXTRA WHITE SPACE AND NEW LINES]")
@@ -163,7 +189,7 @@ abstracts <- str_remove_all(abstracts, "[CLEAN ALL EXTRA WHITE SPACE AND NEW LIN
 
 How many of these don't have an abstract? Now, the title
 
-```{r}
+```{r process-titles, eval = FALSE}
 titles <- str_extract(pub_char_list, "[YOUR REGULAR EXPRESSION]")
 titles <- str_remove_all(titles, "[CLEAN ALL THE HTML TAGS]")
 ```
@@ -171,10 +197,27 @@ titles <- str_remove_all(titles, "[CLEAN ALL THE HTML TAGS]")
 Finally, put everything together into a single `data.frame` and use
 `knitr::kable` to print the results
 
-```{r}
+```{r build-db, eval = FALSE}
 database <- data.frame(
   "[DATA TO CONCATENATE]"
 )
 knitr::kable(database)
 ```
+
+Done! Knit the document, commit, and push.
+
+## Final Pro Tip (optional)
+
+You can still share the HTML document on github. You can include a link in your `README.md` file as the following:
+
+```md
+View [here](https://ghcdn.rawgit.org/:user/:repo/:tag/:file)
+```
+
+For example, if we wanted to add a direct link the HTML page of lecture 7, we could do something like the following:
+
+```md
+View [here](https://ghcdn.rawgit.org/USCbiostats/PM566/master/static/slides/07-apis-regex/slides.html)
+```
+
 

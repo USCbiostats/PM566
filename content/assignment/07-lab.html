@@ -5,7 +5,7 @@ output: html_document
 
 
 
-<pre class="r"><code>knitr::opts_chunk$set(eval = FALSE, include  = TRUE)</code></pre>
+<pre class="r"><code>knitr::opts_chunk$set(include  = TRUE)</code></pre>
 <div id="learning-goals" class="section level1">
 <h1>Learning goals</h1>
 <ul>
@@ -20,8 +20,26 @@ output: html_document
 to make queries and extract information using XML and regular expressions. For this lab, we will
 be using the <code>httr</code>, <code>xml2</code>, and <code>stringr</code> R packages.</p>
 <p>This markdown document should be rendered using <code>github_document</code> document.</p>
-<div id="question-1-academic-publications-on-covid19-and-hawaii" class="section level2">
-<h2>Question 1: Academic publications on COVID19 and Hawaii</h2>
+<div id="question-1-how-many-sars-cov-2-papers" class="section level2">
+<h2>Question 1: How many sars-cov-2 papers?</h2>
+<p>Build an automatic counter of sars-cov-2 papers using PubMed. You will need to apply XPath as we did during the lecture to extract the number of results returned by PubMed in the following web address:</p>
+<pre><code>https://pubmed.ncbi.nlm.nih.gov/?term=sars-cov-2</code></pre>
+<p>Complete the lines of code:</p>
+<pre class="r"><code># Downloading the website
+website &lt;- xml2::read_html(&quot;[URL]&quot;)
+
+# Finding the counts
+counts &lt;- xml2::xml_find_first(website, &quot;[XPath]&quot;)
+
+# Turning it into text
+counts &lt;- as.character(counts)
+
+# Extracting the data using regex
+stringr::str_extract(counts, &quot;[REGEX FOR NUMBERS WITH COMMAS/DOTS]&quot;)</code></pre>
+<p>Don’t forget to commit your work!</p>
+</div>
+<div id="question-2-academic-publications-on-covid19-and-hawaii" class="section level2">
+<h2>Question 2: Academic publications on COVID19 and Hawaii</h2>
 <p>You need to query the following
 The parameters passed to the query are documented <a href="https://www.ncbi.nlm.nih.gov/books/NBK25499/">here</a>.</p>
 <p>Use the function <code>httr::GET()</code> to make the following query:</p>
@@ -49,8 +67,8 @@ latter for now.</p>
 <p>Take a look at the data, and continue with the next question (don’t forget to
 commit and push your results to your GitHub repo!).</p>
 </div>
-<div id="question-2-get-details-about-the-articles" class="section level2">
-<h2>Question 2: Get details about the articles</h2>
+<div id="question-3-get-details-about-the-articles" class="section level2">
+<h2>Question 3: Get details about the articles</h2>
 <p>The Ids are wrapped around text in the following way: <code>&lt;Id&gt;... id number ...&lt;/Id&gt;</code>.
 we can use a regular expression that extract that information. Fill out the
 following lines of code:</p>
@@ -85,10 +103,10 @@ before, we will need to coerce the contents (results) to a list using:</p>
 # Turning the output into character vector
 publications &lt;- httr::content(publications)
 publications_txt &lt;- as.character(publications)</code></pre>
-<p>With this in hand, we can now analyze the data.</p>
+<p>With this in hand, we can now analyze the data. This is also a good time for committing and pushing your work!</p>
 </div>
-<div id="question-3-distribution-of-universities-schools-and-departments" class="section level2">
-<h2>Question 3: Distribution of universities, schools, and departments</h2>
+<div id="question-4-distribution-of-universities-schools-and-departments" class="section level2">
+<h2>Question 4: Distribution of universities, schools, and departments</h2>
 <p>Using the function <code>stringr::str_extract_all()</code> applied on <code>publications_txt</code>, capture all the terms of the form:</p>
 <ol style="list-style-type: decimal">
 <li>University of …</li>
@@ -113,14 +131,14 @@ table(institution)</code></pre>
   )
 table(schools_and_deps)</code></pre>
 </div>
-<div id="question-4-form-a-database" class="section level2">
-<h2>Question 4: Form a database</h2>
+<div id="question-5-form-a-database" class="section level2">
+<h2>Question 5: Form a database</h2>
 <p>We want to build a dataset which includes the title and the abstract of the
 paper. The title of all records is enclosed by the HTML tag <code>ArticleTitle</code>, and
 the abstract by <code>Abstract</code>.</p>
 <p>Before applying the functions to extract text directly, it will help to process
 the XML a bit. We will use the <code>xml2::xml_children()</code> function to keep one element
-per id. This way, if a paper is missing the abstract, we will be able to see.</p>
+per id. This way, if a paper is missing the abstract, or something else, we will be able to properly match PUBMED IDS with their corresponding records.</p>
 <pre class="r"><code>pub_char_list &lt;- xml2::xml_children(publications)
 pub_char_list &lt;- sapply(pub_char_list, as.character)</code></pre>
 <p>Now, extract the abstract and article title for each one of the elements of
@@ -138,5 +156,13 @@ titles &lt;- str_remove_all(titles, &quot;[CLEAN ALL THE HTML TAGS]&quot;)</code
   &quot;[DATA TO CONCATENATE]&quot;
 )
 knitr::kable(database)</code></pre>
+<p>Done! Knit the document, commit, and push.</p>
+</div>
+<div id="final-pro-tip-optional" class="section level2">
+<h2>Final Pro Tip (optional)</h2>
+<p>You can still share the HTML document on github. You can include a link in your <code>README.md</code> file as the following:</p>
+<pre class="md"><code>View [here](https://ghcdn.rawgit.org/:user/:repo/:tag/:file)</code></pre>
+<p>For example, if we wanted to add a direct link the HTML page of lecture 7, we could do something like the following:</p>
+<pre class="md"><code>View [here](https://ghcdn.rawgit.org/USCbiostats/PM566/master/static/slides/07-apis-regex/slides.html)</code></pre>
 </div>
 </div>
