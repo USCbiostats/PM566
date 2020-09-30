@@ -1,0 +1,47 @@
+---
+output: github_document
+---
+
+# Course Material for PM566
+
+The PM566 course website is [here](https://elastic-khorana-70231e.netlify.app/). We will be using this website to share all course material including lecture slides, labs, and assignments.
+
+Our class meets at 1pm every Wednesday. Zoom links for each lecture session are available in the course Blackboard.
+
+# Latest week's cross reference
+
+This is an example of web scrapping. We built this program to extract the
+cross-reference links from a given GitHub issue, including details such as timestamp,
+the user, and the commit message.
+
+You can download the program [here](lost_cross_ref.R)
+
+```{r}
+library(data.table)
+library(stringr)
+```
+
+
+```{r webscraping, message=FALSE, cache=TRUE}
+# Web-scraping program
+source("list_cross_ref.R", echo=FALSE)
+
+# Getting the cross reference for a given issue
+ans <- list_cross_ref(issue = 25)
+```
+
+
+```{r printing-the-data}
+# Preparing to print using a nice format
+ans[, user := sprintf("[%s](https://github.com/%s)", user, user)]
+ans[, repo_owner := str_extract(link, "(?<=github[.]com/)[^/]+")]
+ans[, repo_owner := sprintf("[%s](https://github.com/%s)", repo_owner, repo_owner)]
+ans[, link := sprintf("[link](%s)", link)]
+setorder(ans, timestamp)
+
+# A more concise message
+ans[, message := sprintf("%s (%s to this %s)", title, link, type)]
+ans[, c("title", "link", "type") := NULL] 
+knitr::kable(ans)
+```
+
