@@ -34,13 +34,13 @@ lessons:
     date: "Week 6 (9/23)"
     class: "06-class"
     reading: "06-reading"
-    assignment: ""
+    assignment: "05-hw2"
 
   - title: "Scraping, APIs, and Regular Expressions"
     date: "Week 7 (9/30)"
     class: "07-class"
     reading: "07-reading"
-    assignment: "05-hw2"
+    assignment: ""
 
   - title: "Midterm Exam (No class)"
     date: "Week 8 (10/7)"
