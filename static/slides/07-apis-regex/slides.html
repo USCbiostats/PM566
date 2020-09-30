@@ -5,7 +5,6 @@
     <meta charset="utf-8" />
     <meta name="author" content="George G. Vega Yon" />
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
-    <link rel="stylesheet" href="theme.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
@@ -253,13 +252,33 @@ Here we are extracting the first occurrence of the following regular expressions
 
 1. Lookup text: `base::grepl()`, `stringr::str_detect()`.
 
-2. Find position: `base::grep()`, `stringr::str_which()`
+2. Similar to `which()`, which elements are `TRUE` `base::grep()`, `stringr::str_which()`
 
 3. Replace the first instance: `base::sub()`, `stringr::str_replace()`
 
 4. Replace all instances: `base::gsub()`, `stringr::str_replace_all()`
 
 5. Extract text: `base::regmatches()`, `stringr::str_extract()` and `stringr::str_extract_all()`.
+
+---
+
+## Regular Expressions 101: Functions in R (cont.)
+
+For example, like in Twitter, let's create a regex that matches usernames
+or hashtags with the following pattern:
+
+`(@|#)([[:alnum:]]+)`
+
+
+|Code                                                  |@Hanna Perez [name] #html                |The @年 year was 1999           |HaHa, @abc said that @z                     |
+|:-----------------------------------------------------|:----------------------------------------|:-------------------------------|:-------------------------------------------|
+|`str_detect(text, pattern)` or `grepl(pattern, text)` |TRUE                                     |TRUE                            |TRUE                                        |
+|`str_extract(text, pattern)`                          |@Hanna                                   |@年                             |@abc                                        |
+|`str_extract_all(text, pattern)`                      |[@Hanna, #html]                          |[@年]                           |[@abc, @z]                                  |
+|`str_replace(text, pattern, "\1justinbieber")`        |@justinbieber Perez [name] #html         |The @justinbieber year was 1999 |HaHa, @justinbieber said that @z            |
+|`str_replace_all(text, pattern, "\1justinbieber")`    |@justinbieber Perez [name] #justinbieber |The @justinbieber year was 1999 |HaHa, @justinbieber said that @justinbieber |
+
+**Note**: While it is not showing in the table, the group replacement was scaped, i.e., `\\1` instead of `\1` in the code.
 
 ---
 
@@ -403,18 +422,18 @@ mtsamples[, table(gender, female, useNA = "always")]
 We can just try to **extract** the phrase `"[some word] cancer"`, in particular, we could use the
 following regular expression
 
-`[a-zA-Z0-9-_]{4,}\s*cancer`
+`[[:alnum:]-_]{4,}\s*cancer`
 
 Where
 
-- `[a-zA-Z0-9-_]{4,}` captures any character in the ranges `a-zA-Z0-9` including `-` and `_`. 
+- `[[:alnum:]-_]{4,}` captures any alphanumeric character, including `-` and `_`. 
    Furthermore, for this match to work there must be at least 4 characters,
 - `\s*` captures 0 or more white-spaces, and
 - `cancer` captures the word cancer:
 
 
 ```r
-mtsamples[, cancer_type := str_extract(tolower(keywords), "[a-zA-Z0-9-_]{4,}\\s*cancer")]
+mtsamples[, cancer_type := str_extract(tolower(keywords), "[[:alnum:]-_]{4,}\\s*cancer")]
 mtsamples[, table(cancer_type)]
 ```
 
@@ -546,43 +565,69 @@ For this part, we will be using the `httr()` package, which is a wrapper of the
 `curl()` package, which in turn provides access to the `curl` library that
 is used to communicate with APIs.
 
+---
 
-```r
-library(httr)
+## Web APIs with curl
+
+&lt;div align="center"&gt;
+&lt;img src="https://cdn.tutsplus.com/net/authors/jeremymcpeak/http1-url-structure.png" width="700px"&gt;
+&lt;br&gt;
+Structure of a URL (source: &lt;a href="https://code.tutsplus.com/tutorials/http-the-protocol-every-web-developer-must-know-part-1--net-31177" target="_blank"&gt;"HTTP: The Protocol Every Web Developer Must Know - Part 1"&lt;/a&gt;)
+&lt;/div&gt;
+
+---
+
+## Web APIs with curl
+
+Under-the-hood, the `httr` (and thus `curl`) sends request somewhat like this
+
+```bash
+curl -X GET https://google.com -w "%{content_type}\n%{http_code}\n"
 ```
+
+A get request (`-X GET`) to `https://google.com`, which also includes (`-w`) the following:
+`content_type` and `http_code`:
+
+```html
+&lt;HTML&gt;&lt;HEAD&gt;&lt;meta http-equiv="content-type" content="text/html;charset=utf-8"&gt;
+&lt;TITLE&gt;301 Moved&lt;/TITLE&gt;&lt;/HEAD&gt;&lt;BODY&gt;
+&lt;H1&gt;301 Moved&lt;/H1&gt;
+The document has moved
+&lt;A HREF="https://www.google.com/"&gt;here&lt;/A&gt;.
+&lt;/BODY&gt;&lt;/HTML&gt;
+text/html; charset=UTF-8
+301
+```
+
+We use the `httr` R package to make life easier.
 
 ---
 
 ## Web API Example 1: Gene Ontology
 
-We will request information regarding genes that are annotated with the go term [GO:0140374](http://amigo.geneontology.org/amigo/term/GO:0140374) (antiviral innate immune response), that have evidence code [ECO:0000006](https://evidenceontology.org/browse/#ECO_0000006) (experimental evidence)
+- We will make use of the [Gene Ontology API](http://api.geneontology.org/api).
+
+- We want to know what genes (human or not) are **involved in** the function **antiviral innate immune response** (go term [GO:0140374](http://amigo.geneontology.org/amigo/term/GO:0140374)), looking only at those annotations that have evidence code [ECO:0000006](https://evidenceontology.org/browse/#ECO_0000006) (experimental evidence):
 
 
 ```r
+library(httr)
 go_query &lt;- GET(
-  # In this case, a parameter of the query is passed directly in the URL
-  url   = "http://api.geneontology.org/api/bioentity/function/GO:0140374/genes",
+  url   = "http://api.geneontology.org/",
+  path  = "api/bioentity/function/GO:0140374/genes",
   query = list(
     evidence          = "ECO:0000006",
     relationship_type = "involved_in"
   ),
-  # May need to pass this option to curl to allow to wait 
+  # May need to pass this option to curl to allow to wait for at least
+  # 60 seconds before returning error.
   config = config(
     connecttimeout = 60
     )
 )
-
-go_query
 ```
 
-```
-## Response [http://api.geneontology.org/api/bioentity/function/GO:0140374/genes?evidence=ECO%3A0000006&amp;relationship_type=involved_in]
-##   Date: 2020-09-30 01:14
-##   Status: 200
-##   Content-Type: application/json
-##   Size: 18 kB
-## {"associations": [{"id": "556e6950726f744b42094f39353738360944445835380909474...
-```
+We could have also passed the full URL directly...
 
 ---
 
@@ -611,13 +656,42 @@ What `httr::GET()` does:
 
 ---
 
-## Web API Example 1: Gene Ontology (cont. 1)
+## Web API Example 1: Gene Ontology (cont. 2)
+
+Let's take a look at the response:
+
+
+```r
+go_query
+```
+
+```
+## Response [http://api.geneontology.org/api/bioentity/function/GO:0140374/genes?evidence=ECO%3A0000006&amp;relationship_type=involved_in]
+##   Date: 2020-09-30 05:30
+##   Status: 200
+##   Content-Type: application/json
+##   Size: 18 kB
+## {"associations": [{"id": "556e6950726f744b42094f39353738360944445835380909474...
+```
+
+Remember the codes:
+- 1xx: Information message
+- 2xx: Success
+- 3xx: Redirection
+- 4xx: Client error
+- 5xx: Server error
+---
+
+## Web API Example 1: Gene Ontology (cont. 3)
 
 We can extract the results using the `httr::content()` function
 
 
+
+
+
 ```r
-dat &lt;- content(go_query)
+dat &lt;- content(go_query) 
 dat &lt;- lapply(dat$associations, function(a) {
   data.frame(
     Gene        = a$subject$id,
@@ -639,22 +713,22 @@ str(dat)
 
 ---
 
-## Web API Example 1: Gene Ontology (cont. 2)
+## Web API Example 1: Gene Ontology (cont. 4)
 
 The structure of the result will depend on the API. In this case, the output was a JSON file, so the content function returns a list in R. In other scenarios it could return an XML object (we will see more in the lab)
 
 
 ```r
-knitr::kable(
-  head(dat),
-  caption =
-    "Genes experimentally annotated with the function **antiviral innate immune response** (GO:0140374)"
+knitr::kable(head(dat),
+  caption = "Genes experimentally annotated with the function\
+  **antiviral innate immune response** (GO:0140374)"
   )
 ```
 
 
 
-Table: Genes experimentally annotated with the function **antiviral innate immune response** (GO:0140374)
+Table: Genes experimentally annotated with the function
+  **antiviral innate immune response** (GO:0140374)
 
 |Gene                   |taxon_id       |taxon_label  |
 |:----------------------|:--------------|:------------|
@@ -667,9 +741,11 @@ Table: Genes experimentally annotated with the function **antiviral innate immun
 
 ---
 
-## API Example 2: Using a Token
+## Web API Example 2: Using Tokens
 
 - Sometimes, APIs are not completely open, you need to register.
+
+- The API may require to login (user+password), or pass a token.
 
 - In this example, I'm using a token which I obtained [here](https://www.ncdc.noaa.gov/cdo-web/token)
 
@@ -678,7 +754,7 @@ Table: Genes experimentally annotated with the function **antiviral innate immun
 
 ---
 
-## API Example 2: Using a Token (cont. 1)
+## Web API Example 2: Using Tokens (cont. 1)
 
 - The way to pass the token will depend on the API service.
 
@@ -686,27 +762,32 @@ Table: Genes experimentally annotated with the function **antiviral innate immun
   i.e., directly in the URL.
   
 - In this case, we pass it on the header.
+  
+  
+  ```r
+  stations_api &lt;- GET(
+    url    = "https://www.ncdc.noaa.gov",
+    path   = "cdo-web/api/v2/stations",
+    config = add_headers(
+      token = "[YOUR TOKEN HERE]"
+      ),
+    query  = list(limit = 1000)
+  )
+  ```
+  
+  
+  This is equivalent to using the following query
+  
+  ```bash
+  curl --header "token: [YOUR TOKEN HERE]" \
+    https://www.ncdc.noaa.gov/cdo-web/api/v2/stations?limit=1000
+  ```
 
-
-```r
-stations_api &lt;- GET(
-  url    = "https://www.ncdc.noaa.gov/cdo-web/api/v2/stations",
-  config = add_headers(
-    token = "UOPHhvGGZBOcoAeVWxTIjDImbzal"
-    ),
-  query  = list(limit = 1000)
-)
-```
-
-
-This is equivalent to using the following query
-
-```bash
-curl --header "token: [YOURTOKEN]" \
-  https://www.ncdc.noaa.gov/cdo-web/api/v2/stations?limit=1000
-```
+**Note**: This won't run, you need to get your own token
 
 ---
+
+## Web API Example 2: Using Tokens (cont. 2)
 
 Again, we can recover the data using the `content()` function:
 
@@ -735,6 +816,106 @@ ans$results[[1]]
 ## $id
 ## [1] "COOP:010008"
 ```
+
+---
+
+## Web API Example 3: HHS health recommendation
+
+Here is a last example. We will use the Department of Health and Human Services
+API for "[...] demographic-specific health recommendations" (details at [health.gov](https://health.gov/our-work/health-literacy/consumer-health-content/free-web-content/apis-developers/documentation))
+
+
+```r
+health_advises &lt;- GET(
+  url  = "https://health.gov/",
+  path = "myhealthfinder/api/v3/myhealthfinder.json",
+  query = list(
+    lang = "en",
+    age  = "32",
+    sex  = "male",
+    tobaccoUse = 0
+  ),
+  config = c(
+    add_headers(accept = "application/json"),
+    config(connecttimeout = 60)
+  )
+)
+```
+
+---
+
+## Web API Example 3: HHS health recommendation (cont. 1)
+
+Let's see the response
+
+
+```r
+health_advises
+```
+
+```
+## Response [https://health.gov/myhealthfinder/api/v3/myhealthfinder.json?lang=en&amp;age=32&amp;sex=male&amp;tobaccoUse=0]
+##   Date: 2020-09-30 06:11
+##   Status: 200
+##   Content-Type: application/json
+##   Size: 262 kB
+## {
+##     "Result": {
+##         "Error": "False",
+##         "Total": 17,
+##         "Query": {
+##             "ApiVersion": "3",
+##             "ApiType": "myhealthfinder",
+##             "TopicId": null,
+##             "ToolId": null,
+##             "CategoryId": null,
+## ...
+```
+
+
+---
+
+## Web API Example 3: HHS health recommendation (cont. 2)
+
+
+```r
+# Extracting the content
+health_advises_ans &lt;- content(health_advises)
+
+# Getting the titles
+txt &lt;- with(health_advises_ans$Result$Resources, c(
+  sapply(All$Resource, "[[", "Title"),
+  sapply(Some$Resource, "[[", "Title"),
+  sapply(Interest$Resource, "[[", "Title")
+))
+cat(txt, sep = "; ")
+```
+
+Protect Yourself from Seasonal Flu; Hepatitis C Screening: Questions for the doctor; Talk with Your Doctor about Depression; Get Shots to Protect Your Health (Adults Ages 19 to 49); Get Tested for HIV; Get Your Blood Pressure Checked; Drink Alcohol Only in Moderation; Quit Smoking; Watch Your Weight; Testing for Syphilis: Questions for the doctor; Eat Healthy; Protect Yourself from Hepatitis B; Testing for Latent Tuberculosis: Questions for the doctor; Get Active; Quitting Smoking: Conversation starters; Manage Stress; Alcohol Use: Conversation starters
+
+---
+
+## Summary
+
+- We learned about regular expressions with the package **stringr** (a wrapper of **stringi**)
+
+- We can use regular expressions to detect (`str_detect()`), replace (`str_replace()`), and 
+extract (`str_extract()`) expressions.
+
+- We looked at web scraping using the **rvest** package (a wrapper of **xml2**).
+
+- We extracted elements from the HTML/XML using `xml_find_all()` with XPath expressions.
+
+- We also used the `html_table()` function from rvest to extract tables from HTML documents.
+
+- We took a quick review on Web APIs and the Hyper-text-transfer-protocol (HTTP).
+
+- We used the **httr** R package (wrapper of **curl**) to make `GET` requests to various APIs
+
+- We even showed an example using a token passed via the `header`.
+
+- Once we got the responses, we used the `content()` function to extract the message of the
+response.
 
 ---
 
@@ -803,7 +984,6 @@ See the corresponding post in [StackOverflow](https://stackoverflow.com/a/201378
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
-<script src="macros.js"></script>
 <script>var slideshow = remark.create({
 "ratio": "16:9",
 "highlightStyle": "github",
