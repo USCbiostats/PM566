@@ -1,6 +1,6 @@
 ---
-title: "Text mining and Regular Expressions"
-linktitle: "07: text mining"
+title: "Week 7: Scraping, APIs, and Regular Expressions"
+linktitle: "07: Scraping, APIs, and Regex"
 date: "2020-09-30"
 class_date: "2020-09-30"
 citeproc: false
@@ -25,6 +25,6 @@ editor_options:
 
 ## Slides
 
-[link](/slides/07-textmining/slides.html)
+[link](/slides/07-apis-regex/slides.html)
 
 ## Links

@@ -36,7 +36,7 @@ lessons:
     reading: "06-reading"
     assignment: ""
 
-  - title: "Scraping and API"
+  - title: "Scraping, APIs, and Regular Expressions"
     date: "Week 7 (9/30)"
     class: "07-class"
     reading: "07-reading"
