@@ -22,9 +22,13 @@ editor_options:
 
 ## Lab Exercise
 
+[link](/assignment/07-lab)
 
 ## Slides
 
 [link](/slides/07-apis-regex/slides.html)
 
 ## Links
+
+Here is an extended example of web scraping ([link](https://github.com/USCbiostats/PM566/tree/df4f275d56c23c47ce7e0d9791c2bb384819af8c#latest-weeks-cross-reference))
+that will be featured in the class.
