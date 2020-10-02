@@ -44,9 +44,9 @@ lessons:
 
   - title: "Midterm Exam (No class)"
     date: "Week 8 (10/7)"
-    class: "08-class"
-    reading: "08-reading"
-    assignment: ""
+    class: ""
+    reading: ""
+    assignment: "08-midterm"
 
   - title: "High performance computing, cloud computing"
     date: "Week 9 (10/14)"
