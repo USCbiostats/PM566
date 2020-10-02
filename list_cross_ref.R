@@ -19,7 +19,7 @@ list_cross_ref <- function(issue, repo = "USCbiostats/PM566", timeout = 60) {
   # Checking if there's anything to parse
   items <- xml_find_all(page, xpath = '//*[@class="TimelineItem"]')
   
-  if (xml_length(items) == 0)
+  if (length(items) == 1 && xml_length(items) == 0)
     stop("No cross-reference to be analized.")
   
   items <- lapply(as.character(items), read_html)
@@ -73,3 +73,49 @@ list_cross_ref <- function(issue, repo = "USCbiostats/PM566", timeout = 60) {
    
 }
 
+find_rmd_involved <- function(x) {
+  
+  if (length(x) > 1) {
+    ans <- character(length(x))
+    message("Downloading data...", appendLF = FALSE)
+    for (i in 1:length(ans)) {
+      message(i, ", ", appendLF = FALSE) 
+      ans[i] <- find_rmd_involved(x[i])
+    }
+    message("done.")
+    return(ans)
+  }
+  
+  y <- tryCatch(GET(url = x), error = function(e) e)
+  
+  if (inherits(y, "error"))
+    return(NA_character_)
+  
+  if (!grepl("^2[0-9]{2}", status_code(y)) )
+    return(NA_character_)
+  
+  # Getting the contents
+  y <- content(y)
+  
+  # TOC
+  toc <- xml_find_first(y, xpath = '//*[@id = "toc"]')
+  toc <- xml_find_first(toc, xpath = '//*[starts-with(@class, "content")]')
+  toc <- xml_children(toc)
+  toc <- lapply(as.character(toc), read_html)
+  toc <- lapply(toc, xml_find_all, xpath = "//a")
+  
+  # Getting the filenames
+  toc <- lapply(toc, xml_text, trim = TRUE)
+  toc <- unlist(toc)
+  toc <- toc[nchar(toc) > 0]
+  
+  # Getting commit code
+  url_commit <- str_extract(x, "(?<=commit/).+")
+  url_repo   <- gsub("/commit/.+", "", x, perl = TRUE)
+  
+  links <- sprintf(
+    "%s/blob/%s/%s", url_repo, url_commit, toc
+  )
+  paste(sprintf("[%s](%s)", toc, links), collapse=", ")
+  
+}

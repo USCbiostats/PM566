@@ -19,20 +19,22 @@ You can download the program [here](list_cross_ref.R)
 ```{r}
 library(data.table)
 library(stringr)
+source("list_cross_ref.R", echo=FALSE)
 ```
 
 
-```{r webscraping, message=FALSE, cache=TRUE}
+```{r webscraping, message=FALSE, cache=FALSE}
 # Web-scraping program
 source("list_cross_ref.R", echo=FALSE)
 
 # Getting the cross reference for a given issue
-ans <- list_cross_ref(issue = 25)
+ans <- list_cross_ref(issue = 26)
 ```
 
 
-```{r printing-the-data}
+```{r printing-the-data, message=FALSE}
 # Preparing to print using a nice format
+ans[, files := find_rmd_involved(link)]
 ans[, user := sprintf("[%s](https://github.com/%s)", user, user)]
 ans[, repo_owner := str_extract(link, "(?<=github[.]com/)[^/]+")]
 ans[, repo_owner := sprintf("[%s](https://github.com/%s)", repo_owner, repo_owner)]
@@ -40,8 +42,8 @@ ans[, link := sprintf("[link](%s)", link)]
 setorder(ans, timestamp)
 
 # A more concise message
-ans[, message := sprintf("%s (%s to this %s)", title, link, type)]
-ans[, c("title", "link", "type") := NULL] 
+ans[, message := sprintf("%s (%s to this %s) (files: %s)", title, link, type, files)]
+ans[, c("title", "link", "type", "user", "files") := NULL] 
 knitr::kable(ans)
 ```
 
