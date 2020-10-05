@@ -19,31 +19,46 @@ You can download the program [here](list_cross_ref.R)
 ```{r}
 library(data.table)
 library(stringr)
-source("list_cross_ref.R", echo=FALSE)
+
+# API access
+source("list_cross_ref_api.R", echo=FALSE)
 ```
 
 
-```{r webscraping, message=FALSE, cache=FALSE}
-# Web-scraping program
-source("list_cross_ref.R", echo=FALSE)
+```{r webscraping, message=FALSE, cache=TRUE}
+library(httr)
+# Setting up the token
+if (file.exists(".github_app.R")) {
+  # See
+  # https://github.com/r-lib/httr/blob/cb4e20c9e0b38c0c020a8756db8db7a882288eaf/demo/oauth2-github.r
+  # For a detailed example
+  source(".github_app.R")
+  token <- oauth2.0_token(
+    endpoint = oauth_endpoints("github"),
+    app      = github_app,
+    config   = httr::config(connecttimeout = 60)
+    )
+  token <- httr::config(token = token)
+} else {
+  token <- NULL
+}
 
-# Getting the cross reference for a given issue
-ans <- list_cross_ref(issue = 26)
+# Retrieving all the cross-reference information
+ans <- list_cross_ref_api(
+  issue = 26,
+  config = c(httr::config(connecttimeout=60), token)
+  )
 ```
 
 
 ```{r printing-the-data, message=FALSE}
 # Preparing to print using a nice format
-ans[, files := find_rmd_involved(link)]
-ans[, user := sprintf("[%s](https://github.com/%s)", user, user)]
-ans[, repo_owner := str_extract(link, "(?<=github[.]com/)[^/]+")]
-ans[, repo_owner := sprintf("[%s](https://github.com/%s)", repo_owner, repo_owner)]
-ans[, link := sprintf("[link](%s)", link)]
-setorder(ans, timestamp)
+ans[, user := sprintf("[%s](https://github.com/%s)", gsub("/.+", "", repo), repo)]
+ans[, link := sprintf("[link](%s)", commit_url)]
+setorder(ans, created_at)
 
 # A more concise message
-ans[, message := sprintf("%s (%s to this %s) (files: %s)", title, link, type, files)]
-ans[, c("title", "link", "type", "user", "files") := NULL] 
-knitr::kable(ans)
+ans[, message := sprintf("%s (%s to this %s) (files: %s)", message, link, type, files)]
+knitr::kable(ans[, .(created_at, user, message, type)])
 ```
 

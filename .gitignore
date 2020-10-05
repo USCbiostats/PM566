@@ -8,3 +8,4 @@ public/
 static/**/*.zip
 *_cache/
 static/rmarkdown-libs/
+.httr-oauth
