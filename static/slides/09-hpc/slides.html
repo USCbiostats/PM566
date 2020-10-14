@@ -252,16 +252,16 @@ clusterEvalQ(cl, {
 
 ```
 ## [[1]]
-## [1] "Hello from process #9691. I see x and it is equal to 20"
+## [1] "Hello from process #24675. I see x and it is equal to 20"
 ## 
 ## [[2]]
-## [1] "Hello from process #9689. I see x and it is equal to 20"
+## [1] "Hello from process #24676. I see x and it is equal to 20"
 ## 
 ## [[3]]
-## [1] "Hello from process #9692. I see x and it is equal to 20"
+## [1] "Hello from process #24674. I see x and it is equal to 20"
 ## 
 ## [[4]]
-## [1] "Hello from process #9690. I see x and it is equal to 20"
+## [1] "Hello from process #24673. I see x and it is equal to 20"
 ```
 
 ```r
@@ -296,13 +296,13 @@ X[1:6, 1:5]
 ```
 
 ```
-##         x001       x002       x003       x004       x005
-## 1  0.5983806 -1.2920114  0.7317368 -1.0184339 -0.6186080
-## 2 -0.3607890  1.4456891 -0.8507421  0.8934013 -0.2774105
-## 3 -1.3510075 -1.5761328  0.4741303  0.8043521  0.4770461
-## 4 -0.3662285  1.5853490 -0.2184903 -2.1488158 -1.2233995
-## 5 -1.2363653  0.6228042 -0.7436500  1.1997468  0.1943254
-## 6 -0.6751276  0.6775012  0.9102290 -0.8985802 -1.4500698
+##          x001        x002       x003       x004      x005
+## 1  0.61827227  1.72847041 -1.4810695 -0.2471871 1.4776281
+## 2  0.96777456 -0.19358426 -0.8176465  0.6356714 0.7292221
+## 3 -0.04303734 -0.06692844  0.9048826 -1.9277964 2.2947675
+## 4  0.84237608 -1.13685605 -1.8559158  0.4687967 0.9881953
+## 5 -1.91921443  1.83865873  0.5937039 -0.1410556 0.6507415
+## 6  0.59146153  0.81743419  0.3348553 -1.8771819 0.8181764
 ```
 
 ```r
@@ -310,7 +310,7 @@ str(y)
 ```
 
 ```
-##  num [1:500] -0.205 -0.636 -0.827 -0.75 0.598 ...
+##  num [1:500] -0.8188 -0.5438 1.0209 0.0467 -0.4501 ...
 ```
 
 ---
@@ -321,23 +321,23 @@ str(y)
 
 
 ```r
-
-
+#
+#
+#
 ans &lt;- apply(
   
   X      = X,
   MARGIN = 2,
-  FUN    = function(x, y) coef(lm(y ~ x)),
-  y      = y
+  FUN    = function(x) coef(lm(y ~ x))
   )
 
 ans[,1:5]
 ```
 
 ```
-##                    x001        x002        x003        x004         x005
-## (Intercept) -0.02094065 -0.01630664 -0.01565541 -0.01848773 -0.015305816
-## x            0.09269758 -0.05233096  0.02893588  0.02404687  0.009151671
+##                    x001        x002        x003        x004        x005
+## (Intercept) -0.03449819 -0.03339681 -0.03728140 -0.03644192 -0.03717344
+## x           -0.06082548  0.02748265 -0.01327855 -0.08012361 -0.04067826
 ```
 
 ---
@@ -350,21 +350,21 @@ ans[,1:5]
 ```r
 library(parallel)
 cl &lt;- makePSOCKcluster(4L)
+clusterExport(cl, "y")
 ans &lt;- parApply(
   cl     = cl,
   X      = X,
   MARGIN = 2,
-  FUN    = function(x, y) coef(lm(y ~ x)),
-  y      = y
+  FUN    = function(x) coef(lm(y ~ x))
   )
  
 ans[,1:5]
 ```
 
 ```
-##                    x001        x002        x003        x004         x005
-## (Intercept) -0.02094065 -0.01630664 -0.01565541 -0.01848773 -0.015305816
-## x            0.09269758 -0.05233096  0.02893588  0.02404687  0.009151671
+##                    x001        x002        x003        x004        x005
+## (Intercept) -0.03449819 -0.03339681 -0.03728140 -0.03644192 -0.03717344
+## x           -0.06082548  0.02748265 -0.01327855 -0.08012361 -0.04067826
 ```
 
 ---
@@ -377,13 +377,11 @@ microbenchmark::microbenchmark(
   parallel = parApply(
     cl  = cl,
     X   = X, MARGIN = 2,
-    FUN = function(x, y) coef(lm(y ~ x)),
-    y   = y
+    FUN = function(x) coef(lm(y ~ x))
     ),
   serial = apply(
     X   = X, MARGIN = 2,
-    FUN = function(x, y) coef(lm(y ~ x)),
-    y   = y
+    FUN = function(x) coef(lm(y ~ x))
     ), unit="relative"
 )
 ```
@@ -392,7 +390,7 @@ microbenchmark::microbenchmark(
 ## Unit: relative
 ##      expr      min       lq     mean   median       uq      max neval
 ##  parallel 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000   100
-##    serial 1.699206 1.689288 1.649544 1.648299 1.651084 1.601018   100
+##    serial 1.804607 1.758201 1.724739 1.724142 1.662065 1.750691   100
 ```
 
 
@@ -434,6 +432,24 @@ Download the program [here](sars-cov2.R).
 
 ```r
 source("sars-cov2.R", echo=FALSE)
+
+# Looking at some constants
+probs_sick # Sick individual's probabilities
+```
+
+```
+##  deceased  infected recovered 
+##       0.1       0.4       0.5
+```
+
+```r
+probs_susc # Probabilities of i getting the disease 
+```
+
+```
+##                j doesn't wear j wears
+## i doesn't wear            0.9    0.20
+## i wears                   0.5    0.05
 ```
 
 ---
@@ -451,11 +467,21 @@ one &lt;- simulate_covid(
     store       = TRUE
     )
 
-str(one$temporal)
+one$statistics[c(1:5, 16:20),]
 ```
 
 ```
-##  num [1:40, 1:40, 1:21] 1 1 2 1 1 1 1 1 1 1 ...
+##    susceptible infected recovered deceased
+## 0         1440      160         0        0
+## 1         1260      236        87       17
+## 2         1075      278       213       34
+## 3          909      282       349       60
+## 4          779      258       475       88
+## 15         399       10      1004      187
+## 16         398        6      1009      187
+## 17         398        1      1010      191
+## 18         398        1      1010      191
+## 19         397        1      1011      191
 ```
 
 ---
@@ -464,7 +490,7 @@ str(one$temporal)
 
 
 ```r
-# Location of who wears the facemask
+# Location of who wears the facemask. This step is only for plotting
 wears &lt;- which(one$wears, arr.ind = TRUE) - 1
 wears &lt;- wears/(one$nr) * (1 + 1/one$nr)
 
@@ -567,11 +593,12 @@ time_serial &lt;- system.time({
 
 ## Speed things up: Parallel a Forking Cluster
 
-Alternative 1: If you are using Unix-like system (ubuntu, mac, etc.), you can
+Alternative 1: If you are using Unix-like system (Ubuntu, OSX, etc.), you can
 take advantage of process forking, and thus, parallel's `mclapply` function:
 
 
 ```r
+set.seed(1231)
 time_parallel_fork &lt;- system.time({
   ans_parallel &lt;- parallel::mclapply(1:50, function(i) {
     simulate_covid(
@@ -595,6 +622,7 @@ session.
 
 
 ```r
+# Step 1
 cl &lt;- parallel::makePSOCKcluster(2L)
 ```
 
@@ -613,6 +641,7 @@ Or simply running the simulation script in the other sessions
 
 ```r
 parallel::clusterEvalQ(cl, source("sars-cov2.R"))
+parallel::clusterSetRNGStream(cl, 123) # Make sure it is reproducible!
 ```
 
 ---
@@ -628,7 +657,7 @@ Bonus: Checking what are the processes running on the system
 #     14810      15998      16012 
 ```
 
-If you are using unix, you can see more details:
+If you are using Unix, you can see more details:
 
 ![](fig/ps-in-parallel.png)
 
@@ -662,17 +691,17 @@ time_serial;time_parallel_sock;time_parallel_fork
 
 ```
 ##    user  system elapsed 
-##  29.084   0.000  29.092
+##  23.344   0.172  23.818
 ```
 
 ```
 ##    user  system elapsed 
-##   0.001   0.000  23.109
+##   0.004   0.000  14.472
 ```
 
 ```
 ##    user  system elapsed 
-##  17.641   0.260  19.626
+##  16.258   0.107  19.084
 ```
 
 
@@ -682,9 +711,18 @@ time_serial;time_parallel_sock;time_parallel_fork
 
 ---
 
-## Motivating Example: SARS-CoV2 simulation (on the cloud)
+## There are many ways to run R in the cloud
 
-https://cloud.google.com/solutions/running-r-at-scale
+At USC:
+
+- Center for Advanced Research Computing (CARC). USC users can request hundreds
+  of cores (literally). Take a look at the [slurmR package](https://cran.r-project.org/package=slurmR)
+
+Running R in:
+
+- Google Cloud: https://cloud.google.com/solutions/running-r-at-scale
+- Amazon Web Services: https://aws.amazon.com/blogs/big-data/running-r-on-aws/
+- Microsoft Azure: https://docs.microsoft.com/en-us/azure/architecture/data-guide/technology-choices/r-developers-guide
 
 ---
 
@@ -893,10 +931,10 @@ microbenchmark::microbenchmark(
 
 ```
 ## Unit: relative
-##                    expr      min       lq     mean   median       uq       max
-##                 dist(x) 1.405649 1.525962 1.352042 1.400599 1.308988 1.1169631
-##  dist_par(x, cores = 1) 1.140635 1.173187 1.052898 1.090355 1.014328 0.8586771
-##  dist_par(x, cores = 2) 1.000000 1.000000 1.000000 1.000000 1.000000 1.0000000
+##                    expr      min       lq     mean   median      uq      max
+##                 dist(x) 1.733452 1.735796 1.691463 1.718409 1.71903 1.426328
+##  dist_par(x, cores = 1) 1.292001 1.299863 1.326148 1.289010 1.32564 1.408813
+##  dist_par(x, cores = 2) 1.000000 1.000000 1.000000 1.000000 1.00000 1.000000
 ##  neval
 ##     10
 ##     10
@@ -974,9 +1012,9 @@ microbenchmark::microbenchmark(
 
 ```
 ## Unit: relative
-##      expr     min      lq    mean  median      uq     max neval
-##  parallel 1.00000 1.00000 1.00000 1.00000 1.00000 1.00000     1
-##    serial 2.00598 2.00598 2.00598 2.00598 2.00598 2.00598     1
+##      expr      min       lq     mean   median       uq      max neval
+##  parallel 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000     1
+##    serial 1.888322 1.888322 1.888322 1.888322 1.888322 1.888322     1
 ```
 
 ---
@@ -993,11 +1031,6 @@ microbenchmark::microbenchmark(
 ## BLAS:   /usr/lib/x86_64-linux-gnu/atlas/libblas.so.3.10.3
 ## LAPACK: /usr/lib/x86_64-linux-gnu/atlas/liblapack.so.3.10.3
 ## 
-## Random number generation:
-##  RNG:     L'Ecuyer-CMRG 
-##  Normal:  Inversion 
-##  Sample:  Rejection 
-##  
 ## locale:
 ##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
 ##  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
@@ -1010,17 +1043,15 @@ microbenchmark::microbenchmark(
 ## [1] parallel  stats     graphics  grDevices utils     datasets  methods  
 ## [8] base     
 ## 
+## other attached packages:
+## [1] microbenchmark_1.4-7
+## 
 ## loaded via a namespace (and not attached):
-##  [1] Rcpp_1.0.5                codetools_0.2-16         
-##  [3] digest_0.6.25             magrittr_1.5             
-##  [5] evaluate_0.14             highr_0.8                
-##  [7] xaringan_0.16             rlang_0.4.6              
-##  [9] stringi_1.4.6             RcppArmadillo_0.9.900.1.0
-## [11] rmarkdown_2.3             tools_4.0.2              
-## [13] stringr_1.4.0             xfun_0.15                
-## [15] yaml_2.2.1                compiler_4.0.2           
-## [17] microbenchmark_1.4-7      htmltools_0.5.0          
-## [19] knitr_1.29
+##  [1] Rcpp_1.0.5       codetools_0.2-16 digest_0.6.25    magrittr_1.5    
+##  [5] evaluate_0.14    highr_0.8        xaringan_0.16    rlang_0.4.6     
+##  [9] stringi_1.4.6    rmarkdown_2.3    tools_4.0.2      stringr_1.4.0   
+## [13] xfun_0.15        yaml_2.2.1       compiler_4.0.2   htmltools_0.5.0 
+## [17] knitr_1.29
 ```
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>

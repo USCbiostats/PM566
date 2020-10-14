@@ -22,14 +22,14 @@ editor_options:
 
 ## Lab Exercise
 
-[link](/assignment/10-lab/)
+[link](/assignment/09-lab/)
 
 ## Slides
 
-[link](/slides/10-hpc/slides.html)
+[link](/slides/09-hpc/slides.html)
 
 ## Links
 
-- [Git](https://git-scm.com)
-- [GitHub](https://github.com)
+- CRAN Task View on High-Performance Computing [(link)](https://CRAN.R-project.org/view=HighPerformanceComputing)
+- USC's Center for Advance Research Computing (CARC) [(link)](https://carc.usc.edu)
 

@@ -8,52 +8,99 @@ link-citations: yes
 
 In this lab, you are expected to learn/put in practice the following skills:
 
-- Write a simulation program
-- Use the parallel package to parallelize your simulation
-- Run the simulation on AWS
+- Evaluate whether a problem can be parallelized or not.
+- Practice with the parallel package.
+- Practice your skills with Git.
 
-# Part one: Yeat Another Coronavirus Simulation
+## Problem 1: Think
 
-During this week's lecture, we saw an example of a simulation program that models SARS-CoV2 using a bi-dimensional torus. In that example, individuals were embedded in a grid (torus), each having a total of 8 neighbors, and were For this week's lab, you will have to write a simulation program similar to that featured during the lecture and speed up it up using parallel computing.
+Give yourself a few minutes to think about what you just learned. List three
+examples of problems that you believe may be solved using parallel computing,
+and check for packages on the HPC CRAN task view that may be related to it.
 
-The simulation should work under the following rules:
+## Problem 2: Before you
 
-1. The world is the contour of a circle.
+The following functions can be written to be more efficient without using
+parallel:
 
-2. Each individual has two neighbors (left and right), each representing an independent opportunity of either passing or acquiring the disease.
+1. This function generates a `n x k` dataset with all its entries distributed
+poission with mean `lambda`.
 
-3. As before, the probability of transmission depends on who wears a face-mask.
+```r
+fun1 <- function(n = 100, k = 4, lambda = 4) {
+  x <- NULL
+  for (i in 1:n)
+    x <- rbind(x, rpois(k, lambda))
+}
+```
 
-4. There are four possible states: susceptible, infected, recovered, and deceased.
+2.  Find the column max (hint: Checkout the function `max.col()`).
 
-5. Time is discrete.
+```r
+# Data Generating Process (10 x 10,000 matrix)
+set.seed(1234)
+x <- matrix(rnorm(1e4), nrow=10)
 
-6. The simulation starts with x% of individuals with the virus, with m of them willing to wear the face-mask.
+# Find each column's max value
+fun2 <- function(x) {
+  apply(x, 2, max)
+}
+```
 
-The simulation program should have the following optional parameters: number of steps, the initial number of infected, and the number of people wearing the mask.
+## Problem 3: Parallelize everyhing
 
-The questions are the following:
+We will now turn our attention to non-parametric 
+[bootstrapping](https://en.wikipedia.org/wiki/Bootstrapping_(statistics)).
+Among the many uses, non-parametric bootstrapping allow us to obtain confidence
+intervals for parameter estimates without relying on parametric assumptions.
 
-1. Using the simulation program, compute the 95% confidence interval (CI) for the number of deceased individuals under the following parameters:
+The main assumption is that we can approximate many experiments by resampling
+observations from our original dataset. 
 
-  - A population of size 1,000
+El método de Bootstrap (Efron 1979) (o remuestreo) puede ser utilizado para aproximar distribuciones de estadísticos de manera no-paramétrica–que significa sin asumir una forma funcional en particular–con el simple supuesto de que la muestra observada refleja la distribución de la población.
+
+La siguiente función implementa bootstrap noparamétrico de manera secuencial (no en paralelo)
+
+```
+mi_boot <- function(dat, stat, R, ncpus = 1L) {
   
-  - 10 individuals have the disease    
+  # Generando indices aleatorios
+  n <- nrow(dat)
+  idx <- matrix(sample.int(n, n*R, TRUE), nrow=n, ncol=R)
+ 
+  # Creando cluster 
+  # ..... ACA VA EL CODIGO PARA ARMAR EL CLUSTER
   
-  - Half of the population wears the mask
+  # Llamando funcion
+  # ...... ESTA FUNCION DEBE SER REEMPLAZADA POR parSapply...
+  t(sapply(seq_len(R), function(i) {
+    stat(dat[idx[,i], , drop=FALSE])
+  }))
   
-  - Simulating a thousand scenarios, each with 20 time points.
-  
-2. What would be the 95% CI if three quarters of the population wears the face-masks?
+}
+# Bootstrap the modelo OLS
+mi_stat <- function(d) coef(lm(y ~ x, data=d))
 
-A solution (the simulation program, actually) can be found in the website (file named sars-cov2-circle.R).
+# Simulando data
+set.seed(1)
+n <- 500; R <- 1e4
 
-# Part 2: Speedup the simulation
+x <- cbind(rnorm(n)); y <- x*5 + rnorm(n)
 
-Using the `paralle` R package (or any other method), speedup the simulation and measure how much faster the parallel version runs. Is it  linear speedup?
+# Chequeando que obtenemos datos razonables. Boot puede ser comparado con el 
+# intervalo de confianza que obtenemos de la regresion lineal.
+ans0 <- confint(lm(y~x))
+ans1 <- mi_boot(dat = data.frame(x, y), mi_stat, R = R, ncpus = 2L)
 
-# Part 4: Using cloud computing
+# Comparando IC con el bootstrap rustico y el modelo OLS.
+t(apply(ans1, 2, quantile, c(.025,.975)))
+##                   2.5%      97.5%
+## (Intercept) -0.1372435 0.05074397
+## x            4.8680977 5.04539763
+ans0
+##                  2.5 %     97.5 %
+## (Intercept) -0.1379033 0.04797344
+## x            4.8650100 5.04883353
+```
 
-Using the AWS account set up for you, submit the simulation using R CMD BATCH and retrieve the results from the EC2 instance.
-
-
+Siguiendo los comentarios incluidos en el cuerpo de la función, modifica la función para que implemente bootstrapping en paralelo. Compara tus resultados utilizando 1, 2 y (si disponible) 4 procesadores.

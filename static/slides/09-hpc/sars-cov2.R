@@ -3,7 +3,10 @@ codes      <- c(susceptible = 1, infected = 2, recovered = 3, deceased = 4)
 probs_sick <- c(deceased = .1, infected=.4, recovered=.5)
 
 # Rows is the current individual, cols is its neighbor.
-probs_susc <- matrix(0, ncol=2, nrow = 2)
+probs_susc <- matrix(
+  0, ncol=2, nrow = 2, 
+  dimnames = list(c("i doesn't wear", "i wears"), c("j doesn't wear", "j wears"))
+  )
 
 probs_susc[1, 1] <- .9
 probs_susc[2, 2] <- .05
@@ -129,7 +132,7 @@ update_status <- function(i, j, data.) {
 
 # Computing states
 calc_stats <- function(data.) {
-  res <- structure(table(data.$status)[as.character(codes)], names = names(codes))
+  res <- structure(table(data.$status_prev)[as.character(codes)], names = names(codes))
   res[is.na(res)] <- 0
   data.$statistics[data.$current_step, ] <- res
   return()

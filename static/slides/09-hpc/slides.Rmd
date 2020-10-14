@@ -281,15 +281,15 @@ str(y)
 
 **Serial solution**: Use `apply` (forloop) to solve it
 
-```{r lots-of-lm-serial, cache = TRUE, strip.white=FALSE}
-
-
+```{r lots-of-lm-serial, cache = FALSE, strip.white=FALSE}
+#
+#
+#
 ans <- apply(
   
   X      = X,
   MARGIN = 2,
-  FUN    = function(x, y) coef(lm(y ~ x)),
-  y      = y
+  FUN    = function(x) coef(lm(y ~ x))
   )
 
 ans[,1:5]
@@ -301,15 +301,15 @@ ans[,1:5]
 
 **Parallel solution**: Use `parApply`
 
-```{r lots-of-lm-parallel, cache = TRUE}
+```{r lots-of-lm-parallel, cache = FALSE}
 library(parallel)
 cl <- makePSOCKcluster(4L)
+clusterExport(cl, "y")
 ans <- parApply(
   cl     = cl,
   X      = X,
   MARGIN = 2,
-  FUN    = function(x, y) coef(lm(y ~ x)),
-  y      = y
+  FUN    = function(x) coef(lm(y ~ x))
   )
  
 ans[,1:5]
@@ -324,13 +324,11 @@ microbenchmark::microbenchmark(
   parallel = parApply(
     cl  = cl,
     X   = X, MARGIN = 2,
-    FUN = function(x, y) coef(lm(y ~ x)),
-    y   = y
+    FUN = function(x) coef(lm(y ~ x))
     ),
   serial = apply(
     X   = X, MARGIN = 2,
-    FUN = function(x, y) coef(lm(y ~ x)),
-    y   = y
+    FUN = function(x) coef(lm(y ~ x))
     ), unit="relative"
 )
 ```
@@ -375,6 +373,10 @@ Download the program [here](sars-cov2.R).
 
 ```{r covid-program, echo = TRUE, eval=TRUE}
 source("sars-cov2.R", echo=FALSE)
+
+# Looking at some constants
+probs_sick # Sick individual's probabilities
+probs_susc # Probabilities of i getting the disease 
 ```
 
 ---
@@ -391,7 +393,7 @@ one <- simulate_covid(
     store       = TRUE
     )
 
-str(one$temporal)
+one$statistics[c(1:5, 16:20),]
 ```
 
 ---
@@ -399,7 +401,7 @@ str(one$temporal)
 ## First look: How does the simulation looks like? (contd')
 
 ```{r covid-animation, eval=FALSE, echo=TRUE}
-# Location of who wears the facemask
+# Location of who wears the facemask. This step is only for plotting
 wears <- which(one$wears, arr.ind = TRUE) - 1
 wears <- wears/(one$nr) * (1 + 1/one$nr)
 
@@ -505,10 +507,11 @@ time_serial <- system.time({
 
 ## Speed things up: Parallel a Forking Cluster
 
-Alternative 1: If you are using Unix-like system (ubuntu, mac, etc.), you can
+Alternative 1: If you are using Unix-like system (Ubuntu, OSX, etc.), you can
 take advantage of process forking, and thus, parallel's `mclapply` function:
 
 ```{r timing-mclapply, cache=TRUE}
+set.seed(1231)
 time_parallel_fork <- system.time({
   ans_parallel <- parallel::mclapply(1:50, function(i) {
     simulate_covid(
@@ -531,10 +534,12 @@ which is simply a group of fresh R sessions that listen to the parent/main/mothe
 session.
 
 ```{r}
+# Step 1: Make the cluster
 cl <- parallel::makePSOCKcluster(2L)
 ```
 
 ```r
+# Step 2: Prepare the cluster
 # We could either export all the needed variables
 parallel::clusterExport(
   cl,
@@ -547,7 +552,9 @@ parallel::clusterExport(
 Or simply running the simulation script in the other sessions
 
 ```{r parallel-sourcing, echo = TRUE, results='hide'}
+# Step 2 (alt): Prepare the cluster
 parallel::clusterEvalQ(cl, source("sars-cov2.R"))
+parallel::clusterSetRNGStream(cl, 123) # Make sure it is reproducible!
 ```
 
 ---
@@ -563,7 +570,7 @@ Bonus: Checking what are the processes running on the system
 #     14810      15998      16012 
 ```
 
-If you are using unix, you can see more details:
+If you are using Unix, you can see more details:
 
 ![](fig/ps-in-parallel.png)
 
@@ -572,6 +579,7 @@ If you are using unix, you can see more details:
 ## Speed things up: Parallel with a Socket Cluster (cont'd)
 
 ```{r timing-parlapply, cache=TRUE}
+# Step 3: Do your call
 time_parallel_sock <- system.time({
   ans_parallel <- parallel::parLapply(cl, 1:50, function(i) {
     simulate_covid(
@@ -582,6 +590,8 @@ time_parallel_sock <- system.time({
     }
   )
 })
+
+# Step 4: Stop
 parallel::stopCluster(cl)
 ```
 
@@ -593,16 +603,24 @@ Using two threads/processes, you can obtain the following speedup
 time_serial;time_parallel_sock;time_parallel_fork
 ```
 
-
 ---
 
 # Part III: Cloud HPC
 
 ---
 
-## Motivating Example: SARS-CoV2 simulation (on the cloud)
+## There are many ways to run R in the cloud
 
-https://cloud.google.com/solutions/running-r-at-scale
+At USC:
+
+- Center for Advanced Research Computing (CARC). USC users can request hundreds
+  of cores (literally). Take a look at the [slurmR package](https://cran.r-project.org/package=slurmR)
+
+Running R in:
+
+- Google Cloud: https://cloud.google.com/solutions/running-r-at-scale
+- Amazon Web Services: https://aws.amazon.com/blogs/big-data/running-r-on-aws/
+- Microsoft Azure: https://docs.microsoft.com/en-us/azure/architecture/data-guide/technology-choices/r-developers-guide
 
 ---
 
