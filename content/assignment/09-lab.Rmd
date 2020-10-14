@@ -10,6 +10,7 @@ In this lab, you are expected to learn/put in practice the following skills:
 
 - Evaluate whether a problem can be parallelized or not.
 - Practice with the parallel package.
+- Use Rscript to submit jobs
 - Practice your skills with Git.
 
 ## Problem 1: Think
