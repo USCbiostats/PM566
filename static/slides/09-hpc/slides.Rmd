@@ -19,7 +19,7 @@ output:
 
 <!--Yeah... I have really long code chunks, so I just changed the default size :)-->
 <style type="text/css">
-code.r,code.cpp,code{
+code.r,code.cpp{
   font-size:medium;
 }
 </style>
@@ -44,7 +44,7 @@ We will mostly focus on parallel computing.
 
 <div align="center">
 <figure>
-<img src="fig/pll-computing-explained-serial.png" style="width:40%">
+<img src="fig/pll-computing-explained-serial.svg" style="width:50%">
 <figcaption>Here we are using a single core. The function is applied one element at a time, leaving the other 3 cores without usage.</figcaption>
 </figure>
 </div>
@@ -55,28 +55,12 @@ We will mostly focus on parallel computing.
 
 <div align="center">
 <figure>
-<img src="fig/pll-computing-explained-parallel.png" style="width:40%">
+<img src="fig/pll-computing-explained-parallel.svg" style="width:50%">
 <figcaption>In this more intelligent way of computation, we are taking full advantage of our computer by using all 4 cores at the same time. This will translate in a reduced computation time which, in the case of complicated/long calculations, can be an important speed gain.</figcaption>
 </figure>
 </div>
 
----
 
-## Overview of HPC
-
-Using [Flynn's classical taxonomy](https://en.wikipedia.org/wiki/Flynn%27s_taxonomy), we can classify parallel computing according to the following two dimmensions:
-
-a. Type of instruction: Single vs Multiple
-
-b. Data stream: Single vs Multiple
-
-<figure>
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/SISD.svg/480px-SISD.svg.png" style="width:23%;">
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/MISD.svg/480px-MISD.svg.png" style="width:23%;">
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/SIMD.svg/480px-SIMD.svg.png" style="width:23%;">
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/MIMD.svg/480px-MIMD.svg.png" style="width:23%;">
-<figcaption><a href="https://en.wikipedia.org/wiki/Michael_J._Flynn" target="_blank">Michael Flynn</a>'s Taxonomy (<a href="https://en.wikipedia.org/wiki/Flynn%27s_taxonomy" target="_blank">wiki</a>)</figcaption>
-</figure>
 
 ---
 
@@ -106,46 +90,6 @@ When it comes to parallel computing, there are several ways (levels) in which we
 <figcaption>Taxonomy of CPUs (Downloaded from <a href="https://slurm.schedmd.com/mc_support.html">https://slurm.schedmd.com/mc_support.html</a>)</figcaption>
 </figure>
 </div>
-
----
-
-## Parallel computing: Software
-
-Implicit parallelization:
-
-- [tensorflow](https://en.wikipedia.org/wiki/TensorFlow): Machine learning framework
-- [pqR](http://www.pqr-project.org/): Branched version of R.
-- [Microsoft R](https://mran.microsoft.com/open): Microsoft's R private version (based on Revolution Analytics' R version).
-- [data.table](https://cran.r-project.org/package=data.table) (R package): Data wrangling using multiple cores.
-- [caret](https://cran.r-project.org/package=caret) (R package): A meta package, has various implementations using parallel computing.
-
-Explicit parallelization ([DIY](https://en.wikipedia.org/wiki/Do_it_yourself)):
-
-- [CUDA](https://en.wikipedia.org/wiki/CUDA) (C/C++ library): Programming with GP-GPUs.
-- [Open MP](https://openmp.org) (C/C++ library): Multi-core programming (CPUs).
-- [Open MPI](https://open-mpi.org) (C/C++ library): Large scale programming with multi-node systems.
-- [Threading Building Blocks](https://en.wikipedia.org/wiki/Threading_Building_Blocks) (C/C++ library): Intel's parallel computing library.
-- [Kokkos](https://kokkos.org/about/) (C++ library): A hardware-agnostic programming framework for HPC applications.
-- [parallel](https://CRAN.R-project.org/view=HighPerformanceComputing) (R package): R's built-in parallel computing package
-- [future](https://cran.r-project.org/package=future) (R package): Framework for parallelzing R.
-- [RcppParallel](https://cran.r-project.org/package=RcppParallel) (R C++ API wrapper): Header and templates for building [Rcpp](https://cran.r-project.org/package=Rcpp)+multi-threaded programs.
-- [julia](https://julialang.org) (programming language): High-performing, has a framework for parallel computing as well.
-
----
-
-## Cloud Computing (a.k.a. on-demand computing)
-
-HPC clusters, super-computers, etc. need not to be bought... you can rent:
-
-- [Amazon Web Services (AWS)](https://aws.amazon.com)
-
-- [Google Cloud Computing](https://cloud.google.com)
-
-- [Microsoft Azure](https://azure.microsoft.com)
-
-These services provide more than just computing (storage, data analysis, etc.). But for computing and storage, there are other free resources, e.g.:
-
-- [The  Extreme Science and Engineering Discovery Environment (XSEDE)](https://www.xsede.org/)
 
 ---
 
@@ -339,23 +283,23 @@ stopCluster(cl)
 
 ---
 
-# Part II: Local HPC
+# Part II: Extended Example
 
 ---
 
-## Motivating Example: SARS-CoV2 simulation
+## Extended Example: SARS-CoV2 simulation
 
-An altered version of Conway's game of life
+An altered version of [Conway's game of life](https://en.wikipedia.org/wiki/Conway's_Game_of_Life)
 
-1. People live in a grid over a torus.
-2. Each individual has 8 neighbors.
-3. Individuals get the virus with the following probabilities (https://onlinelibrary.wiley.com/doi/full/10.1111/anae.15071):
+1. People live in torus, each individual having 8 neighbors.
+
+2. A healthy individual interacting with a sick neighbor has the following probabilities of contracting the disease:
 
    a. 100% if neither wears a face-mask.
    
-   b. 50% if a healthy individual wears the face-mask but the infected individual does not.
+   b. 50% if only he wears the face-mask.
    
-   c. 20% if a infected individual wears the face-mask, but the health individual does not.
+   c. 20% if only his neighbor wears the mask.
    
    d. 5% if both wear the face-mask.
     
@@ -605,7 +549,23 @@ time_serial;time_parallel_sock;time_parallel_fork
 
 ---
 
-# Part III: Cloud HPC
+# Part III: Cloud Computing
+
+---
+
+## Cloud Computing (a.k.a. on-demand computing)
+
+HPC clusters, super-computers, etc. need not to be bought... you can rent:
+
+- [Amazon Web Services (AWS)](https://aws.amazon.com)
+
+- [Google Cloud Computing](https://cloud.google.com)
+
+- [Microsoft Azure](https://azure.microsoft.com)
+
+These services provide more than just computing (storage, data analysis, etc.). But for computing and storage, there are other free resources, e.g.:
+
+- [The  Extreme Science and Engineering Discovery Environment (XSEDE)](https://www.xsede.org/)
 
 ---
 
@@ -624,7 +584,132 @@ Running R in:
 
 ---
 
-## Rcpp: Hello world!
+## Submitting jobs
+
+- A key feature of cloud services > interact via command line.
+
+- You will need to familiarize with `Rscript` and `R CMD BATCH`.
+
+- Which is better? It depends on the application.
+
+---
+
+## Submitting jobs (examples)
+
+Imagine we have the following R script (download [here](dummy.R)):
+
+```r
+library(data.table)
+set.seed(1231)
+dat <- data.table(y = rnorm(1e3), x = sample.int(5, 1e3, TRUE))
+dat[,mean(y), by = x]
+```
+
+**R CMD BATCH**
+
+This will run a non-interactive R session and put all the output
+([stdout](https://wikipedia.org/wiki/stdout) and [stderr](https://wikipedia.org/wiki/stderr)) to the file `dummy.Rout`.
+
+```
+R CMD BATCH --vanilla dummy.R dummy.Rout &
+```
+
+**Rscript**
+
+This will also execute R in the background, with the difference that
+the output `dummy.Rout` will not capture `stderr` (messages, warnings and
+errors from R).
+
+```
+Rscript --vanilla dummy.R > dummy.Rout &
+```
+
+The `&` at the end makes sure the job is submitted and does not wait for it to end.
+Try it yourself (5 mins)!
+
+---
+
+## Rscript
+
+The R script can be executed as program directly, if you specify where the
+`Rscript` program lives.
+
+The following example works in Unix. This is an R script named `since_born.R`
+(download [here](since_born.R))
+
+```bash
+#!/usr/bin/Rscript
+args <- tail(commandArgs(), 0)
+message(Sys.Date() - as.Date(args), " days since you were born.")
+```
+
+This R script, can be executed in various ways...
+
+---
+
+## Rscript as a program
+
+For this we would need to change it to an executable. In unix you can use the
+[chmod](https://wikipedia.org/wiki/chmod) command: `chmod +x since_born.R`. This
+allows to:
+
+```{bash since-born}
+./since_born.R 1988-03-02
+```
+
+---
+
+## Rscript in a bash script (most common)
+
+In the case of running jobs in a cluster or something similar, we usually need to
+have a bash script, In our case, here we have a file named `since_born_bash.sh`
+that calls `Rscript` (download [here](since_born_bash.sh))
+
+```bash
+#!/bin/bash
+Rscript since_born.R 1988-03-02
+```
+Which we would execute something like this
+
+```{bash since-born2}
+sh since_born_bash.sh
+```
+
+
+---
+
+# Summary
+
+- Parallel computing can speedup things.
+
+- Not always needed... need to make sure that you are taking advantage of vectorization.
+
+- Most of the time we look at "Embarrassingly parallel computing."
+
+- In R, explicit parallelism can be achieved using the **parallel** package:
+
+    1. Load the package and create a cluster **parallel::makeCluster()**
+    
+    2. Setup the environment **parallel::clusterEvalQ()**, **parallel::clusterExport()**, and **parallel::clusterSetRNGStream()**
+    
+    3. Make the call, e.g., **parallel::parLapply()**
+    
+    4. Stop the cluster **parallel::stopCluster()**
+    
+- Regardless of the Cloud computing service we are using, we will be
+using either `R CMD BATCH` or `Rscript` to submit jobs.
+
+---
+
+## Session info
+
+```{r session, echo=FALSE}
+sessionInfo()
+```
+
+---
+
+## (Bonus) Rcpp: Hello world!
 
 ### The Fibonacci series
 
@@ -828,7 +913,7 @@ For more, checkout the [CRAN Task View on HPC](https://cran.r-project.org/web/vi
 
 ---
 
-## Bonus track: Simulating $\pi$
+## Simulating $\pi$
 
 
 *   We know that $\pi = \frac{A}{r^2}$. We approximate it by randomly adding
@@ -887,9 +972,42 @@ microbenchmark::microbenchmark(
 
 ---
 
-## Session info
+## (Bonus) Overview of HPC
 
-```{r session, echo=FALSE}
-sessionInfo()
-```
+Using [Flynn's classical taxonomy](https://en.wikipedia.org/wiki/Flynn%27s_taxonomy), we can classify parallel computing according to the following two dimmensions:
 
+a. Type of instruction: Single vs Multiple
+
+b. Data stream: Single vs Multiple
+
+<figure>
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/SISD.svg/480px-SISD.svg.png" style="width:23%;">
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/MISD.svg/480px-MISD.svg.png" style="width:23%;">
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/SIMD.svg/480px-SIMD.svg.png" style="width:23%;">
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/MIMD.svg/480px-MIMD.svg.png" style="width:23%;">
+<figcaption><a href="https://en.wikipedia.org/wiki/Michael_J._Flynn" target="_blank">Michael Flynn</a>'s Taxonomy (<a href="https://en.wikipedia.org/wiki/Flynn%27s_taxonomy" target="_blank">wiki</a>)</figcaption>
+</figure>
+
+---
+
+## (Bonus) Parallel computing: Software
+
+Implicit parallelization:
+
+- [tensorflow](https://en.wikipedia.org/wiki/TensorFlow): Machine learning framework
+- [pqR](http://www.pqr-project.org/): Branched version of R.
+- [Microsoft R](https://mran.microsoft.com/open): Microsoft's R private version (based on Revolution Analytics' R version).
+- [data.table](https://cran.r-project.org/package=data.table) (R package): Data wrangling using multiple cores.
+- [caret](https://cran.r-project.org/package=caret) (R package): A meta package, has various implementations using parallel computing.
+
+Explicit parallelization ([DIY](https://en.wikipedia.org/wiki/Do_it_yourself)):
+
+- [CUDA](https://en.wikipedia.org/wiki/CUDA) (C/C++ library): Programming with GP-GPUs.
+- [Open MP](https://openmp.org) (C/C++ library): Multi-core programming (CPUs).
+- [Open MPI](https://open-mpi.org) (C/C++ library): Large scale programming with multi-node systems.
+- [Threading Building Blocks](https://en.wikipedia.org/wiki/Threading_Building_Blocks) (C/C++ library): Intel's parallel computing library.
+- [Kokkos](https://kokkos.org/about/) (C++ library): A hardware-agnostic programming framework for HPC applications.
+- [parallel](https://CRAN.R-project.org/view=HighPerformanceComputing) (R package): R's built-in parallel computing package
+- [future](https://cran.r-project.org/package=future) (R package): Framework for parallelzing R.
+- [RcppParallel](https://cran.r-project.org/package=RcppParallel) (R C++ API wrapper): Header and templates for building [Rcpp](https://cran.r-project.org/package=Rcpp)+multi-threaded programs.
+- [julia](https://julialang.org) (programming language): High-performing, has a framework for parallel computing as well.
