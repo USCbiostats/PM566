@@ -32,7 +32,17 @@ poission with mean <code>lambda</code>.</li>
   x &lt;- NULL
   for (i in 1:n)
     x &lt;- rbind(x, rpois(k, lambda))
-}</code></pre>
+}
+
+fun1alt &lt;- function(n = 100, k = 4, lambda = 4) {
+  # YOUR CODE HERE
+}
+
+# Benchmarking
+microbenchmark::microbenchmark(
+  fun1(),
+  fun1alt()
+)</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Find the column max (hint: Checkout the function <code>max.col()</code>).</li>
 </ol>
@@ -43,7 +53,17 @@ x &lt;- matrix(rnorm(1e4), nrow=10)
 # Find each column&#39;s max value
 fun2 &lt;- function(x) {
   apply(x, 2, max)
-}</code></pre>
+}
+
+fun2alt &lt;- function(x) {
+  # YOUR CODE HERE
+}
+
+# Benchmarking
+microbenchmark::microbenchmark(
+  fun2(),
+  fun2alt()
+)</code></pre>
 </div>
 <div id="problem-3-parallelize-everyhing" class="section level2">
 <h2>Problem 3: Parallelize everyhing</h2>
@@ -106,10 +126,8 @@ ans0
 <ol start="2" style="list-style-type: decimal">
 <li>Check whether your version actually goes faster than the non-parallel version:</li>
 </ol>
-<pre class="r"><code>microbenchmark::microbenchmark(
-  one_core = my_boot(dat = data.frame(x, y), mi_stat, R = R, ncpus = 1L),
-  two_core = my_boot(dat = data.frame(x, y), mi_stat, R = R, ncpus = 2L)
-)</code></pre>
+<pre class="r"><code>system.time(my_boot(dat = data.frame(x, y), mi_stat, R = 4000, ncpus = 1L))
+system.time(my_boot(dat = data.frame(x, y), mi_stat, R = 4000, ncpus = 2L))</code></pre>
 </div>
 <div id="problem-4-compile-this-markdown-document-using-rscript" class="section level2">
 <h2>Problem 4: Compile this markdown document using Rscript</h2>

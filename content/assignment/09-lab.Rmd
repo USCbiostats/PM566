@@ -26,17 +26,27 @@ parallel:
 1. This function generates a `n x k` dataset with all its entries distributed
 poission with mean `lambda`.
 
-```r
+```{r p2-fun1, eval = FALSE}
 fun1 <- function(n = 100, k = 4, lambda = 4) {
   x <- NULL
   for (i in 1:n)
     x <- rbind(x, rpois(k, lambda))
 }
+
+fun1alt <- function(n = 100, k = 4, lambda = 4) {
+  # YOUR CODE HERE
+}
+
+# Benchmarking
+microbenchmark::microbenchmark(
+  fun1(),
+  fun1alt()
+)
 ```
 
 2.  Find the column max (hint: Checkout the function `max.col()`).
 
-```r
+```{r p2-fun2, eval = FALSE}
 # Data Generating Process (10 x 10,000 matrix)
 set.seed(1234)
 x <- matrix(rnorm(1e4), nrow=10)
@@ -45,6 +55,16 @@ x <- matrix(rnorm(1e4), nrow=10)
 fun2 <- function(x) {
   apply(x, 2, max)
 }
+
+fun2alt <- function(x) {
+  # YOUR CODE HERE
+}
+
+# Benchmarking
+microbenchmark::microbenchmark(
+  fun2(),
+  fun2alt()
+)
 ```
 
 ## Problem 3: Parallelize everyhing
@@ -59,7 +79,7 @@ observations from our original dataset, which reflects the population.
 
 This function implements the non-parametric bootstrap:
 
-```r
+```{r p3-boot-fun, eval = FALSE}
 my_boot <- function(dat, stat, R, ncpus = 1L) {
   
   # Getting the random indices
@@ -88,7 +108,7 @@ my_boot <- function(dat, stat, R, ncpus = 1L) {
 1. Use the previous pseudocode, and make it work with parallel. Here is just an example
 for you to try:
 
-```r
+```{r p3-test-boot, eval = FALSE}
 # Bootstrap of an OLS
 my_stat <- function(d) coef(lm(y ~ x, data=d))
 
@@ -116,11 +136,9 @@ ans0
 2. Check whether your version actually goes faster than the non-parallel version:
 
 
-```r
-microbenchmark::microbenchmark(
-  one_core = my_boot(dat = data.frame(x, y), mi_stat, R = R, ncpus = 1L),
-  two_core = my_boot(dat = data.frame(x, y), mi_stat, R = R, ncpus = 2L)
-)
+```{r benchmark-problem3, eval = FALSE}
+system.time(my_boot(dat = data.frame(x, y), mi_stat, R = 4000, ncpus = 1L))
+system.time(my_boot(dat = data.frame(x, y), mi_stat, R = 4000, ncpus = 2L))
 ```
 
 ## Problem 4: Compile this markdown document using Rscript
