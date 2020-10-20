@@ -1,0 +1,204 @@
+---
+title: "Lab 04 - Data Visualization"
+output: html_document
+link-citations: yes
+---
+
+
+
+```{r setup, message=FALSE, echo=FALSE, warning=FALSE}
+#install.packages(c("data.table","leaflet"))
+library(data.table)
+library(leaflet)
+library(tidyverse)
+```
+
+# Learning Goals
+
+- Read in and prepare the meteorological dataset
+- Create several graphs with different `geoms()` in `ggplot2`
+- Create a facet graph
+- Conduct some customizations to the graphs
+- Create a more detailed map using `leaflet()`
+
+
+# Lab Description
+
+We will again work with the meteorological data presented in lecture.
+
+**The objective of the lab is to examine the association between monthly average dew point temperature and relative humidity in four regions of the US and by elevation.**
+
+# Steps
+
+### 1. Read in the data
+
+First download and then read in with data.table:fread()
+
+```{r, echo=TRUE, message=FALSE}
+if (!file.exists("met_all.gz"))
+  download.file(
+    url = "https://raw.githubusercontent.com/USCbiostats/data-science-data/master/02_met/met_all.gz",
+    destfile = "met_all.gz",
+    method   = "libcurl",
+    timeout  = 60
+    )
+met <- data.table::fread("met_all.gz")
+```
+
+### 2. Prepare the data
+
+- Remove temperatures less than -17C
+- Make sure there are no missing data in the key variables coded as 9999, 999, etc
+- Take monthly averages by weather station
+- Create a region variable for NW, SW, NE, SE based on lon = -98.00 and lat = 39.71 degrees
+- Create a categorical variable for elevation as in the lecture slides
+
+```{r}
+met<-met[met$temp > -17]
+met[met$elev==9999.0] <- NA
+
+met_avg<-met[,.(temp=mean(temp,na.rm=TRUE), rh=mean(rh,na.rm=TRUE), wind.sp=mean(wind.sp,na.rm=TRUE), 
+                vis.dist=mean(vis.dist,na.rm=TRUE), dew.point = mean(dew.point, na.rm=TRUE), lat=mean(lat), lon=mean(lon), 
+                elev=mean(elev,na.rm=TRUE)), by="USAFID"]
+
+met_avg$elev_cat <- ifelse(met_avg$elev> 252, "high", "low")
+
+met_avg$region <- ifelse(met_avg$lon > -98 & met_avg$lat >39.71, "north east",
+                         ifelse(met_avg$lon > -98 & met_avg$lat < 39.71, "south east",
+                                ifelse(met_avg$lon < -98 & met_avg$lat >39.71, "north west", "south west")))
+
+table(met_avg$region)
+
+```
+
+### 3. Use `geom_boxplot` to examine the dew point temperature and relative humidity by region
+
+- Use facets
+- Make sure to deal with `NA` category
+- Describe what you observe in the graph
+```{r}
+met_avg %>%
+  filter(!(region %in% NA)) %>%
+ggplot()+
+  geom_boxplot(mapping = aes(y=dew.point, fill=region)) +
+  facet_wrap(~region, nrow=2)
+
+met_avg %>%
+  filter(!(region %in% NA)) %>%
+ggplot()+
+  geom_boxplot(mapping = aes(y=rh, fill=region)) +
+  facet_wrap(~region, nrow=2)
+```
+ - Dew point temperature is higher in the south east....
+ - Relative humidity....
+
+### 4. Use `geom_point` with `stat_smooth` to examine the association between dew point temperature and relative humidity by region
+
+- Colour points by region
+- Make sure to deal with `NA` category
+- Fit a linear regression line by region
+- Describe what you observe in the graph
+
+```{r}
+met_avg %>%
+filter(!(region %in% NA)) %>%
+  ggplot(mapping = aes(x=dew.point, y=rh, color=region))+
+  geom_point()+
+  stat_smooth(method=lm)
+  
+```
+- The association between dew point and relative humidity is positive in all regions (an increase dew.point is associated with an increase in rh)
+- Regional observations
+
+### 5. Use `geom_bar` to create barplots of the weather stations by elevation category coloured by region
+
+- Bars by elevation category
+- Change colours from the default. Colour by region using `scale_fill_brewer` see [this](http://rstudio-pubs-static.s3.amazonaws.com/5312_98fc1aba2d5740dd849a5ab797cc2c8d.html)
+- Create nice labels on axes and add a title
+- Describe what you observe in the graph
+- Make sure to deal with `NA`
+
+```{r warning=FALSE, message=FALSE}
+met_avg %>%
+filter(!(region %in% NA)) %>%
+  ggplot()+
+  geom_bar(mapping=aes(x=elev_cat,fill=region))+
+  scale_fill_brewer(palette = "PuOr")+
+  labs(title="Number of weather stations by elevation category and region", x="Elevation Category", y= "Count")+
+  theme_bw()
+
+```
+
+### 6. Use `stat_summary` to examine mean dew point and relative humidity by region with standard deviation error bars
+
+- Make sure to remove `NA`
+- Use fun.data="mean_sdl" in `stat_summary`
+- Describe the graph and what you observe
+
+```{r}
+met_avg %>%
+filter(!(region %in% NA)) %>%
+  ggplot(mapping=aes(x=region, y=dew.point))+
+  stat_summary(fun.data="mean_sdl")
+  
+```
+- Dew point temperature is....describe dots and bars
+- Relative humidity is...
+
+### 7. Make a map showing the spatial trend in relative humidity in the US
+
+- Make sure to remove `NA`
+- Use leaflet()
+- Make a colour palette with custom colours
+- Add a legend
+
+```{r}
+met_avg2<-met_avg[!is.na(rh)]
+rh_pal = colorNumeric(c('blue','purple','red'), domain=met_avg2$rh)
+leaflet(met_avg2) %>%
+  addProviderTiles('OpenStreetMap') %>%
+  addCircles(lat=~lat, lng=~lon, color=~rh_pal(rh), label=~paste0(round(rh,2), ' rh'), opacity=1,fillOpacity=1, radius=500) %>%
+  addLegend('bottomleft',pal=rh_pal, values=met_avg2$rh, title="Relative Humidity", opacity=1)
+
+```
+- Describe trend in RH across the US
+
+### 8. Use a ggplot extension
+
+- Pick and extension (except cowplot) from [here](https://exts.ggplot2.tidyverse.org/gallery/) and make a plot of your choice using the met data (or met_avg)
+- Might want to try examples that come with the extension first (e.g. ggtech, gganimate, ggforce)
+
+```{r}
+
+library(ggstance)
+
+ggplot(mpg, aes(hwy, class, fill = factor(cyl))) +
+  geom_boxploth()
+
+met_avg %>%
+filter(!(region %in% NA)) %>%
+ggplot(mapping= aes(x=dew.point, y=region, fill=region)) +
+  geom_boxploth()
+
+
+library(ggthemes)
+
+met_avg %>%
+filter(!(region %in% NA)) %>%
+  ggplot(mapping=aes(x=region, y=dew.point))+
+  stat_summary(fun.data="mean_sdl")+
+  theme_fivethirtyeight()
+
+met_avg %>%
+filter(!(region %in% NA)) %>%
+  ggplot(mapping = aes(x=dew.point, y=rh, color=region))+
+  geom_point()+
+  stat_smooth(method=lm)+
+  theme_economist()
+
+# to save/write data locally
+# write.csv(met_avg, "/Documents/.../met_avg.csv",row.names=T)
+# saveRDS(met_avg,"/Documents/.../met_avg.rds")
+
+
+```

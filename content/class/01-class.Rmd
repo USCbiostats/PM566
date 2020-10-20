@@ -1,8 +1,8 @@
 ---
 title: "Look at Data / Up and Running in R and ggplot"
-linktitle: "1: Look at Data"
-date: "2020-01-10"
-class_date: "2020-01-10"
+linktitle: "01: Look at Data"
+date: "2020-08-19"
+class_date: "2020-08-19"
 citeproc: false
 bibliography: ../../static/bib/references.bib
 csl: ../../static/bib/chicago-syllabus-no-bib.csl
@@ -22,7 +22,10 @@ editor_options:
 
 ## Lab Exercise
 
-[link](/assignment/01-code)
+[link](/assignment/01-lab)
+
+
+[Download](/assignment/pm566-01-lab.zip)
 
 ## Slides
 

@@ -1,0 +1,64 @@
+---
+output: github_document
+---
+
+# Course Material for PM566
+
+The PM566 course website is [here](https://elastic-khorana-70231e.netlify.app/). We will be using this website to share all course material including lecture slides, labs, and assignments.
+
+Our class meets at 1pm every Wednesday. Zoom links for each lecture session are available in the course Blackboard.
+
+# Latest week's cross reference
+
+This is an example of web scrapping. We built this program to extract the
+cross-reference links from a given GitHub issue, including details such as timestamp,
+the user, and the commit message.
+
+You can download the program [here](list_cross_ref.R)
+
+```{r}
+library(data.table)
+library(stringr)
+
+# API access
+source("list_cross_ref_api.R", echo=FALSE)
+```
+
+
+```{r webscraping, message=FALSE, cache=TRUE}
+library(httr)
+# Setting up the token
+if (file.exists(".github_app.R")) {
+  # See
+  # https://github.com/r-lib/httr/blob/cb4e20c9e0b38c0c020a8756db8db7a882288eaf/demo/oauth2-github.r
+  # For a detailed example
+  source(".github_app.R")
+  token <- oauth2.0_token(
+    endpoint = oauth_endpoints("github"),
+    app      = github_app,
+    config   = httr::config(connecttimeout = 60)
+    )
+  token <- httr::config(token = token)
+} else {
+  token <- NULL
+}
+
+# Retrieving all the cross-reference information
+ans <- list_cross_ref_api(
+  issue = 26,
+  config = c(httr::config(connecttimeout=60), token)
+  )
+```
+
+
+```{r printing-the-data, message=FALSE}
+# Preparing to print using a nice format
+ans[, user := sprintf("[%s](https://github.com/%s)", gsub("/.+", "", repo), repo)]
+ans[, link := sprintf("[link](%s)", commit_url)]
+setorder(ans, created_at)
+
+# A more concise message
+ans[, message := sprintf("%s (%s to this %s) (files: %s)", message, link, type, files)]
+knitr::kable(ans[, .(created_at, user, message, type)])
+```
+

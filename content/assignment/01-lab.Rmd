@@ -7,7 +7,6 @@ link-citations: yes
 # Learning goals
 
 - Get acquainted with R and RStudio, which we will be using throughout the course to analyze data as well as to learn the statistical concepts discussed in the course. 
-- Get practice using with Git and GitHub.
 - Appreciate the value of visualization in exploring the relationship between variables.
 - Start using R for building plots and calculating summary statistics.
 
@@ -17,81 +16,48 @@ We've already thrown around a few new terms, so let's define them before we proc
 
 - **R**: Name of the programming language we will be using throughout the course.
 - **RStudio**: An integrated development environment for R. In other words, a convenient interface for writing and running R code.
-- **Git**: A version control system.
-- **GitHub**: A web platform for hosting version controlled files and faciliating collaboration among users.
-- **Repository**: A Git repository repository contains all of your project's files and stores each file's revision history. It's common to refer to a repository as a repo. 
-  - In this course, each assignment you work on will be contained in a Git repo. 
-  - For individual assignments, only you will have access to the repo. For team assignments, all team members will have access to a single repo where they work collaboratively.
-  - All repos associated with this course are housed in a GitHub organization: [`ids-s1-19`](https://github.com/ids-s1-19). The organization is set up such that students can only see repos they have access to, but the course staff can see all of them.
 
 I like to think of R as the engine of the car, and RStudio is the dashboard.
-Git is like the "Track Changes" features from Microsoft Word on steroids, and GitHub is the home for your Git-based projects on the internet (like DropBox but much, much better).
 
 # Starting slow
 
 As the labs progress, you are encouraged to explore beyond what the labs dictate; a willingness to experiment will make you a much better programmer. Before we get to that stage, however, you need to build some basic fluency in R. Today we begin with the fundamental building blocks of R and RStudio: the interface, reading in data, and basic commands.
 
-And to make versioning simpler, this is a solo lab. Additionally, we want to make sure everyone gets a significant amount of time at the steering wheel. Next week you'll learn about collaborating on GitHub and produce a single lab report for your team.
+And to make versioning simpler, this is a solo lab. Additionally, we want to make sure everyone gets a significant amount of time at the steering wheel.
 
 # Getting started
 
-Before you can get started with the analysis, you will first need a GitHub account, and to associate that account with the GitHub organization.
+## 1. Download project
 
-## Create a GitHub account
+Go the the the lab page for this week on the [website](https://elastic-khorana-70231e.netlify.app/). You should see a "download" button under the "Lab Exercise" section. Click it to download the material.
 
-Go to [github.com](https://github.com/) and create an account (unless you already have one). Below are some tips for selecting a username:^[[Happy git with R](http://happygitwithr.com/github-acct.html#username-advice) by Jenny Bryan]
+## 2 Download R
 
-- Incorporate your actual name.
-- Reuse username from other contexts, e.g. Twitter.
-- Pick a username you'll be comfortable revealing to your future boss.
-- Shorter is better than longer.
-- Be as unique as possible in as few characters as possible.
-- Make it timeless. Don’t highlight your current university, employer, etc.
-- Avoid words laden with special meaning in programming, like `NA`.
+### If you don't have R installed.
 
-## Join the course organization
+Go to the [CRAN](https://cran.r-project.org/) and download R, make sure you get the version that matches your operating system.
 
-- Go to https://classroom.github.com/classrooms/10712919-pm566 to accept your lab assignment. Since this is the first assignment, clicking on this link will also allow you to join the course GitHub organization. Log in with your GitHub username and password and click on **Authorize github**.
+### If you have R installed
 
-- In the next screen you will see a course roster with last names and student ID numbers of students enrolled in this course. Select your last name from the list. Note that there may be other students with the same last name, so make sure to confirm your student ID number before making your selection.
+If you have R installed run the following code
 
-- Then, in the next screen, click on **Accept this assignment**. This will create the GitHub repo for the assignment. This repo contains a template you can build on to complete your assignment. Click on the repository link created for you to get started.
+```{r}
+R.version
+```
 
-# Workflow overview
+This should tell you what version of R you are currently using. If your R version is lower then 3.6.0 I would strongly recommend updating. In general it is a good idea to update your R version, unless you have a project right now that depend on a specific version of R.
 
-For each assignment in this course you will start with a GitHub repo that I created for you and that contains the starter documents you will build upon when working on your assignment. The first step is always to bring these files into RStudio so that you can edit them, run them, view your results, and interpret them.
+## 2.2 Download RStudio
 
-Then you will work in RStudio on the data analysis, making *commit*s along the way (snapshots of your changes) and finally *push* all your work back to GitHub.
+We recommend using RStudio as your IDE if you don't already have it installed. You can go to the [RStudio](https://rstudio.com/products/rstudio/download/) website to download and install the software.
 
-The next few steps will walk you through the process of getting information of the repo to be cloned, launching RStudio, and cloning your repo, and getting started with the analysis.
+## 2.3 Launch RStudio
 
-## 1. Get URL of repo to be cloned
+You have 2 ways to open the lab project we will be working with. Inside the folder is a `pm566-01-lab.Rproj` file, opening this file should launch your RStudio project.
 
-![](/assignment-img/clone-repo-link.png)
+You can also open the RStudio application first and then open the project by going `file -> open project...`
 
-On GitHub, click on the green **Clone or download** button, select **Use HTTPS** (this might already be selected by default, and if it is, you'll see the text **Clone with HTTPS** as in the image below). Click on the clipboard icon to copy the repo URL.
-
-## 2. Launch RStudio
-
-TODO setup rstudio cloud for students
-
-<br><br>
-
-## 3. Clone the repo
-
-And finally we clone the GitHub repo into an RStudio project.
-
-![](/assignment-img/clone-repo-rstudio.png)
-
-- In RStudio, click on File > New Project
-- In the next window, select Git
-- In the final window:
-  - Repository URL: Paste repo url you grabbed from GitHub here
-  - Click the tab button on your keyboard, and the project name will be filled in for you
-  - Hit Create Project
-- Enter your GitHub username and password, and you're good to go!
-
-## 4. Get working!
+## 3. Get working!
 
 Open the R Markdown (Rmd) file called `lab-01-hello-r.Rmd`. It will likely ask you if you would like to install a package that is required, click Install.
 
@@ -107,34 +73,26 @@ RStudio is comprised of four panes.
 
 - If you click on a file, it will open in the editor, on the top left pane.
 
-- Finally, the top right pane shows your Environment. If you define a variable it would show up there. Try typing `x <- 2` in the Console and hit enter, what do you get in the Environment pane? Importantly, this pane is also where the Git interface lives. We will be using that regularly throughout this lab.
+- Finally, the top right pane shows your Environment. If you define a variable it would show up there. Try typing `x <- 2` in the Console and hit enter, what do you get in the Environment pane?
 
 # Packages
 
-R is an open-source language, and developers contribute functionality to R via packages. In this lab we will work with three packages: `datasauRus` which contains the dataset, `tidyverse` which is a collection of packages for doing data analysis in a "tidy" way, and `usethis` for setting our Git credentials.
+R is an open-source language, and developers contribute functionality to R via packages. In this lab we will work with three packages: `datasauRus` which contains the dataset, and `tidyverse` which is a collection of packages for doing data analysis in a "tidy" way.
 
 Load these packages by running the following in the Console.
 
 ```{r message=FALSE}
 library(tidyverse) 
 library(datasauRus)
-library(usethis)
+```
+
+If you haven't installed these packages yet and R complains, then you can install these packages by running the following command. (Note that R package names are case-sensitive)
+
+```{r, eval = FALSE}
+install.packages(c("tidyverse", "datasauRus"))
 ```
 
 Note that the packages are also loaded with the same commands in your R Markdown document.
-
-# Hello Git!
-
-Before we can get started we need to take care of some required housekeeping. Specifically,  we need to do some configuration so that RStudio can communicate with GitHub. This requires two pieces of information: your email address and your name.
-
-Run the following (but update it for your name and email!) in the Console to configure git:
-
-```{r git-config, eval=FALSE}
-use_git_config(user.name = "Your Name", 
-               user.email = "your.email@address.com")
-``` 
-
-Your email address is the address tied to your GitHub account and your name should be first and last name.
 
 # Warm up
 
@@ -147,34 +105,13 @@ The top portion of your R Markdown file (between the three dashed lines) is call
 Open the R Markdown (Rmd) file in your project, change the author name to your name, and knit the document.
 
 ![](/assignment-img/yaml-raw-to-rendered.png)
-
-## Commit
-
-Then Go to the Git pane in your RStudio.
-
-If you have made changes to your Rmd file, you should see it listed here. Click on it to select it in this list and then click on **Diff**. This shows you the *diff*erence between the last committed state of the document and its current state that includes your changes. If you're happy with these changes, write "Update author name" in the **Commit message** box and hit **Commit**.
-
-![](/assignment-img/update-author-name-commit.png)
-
-You don't have to commit after every change, this would get quite cumbersome. You should consider committing states that are *meaningful to you* for inspection, comparison, or restoration. In the first few assignments we will tell you exactly when to commit and in some cases, what commit message to use. As the semester progresses we will let you make these decisions.
-
-## Push
-
-Now that you have made an update and committed this change, it's time to push these changes to the web! Or more specifically, to your repo on GitHub. Why? So that others can see your changes. And by others, we mean the course teaching team (your repos in this course are private to you and us, only). 
-
-In order to push your changes to GitHub, click on **Push**. This will prompt a dialogue box where you first need to enter your user name, and then your password. This might feel cumbersome. Bear with me... We *will* teach you how to save your password so you don't have to enter it every time. But for this one assignment you'll have to manually enter each time you push in order to gain some experience with it.
-
-## Thought exercise
-
-For which of the above steps (changing project name, making updates to the document, committing, and pushing changes) do you need to have an internet connection? Discuss with your classmates.
-
 # Data
 
 The data frame we will be working with today is called `datasaurus_dozen` and it's in the `datasauRus` package. Actually, this single data frame contains 13 datasets, designed to show us  why data visualisation is important and how summary statistics alone can be misleading. The different datasets are maked by the `dataset` variable.
 
 To find out more about the dataset, type the following in your Console: `?datasaurus_dozen`. A question mark before the name of an object will always bring up its help file. This command must be ran in the Console.
 
-1. Based on the help file, how many rows and how many columns does the `datasaurus_dozen` file have? What are the variables included in the data frame? Add your responses to your lab report. When you're done, commit your changes with the commit message "Added answer for Ex 1", and push.
+1. Based on the help file, how many rows and how many columns does the `datasaurus_dozen` file have? What are the variables included in the data frame? Add your responses to your lab report. 
 
 Let's take a look at what these datasets are. To do so we can make a *frequency table* of the dataset variable:
 
@@ -211,7 +148,7 @@ ggplot(data = dino_data, mapping = aes(x = x, y = y)) +
   geom_point()
 ```
 
-If this seems like a lot, it is. And you will learn about the philosophy of building data visualizations in layer in detail in the next class. For now, follow along with the code that is provided.
+If this seems like a lot, it is. And you will learn about the philosophy of building data visualizations in layer in detail in the upcoming class. For now, follow along with the code that is provided.
 
 For the second part of this exercises, we need to calculate a summary statistic: the correlation coefficient. Correlation coefficient, often referred to as $r$ in statistics, measures the linear association between two variables. You will see that some of the pairs of variables we plot do not have a linear relationship between them. This is exactly why we want to visualize first: visualize to assess the form of the relationship, and calculate $r$ only if relevant. In this case, calculating a correlation coefficient really doesn't make sense since the relationship between `x` and `y` is definitely not linear -- it's dinosaurial!
 
@@ -219,20 +156,14 @@ But, for illustrative purposes, let's calculate correlation coefficient between 
 
 Start with `dino_data` and calculate a summary statistic that we will call `r` as the `cor`relation between `x` and `y`.
 
-```{r}
+```{r, eval=FALSE}
 dino_data %>%
   summarize(r = cor(x, y))
 ```
 
-*This is a good place to pause, commit changes with the commit message "Added answer for Ex 2", and push.*
-
 3. Plot `y` vs. `x` for the `star` dataset. You can (and should) reuse code we introduced above, just replace the dataset name with the desired dataset. Then, calculate the correlation coefficient between `x` and `y` for this dataset. How does this value compare to the `r` of `dino`?
 
-*This is another good place to pause, commit changes with the commit message "Added answer for Ex 3", and push.*
-
 4. Plot `y` vs. `x` for the `circle` dataset. You can (and should) reuse code we introduced above, just replace the dataset name with the desired dataset. Then, calculate the correlation coefficient between `x` and `y` for this dataset. How does this value compare to the `r` of `dino`?
-
-*You should pause again, commit changes with the commit message "Added answer for Ex 4", and push.*
 
 Facet by the dataset variable, placing the plots in a 3 column grid, and don't add a legend.
 
@@ -263,7 +194,7 @@ Click on the gear icon in on top of the R Markdown document, and select "Output 
 
 ![](/assignment-img/fig-resize-local.png)
 
-You can also use different figure sizes for differen figures. To do so click on the gear icon within the chunk where you want to make a change. Changing the figure sizes added new options to these chunks: `fig.width` and `fig.height`. You can change them by defining different values directly in your R Markdown document as well.
+You can also use different figure sizes for different figures. To do so click on the gear icon within the chunk where you want to make a change. Changing the figure sizes added new options to these chunks: `fig.width` and `fig.height`. You can change them by defining different values directly in your R Markdown document as well.
 
 ![](/assignment-img/theme-highlight.png)
 
@@ -271,11 +202,14 @@ You can also use different figure sizes for differen figures. To do so click on 
 
 Once again click on the gear icon in on top of the R Markdown document, and select "Output Options..." in the dropdown menu. In the General tab of the pop up dialogue box try out different syntax highlighting and theme options. Hit OK and knit your document to see how it looks. Play around with these until you're happy with the look.
 
-<br>
 
-*Yay, you're done! Commit all remaining changes, use the commit message "Done with Lab 1!", and push. Before you wrap up the assignment, make sure all documents are updated on your GitHub repo.*
+# Optional
 
-<br>
+If you have time you can explore the different ways you can add styling to your rmarkdown document.
+
+Here is a [cheatsheet](https://rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)
+
+and a [markdown cheatsheet](https://www.markdownguide.org/cheat-sheet/)
 
 ---
 

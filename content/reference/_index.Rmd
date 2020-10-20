@@ -52,3 +52,42 @@ output:
 - [Sublime Text](http://sublimetext.com). Python-based text editor.
 - [Zotero](http://zotero.org), [Mendeley](http://mendeley.com), and [Papers](http://papersapp.com) are citation managers that incorporate PDF storage, annotation and other features. Zotero is free to use. Mendeley has a premium tier. Papers is a paid application after a trial period. I don't use these tools much, but that's not for any strong principled reason---mostly just intertia. If you use one and want to integrate with the material here, just make sure it can export to BibTeX/BibLaTeX files. Papers, which I've used most recently, can handily output citation keys in pandoc's format amongst several others.
 
+## Data
+
+Many of these websites have API to download the data. We recommend you using APIs
+to get data.
+
+### Health and Biological data
+
+- NIH [Cancer Surveillance](https://seer.cancer.gov/)
+- World Health Organization [WHO data](https://www.who.int/gho/database/en/)
+- UniProt [data](https://www.uniprot.org/)
+- The Gene Ontology [Project](http://geneontology.org/)
+- US Center for Disease Control and Prevention [Data](https://data.cdc.gov/)
+- California Health and Human Services [Open Data Portal](https://data.chhs.ca.gov/)
+- Covid Data [CovidTracker](https://covidtracking.com/)
+
+### Academic Publications and related
+
+- Figshare data [repository](https://figshare.com/)
+- Zenodo data [repository](https://zenodo.org/)
+- Harvard [Dataverse](https://dataverse.harvard.edu/)
+- Elsevier [Developers API](https://dev.elsevier.com/)
+
+### Other data
+
+- Los Angeles [city data](https://data.lacity.org/)
+- Los Angeles [crime data](http://www.lapdonline.org/crime_mapping_and_compstat)
+- FiveThirtyEight [open data](https://data.fivethirtyeight.com/)
+- World Bank [open data](https://data.worldbank.org/)
+- US Open Data Initiative [DATA.GOV](https://www.data.gov/)
+- Census Data [National Historical Geographic Information System (NHGIS)](https://www.nhgis.org/)
+- Housing data [Zillow](https://www.zillow.com/howto/api/APIOverview.htm)
+
+### Social Networks
+
+- Twitter [Developers API](https://developer.twitter.com/)
+- GitHub [Developers API](https://docs.github.com/en/rest)
+- Instagram [Developers API](https://developers.facebook.com/docs/instagram-api/)
+- LinkedIn [Developers API](https://www.linkedin.com/developers/)
+
