@@ -1,0 +1,98 @@
+---
+title: "Assignment 04 - HPC and SQL"
+output: tufte::tufte_html
+---
+
+
+
+<div id="due-date" class="section level2">
+<h2>Due Date</h2>
+<p>October 28, 2020 by midnight Pacific time.</p>
+<p>The learning objectives are to conduct data scraping and perform text mining.</p>
+</div>
+<div id="hpc" class="section level2">
+<h2>HPC</h2>
+<div id="problem-1-make-sure-your-code-is-nice" class="section level3">
+<h3>Problem 1: Make sure your code is nice</h3>
+<p>Rewrite the following R functions to make them faster. It is OK (and recommended) to take a look at Stackoverflow and Google</p>
+<pre class="r"><code># Total row sums
+fun1 &lt;- function(mat) {
+  n &lt;- nrow(mat)
+  ans &lt;- double(n)
+  for (i in 1:n) {
+    ans[i] &lt;- sum(mat[i, ])
+  }
+  ans
+}
+
+fun1alt &lt;- function(mat) {
+  # YOUR CODE HERE
+}
+
+# Cumulative product by row
+fun2 &lt;- function(mat) {
+  n &lt;- nrow(mat)
+  K &lt;- ncol(mat)
+  ans &lt;- mat
+  for (i in 1:n) {
+    for (j in 2:k)
+      ans[i,j] &lt;- mat[i, k] + ans[i, k - 1]
+    }
+  }
+  ans
+}
+
+fun2alt &lt;- function(mat) {
+  # YOUR CODE HERE
+}
+
+
+# Use the data with this code
+set.seed(2315)
+dat &lt;- matrix(rnorm(200 * 100), nrow = 200)
+
+# Test for the first
+microbenchmark::microbenchmark(
+  fun1(dat),
+  fun1alt(dat), unit = “relative”, check = “equivalent”
+)
+
+# Test for the second
+microbenchmark::microbenchmark(
+  fun2(dat),
+  fun2alt(dat), unit = “relative”, check = “equivalent”
+)</code></pre>
+<p>The last argument, check = “equivalent”, is included to make sure that the functions return the same result.</p>
+</div>
+<div id="problem-2-make-things-run-faster-with-parallel-computing" class="section level3">
+<h3>Problem 2: Make things run faster with parallel computing</h3>
+<p>The following function allows simulating PI</p>
+<pre class="r"><code>sim_pi &lt;- function(n = 1000, i = NULL) {
+  p &lt;- matrix(runif(n*2), ncol = 2)
+  mean(rowSums(p^2) &lt; 1) * 4
+}
+
+# Here is an example of the run
+set.seed(156)
+sim_pi(1000) # 3.132</code></pre>
+<p>In order to get accurate estimates, we can run this function multiple times, with the following code:</p>
+<pre class="r"><code># This runs the simulation a 4,000 times, each with 10,000 points
+set.seed(1231)
+system.time({
+  ans &lt;- unlist(lapply(1:4000, sim_pi, n = 10000))
+  print(mean(ans))
+})</code></pre>
+<p>Rewrite the previous code using <code>parLapply()</code> to make it run faster. Make sure you set the seed using <code>clusterSetRNGStream()</code>:</p>
+<pre class="r"><code># YOUR CODE HERE
+system.time({
+  # YOUR CODE HERE
+  ans &lt;- # YOUR CODE HERE
+  print(mean(ans))
+  # YOUR CODE HERE
+})</code></pre>
+</div>
+</div>
+<div id="sql" class="section level2">
+<h2>SQL</h2>
+<p>TBD</p>
+</div>
