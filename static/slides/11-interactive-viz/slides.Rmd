@@ -1,0 +1,834 @@
+---
+title: 'Interactive Visualization'
+subtitle: "PM 566: Introduction to Health Data Science"
+author: "Abigail Horn"
+output:
+  # slidy_presentation
+  xaringan::moon_reader:
+    # css: ["theme.css"]
+    lib_dir: libs
+    nature:
+      # beforeInit: "macros.js"
+      ratio: "16:9"
+      highlightStyle: github
+      highlightLines: false
+      countIncrementalSlides: false
+      titleSlideClass: [center, middle]
+    # code_download: true
+---
+
+<style type="text/css">
+pre{
+  font-size:20px;
+}
+code.r,code.cpp{
+  font-size:large
+}
+</style>
+
+
+```{r include=FALSE}
+library(knitr)
+library(here)
+
+opts_chunk$set(
+  echo = TRUE,
+  fig.width = 7, 
+  fig.align = 'center',
+  fig.asp = 0.618, # 1 / phi
+  out.width = "700px")
+```
+
+# Introduction to interactive visualization
+
+---
+
+## What is interactive visualization?
+
+- Interactive visualization involves the creation and sharing of interactive data objects
+
+- Interactive data objects are graphical representations of data, model, or results that allow a user to directly manipulate and explore
+
+- Some example products and packages in R:
+--
+
+  - Interactive plots (`Plotly`)
+  
+  - Interactive maps (`plotly`, `Leaflet`)
+  
+  - Interactive tables (`formattable`, `as.datatable`)
+  
+  - Dashboards (`flexdashboard`)
+  
+  - Interactive applications (`shiny`)
+  
+  - Websites (Static using `R Markdown`, `blogdown`, `Hugo`, `Jeckyll`)
+
+---
+
+## What is interactive visualization (cont'd)
+
+- Interactivity allows users to engage with data, a model, algorithm, or other visualization in a way that static visuals cannot
+
+- Features of interactivity include: 
+--
+  
+  - Identify, isolate, and visualize information for extended periods of time 
+
+  - Zoom in and out
+
+  - Highlight relevant information
+    
+  - Get more information
+  
+  - Filter
+    
+  - Animate
+  
+  - Change parameters
+
+---
+
+# Why use interactive visualization?
+
+  - In this course we’ve covered visualization and in particular how `ggplot()` can help to make static plots with many dimensions
+
+  - But what if you want to explore a third or fourth dimension of data -- quickly? Or without all the noise? Or identify strange values?
+
+  - Or, what if you want to communicate your findings to an external audience? Specifically, if you want that audience to engage with or explore the data?
+
+Interactive visualization helps with both the **exploration** and **communication** parts of the data science process
+
+<div style="text-align: center;">
+  <figure>
+    <img style="width: 500px;vertical-align: middle;"  hspace="20px" src="img/data-science-2.png" alt="data_science_interactive_viz"
+  </figure>
+  <figcaption><b>Where interactive visualization fits in to the data science workflow</b></figcaption>
+</div>
+
+---
+
+## Interactive Visualization for **exploratory data analysis** (EDA)
+
+- Interactive graphics are well suited to aid the exploration of high-dimensional or otherwise complex data
+
+- Interacting with information in a visual way helps to enable insights that wouldn’t be easy or even possible with static graphics, for reasons including:
+
+--
+  - **Investigate faster**: In a true exploratory setting, you have to make lots of visualizations, and investigate lots of follow-up questions, before stumbling across something truly valuable. Interactive visualization can aid in the sense-making process by searching for information quickly without fully specified questions (Unwin and Hofmann 1999)
+
+--
+
+  - **Identifying relationships or structure that would otherwise go missing** (J. W. Tukey and Fisherkeller 1973)
+
+--
+
+  - **Understand and diagnose problems with data, models, or algorithms** (Wickham, Cook, and Hofmann 2015)
+
+---
+
+## Interactive Visualization for **EDA** (cont'd)
+
+  - In a true exploratory setting, you have to make lots of visualizations, and investigate lots of follow-up questions, before stumbling across something truly valuable
+
+  - Although interactivity can augment EDA, it’s typically only *practical* when we can create and alter visuals quickly
+
+  - Plotly and Leaflet are well suited to these tasks -- they make the added effort required to enable functionality relatively small
+
+---
+
+## Interactive Visualization for **EDA** (cont'd)
+
+- Use the LA times data -- show the erroneous value
+
+---
+
+## Interactive visualization for **communication**
+
+- Engagement with information has been shown to improve the ability to retain information
+
+<div style="text-align: center;">
+  <figure>
+    <img style="width: 550px;vertical-align: middle;"  hspace="20px" src="https://i0.wp.com/www.worklearning.com/wp-content/uploads/2015/01/Cone_of_learning_export_from_Wikipedia_11-11-2007.jpg?resize=705%2C518&amp;ssl=1" alt="Edgar Dale Cone of Experience"
+  </figure>
+  <figcaption><b>Edgar Dale's Cone of Learning</b></figcaption>
+</div>
+
+---
+
+## Interactive visualization for **communication** (cont'd)
+
+- Automate and efficiently share multiple dimensions of data/models/findings or complex analysis tasks
+
+- Help users to better understand, and make decisions on, data/models/findings
+
+[Our COVID modeling website](https://uscbiostats.github.io/COVID19/index.html)
+  
+<div style="text-align: center;">
+  <a href="https://epimodel.shinyapps.io/covid-university/">
+  <figure>
+    <img style="width: 700px;vertical-align: middle;"  hspace="20px" src="img/COVID-uni-testing.png" alt="EpiModel University Testing"
+  </figure>
+  <figcaption><b>EpiModel Shiny app for COVID testing at universities</b></figcaption>
+</div>
+
+---
+
+## Interactive visualization for **communication** (cont'd)
+
+- Tell a more interesting or engaging story, presenting multiple viewpoints of data
+
+- Allow users to focus on the aspects most important to them, making the user more likely to understand, learn from, remember and appreciate the data
+
+<div style="text-align: center;">
+  <a href="https://inequality.media.mit.edu/">
+  <figure>
+    <img style="width: 700px;vertical-align: middle;"  hspace="20px" src="img/atlas-of-inequality.png" alt="MIT-inequality"
+  </figure>
+  <figcaption><b>MIT Media Lab Atlas of Inequality</b></figcaption>
+</div>
+
+---
+
+# Plan for today
+
+- Survey of interactive graphics in both of their uses: exploration and communication 
+
+  - We're going to look at creating interactive graphs, maps, and tables with `Plotly`, `Leaflet`, and `formattable`
+
+  - We will look at how to share these plots
+  
+  - You will create your own project website using RStudio and GitHub pages
+
+  - We will survey other possibilities (Shiny apps, dashboards)
+
+
+---
+
+## What is Plotly?
+
+<div style="text-align: center;">
+  <figure>
+    <img style="width: 50px;vertical-align: middle;"  hspace="20px" src="img/plotly.png" alt="Plotly"
+  </figure>
+</div>
+
+  - Plotly is a web application for creating and sharing interactive graphics
+
+  - Is powered by JavaScript graphing library plotly.js and is designed on principles of adding layers
+
+  - Plotly can work with several programming languages and applications including R, JavaScript,
+Python, Matlab, and Excel. 
+
+--- 
+
+
+## Install Plotly
+
+Installing Plotly is easy
+
+```{r, eval=FALSE}
+install.packages("plotly")
+library(plotly)
+```
+
+---
+
+## Load data for examples
+
+```{r, message=FALSE}
+# load the plotly R package
+library(plotly)
+
+# load the diamonds dataset from the ggplot2 package
+data(diamonds, package = "ggplot2")
+diamonds
+```
+
+---
+
+## `plot_ly()` vs. `ggplotly()`
+
+- There are two main ways to create a plotly object:
+
+  - Transforming a `ggplot2` object (via `ggplotly()`) into a plotly object 
+
+  - Directly initializing a plotly object with `plot_ly()`/`plot_geo()`/`plot_mapbox()`
+  
+- Both approaches are powered by the JavaScript graphing library plotly.js so many of the same concepts and tools that you learn for one interface can be reused in the other
+
+---
+
+## `plot_ly()`
+
+- Any graph made with the **plotly** R package is powered by the JavaScript library [plotly.js](https://github.com/plotly/plotly.js) 
+
+- The `plot_ly()` function provides a 'direct' interface to plotly.js with some additional abstractions to help reduce typing. 
+
+- If we assign variable names (e.g., `cut`, `clarity`, etc.) to visual properties (e.g., `x`, `y`, `color`, etc.), `plot_ly()` tries to find a sensible geometric representation of that information for us
+
+--- 
+
+## `plot_ly()`
+
+```{r, eval=FALSE}
+plot_ly(diamonds, x = ~cut, y = ~clarity)
+```
+
+---
+
+## `plot_ly()`
+
+```{r, message=FALSE, echo=FALSE}
+plot_ly(diamonds, x = ~cut, y = ~clarity)
+```
+
+
+--- 
+
+## `plot_ly()` functionality
+
+The `plot_ly()` function has numerous arguments that are unique to the R package (e.g., `color`, `stroke`, `span`, `symbol`, `linetype`, etc.) and make it easier to encode data variables (e.g., diamond clarity) as visual properties (e.g., color). By default, these arguments map values of a data variable to a visual range defined by the plural form of the argument. 
+
+In this example, `color` is used to map each level of diamond clarity to a different color. Then, `colors` is used to specify the range of colors (which, in this case, the `"Accent"` color palette from the **RColorBrewer** package, but one can also supply custom color codes or a color palette function like `colorRamp()`).
+
+---
+
+## `plot_ly()` functionality
+
+```{r, eval=FALSE}
+plot_ly(diamonds, x = ~cut, color = ~clarity, colors = "Accent")
+```
+
+---
+
+## `plot_ly()` functionality
+
+```{r, message=FALSE, echo=FALSE}
+plot_ly(diamonds, x = ~cut, color = ~clarity, colors = "Accent")
+```
+
+
+--- 
+
+## `layout()` 
+
+- (almost) every function anticipates a **plotly** object as input to its first argument and returns a modified version of that **plotly** object. 
+
+- For example, the `layout()` function anticipates a **plotly** object in its first argument and its other arguments add and/or modify various layout components of that object (e.g., the title):
+
+---
+
+## `layout()` 
+
+```{r, eval=FALSE}
+layout(
+  plot_ly(diamonds, x = ~cut),
+  title = "My beatiful histogram"
+)
+```
+
+---
+
+## `layout()` 
+
+```{r, message=FALSE, echo=FALSE}
+layout(
+  plot_ly(diamonds, x = ~cut),
+  title = "My beatiful histogram"
+)
+```
+
+---
+
+## `layout()` 
+
+or using the `%>%` operator from the **magrittr** package:
+
+```{r, eval=FALSE}
+diamonds %>%
+  plot_ly(x = ~cut) %>%
+  layout(title = "My beatiful histogram")
+```
+
+--- 
+
+## Layers and `add_*()` 
+
+- In addition to `layout()` for adding/modifying part(s) of the graph's layout, there are also a family of `add_*()` functions (e.g., `add_histogram()`, `add_lines()`, etc.) that define how to render data into geometric objects. 
+
+- These functions add a graphical layer to a plot. A *layer* can be thought of as a group of graphical elements that can be sufficiently described using only 5 components: 
+
+  - data
+  - aesthetic mappings (e.g., assigning `clarity` to `color`)
+  - a geometric representation (e.g., rectangles, circles, etc.)
+  - statistical transformations (e.g., sum, mean, etc.)
+  - positional adjustments (e.g., dodge, stack, etc.). 
+
+---
+
+
+## Layers and `add_*()` 
+
+Let's add an `add_histogram()` layer:
+
+```{r, eval=FALSE}
+diamonds %>%
+  plot_ly() %>% 
+  add_histogram(x = ~cut)
+```
+
+--- 
+
+## Layers and `add_*()` 
+
+Let's add an `add_histogram()` layer:
+
+```{r, message=FALSE, echo=FALSE}
+diamonds %>%
+  plot_ly() %>% 
+  add_histogram(x = ~cut)
+```
+
+---
+
+## Basic Scatterplot
+
+A basic scatterplot is easy to make, with the added benefit of tooltips that
+appear when your mouse hovers over each point. Specify a scatterplot by
+indicating `type = "scatter"`. Notice that the arguments for the `x` and `y` 
+variables as specified as formulas, with the tilde operator (`~`) preceding the
+variable that you're plotting.
+
+
+```{r, eval=FALSE}
+library(plotly)
+plot_ly(mtcars, x = ~wt, y = ~mpg, type = "scatter")
+```
+
+---
+
+## Basic Scatterplot
+
+```{r, echo=FALSE, message=FALSE}
+library(plotly)
+plot_ly(mtcars, x = ~wt, y = ~mpg, type = "scatter")
+```
+
+---
+
+## Scatterplot Color
+
+You can add color to your scatterplot points according to a categorical variable
+in the data frame you use with `plot_ly()`.
+
+```{r, eval=FALSE}
+plot_ly(mtcars, x = ~wt, y = ~mpg, type = "scatter", color = ~factor(cyl))
+```
+
+---
+
+## Scatterplot Color
+
+```{r, echo=FALSE, message=FALSE}
+plot_ly(mtcars, x = ~wt, y = ~mpg, type = "scatter", color = ~factor(cyl))
+```
+
+---
+
+## Continuous Color
+
+You can also show continuous variables with color in scatterplots.
+
+```{r, eval=FALSE}
+plot_ly(mtcars, x = ~wt, y = ~mpg, type = "scatter", color = ~disp)
+```
+
+---
+
+## Continuous Color
+
+```{r, echo=FALSE, message=FALSE}
+plot_ly(mtcars, x = ~wt, y = ~mpg, type = "scatter", color = ~disp)
+```
+
+---
+
+## Scatterplot Sizing
+
+By specifying the `size` argument you can make each point in your scatterplot a
+different size.
+
+```{r, eval=FALSE}
+plot_ly(mtcars, x = ~wt, y = ~mpg, type = "scatter", 
+        color = ~factor(cyl), size = ~hp)
+```
+
+---
+
+## Scatterplot Sizing
+
+```{r, echo=FALSE, message=FALSE}
+plot_ly(mtcars, x = ~wt, y = ~mpg, type = "scatter", 
+        color = ~factor(cyl), size = ~hp)
+```
+
+---
+
+## 3D Scatterplot
+
+You can create a three-dimensional scatterplot with the `type = "scatter3d"`
+argument. If you click and drag these scatterplots you can view them from
+different angles.
+
+```{r, eval=FALSE}
+set.seed(2016-07-21)
+temp <- rnorm(100, mean = 30, sd = 5)
+pressue <- rnorm(100)
+dtime <- 1:100
+plot_ly(x = ~temp, y = ~pressue, z = ~dtime,
+        type = "scatter3d", color = ~temp)
+```
+
+---
+
+## 3D Scatterplot
+
+```{r, echo=FALSE, message=FALSE}
+set.seed(2016-07-21)
+temp <- rnorm(100, mean = 30, sd = 5)
+pressue <- rnorm(100)
+dtime <- 1:100
+plot_ly(x = ~temp, y = ~pressue, z = ~dtime,
+        type = "scatter3d", color = ~temp)
+```
+
+---
+
+## Line Graph
+
+Line graphs are the default graph for `plot_ly()`. They're of course useful for
+showing change over time:
+
+```{r, eval=FALSE}
+data("airmiles")
+plot_ly(x = ~time(airmiles), y = ~airmiles, type = "scatter", mode = "lines")
+```
+
+---
+
+## Line Graph
+
+```{r, echo=FALSE, message=FALSE}
+data("airmiles")
+plot_ly(x = ~time(airmiles), y = ~airmiles, type = "scatter", mode = "lines")
+```
+
+---
+
+## Multi Line Graph
+
+You can show multiple lines by specifying the column in the data frame that
+separates the lines:
+
+```{r, eval=FALSE}
+library(plotly)
+library(tidyr)
+library(dplyr)
+data("EuStockMarkets")
+
+stocks <- as.data.frame(EuStockMarkets) %>%
+  gather(index, price) %>%
+  mutate(time = rep(time(EuStockMarkets), 4))
+
+plot_ly(stocks, x = ~time, y = ~price, color = ~index, type = "scatter", mode = "lines")
+```
+
+---
+
+## Multi Line Graph
+
+```{r, echo=FALSE, message=FALSE}
+library(plotly)
+library(tidyr)
+library(dplyr)
+data("EuStockMarkets")
+
+stocks <- as.data.frame(EuStockMarkets) %>%
+  gather(index, price) %>%
+  mutate(time = rep(time(EuStockMarkets), 4))
+
+plot_ly(stocks, x = ~time, y = ~price, color = ~index, type = "scatter", mode = "lines")
+```
+
+---
+
+## Histogram
+
+A histogram is great for showing how counts of data are distributed. Use the
+`type = "histogram"` argument.
+
+```{r, eval=FALSE}
+plot_ly(x = ~precip, type = "histogram")
+```
+
+---
+
+## Histogram
+
+```{r, echo=FALSE, message=FALSE}
+plot_ly(x = ~precip, type = "histogram")
+```
+
+---
+
+## Boxplot
+
+Boxplots are wonderful for comparing how different datasets are distributed.
+Specify `type = "box"` to create a boxplot.
+
+```{r, eval=FALSE}
+plot_ly(iris, y = ~Petal.Length, color = ~Species, type = "box")
+```
+
+---
+
+## Boxplot
+
+```{r, echo=FALSE, message=FALSE}
+plot_ly(iris, y = ~Petal.Length, color = ~Species, type = "box")
+```
+
+---
+
+## Heatmap
+
+Heatmaps are useful for displaying three dimensional data in two dimensions,
+using color for the third dimension. Create a heatmap by using the
+`type = "heatmap"` argument.
+
+```{r, eval=FALSE}
+terrain1 <- matrix(rnorm(100*100), nrow = 100, ncol = 100)
+plot_ly(z = ~terrain1, type = "heatmap")
+```
+
+---
+
+## Heatmap
+
+```{r, echo=FALSE, message=FALSE}
+terrain1 <- matrix(rnorm(100*100), nrow = 100, ncol = 100)
+plot_ly(z = ~terrain1, type = "heatmap")
+```
+
+---
+
+## 3D Surface
+
+Why limit yourself to two dimensions when you can render three dimensions on a
+computer!? Create moveable 3D surfaces with `type = "surface"`.
+
+```{r, eval=FALSE}
+terrain2 <- matrix(sort(rnorm(100*100)), nrow = 100, ncol = 100)
+plot_ly(z = ~terrain2, type = "surface")
+```
+
+---
+
+## 3D Surface
+
+```{r, echo=FALSE, message=FALSE}
+terrain2 <- matrix(sort(rnorm(100*100)), nrow = 100, ncol = 100)
+plot_ly(z = ~terrain2, type = "surface")
+```
+
+---
+
+## Choropleth Maps: Setup
+
+Choropleth maps illustrate data across geographic areas by shading regions with
+different colors. Choropleth maps are easy to make with Plotly though they
+require more setup compared to other Plotly graphics.
+
+```{r, eval=FALSE}
+# Create data frame
+state_pop <- data.frame(State = state.abb, Pop = as.vector(state.x77[,1]))
+# Create hover text
+state_pop$hover <- with(state_pop, paste(State, '<br>', "Population:", Pop))
+# Make state borders white
+borders <- list(color = toRGB("red"))
+# Set up some mapping options
+map_options <- list(
+  scope = 'usa',
+  projection = list(type = 'albers usa'),
+  showlakes = TRUE,
+  lakecolor = toRGB('white')
+)
+```
+
+---
+
+## Choropleth Maps: Mapping
+
+```{r, eval=FALSE}
+plot_ly(z = ~state_pop$Pop, text = ~state_pop$hover, locations = ~state_pop$State, 
+        type = 'choropleth', locationmode = 'USA-states', 
+        color = state_pop$Pop, colors = 'Blues', marker = list(line = borders)) %>%
+  layout(title = 'US Population in 1975', geo = map_options)
+```
+
+---
+
+## Choropleth Maps
+
+```{r, echo=FALSE, message=FALSE}
+# Create data frame
+state_pop <- data.frame(State = state.abb, Pop = as.vector(state.x77[,1]))
+# Create hover text
+state_pop$hover <- with(state_pop, paste(State, '<br>', "Population:", Pop))
+# Make state borders white
+borders <- list(color = toRGB("red"))
+# Set up some mapping options
+map_options <- list(
+  scope = 'usa',
+  projection = list(type = 'albers usa'),
+  showlakes = TRUE,
+  lakecolor = toRGB('white')
+)
+
+plot_ly(z = ~state_pop$Pop, text = ~state_pop$hover, locations = ~state_pop$State, 
+        type = 'choropleth', locationmode = 'USA-states', 
+        color = state_pop$Pop, colors = 'Blues', marker = list(line = borders)) %>%
+  layout(title = 'US Population in 1975', geo = map_options)
+```
+
+---
+
+# `ggplotly()`
+
+- So far we've focused on `plot_ly()`. We also have the option of working with `ggplotly()` function from the **plotly** package, which has the ability to translate **ggplot2** to **plotly**. 
+
+- This functionality can be really helpful for quickly adding interactivity to your existing **ggplot2** workflow.
+
+- Moreover, even if you know `plot_ly()` and plotly.js well, `ggplotly()` can still be desirable for creating visualizations that aren't necessarily straightforward to achieve without it. 
+
+--- 
+
+## `ggplotly()`
+
+To demonstrate, let's explore the relationship between `price` and other variables from the well-known `diamonds` dataset. 
+
+Hexagonal binning (i.e., `geom_hex()`) is useful way to visualize a 2D density, like the relationship between `price` and `carat`. We can see there is a strong positive linear relationship between the _log_ of carat and price. It also shows that for many, the carat is only rounded to a particular number (indicated by the light blue bands) and no diamonds are priced around $1500. Making this plot interactive makes it easier to decode the hexagonal colors into the counts that they represent.
+
+```{r, eval=FALSE}
+p <- ggplot(diamonds, aes(x = log(carat), y = log(price))) + 
+  geom_hex(bins = 100)
+ggplotly(p)
+```
+
+--- 
+
+## `ggplotly()` for statistical summaries
+
+We may use `ggplotly()` over `plot_ly()` to leverage **ggplot2**'s consistent and expressive interface for exploring statistical summaries across groups. For example, by including a discrete `color` variable (e.g., `cut`) with `geom_freqpoly()`, you get a frequency polygon for each level of that variable. This ability to quickly generate visual encodings of statistical summaries across an arbitrary number of groups works for basically any geom (e.g., `geom_boxplot()`, `geom_histogram()`, `geom_density()`, etc.) and is a key feature of **ggplot2**.
+
+```{r, eval=FALSE}
+p <- ggplot(diamonds, aes(x = log(price), color = clarity)) + 
+    geom_freqpoly()
+ggplotly(p)
+```
+
+--- 
+
+## `ggplotly()` for statistical summaries
+
+Now, to see how `price` varies with both `cut` and `clarity`, we could repeat this same visualization for each level of `cut`. This is where **ggplot2**'s `facet_wrap()` comes in handy. Moreover, to facilitate comparisons, we can have `geom_freqpoly()` display relative rather than absolute frequencies. By making this plot interactive, we can more easily compare particular levels of clarity (as shown in Figure \@ref(fig:freqpoly-facet)) by leveraging the legend filtering capabilities. 
+
+```{r, eval=FALSE}
+p <- ggplot(diamonds, aes(x = log(price), color = clarity)) + 
+    geom_freqpoly(stat = "density") + 
+    facet_wrap(~cut)
+ggplotly(p)
+```
+
+---
+
+# Publishing views
+
+- Embedding in website _HTML_
+
+- Arrange and then save image for publication _SIEVERT_
+
+- If you want to share your visualizations on https://plot.ly/ you can make an
+account on their site
+
+---
+
+# Takeaways
+
+Hopefully in this class you have learned: 
+
+* To appreciate how interactive visualization can help to explore data in ways static graphics cannot
+
+* Get an idea of the multitude of options available to you
+
+* Get inspired to create engaging, effective data visualizations and tell stories with your data and findings!
+
+---
+
+## Avoid pitfals 
+
+* Don’t overcomplicate!
+
+* Only use when adding value!
+
+* Some examples of bad practices: [(link)](https://badvisualisations.tumblr.com/)
+
+* And just hilariously bad examples: [(link)](https://viz.wtf/)
+
+---
+
+## Next week
+
+- Explore how interactive visualization can be used in practice
+
+--
+  - Data science statistical genetics company, BioRealm.ai
+  
+  - NASA data science group
+
+---
+
+# More Resources
+
+`Plotly`
+
+- [The Plolty Website](https://plot.ly/)
+- [The Plotly R API](https://plot.ly/r/)
+- [The Plotly R Package on GitHub](https://github.com/ropensci/plotly)
+- [The Plotly R Cheatsheet](https://images.plot.ly/plotly-documentation/images/r_cheat_sheet.pdf)
+- ["Plotly for R" book by Carson Sievert](https://cpsievert.github.io/plotly_book/)
+
+`shiny` and dashboards
+
+- [The `Shiny` Website](http://shiny.rstudio.com)
+- [R Markdown: The Definitive Guide, Chapter 5: Dashboards (Layout, Components, Shiny)](https://bookdown.org/yihui/rmarkdown/dashboards.html)
+
+Website development in rmarkdown
+
+- [Tutorial: Creating websites in R](https://www.emilyzabor.com/tutorials/rmarkdown_websites_tutorial.html), Emily C. Zabor   
+- [Creating websites with R Markdown](https://bookdown.org/yihui/blogdown/): advanced website creation with `blogdown`, `Hugo`, `Jeckyll`
+
+Data visualization best practices
+
+- [Data Visualization: A Practical Introduction](https://kieranhealy.org/publications/dataviz/), Kieran Healy
+- [Fundamentals of Data Visualization](https://serialmentor.com/dataviz/), Claus O. Wilke
+
+---
+
+# References
+
+- ["Plotly for R" book by Carson Sievert](https://cpsievert.github.io/plotly_book/)
+
+- Coursera course on Developing Data Products, Johns Hopkins Data Science Lab: [(GitHub repo for all course materials) materials)](https://github.com/DataScienceSpecialization/Developing_Data_Products)
+

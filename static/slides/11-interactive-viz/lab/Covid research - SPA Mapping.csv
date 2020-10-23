@@ -1,0 +1,789 @@
+City,place,SPA,SPA Name,Clean Name
+Acton,Acton,1,Antelope Valley,Acton
+Acton,Unincorporated - Acton,1,Antelope Valley,Acton
+Agua Dulce,Agua Dulce,1,Antelope Valley,Agua Dulce
+Agua Dulce,Unincorporated - Agua Dulce,1,Antelope Valley,Agua Dulce
+Anaverde,Anaverde,1,Antelope Valley,Anaverde
+Anaverde,Unincorporated - Anaverde,1,Antelope Valley,Anaverde
+Antelope Acres,Antelope Acres,1,Antelope Valley,Antelope Acres
+Antelope Acres,UNMAPPED TO LA CASE BASE,1,Antelope Valley,Antelope Acres
+Boron,Boron,1,Antelope Valley,Boron
+Boron,UNMAPPED TO LA CASE BASE,1,Antelope Valley,Boron
+California City,California City,1,Antelope Valley,California City
+California City,UNMAPPED TO LA CASE BASE,1,Antelope Valley,California City
+Del Sur,Del Sur,1,Antelope Valley,Del Sur
+Del Sur,Unincorporated - Del Sur,1,Antelope Valley,Del Sur
+Desert View Highlands,Desert View Highlands,1,Antelope Valley,Desert View Highlands
+Desert View Highlands,Unincorporated - Desert View Highlands,1,Antelope Valley,Desert View Highlands
+Gorman,Gorman,1,Antelope Valley,Gorman
+Gorman,UNMAPPED TO LA CASE BASE,1,Antelope Valley,Gorman
+Green Valley,Green Valley,1,Antelope Valley,Green Valley
+Green Valley,UNMAPPED TO LA CASE BASE,1,Antelope Valley,Green Valley
+Hi Vista,Hi Vista,1,Antelope Valley,Hi Vista
+Hi Vista,Unincorporated - Hi Vista,1,Antelope Valley,Hi Vista
+Johannesburg,Johannesburg,1,Antelope Valley,Johannesburg
+Johannesburg,UNMAPPED TO LA CASE BASE,1,Antelope Valley,Johannesburg
+Lake Elizabeth,Lake Elizabeth,1,Antelope Valley,Lake Elizabeth
+Lake Elizabeth,Unincorporated - Elizabeth Lake,1,Antelope Valley,Lake Elizabeth
+Lake Hughes,Lake Hughes,1,Antelope Valley,Lake Hughes
+Lake Hughes,Unincorporated - Lake Hughes,1,Antelope Valley,Lake Hughes
+Lake Los Angeles,Lake Los Angeles,1,Antelope Valley,Lake Los Angeles
+Lake Los Angeles,Unincorporated - Lake Los Angeles,1,Antelope Valley,Lake Los Angeles
+Lancaster,City of Lancaster,1,Antelope Valley,Lancaster
+Lancaster,Lancaster,1,Antelope Valley,Lancaster
+Lancaster,Lancaster,1,Antelope Valley,Lancaster
+Lancaster,Unincorporated - East Lancaster,1,Antelope Valley,Lancaster
+Leona Valley,Leona Valley,1,Antelope Valley,Leona Valley
+Leona Valley,Unincorporated - Leona Valley,1,Antelope Valley,Leona Valley
+Littlerock,Littlerock,1,Antelope Valley,Littlerock
+Littlerock,Littlerock,1,Antelope Valley,Littlerock
+Littlerock,Littlerock,1,Antelope Valley,Littlerock
+Littlerock,Unincorporated - Littlerock,1,Antelope Valley,Littlerock
+Littlerock,Unincorporated - Littlerock/Juniper Hills,1,Antelope Valley,Littlerock
+Littlerock,Unincorporated - Littlerock/Pearblossom,1,Antelope Valley,Littlerock
+Littlerock/Pearblossom,Littlerock/Pearblossom,1,Antelope Valley,Littlerock
+Llano,Llano,1,Antelope Valley,Llano
+Llano,Unincorporated - Llano,1,Antelope Valley,Llano
+Mojave,Mojave,1,Antelope Valley,Mojave
+Mojave,UNMAPPED TO LA CASE BASE,1,Antelope Valley,Mojave
+Monolith,Monolith,1,Antelope Valley,Monolith
+Monolith,UNMAPPED TO LA CASE BASE,1,Antelope Valley,Monolith
+North Edwards,North Edwards,1,Antelope Valley,North Edwards
+North Edwards,UNMAPPED TO LA CASE BASE,1,Antelope Valley,North Edwards
+North Lancaster,North Lancaster,1,Antelope Valley,North Lancaster
+North Lancaster,Unincorporated - North Lancaster,1,Antelope Valley,North Lancaster
+Palmdale,City of Palmdale,1,Antelope Valley,Palmdale
+Palmdale,Palmdale,1,Antelope Valley,Palmdale
+Palmdale,Palmdale,1,Antelope Valley,Palmdale
+Palmdale,Unincorporated - Palmdale,1,Antelope Valley,Palmdale
+Pearblossom,Pearblossom,1,Antelope Valley,Pearblossom
+Pearblossom,Unincorporated - Pearblossom/Llano,1,Antelope Valley,Pearblossom
+Quartz Hill,Quartz Hill,1,Antelope Valley,Quartz Hill
+Quartz Hill,Unincorporated - Quartz Hill,1,Antelope Valley,Quartz Hill
+Randsburg,Randsburg,1,Antelope Valley,Randsburg
+Randsburg,UNMAPPED TO LA CASE BASE,1,Antelope Valley,Randsburg
+Redman,Redman,1,Antelope Valley,Redman
+Redman,UNMAPPED TO LA CASE BASE,1,Antelope Valley,Redman
+Ridgecrest,Ridgecrest,1,Antelope Valley,Ridgecrest
+Ridgecrest,UNMAPPED TO LA CASE BASE,1,Antelope Valley,Ridgecrest
+Rosamond,Rosamond,1,Antelope Valley,Rosamond
+Rosamond,UNMAPPED TO LA CASE BASE,1,Antelope Valley,Rosamond
+Saltdale,Saltdale,1,Antelope Valley,Saltdale
+Saltdale,UNMAPPED TO LA CASE BASE,1,Antelope Valley,Saltdale
+Sandberg,Sandberg,1,Antelope Valley,Sandberg
+Sandberg,UNMAPPED TO LA CASE BASE,1,Antelope Valley,Sandberg
+South Antelope Valley,South Antelope Valley,1,Antelope Valley,South Antelope Valley
+South Antelope Valley,Unincorporated - South Antelope Valley,1,Antelope Valley,South Antelope Valley
+Southeast Antelope Valley,Southeast Antelope Valley,1,Antelope Valley,Southeast Antelope Valley
+Southeast Antelope Valley,Unincorporated - Southeast Antelope Valley,1,Antelope Valley,Southeast Antelope Valley
+Sun Village,Sun Village,1,Antelope Valley,Sun Village
+Sun Village,Unincorporated - Sun Village,1,Antelope Valley,Sun Village
+Tehachapi,Tehachapi,1,Antelope Valley,Tehachapi
+Tehachapi,UNMAPPED TO LA CASE BASE,1,Antelope Valley,Tehachapi
+Valyermo,UNMAPPED TO LA CASE BASE,1,Antelope Valley,Valyermo
+Valyermo,Valyermo,1,Antelope Valley,Valyermo
+West Antelope Valley,Unincorporated - West Antelope Valley,1,Antelope Valley,West Antelope Valley
+West Antelope Valley,West Antelope Valley,1,Antelope Valley,West Antelope Valley
+White Fence Farms,Unincorporated - White Fence Farms,1,Antelope Valley,White Fence Farms
+White Fence Farms,White Fence Farms,1,Antelope Valley,White Fence Farms
+Willow Springs,UNMAPPED TO LA CASE BASE,1,Antelope Valley,Willow Springs
+Willow Springs,Willow Springs,1,Antelope Valley,Willow Springs
+Wilsona Gardens,UNMAPPED TO LA CASE BASE,1,Antelope Valley,Wilsona Gardens
+Wilsona Gardens,Wilsona Gardens,1,Antelope Valley,Wilsona Gardens
+Agoura Hills,Agoura Hills,2,San Fernando Valley,Agoura Hills
+Agoura Hills,City of Agoura Hills,2,San Fernando Valley,Agoura Hills
+Arleta,Arleta,2,San Fernando Valley,Arleta
+Arleta,Los Angeles - Arleta,2,San Fernando Valley,Arleta
+Bouquet Canyon,Bouquet Canyon,2,San Fernando Valley,Bouquet Canyon
+Bouquet Canyon,Unincorporated - Bouquet Canyon,2,San Fernando Valley,Bouquet Canyon
+Burbank,Burbank,2,San Fernando Valley,Burbank
+Burbank,City of Burbank,2,San Fernando Valley,Burbank
+Calabasas,Calabasas,2,San Fernando Valley,Calabasas
+Calabasas,City of Calabasas,2,San Fernando Valley,Calabasas
+Canoga Park,Canoga Park,2,San Fernando Valley,Canoga Park
+Canoga Park,Los Angeles - Canoga Park,2,San Fernando Valley,Canoga Park
+Canyon Country,Canyon Country,2,San Fernando Valley,Canyon Country
+Canyon Country,Unincorporated - Canyon Country,2,San Fernando Valley,Canyon Country
+Castaic,Castaic,2,San Fernando Valley,Castaic
+Castaic,Unincorporated - Castaic,2,San Fernando Valley,Castaic
+Castaic-Val Verde,Castaic-Val Verde,2,San Fernando Valley,Castaic
+Castaic-Val Verde,UNMAPPED TO LA CASE BASE,2,San Fernando Valley,Castaic
+Chatsworth,Chatsworth,2,San Fernando Valley,Chatsworth
+Chatsworth,Los Angeles - Chatsworth,2,San Fernando Valley,Chatsworth
+Encino,Encino,2,San Fernando Valley,Encino
+Encino,Los Angeles - Encino,2,San Fernando Valley,Encino
+Flintridge,Flintridge,2,San Fernando Valley,Flintridge
+Flintridge,UNMAPPED TO LA CASE BASE,2,San Fernando Valley,Flintridge
+Glendale,City of Glendale,2,San Fernando Valley,Glendale
+Glendale,Glendale,2,San Fernando Valley,Glendale
+Granada Hills,Granada Hills,2,San Fernando Valley,Granada Hills
+Granada Hills,Los Angeles - Granada Hills,2,San Fernando Valley,Granada Hills
+Hidden Hills,City of Hidden Hills,2,San Fernando Valley,Hidden Hills
+Hidden Hills,Hidden Hills,2,San Fernando Valley,Hidden Hills
+Kagel/Lopez Canyons,Kagel/Lopez Canyons,2,San Fernando Valley,Kagel/Lopez Canyons
+Kagel/Lopez Canyons,Unincorporated - Kagel/Lopez Canyons,2,San Fernando Valley,Kagel/Lopez Canyons
+La Canada,City of La Canada Flintridge,2,San Fernando Valley,La Canada
+La Canada,La Canada,2,San Fernando Valley,La Canada
+La Canada Flintridge,La Canada Flintridge,2,San Fernando Valley,La Canada
+La Canyon,La Canyon,2,San Fernando Valley,La Canyon
+La Canyon,UNMAPPED TO LA CASE BASE,2,San Fernando Valley,La Canyon
+La Crescenta,La Crescenta,2,San Fernando Valley,La Crescenta
+La Crescenta,Unincorporated - La Crescenta-Montrose,2,San Fernando Valley,La Crescenta
+La Crescenta-Montrose,La Crescenta-Montrose,2,San Fernando Valley,La Crescenta
+Lake Balboa,Lake Balboa,2,San Fernando Valley,Lake Balboa
+Lake Balboa,Los Angeles - Lake Balboa,2,San Fernando Valley,Lake Balboa
+Lake Manor,Lake Manor,2,San Fernando Valley,Lake Manor
+Lake Manor,Unincorporated - Lake Manor,2,San Fernando Valley,Lake Manor
+Lakeview Terrace,Lakeview Terrace,2,San Fernando Valley,Lakeview Terrace
+Lakeview Terrace,Los Angeles - Lakeview Terrace,2,San Fernando Valley,Lakeview Terrace
+Mission Hills,Los Angeles - Mission Hills,2,San Fernando Valley,Mission Hills
+Mission Hills,Mission Hills,2,San Fernando Valley,Mission Hills
+Newhall,Newhall,2,San Fernando Valley,Newhall
+Newhall,Unincorporated - Newhall,2,San Fernando Valley,Newhall
+North Hills,Los Angeles - North Hills,2,San Fernando Valley,North Hills
+North Hills,North Hills,2,San Fernando Valley,North Hills
+North Hollywood,Los Angeles - North Hollywood,2,San Fernando Valley,North Hollywood
+North Hollywood,North Hollywood,2,San Fernando Valley,North Hollywood
+Northridge,Los Angeles - Northridge,2,San Fernando Valley,Northridge
+Northridge,Northridge,2,San Fernando Valley,Northridge
+Oat Mountain,Oat Mountain,2,San Fernando Valley,Oat Mountain
+Oat Mountain,Unincorporated - Twin Lakes/Oat Mountain,2,San Fernando Valley,Oat Mountain
+Pacoima,Los Angeles - Pacoima,2,San Fernando Valley,Pacoima
+Pacoima,Pacoima,2,San Fernando Valley,Pacoima
+Panorama City,Los Angeles - Panorama City,2,San Fernando Valley,Panorama City
+Panorama City,Panorama City,2,San Fernando Valley,Panorama City
+Placerita Canyon,Placerita Canyon,2,San Fernando Valley,Placerita Canyon
+Placerita Canyon,Unincorporated - Placerita Canyon,2,San Fernando Valley,Placerita Canyon
+Porter Ranch,Los Angeles - Porter Ranch,2,San Fernando Valley,Porter Ranch
+Porter Ranch,Porter Ranch,2,San Fernando Valley,Porter Ranch
+Reseda,Los Angeles - Reseda,2,San Fernando Valley,Reseda
+Reseda,Reseda,2,San Fernando Valley,Reseda
+Reseda Ranch,Los Angeles - Reseda Ranch,2,San Fernando Valley,Reseda Ranch
+Reseda Ranch,Reseda Ranch,2,San Fernando Valley,Reseda Ranch
+San Fernando,City of San Fernando,2,San Fernando Valley,San Fernando
+San Fernando,San Fernando,2,San Fernando Valley,San Fernando
+Sand Canyon,Sand Canyon,2,San Fernando Valley,Sand Canyon
+Sand Canyon,Unincorporated - Sand Canyon,2,San Fernando Valley,Sand Canyon
+Santa Clarita,City of Santa Clarita,2,San Fernando Valley,Santa Clarita
+Santa Clarita,Santa Clarita,2,San Fernando Valley,Santa Clarita
+Santa Clarita and Stevenson Ranch,Santa Clarita and Stevenson Ranch,2,San Fernando Valley,Santa Clarita
+Saugus,Saugus,2,San Fernando Valley,Saugus
+Saugus,Saugus,2,San Fernando Valley,Saugus
+Saugus,Unincorporated - Saugus,2,San Fernando Valley,Saugus
+Saugus,Unincorporated - Saugus/Canyon Country,2,San Fernando Valley,Saugus
+Sepulveda,Sepulveda,2,San Fernando Valley,Sepulveda
+Sepulveda,UNMAPPED TO LA CASE BASE,2,San Fernando Valley,Sepulveda
+Shadow Hills,Los Angeles - Shadow Hills,2,San Fernando Valley,Shadow Hills
+Shadow Hills,Shadow Hills,2,San Fernando Valley,Shadow Hills
+Sherman Oaks,Los Angeles - Sherman Oaks,2,San Fernando Valley,Sherman Oaks
+Sherman Oaks,Sherman Oaks,2,San Fernando Valley,Sherman Oaks
+Stevenson Ranch,Stevenson Ranch,2,San Fernando Valley,Stevenson Ranch
+Stevenson Ranch,Unincorporated - Stevenson Ranch,2,San Fernando Valley,Stevenson Ranch
+Studio City,Los Angeles - Studio City,2,San Fernando Valley,Studio City
+Studio City,Studio City,2,San Fernando Valley,Studio City
+Sun Valley,Los Angeles - Sun Valley,2,San Fernando Valley,Sun Valley
+Sun Valley,Sun Valley,2,San Fernando Valley,Sun Valley
+Sunland,Los Angeles - Sunland,2,San Fernando Valley,Sunland
+Sunland,Sunland,2,San Fernando Valley,Sunland
+Sylmar,Los Angeles - Sylmar,2,San Fernando Valley,Sylmar
+Sylmar,Sylmar,2,San Fernando Valley,Sylmar
+Tarzana,Los Angeles - Tarzana,2,San Fernando Valley,Tarzana
+Tarzana,Tarzana,2,San Fernando Valley,Tarzana
+Toluca Lake,Los Angeles - Toluca Lake,2,San Fernando Valley,Toluca Lake
+Toluca Lake,Toluca Lake,2,San Fernando Valley,Toluca Lake
+Toluca Terrace,Los Angeles - Toluca Terrace,2,San Fernando Valley,Toluca Terrace
+Toluca Terrace,Toluca Terrace,2,San Fernando Valley,Toluca Terrace
+Toluca Woods,Los Angeles - Toluca Woods,2,San Fernando Valley,Toluca Woods
+Toluca Woods,Toluca Woods,2,San Fernando Valley,Toluca Woods
+Tugunga,Los Angeles - Tujunga,2,San Fernando Valley,Tugunga
+Tugunga,Tugunga,2,San Fernando Valley,Tugunga
+Tujunga,Tujunga,2,San Fernando Valley,Tugunga
+Twin Lakes/Oat Mountain,Twin Lakes/Oat Mountain,2,San Fernando Valley,Twin Lakes/Oat Mountain
+Universal City,Universal City,2,San Fernando Valley,Universal City
+Universal City,UNMAPPED TO LA CASE BASE,2,San Fernando Valley,Universal City
+Val Verde,Unincorporated - Val Verde,2,San Fernando Valley,Val Verde
+Val Verde,Val Verde,2,San Fernando Valley,Val Verde
+Valencia,Unincorporated - Valencia,2,San Fernando Valley,Valencia
+Valencia,Valencia,2,San Fernando Valley,Valencia
+Valley Glen,Los Angeles - Valley Glen,2,San Fernando Valley,Valley Glen
+Valley Glen,Valley Glen,2,San Fernando Valley,Valley Glen
+Valley Village,Los Angeles - Valley Village,2,San Fernando Valley,Valley Village
+Valley Village,Valley Village,2,San Fernando Valley,Valley Village
+Van Nuys,Los Angeles - Van Nuys,2,San Fernando Valley,Van Nuys
+Van Nuys,Van Nuys,2,San Fernando Valley,Van Nuys
+West Hills,Los Angeles - West Hills,2,San Fernando Valley,West Hills
+West Hills,West Hills,2,San Fernando Valley,West Hills
+Westhills,Unincorporated - Westhills,2,San Fernando Valley,Westhills
+Westhills,Westhills,2,San Fernando Valley,Westhills
+Westlake Village,City of Westlake Village,2,San Fernando Valley,Westlake Village
+Westlake Village,Westlake Village,2,San Fernando Valley,Westlake Village
+Winnetka,Los Angeles - Winnetka,2,San Fernando Valley,Winnetka
+Winnetka,Winnetka,2,San Fernando Valley,Winnetka
+Woodland Hills,Los Angeles - Woodland Hills,2,San Fernando Valley,Woodland Hills
+Woodland Hills,Woodland Hills,2,San Fernando Valley,Woodland Hills
+Alhambra,Alhambra,3,San Gabriel,Alhambra
+Alhambra,City of Alhambra,3,San Gabriel,Alhambra
+Altadena,Altadena,3,San Gabriel,Altadena
+Altadena,Unincorporated - Altadena,3,San Gabriel,Altadena
+Angeles National Forest,Angeles National Forest,3,San Gabriel,Angeles National Forest
+Angeles National Forest,Angeles National Forest,3,San Gabriel,Angeles National Forest
+Angeles National Forest,Los Angeles - Angeles National Forest,3,San Gabriel,Angeles National Forest
+Angeles National Forest,Unincorporated - Angeles National Forest,3,San Gabriel,Angeles National Forest
+Arcadia,Arcadia,3,San Gabriel,Arcadia
+Arcadia,Arcadia,3,San Gabriel,Arcadia
+Arcadia,City of Arcadia,3,San Gabriel,Arcadia
+Arcadia,Unincorporated - Arcadia,3,San Gabriel,Arcadia
+Avocado Heights-Bassett,Avocado Heights-Bassett,3,San Gabriel,Avocado Heights-Bassett
+Avocado Heights-Bassett,Unincorporated - Avocado Heights,3,San Gabriel,Avocado Heights-Bassett
+Azusa,Unincorporated - Azusa,3,San Gabriel,Azuza
+Azusa,Azusa,3,San Gabriel,Azuza
+Azuza,Azuza,3,San Gabriel,Azuza
+Azuza,City of Azuza,3,San Gabriel,Azuza
+Baldwin Hills,Baldwin Hills,3,San Gabriel,Baldwin Hills
+Baldwin Hills,Los Angeles - Baldwin Hills,3,San Gabriel,Baldwin Hills
+Baldwin Park,Baldwin Park,3,San Gabriel,Baldwin Park
+Baldwin Park,City of Baldwin Park,3,San Gabriel,Baldwin Park
+Bassett,Bassett,3,San Gabriel,Bassett
+Bassett,Unincorporated - Bassett,3,San Gabriel,Bassett
+Bradbury,Bradbury,3,San Gabriel,Bradbury
+Bradbury,Bradbury,3,San Gabriel,Bradbury
+Bradbury,City of Bradbury,3,San Gabriel,Bradbury
+Bradbury,Unincorporated - Bradbury,3,San Gabriel,Bradbury
+Charter Oaks Islands,Charter Oaks Islands,3,San Gabriel,Charter Oaks Islands
+Charter Oaks Islands,UNMAPPED TO LA CASE BASE,3,San Gabriel,Charter Oaks Islands
+Citrus,Citrus,3,San Gabriel,Citrus
+Citrus,UNMAPPED TO LA CASE BASE,3,San Gabriel,Citrus
+City of Azusa,City of Azusa,3,San Gabriel,Azuza
+City of Industry,City of Industry,3,San Gabriel,City of Industry
+City of Industry,City of Industry,3,San Gabriel,City of Industry
+Claremont,City of Claremont,3,San Gabriel,Claremont
+Claremont,Claremont,3,San Gabriel,Claremont
+Claremont,Claremont,3,San Gabriel,Claremont
+Claremont,Unincorporated - Claremont,3,San Gabriel,Claremont
+Covina,City of Covina,3,San Gabriel,Covina
+Covina,Covina,3,San Gabriel,Covina
+Covina,Covina,3,San Gabriel,Covina
+Covina,Covina,3,San Gabriel,Covina
+Covina,Covina,3,San Gabriel,Covina
+Covina,Unincorporated - Covina,3,San Gabriel,Covina
+Covina,Unincorporated - Covina (Charter Oak),3,San Gabriel,Covina
+Covina,Unincorporated - East Covina,3,San Gabriel,Covina
+Covina (Charter Oak),Covina (Charter Oak),3,San Gabriel,Covina
+Covina Islands,Covina Islands,3,San Gabriel,Covina Islands
+Covina Islands,UNMAPPED TO LA CASE BASE,3,San Gabriel,Covina Islands
+Diamond Bar,City of Diamond Bar,3,San Gabriel,Diamond Bar
+Diamond Bar,Diamond Bar,3,San Gabriel,Diamond Bar
+Duarte,City of Duarte,3,San Gabriel,Duarte
+Duarte,Duarte,3,San Gabriel,Duarte
+Duarte,Duarte,3,San Gabriel,Duarte
+Duarte,Unincorporated - Duarte,3,San Gabriel,Duarte
+East Pasadena,East Pasadena,3,San Gabriel,East Pasadena
+East Pasadena,Unincorporated - East Pasadena,3,San Gabriel,East Pasadena
+El Monte,City of El Monte,3,San Gabriel,El Monte
+El Monte,El Monte,3,San Gabriel,El Monte
+Elmonte,Elmonte,3,San Gabriel,Elmonte
+Elmonte,Unincorporated - El Monte,3,San Gabriel,Elmonte
+Glendora,City of Glendora,3,San Gabriel,Glendora
+Glendora,Glendora,3,San Gabriel,Glendora
+Glendora,Glendora,3,San Gabriel,Glendora
+Glendora,Unincorporated - Glendora,3,San Gabriel,Glendora
+Hacienda Heights,Hacienda Heights,3,San Gabriel,Hacienda Heights
+Hacienda Heights,Unincorporated - Hacienda Heights,3,San Gabriel,Hacienda Heights
+Industry,Industry,3,San Gabriel,City of Industry
+Irwindale,City of Irwindale,3,San Gabriel,Irwindale
+Irwindale,Irwindale,3,San Gabriel,Irwindale
+La Puente,City of La Puente,3,San Gabriel,La Puente
+La Puente,La Puente,3,San Gabriel,La Puente
+La Verne,City of La Verne,3,San Gabriel,La Verne
+La Verne,La Verne,3,San Gabriel,La Verne
+La Verne,La Verne,3,San Gabriel,La Verne
+La Verne,Unincorporated - La Verne,3,San Gabriel,La Verne
+Monrovia,City of Monrovia,3,San Gabriel,Monrovia
+Monrovia,Monrovia,3,San Gabriel,Monrovia
+Monrovia,Monrovia,3,San Gabriel,Monrovia
+Monrovia,Unincorporated - Monrovia,3,San Gabriel,Monrovia
+Monterey Park,City of Monterey Park,3,San Gabriel,Monterey Park
+Monterey Park,Monterey Park,3,San Gabriel,Monterey Park
+Northeast San Gabriel,Northeast San Gabriel,3,San Gabriel,Northeast San Gabriel
+Northeast San Gabriel,Unincorporated - Northeast San Gabriel,3,San Gabriel,Northeast San Gabriel
+Padua Hills,Padua Hills,3,San Gabriel,Padua Hills
+Padua Hills,Unincorporated - Padua Hills,3,San Gabriel,Padua Hills
+Pamona,Pamona,3,San Gabriel,Pamona
+Pamona,UNMAPPED TO LA CASE BASE,3,San Gabriel,Pamona
+Pasadena,City of Pasadena,3,San Gabriel,Pasadena
+Pasadena,Pasadena,3,San Gabriel,Pasadena
+Pomona,City of Pomona,3,San Gabriel,Pomona
+Pomona,Pomona,3,San Gabriel,Pomona
+Pomona,Pomona,3,San Gabriel,Pomona
+Pomona,Unincorporated - Pomona,3,San Gabriel,Pomona
+Rosemead,City of Rosemead,3,San Gabriel,Rosemead
+Rosemead,Rosemead,3,San Gabriel,Rosemead
+Rowland Heights,Rowland Heights,3,San Gabriel,Rowland Heights
+Rowland Heights,Unincorporated - Rowland Heights,3,San Gabriel,Rowland Heights
+San Dimas,City of San Dimas,3,San Gabriel,San Dimas
+San Dimas,San Dimas,3,San Gabriel,San Dimas
+San Gabriel,City of San Gabriel,3,San Gabriel,San Gabriel
+San Gabriel,San Gabriel,3,San Gabriel,San Gabriel
+San Jose Hills,San Jose Hills,3,San Gabriel,San Jose Hills
+San Jose Hills,Unincorporated - San Jose Hills,3,San Gabriel,San Jose Hills
+San Marino,City of San Marino,3,San Gabriel,San Marino
+San Marino,San Marino,3,San Gabriel,San Marino
+San Pasqual,San Pasqual,3,San Gabriel,San Pasqual
+San Pasqual,Unincorporated - San Pasqual,3,San Gabriel,San Pasqual
+Sierra Madre,City of Sierra Madre,3,San Gabriel,Sierra Madre
+Sierra Madre,Sierra Madre,3,San Gabriel,Sierra Madre
+South El Monte,South El Monte,3,San Gabriel,South El Monte
+South El Monte,Unincorporated - South El Monte,3,San Gabriel,South El Monte
+South Elmonte,City of South El Monte,3,San Gabriel,South El Monte
+South Elmonte,South Elmonte,3,San Gabriel,South El Monte
+South Pasadena,City of South Pasadena,3,San Gabriel,South Pasadena
+South Pasadena,South Pasadena,3,San Gabriel,South Pasadena
+South San Gabriel,South San Gabriel,3,San Gabriel,South San Gabriel
+South San Gabriel,Unincorporated - South San Gabriel,3,San Gabriel,South San Gabriel
+Temple City,City of Temple City,3,San Gabriel,Temple City
+Temple City,Los Angeles - Temple-Beaudry,3,San Gabriel,Temple City
+Temple City,Temple City,3,San Gabriel,Temple City
+Temple City,Temple City,3,San Gabriel,Temple City
+Temple-Beaudry,Temple-Beaudry,3,San Gabriel,Temple City
+Valinda,Unincorporated - Valinda,3,San Gabriel,Valinda
+Valinda,Valinda,3,San Gabriel,Valinda
+Walnut,City of Walnut,3,San Gabriel,Walnut
+Walnut,Walnut,3,San Gabriel,Walnut
+Walnut Park,Unincorporated - Walnut Park,3,San Gabriel,Walnut Park
+Walnut Park,Walnut Park,3,San Gabriel,Walnut Park
+West Covina,City of West Covina,3,San Gabriel,West Covina
+West Covina,West Covina,3,San Gabriel,West Covina
+West Puente Valley,Unincorporated - West Puente Valley,3,San Gabriel,West Puente Valley
+West Puente Valley,West Puente Valley,3,San Gabriel,West Puente Valley
+Angelino Heights,Angelino Heights,4,Metro,Angelino Heights
+Angelino Heights,Los Angeles - Angelino Heights,4,Metro,Angelino Heights
+Atwater Village,Atwater Village,4,Metro,Athens
+Atwater Village,Los Angeles - Atwater Village,4,Metro,Athens
+Boyle Heights,Boyle Heights,4,Metro,Boyle Heights
+Boyle Heights,Los Angeles - Boyle Heights,4,Metro,Boyle Heights
+Brookside,Brookside,4,Metro,Brookside
+Brookside,Los Angeles - Brookside,4,Metro,Brookside
+Carthay,Carthay,4,Metro,Carthay
+Carthay,Los Angeles - Carthay,4,Metro,Carthay
+Central,Central,4,Metro,Central
+Central,Los Angeles - Central,4,Metro,Central
+Chinatown,Chinatown,4,Metro,Chinatown
+Chinatown,Los Angeles - Chinatown,4,Metro,Chinatown
+Country Club Park,Country Club Park,4,Metro,Country Club Park
+Country Club Park,Los Angeles - Country Club Park,4,Metro,Country Club Park
+Downtown,Downtown,4,Metro,Downtown
+Downtown,Los Angeles - Downtown,4,Metro,Downtown
+Eagle Rock,Eagle Rock,4,Metro,Eagle Rock
+Eagle Rock,Los Angeles - Eagle Rock,4,Metro,Eagle Rock
+East Hollywood,East Hollywood,4,Metro,East Hollywood
+East Hollywood,Los Angeles - East Hollywood,4,Metro,East Hollywood
+Echo Park,Echo Park,4,Metro,Echo Park
+Echo Park,Los Angeles - Echo Park,4,Metro,Echo Park
+El Sereno,El Sereno,4,Metro,El Sereno
+El Sereno,Los Angeles - El Sereno,4,Metro,El Sereno
+Elysian Park,Elysian Park,4,Metro,Elysian Park
+Elysian Park,Los Angeles - Elysian Park,4,Metro,Elysian Park
+Elysian Valley,Elysian Valley,4,Metro,Elysian Valley
+Elysian Valley,Los Angeles - Elysian Valley,4,Metro,Elysian Valley
+Faircrest Heights,Faircrest Heights,4,Metro,Faircrest Heights
+Faircrest Heights,Los Angeles - Faircrest Heights,4,Metro,Faircrest Heights
+Glassell Park,Glassell Park,4,Metro,Glassell Park
+Glassell Park,Los Angeles - Glassell Park,4,Metro,Glassell Park
+Hancock Park,Hancock Park,4,Metro,Hancock Park
+Hancock Park,Los Angeles - Hancock Park,4,Metro,Hancock Park
+Harvard Heights,Harvard Heights,4,Metro,Harvard Heights
+Harvard Heights,Los Angeles - Harvard Heights,4,Metro,Harvard Heights
+Highland Park,Highland Park,4,Metro,Highland Park
+Highland Park,Los Angeles - Highland Park,4,Metro,Highland Park
+Historic Filipinotown,Historic Filipinotown,4,Metro,Historic Filipinotown
+Historic Filipinotown,Los Angeles - Historic Filipinotown,4,Metro,Historic Filipinotown
+Hollywood,Hollywood,4,Metro,Hollywood
+Hollywood,Los Angeles - Hollywood,4,Metro,Hollywood
+Hollywood Hills,Hollywood Hills,4,Metro,Hollywood Hills
+Hollywood Hills,Los Angeles - Hollywood Hills,4,Metro,Hollywood Hills
+Korea Town,Korea Town,4,Metro,Korea Town
+Korea Town,Los Angeles - Koreatown,4,Metro,Korea Town
+Koreatown,Koreatown,4,Metro,Korea Town
+Lafayette Square,Lafayette Square,4,Metro,Lafayette Square
+Lafayette Square,Los Angeles - Lafayette Square,4,Metro,Lafayette Square
+Lincoln Heights,Lincoln Heights,4,Metro,Lincoln Heights
+Lincoln Heights,Los Angeles - Lincoln Heights,4,Metro,Lincoln Heights
+Little Armenia,Little Armenia,4,Metro,Little Armenia
+Little Armenia,Los Angeles - Little Armenia,4,Metro,Little Armenia
+Little Bangladesh,Little Bangladesh,4,Metro,Little Bangladesh
+Little Bangladesh,Los Angeles - Little Bangladesh,4,Metro,Little Bangladesh
+Little Tokyo,Little Tokyo,4,Metro,Little Tokyo
+Little Tokyo,Los Angeles - Little Tokyo,4,Metro,Little Tokyo
+Longwood,Longwood,4,Metro,Longwood
+Longwood,Los Angeles - Longwood,4,Metro,Longwood
+Los Angeles (Downtown),Los Angeles (Downtown),4,Metro,Los Angeles (Downtown)
+Los Angeles (Downtown),UNMAPPED TO LA CASE BASE,4,Metro,Los Angeles (Downtown)
+Los Angeles (Mid-City),Los Angeles (Mid-City),4,Metro,Los Angeles (Mid-City)
+Los Angeles (Mid-City),UNMAPPED TO LA CASE BASE,4,Metro,Los Angeles (Mid-City)
+Los Feliz,Los Angeles - Los Feliz,4,Metro,Los Feliz
+Los Feliz,Los Feliz,4,Metro,Los Feliz
+Melrose,Los Angeles - Melrose,4,Metro,Melrose
+Melrose,Melrose,4,Metro,Melrose
+Mid-city,Los Angeles - Mid-city,4,Metro,Mid-city
+Mid-city,Mid-city,4,Metro,Mid-city
+Miracle Mile,Los Angeles - Miracle Mile,4,Metro,Miracle Mile
+Miracle Mile,Miracle Mile,4,Metro,Miracle Mile
+Monterey Hills,Monterey Hills,4,Metro,Monterey Hills
+Monterey Hills,UNMAPPED TO LA CASE BASE,4,Metro,Monterey Hills
+Mount Olympus,Mount Olympus,4,Metro,Mount Olympus
+Mount Olympus,UNMAPPED TO LA CASE BASE,4,Metro,Mount Olympus
+Mount Washington,Los Angeles - Mt. Washington,4,Metro,Mount Washington
+Mount Washington,Mount Washington,4,Metro,Mount Washington
+Mt. Washington,Mt. Washington,4,Metro,Mount Washington
+Park La Brea,Los Angeles - Park La Brea,4,Metro,Park La Brea
+Park La Brea,Park La Brea,4,Metro,Park La Brea
+Pico-Union,Los Angeles - Pico-Union,4,Metro,Pico-Union
+Pico-Union,Pico-Union,4,Metro,Pico-Union
+Silver Lake,Silver Lake,4,Metro,Silverlake
+Silverlake,Los Angeles - Silverlake,4,Metro,Silverlake
+Silverlake,Silverlake,4,Metro,Silverlake
+South Carthay,Los Angeles - South Carthay,4,Metro,South Carthay
+South Carthay,South Carthay,4,Metro,South Carthay
+South Park,Los Angeles - South Park,4,Metro,South Park
+South Park,South Park,4,Metro,South Park
+St Elmo Village,Los Angeles - St Elmo Village,4,Metro,St Elmo Village
+St Elmo Village,St Elmo Village,4,Metro,St Elmo Village
+Sycamore Square,Los Angeles - Sycamore Square,4,Metro,Sycamore Square
+Sycamore Square,Sycamore Square,4,Metro,Sycamore Square
+Thai Town,Los Angeles - Thai Town,4,Metro,Thai Town
+Thai Town,Thai Town,4,Metro,Thai Town
+University Hills,Los Angeles - University Hills,4,Metro,University Hills
+University Hills,University Hills,4,Metro,University Hills
+University Park,Los Angeles - University Park,4,Metro,University Park
+University Park,University Park,4,Metro,University Park
+Victoria Park,Los Angeles - Victoria Park,4,Metro,Victoria Park
+Victoria Park,Victoria Park,4,Metro,Victoria Park
+Wellington Square,Los Angeles - Wellington Square,4,Metro,Wellington Square
+Wellington Square,Wellington Square,4,Metro,Wellington Square
+West Hollywood,City of West Hollywood,4,Metro,West Hollywood
+West Hollywood,West Hollywood,4,Metro,West Hollywood
+Westlake,Los Angeles - Westlake,4,Metro,Westlake
+Westlake,Westlake,4,Metro,Westlake
+Wholesale District,Los Angeles - Wholesale District,4,Metro,Wholesale District
+Wholesale District,Wholesale District,4,Metro,Wholesale District
+Wilshire Center,Los Angeles - Wilshire Center,4,Metro,Wilshire Center
+Wilshire Center,Wilshire Center,4,Metro,Wilshire Center
+Alsace,Alsace,5,West Los Angeles,Alsace
+Alsace,Los Angeles - Alsace,5,West Los Angeles,Alsace
+Bel Air,Bel Air,5,West Los Angeles,Bel Air
+"Bel Air 
+","Bel Air 
+",5,West Los Angeles,Bel Air
+"Bel Air 
+",Los Angeles - Bel Air,5,West Los Angeles,Bel Air
+Beverly Crest,Beverly Crest,5,West Los Angeles,Beverly Crest
+Beverly Crest,Los Angeles - Beverly Crest,5,West Los Angeles,Beverly Crest
+Beverly Hills,Beverly Hills,5,West Los Angeles,Beverly Hills
+Beverly Hills,City of Beverly Hills,5,West Los Angeles,Beverly Hills
+Beverlywood,Beverlywood,5,West Los Angeles,Beverlywood
+Beverlywood,Los Angeles - Beverlywood,5,West Los Angeles,Beverlywood
+Brentwood,Brentwood,5,West Los Angeles,Brentwood
+Brentwood,Los Angeles - Brentwood,5,West Los Angeles,Brentwood
+Cadillac-Corning,Cadillac-Corning,5,West Los Angeles,Cadillac-Corning
+Cadillac-Corning,Los Angeles - Cadillac-Corning,5,West Los Angeles,Cadillac-Corning
+Century City,Century City,5,West Los Angeles,Century City
+Century City,Los Angeles - Century City,5,West Los Angeles,Century City
+Cheviot Hills,Cheviot Hills,5,West Los Angeles,Cheviot Hills
+Cheviot Hills,Los Angeles - Cheviot Hills,5,West Los Angeles,Cheviot Hills
+Cloverdale/Cochran,Cloverdale/Cochran,5,West Los Angeles,Cloverdale/Cochran
+Cloverdale/Cochran,Los Angeles - Cloverdale/Cochran,5,West Los Angeles,Cloverdale/Cochran
+Crestview,Crestview,5,West Los Angeles,Crestview
+Crestview,Los Angeles - Crestview,5,West Los Angeles,Crestview
+Culver City,City of Culver City,5,West Los Angeles,Culver City
+Culver City,Culver City,5,West Los Angeles,Culver City
+Del Rey,Del Rey,5,West Los Angeles,Del Rey
+Del Rey,Del Rey,5,West Los Angeles,Del Rey
+Del Rey,Los Angeles - Del Rey,5,West Los Angeles,Del Rey
+Del Rey,Unincorporated - Del Rey,5,West Los Angeles,Del Rey
+"La Pacific Palisaids 
+","La Pacific Palisaids 
+",5,West Los Angeles,Pacific Palisades
+"La Pacific Palisaids 
+",UNMAPPED TO LA CASE BASE,5,West Los Angeles,Pacific Palisades
+Ladera Heights,Ladera Heights,5,West Los Angeles,Ladera Heights
+Ladera Heights,Unincorporated - Ladera Heights,5,West Los Angeles,Ladera Heights
+Malibu,City of Malibu,5,West Los Angeles,Malibu
+Malibu,Malibu,5,West Los Angeles,Malibu
+Mandeville Canyon,Los Angeles - Mandeville Canyon,5,West Los Angeles,Mandeville Canyon
+Mandeville Canyon,Mandeville Canyon,5,West Los Angeles,Mandeville Canyon
+Mar Vista,Los Angeles - Mar Vista,5,West Los Angeles,Mar Vista
+Mar Vista,Mar Vista,5,West Los Angeles,Mar Vista
+Marina Del Rey,Marina Del Rey,5,West Los Angeles,Marina Del Rey
+Marina del Rey,Marina del Rey,5,West Los Angeles,Marina Del Rey
+Marina Del Rey,Unincorporated - Marina del Rey,5,West Los Angeles,Marina Del Rey
+Marina Peninsula,Los Angeles - Marina Peninsula,5,West Los Angeles,Marina Peninsula
+Marina Peninsula,Marina Peninsula,5,West Los Angeles,Marina Peninsula
+Pacific Palisades,Los Angeles - Pacific Palisades,5,West Los Angeles,Pacific Palisades
+Pacific Palisades,Pacific Palisades,5,West Los Angeles,Pacific Palisades
+Palisades Highlands,Los Angeles - Palisades Highlands,5,West Los Angeles,Palisades Highlands
+Palisades Highlands,Palisades Highlands,5,West Los Angeles,Palisades Highlands
+Palms,Los Angeles - Palms,5,West Los Angeles,Palms
+Palms,Palms,5,West Los Angeles,Palms
+Playa del Rey,Los Angeles - Playa Del Rey,5,West Los Angeles,Playa Del Rey
+Playa del Rey,Playa del Rey,5,West Los Angeles,Playa Del Rey
+Playa Del Rey,Playa Del Rey,5,West Los Angeles,Playa Del Rey
+Playa Vista,Los Angeles - Playa Vista,5,West Los Angeles,Playa Vista
+Playa Vista,Playa Vista,5,West Los Angeles,Playa Vista
+Rancho Park,Los Angeles - Rancho Park,5,West Los Angeles,Rancho Park
+Rancho Park,Rancho Park,5,West Los Angeles,Rancho Park
+Reynier Village,Los Angeles - Reynier Village,5,West Los Angeles,Reynier Village
+Reynier Village,Reynier Village,5,West Los Angeles,Reynier Village
+Santa Monica,City of Santa Monica,5,West Los Angeles,Santa Monica
+Santa Monica,Santa Monica,5,West Los Angeles,Santa Monica
+Santa Monica,Santa Monica,5,West Los Angeles,Santa Monica
+Santa Monica,Unincorporated - Santa Monica Mountains,5,West Los Angeles,Santa Monica
+Santa Monica Mountains,Santa Monica Mountains,5,West Los Angeles,Santa Monica Mountains
+Unincorporated West LA,Unincorporated West LA,5,West Los Angeles,Unincorporated West LA
+Venice,Los Angeles - Venice,5,West Los Angeles,Venice
+Venice,Venice,5,West Los Angeles,Venice
+West LA,Unincorporated - West LA,5,West Los Angeles,West LA
+West LA,West LA,5,West Los Angeles,West LA
+West Los Angeles,Los Angeles - West Los Angeles,5,West Los Angeles,West Los Angeles
+West Los Angeles,West Los Angeles,5,West Los Angeles,West Los Angeles
+Westchester,Los Angeles - Westchester,5,West Los Angeles,Westchester
+Westchester,Westchester,5,West Los Angeles,Westchester
+Westwood,Los Angeles - Westwood,5,West Los Angeles,Westwood
+Westwood,Westwood,5,West Los Angeles,Westwood
+Adams-Normandie,Adams-Normandie,6,South,Adams-Normandie
+Adams-Normandie,Los Angeles - Adams-Normandie,6,South,Adams-Normandie
+Athens,Athens,6,South,Athens
+Athens Village,Athens Village,6,South,Athens
+Athens Westmont,Athens Westmont,6,South,Athens
+Athens-Westmont,Athens-Westmont,6,South,Athens
+Athens,UNMAPPED TO LA CASE BASE,6,South,Athens
+Athens Village,Unincorporated - Athens Village,6,South,Athens
+Athens Westmont,Unincorporated - Athens-Westmont,6,South,Athens
+Century Palms,Century Palms,6,South,Century Palms
+Century Palms,Los Angeles - Century Palms/Cove,6,South,Century Palms
+Century Palms/Cove,Century Palms/Cove,6,South,Century Palms
+Compton,City of Compton,6,South,Compton
+Compton,Compton,6,South,Compton
+Crenshaw,Crenshaw,6,South,Crenshaw
+Crenshaw,Los Angeles - Crenshaw District,6,South,Crenshaw
+Crenshaw District,Crenshaw District,6,South,Crenshaw
+East Gardena,East Gardena,6,South,East Gardena
+East Gardena,Unincorporated - Rosewood/East Gardena,6,South,East Gardena
+East Rancho Dominguez,East Rancho Dominguez,6,South,East Rancho Dominguez
+East Rancho Dominguez,Unincorporated - East Rancho Dominguez,6,South,East Rancho Dominguez
+Exposition Park,Exposition Park,6,South,Exposition Park
+Exposition Park,Exposition Park,6,South,Exposition Park
+Exposition Park,Los Angeles - Exposition,6,South,Exposition Park
+Exposition Park,Los Angeles - Exposition Park,6,South,Exposition Park
+Figueroa Park Square,Figueroa Park Square,6,South,Figueroa Park Square
+Figueroa Park Square,Los Angeles - Figueroa Park Square,6,South,Figueroa Park Square
+Florence,Florence,6,South,Florence
+Florence,Florence,6,South,Florence
+Florence,Los Angeles - Florence-Firestone,6,South,Florence
+Florence,Unincorporated - Florence-Firestone,6,South,Florence
+Florence-Firestone,Florence-Firestone,6,South,Florence
+Gramercy Place,Gramercy Place,6,South,Gramercy Place
+Gramercy Place,Los Angeles - Gramercy Place,6,South,Gramercy Place
+Green Meadows,Green Meadows,6,South,Green Meadows
+Green Meadows,Los Angeles - Green Meadows,6,South,Green Meadows
+Harvard Park,Harvard Park,6,South,Harvard Park
+Harvard Park,Los Angeles - Harvard Park,6,South,Harvard Park
+Hyde Park,Hyde Park,6,South,Hyde Park
+Hyde Park,Los Angeles - Hyde Park,6,South,Hyde Park
+Jefferson Park,Jefferson Park,6,South,Jefferson Park
+Jefferson Park,Los Angeles - Jefferson Park,6,South,Jefferson Park
+Leimert Park,Leimert Park,6,South,Leimert Park
+Leimert Park,Los Angeles - Leimert Park,6,South,Leimert Park
+Lynwood,City of Lynwood,6,South,Lynwood
+Lynwood,Lynwood,6,South,Lynwood
+Manchester Square,Los Angeles - Manchester Square,6,South,Manchester Square
+Manchester Square,Manchester Square,6,South,Manchester Square
+Paramount,City of Paramount,6,South,Paramount
+Paramount,Paramount,6,South,Paramount
+Rancho Dominguez,Rancho Dominguez,6,South,Rancho Dominguez
+Rancho Dominguez,Unincorporated - Rancho Dominguez,6,South,Rancho Dominguez
+Rosewood,Rosewood,6,South,Rosewood
+Rosewood,Unincorporated - Rosewood,6,South,Rosewood
+Unincorporated Florence-Firestone,Unincorporated Florence-Firestone,6,South,Florence
+Vermont Knolls,Los Angeles - Vermont Knolls,6,South,Vermont Knolls
+Vermont Knolls,Vermont Knolls,6,South,Vermont Knolls
+Vermont Square,Los Angeles - Vermont Square,6,South,Vermont Square
+Vermont Square,Vermont Square,6,South,Vermont Square
+Vermont Vista,Los Angeles - Vermont Vista,6,South,Vermont Vista
+Vermont Vista,Vermont Vista,6,South,Vermont Vista
+View Heights,Los Angeles - View Heights,6,South,View Heights
+View Heights,View Heights,6,South,View Heights
+View Park,Unincorporated - View Park/Windsor Hills,6,South,View Park
+View Park,View Park,6,South,View Park
+View Park/Windsor Hills,View Park/Windsor Hills,6,South,View Park
+Watts,Los Angeles - Watts,6,South,Watts
+Watts,Watts,6,South,Watts
+West Adams,Los Angeles - West Adams,6,South,West Adams
+West Adams,West Adams,6,South,West Adams
+West Rancho Dominguez,Unincorporated - Rosewood/West Rancho Dominguez,6,South,West Rancho Dominguez
+West Rancho Dominguez,Unincorporated - West Rancho Dominguez,6,South,West Rancho Dominguez
+West Rancho Dominguez,West Rancho Dominguez,6,South,West Rancho Dominguez
+West Rancho Dominguez,West Rancho Dominguez,6,South,West Rancho Dominguez
+Willowbrook,Unincorporated - Willowbrook,6,South,Willowbrook
+Willowbrook,Willowbrook,6,South,Willowbrook
+Windsor Hills,UNMAPPED TO LA CASE BASE,6,South,Windsor Hills
+Windsor Hills,Windsor Hills,6,South,Windsor Hills
+Artesia,Artesia,7,East,Artesia
+Artesia,City of Artesia,7,East,Artesia
+Bell,Bell,7,East,Bell
+Bell,City of Bell,7,East,Bell
+Bell Gardens,Bell Gardens,7,East,Bell Gardens
+Bell Gardens,City of Bell Gardens,7,East,Bell Gardens
+Bellflower,Bellflower,7,East,Bellflower
+Bellflower,City of Bellflower,7,East,Bellflower
+Cerritos,Cerritos,7,East,Cerritos
+Cerritos,Cerritos,7,East,Cerritos
+Cerritos,City of Cerritos,7,East,Cerritos
+Cerritos,Unincorporated - Cerritos,7,East,Cerritos
+City of Commerce,City of Commerce,7,East,City of Commerce
+City of Commerce,City of Commerce,7,East,City of Commerce
+Commerce,Commerce,7,East,City of Commerce
+Cudahy,City of Cudahy,7,East,Cudahy
+Cudahy,Cudahy,7,East,Cudahy
+Downey,City of Downey,7,East,Downey
+Downey,Downey,7,East,Downey
+East La Mirada,East La Mirada,7,East,East La Mirada
+East Los Angeles,East Los Angeles,7,East,East Los Angeles
+East Los Angeles,Unincorporated - East Los Angeles,7,East,East Los Angeles
+East Whittier,East Whittier,7,East,East Whittier
+East Whittier,Unincorporated - East Whittier,7,East,East Whittier
+Hawaiian Gardens,City of Hawaiian Gardens,7,East,Hawaiian Gardens
+Hawaiian Gardens,Hawaiian Gardens,7,East,Hawaiian Gardens
+Huntington Park,City of Huntington Park,7,East,Huntington Park
+Huntington Park,Huntington Park,7,East,Huntington Park
+La Habra Heights,City of La Habra Heights,7,East,La Habra Heights
+La Habra Heights,La Habra Heights,7,East,La Habra Heights
+La Habra Heights,La Habra Heights,7,East,La Habra Heights
+La Habra Heights,Unincorporated - La Habra Heights,7,East,La Habra Heights
+La Mirada,City of La Mirada,7,East,La Mirada
+La Mirada,La Mirada,7,East,La Mirada
+La Mirada,La Mirada,7,East,La Mirada
+La Mirada,Unincorporated - East La Mirada,7,East,La Mirada
+Lakewood,City of Lakewood,7,East,Lakewood
+Lakewood,Lakewood,7,East,Lakewood
+Lakewood,Lakewood,7,East,Lakewood
+Lakewood,Unincorporated - Lakewood,7,East,Lakewood
+Maywood,City of Maywood,7,East,Maywood
+Maywood,Maywood,7,East,Maywood
+Montebello,City of Montebello,7,East,Montebello
+Montebello,Montebello,7,East,Montebello
+North Whittier,North Whittier,7,East,North Whittier
+North Whittier,Unincorporated - North Whittier,7,East,North Whittier
+Norwalk,City of Norwalk,7,East,Norwalk
+Norwalk,Norwalk,7,East,Norwalk
+Pellissier Village Equestrian District,Pellissier Village Equestrian District,7,East,Pellissier Village Equestrian District
+Pellissier Village Equestrian District,Unincorporated - Pellissier Village,7,East,Pellissier Village Equestrian District
+Pico,Pico,7,East,Pico
+Pico Rivera,City of Pico Rivera,7,East,Pico Rivera
+Pico Rivera,Pico Rivera,7,East,Pico Rivera
+Santa Fe Springs,City of Santa Fe Springs,7,East,Santa Fe Springs
+Santa Fe Springs,Santa Fe Springs,7,East,Santa Fe Springs
+Signal Hill,City of Signal Hill,7,East,Signal Hill
+Signal Hill,Signal Hill,7,East,Signal Hill
+South Gate,City of South Gate,7,East,South Gate
+South Gate,South Gate,7,East,South Gate
+South Whittier,South Whittier,7,East,South Whittier
+South Whittier,Unincorporated - South Whittier,7,East,South Whittier
+Vernon,City of Vernon,7,East,Vernon
+Vernon,Vernon,7,East,Vernon
+Vernon Central,Los Angeles - Vernon Central,7,East,Vernon Central
+Vernon Central,Vernon Central,7,East,Vernon Central
+West Vernon,Los Angeles - West Vernon,7,East,West Vernon
+West Vernon,West Vernon,7,East,West Vernon
+West Whittier,Unincorporated - West Whittier/Los Nietos,7,East,West Whittier
+West Whittier,West Whittier,7,East,West Whittier
+West Whittier/Los Nietos,West Whittier/Los Nietos,7,East,West Whittier
+Whittier,City of Whittier,7,East,Whittier
+Whittier,Unincorporated - Whittier,7,East,Whittier
+Whittier,Whittier,7,East,Whittier
+Whittier,Whittier,7,East,Whittier
+Avalon,Avalon,8,South Bay,Avalon
+Avalon,City of Avalon,8,South Bay,Avalon
+Carson,Carson,8,South Bay,Carson
+Carson,City of Carson,8,South Bay,Carson
+Catalina Island,Catalina Island,8,South Bay,Catalina Island
+Catalina Island,Unincorporated - Santa Catalina Island,8,South Bay,Catalina Island
+Channel Islands,Channel Islands,8,South Bay,Channel Islands
+Channel Islands,UNMAPPED TO LA CASE BASE,8,South Bay,Channel Islands
+Del Aire,Del Aire,8,South Bay,Del Aire
+Del Aire,Unincorporated - Del Aire,8,South Bay,Del Aire
+El Camino Village,El Camino Village,8,South Bay,El Camino Village
+El Camino Village,Unincorporated - El Camino Village,8,South Bay,El Camino Village
+El Segundo,City of El Segundo,8,South Bay,El Segundo
+El Segundo,El Segundo,8,South Bay,El Segundo
+Gardena,City of Gardena,8,South Bay,Gardena
+Gardena,Gardena,8,South Bay,Gardena
+Gardena Palos,Gardena Palos,8,South Bay,Gardena
+Gardena Palos,UNMAPPED TO LA CASE BASE,8,South Bay,Gardena
+Harbor City,Harbor City,8,South Bay,Harbor City
+Harbor City,Los Angeles - Harbor City,8,South Bay,Harbor City
+Harbor Gateway,Harbor Gateway,8,South Bay,Harbor Gateway
+Harbor Gateway,Los Angeles - Harbor Gateway,8,South Bay,Harbor Gateway
+Harbor Pines,Harbor Pines,8,South Bay,Harbor Pines
+Harbor Pines,Los Angeles - Harbor Pines,8,South Bay,Harbor Pines
+Hawthorne,City of Hawthorne,8,South Bay,Hawthorne
+Hawthorne,Hawthorne,8,South Bay,Hawthorne
+Hawthorne Ranch,Hawthorne Ranch,8,South Bay,Hawthorne
+Hawthorne Ranch,Unincorporated - Hawthorne,8,South Bay,Hawthorne
+Hermosa Beach,City of Hermosa Beach,8,South Bay,Hermosa Beach
+Hermosa Beach,Hermosa Beach,8,South Bay,Hermosa Beach
+Inglewood,City of Inglewood,8,South Bay,Inglewood
+Inglewood,Inglewood,8,South Bay,Inglewood
+La Rambla,La Rambla,8,South Bay,La Rambla
+La Rambla,Unincorporated - La Rambla,8,South Bay,La Rambla
+Lawndale,City of Lawndale,8,South Bay,Lawndale
+Lawndale,Lawndale,8,South Bay,Lawndale
+Lennox,Lennox,8,South Bay,Lennox
+Lennox,Unincorporated - Lennox,8,South Bay,Lennox
+Lomita,City of Lomita,8,South Bay,Lomita
+Lomita,Lomita,8,South Bay,Lomita
+Long Beach,City of Long Beach,8,South Bay,Long Beach
+Long Beach,Long Beach,8,South Bay,Long Beach
+Long Beach,Long Beach,8,South Bay,Long Beach
+Long Beach,Unincorporated - Long Beach,8,South Bay,Long Beach
+Manhattan Beach,City of Manhattan Beach,8,South Bay,Manhattan Beach
+Manhattan Beach,Manhattan Beach,8,South Bay,Manhattan Beach
+Naples,Naples,8,South Bay,Naples
+Naples,UNMAPPED TO LA CASE BASE,8,South Bay,Naples
+Palos Verdes,City of Palos Verdes Estates,8,South Bay,Palos Verdes
+Palos Verdes,Palos Verdes,8,South Bay,Palos Verdes
+Palos Verdes Estates,Palos Verdes Estates,8,South Bay,Palos Verdes Estates
+Palos Verdes Estates,Unincorporated - Westfield/Academy Hills,8,South Bay,Palos Verdes Estates
+Palos Verdes Peninsula,Palos Verdes Peninsula,8,South Bay,Palos Verdes Peninsula
+Palos Verdes Peninsula,Unincorporated - Palos Verdes Peninsula,8,South Bay,Palos Verdes Peninsula
+Rancho Palos Verdes,City of Rancho Palos Verdes,8,South Bay,Rancho Palos Verdes
+Rancho Palos Verdes,Rancho Palos Verdes,8,South Bay,Rancho Palos Verdes
+Redondo Beach,City of Redondo Beach,8,South Bay,Redondo Beach
+Redondo Beach,Redondo Beach,8,South Bay,Redondo Beach
+Regent Square,Los Angeles - Regent Square,8,South Bay,Regent Square
+Regent Square,Regent Square,8,South Bay,Regent Square
+Rolling Hills,City of Rolling Hills,8,South Bay,Rolling Hills
+Rolling Hills,Rolling Hills,8,South Bay,Rolling Hills
+Rolling Hills Estates,City of Rolling Hills Estates,8,South Bay,Rolling Hills Estates
+Rolling Hills Estates,Rolling Hills Estates,8,South Bay,Rolling Hills Estates
+Roosevelt,Roosevelt,8,South Bay,Roosevelt
+Roosevelt,Unincorporated - Roosevelt,8,South Bay,Roosevelt
+San Pedro,Los Angeles - San Pedro,8,South Bay,San Pedro
+San Pedro,San Pedro,8,South Bay,San Pedro
+Santa Catalina Island,Santa Catalina Island,8,South Bay,Catalina Island
+Torrance,City of Torrance,8,South Bay,Torrance
+Torrance,Torrance,8,South Bay,Torrance
+Verdes Estates,UNMAPPED TO LA CASE BASE,8,South Bay,Verdes Estates
+Verdes Estates,Verdes Estates,8,South Bay,Verdes Estates
+West Carson,Unincorporated - West Carson,8,South Bay,West Carson
+West Carson,West Carson,8,South Bay,West Carson
+Wilmington,Los Angeles - Wilmington,8,South Bay,Wilmington
+Wilmington,Wilmington,8,South Bay,Wilmington
+Wiseburn,Unincorporated - Wiseburn,8,South Bay,Wiseburn
+Wiseburn,Wiseburn,8,South Bay,Wiseburn
+,Unincorporated - Sunrise Village,SPA TBD,,
+Los Angeles,Los Angeles,Total,Total,Los Angeles
+Los Angeles,UNMAPPED TO LA CASE BASE,Total,Total,Los Angeles
+Under Investigation,Under Investigation,Under Investigation,Under Investigation,Under Investigation
+,- Under Investigation,Under Investigation,Under Investigation,Under Investigation
+,Under Investigation,Under Investigation,Under Investigation,Under Investigation
+Smaller Los Angeles neighborhoods,Smaller Los Angeles neighborhoods,,,Smaller Los Angeles neighborhoods
