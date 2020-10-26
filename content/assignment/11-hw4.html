@@ -3,6 +3,7 @@ title: "Assignment 04 - HPC and SQL"
 output: tufte::tufte_html
 ---
 
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 
 <div id="due-date" class="section level2">
@@ -94,5 +95,39 @@ system.time({
 </div>
 <div id="sql" class="section level2">
 <h2>SQL</h2>
-<p>TBD</p>
+<p>Setup a temporary database by running the following chunk</p>
+<pre class="r"><code># install.packages(c(&quot;RSQLite&quot;, &quot;DBI&quot;))
+
+library(RSQLite)
+library(DBI)
+
+# Initialize a temporary in memory database
+con &lt;- dbConnect(SQLite(), &quot;:memory:&quot;)
+
+# Download tables
+film &lt;- read.csv(&quot;https://raw.githubusercontent.com/ivanceras/sakila/master/csv-sakila-db/film.csv&quot;)
+film_category &lt;- read.csv(&quot;https://raw.githubusercontent.com/ivanceras/sakila/master/csv-sakila-db/film_category.csv&quot;)
+category &lt;- read.csv(&quot;https://raw.githubusercontent.com/ivanceras/sakila/master/csv-sakila-db/category.csv&quot;)
+
+# Copy data.frames to database
+dbWriteTable(con, &quot;film&quot;, film)
+dbWriteTable(con, &quot;film_category&quot;, film_category)
+dbWriteTable(con, &quot;category&quot;, category)</code></pre>
+<p>When you write a new chunk, remember to replace the <code>r</code> with <code>sql, connection=con</code>. Some of these questions will reqruire you to use an inner join. Read more about them here <a href="https://www.w3schools.com/sql/sql_join_inner.asp" class="uri">https://www.w3schools.com/sql/sql_join_inner.asp</a></p>
+</div>
+<div id="question-1" class="section level2">
+<h2>Question 1</h2>
+<p>How many many movies is there avaliable in each <code>rating</code> catagory.</p>
+</div>
+<div id="question-2" class="section level2">
+<h2>Question 2</h2>
+<p>What is the average replacement cost and rental rate for each <code>rating</code> category.</p>
+</div>
+<div id="question-3" class="section level2">
+<h2>Question 3</h2>
+<p>Use table <code>film_category</code> together with <code>film</code> to find the how many films there are witth each category ID</p>
+</div>
+<div id="question-4" class="section level2">
+<h2>Question 4</h2>
+<p>Incorporate table <code>category</code> into the answer to the previous question to find the name of the most popular category.</p>
 </div>
