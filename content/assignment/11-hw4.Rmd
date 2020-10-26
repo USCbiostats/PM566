@@ -18,7 +18,7 @@ Rewrite the following R functions to make them faster. It is OK (and recommended
 # Total row sums
 fun1 <- function(mat) {
   n <- nrow(mat)
-  ans <- double(n)
+  ans <- double(n) 
   for (i in 1:n) {
     ans[i] <- sum(mat[i, ])
   }
