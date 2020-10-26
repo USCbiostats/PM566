@@ -5,7 +5,7 @@ output: tufte::tufte_html
 
 ## Due Date
 
-October 28, 2020 by midnight Pacific time.
+~~October 28~~ November 4th, 2020 by midnight Pacific time.
 
 The learning objectives are to conduct data scraping and perform text mining.
 

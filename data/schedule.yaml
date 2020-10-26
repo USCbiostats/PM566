@@ -64,13 +64,13 @@ lessons:
     date: "Week 11 (10/28)"
     class: "11-class"
     reading: "11-reading"
-    assignment: "11-hw4"
+    assignment: ""
 
   - title: "Final project workshop: review project progress, preliminary presentations"
     date: "Week 12 (11/4)"
     class: "12-class"
     reading: "12-reading"
-    assignment: ""
+    assignment: "11-hw4"
 
   - title: "Interactive visualization and effective data communication II"
     date: "Week 13 (11/11)"
