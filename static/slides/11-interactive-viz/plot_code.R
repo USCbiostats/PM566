@@ -1,10 +1,7 @@
-## COVID-2019 interactive mapping tool
-## Edward Parker, London School of Hygiene & Tropical Medicine (edward.parker@lshtm.ac.uk), last updated April 2020
-
 ## includes code adapted from the following sources:
-# https://github.com/rstudio/shiny-examples/blob/master/087-crandash/
-# https://rviews.rstudio.com/2019/10/09/building-interactive-world-maps-in-shiny/
-# https://github.com/rstudio/shiny-examples/tree/master/063-superzip-example
+# https://github.com/
+
+setwd("/Users/abigailhorn/Documents/GitHub/PM566/static/slides/11-interactive-viz")
 
 # update data with automated script
 source("ny_data_us.R") # run locally to update numbers, but not live on Rstudio server (to avoid possible errors on auto-updates)
@@ -22,10 +19,6 @@ if(!require(RColorBrewer)) install.packages("RColorBrewer", repos = "http://cran
 if(!require(leaflet)) install.packages("leaflet", repos = "http://cran.us.r-project.org")
 if(!require(plotly)) install.packages("plotly", repos = "http://cran.us.r-project.org")
 if(!require(geojsonio)) install.packages("geojsonio", repos = "http://cran.us.r-project.org")
-if(!require(shiny)) install.packages("shiny", repos = "http://cran.us.r-project.org")
-if(!require(shinyWidgets)) install.packages("shinyWidgets", repos = "http://cran.us.r-project.org")
-if(!require(shinydashboard)) install.packages("shinydashboard", repos = "http://cran.us.r-project.org")
-if(!require(shinythemes)) install.packages("shinythemes", repos = "http://cran.us.r-project.org")
 
 # set mapping colour for each outbreak
 covid_col = "#cc4c02"
@@ -34,10 +27,18 @@ covid_other_col = "#662506"
 # import data
 cv_states = read.csv("input_data/coronavirus_states.csv")
 
-# todays date
+# add to datasets
 cv_states$date = as.Date(cv_states$date, format="%Y-%m-%d")
+cv_states = cv_states %>% mutate(naive_CFR = round((deaths*100/cases),2))
 cv_states_today = subset(cv_states, date==max(cv_states$date)) %>% mutate(naive_CFR = round((deaths*100 / cases),2)) 
 current_date = as.Date(max(cv_states$date),"%Y-%m-%d")
+
+
+#######################################################################################################################################
+#######################################################################################################################################
+
+
+
 
 # assign colours to countries to ensure consistency between plots
 # cls = rep(c(brewer.pal(8,"Dark2"), brewer.pal(10, "Paired"), brewer.pal(12, "Set3"), brewer.pal(8,"Set2"), brewer.pal(9, "Set1"), brewer.pal(8, "Accent"),  brewer.pal(9, "Pastel1"),  brewer.pal(8, "Pastel2")),4)
@@ -45,13 +46,6 @@ current_date = as.Date(max(cv_states$date),"%Y-%m-%d")
 # country_cols = cls[1:length(cls_names)]
 # names(country_cols) = cls_names
 
-
-plot_ly(cv_states, x = ~date, color = ~cases)
-
-layout(
-  plot_ly(cv_states, x = ~new_cases),
-  title = "My beatiful histogram"
-)
 
 cv_states %>%
   filter(state=="California") %>% 

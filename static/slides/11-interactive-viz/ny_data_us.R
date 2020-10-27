@@ -57,6 +57,7 @@ ny_cases$per100k =  as.numeric(format(round(ny_cases$cases/(ny_cases$population/
 ny_cases$newper100k =  as.numeric(format(round(ny_cases$new_cases/(ny_cases$population/100000),1),nsmall=1))
 ny_cases$deathsper100k =  as.numeric(format(round(ny_cases$deaths/(ny_cases$population/100000),1),nsmall=1))
 ny_cases$newdeathsper100k =  as.numeric(format(round(ny_cases$new_deaths/(ny_cases$population/100000),1),nsmall=1))
+ny_cases = ny_cases %>% mutate(naive_CFR = round((deaths*100/cases),2))
 
 # save output
 write.csv(ny_cases, "input_data/coronavirus_states.csv", row.names=F)
