@@ -1,5 +1,5 @@
 ---
-title: "COVID-19 Daily Count from LA Times"
+title: "COVID-19 Daily Count from NYT"
 author: "Abigail Horn"
 output:
   html_document:
@@ -43,6 +43,23 @@ library(here)
 lab.dir <- here("static/slides/11-interactive-viz/lab/")
 
 ```
+
+#Load data
+
+```{r}
+
+mapping <- read.csv(paste0(lab.dir,"Covid research - SPA Mapping.csv"))
+#case_data <- read.csv("latimes-place-totals.csv")
+
+case_data <- read.csv("https://raw.githubusercontent.com/datadesk/california-coronavirus-data/master/latimes-place-totals.csv ")
+
+case_data <- subset(case_data, county == "Los Angeles")
+
+str(mapping)
+str(case_data)
+
+```
+
 
 
 #Load data
