@@ -29,17 +29,33 @@ code.r,code.cpp{
 </style>
 
 
-```{r include=FALSE}
+```{r, eval=TRUE, include=FALSE}
 library(knitr)
-library(here)
 library(magrittr)
+library(ggplot2)
+# # load required packages
+# if(!require(magrittr)) install.packages("magrittr", repos = "http://cran.us.r-project.org")
+# #if(!require(rvest)) install.packages("rvest", repos = "http://cran.us.r-project.org")
+# #if(!require(readxl)) install.packages("readxl", repos = "http://cran.us.r-project.org")
+# if(!require(dplyr)) install.packages("dplyr", repos = "http://cran.us.r-project.org")
+# #if(!require(maps)) install.packages("maps", repos = "http://cran.us.r-project.org")
+# if(!require(ggplot2)) install.packages("ggplot2", repos = "http://cran.us.r-project.org")
+# #if(!require(reshape2)) install.packages("reshape2", repos = "http://cran.us.r-project.org")
+# #if(!require(ggiraph)) install.packages("ggiraph", repos = "http://cran.us.r-project.org")
+# #if(!require(RColorBrewer)) install.packages("RColorBrewer", repos = "http://cran.us.r-project.org")
+# #if(!require(leaflet)) install.packages("leaflet", repos = "http://cran.us.r-project.org")
+# if(!require(plotly)) install.packages("plotly", repos = "http://cran.us.r-project.org")
+# #if(!require(geojsonio)) install.packages("geojsonio", repos = "http://cran.us.r-project.org")
 
 opts_chunk$set(
+  warning = FALSE,
+  #eval=FALSE,
   echo = TRUE,
   fig.width = 7, 
   fig.align = 'center',
   fig.asp = 0.618, # 1 / phi
   out.width = "700px")
+
 ```
 
 # Introduction to interactive visualization
@@ -48,9 +64,7 @@ opts_chunk$set(
 
 ## What is interactive visualization?
 
-- Interactive visualization involves the creation and sharing of interactive data objects
-
-- Interactive data objects are graphical representations of data, model, or results that allow a user to directly manipulate and explore
+- Interactive visualization involves the creation and sharing of graphical representations of data, model, or results that allow a user to directly manipulate and explore
 
 - Some example products and packages in R:
 --
@@ -71,7 +85,7 @@ opts_chunk$set(
 
 ## What is interactive visualization (cont'd)
 
-- Interactivity allows users to engage with data, a model, algorithm, or other visualization in a way that static visuals cannot
+- Interactivity allows users to engage with data / models in a way that static visuals cannot
 
 - Features of interactivity include: 
 --
@@ -94,12 +108,6 @@ opts_chunk$set(
 
 # Why use interactive visualization?
 
-  - In this course we’ve covered visualization and in particular how `ggplot()` can help to make static plots with many dimensions
-
-  - But what if you want to explore a third or fourth dimension of data -- quickly? Or without all the noise? Or identify strange values?
-
-  - Or, what if you want to communicate your findings to an external audience? Specifically, if you want that audience to engage with or explore the data?
-
 Interactive visualization helps with both the **exploration** and **communication** parts of the data science process
 
 <div style="text-align: center;">
@@ -113,42 +121,27 @@ Interactive visualization helps with both the **exploration** and **communicatio
 
 ## Interactive Visualization for **exploratory data analysis** (EDA)
 
-- Interactive graphics are well suited to aid the exploration of high-dimensional or otherwise complex data
-
-- Interacting with information in a visual way helps to enable insights that wouldn’t be easy or even possible with static graphics, for reasons including:
-
---
-  - **Investigate faster**: In a true exploratory setting, you have to make lots of visualizations, and investigate lots of follow-up questions, before stumbling across something truly valuable. Interactive visualization can aid in the sense-making process by searching for information quickly without fully specified questions (Unwin and Hofmann 1999)
+Interactive graphics are well suited to aid the exploration of high-dimensional or otherwise complex data. Interacting with information in a visual way helps to enable insights that wouldn’t be easy or even possible with static graphics, for reasons including:
 
 --
 
-  - **Identifying relationships or structure that would otherwise go missing** (J. W. Tukey and Fisherkeller 1973)
+1. **Investigate faster**: In a true exploratory setting, you have to make lots of visualizations, and investigate lots of follow-up questions, before stumbling across something truly valuable. Interactive visualization can aid in the sense-making process by searching for information quickly without fully specified questions (Unwin and Hofmann 1999)
 
 --
 
-  - **Understand and diagnose problems with data, models, or algorithms** (Wickham, Cook, and Hofmann 2015)
+2. **Identifying relationships or structure that would otherwise go missing** (J. W. Tukey and Fisherkeller 1973)
 
----
+--
 
-## Interactive Visualization for **EDA** (cont'd)
-
-  - In a true exploratory setting, you have to make lots of visualizations, and investigate lots of follow-up questions, before stumbling across something truly valuable
-
-  - Although interactivity can augment EDA, it’s typically only *practical* when we can create and alter visuals quickly
-
-  - Plotly and Leaflet are well suited to these tasks -- they make the added effort required to enable functionality relatively small
-
----
-
-## Interactive Visualization for **EDA** (cont'd)
-
-- Use the LA times data -- show the erroneous value
+3. **Understand or diagnose problems with data, models, or algorithms** (Wickham, Cook, and Hofmann 2015)
 
 ---
 
 ## Interactive visualization for **communication**
 
-- Engagement with information has been shown to improve the ability to retain information
+Interactive graphics are well suited to communicating high-dimensional or otherwise complex data. Interacting with information in a visual way may help communicating data, models, and results for reasons including: 
+
+(1) Engagement with information has been shown to improve the ability to retain information
 
 <div style="text-align: center;">
   <figure>
@@ -161,12 +154,10 @@ Interactive visualization helps with both the **exploration** and **communicatio
 
 ## Interactive visualization for **communication** (cont'd)
 
-- Automate and efficiently share multiple dimensions of data/models/findings or complex analysis tasks
+(2) Automate and efficiently share multiple dimensions of data/models/findings or complex analysis tasks
 
-- Help users to better understand, and make decisions on, data/models/findings
+(3) Help users to better understand, and make decisions on, data/models/findings
 
-[Our COVID modeling website](https://uscbiostats.github.io/COVID19/index.html)
-  
 <div style="text-align: center;">
   <a href="https://epimodel.shinyapps.io/covid-university/">
   <figure>
@@ -179,9 +170,9 @@ Interactive visualization helps with both the **exploration** and **communicatio
 
 ## Interactive visualization for **communication** (cont'd)
 
-- Tell a more interesting or engaging story, presenting multiple viewpoints of data
+(4) Tell a more interesting or engaging story, presenting multiple viewpoints of data
 
-- Allow users to focus on the aspects most important to them, making the user more likely to understand, learn from, remember and appreciate the data
+(5) Allow users to focus on the aspects most important to them, making the user more likely to understand, learn from, remember and appreciate the data
 
 <div style="text-align: center;">
   <a href="https://inequality.media.mit.edu/">
@@ -193,18 +184,26 @@ Interactive visualization helps with both the **exploration** and **communicatio
 
 ---
 
-# Plan for today
+# Schedule: 3 Class Sessions on Interactive Visualization 
 
-- Survey of interactive graphics in both of their uses: exploration and communication 
+**10/28 (Today)**:
+  - Creating interactive graphs with **plotly** for R package and tables with **DataTable**
 
-  - We're going to look at creating interactive graphs, maps, and tables with `Plotly`, `Leaflet`, and `formattable`
+**11/04**: 
+  - Create a website using RStudio and GitHub Pages
+  - Share your interactive graphics
+  - Survey other options for sharing interactive graphics (Shiny apps, dashboards)
 
-  - We will look at how to share these plots
-  
-  - You will create your own project website using RStudio and GitHub pages
+**11/11**:  
+  1. Guest speakers discussing interactive visualization in practice
+    - [BioRealm.ai](https://www.biorealm.ai/) (data science statistical genetics company)
+    - [NASA JPL](https://www.jpl.nasa.gov/)
 
-  - We will survey other possibilities (Shiny apps, dashboards)
+  2. Project workshop
 
+---
+
+# Plotly
 
 ---
 
@@ -216,37 +215,12 @@ Interactive visualization helps with both the **exploration** and **communicatio
   </figure>
 </div>
 
-  - Plotly is a web application for creating and sharing interactive graphics
+  - Plotly is an open source interactive graphing library creating and sharing interactive graphics
 
-  - Is powered by JavaScript graphing library plotly.js and is designed on principles of adding layers
+  - It is powered by the JavaScript graphing library [plotly.js](https://github.com/plotly/plotly.js) and is designed on principles of adding layers
 
   - Plotly can work with several programming languages and applications including R, JavaScript,
 Python, Matlab, and Excel. 
-
---- 
-
-
-## Install Plotly
-
-Installing Plotly is easy
-
-```{r, eval=FALSE}
-install.packages("plotly")
-library(plotly)
-```
-
----
-
-## Load data for examples
-
-```{r, message=FALSE}
-# load the plotly R package
-library(plotly)
-
-# load the diamonds dataset from the ggplot2 package
-data(diamonds, package = "ggplot2")
-diamonds
-```
 
 ---
 
@@ -254,514 +228,712 @@ diamonds
 
 - There are two main ways to create a plotly object:
 
+--
+
   - Transforming a `ggplot2` object (via `ggplotly()`) into a plotly object 
 
-  - Directly initializing a plotly object with `plot_ly()`/`plot_geo()`/`plot_mapbox()`
-  
-- Both approaches are powered by the JavaScript graphing library plotly.js so many of the same concepts and tools that you learn for one interface can be reused in the other
+--
+
+  - Directly initializing a plotly object with `plot_ly()`/`plot_geo()`/`plot_mapbox()`. This provides a 'direct' interface to plotly.js with some additional abstractions to help reduce typing
+
+--
+
+- Both approaches are powered by plotly.js so many of the same concepts and tools that you learn for one interface can be reused in the other
 
 ---
 
 ## `plot_ly()`
 
-- Any graph made with the **plotly** R package is powered by the JavaScript library [plotly.js](https://github.com/plotly/plotly.js) 
+- The `plot_ly()` function has numerous arguments that are unique to the R package (e.g., `color`, `stroke`, `span`, `symbol`, `linetype`, etc.) and make it easier to encode data variables as visual properties (e.g., color). By default, these arguments map values of a data variable to a visual range defined by the plural form of the argument
 
-- The `plot_ly()` function provides a 'direct' interface to plotly.js with some additional abstractions to help reduce typing. 
+--
 
-- If we assign variable names (e.g., `cut`, `clarity`, etc.) to visual properties (e.g., `x`, `y`, `color`, etc.), `plot_ly()` tries to find a sensible geometric representation of that information for us
+- (almost) every function anticipates a **plotly** object as input to its first argument and returns a modified version of that **plotly** object 
 
---- 
+--
 
-## `plot_ly()`
+- The `layout()` function, which modifies layout components of the plotly object, anticipates a **plotly** object in its first argument and its other arguments add and/or modify various layout components of that object (e.g., the title)
 
-```{r, eval=FALSE}
-plot_ly(diamonds, x = ~cut, y = ~clarity)
-```
+--
 
----
+- A family of `add_*()` functions (e.g., `add_histogram()`, `add_lines()`, `add_trace()`, etc.) define how to render data into geometric objects by adding a graphical layer to a plot. Layers can be included to add: 
 
-## `plot_ly()`
-
-```{r, message=FALSE, echo=FALSE}
-plot_ly(diamonds, x = ~cut, y = ~clarity)
-```
-
-
---- 
-
-## `plot_ly()` functionality
-
-The `plot_ly()` function has numerous arguments that are unique to the R package (e.g., `color`, `stroke`, `span`, `symbol`, `linetype`, etc.) and make it easier to encode data variables (e.g., diamond clarity) as visual properties (e.g., color). By default, these arguments map values of a data variable to a visual range defined by the plural form of the argument. 
-
-In this example, `color` is used to map each level of diamond clarity to a different color. Then, `colors` is used to specify the range of colors (which, in this case, the `"Accent"` color palette from the **RColorBrewer** package, but one can also supply custom color codes or a color palette function like `colorRamp()`).
-
----
-
-## `plot_ly()` functionality
-
-```{r, eval=FALSE}
-plot_ly(diamonds, x = ~cut, color = ~clarity, colors = "Accent")
-```
-
----
-
-## `plot_ly()` functionality
-
-```{r, message=FALSE, echo=FALSE}
-plot_ly(diamonds, x = ~cut, color = ~clarity, colors = "Accent")
-```
-
---- 
-
-## `layout()` 
-
-- (almost) every function anticipates a **plotly** object as input to its first argument and returns a modified version of that **plotly** object. 
-
-- For example, the `layout()` function anticipates a **plotly** object in its first argument and its other arguments add and/or modify various layout components of that object (e.g., the title):
-
----
-
-## `layout()` 
-
-```{r, eval=FALSE}
-layout(
-  plot_ly(diamonds, x = ~cut),
-  title = "My beatiful histogram"
-)
-```
-
----
-
-## `layout()` 
-
-```{r, message=FALSE, echo=FALSE}
-layout(
-  plot_ly(diamonds, x = ~cut),
-  title = "My beatiful histogram"
-)
-```
-
----
-
-## `layout()` 
-
-or using the `%>%` operator from the **magrittr** package:
-
-```{r, eval=FALSE}
-diamonds %>%
-  plot_ly(x = ~cut) %>%
-  layout(title = "My beatiful histogram")
-```
-
---- 
-
-## Layers and `add_*()` 
-
-- In addition to `layout()` for adding/modifying part(s) of the graph's layout, there are also a family of `add_*()` functions (e.g., `add_histogram()`, `add_lines()`, etc.) that define how to render data into geometric objects. 
-
-- These functions add a graphical layer to a plot. A *layer* can be thought of as a group of graphical elements that can be sufficiently described using only 5 components: 
-
+--
   - data
   - aesthetic mappings (e.g., assigning `clarity` to `color`)
-  - a geometric representation (e.g., rectangles, circles, etc.)
+  - geometric representation (e.g., rectangles, circles, etc.)
   - statistical transformations (e.g., sum, mean, etc.)
-  - positional adjustments (e.g., dodge, stack, etc.). 
+  - positional adjustments (e.g., dodge, stack, etc.) 
 
 ---
 
+## `ggplotly()`
 
-## Layers and `add_*()` 
+- We also have the option of working with `ggplotly()` function from the **plotly** package, which can translate **ggplot2** to **plotly**. 
 
-Let's add an `add_histogram()` layer:
+- The essence of this is very straightforward: 
 
 ```{r, eval=FALSE}
-diamonds %>%
-  plot_ly() %>% 
-  add_histogram(x = ~cut)
+p <- ggplot(*) + geom_*()
+ggplotly(p)
 ```
 
---- 
+--
 
-## Layers and `add_*()` 
+- This functionality can be really helpful for quickly adding interactivity to your existing **ggplot2** workflow.
 
-Let's add an `add_histogram()` layer:
+--
+
+- `ggplotly()` provides advantages to `plot_ly()` in particular when it comes to exploring statistical summaries across groups. The ability to quickly generate statistical summaries across groups and map to an interactive plot works for basically any geom (e.g., `geom_boxplot()`, `geom_histogram()`, `geom_density()`, etc.)
+
+---
+
+# Getting started
+
+---
+
+## Install Plotly
+
+```{r, eval=TRUE, warning=FALSE, message=FALSE}
+if(!require(plotly)) install.packages("plotly", repos = "http://cran.us.r-project.org")
+library(plotly)
+```
+
+---
+
+## Load data for examples 
+
+For examples today we will be using COVID data direct downloaded from the New York Times GitHub repository: https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv
+
+This data source provides COVID cases (confirmed infections) and deaths by each US state and each date
+
+We have preprocessed this data and added some additional variables in the file `"input_data/coronavirus_states.csv"`
+  - `population` of each state
+  - `new_cases`: daily change in cases
+  - `new_deaths`: daily change in deaths
+  - `per100k`: cases per 100,000 population
+  - `deathsper100k`: deaths per 100,000 population
+  - `naive_CFR`: naive[1] Case Fatality Rate (CFR) = deaths / cases, for each state on each date
+  
+In the lab we will preprocess this data together.
+
+.footnote[[1]"naive" since calculation of CFR requires more sophisticated modeling to account for time delays between cases and deaths]
+
+---
+
+## Load data for examples
+
+```{r, eval=TRUE, echo=TRUE, message=FALSE}
+# import data
+cv_states = read.csv("input_data/coronavirus_states.csv")
+
+# format the date
+cv_states$date = as.Date(cv_states$date, format="%Y-%m-%d")
+
+# create most recent day data frame
+cv_states_today = subset(cv_states, date==max(cv_states$date))
+```
+
+---
+
+## Load data for examples
+
+Inspect the data
+
+```{r, eval=TRUE}
+str(cv_states)
+```
+
+---
+
+## Load data for examples
+
+Inspect the data
+
+```{r, eval=TRUE}
+#dim(cv_states)
+summary(cv_states)
+```
+
+---
+
+# Examples
+
+---
+
+## Basic Scatterplot
+
+Let's start with a scatterplot of population-normalized (`per100k`) deaths vs. cases on the most recent date from dataframe `cv_states_today`
+
+- Specify a scatterplot by `type = "scatter"` and `mode = 'markers'`
+- Notice how the arguments for the `x` and `y` variables as specified as formulas, with the tilde operator (`~`)
+- Use `color` to specify an additional data dimension (factor or continuous), each level of which is mapped to a different color (factor or continuous) 
+- Use `colors` is used to specify the range of colors
+
+```{r, eval=FALSE}
+cv_states_today %>% 
+           plot_ly(x = ~deathsper100k, y = ~per100k, 
+                   type = 'scatter',
+                   mode = 'markers',
+                   color = ~state,
+                   colors = "Blues")
+```
+
+---
+
+## Basic Scatterplot
+
+```{r, echo=FALSE, message=FALSE}
+library(plotly)
+cv_states_today %>% 
+           plot_ly(x = ~deathsper100k, y = ~per100k, 
+                   type = 'scatter',
+                   mode = 'markers',
+                   color = ~state,
+                   colors = "Blues")
+```
+
+- Scatterplot of deaths vs. cases population-normalized (`per100k`)
+- plotly allows us to hover and see the exact $(x,y)$ values of each point
+- Notice the automatic `tooltip` that appears when your mouse hovers over each point
+- Doubleclick any item in legend to isolate that point in the plot
+
+---
+
+## Scatterplot: size
+
+- You can add an additional dimension by adjusting the `size` of each point (also with `~` operator)
+  - Specify the limits of the size through `sizes`
+  - `sizemode` specifies `'area'` or `'diameter'`
+- Here we specify size as mapped to each state's `naive_CFR`
+
+```{r, eval=FALSE}
+cv_states_today %>% 
+           plot_ly(x = ~deathsper100k, y = ~per100k, 
+                   type = 'scatter',
+                   mode = 'markers',
+                   color = ~state,
+                   size = ~naive_CFR,
+                   sizes = c(5, 70),
+                   marker = list(sizemode='diameter', opacity=0.5))
+
+```
+
+---
+
+## Scatterplot: size
+
+```{r, echo=FALSE, message=FALSE}
+cv_states_today %>% 
+           plot_ly(x = ~deathsper100k, y = ~per100k, 
+                   type = 'scatter',
+                   mode = 'markers',
+                   color = ~state,
+                   size = ~naive_CFR,
+                   sizes = c(5, 70),
+                   marker = list(sizemode='diameter', opacity=0.5))
+
+```
+
+The closer to the bottom right corner of the plot, the higher the CFR, and the larger the point's circle.
+---
+
+## Specifying hover information
+
+- You can specify what info will appear when hovering using `hoverinfo` through the `text` argument (also with `~` operator)
+  - Multiple variables can be included upon hover
+  - Create new lines between variables in `hoverinfo` using `sep = "<br>"`
+- Let's add `per100k`, `deathsper100k`, and `naive_CFR` to the hover info:
+
+```{r, eval=FALSE}
+cv_states_today %>% 
+  plot_ly(x = ~deathsper100k, y = ~per100k, 
+          type = 'scatter', mode = 'markers', color = ~state,
+          size = ~naive_CFR, sizes = c(5, 70), marker = list(sizemode='diameter', opacity=0.5),
+          hoverinfo = 'text',
+          text = ~paste( paste(state, ":", sep=""),
+                         paste(" Cases per 100k: ", per100k, sep="") ,
+                         paste(" Deaths per 100k: ", deathsper100k, sep=""),
+                         paste(" CFR (%): ", naive_CFR,sep=""),
+                         sep = "<br>")) 
+```
+
+---
+
+## Specifying hover information
+
+```{r, echo=FALSE, message=FALSE}
+cv_states_today %>% 
+  plot_ly(x = ~deathsper100k, y = ~per100k, 
+          type = 'scatter', mode = 'markers', color = ~state,
+          size = ~naive_CFR, sizes = c(5, 70), marker = list(sizemode='diameter', opacity=0.5),
+          hoverinfo = 'text',
+          text = ~paste( paste(state, ":", sep=""),
+                         paste(" Cases per 100k: ", per100k, sep="") ,
+                         paste(" Deaths per 100k: ", deathsper100k, sep=""),
+                         paste(" CFR (%): ", naive_CFR,sep=""),
+                         sep = "<br>")) 
+```
+
+We can now clearly understand the information being shown in the `tooltip`
+
+---
+
+## Layout
+
+- Specify chart labels through `layout()`
+- `hovermode = "compare"` allows comparing multiple points (default is `"closest"`)
+
+```{r, eval=FALSE}
+cv_states_today %>% 
+  plot_ly(x = ~deathsper100k, y = ~per100k, 
+          type = 'scatter', mode = 'markers', color = ~state,
+          size = ~naive_CFR, sizes = c(5, 70), marker = list(sizemode='diameter', opacity=0.5),
+          hoverinfo = 'text',
+          text = ~paste( paste(state, ":", sep=""), paste(" Cases per 100k: ", per100k, sep="") , paste(" Deaths per 100k: ", 
+                        deathsper100k, sep=""), paste(" CFR (%): ", naive_CFR,sep=""), sep = "<br>")) %>% 
+  layout(title = "Cases, Deaths, and Naive Case Fatality Rate for US States",
+                  yaxis = list(title = "Cases"), xaxis = list(title = "Deaths"),
+         hovermode = "compare")
+```
+
+---
+
+## Layout
+
+```{r, echo=FALSE, message=FALSE}
+cv_states_today %>% 
+  plot_ly(x = ~deathsper100k, y = ~per100k, 
+          type = 'scatter', mode = 'markers', color = ~state,
+          size = ~naive_CFR, sizes = c(5, 70), marker = list(sizemode='diameter', opacity=0.5),
+          hoverinfo = 'text',
+          text = ~paste( paste(state, ":", sep=""), paste(" Cases per 100k: ", per100k, sep="") , paste(" Deaths per 100k: ", 
+                        deathsper100k, sep=""), paste(" CFR (%): ", naive_CFR,sep=""), sep = "<br>")) %>% 
+  layout(title = "Cases, Deaths, and Naive Case Fatality Rate for US States",
+                  yaxis = list(title = "Cases"), xaxis = list(title = "Deaths"),
+         hovermode = "compare")
+```
+
+---
+
+## 3D Scatterplot
+
+- Can add a 3rd dimension using `type = 'scatter3d'` (make sure to specify the dimension as `z`)
+
+```{r, eval=FALSE}
+cv_states_today %>% 
+  plot_ly(x = ~deathsper100k, y = ~per100k, z = ~population,
+          type = 'scatter3d', mode = 'markers', color = ~state,
+          size = ~naive_CFR, sizes = c(5, 70), marker = list(sizemode='diameter', opacity=0.5),
+          hoverinfo = 'text',
+          text = ~paste( paste(state, ":", sep=""), paste(" Cases per 100k: ", per100k, sep="") , paste(" Deaths per 100k: ", 
+                        deathsper100k, sep=""), paste(" CFR (%): ", naive_CFR,sep=""), sep = "<br>")) %>% 
+  layout(title = "Cases, Deaths, and Naive Case Fatality Rate for US States",
+                  yaxis = list(title = "Cases"), xaxis = list(title = "Deaths"),
+         hovermode = "compare")
+```
+
+---
+
+## 3D Scatterplot
+
+```{r, echo=FALSE, message=FALSE}
+cv_states_today %>% 
+  plot_ly(x = ~deathsper100k, y = ~per100k, z = ~population,
+          type = 'scatter3d', mode = 'markers', color = ~state,
+          size = ~naive_CFR, sizes = c(5, 70), marker = list(sizemode='diameter', opacity=0.5),
+          hoverinfo = 'text',
+          text = ~paste( paste(state, ":", sep=""), paste(" Cases per 100k: ", per100k, sep="") , paste(" Deaths per 100k: ", 
+                        deathsper100k, sep=""), paste(" CFR (%): ", naive_CFR,sep=""), sep = "<br>")) %>% 
+  layout(title = "Cases, Deaths, and Naive Case Fatality Rate for US States",
+                  yaxis = list(title = "Cases"), xaxis = list(title = "Deaths"),
+         hovermode = "compare")
+```
+
+---
+
+## Scatterplot with `ggplotly()`
+
+- You can create a scatterplot with the `ggplotly()` function in 1 additional line of code
+- The advantage of `ggplotly()` is that it allows taking advantage of the geom `geom_smooth()` to see the pattern in the scatter
+
+```{r, eval=FALSE}
+library(ggplot2)
+p <- ggplot(cv_states_today, aes(x=deathsper100k, y=per100k, size=naive_CFR)) + geom_point() + geom_smooth()
+ggplotly(p)
+```
+
+---
+
+## Scatterplot with `ggplotly()`
+
+```{r, echo=FALSE, message=FALSE}
+p <- ggplot(cv_states_today, aes(x=deathsper100k, y=per100k, size=naive_CFR)) + geom_point() + geom_smooth()
+ggplotly(p)
+```
+
+The `geom_smooth()` helps us to see there is not a clear correlation between cases and deaths relative to population across the states.
+Note that the `geom_smooth()` line also appears upon hover.
+
+---
+
+## Annotations
+
+- You can add annotations to your interactive plot
+
+```{r, eval=FALSE}
+p <- ggplot(cv_states_today, aes(x=deathsper100k, y=per100k, size=naive_CFR)) + geom_point() + geom_smooth()
+fig <- p %>%
+  ggplotly(layerData = 2, originalData = F) %>%
+  add_fun(function(fig) {
+    fig %>% slice(which.max(se)) %>%
+      add_segments(x = ~x, xend = ~x, y = ~ymin, yend = ~ymax) %>%
+      add_annotations("Max uncertainty")
+  })
+fig <- fig %>% add_fun(function(p) {
+    fig %>% slice(which.min(se)) %>%
+      add_segments(x = ~x, xend = ~x, y = ~ymin, yend = ~ymax) %>%
+      add_annotations("Min uncertainty")
+  })
+```
+
+---
+
+## Annotations
+
+```{r, echo=FALSE, message=FALSE}
+p <- ggplot(cv_states_today, aes(x=deathsper100k, y=per100k, size=naive_CFR)) + geom_point() + geom_smooth()
+fig <- p %>%
+  ggplotly(layerData = 2, originalData = F) %>%
+  add_fun(function(fig) {
+    fig %>% slice(which.max(se)) %>%
+      add_segments(x = ~x, xend = ~x, y = ~ymin, yend = ~ymax) %>%
+      add_annotations("Max uncertainty")
+  })
+fig <- fig %>% add_fun(function(p) {
+    fig %>% slice(which.min(se)) %>%
+      add_segments(x = ~x, xend = ~x, y = ~ymin, yend = ~ymax) %>%
+      add_annotations("Min uncertainty")
+  })
+fig
+```
+
+---
+
+## Line graph
+
+- Specify a line plot using `type = "scatter"` and `mode = "lines"`
+- Be sure to specify the feature (column in the data) that distinguishes the lines (normally through `color`)
+
+```{r, eval=FALSE}
+
+cv_states %>% filter(population>7500000) %>% 
+plot_ly(x = ~date, y = ~deaths, color = ~state, type = "scatter", mode = "lines",
+        hoverinfo = 'text',
+        text = ~paste( paste("Date: ", date, sep=""), paste(state, ":", sep=""), paste(" Deaths (total): ", deaths, sep=""), 
+                       paste(" Deaths per 100k: ", deathsper100k, sep=""), sep = "<br>"))
+```
+
+---
+
+## Line graph
+
+```{r, echo=FALSE, message=FALSE}
+cv_states %>% filter(population>7500000) %>% 
+plot_ly(x = ~date, y = ~deaths, color = ~state, type = "scatter", mode = "lines",
+        hoverinfo = 'text',
+        text = ~paste( paste("Date: ", date, sep=""), paste(state, ":", sep=""), paste(" Deaths (total): ", deaths, sep=""), 
+                       paste(" Deaths per 100k: ", deathsper100k, sep=""), sep = "<br>"))
+```
+
+Deaths stabilized for New York and New Jersey around the time they started to rise for California, Texas, and Florida.
+It helps to be able to see the exact values for each date upon hover.
+
+---
+
+## Line graph: `ggplotly()`
+
+- Simply pass a `ggplot` object to `ggplotly()` to create an interactive version
+- `subplot()` can be used to join arrange multiple plots -- works similarly to `grid.arrange()` function from the **gridExtra** package
+  - Compare the automatic `tooltip` results for both plots
+
+```{r, eval=FALSE}
+g1 = plot_ly(cv_states, x = ~date, y = ~deaths, color = ~state, type = "scatter", mode = "lines")
+g2 = ggplot(cv_states, aes(x = date, y = cases, color = state)) + geom_line() + geom_point(size = .5, alpha = 0.5)
+g2_plotly <- ggplotly(g2)
+subplot(g1, g2_plotly)
+```
+
+---
+
+## Specifying text with `ggplotly()`
+
+- You can specify the tooltip text in the `ggplot()` or `ggplotly()` prompt, but note that the `ggplotly()` prompt only accepts text in `" "`
+
+```{r, eval=FALSE}
+g1 = ggplot(cv_states, aes(x = date, y = cases, color = state, 
+                           text=paste( paste("Date: ", date, sep=""), paste(state, ":", sep=""), paste(" Cases (total): ", cases, sep=""),sep = "<br>") )) + geom_line() + geom_point(size = .5, alpha = 0.5) 
+ggplotly(g1, tooltip = "text")
+```
+
+---
+
+## Histograms
+
+- For `plot_ly()` use the `type = "histogram"` argument
+- Note that `list()` is used to input keys with multiple values (e.g. `xbins`)
+
+```{r, eval=FALSE}
+g1 <- cv_states_today %>% 
+  plot_ly(x = ~new_deaths, type = "histogram", xbins = list(size = 1, end=30 ))
+g2 <- cv_states_today %>% ggplot( aes(x=new_deaths)) + geom_histogram(binwidth=1)
+g2_plotly <- ggplotly(g2)
+subplot(g1, g2_plotly)
+```
+
+---
+
+## Histograms
+
+             `plot_ly()`                        `ggplotly()`
+             
+```{r, echo=FALSE, message=FALSE}
+g1 <- cv_states_today %>% 
+  plot_ly(x = ~new_deaths, type = "histogram", xbins = list(size = 1, end=30 ))
+g2 <- cv_states_today %>% ggplot( aes(x=new_deaths)) + geom_histogram(binwidth=1)
+g2_plotly <- ggplotly(g2)
+subplot(g1, g2_plotly)
+```
+
+---
+
+## Heatmap
+
+- Heatmaps are useful for displaying three dimensional data in two dimensions, using color for the third dimension. 
+- To create a heatmap from a dataframe we first have to create a matrix out of the three dimensions we want to include. We can do this using the `pivot_wider()` function from **tidyr** (there are many other options)
+  - Here we are choosing `date`, `state`, and `newdeathsper100k` to show in our heatmap
+
+```{r, eval=FALSE}
+library(tidyr)
+cv_states_mat <- cv_states %>% select(state, date, newdeathsper100k) %>% filter(date>"2020-03-31") %>% filter(newdeathsper100k < 10)
+cv_states_mat2 <- as.data.frame(pivot_wider(cv_states_mat, names_from = state, values_from = newdeathsper100k))
+rownames(cv_states_mat2) <- cv_states_mat2$date
+cv_states_mat2$date <- NULL
+head(cv_states_mat2)
+```
+
+---
+
+## Heatmap
+
+- We can then create a heatmap from the matrix by using the `type = "heatmap"` argument
+- If you want the x and y axes to show specify that with `x=colnames(data), y=rownames(data)` 
+- You can hide or show scale using `showscale=T/F`
+
+```{r, eval=FALSE}
+library(tidyr)
+cv_states_mat <- cv_states %>% select(state, date, newdeathsper100k) %>% filter(date>"2020-03-31") %>% filter(newdeathsper100k < 10)
+cv_states_mat2 <- as.data.frame(pivot_wider(cv_states_mat, names_from = state, values_from = newdeathsper100k))
+rownames(cv_states_mat2) <- cv_states_mat2$date
+cv_states_mat2$date <- NULL
+data <- as.matrix(cv_states_mat2)
+
+plot_ly(x=colnames(data), y=rownames(data),
+             z=~data,
+             type="heatmap",
+             showscale=T)
+```
+
+---
+
+## Heatmap
 
 ```{r, message=FALSE, echo=FALSE}
-diamonds %>%
-  plot_ly() %>% 
-  add_histogram(x = ~cut)
-```
-
----
-
-## Basic Scatterplot
-
-A basic scatterplot is easy to make, with the added benefit of tooltips that
-appear when your mouse hovers over each point. Specify a scatterplot by
-indicating `type = "scatter"`. Notice that the arguments for the `x` and `y` 
-variables as specified as formulas, with the tilde operator (`~`) preceding the
-variable that you're plotting.
-
-
-```{r, eval=FALSE}
-library(plotly)
-plot_ly(mtcars, x = ~wt, y = ~mpg, type = "scatter")
-```
-
----
-
-## Basic Scatterplot
-
-```{r, echo=FALSE, message=FALSE}
-library(plotly)
-plot_ly(mtcars, x = ~wt, y = ~mpg, type = "scatter")
-```
-
----
-
-## Scatterplot Color
-
-You can add color to your scatterplot points according to a categorical variable
-in the data frame you use with `plot_ly()`.
-
-```{r, eval=FALSE}
-plot_ly(mtcars, x = ~wt, y = ~mpg, type = "scatter", color = ~factor(cyl))
-```
-
----
-
-## Scatterplot Color
-
-```{r, echo=FALSE, message=FALSE}
-plot_ly(mtcars, x = ~wt, y = ~mpg, type = "scatter", color = ~factor(cyl))
-```
-
----
-
-## Continuous Color
-
-You can also show continuous variables with color in scatterplots.
-
-```{r, eval=FALSE}
-plot_ly(mtcars, x = ~wt, y = ~mpg, type = "scatter", color = ~disp)
-```
-
----
-
-## Continuous Color
-
-```{r, echo=FALSE, message=FALSE}
-plot_ly(mtcars, x = ~wt, y = ~mpg, type = "scatter", color = ~disp)
-```
-
----
-
-## Scatterplot Sizing
-
-By specifying the `size` argument you can make each point in your scatterplot a
-different size.
-
-```{r, eval=FALSE}
-plot_ly(mtcars, x = ~wt, y = ~mpg, type = "scatter", 
-        color = ~factor(cyl), size = ~hp)
-```
-
----
-
-## Scatterplot Sizing
-
-```{r, echo=FALSE, message=FALSE}
-plot_ly(mtcars, x = ~wt, y = ~mpg, type = "scatter", 
-        color = ~factor(cyl), size = ~hp)
-```
-
----
-
-## 3D Scatterplot
-
-You can create a three-dimensional scatterplot with the `type = "scatter3d"`
-argument. If you click and drag these scatterplots you can view them from
-different angles.
-
-```{r, eval=FALSE}
-set.seed(2016-07-21)
-temp <- rnorm(100, mean = 30, sd = 5)
-pressue <- rnorm(100)
-dtime <- 1:100
-plot_ly(x = ~temp, y = ~pressue, z = ~dtime,
-        type = "scatter3d", color = ~temp)
-```
-
----
-
-## 3D Scatterplot
-
-```{r, echo=FALSE, message=FALSE}
-set.seed(2016-07-21)
-temp <- rnorm(100, mean = 30, sd = 5)
-pressue <- rnorm(100)
-dtime <- 1:100
-plot_ly(x = ~temp, y = ~pressue, z = ~dtime,
-        type = "scatter3d", color = ~temp)
-```
-
----
-
-## Line Graph
-
-Line graphs are the default graph for `plot_ly()`. They're of course useful for
-showing change over time:
-
-```{r, eval=FALSE}
-data("airmiles")
-plot_ly(x = ~time(airmiles), y = ~airmiles, type = "scatter", mode = "lines")
-```
-
----
-
-## Line Graph
-
-```{r, echo=FALSE, message=FALSE}
-data("airmiles")
-plot_ly(x = ~time(airmiles), y = ~airmiles, type = "scatter", mode = "lines")
-```
-
----
-
-## Multi Line Graph
-
-You can show multiple lines by specifying the column in the data frame that
-separates the lines:
-
-```{r, eval=FALSE}
-library(plotly)
 library(tidyr)
-library(dplyr)
-data("EuStockMarkets")
+cv_states_mat <- cv_states %>% select(state, date, newdeathsper100k) %>% filter(date>"2020-03-31") %>% filter(newdeathsper100k < 8)
+cv_states_mat2 <- as.data.frame(pivot_wider(cv_states_mat, names_from = state, values_from = newdeathsper100k))
+rownames(cv_states_mat2) <- cv_states_mat2$date
+cv_states_mat2$date <- NULL
+cv_states_mat2 <- as.matrix(cv_states_mat2)
 
-stocks <- as.data.frame(EuStockMarkets) %>%
-  gather(index, price) %>%
-  mutate(time = rep(time(EuStockMarkets), 4))
-
-plot_ly(stocks, x = ~time, y = ~price, color = ~index, type = "scatter", mode = "lines")
+plot_ly(x=colnames(cv_states_mat2), y=rownames(cv_states_mat2),
+             z=~cv_states_mat2,
+             type="heatmap",
+             showscale=T)
 ```
 
----
-
-## Multi Line Graph
-
-```{r, echo=FALSE, message=FALSE}
-library(plotly)
-library(tidyr)
-library(dplyr)
-data("EuStockMarkets")
-
-stocks <- as.data.frame(EuStockMarkets) %>%
-  gather(index, price) %>%
-  mutate(time = rep(time(EuStockMarkets), 4))
-
-plot_ly(stocks, x = ~time, y = ~price, color = ~index, type = "scatter", mode = "lines")
-```
-
----
-
-## Histogram
-
-A histogram is great for showing how counts of data are distributed. Use the
-`type = "histogram"` argument.
-
-```{r, eval=FALSE}
-plot_ly(x = ~precip, type = "histogram")
-```
-
----
-
-## Histogram
-
-```{r, echo=FALSE, message=FALSE}
-plot_ly(x = ~precip, type = "histogram")
-```
-
----
-
-## Boxplot
-
-Boxplots are wonderful for comparing how different datasets are distributed.
-Specify `type = "box"` to create a boxplot.
-
-```{r, eval=FALSE}
-plot_ly(iris, y = ~Petal.Length, color = ~Species, type = "box")
-```
-
----
-
-## Boxplot
-
-```{r, echo=FALSE, message=FALSE}
-plot_ly(iris, y = ~Petal.Length, color = ~Species, type = "box")
-```
-
----
-
-## Heatmap
-
-Heatmaps are useful for displaying three dimensional data in two dimensions,
-using color for the third dimension. Create a heatmap by using the
-`type = "heatmap"` argument.
-
-```{r, eval=FALSE}
-terrain1 <- matrix(rnorm(100*100), nrow = 100, ncol = 100)
-plot_ly(z = ~terrain1, type = "heatmap")
-```
-
----
-
-## Heatmap
-
-```{r, echo=FALSE, message=FALSE}
-terrain1 <- matrix(rnorm(100*100), nrow = 100, ncol = 100)
-plot_ly(z = ~terrain1, type = "heatmap")
-```
+We can see when new deaths started to rise and fall for each state. No other state approached the values seen in NY. The hover info conveniently allows us to inspect the exact date and number of new deaths.
 
 ---
 
 ## 3D Surface
 
-Why limit yourself to two dimensions when you can render three dimensions on a
-computer!? Create moveable 3D surfaces with `type = "surface"`.
+You can also create a 3D surface out of the matrix using `type = "surface"`
 
 ```{r, eval=FALSE}
-terrain2 <- matrix(sort(rnorm(100*100)), nrow = 100, ncol = 100)
-plot_ly(z = ~terrain2, type = "surface")
-```
-
----
-
-## 3D Surface
-
-```{r, echo=FALSE, message=FALSE}
-terrain2 <- matrix(sort(rnorm(100*100)), nrow = 100, ncol = 100)
-plot_ly(z = ~terrain2, type = "surface")
+plot_ly(x=colnames(cv_states_mat2), y=rownames(cv_states_mat2),
+             z=~cv_states_mat2,
+             type="surface",
+             showscale=F)
 ```
 
 ---
 
 ## Choropleth Maps: Setup
 
-Choropleth maps illustrate data across geographic areas by shading regions with
-different colors. Choropleth maps are easy to make with Plotly though they
-require more setup compared to other Plotly graphics.
+Choropleth maps illustrate data across geographic areas by shading regions with different colors. Choropleth maps are easy to make with Plotly though they
+require more setup compared to other Plotly graphics. 
+
+Making choropleth maps requires two main types of input:
+
+1. **Geometry information**: This can be supplied using:
+  - **GeoJSON** file where each feature has either an id field or some identifying value in properties
+  - or a **built-in geometry** within plot_ly: **US states** and **world countries**
+2. **A list of values** indexed by feature identifier
+
+The GeoJSON data is passed to the geojson argument, and the data is passed into the **z argument** of the choropleth `trace`
+
+---
+
+## Choropleth Maps: Setup
+
+- Let's focus on interactively mapping the feature `naive_CFR` to each of the US states, including their boundaries
+- To use the USA States geometry, set `locationmode='USA-states'` and provide locations as two-letter state abbreviations
+- Our `cv_states` identifies states by their long names, so we need to transpose to their abbreviations first
 
 ```{r, eval=FALSE}
-# Create data frame
-state_pop <- data.frame(State = state.abb, Pop = as.vector(state.x77[,1]))
+cv_CFR <- cv_states_today %>% select(state, naive_CFR) # select data
+
+# Get state abbreviations and map to state names
+library(dplyr)
+st_crosswalk <- tibble(state = state.name) %>%
+   bind_cols(tibble(abb = state.abb)) %>% 
+   bind_rows(tibble(state = "District of Columbia", abb = "DC"))
+cv_CFR2 <- left_join(cv_CFR, st_crosswalk, by = "state")
+cv_CFR2$state.name <- cv_CFR2$state
+cv_CFR2$state <- cv_CFR2$abb
+cv_CFR2$abb <- NULL
+```
+
+---
+
+## Choropleth Maps: Setup
+
+- Hover text can be specified within the data frame (this is true for any `plot_ly()` object) 
+
+```{r, eval=FALSE}
+
 # Create hover text
-state_pop$hover <- with(state_pop, paste(State, '<br>', "Population:", Pop))
-# Make state borders white
-borders <- list(color = toRGB("red"))
-# Set up some mapping options
-map_options <- list(
+cv_CFR2$hover <- with(cv_CFR, paste(state.name, '<br>', "CFR:", naive_CFR))
+
+# Set up mapping details
+set_map_details <- list(
   scope = 'usa',
   projection = list(type = 'albers usa'),
   showlakes = TRUE,
   lakecolor = toRGB('white')
 )
+
 ```
 
 ---
 
 ## Choropleth Maps: Mapping
 
+- Recall: To use the USA States geometry, set `locationmode='USA-states'`
+- Specify the map projection details inside `layout()`
+
 ```{r, eval=FALSE}
-plot_ly(z = ~state_pop$Pop, text = ~state_pop$hover, locations = ~state_pop$State, 
-        type = 'choropleth', locationmode = 'USA-states', 
-        color = state_pop$Pop, colors = 'Blues', marker = list(line = borders)) %>%
-  layout(title = 'US Population in 1975', geo = map_options)
+# Create the map
+fig <- plot_geo(cv_CFR2, locationmode = 'USA-states') %>% 
+  add_trace(
+    z = ~naive_CFR, text = ~hover, locations = ~state,
+    color = ~naive_CFR, colors = 'Blues'
+  )
+fig <- fig %>% colorbar(title = "CFR")
+fig <- fig %>% layout(
+    title = paste('CFR by State as of', Sys.Date(), '<br>(Hover for value)'),
+    geo = set_map_details
+  )
 ```
 
 ---
 
-## Choropleth Maps
+## Choropleth Maps: Mapping
 
-```{r, echo=FALSE, message=FALSE}
-# Create data frame
-state_pop <- data.frame(State = state.abb, Pop = as.vector(state.x77[,1]))
+```{r, message=FALSE, echo=FALSE}
+
+# Extract the data
+cv_CFR <- cv_states_today %>% select(state, naive_CFR) # select data
+
+# Get state abbreviations and map to state names
+library(dplyr)
+st_crosswalk <- tibble(state = state.name) %>%
+   bind_cols(tibble(abb = state.abb)) %>% 
+   bind_rows(tibble(state = "District of Columbia", abb = "DC"))
+cv_CFR2 <- left_join(cv_CFR, st_crosswalk, by = "state")
+cv_CFR2$state.name <- cv_CFR2$state
+cv_CFR2$state <- cv_CFR2$abb
+cv_CFR2$abb <- NULL
+
 # Create hover text
-state_pop$hover <- with(state_pop, paste(State, '<br>', "Population:", Pop))
-# Make state borders white
-borders <- list(color = toRGB("red"))
-# Set up some mapping options
-map_options <- list(
+cv_CFR2$hover <- with(cv_CFR, paste(state.name, '<br>', "CFR:", naive_CFR))
+
+# Set up mapping details
+set_map_details <- list(
   scope = 'usa',
   projection = list(type = 'albers usa'),
   showlakes = TRUE,
   lakecolor = toRGB('white')
 )
 
-plot_ly(z = ~state_pop$Pop, text = ~state_pop$hover, locations = ~state_pop$State, 
-        type = 'choropleth', locationmode = 'USA-states', 
-        color = state_pop$Pop, colors = 'Blues', marker = list(line = borders)) %>%
-  layout(title = 'US Population in 1975', geo = map_options)
+# Create the map
+fig <- plot_geo(cv_CFR2, locationmode = 'USA-states') %>% 
+  add_trace(
+    z = ~naive_CFR, text = ~hover, locations = ~state,
+    color = ~naive_CFR, colors = 'Blues'
+  )
+fig <- fig %>% colorbar(title = "CFR")
+fig <- fig %>% layout(
+    title = paste('CFR by State as of', Sys.Date(), '<br>(Hover for value)'),
+    geo = set_map_details
+  )
+fig
 ```
+
+The northeast was hit hard with high CFRs. It would be interesting to see this map at different time points. 
 
 ---
 
-# `ggplotly()`
+## A note on interactive mapping
 
-- So far we've focused on `plot_ly()`. We also have the option of working with `ggplotly()` function from the **plotly** package, which has the ability to translate **ggplot2** to **plotly**. 
+- There are in fact 4 different ways to render interactive maps with plotly: `plot_geo()`, `plot_ly()`, `plot_mapbox()`, and via **ggplot2**’s `geom_sf()`. 
 
-- This functionality can be really helpful for quickly adding interactivity to your existing **ggplot2** workflow.
+- Plotly is a general purpose visualization library and doesn’t offer most fully featured geo-spatial visualization toolkit. If you run into limitations with plotly’s mapping functionality there are many other tools for interactive geospatial visualization in R, including: **leaflet**, **mapview**, **mapedit**, **tmap**, and **mapdeck**.
 
-- Moreover, even if you know `plot_ly()` and plotly.js well, `ggplotly()` can still be desirable for creating visualizations that aren't necessarily straightforward to achieve without it. 
-
---- 
-
-## `ggplotly()` THIS IS WHERE I CAN PUT THE LATIMES DATA EXAMPLE TO SHOW HOW EASY TO GET A GGPLOTLY
-
-To demonstrate, let's explore the relationship between `price` and other variables from the well-known `diamonds` dataset. 
-
-Hexagonal binning (i.e., `geom_hex()`) is useful way to visualize a 2D density, like the relationship between `price` and `carat`. We can see there is a strong positive linear relationship between the _log_ of carat and price. It also shows that for many, the carat is only rounded to a particular number (indicated by the light blue bands) and no diamonds are priced around $1500. Making this plot interactive makes it easier to decode the hexagonal colors into the counts that they represent.
-
-```{r, eval=FALSE}
-p <- ggplot(diamonds, aes(x = log(carat), y = log(price))) + 
-  geom_hex(bins = 100)
-ggplotly(p)
-```
-
---- 
-
-## `ggplotly()` for statistical summaries
-
-We may use `ggplotly()` over `plot_ly()` to leverage **ggplot2**'s consistent and expressive interface for exploring statistical summaries across groups. For example, by including a discrete `color` variable (e.g., `cut`) with `geom_freqpoly()`, you get a frequency polygon for each level of that variable. This ability to quickly generate visual encodings of statistical summaries across an arbitrary number of groups works for basically any geom (e.g., `geom_boxplot()`, `geom_histogram()`, `geom_density()`, etc.) and is a key feature of **ggplot2**.
-
-```{r, eval=FALSE}
-p <- ggplot(diamonds, aes(x = log(price), color = clarity)) + 
-    geom_freqpoly()
-ggplotly(p)
-```
 
 ---
 
-## `ggplotly()` functionality
+# Interactive tables
 
-```{r}
-p<- ggplot(diamonds, aes(x=cut, y=price, fill=clarity)) + geom_bar(position="stack", stat = 'identity')
-ggplotly(p)
-```
-
-
---- 
-
-## `ggplotly()` for statistical summaries
-
-Now, to see how `price` varies with both `cut` and `clarity`, we could repeat this same visualization for each level of `cut`. This is where **ggplot2**'s `facet_wrap()` comes in handy. Moreover, to facilitate comparisons, we can have `geom_freqpoly()` display relative rather than absolute frequencies. By making this plot interactive, we can more easily compare particular levels of clarity by leveraging the legend filtering capabilities. 
+The `DT` package creates an interactive **DataTable** html widget out of a dataframe in 1 line of code
 
 ```{r, eval=FALSE}
-p <- ggplot(diamonds, aes(x = log(price), color = clarity)) + 
-    geom_freqpoly(stat = "density") + 
-    facet_wrap(~cut)
-ggplotly(p)
+library(DT)
+cv_california <- cv_states %>% filter(state=="California") %>% select(date,cases,deaths,new_cases,new_deaths,naive_CFR)
+datatable(cv_california)
+```
 
+Note that you can interactively reorder the values by clicking on the arrows at the top of each column, or search for specific values
+
+---
+
+## Interactive tables
+
+```{r, echo=FALSE, message=FALSE}
+library(DT)
+cv_california <- cv_states %>% filter(state=="California") %>% select(date,cases,deaths,new_cases,new_deaths,naive_CFR)
+datatable(cv_california)
 ```
 
 ---
@@ -770,7 +942,9 @@ ggplotly(p)
 
 Both `plot_ly()` and `ggplotly()` objects and be computed directly as part of an R Markdown file, which means they will show up on a website you create using R Markdown and GitHub pages.
 
-But you may want to save and embed the interactive HTML file, or a static image based on the file.
+You can also share your visualizations on https://plot.ly/ by making an account on their site
+
+But you may want to save and embed the interactive HTML file, or save a static image based on the plot
 
 ---
 
@@ -780,15 +954,12 @@ Any widget made from any **htmlwidgets** package (e.g., **plotly**, **leaflet**,
 
 If you want to embed numerous widgets in a larger HTML document, save all the dependency files externally into a single directory. You can do this by setting `selfcontained = FALSE` and specifying a fixed `libdir` in `saveWidget()`:
 
-```{r, eval=FALSE}
+```{r, include=TRUE, eval=FALSE}
 library(htmlwidgets)
 p <- plot_ly(x = rnorm(100))
 saveWidget(p, "p1.html", selfcontained = F, libdir = "lib")
 saveWidget(p, "p2.html", selfcontained = F, libdir = "lib")
 ```
-
-- If you want to share your visualizations on https://plot.ly/ you can make an
-account on their site
 
 ---
 
@@ -812,23 +983,13 @@ plot_ly() %>%
 
 ---
 
-# Interactive tables
-
-We don't have time to go into a lot of the details but we recommend checking out
-
-The `DT` package, which creates a **DataTable** html widgets out of data.frames, or out of `formattable` objects, i.e.
-
-```{r, message=FALSE}
-library(DT)
-library(formattable)
-formattable::as.datatable(formattable(iris))
-```
-
----
-
 # Takeaways
 
 Hopefully in this class you have learned: 
+
+* How to create plots with **plotly** package using either `plot_ly()` calls or `ggplotly()` applied to a **ggplot2** workflow
+
+* Other interactive options -- maps (multiple options), tables (**DataTable**)
 
 * To appreciate how interactive visualization can help to explore data in ways static graphics cannot
 
@@ -850,22 +1011,11 @@ Hopefully in this class you have learned:
 
 ---
 
-## Next week
-
-- Explore how interactive visualization can be used in practice
-
---
-  - Data science statistical genetics company, BioRealm.ai
-  
-  - NASA data science group
-
----
-
 # More Resources
 
 `Plotly`
 
-- [The Plolty Website](https://plot.ly/)
+- [Plolty R Reference](https://plotly.com/r/reference)
 - [The Plotly R API](https://plot.ly/r/)
 - [The Plotly R Package on GitHub](https://github.com/ropensci/plotly)
 - [The Plotly R Cheatsheet](https://images.plot.ly/plotly-documentation/images/r_cheat_sheet.pdf)
@@ -894,3 +1044,4 @@ Data visualization best practices
 
 - Coursera course on Developing Data Products, Johns Hopkins Data Science Lab: [(GitHub repo for all course materials) materials)](https://github.com/DataScienceSpecialization/Developing_Data_Products)
 
+- [Plolty R Reference](https://plotly.com/r/reference)
