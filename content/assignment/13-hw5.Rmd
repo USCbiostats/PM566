@@ -1,0 +1,14 @@
+---
+title: "Assignment 05 - Interactive Visualization I and II"
+output: tufte::tufte_html
+---
+
+## Due Date
+
+November 11, 2020 by midnight Pacific time.
+
+## Interactive Visualization I and II
+
+1. Using your midterm/final project data, create 3 different interactive visualizations using the tools learned in week 11 class/lab.
+
+2. Include the visualizations created in 1. on your github.io website.
