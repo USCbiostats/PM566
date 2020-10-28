@@ -70,13 +70,13 @@ lessons:
     date: "Week 12 (11/4)"
     class: "12-class"
     reading: "12-reading"
-    assignment: ""
+    assignment: "11-hw4"
 
   - title: "Interactive visualization and effective data communication II"
     date: "Week 13 (11/11)"
     class: "12-class"
     reading: "13-reading"
-    assignment: ""
+    assignment: "13-hw5"
 
   - title: "Final Project"
     date: "Week 14 (11/18)"
