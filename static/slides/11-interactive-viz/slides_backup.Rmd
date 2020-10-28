@@ -1,0 +1,70 @@
+---
+title: "Untitled"
+author: "Abigail Horn"
+date: "10/26/2020"
+output: html_document
+---
+
+## Scatterplot with all the options
+
+```{r}
+cv_states_today %>% 
+  mutate(naive_CFR = round((deaths*100 / cases),2)) %>% 
+           plot_ly(x = ~deaths, y = ~cases, 
+                   #plot_ly(cv_states, x = ~date, y = ~mpg, 
+                   size = ~cases,
+                   sizes = c(5, 70),
+                   type = 'scatter',
+                   mode = 'markers',
+                   color = ~state,
+                   marker = list(sizemode='diameter', opacity=0.5),
+                   hoverinfo = 'text',
+                   text = ~paste( paste("", state,":"),
+                                 " Cases: ", cases, sep="",
+                                 " Deaths: ", deaths,
+                                 " CFR (%): ", naive_CFR)
+           ) %>% 
+           layout(title = "Cases, Deaths, and Naive Case Fatality Rate for US States",
+                  yaxis = list(title = "Cases"),
+                  xaxis = list(title = "Deaths"
+                               #, ticksuffix = "%", 
+                               #dtick = 1, 
+                               #tick0 = 0
+                  ),
+                  hovermode = "compare")
+         
+#####
+cv_states_today %>% 
+  dplyr::group_by(country, type) %>%
+  dplyr::summarise(total_cases = sum(cases)) %>%
+  tidyr::pivot_wider(names_from = type, values_from = total_cases) %>%
+  dplyr::arrange(- confirmed) %>%
+  dplyr::filter(confirmed >= 20000) %>%
+  dplyr::mutate(recover_rate = recovered / confirmed,
+                death_rate = death / confirmed) %>% 
+  dplyr::mutate(recover_rate = dplyr::if_else(is.na(recover_rate), 0, recover_rate),
+                death_rate = dplyr::if_else(is.na(death_rate), 0, death_rate)) %>%
+  dplyr::ungroup() %>%
+  dplyr::mutate(confirmed_normal = as.numeric(confirmed) / max(as.numeric(confirmed))) %>%
+  plotly::plot_ly(y = ~ round(100 * recover_rate, 1),
+                  x = ~ round(100 * death_rate, 1),
+                  size = ~  log(confirmed),
+                  sizes = c(5, 70),
+                  type = 'scatter', mode = 'markers',
+                  color = ~ country,
+                  marker = list(sizemode = 'diameter' , opacity = 0.5),
+                  hoverinfo = 'text',
+                  text = ~paste("", country, 
+                                " Confirmed Cases: ", confirmed,
+                                " Recovery Rate: ", paste(round(100 * recover_rate, 1), "%", sep = ""),
+                                " Death Rate: ",  paste(round(100 * death_rate, 1), "%", sep = ""))
+                 ) %>%
+  plotly::layout(title = "Recovery / Death Ratio (Countries with More than 20,000 Cases)",
+    yaxis = list(title = "Recovery Rate", ticksuffix = "%"),
+                xaxis = list(title = "Death Rate", ticksuffix = "%", 
+                             dtick = 1, 
+                             tick0 = 0),
+                hovermode = "compare")
+
+
+```

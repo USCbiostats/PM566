@@ -22,11 +22,11 @@ editor_options:
 
 ## Lab Exercise
 
-To be announced
+[link](/assignment/11-lab)
 
 ## Slides
 
-To be announced
+[link](/slides/11-interactive-viz/slides.html)
 
 ## Links
 
