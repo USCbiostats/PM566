@@ -66,15 +66,15 @@ lessons:
     reading: "11-reading"
     assignment: ""
 
-  - title: "Final project workshop: review project progress, preliminary presentations"
+  - title: "Interactive visualization and effective data communication II"
     date: "Week 12 (11/4)"
     class: "12-class"
     reading: "12-reading"
     assignment: "11-hw4"
 
-  - title: "Interactive visualization and effective data communication II"
+  - title: "Final project workshop: review project progress, preliminary presentations"
     date: "Week 13 (11/11)"
-    class: "12-class"
+    class: "13-class"
     reading: "13-reading"
     assignment: "13-hw5"
 
