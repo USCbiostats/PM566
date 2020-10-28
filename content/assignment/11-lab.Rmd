@@ -1,0 +1,108 @@
+---
+title: "Lab 11 - Interactive Visualization"
+output: html_document
+link-citations: yes
+editor_options: 
+  chunk_output_type: console
+---
+
+
+
+```{r setup, message=FALSE, echo=FALSE, warning=FALSE}
+#install.packages(c("data.table","leaflet"))
+library(data.table)
+library(tidyverse)
+library(dplyr)
+```
+
+# Learning Goals
+
+- Read in and process the COVID dataset from the New York Times GitHub repository
+- Create interactive graphs of different types using `plot_ly()` and `ggplotly()` functions
+- Customize the hoverinfo and other plot features
+- Create a Choropleth map using `plot_geo()`
+- Create an interactive table using `DataTable`
+
+# Lab Description
+
+We will work with the COVID data presented in lecture. Recall the dataset consists of COVID-19 cases and deaths in each US state during the course of the COVID epidemic.
+
+**The objective of this lab is to identify how long after cases increased deaths increased, and after cases decreased deaths decreased, and plot data to demonstrate this**
+
+# Steps
+
+### 1. Read in the data
+
+- Read in the COVID data with data.table:fread() from the NYT GitHub repository: "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv"
+- Read in the state population data with data.table:fread() from the repository: "https://raw.githubusercontent.com/COVID19Tracking/associated-data/master/us_census_data/us_census_2018_population_estimates_states.csv""
+- Merge datasets
+
+```{r, echo=TRUE, message=FALSE}
+
+## data extracted from New York Times state-level data from NYT Github repository
+# https://github.com/nytimes/covid-19-data
+
+## state-level population information from us_census_data available on GitHub repository:
+# https://github.com/COVID19Tracking/associated-data/tree/master/us_census_data
+
+# load COVID state-level data from NYT
+cv_states <- as.data.frame(data.table::fread("https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv"))
+
+# load state population data
+state_pops <- as.data.frame(data.table::fread("https://raw.githubusercontent.com/COVID19Tracking/associated-data/master/us_census_data/us_census_2018_population_estimates_states.csv"))
+
+cv_states <- merge(cv_states, state_pops, by="state")
+
+```
+
+### 2. Prepare the data
+
+- Add variables for new cases, new deaths
+- Add population-normalized (by 100,000) variables for each variable type
+- Add a "naive CFR" variable representing `deaths / cases` on each date
+
+```{r}
+
+
+```
+
+
+### 3. Scatterplot
+
+- Create a scatterplot using `plot_ly()`
+- Specify the hoverinfo text directly in the dataframe
+
+### 4. Multiple line chart
+
+- Create a multiple line chart using both `plot_ly()` and `ggplotly()`
+- Arrange the two charts side by side using `subplot`
+- Add an annotation to the chart at the maximum `new_cases` and `new_deaths`
+
+### 5. Heatmap
+
+- Create a heatmap to visualize 3 dimensions of data
+- Start by mapping selected features in the dataframe into a matrix
+
+### 6. 3D Surface
+
+
+### 7. Map
+
+- Create a map to visualize a new dimension of data
+
+
+
+
+
+
+
+
+```{r}
+# to save/write data locally
+# write.csv(met_avg, "/Documents/.../met_avg.csv",row.names=T)
+# saveRDS(met_avg,"/Documents/.../met_avg.rds")
+```
+
+
+
+
