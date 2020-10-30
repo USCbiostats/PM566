@@ -14,6 +14,7 @@ library(tidyverse)
 library(dplyr)
 library(plotly)
 library(knitr)
+library(widgetframe)
 
 opts_chunk$set(
   warning = FALSE,
@@ -272,6 +273,7 @@ ggplotly(p)
   - Use the zoom and pan tools to inspect the `naive_CFR` for the states that had a "first peak" in September. How have they changed over time?
 - Create one more line chart, for Texas only, which shows `new_cases` and `new_deaths` together in one plot. Hint: use `add_layer()`
   - Use hoverinfo to "eyeball" the approximate peak of deaths and peak of cases. What is the time delay between the peak of cases and the peak of deaths?
+  
 
 ```{r}
 

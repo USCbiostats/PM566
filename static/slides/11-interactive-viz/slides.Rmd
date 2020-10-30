@@ -56,6 +56,7 @@ opts_chunk$set(
   fig.asp = 0.618, # 1 / phi
   out.width = "700px")
 
+
 ```
 
 # Introduction to interactive visualization
@@ -73,7 +74,7 @@ opts_chunk$set(
   
   - Interactive maps (`plotly`, `Leaflet`)
   
-  - Interactive tables (`formattable`, `DT`)
+  - Interactive tables (`DT`)
   
   - Dashboards (`flexdashboard`)
   
@@ -385,13 +386,18 @@ cv_states_today %>%
 
 ```{r, echo=FALSE, message=FALSE}
 library(plotly)
-cv_states_today %>% 
+library(widgetframe)
+test.widget <- cv_states_today %>% 
            plot_ly(x = ~deathsper100k, y = ~per100k, 
                    type = 'scatter',
                    mode = 'markers',
                    color = ~state,
                    colors = "Blues")
+widgetframe::frameWidget(test.widget, width = '75%')
 ```
+
+<br>
+<br>
 
 - Scatterplot of deaths vs. cases population-normalized (`per100k`)
 - plotly allows us to hover and see the exact $(x,y)$ values of each point
@@ -424,7 +430,7 @@ cv_states_today %>%
 ## Scatterplot: size
 
 ```{r, echo=FALSE, message=FALSE}
-cv_states_today %>% 
+test.widget.2 <- cv_states_today %>% 
            plot_ly(x = ~deathsper100k, y = ~per100k, 
                    type = 'scatter',
                    mode = 'markers',
@@ -433,7 +439,12 @@ cv_states_today %>%
                    sizes = c(5, 70),
                    marker = list(sizemode='diameter', opacity=0.5))
 
+widgetframe::frameWidget(test.widget.2, width = '85%')
+
 ```
+
+<br>
+<br>
 
 The closer to the bottom right corner of the plot, the higher the CFR, and the larger the point's circle.
 ---
@@ -463,7 +474,7 @@ cv_states_today %>%
 ## Specifying hover information
 
 ```{r, echo=FALSE, message=FALSE}
-cv_states_today %>% 
+p <- cv_states_today %>% 
   plot_ly(x = ~deathsper100k, y = ~per100k, 
           type = 'scatter', mode = 'markers', color = ~state,
           size = ~naive_CFR, sizes = c(5, 70), marker = list(sizemode='diameter', opacity=0.5),
@@ -473,7 +484,11 @@ cv_states_today %>%
                          paste(" Deaths per 100k: ", deathsper100k, sep=""),
                          paste(" CFR (%): ", naive_CFR,sep=""),
                          sep = "<br>")) 
+widgetframe::frameWidget(p, width = '75%')
 ```
+
+<br>
+<br>
 
 We can now clearly understand the information being shown in the `tooltip`
 
@@ -502,7 +517,7 @@ cv_states_today %>%
 ## Layout
 
 ```{r, echo=FALSE, message=FALSE}
-cv_states_today %>% 
+p<- cv_states_today %>% 
   plot_ly(x = ~deathsper100k, y = ~per100k, 
           type = 'scatter', mode = 'markers', color = ~state,
           size = ~naive_CFR, sizes = c(5, 70), marker = list(sizemode='diameter', opacity=0.5),
@@ -512,6 +527,7 @@ cv_states_today %>%
   layout(title = "Cases, Deaths, and Naive Case Fatality Rate for US States",
                   yaxis = list(title = "Cases"), xaxis = list(title = "Deaths"),
          hovermode = "compare")
+widgetframe::frameWidget(p, width = '75%')
 ```
 
 ---
@@ -538,7 +554,7 @@ cv_states_today %>%
 ## 3D Scatterplot
 
 ```{r, echo=FALSE, message=FALSE}
-cv_states_today %>% 
+p <- cv_states_today %>% 
   plot_ly(x = ~deathsper100k, y = ~per100k, z = ~population,
           type = 'scatter3d', mode = 'markers', color = ~state,
           size = ~naive_CFR, sizes = c(5, 70), marker = list(sizemode='diameter', opacity=0.5),
@@ -548,6 +564,7 @@ cv_states_today %>%
   layout(title = "Cases, Deaths, and Naive Case Fatality Rate for US States",
                   yaxis = list(title = "Cases"), xaxis = list(title = "Deaths"),
          hovermode = "compare")
+widgetframe::frameWidget(p, width = '75%')
 ```
 
 ---
@@ -569,8 +586,12 @@ ggplotly(p)
 
 ```{r, echo=FALSE, message=FALSE}
 p <- ggplot(cv_states_today, aes(x=deathsper100k, y=per100k, size=naive_CFR)) + geom_point() + geom_smooth()
-ggplotly(p)
+p1<-ggplotly(p)
+widgetframe::frameWidget(p1, width = '75%')
 ```
+
+<br>
+<br>
 
 The `geom_smooth()` helps us to see there is not a clear correlation between cases and deaths relative to population across the states.
 Note that the `geom_smooth()` line also appears upon hover.
@@ -615,7 +636,7 @@ fig <- fig %>% add_fun(function(p) {
       add_segments(x = ~x, xend = ~x, y = ~ymin, yend = ~ymax) %>%
       add_annotations("Min uncertainty")
   })
-fig
+widgetframe::frameWidget(fig, width = '75%')
 ```
 
 ---
@@ -639,12 +660,16 @@ plot_ly(x = ~date, y = ~deaths, color = ~state, type = "scatter", mode = "lines"
 ## Line graph
 
 ```{r, echo=FALSE, message=FALSE}
-cv_states %>% filter(population>7500000) %>% 
+p<- cv_states %>% filter(population>7500000) %>% 
 plot_ly(x = ~date, y = ~deaths, color = ~state, type = "scatter", mode = "lines",
         hoverinfo = 'text',
         text = ~paste( paste("Date: ", date, sep=""), paste(state, ":", sep=""), paste(" Deaths (total): ", deaths, sep=""), 
                        paste(" Deaths per 100k: ", deathsper100k, sep=""), sep = "<br>"))
+widgetframe::frameWidget(p, width = '75%')
 ```
+
+<br>
+<br>
 
 Deaths stabilized for New York and New Jersey around the time they started to rise for California, Texas, and Florida.
 It helps to be able to see the exact values for each date upon hover.
@@ -673,7 +698,8 @@ subplot(g1, g2_plotly)
 ```{r, eval=FALSE}
 g1 = ggplot(cv_states, aes(x = date, y = cases, color = state, 
                            text=paste( paste("Date: ", date, sep=""), paste(state, ":", sep=""), paste(" Cases (total): ", cases, sep=""),sep = "<br>") )) + geom_line() + geom_point(size = .5, alpha = 0.5) 
-ggplotly(g1, tooltip = "text")
+g2<-ggplotly(g1, tooltip = "text")
+widgetframe::frameWidget(g2, width = '75%')
 ```
 
 ---
@@ -756,11 +782,14 @@ rownames(cv_states_mat2) <- cv_states_mat2$date
 cv_states_mat2$date <- NULL
 cv_states_mat2 <- as.matrix(cv_states_mat2)
 
-plot_ly(x=colnames(cv_states_mat2), y=rownames(cv_states_mat2),
+p<-plot_ly(x=colnames(cv_states_mat2), y=rownames(cv_states_mat2),
              z=~cv_states_mat2,
              type="heatmap",
              showscale=T)
+widgetframe::frameWidget(p, width = '95%')
 ```
+
+<br>
 
 We can see when new deaths started to rise and fall for each state. No other state approached the values seen in NY. The hover info conveniently allows us to inspect the exact date and number of new deaths.
 
