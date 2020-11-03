@@ -1,6 +1,6 @@
 ---
 title: "Creating websites in R"
-author: "Emily C. Zabor"
+author: "Abigail Horn"
 output: 
     html_document:
         toc: TRUE
@@ -8,11 +8,6 @@ output:
 ---
 
 This tutorial provides an introduction to creating websites using R, R Markdown and GitHub pages. 
-
-This tutorial was originally presented at the Memorial Sloan Kettering Cancer Center Department of Epidemiology and Biostatistics R User Group meeting on January 23, 2018.
-
-The current version was updated and presented at the R Ladies NYC Meetup on February 15, 2018.
-
 
 ## Types of websites
 
