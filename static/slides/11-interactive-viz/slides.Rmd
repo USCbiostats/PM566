@@ -56,6 +56,11 @@ opts_chunk$set(
   fig.asp = 0.618, # 1 / phi
   out.width = "700px")
 
+#To adjust layout on slide:
+#.center[![description of the image](images/foo.png)]
+
+#To leave presenter notes
+#???
 
 ```
 
