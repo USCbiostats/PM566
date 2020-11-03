@@ -79,7 +79,7 @@ opts_chunk$set(
   - Creating interactive graphs with **plotly** for R package and tables with **DataTable**
 
 **11/04 Week 12 (Today)**: 
-  - Create a website using R Markdown and GitHub Pages
+  - Create a website using R Markdown and GitHub Pages (like [this](https://abigailhorn.github.io/PM566-final-project/)!)
   - Share interactive plots on the website
   - Survey other options for sharing interactive graphics (Shiny apps, dashboards)
 
@@ -729,19 +729,15 @@ Large image centered:
 
 ---
 
-# Publishing website
+# Deploying website
 
 <font size="10" color="red">FINISH SLIDE</font>
 
 R Markdown websites are static HTML sites that can be deployed to any standard web server. All site content (generated documents and supporting files) are copied into the `_site` directory, so deployment is simply a matter of moving that directory to the appropriate directory of a web server.
 
-We will focus on deploying the website using GitHub pages.
+We will focus on hosting websites through GitHub pages. Hosting websites on GitHub pages is free.
 
-Another popular publishing site is Netlify.
-
-
-
-
+There are other free sites for website hosting, and another popular choice is [Netlify](https://www.netlify.com/).
 
 
 
@@ -803,6 +799,11 @@ Tutorials on creating a website using **rmarkdown**:
 - For more advanced website creation using **blogdown** and the website generator Hugo see [Creating websites with R Markdown](https://bookdown.org/yihui/blogdown/)
 - [Appendix B](https://bookdown.org/yihui/blogdown/website-basics.html#website-basics) of the **blogdown** book presents basic information about websites, such as HTML, CSS, and JavaScript
 - A good resource for further information on customizing CSS and JavaScript is [w3schools](https://www.w3schools.com/w3css/defaulT.asp)
+
+#### R Markdown
+
+- The comprehensive reference on R Markdown is [here](https://bookdown.org/yihui/rmarkdown/)
+- The R Markdown cheatsheet is [here](https://rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)
 
 #### Making and posting interactive plots `shiny` and dashboards
 
