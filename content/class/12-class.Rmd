@@ -1,6 +1,6 @@
 ---
-title: "Final project workshop: review project progress, preliminary presentations"
-linktitle: "12: Final project"
+title: "Interactive visualization and effective data communication II"
+linktitle: "11: Interactive Visualization II"
 date: "2020-11-04"
 class_date: "2020-11-04"
 citeproc: false
@@ -22,11 +22,11 @@ editor_options:
 
 ## Lab Exercise
 
-To be announced
+[link](/assignment/12-lab)
 
 ## Slides
 
-To be announced
+[link](/slides/12-interactive-viz2/slides.html) 
 
 ## Links
 
