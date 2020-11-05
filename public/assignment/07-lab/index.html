@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en-us" 
+      xmlns:og="http://ogp.me/ns#" 
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.8.0">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Emil Hvitfeldt">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="knitr::opts_chunk$set(include = TRUE) Learning goals  Use a real world API to make queries and process the data. Use regular expressions to parse the information. Practice your GitHub skills.   Lab description In this lab, we will be working with the NCBI API to make queries and extract information using XML and regular expressions. For this lab, we will be using the httr, xml2, and stringr R packages.">
+
+  
+  <link rel="alternate" hreflang="en-us" href="/assignment/07-lab/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="#098A9C">
+  
+
+  
+  
+  
+  <script src="/js/mathjax-config.js"></script>
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-1/css/all.min.css" integrity="sha256-4w9DunooKSr3MFXHXWyFER38WmPdm361bQS/2KUWZbU=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+        
+      
+    
+
+    
+
+    
+
+    
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js" integrity="sha256-Md1qLToewPeKjfAHU1zyPwOutccPAm5tahnaw7Osw0A=" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i&display=swap">
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.css">
+
+  
+
+
+
+
+  
+
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_2.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png">
+
+  <link rel="canonical" href="/assignment/07-lab/">
+
+  
+  
+  
+  
+  
+    
+  
+  
+  <meta property="twitter:card" content="summary_large_image">
+  
+  <meta property="twitter:site" content="@USCBiostat">
+  <meta property="twitter:creator" content="@USCBiostat">
+  
+  <meta property="og:site_name" content="Introduction to Health Data Science - PM 566">
+  <meta property="og:url" content="/assignment/07-lab/">
+  <meta property="og:title" content="Lab 07 - Web scraping and Regular Expressions | Introduction to Health Data Science - PM 566">
+  <meta property="og:description" content="knitr::opts_chunk$set(include = TRUE) Learning goals  Use a real world API to make queries and process the data. Use regular expressions to parse the information. Practice your GitHub skills.   Lab description In this lab, we will be working with the NCBI API to make queries and extract information using XML and regular expressions. For this lab, we will be using the httr, xml2, and stringr R packages."><meta property="og:image" content="/img/social-image.png">
+  <meta property="twitter:image" content="/img/social-image.png"><meta property="og:locale" content="en-us">
+  
+    
+    <meta property="article:modified_time" content="2020-09-29T18:30:17-07:00">
+  
+
+  
+
+
+
+  
+
+
+  
+
+
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/apple-touch-icon-152x152.png" />
+  <link rel="icon" type="image/png" href="/img/favicon-32x32.png" sizes="32x32" />
+  <link rel="icon" type="image/png" href="/img/favicon-16x16.png" sizes="16x16" />
+  <meta name="application-name" content="PM566: Introduction to Health Data Science - PM 566" />
+  <meta name="msapplication-TileColor" content="#FFFFFF" />
+  <meta name="msapplication-TileImage" content="/img/mstile-144x144.png" />
+
+
+  <title>Lab 07 - Web scraping and Regular Expressions | Introduction to Health Data Science - PM 566</title>
+
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70"
+    data-target="#TableOfContents"
+    >
+
+    <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+    
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/">Introduction to Health Data Science - PM 566</a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/">Introduction to Health Data Science - PM 566</a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-end" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/syllabus/"><span>Syllabus</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/schedule/"><span>Schedule</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/reference/"><span>Reference</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+    <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1>Lab 07 - Web scraping and Regular Expressions</h1>
+
+  
+
+  
+    
+
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+          Last updated on
+      
+    
+    September 29, 2020
+  </span>
+  
+
+  
+
+  
+
+  
+  
+  
+
+  
+  
+
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      
+
+
+<pre class="r"><code>knitr::opts_chunk$set(include  = TRUE)</code></pre>
+<div id="learning-goals" class="section level1">
+<h1>Learning goals</h1>
+<ul>
+<li>Use a real world API to make queries and process the data.</li>
+<li>Use regular expressions to parse the information.</li>
+<li>Practice your GitHub skills.</li>
+</ul>
+</div>
+<div id="lab-description" class="section level1">
+<h1>Lab description</h1>
+<p>In this lab, we will be working with the <a href="https://www.ncbi.nlm.nih.gov/home/develop/api/">NCBI API</a>
+to make queries and extract information using XML and regular expressions. For this lab, we will
+be using the <code>httr</code>, <code>xml2</code>, and <code>stringr</code> R packages.</p>
+<p>This markdown document should be rendered using <code>github_document</code> document.</p>
+<div id="question-1-how-many-sars-cov-2-papers" class="section level2">
+<h2>Question 1: How many sars-cov-2 papers?</h2>
+<p>Build an automatic counter of sars-cov-2 papers using PubMed. You will need to apply XPath as we did during the lecture to extract the number of results returned by PubMed in the following web address:</p>
+<pre><code>https://pubmed.ncbi.nlm.nih.gov/?term=sars-cov-2</code></pre>
+<p>Complete the lines of code:</p>
+<pre class="r"><code># Downloading the website
+website &lt;- xml2::read_html(&quot;[URL]&quot;)
+
+# Finding the counts
+counts &lt;- xml2::xml_find_first(website, &quot;[XPath]&quot;)
+
+# Turning it into text
+counts &lt;- as.character(counts)
+
+# Extracting the data using regex
+stringr::str_extract(counts, &quot;[REGEX FOR NUMBERS WITH COMMAS/DOTS]&quot;)</code></pre>
+<p>Don’t forget to commit your work!</p>
+</div>
+<div id="question-2-academic-publications-on-covid19-and-hawaii" class="section level2">
+<h2>Question 2: Academic publications on COVID19 and Hawaii</h2>
+<p>You need to query the following
+The parameters passed to the query are documented <a href="https://www.ncbi.nlm.nih.gov/books/NBK25499/">here</a>.</p>
+<p>Use the function <code>httr::GET()</code> to make the following query:</p>
+<ol style="list-style-type: decimal">
+<li><p>Baseline URL: <a href="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi" class="uri">https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi</a></p></li>
+<li><p>Query parameters:</p>
+<ul>
+<li>db: pubmed</li>
+<li>term: covid19 hawaii</li>
+<li>retmax: 1000</li>
+</ul></li>
+</ol>
+<pre class="r"><code>library(httr)
+query_ids &lt;- GET(
+  url   = &quot;BASELINE URL&quot;,
+  query = list(&quot;QUERY PARAMETERS&quot;)
+)
+
+# Extracting the content of the response of GET
+ids &lt;- httr::content(query_ids)</code></pre>
+<p>The query will return an XML object, we can turn it into a character list to
+analyze the text directly with <code>as.character()</code>. Another way of processing the
+data could be using lists with the function <code>xml2::as_list()</code>. We will skip the
+latter for now.</p>
+<p>Take a look at the data, and continue with the next question (don’t forget to
+commit and push your results to your GitHub repo!).</p>
+</div>
+<div id="question-3-get-details-about-the-articles" class="section level2">
+<h2>Question 3: Get details about the articles</h2>
+<p>The Ids are wrapped around text in the following way: <code>&lt;Id&gt;... id number ...&lt;/Id&gt;</code>.
+we can use a regular expression that extract that information. Fill out the
+following lines of code:</p>
+<pre class="r"><code># Turn the result into a character vector
+ids &lt;- as.character(ids)
+
+# Find all the ids 
+ids &lt;- stringr::str_extract_all(ids, &quot;PATTERN&quot;)[[1]]
+
+# Remove all the leading and trailing &lt;Id&gt; &lt;/Id&gt;. Make use of &quot;|&quot;
+ids &lt;- stringr::str_remove_all(ids, &quot;PATTERN&quot;)</code></pre>
+<p>With the ids in hand, we can now try to get the abstracts of the papers. As
+before, we will need to coerce the contents (results) to a list using:</p>
+<ol style="list-style-type: decimal">
+<li><p>Baseline url: <a href="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi" class="uri">https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi</a></p></li>
+<li><p>Query parameters:</p>
+<ul>
+<li>db: pubmed</li>
+<li>id: A character with all the ids separated by comma, e.g., “1232131,546464,13131”</li>
+<li>retmax: 1000</li>
+<li>rettype: abstract</li>
+</ul></li>
+</ol>
+<p><strong>Pro-tip</strong>: If you want <code>GET()</code> to take some element literal, wrap it around <code>I()</code> (as you would do in a formula in R). For example, the text <code>"123,456"</code> is replaced with <code>"123%2C456"</code>. If you don’t want that behavior, you would need to do the following <code>I("123,456")</code>.</p>
+<pre class="r"><code>publications &lt;- GET(
+  url   = &quot;BASELINE URL HERE&quot;,
+  query = list(
+    &quot;PARAMETERS OF THE QUERY&quot;
+    )
+)
+
+# Turning the output into character vector
+publications &lt;- httr::content(publications)
+publications_txt &lt;- as.character(publications)</code></pre>
+<p>With this in hand, we can now analyze the data. This is also a good time for committing and pushing your work!</p>
+</div>
+<div id="question-4-distribution-of-universities-schools-and-departments" class="section level2">
+<h2>Question 4: Distribution of universities, schools, and departments</h2>
+<p>Using the function <code>stringr::str_extract_all()</code> applied on <code>publications_txt</code>, capture all the terms of the form:</p>
+<ol style="list-style-type: decimal">
+<li>University of …</li>
+<li>… Institute of …</li>
+</ol>
+<p>Write a regular expression that captures all such instances</p>
+<pre class="r"><code>institution &lt;- str_extract_all(
+  publications_txt,
+  &quot;[YOUR REGULAR EXPRESSION HERE]&quot;
+  ) 
+institution &lt;- unlist(institution)
+table(institution)</code></pre>
+<p>Repeat the exercise and this time focus on schools and departments in the form of</p>
+<ol style="list-style-type: decimal">
+<li>School of …</li>
+<li>Department of …</li>
+</ol>
+<p>And tabulate the results</p>
+<pre class="r"><code>schools_and_deps &lt;- str_extract_all(
+  abstracts_txt,
+  &quot;[YOUR REGULAR EXPRESSION HERE]&quot;
+  )
+table(schools_and_deps)</code></pre>
+</div>
+<div id="question-5-form-a-database" class="section level2">
+<h2>Question 5: Form a database</h2>
+<p>We want to build a dataset which includes the title and the abstract of the
+paper. The title of all records is enclosed by the HTML tag <code>ArticleTitle</code>, and
+the abstract by <code>Abstract</code>.</p>
+<p>Before applying the functions to extract text directly, it will help to process
+the XML a bit. We will use the <code>xml2::xml_children()</code> function to keep one element
+per id. This way, if a paper is missing the abstract, or something else, we will be able to properly match PUBMED IDS with their corresponding records.</p>
+<pre class="r"><code>pub_char_list &lt;- xml2::xml_children(publications)
+pub_char_list &lt;- sapply(pub_char_list, as.character)</code></pre>
+<p>Now, extract the abstract and article title for each one of the elements of
+<code>pub_char_list</code>. You can either use <code>sapply()</code> as we just did, or simply
+take advantage of vectorization of <code>stringr::str_extract</code></p>
+<pre class="r"><code>abstracts &lt;- str_extract(pub_char_list, &quot;[YOUR REGULAR EXPRESSION]&quot;)
+abstracts &lt;- str_remove_all(abstracts, &quot;[CLEAN ALL THE HTML TAGS]&quot;)
+abstracts &lt;- str_remove_all(abstracts, &quot;[CLEAN ALL EXTRA WHITE SPACE AND NEW LINES]&quot;)</code></pre>
+<p>How many of these don’t have an abstract? Now, the title</p>
+<pre class="r"><code>titles &lt;- str_extract(pub_char_list, &quot;[YOUR REGULAR EXPRESSION]&quot;)
+titles &lt;- str_remove_all(titles, &quot;[CLEAN ALL THE HTML TAGS]&quot;)</code></pre>
+<p>Finally, put everything together into a single <code>data.frame</code> and use
+<code>knitr::kable</code> to print the results</p>
+<pre class="r"><code>database &lt;- data.frame(
+  &quot;[DATA TO CONCATENATE]&quot;
+)
+knitr::kable(database)</code></pre>
+<p>Done! Knit the document, commit, and push.</p>
+</div>
+<div id="final-pro-tip-optional" class="section level2">
+<h2>Final Pro Tip (optional)</h2>
+<p>You can still share the HTML document on github. You can include a link in your <code>README.md</code> file as the following:</p>
+<pre class="md"><code>View [here](https://ghcdn.rawgit.org/:user/:repo/:tag/:file)</code></pre>
+<p>For example, if we wanted to add a direct link the HTML page of lecture 7, we could do something like the following:</p>
+<pre class="md"><code>View [here](https://ghcdn.rawgit.org/USCbiostats/PM566/master/static/slides/07-apis-regex/slides.html)</code></pre>
+</div>
+</div>
+
+    </div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  </div>
+</article>
+
+        
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/r.min.js"></script>
+        
+      
+
+    
+
+    
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    <script>const isSiteThemeDark = false;</script>
+    
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <script src="/js/academic.min.6f7ce8be710290b8c431bbc97f405d15.js"></script>
+
+    
+
+
+
+
+
+
+    
+    
+    <div class="container">
+        <footer>
+    <hr>
+
+    <div class="row course-info">
+        <div class="col-md-7">
+            <p>
+                <strong>PM566: Introduction to Health Data Science - PM 566 (Fall 2020)</strong><br>
+            </p>
+            <p>
+                <a href="https://www.usc.edu/" target="_blank" rel="noopener">University of Southern California</a>
+            </p>
+            <p>
+                <a href="https://preventivemedicine.usc.edu/" target="_blank" rel="noopener">Department of Preventive Medicine</a>
+            </p>
+            <p>
+                <a><i class="fas fa-user"></i>
+                    Meredith Franklin, George Vega-Yon, Emil Hvitfeldt</a>
+            </p>
+            <p>
+                <a href="mailto:meredith.franklin@usc.edu"><i class="fas fa-envelope"></i>
+                    meredith.franklin@usc.edu</a>
+            </p>
+        </div>
+
+        <div class="col-md-5 credits">
+            <p>All content licensed under a <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.</p>                    
+            
+            <p><a href="https://github.com/USCbiostats/PM566" target="_blank" rel="noopener"><i class="fab fa-github"></i> View the source at GitHub.</a></p>
+        </div>
+    </div>
+</footer>
+
+    </div>
+    
+
+    
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Week 7: Scraping, APIs, and Regular Expressions</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="George G. Vega Yon" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, title-slide
+
+# Week 7: Scraping, APIs, and Regular Expressions
+## PM 566: Introduction to Health Data Science
+### George G. Vega Yon
+
+---
+
+
+## Today's goals
+
+- Introduction to Regular Expressions
+
+- Understand the fundamentals of Web Scrapping
+
+- Learn how to use an API
+
+---
+
+## Regular Expressions: What is it?
+
+&gt; A regular expression (shortened as regex or regexp; also referred to as rational expression) is a sequence of characters that define a search pattern. -- [Wikipedia](https://en.wikipedia.org/wiki/Regular_expression)
+
+&lt;img src="https://imgs.xkcd.com/comics/regular_expressions.png" width="450px"&gt;
+
+---
+
+## Regular Expressions: Why should you care?
+
+We can use Regular Expressions for:
+
+- Validating data fields, email address, numbers, etc.
+
+- Searching text in various formats, e.g., addresses, there are many ways to write an address.
+
+- Replace text, e.g., different spellings, `Storm`, `Stôrm`, `Stórm` to `Storm`.
+
+- Remove text, e.g., tags from an HTML text, `&lt;name&gt;George&lt;/name&gt;` to `George`.
+
+---
+
+## Regular Expressions 101: Metacharacters
+
+What makes *regex* special is metacharacters. While we can always use *regex* to match literals like `dog`, `human`, `1999`, we only make use of all *regex* power when using metacharacters:
+
+- `.` Any character except new line
+- `^` beginning of the text
+- `$` end of the text
+- `[regex]` Match a single character in `regex`, e.g.
+
+    - `[0123456789]` Any number
+    - `[0-9]` Any number in the range 0-9
+    - `[a-z]` Lower-case letters
+    - `[A-Z]` Upper-case letters
+    - `[a-zA-Z]` Lower or upper case letters.
+    - `[a-zA-Z0-9]` Any alpha-numeric
+
+- `[^regex]` Match any except those in `regex`, e.g.
+
+    - `[^0123456789]` Match any except a number
+    - `[^0-9]` Match anything except in the range 0-9
+    - `[^./ ]` any except dot, slash, and space.
+
+---
+
+## Regular Expressions 101: Metacharacters (cont. 1)
+
+Ranges, e.g., `0-9` or `a-z`, are locale- and implementation-dependent, meaning that the range of lower case letters may vary depending on the OS's language. To solve for this problem, you could use [Character classes](https://en.wikipedia.org/wiki/Regular_expression#Character_classes). Some examples:
+
+- `[:lower:]` lower case letters in the current locale, could be `[a-z]`
+- `[:upper:]` upper case letters in the current locale, could be `[A-Z]`
+- `[:alpha:]` upper and lower case letters in the current locale, could be `[a-zA-Z]`
+- `[:digit:]` Digits: 0 1 2 3 4 5 6 7 8 9
+- `[:alnum:]` Alpha numeric characters `[:alpha:]` and `[:digit:]`.
+- `[:punct:]` Punctuation characters: ! " \# $ % &amp; ' ( ) * + , - . / : ; &lt; = &gt; ? @ [ \\ ] ^ _ &amp;#96; \{ | \} ~.
+
+For example, in the locale `en_US`, the word `Ḧóla` IS NOT fully matched by `[a-zA-Z]+`, but IT IS fully matched by `[[:alpha:]]+`.
+
+Other important Metacharacters:
+
+- `\s` white space, equivalent to `[\r\n\t\f\v ]`
+- `|` or (logical or).
+
+---
+
+## Regular Expressions 101: Metacharacters (cont. 2)
+
+These usually come together with specifying how many times (repetition):
+
+- `regex?` Zero or one match.
+- `regex*` Zero or more matches
+- `regex+` One or more matches
+- `regex{n,}` At least `n` matches
+- `regex{,m}` at most `m` matches
+- `regex{n,m}` Between `n` and `m` matches.
+
+Where `regex` is a regular expression
+
+---
+
+## Regular Expressions 101: Metacharacters (cont. 3)
+
+There are other operators that can be very useful,
+
+- `(regex)` Group capture.
+- `(?:regex)` Group operation without capture.
+- `(?=regex)` Look ahead (match)
+- `(?!regex)` Look ahead (don't match)
+- `(?&lt;=regex)` Look behind (match)
+- `(?&lt;!regex)` Look behind (don't match)
+
+Group captures can be reused with `\1`, `\2`, ..., `\n`.
+
+More (great) information here https://regex101.com/
+
+---
+
+## Regular Expressions 101: Examples 
+
+Here we are extracting the first occurrence of the following regular expressions
+(using `stringr::str_extract()`):
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; regex &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Hanna Perez [name] &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; The 年 year was 1999 &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; HaHa, @abc said that &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; GoGo trojans #2020! &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .{5} &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Hanna &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; The 年 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; HaHa, &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; GoGo &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; n{2} &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; nn &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; [0-9]+ &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1999 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2020 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; \s[a-zA-Z]+\s &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Perez &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; year &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; said &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; trojans &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; \s[[:alpha:]]+\s &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Perez &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 年 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; said &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; trojans &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; [a-zA-Z]+ [a-zA-Z]+ &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Hanna Perez &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; year was &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; abc said &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; GoGo trojans &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; ([a-zA-Z]+\s?){2} &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Hanna Perez &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; The &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; HaHa &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; GoGo trojans &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; ([a-zA-Z]+)\1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; nn &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; HaHa &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; GoGo &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; (@|#)[a-z0-9]+ &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; @abc &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; #2020 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; (?&lt;=#|@)[a-z0-9]+ &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; abc &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2020 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; &amp;#92&amp;#91&amp;#91a-z&amp;#93+&amp;#92&amp;#93 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; [name] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+## Regular Expressions 101: Examples (cont. 1)
+
+1. .{5} Match **any character** (except line end) five times.
+
+2. n{2} Match the letter **n** twice.
+
+3. [0-9]+ Match **any number** at least once
+
+4. \s[a-zA-Z]+\s Match a **space**, **any lower or upper case letter** at least once, and a **space**. 
+
+5. \s[[:alpha:]]+\s Same as before but this time . 
+
+6. [a-zA-Z]+ [a-zA-Z]+ Match two sets of letters separated by one space.
+
+7. ([a-zA-Z]+\s?){2} Match **any lower or upper case letter** at least once, maybe followed by a white space, twice.
+
+8. ([a-zA-Z]+)\1 Match **any lower or upper case letter** at least once, and then match the same pattern again.
+
+9. (@|#)[a-z0-9]+ Match either the `@` or `#` symbol, followed by one or more **lower case letter** or **number**.
+
+10. (?&lt;=#|@)[a-z0-9]+ Match one or more **lower case letter** or **number** that follows either the `@` or `#` symbol.
+
+11. \\ [[a-z]+\\ ] Match the symbol `[`, at least one **lower case letter**, and the symbol `]`.
+
+---
+
+## Regular Expressions 101: Functions in R
+
+1. Lookup text: `base::grepl()`, `stringr::str_detect()`.
+
+2. Similar to `which()`, which elements are `TRUE` `base::grep()`, `stringr::str_which()`
+
+3. Replace the first instance: `base::sub()`, `stringr::str_replace()`
+
+4. Replace all instances: `base::gsub()`, `stringr::str_replace_all()`
+
+5. Extract text: `base::regmatches()`, `stringr::str_extract()` and `stringr::str_extract_all()`.
+
+---
+
+## Regular Expressions 101: Functions in R (cont.)
+
+For example, like in Twitter, let's create a regex that matches usernames
+or hashtags with the following pattern:
+
+`(@|#)([[:alnum:]]+)`
+
+
+|Code                                                  |@Hanna Perez [name] #html                |The @年 year was 1999           |HaHa, @abc said that @z                     |
+|:-----------------------------------------------------|:----------------------------------------|:-------------------------------|:-------------------------------------------|
+|`str_detect(text, pattern)` or `grepl(pattern, text)` |TRUE                                     |TRUE                            |TRUE                                        |
+|`str_extract(text, pattern)`                          |@Hanna                                   |@年                             |@abc                                        |
+|`str_extract_all(text, pattern)`                      |[@Hanna, #html]                          |[@年]                           |[@abc, @z]                                  |
+|`str_replace(text, pattern, "\1justinbieber")`        |@justinbieber Perez [name] #html         |The @justinbieber year was 1999 |HaHa, @justinbieber said that @z            |
+|`str_replace_all(text, pattern, "\1justinbieber")`    |@justinbieber Perez [name] #justinbieber |The @justinbieber year was 1999 |HaHa, @justinbieber said that @justinbieber |
+
+**Note**: While it is not showing in the table, the group replacement was scaped, i.e., `\\1` instead of `\1` in the code.
+
+---
+
+## Data
+
+This week we will continue using Textmining dataset (together with the `data.table` and `stringr` packages)
+
+
+```r
+library(data.table)
+library(stringr)
+
+fn &lt;- "mtsamples.csv"
+if (!file.exists(fn))
+  download.file(
+    url = "https://github.com/USCbiostats/data-science-data/raw/master/00_mtsamples/mtsamples.csv",
+    destfile = fn
+  )
+mtsamples &lt;- fread(fn, sep = ",", header = TRUE)
+```
+
+
+---
+
+## Regex Lookup Text: Tumor
+
+We would like to see if this is tumor related entry. For that we can simply use
+the following code:
+
+
+```r
+# How many entries contain the word tumor
+mtsamples[grepl("tumor", description, ignore.case = TRUE), .N] 
+```
+
+```
+## [1] 80
+```
+
+```r
+# Generating a column tagging tumor
+mtsamples[, tumor_related := grepl("tumor", description, ignore.case = TRUE)]
+
+# Taking a look at a few examples
+mtsamples[tumor_related == TRUE, .(description)][1:3,]
+```
+
+```
+##                                                                                                      description
+## 1:                                 Transurethral resection of a medium bladder tumor (TURBT), left lateral wall.
+## 2:                                                  Transurethral resection of the bladder tumor (TURBT), large.
+## 3:  Cystoscopy, transurethral resection of medium bladder tumor (4.0 cm in diameter), and direct bladder biopsy.
+```
+
+Notice the `ignore.case = TRUE`. This is equivalent to transforming the text to lower case using `tolower()` before passing the text to the regular expression function.
+
+---
+
+## Regex Lookup text: Gender of the patient
+
+Now, let's try to guess the gender of the patient. To do so, we could tag by
+using the words *he, she, him, her, his, hers* (see [this article on sexist text](https://dictionary.cambridge.org/grammar/british-grammar/sexist-language?q=He%2C+she%2C+him%2C+her%2C+his%2C+hers)):
+
+
+```r
+mtsamples[, gender := str_extract(
+  string  = tolower(transcription),
+  pattern = "he|his|him|she|hers|her"
+)]
+```
+
+What is the problem with this approach?
+
+---
+
+## Regex Lookup text: Gender of the patient (cont. 1)
+
+For this we use the following regular expression:
+
+`(?&lt;=\W|^)(he|his|him|she|hers|her)(?=\W|$)`
+
+Bit by bit this is:
+
+- `(?&lt;=regex)` lookback search.
+    - `\W` any no alpha numeric character, this is equivalent to `[^[:alnum:]]`, `|` or
+    - `^` the begging of text,
+- `he|his|him...` any of these words,
+- `(?=regex)` followed by,
+    - `\W` any no alpha numeric character, this is equivalent to `[^[:alnum:]]`, `|` or
+    - `$` the end of the text.
+
+
+```r
+mtsamples[, gender := str_extract(
+  string  = tolower(transcription), 
+  pattern = "(?&lt;=\\W|^)(he|his|him|she|hers|her)(?=\\W|$)"
+  )]
+mtsamples[1:10, gender]
+```
+
+```
+##  [1] "she" "he"  "he"  NA    NA    "she" "she" NA    NA    NA
+```
+
+---
+
+## Regex Lookup text: Gender of the patient (cont. 2)
+
+
+```r
+mtsamples[, female := fifelse(gender %in% c("he", "his", "him"), FALSE, TRUE)]
+mtsamples[, table(gender, female, useNA = "always")]
+```
+
+```
+##       female
+## gender FALSE TRUE &lt;NA&gt;
+##   he    1087    0    0
+##   her      0  561    0
+##   him     39    0    0
+##   his    531    0    0
+##   she      0 1285    0
+##   &lt;NA&gt;     0 1496    0
+```
+
+
+---
+
+## Regex Extract Text: Type of Cancer
+
+- Imagine now that you need to see the types of Cancer mentioned in the data.
+
+- For simplicity, let's assume that, if specified, it is in the form of `TYPE cancer`, i.e. single word.
+
+- We are interested in the word before cancer, how can we capture this?
+
+---
+
+## Regex Extract Text: Type of Cancer (cont 1.)
+
+We can just try to **extract** the phrase `"[some word] cancer"`, in particular, we could use the
+following regular expression
+
+`[[:alnum:]-_]{4,}\s*cancer`
+
+Where
+
+- `[[:alnum:]-_]{4,}` captures any alphanumeric character, including `-` and `_`. 
+   Furthermore, for this match to work there must be at least 4 characters,
+- `\s*` captures 0 or more white-spaces, and
+- `cancer` captures the word cancer:
+
+
+```r
+mtsamples[, cancer_type := str_extract(tolower(keywords), "[[:alnum:]-_]{4,}\\s*cancer")]
+mtsamples[, table(cancer_type)]
+```
+
+```
+## cancer_type
+##        anal cancer     bladder cancer      breast cancer       colon cancer 
+##                  1                  8                 21                 14 
+## endometrial cancer  esophageal cancer        lung cancer     ovarian cancer 
+##                  5                  2                 13                  1 
+##   papillary cancer    prostate cancer     uterine cancer 
+##                  3                 17                  7
+```
+
+
+---
+
+## Fundamentals of Web Scrapping
+
+**What?**
+
+&gt; Web scraping, web harvesting, or web data extraction is data scraping used for extracting data from websites -- [Wikipedia](https://en.wikipedia.org/wiki/Web_scraping)
+
+**How?**
+
+- The [`rvest`](https://cran.r-project.org/package=rvest) R package provides various tools for reading and processing web data.
+
+- Under-the-hood, `rvest` is a wrapper of the [`xml2`](https://cran.r-project.org/package=xml2)
+and [`httr`](https://cran.r-project.org/package=httr) R packages.
+
+---
+
+## Web scraping raw HTML: Example
+
+We would like to capture the table of COVID-19 death rates per country directly from Wikipedia.
+
+
+```r
+library(rvest) # This loads the xml2 R package
+```
+
+```
+## Loading required package: xml2
+```
+
+```r
+# Reading the HTML table with the function xml2::read_html
+covid &lt;- read_html(
+  x = "https://en.wikipedia.org/wiki/COVID-19_pandemic_death_rates_by_country"
+  )
+
+# Let's the the output
+covid
+```
+
+```
+## {html_document}
+## &lt;html class="client-nojs" lang="en" dir="ltr"&gt;
+## [1] &lt;head&gt;\n&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8 ...
+## [2] &lt;body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject  ...
+```
+
+---
+
+## Web scraping raw HTML: Example (cont 1.)
+
+- We want to get the HTML table that shows up in the doc To do such, we can use the
+  function `xml2::xml_find_all()` and `rvest::html_table()`
+
+- The first will locate the place in the document that matches a given **XPath**
+  expression.
+  
+- [XPath](https://en.wikipedia.org/wiki/XPath), XML Path Language, is a query language to select nodes in a XML
+  document.
+  
+- A nice tutorial can be found [here](https://www.w3schools.com/xml/xpath_intro.asp)
+
+- Modern Web browsers make it easy to use XPath!
+
+Live Example! (inspect elements in [Google Chrome](https://developers.google.com/web/tools/chrome-devtools/open),
+[Mozilla Firefox](https://developer.mozilla.org/en-US/docs/Tools/Page_Inspector/How_to/Open_the_Inspector), [Internet Explorer](https://docs.microsoft.com/en-us/microsoft-edge/devtools-guide-chromium/ie-mode), and [Safari](https://developer.apple.com/library/archive/documentation/NetworkingInternetWeb/Conceptual/Web_Inspector_Tutorial/EditingCode/EditingCode.html#//apple_ref/doc/uid/TP40017576-CH4-DontLinkElementID_25))
+  
+---
+
+## Web scraping with `xml2` and the `rvest` package (cont. 2)
+
+Now that we know what is the path, let's use that and extract
+
+
+```r
+table &lt;- xml_find_all(covid, xpath = "/html/body/div[3]/div[3]/div[5]/div[1]/table[2]")
+table &lt;- html_table(table) # This returns a list of tables
+head(table[[1]])
+```
+
+```
+##      Country Confirmed cases  Deaths Case fatality rate
+## 1 San Marino             727      42               5.8%
+## 2       Peru         794,584  32,037               4.0%
+## 3    Belgium         112,803   9,974               8.8%
+## 4    Bolivia         133,592   7,828               5.9%
+## 5    Andorra           1,836      53               2.9%
+## 6     Brazil       4,717,991 141,406               3.0%
+##   Deaths per 100,000 population
+## 1                        124.32
+## 2                        100.15
+## 3                         87.32
+## 4                         68.95
+## 5                         68.83
+## 6                         67.51
+```
+
+---
+
+## Web APIs
+
+**What?**
+
+&gt; A Web API is an application programming interface for either a web server or a web browser. -- [Wikipedia](https://en.wikipedia.org/wiki/Web_API)
+
+Some examples include: [twitter API](https://developer.twitter.com/en), [facebook API](https://developers.facebook.com/), [Gene Ontology API](http://api.geneontology.org/api)
+
+**How?**
+
+You can request data, the **GET method**, post data, the **POST method**, and do many other things using the [HTTP protocol](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol).
+
+**How in R?**
+
+For this part, we will be using the `httr()` package, which is a wrapper of the
+`curl()` package, which in turn provides access to the `curl` library that
+is used to communicate with APIs.
+
+---
+
+## Web APIs with curl
+
+&lt;div align="center"&gt;
+&lt;img src="https://cdn.tutsplus.com/net/authors/jeremymcpeak/http1-url-structure.png" width="700px"&gt;
+&lt;br&gt;
+Structure of a URL (source: &lt;a href="https://code.tutsplus.com/tutorials/http-the-protocol-every-web-developer-must-know-part-1--net-31177" target="_blank"&gt;"HTTP: The Protocol Every Web Developer Must Know - Part 1"&lt;/a&gt;)
+&lt;/div&gt;
+
+---
+
+## Web APIs with curl
+
+Under-the-hood, the `httr` (and thus `curl`) sends request somewhat like this
+
+```bash
+curl -X GET https://google.com -w "%{content_type}\n%{http_code}\n"
+```
+
+A get request (`-X GET`) to `https://google.com`, which also includes (`-w`) the following:
+`content_type` and `http_code`:
+
+```html
+&lt;HTML&gt;&lt;HEAD&gt;&lt;meta http-equiv="content-type" content="text/html;charset=utf-8"&gt;
+&lt;TITLE&gt;301 Moved&lt;/TITLE&gt;&lt;/HEAD&gt;&lt;BODY&gt;
+&lt;H1&gt;301 Moved&lt;/H1&gt;
+The document has moved
+&lt;A HREF="https://www.google.com/"&gt;here&lt;/A&gt;.
+&lt;/BODY&gt;&lt;/HTML&gt;
+text/html; charset=UTF-8
+301
+```
+
+We use the `httr` R package to make life easier.
+
+---
+
+## Web API Example 1: Gene Ontology
+
+- We will make use of the [Gene Ontology API](http://api.geneontology.org/api).
+
+- We want to know what genes (human or not) are **involved in** the function **antiviral innate immune response** (go term [GO:0140374](http://amigo.geneontology.org/amigo/term/GO:0140374)), looking only at those annotations that have evidence code [ECO:0000006](https://evidenceontology.org/browse/#ECO_0000006) (experimental evidence):
+
+
+```r
+library(httr)
+go_query &lt;- GET(
+  url   = "http://api.geneontology.org/",
+  path  = "api/bioentity/function/GO:0140374/genes",
+  query = list(
+    evidence          = "ECO:0000006",
+    relationship_type = "involved_in"
+  ),
+  # May need to pass this option to curl to allow to wait for at least
+  # 60 seconds before returning error.
+  config = config(
+    connecttimeout = 60
+    )
+)
+```
+
+We could have also passed the full URL directly...
+
+---
+
+## Web API Example 1: Gene Ontology (cont. 1)
+
+Let's take a look at the curl call:
+
+```bash
+curl -X GET "http://api.geneontology.org/api/bioentity/function/GO:0140374/genes?evidence=ECO%3A0000006&amp;relationship_type=involved_in" -H "accept: application/json"
+```
+
+What `httr::GET()` does:
+
+```r
+&gt; go_query$request
+## &lt;request&gt;
+## GET http://api.geneontology.org/api/bioentity/function/GO:0140374/genes?evidence=ECO%3A0000006&amp;relationship_type=involved_in
+## Output: write_memory
+## Options:
+## * useragent: libcurl/7.58.0 r-curl/4.3 httr/1.4.1
+## * connecttimeout: 60
+## * httpget: TRUE
+## Headers:
+## * Accept: application/json, text/xml, application/xml, */*
+```
+
+---
+
+## Web API Example 1: Gene Ontology (cont. 2)
+
+Let's take a look at the response:
+
+
+```r
+go_query
+```
+
+```
+## Response [http://api.geneontology.org/api/bioentity/function/GO:0140374/genes?evidence=ECO%3A0000006&amp;relationship_type=involved_in]
+##   Date: 2020-09-30 05:30
+##   Status: 200
+##   Content-Type: application/json
+##   Size: 18 kB
+## {"associations": [{"id": "556e6950726f744b42094f39353738360944445835380909474...
+```
+
+Remember the codes:
+- 1xx: Information message
+- 2xx: Success
+- 3xx: Redirection
+- 4xx: Client error
+- 5xx: Server error
+---
+
+## Web API Example 1: Gene Ontology (cont. 3)
+
+We can extract the results using the `httr::content()` function
+
+
+
+
+
+```r
+dat &lt;- content(go_query) 
+dat &lt;- lapply(dat$associations, function(a) {
+  data.frame(
+    Gene        = a$subject$id,
+    taxon_id    = a$subject$taxon$id,
+    taxon_label = a$subject$taxon$label
+  )
+})
+dat &lt;- do.call(rbind, dat)
+str(dat)
+```
+
+```
+## 'data.frame':	15 obs. of  3 variables:
+##  $ Gene       : chr  "UniProtKB:O95786" "UniProtKB:Q9NVI7" "UniProtKB:Q99623" "UniProtKB:Q8WTX9" ...
+##  $ taxon_id   : chr  "NCBITaxon:9606" "NCBITaxon:9606" "NCBITaxon:9606" "NCBITaxon:9606" ...
+##  $ taxon_label: chr  "Homo sapiens" "Homo sapiens" "Homo sapiens" "Homo sapiens" ...
+```
+
+
+---
+
+## Web API Example 1: Gene Ontology (cont. 4)
+
+The structure of the result will depend on the API. In this case, the output was a JSON file, so the content function returns a list in R. In other scenarios it could return an XML object (we will see more in the lab)
+
+
+```r
+knitr::kable(head(dat),
+  caption = "Genes experimentally annotated with the function\
+  **antiviral innate immune response** (GO:0140374)"
+  )
+```
+
+
+
+Table: Genes experimentally annotated with the function
+  **antiviral innate immune response** (GO:0140374)
+
+|Gene                   |taxon_id       |taxon_label  |
+|:----------------------|:--------------|:------------|
+|UniProtKB:O95786       |NCBITaxon:9606 |Homo sapiens |
+|UniProtKB:Q9NVI7       |NCBITaxon:9606 |Homo sapiens |
+|UniProtKB:Q99623       |NCBITaxon:9606 |Homo sapiens |
+|UniProtKB:Q8WTX9       |NCBITaxon:9606 |Homo sapiens |
+|UniProtKB:P35232       |NCBITaxon:9606 |Homo sapiens |
+|ZFIN:ZDB-GENE-200316-1 |NCBITaxon:7955 |Danio rerio  |
+
+---
+
+## Web API Example 2: Using Tokens
+
+- Sometimes, APIs are not completely open, you need to register.
+
+- The API may require to login (user+password), or pass a token.
+
+- In this example, I'm using a token which I obtained [here](https://www.ncdc.noaa.gov/cdo-web/token)
+
+- You can find information about the [National Centers for Environmental Information](https://www.ncdc.noaa.gov/)
+  API [here](https://www.ncdc.noaa.gov/cdo-web/webservices/v2)
+
+---
+
+## Web API Example 2: Using Tokens (cont. 1)
+
+- The way to pass the token will depend on the API service.
+
+- Some require authentication, others need you to pass it as an argument of the query,
+  i.e., directly in the URL.
+  
+- In this case, we pass it on the header.
+  
+  
+  ```r
+  stations_api &lt;- GET(
+    url    = "https://www.ncdc.noaa.gov",
+    path   = "cdo-web/api/v2/stations",
+    config = add_headers(
+      token = "[YOUR TOKEN HERE]"
+      ),
+    query  = list(limit = 1000)
+  )
+  ```
+  
+  
+  This is equivalent to using the following query
+  
+  ```bash
+  curl --header "token: [YOUR TOKEN HERE]" \
+    https://www.ncdc.noaa.gov/cdo-web/api/v2/stations?limit=1000
+  ```
+
+**Note**: This won't run, you need to get your own token
+
+---
+
+## Web API Example 2: Using Tokens (cont. 2)
+
+Again, we can recover the data using the `content()` function:
+
+
+```r
+ans &lt;- content(stations_api)
+ans$results[[1]]
+## $elevation
+## [1] 139
+## 
+## $mindate
+## [1] "1948-01-01"
+## 
+## $maxdate
+## [1] "2014-01-01"
+## 
+## $latitude
+## [1] 31.5702
+## 
+## $name
+## [1] "ABBEVILLE, AL US"
+## 
+## $datacoverage
+## [1] 0.8813
+## 
+## $id
+## [1] "COOP:010008"
+```
+
+---
+
+## Web API Example 3: HHS health recommendation
+
+Here is a last example. We will use the Department of Health and Human Services
+API for "[...] demographic-specific health recommendations" (details at [health.gov](https://health.gov/our-work/health-literacy/consumer-health-content/free-web-content/apis-developers/documentation))
+
+
+```r
+health_advises &lt;- GET(
+  url  = "https://health.gov/",
+  path = "myhealthfinder/api/v3/myhealthfinder.json",
+  query = list(
+    lang = "en",
+    age  = "32",
+    sex  = "male",
+    tobaccoUse = 0
+  ),
+  config = c(
+    add_headers(accept = "application/json"),
+    config(connecttimeout = 60)
+  )
+)
+```
+
+---
+
+## Web API Example 3: HHS health recommendation (cont. 1)
+
+Let's see the response
+
+
+```r
+health_advises
+```
+
+```
+## Response [https://health.gov/myhealthfinder/api/v3/myhealthfinder.json?lang=en&amp;age=32&amp;sex=male&amp;tobaccoUse=0]
+##   Date: 2020-09-30 06:11
+##   Status: 200
+##   Content-Type: application/json
+##   Size: 262 kB
+## {
+##     "Result": {
+##         "Error": "False",
+##         "Total": 17,
+##         "Query": {
+##             "ApiVersion": "3",
+##             "ApiType": "myhealthfinder",
+##             "TopicId": null,
+##             "ToolId": null,
+##             "CategoryId": null,
+## ...
+```
+
+
+---
+
+## Web API Example 3: HHS health recommendation (cont. 2)
+
+
+```r
+# Extracting the content
+health_advises_ans &lt;- content(health_advises)
+
+# Getting the titles
+txt &lt;- with(health_advises_ans$Result$Resources, c(
+  sapply(All$Resource, "[[", "Title"),
+  sapply(Some$Resource, "[[", "Title"),
+  sapply(Interest$Resource, "[[", "Title")
+))
+cat(txt, sep = "; ")
+```
+
+Protect Yourself from Seasonal Flu; Hepatitis C Screening: Questions for the doctor; Talk with Your Doctor about Depression; Get Shots to Protect Your Health (Adults Ages 19 to 49); Get Tested for HIV; Get Your Blood Pressure Checked; Drink Alcohol Only in Moderation; Quit Smoking; Watch Your Weight; Testing for Syphilis: Questions for the doctor; Eat Healthy; Protect Yourself from Hepatitis B; Testing for Latent Tuberculosis: Questions for the doctor; Get Active; Quitting Smoking: Conversation starters; Manage Stress; Alcohol Use: Conversation starters
+
+---
+
+## Summary
+
+- We learned about regular expressions with the package **stringr** (a wrapper of **stringi**)
+
+- We can use regular expressions to detect (`str_detect()`), replace (`str_replace()`), and 
+extract (`str_extract()`) expressions.
+
+- We looked at web scraping using the **rvest** package (a wrapper of **xml2**).
+
+- We extracted elements from the HTML/XML using `xml_find_all()` with XPath expressions.
+
+- We also used the `html_table()` function from rvest to extract tables from HTML documents.
+
+- We took a quick review on Web APIs and the Hyper-text-transfer-protocol (HTTP).
+
+- We used the **httr** R package (wrapper of **curl**) to make `GET` requests to various APIs
+
+- We even showed an example using a token passed via the `header`.
+
+- Once we got the responses, we used the `content()` function to extract the message of the
+response.
+
+---
+
+## Detour on CURL options
+
+Sometimes you will need to change the default set of options in CURL. You can
+checkout the list of options in `curl::curl_options()`. A common hack is to 
+extend the time-limit before dropping the conection, e.g.:
+
+Using the **Health IT** API from the US government, we can obtain the
+**Electronic Prescribing Adoption and Use by County** (see docs
+[here](https://dashboard.healthit.gov/datadashboard/documentation/electronic-prescribing-adoption-use-data-documentation-county.php))
+
+The problem is that it usually takes longer to get the data, so we pass 
+the config option `connecttimeout` (which corresponds to the flag `--connect-timeout`)
+in the curl call (see next slide)
+
+---
+
+## Detour on CURL options (cont.)
+
+
+```r
+ans &lt;- httr::GET(
+  url    = "https://dashboard.healthit.gov/api/open-api.php",
+  query  = list(
+    source = "AHA_2008-2015.csv",
+    region = "California",
+    period = 2015
+    ),
+  config = config(
+    connecttimeout = 60
+    )
+)
+```
+
+```r
+&gt; ans$request
+# &lt;request&gt;
+# GET https://dashboard.healthit.gov/api/open-api.php?source=AHA_2008-2015.csv&amp;region=California&amp;period=2015
+# Output: write_memory
+# Options:
+# * useragent: libcurl/7.58.0 r-curl/4.3 httr/1.4.1
+# * connecttimeout: 60
+# * httpget: TRUE
+# Headers:
+# * Accept: application/json, text/xml, application/xml, */*
+```
+
+---
+
+## Regular Expressions: Email validation
+
+This is the official regex for email validation implemented by [RCF 5322](http://www.ietf.org/rfc/rfc5322.txt) 
+
+```
+(?:[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08
+\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?
+:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[
+0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0
+-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\
+x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])
+```
+
+See the corresponding post in [StackOverflow](https://stackoverflow.com/a/201378/2097171)
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+  </body>
+</html>

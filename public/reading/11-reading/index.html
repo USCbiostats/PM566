@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en-us" 
+      xmlns:og="http://ogp.me/ns#" 
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.8.0">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Emil Hvitfeldt">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="Required reading You are expected to have read these items before class. Most of these linked sections/chapters are quite short.
+Interactive visualization Introduction to plotly: Please read the following sections of Interactive web-based data visualization with R, plotly, and shiny, by Carson Sievert:
+ Creating Views (Plotly features): Sections 1-3, 5-7 Publishing Views: Sections 9-12 Arranging and Animating Views: Sections 13-14   Introduction to Shiny:  Introduction to Interactive Documents: provides a quick guide to getting started with Shiny.">
+
+  
+  <link rel="alternate" hreflang="en-us" href="/reading/11-reading/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="#098A9C">
+  
+
+  
+  
+  
+  <script src="/js/mathjax-config.js"></script>
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-1/css/all.min.css" integrity="sha256-4w9DunooKSr3MFXHXWyFER38WmPdm361bQS/2KUWZbU=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+        
+      
+    
+
+    
+
+    
+
+    
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js" integrity="sha256-Md1qLToewPeKjfAHU1zyPwOutccPAm5tahnaw7Osw0A=" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i&display=swap">
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.css">
+
+  
+
+
+
+
+  
+
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_2.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png">
+
+  <link rel="canonical" href="/reading/11-reading/">
+
+  
+  
+  
+  
+  
+    
+  
+  
+  <meta property="twitter:card" content="summary_large_image">
+  
+  <meta property="twitter:site" content="@USCBiostat">
+  <meta property="twitter:creator" content="@USCBiostat">
+  
+  <meta property="og:site_name" content="Introduction to Health Data Science - PM 566">
+  <meta property="og:url" content="/reading/11-reading/">
+  <meta property="og:title" content="Interactive visualization and effective data communication I | Introduction to Health Data Science - PM 566">
+  <meta property="og:description" content="Required reading You are expected to have read these items before class. Most of these linked sections/chapters are quite short.
+Interactive visualization Introduction to plotly: Please read the following sections of Interactive web-based data visualization with R, plotly, and shiny, by Carson Sievert:
+ Creating Views (Plotly features): Sections 1-3, 5-7 Publishing Views: Sections 9-12 Arranging and Animating Views: Sections 13-14   Introduction to Shiny:  Introduction to Interactive Documents: provides a quick guide to getting started with Shiny."><meta property="og:image" content="/img/social-image.png">
+  <meta property="twitter:image" content="/img/social-image.png"><meta property="og:locale" content="en-us">
+  
+    
+      <meta property="article:published_time" content="2020-10-28T00:00:00&#43;00:00">
+    
+    <meta property="article:modified_time" content="2020-10-28T12:36:26-07:00">
+  
+
+  
+
+
+
+  
+
+
+  
+
+
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/apple-touch-icon-152x152.png" />
+  <link rel="icon" type="image/png" href="/img/favicon-32x32.png" sizes="32x32" />
+  <link rel="icon" type="image/png" href="/img/favicon-16x16.png" sizes="16x16" />
+  <meta name="application-name" content="PM566: Introduction to Health Data Science - PM 566" />
+  <meta name="msapplication-TileColor" content="#FFFFFF" />
+  <meta name="msapplication-TileImage" content="/img/mstile-144x144.png" />
+
+
+  <title>Interactive visualization and effective data communication I | Introduction to Health Data Science - PM 566</title>
+
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70"
+    data-target="#TableOfContents"
+    >
+
+    <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+    
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/">Introduction to Health Data Science - PM 566</a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/">Introduction to Health Data Science - PM 566</a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-end" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/syllabus/"><span>Syllabus</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/schedule/"><span>Schedule</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/reference/"><span>Reference</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+    <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1>Interactive visualization and effective data communication I</h1>
+
+  
+
+  
+    
+
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+          Last updated on
+      
+    
+    October 28, 2020
+  </span>
+  
+
+  
+
+  
+
+  
+  
+  
+
+  
+  
+
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      
+
+
+<div id="required-reading" class="section level1">
+<h1>Required reading</h1>
+<p>You are expected to have read these items before class. Most of these linked sections/chapters are quite short.</p>
+<div id="interactive-visualization" class="section level2">
+<h2>Interactive visualization</h2>
+<div id="introduction-to-plotly" class="section level3">
+<h3>Introduction to plotly:</h3>
+<p>Please read the following sections of <a href="https://plotly-r.com/index.html">Interactive web-based data visualization with R, plotly, and shiny</a>, by Carson Sievert:</p>
+<ul>
+<li>Creating Views (Plotly features): Sections 1-3, 5-7</li>
+<li>Publishing Views: Sections 9-12</li>
+<li>Arranging and Animating Views: Sections 13-14</li>
+</ul>
+</div>
+<div id="introduction-to-shiny" class="section level3">
+<h3>Introduction to Shiny:</h3>
+<ul>
+<li><a href="https://shiny.rstudio.com/articles/interactive-docs.html">Introduction to Interactive Documents</a>: provides a quick guide to getting started with Shiny.</li>
+</ul>
+</div>
+</div>
+<div id="creating-websites" class="section level2">
+<h2>Creating websites</h2>
+<p>We will be developing a website using rmarkdown’s site generator. Please read:</p>
+<ul>
+<li><a href="https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html">Chapter 10.5: Websites in rmarkdown’s site generator</a> in <a href="https://bookdown.org/yihui/rmarkdown/">R Markdown: The Definitive Guide</a>, Yihui Xie, J. J. Allaire, Garrett Grolemund</li>
+</ul>
+</div>
+</div>
+<div id="optional-reading" class="section level1">
+<h1>Optional reading</h1>
+<div id="interactive-visualization-1" class="section level2">
+<h2>Interactive visualization</h2>
+<ul>
+<li>The official <a href="http://shiny.rstudio.com">Shiny website</a> includes extensive articles, tutorials, and examples.</li>
+<li><a href="https://www.coursera.org/lecture/data-products/shiny-1-1-xgyMn">Coursera course on developing data products, sessions on Shiny, GoogleVis, and Plotly</a></li>
+<li>For an introduction to creating dashboards see: <a href="https://bookdown.org/yihui/rmarkdown/dashboards.html">Chapter 5: Dashboards (Layout, Components, Shiny)</a> from <a href="https://bookdown.org/yihui/rmarkdown/">R Markdown: The Definitive Guide</a>, which provides a guide for using <strong>Shiny</strong> with <strong>flexdashboard</strong> to create interactive documents from R Markdown</li>
+</ul>
+</div>
+<div id="website-development-in-rmarkdown" class="section level2">
+<h2>Website development in rmarkdown</h2>
+<ul>
+<li>For a helpful tutorial on creating a website using rmarkdown, see: <a href="https://www.emilyzabor.com/tutorials/rmarkdown_websites_tutorial.html">Creating websites in R</a>, Emily C. Zabor<br />
+</li>
+<li>For more advanced website creation using <strong>blogdown</strong> and the website generators <strong>Hugo</strong> and **Jeckyll see <a href="https://bookdown.org/yihui/blogdown/">Creating websites with R Markdown</a>. <a href="https://bookdown.org/yihui/blogdown/website-basics.html#website-basics">Appendix B</a> presents basic information about websites, such as HTML, CSS, and JavaScript.</li>
+</ul>
+</div>
+<div id="data-visualization-best-practices" class="section level2">
+<h2>Data visualization best practices</h2>
+<ul>
+<li><a href="https://kieranhealy.org/publications/dataviz/">Data Visualization: A Practical Introduction</a>, Kieran Healy</li>
+<li><a href="https://serialmentor.com/dataviz/">Fundamentals of Data Visualization</a>, Claus O. Wilke</li>
+</ul>
+</div>
+</div>
+
+    </div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  </div>
+</article>
+
+        
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/r.min.js"></script>
+        
+      
+
+    
+
+    
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    <script>const isSiteThemeDark = false;</script>
+    
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <script src="/js/academic.min.6f7ce8be710290b8c431bbc97f405d15.js"></script>
+
+    
+
+
+
+
+
+
+    
+    
+    <div class="container">
+        <footer>
+    <hr>
+
+    <div class="row course-info">
+        <div class="col-md-7">
+            <p>
+                <strong>PM566: Introduction to Health Data Science - PM 566 (Fall 2020)</strong><br>
+            </p>
+            <p>
+                <a href="https://www.usc.edu/" target="_blank" rel="noopener">University of Southern California</a>
+            </p>
+            <p>
+                <a href="https://preventivemedicine.usc.edu/" target="_blank" rel="noopener">Department of Preventive Medicine</a>
+            </p>
+            <p>
+                <a><i class="fas fa-user"></i>
+                    Meredith Franklin, George Vega-Yon, Emil Hvitfeldt</a>
+            </p>
+            <p>
+                <a href="mailto:meredith.franklin@usc.edu"><i class="fas fa-envelope"></i>
+                    meredith.franklin@usc.edu</a>
+            </p>
+        </div>
+
+        <div class="col-md-5 credits">
+            <p>All content licensed under a <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.</p>                    
+            
+            <p><a href="https://github.com/USCbiostats/PM566" target="_blank" rel="noopener"><i class="fab fa-github"></i> View the source at GitHub.</a></p>
+        </div>
+    </div>
+</footer>
+
+    </div>
+    
+
+    
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+
+</html>

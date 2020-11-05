@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Week 5: Data Wrangling</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="George G. Vega Yon" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, title-slide
+
+# Week 5: Data Wrangling
+## PM 566: Introduction to Health Data Science
+### George G. Vega Yon
+
+---
+
+
+
+
+
+&lt;!--Yeah... I have really long code chunks, so I just changed the default size :)--&gt;
+&lt;style type="text/css"&gt;
+code.*, .remark-code, pre {
+  font-size:16px;
+}
+p,h1,h2,h3,h4 {
+  font-family: system-ui
+}
+&lt;/style&gt;
+
+
+## Today's goals
+
+We will learn about how to manipulate data, and in particular,
+
+- Selecting variables.
+- Filtering data.
+- Creating variables.
+- Summarize data.
+
+Throughout the session we will see examples using: 
+
+- [**data.table**](https://cran.r-project.org/package=data.table) in R,
+- [**dtplyr**](https://cran.r-project.org/package=dplyr) in R, and
+- [**pydatatable**](https://github.com/h2oai/datatable)
+
+All with the [MET](https://github.com/USCbiostats/data-science-data/) dataset.
+
+---
+
+## Data wrangling in R
+
+Overall, you will find the following approaches:
+
+- **base R**: Use only base R functions.
+
+- **dplyr**: Using "verbs".
+
+- **data.table**: High-performing (ideal for large data)
+
+- **dplyr + data.table = dtplyr**: High-performing + dplyr verbs.
+
+Other methods involve, for example, using external tools such as [Spark](http://spark.apache.org/), [sparkly](https://cran.r-project.org/package=sparklyr).
+
+We will be focusing on data.table because of [this](https://h2oai.github.io/db-benchmark/)
+
+Take a look at this very neat cheat sheet by
+[Erik Petrovski](http://www.petrovski.dk/) [here](https://github.com/rstudio/cheatsheets/raw/master/datatable.pdf).
+
+---
+
+## Selecting variables: Load the packages
+
+
+```r
+library(data.table)
+library(dtplyr)
+library(dplyr)
+```
+
+```
+## 
+## Attaching package: 'dplyr'
+```
+
+```
+## The following objects are masked from 'package:data.table':
+## 
+##     between, first, last
+```
+
+```
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+```
+
+```
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+```
+
+The `dtplyr` R package translates `dplyr` (`tidyverse`) syntax to `data.table`,
+so that we can still use **the dplyr verbs** while at the same time leveraging the
+performance of `data.table`.
+
+---
+
+## Loading the data
+
+The data that we will be using is an already processed version of the MET
+dataset. We can download (and load) the data directly in our session using the
+following commands:
+
+
+```r
+# Where are we getting the data from
+met_url &lt;- "https://github.com/USCbiostats/data-science-data/raw/master/02_met/met_all.gz"
+
+# Downloading the data to a tempfile (so it is destroyed afterwards)
+# you can replace this with, for example, your own data:
+# tmp &lt;- tempfile(fileext = ".gz")
+tmp &lt;- "met.gz"
+
+# We sould be downloading this, ONLY IF this was not downloaded already.
+# otherwise is just a waste of time.
+if (!file.exists(tmp)) {
+  download.file(
+    url      = met_url,
+    destfile = tmp,
+    # method   = "libcurl", timeout = 1000 (you may need this option)
+  )
+}
+```
+
+Now we can load the data using the `fread()` function.
+
+---
+
+In R
+
+
+```r
+# Reading the data
+dat &lt;- fread(tmp)
+head(dat)
+```
+
+In Python
+
+
+```python
+import datatable as dt
+dat = dt.fread("met.gz")
+dat.head(5)
+```
+
+Before we continue, let's learn a bit more on `data.table` and `dtplyr`
+
+---
+
+## `data.table` and `dtplyr`: Data Table's Syntax
+
+- As you have seen in previous lectures, in `data.table` all happens within the
+square brackets. Here is common way to imagine DT:
+
+&lt;div align="center"&gt;
+&lt;img src="datatable-syntax-paths.svg" width="700px"&gt;
+&lt;/div&gt;
+
+- Any time that you see **:=** in **j** that is "Assignment by reference." Using
+  **=** within **j** only works in some specific cases.
+  
+---
+
+## `data.table` and `dtplyr`: Data Table's Syntax
+
+Operations applied in **j** are evaluated *within* the data, meaning that
+names work as symbols, e.g.,
+  
+
+```r
+data(USArrests)
+USArrests_dt &lt;- data.table(USArrests)
+
+# This returns an error
+USArrests[, Murder]
+
+# This works fine
+USArrests_dt[, Murder]
+```
+
+Furthermore, we can do things like this:
+  
+
+  
+
+
+```r
+USArrests_dt[, plot(Murder, UrbanPop)]
+```
+
+![](slides_files/figure-html/plot-usarrests-1.png)&lt;!-- --&gt;
+
+```
+## NULL
+```
+
+
+---
+
+## `data.table` and `dtplyr`: Lazy table
+
+- The `dtplyr` package provides a way to translate `dplyr` verbs to `data.table` syntax.
+
+- The key lies on the function `lazy_dt` from `dtplyr` (see `?dtplyr::lazy_dt`).
+
+- This function creates a wrapper that "points" to a `data.table` object
+
+---
+
+## `data.table` and `dtplyr`: Lazy table (cont.)
+
+
+```r
+# Creating a lazy table object
+dat_ldt &lt;- lazy_dt(dat, immutable = FALSE)
+
+# We can use the address() function from data.table
+address(dat)
+address(dat_ldt$parent)
+```
+
+```
+## [1] "0x56084b691dd0"
+## [1] "0x56084b691dd0"
+```
+
+&lt;div align="center"&gt;
+&lt;img src="pointer-paths.svg" width="800px"&gt;
+&lt;/div&gt;
+
+Question: What is the `immutable = FALSE` option used for?
+
+---
+
+## Selecting columns
+
+How can we select the columns `USAFID`, `lat`, and `lon`, using `data.table`:
+
+
+```r
+dat[, list(USAFID, lat, lon)]
+# dat[, .(USAFID, lat, lon)]       # Alternative 1
+# dat[, c("USAFID", "lat", "lon")] # Alternative 2
+```
+
+```
+##          USAFID    lat      lon
+##       1: 690150 34.300 -116.166
+##       2: 690150 34.300 -116.166
+##       3: 690150 34.300 -116.166
+##       4: 690150 34.300 -116.166
+##       5: 690150 34.300 -116.166
+##      ---                       
+## 2377339: 726813 43.650 -116.633
+## 2377340: 726813 43.650 -116.633
+## 2377341: 726813 43.650 -116.633
+## 2377342: 726813 43.642 -116.636
+## 2377343: 726813 43.642 -116.636
+```
+
+What happens if instead of `list()` you used `c()`?
+
+---
+
+## Selecting columns (cont. 1)
+
+Using the **dplyr::select** verb:
+
+
+```r
+dat_ldt %&gt;% select(USAFID, lat, lon)
+```
+
+```
+## Source: local data table [?? x 3]
+## Call:   `_DT1`[, .(USAFID, lat, lon)]
+## 
+##   USAFID   lat   lon
+##    &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 690150  34.3 -116.
+## 2 690150  34.3 -116.
+## 3 690150  34.3 -116.
+## 4 690150  34.3 -116.
+## 5 690150  34.3 -116.
+## 6 690150  34.3 -116.
+## 
+## # Use as.data.table()/as.data.frame()/as_tibble() to access results
+```
+
+---
+
+## Selecting columns (cont. 2)
+
+In the case of `pydatatable`
+
+
+```python
+dat[:,["USAFID", "lat", "lon"]]
+```
+
+```
+## [1m        [0;90m|[0;1m USAFID      lat       lon[0m
+## [90m------- + ------  -------  --------[0m
+## [90m      0 |[0m 690150   34.3    -116.166
+## [90m      1 |[0m 690150   34.3    -116.166
+## [90m      2 |[0m 690150   34.3    -116.166
+## [90m      3 |[0m 690150   34.3    -116.166
+## [90m      4 |[0m 690150   34.3    -116.166
+## [90m      5 |[0m 690150   34.3    -116.166
+## [90m      6 |[0m 690150   34.3    -116.166
+## [90m      7 |[0m 690150   34.3    -116.166
+## [90m      8 |[0m 690150   34.3    -116.166
+## [90m      9 |[0m 690150   34.3    -116.166
+## [90m     10 |[0m 690150   34.296  -116.162
+## [90m     11 |[0m 690150   34.296  -116.162
+## [90m     12 |[0m 690150   34.3    -116.166
+## [90m     13 |[0m 690150   34.3    -116.166
+## [90m     14 |[0m 690150   34.3    -116.166
+## [90m    [0;2m...[0;90m |[0m    [2m...[0m  ...       ...    
+## [90m2377338 |[0m 726813   43.65   -116.633
+## [90m2377339 |[0m 726813   43.65   -116.633
+## [90m2377340 |[0m 726813   43.65   -116.633
+## [90m2377341 |[0m 726813   43.642  -116.636
+## [90m2377342 |[0m 726813   43.642  -116.636
+## 
+## [2m[2377343 rows x 3 columns][0m
+```
+
+What happens if instead of `["USAFID", "lat", "lon"]` you used `{"USAFID", "lat", "lon"}` (vector vs set).
+
+---
+
+For the rest of the session we will be using these variables:
+USAFID, WBAN, year, month, day, hour, min, lat, lon, elev, wind.sp, temp, and atm.press.
+
+
+```r
+# Data.table
+dat &lt;- dat[,
+  .(USAFID, WBAN, year, month, day, hour, min, lat, lon, elev,
+    wind.sp, temp, atm.press)]
+
+# Need to redo the lazy table
+dat_ldt &lt;- lazy_dt(dat)
+```
+
+---
+
+## Data filtering: Logical conditions
+
+- Based on logical operations, e.g. `condition 1 [and|or condition2 [and|or ...]]`
+
+- Need to be aware of ordering and grouping of `and` and `or` operators.
+
+- Fundamental **logical** operators:
+  
+  
+  |   x   |   y   | Negate&lt;br&gt;!x | And&lt;br&gt;x &amp; y | Or&lt;br&gt;x &amp;#124; y | Xor&lt;br&gt;xor(x, y) |
+  |:-----:|:-----:|:------------:|:------------:|:----------------:|:----------------:|
+  | true  | true  |    false     |     true     |       true       |      false       |
+  | false | true  |     true     |    false     |       true       |       true       |
+  | true  | false |    false     |    false     |       true       |       true       |
+  | false | false |     true     |    false     |      false       |      false       |
+
+- Fundamental **relational** operators, in R: `&lt;`, `&gt;`, `&lt;=`, `&gt;=`, `==`, `!=`.
+
+
+---
+
+## Questions 1: How many ways can you write an XOR operator?
+
+Write a function that takes two arguments `(x,y)` and applies the XOR operator
+element wise. Here you have a template:
+
+```r
+myxor &lt;- function(x, y) {
+  res &lt;- logical(length(x))
+  for (i in 1:length(x)) {
+    res[i] &lt;- # do something with x[i] and y[i]
+  }
+  return(res)
+}
+```
+
+Or if vectorized (which would be better)
+
+```r
+myxor &lt;- function(x, y) {
+  # INSERT YOUR CODE HERE
+}
+```
+
+
+
+Hint 1: Remember that negating `(x &amp; y)` equals `(!x | !y)`.
+
+Hint 2: Logical operators are a distributive, meaning
+`a * (b + c) = (a * b) + (a + c)`, where `*` and `+` are `&amp;` or `|`.
+
+---
+
+In R
+
+
+```r
+myxor1 &lt;- function(x,y) {(x &amp; !y) | (!x &amp; y)}
+myxor2 &lt;- function(x,y) {!((!x | y) &amp; (x | !y))}
+myxor3 &lt;- function(x,y) {(x | y) &amp; (!x | !y)}
+myxor4 &lt;- function(x,y) {!((!x &amp; !y) | (x &amp; y))}
+cbind(
+  ifelse(xor(test[,1], test[,2]), "true", "false"),
+  ifelse(myxor1(test[,1], test[,2]), "true", "false"),
+  ifelse(myxor2(test[,1], test[,2]), "true", "false"),
+  ifelse(myxor3(test[,1], test[,2]), "true", "false"),
+  ifelse(myxor4(test[,1], test[,2]), "true", "false")
+)
+```
+
+```
+##      [,1]    [,2]    [,3]    [,4]    [,5]   
+## [1,] "false" "false" "false" "false" "false"
+## [2,] "true"  "true"  "true"  "true"  "true" 
+## [3,] "true"  "true"  "true"  "true"  "true" 
+## [4,] "false" "false" "false" "false" "false"
+```
+
+---
+
+Or in python
+
+
+```python
+# Loading the libraries
+import numpy as np
+import pandas as pa
+
+# Defining the data
+x = [True, True, False, False]
+y = [False, True, True, False]
+ans = {
+    'x'   : x,
+    'y'   : y,
+    'and' : np.logical_and(x, y),
+    'or'  : np.logical_or(x, y),
+    'xor' : np.logical_xor(x, y)
+    }
+pa.DataFrame(ans)
+```
+
+```
+##        x      y    and     or    xor
+## 0   True  False  False   True   True
+## 1   True   True   True   True  False
+## 2  False   True  False   True   True
+## 3  False  False  False  False  False
+```
+
+---
+
+Or in python (bis)
+
+
+```python
+def myxor(x,y):
+    return np.logical_or(
+        np.logical_and(x, np.logical_not(y)),
+        np.logical_and(np.logical_not(x), y)
+    )
+
+ans['myxor'] = myxor(x,y)
+pa.DataFrame(ans)
+```
+
+```
+##        x      y    and     or    xor  myxor
+## 0   True  False  False   True   True   True
+## 1   True   True   True   True  False  False
+## 2  False   True  False   True   True   True
+## 3  False  False  False  False  False  False
+```
+
+We will now see applications using the `met` dataset
+
+---
+
+## Filtering (subsetting) the data
+
+Need to select records according to some criteria. For example:
+
+- First day of the month, and
+- Above latitude 40, and
+- Elevation outside the range 500 and 1,000.
+
+The logical expressions would be
+
+- `(day == 1)` 
+- `(lat &gt; 40)`
+- `((elev &lt; 500) | (elev &gt; 1000))`
+
+Respectively.
+
+---
+
+In R with `data.table`:
+
+
+```r
+dat[(day == 1) &amp; (lat &gt; 40) &amp; ((elev &lt; 500) | (elev &gt; 1000))] %&gt;%
+  nrow()
+```
+
+```
+## [1] 27623
+```
+
+---
+
+In R with **dplyr::filter()**:
+
+
+```r
+dat_ldt %&gt;%
+  filter(day == 1, lat &gt; 40, (elev &lt; 500) | (elev &gt; 1000)) %&gt;%
+  compute() %&gt;% # Notice this line!
+  nrow()
+```
+
+```
+## [1] 27623
+```
+
+---
+
+In Python
+
+
+```python
+import datatable as dt
+dat = dt.fread("met.gz")
+```
+
+
+
+```python
+dat[(dt.f.day == 1) &amp; (dt.f.lat &gt; 40) &amp; ((dt.f.elev &lt; 500) | (dt.f.elev &gt; 1000)), :].nrows
+# dat[dt.f.day == 1,:][dt.f.lat &gt; 40,:][(dt.f.elev &lt; 500) | (dt.f.elev &gt; 1000),:].nrows
+```
+
+```
+## 27623
+```
+
+In the case of pydatatable we use `dt.f.` to refer to a column. `df.` is what
+we use to refer to datatable's [namespace](https://en.wikipedia.org/wiki/Namespace).
+
+The [`f.` is a symbol](https://datatable.readthedocs.io/en/latest/manual/f-expressions.html)
+that allows accessing column names in a datatable's `Frame`.
+
+---
+
+## Questions 2
+
+1. How many records have a temperature within 18 and 25?
+
+2. Some records have missings. Count how many records have `temp` as `NA`?
+
+3. Following the previous question, plot a sample of 1,000 of `(lat, lon)` of the
+   stations with temp as NA and those with data.
+
+---
+
+## Solutions
+
+
+```
+## Question 1: 908047
+```
+
+```
+## Question 2: 60089
+```
+
+```
+## Question 3
+```
+
+![](slides_files/figure-html/unnamed-chunk-1-1.png)&lt;!-- --&gt;
+
+```
+## NULL
+## NULL
+```
+
+
+---
+
+## Creating variables: Data types
+
+- **logical**: Bool true/false type, e.g. dead/alive, sick/healthy, good/bad, yes/no, etc.
+
+- **strings**: string of characters (letters/symbols), e.g. names, text, etc.
+
+- **integer**: Numeric variable with no decimal (discrete), e.g. age, days, counts, etc.
+
+- **double**: Numeric variable with decimals (continuous), e.g. distance, expression level, time.
+
+In C (and other languages), strings, integers, and doubles may be specified 
+with size, e.g. in `python` integers can be of 9, 16, and 32 bits. This is relevant
+when managing large datasets, where saving space can be fundamental
+([more info](https://en.wikipedia.org/wiki/C_data_types#Main_types)).
+
+---
+
+## Creating variables: Special data types
+
+Most programming languages have special types which are built using basic types.
+A few examples:
+
+- **time**: Could be date, date + time, or a combination of both. Usually it has
+  a reference number defined as date 0. In R, the `Date` class has as reference
+  1970-01-01, in other words, "days since January 1st, 1970".
+  
+- **categorical**: Commonly used to represent strata/levels of variables, e.g. a variable
+  "country" could be represented as a factor, where the data is stored as numbers
+  but has a label.
+  
+- **ordinal**: Similar to factor, but it has ordering, e.g.
+  "satisfaction level: 5 very satisfied, ..., 1 very unsatisfied".
+
+Other special data types could be ways to represent missings (usually described as `na` or `NA`),
+or special numeric types, e.g. `+-Inf` and Undefined (`NaN`).
+
+
+When storing/sharing datasets, it is a good practice to do it along a dictionary
+describing each column data type/format.
+
+---
+
+## Questions 3: What's the best way to represent the following
+
+- 0, 1, 1, 0, 0, 1
+
+- Diabetes type 1, Diabetes type 2, Diabetes type 1, Diabetes type 2
+
+- on, off, off, on, on, on
+
+- 5, 10, 1, 15, 0, 0, 1
+
+- 1.0, 2.0, 10.0, 6.0
+
+- high, low, medium, medium, high
+
+- -1, 1, -1, -1, 1,
+
+- .2, 1.5, .8, `\(\pi\)`
+
+- `\(\pi\)`, `\(\exp{1}\)`, `\(\pi\)`, `\(\pi\)`
+
+---
+
+## Variable creation
+
+If we wanted to create two variables, `elev^2` and the scaled version of `wind.sp` by it's
+standard error, we could do the following
+
+With `data.table`
+
+
+```r
+dat[, elev2         := elev^2]
+dat[, windsp_scaled := wind.sp/sd(wind.sp, na.rm = TRUE)]
+# Alternatively:
+# dat[, c("elev2", "windsp_scaled") := .(elev^2, wind.sp/sd(wind.sp,na.rm=TRUE)) ]
+```
+
+---
+
+## Variable creation (cont. 1)
+
+With the verb **dplyr::mutate()**:
+
+
+```r
+dat[, c("elev2", "windsp_scaled") := NULL] # This to delete these variables
+dat_ldt %&gt;%
+  mutate(
+    elev2         = elev ^ 2,
+    windsp_scaled = wind.sp/sd(wind.sp,na.rm=TRUE)
+  ) %&gt;% compute()
+```
+
+```
+## Source: local data table [2,377,343 x 15]
+## Call:   `_DT4`
+## 
+##   USAFID  WBAN  year month   day  hour   min   lat   lon  elev wind.sp  temp
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;dbl&gt;
+## 1 690150 93121  2019     8     1     0    56  34.3 -116.   696     5.7  37.2
+## 2 690150 93121  2019     8     1     1    56  34.3 -116.   696     8.2  35.6
+## 3 690150 93121  2019     8     1     2    56  34.3 -116.   696     6.7  34.4
+## 4 690150 93121  2019     8     1     3    56  34.3 -116.   696     5.1  33.3
+## 5 690150 93121  2019     8     1     4    56  34.3 -116.   696     2.1  32.8
+## 6 690150 93121  2019     8     1     5    56  34.3 -116.   696     0    31.1
+## # … with 3 more variables: atm.press &lt;dbl&gt;, elev2 &lt;dbl&gt;, windsp_scaled &lt;dbl&gt;
+## 
+## # Use as.data.table()/as.data.frame()/as_tibble() to access results
+```
+
+Notice that, since `dat_ldt` is a pointer, the variables are now in `dat`.
+
+---
+
+## Variable creation (cont. 2)
+
+Imagine that we needed to generate all those calculations (scale by sd) on many more variables.
+We could then use the **.SD** symbol:
+
+
+```r
+# Listing the names
+in_names  &lt;- c("wind.sp", "temp", "atm.press")
+out_names &lt;- paste0(in_names, "_scaled")
+dat[,
+    c(out_names) := lapply(.SD, function(x) x/sd(x, na.rm = TRUE)), 
+    .SDcols = in_names
+    ]
+
+# Looking at the first 6
+head(dat[, .SD, .SDcols = out_names], n = 4)
+```
+
+```
+##    wind.sp_scaled temp_scaled atm.press_scaled
+## 1:       2.654379    6.139348         248.7889
+## 2:       3.818580    5.875290         248.8874
+## 3:       3.120059    5.677247         248.9613
+## 4:       2.374970    5.495707         249.2077
+```
+
+Key things to notice here: **c(out_names)**, **.SD**, and **.SDCols**.
+
+---
+
+## Variable creation (cont. 3)
+
+In the case of dplyr, we could use the following
+
+
+```r
+as_tibble(dat_ldt) %&gt;%
+  mutate(
+    across(
+      all_of(in_names),
+      sd,
+      .names = "{col}_scaled2",
+      na.rm = TRUE)
+  ) %&gt;%
+  # Just to print the last columns
+  select(ends_with("_scaled2")) %&gt;%
+  head(n = 4)
+```
+
+```
+## # A tibble: 4 x 3
+##   wind.sp_scaled2 temp_scaled2 atm.press_scaled2
+##             &lt;dbl&gt;        &lt;dbl&gt;             &lt;dbl&gt;
+## 1            2.15         6.06              4.06
+## 2            2.15         6.06              4.06
+## 3            2.15         6.06              4.06
+## 4            2.15         6.06              4.06
+```
+
+Key thing here: This approach has no direct translation to `data.table`, which
+is why we used **as_tibble()**.
+
+---
+
+## Merging data
+
+- While building the MET dataset, we dropped the State data.
+
+- We can use the original Stations dataset and *merge* it to the MET dataset.
+
+- But we cannot do it right away. We need to process the data somewhat first.
+
+
+---
+
+## Merging data (cont. 1)
+
+
+```r
+stations &lt;- fread("ftp://ftp.ncdc.noaa.gov/pub/data/noaa/isd-history.csv")
+stations[, USAF := as.integer(USAF)]
+
+# Dealing with NAs and 999999
+stations[, USAF   := fifelse(USAF == 999999, NA_integer_, USAF)]
+stations[, CTRY   := fifelse(CTRY == "", NA_character_, CTRY)]
+stations[, STATE  := fifelse(STATE == "", NA_character_, STATE)]
+
+# Selecting the three relevant columns, and keeping unique records
+stations &lt;- unique(stations[, list(USAF, CTRY, STATE)])
+
+# Dropping NAs
+stations &lt;- stations[!is.na(USAF)]
+
+head(stations, n = 4)
+```
+
+```
+##    USAF CTRY STATE
+## 1: 7018 &lt;NA&gt;  &lt;NA&gt;
+## 2: 7026   AF  &lt;NA&gt;
+## 3: 7070   AF  &lt;NA&gt;
+## 4: 8260 &lt;NA&gt;  &lt;NA&gt;
+```
+
+Notice the function `fifelse()`. Now, let's try to merge the data!
+
+---
+
+## Merging data (cont. 2)
+
+
+```r
+merge(
+  # Data
+  x     = dat,      
+  y     = stations, 
+  # List of variables to match
+  by.x  = "USAFID",
+  by.y  = "USAF", 
+  # Which obs to keep?
+  all.x = TRUE,      
+  all.y = FALSE
+  ) %&gt;% nrow()
+```
+
+```
+## [1] 2392120
+```
+
+This is more rows! The original dataset, `dat`, has 2377343. This means
+that the `stations` dataset has duplicated IDs. We can fix this:
+
+
+```r
+stations[, n := 1:.N, by = .(USAF)]
+stations &lt;- stations[n == 1,][, n := NULL]
+```
+
+---
+
+## Merging data (cont. 3)
+
+We now can use the function `merge()` to add the extra data
+
+
+```r
+dat &lt;- merge(
+  # Data
+  x     = dat,      
+  y     = stations, 
+  # List of variables to match
+  by.x  = "USAFID",
+  by.y  = "USAF", 
+  # Which obs to keep?
+  all.x = TRUE,      
+  all.y = FALSE
+  )
+
+head(dat[, list(USAFID, WBAN, STATE)], n = 4)
+```
+
+```
+##    USAFID  WBAN STATE
+## 1: 690150 93121    CA
+## 2: 690150 93121    CA
+## 3: 690150 93121    CA
+## 4: 690150 93121    CA
+```
+
+What happens when you change the options `all.x` and `all.y`?
+
+
+
+---
+
+## Aggregating data: Adding groupped variables
+
+- Many times we need to either impute some data, or generate variables by strata.
+
+- If we, for example, wanted to impute missing temperature with the daily state
+  average, we could use **by** together with the **data.table::fcoalesce()** function:
+  
+  
+  ```r
+  dat[, temp_imp := fcoalesce(temp, mean(temp, na.rm = TRUE)),
+    by = .(STATE, year, month, day)]
+  ```
+
+- In the case of dplyr, we can do the following using **dplyr::group_by** together
+  with **dplyr::coalesce()**:
+  
+  
+  ```r
+  # We need to create the lazy table again, since we replaced it in the merge
+  dat_ldt &lt;- lazy_dt(dat, immutable = FALSE)
+  
+  dat_ldt %&gt;%
+    group_by(STATE, year, month, day) %&gt;%
+    mutate(
+      temp_imp2 = coalesce(temp, mean(temp, na.rm = TRUE))
+      ) %&gt;% compute()
+  ```
+
+---
+
+## Aggregating data: Adding groupped variables (cont.)
+
+Let's see how it looks like
+
+
+```r
+dat[USAFID == 720172][order(year, month, day)][, {
+  op &lt;- par(mfrow = c(1, 2))
+  plot(temp, type = "l", col = "tomato")
+  plot(temp_imp, type = "l", col = "steelblue")
+  par(op)
+}]
+```
+
+![](slides_files/figure-html/plot-groupped-1.png)&lt;!-- --&gt;
+
+```
+##    mfrow
+## 1:     1
+## 2:     2
+```
+
+---
+
+## Aggregating data: Summary table
+
+- Using `by` also allow us creating summaries of our data.
+
+- For example, if we wanted to compute the average temperature, wind-speed, and
+  atmospheric preassure by state, we could do the following
+  
+  
+  ```r
+  dat[, .(
+    temp_avg      = mean(temp, na.rm=TRUE),
+    wind.sp_avg   = mean(wind.sp, na.rm=TRUE),
+    atm.press_avg = mean(atm.press, na.rm = TRUE)
+    ),
+    by = STATE
+    ][order(STATE)] %&gt;% head(n = 4)
+  ```
+  
+  ```
+  ##    STATE temp_avg wind.sp_avg atm.press_avg
+  ## 1:    AL 26.19799    1.566381      1016.148
+  ## 2:    AR 26.20697    1.836963      1014.551
+  ## 3:    AZ 28.80596    2.984547      1010.771
+  ## 4:    CA 22.36199    2.614120      1012.640
+  ```
+  
+---
+
+## Aggregating data: Summary table (cont. 1)
+
+When dealing with too many variables, we can use the `.SD` special symbol in `data.table`:
+
+
+```r
+# Listing the names
+in_names  &lt;- c("wind.sp", "temp", "atm.press")
+out_names &lt;- paste0(in_names, "_avg")
+
+dat[,
+  setNames(lapply(.SD, mean, na.rm = TRUE), out_names),
+  .SDcols = in_names, keyby   = STATE
+  ] %&gt;% head(n = 4)
+```
+
+```
+##    STATE wind.sp_avg temp_avg atm.press_avg
+## 1:    AL    1.566381 26.19799      1016.148
+## 2:    AR    1.836963 26.20697      1014.551
+## 3:    AZ    2.984547 28.80596      1010.771
+## 4:    CA    2.614120 22.36199      1012.640
+```
+
+Notice the **keyby** option here: "Group by STATE and order by STATE".
+
+---
+
+## Aggregating data: Summary table (cont. 2)
+
+- Using **dplyr** verbs  
+  
+  
+  ```r
+  dat_ldt %&gt;% group_by(STATE) %&gt;%
+    summarise(
+      temp_avg      = mean(temp, na.rm=TRUE),
+      wind.sp_avg   = mean(wind.sp, na.rm=TRUE),
+      atm.press_avg = mean(atm.press, na.rm = TRUE)
+    ) %&gt;% arrange(STATE) %&gt;% head(n = 4)
+  ```
+  
+  ```
+  ## Source: local data table [?? x 4]
+  ## Call:   head(`_DT5`[, .(temp_avg = mean(temp, na.rm = TRUE), wind.sp_avg = mean(wind.sp, 
+  ##     na.rm = TRUE), atm.press_avg = mean(atm.press, na.rm = TRUE)), 
+  ##     keyby = .(STATE)][order(STATE)], n = 4)
+  ## 
+  ##   STATE temp_avg wind.sp_avg atm.press_avg
+  ##   &lt;chr&gt;    &lt;dbl&gt;       &lt;dbl&gt;         &lt;dbl&gt;
+  ## 1 AL        26.2        1.57         1016.
+  ## 2 AR        26.2        1.84         1015.
+  ## 3 AZ        28.8        2.98         1011.
+  ## 4 CA        22.4        2.61         1013.
+  ## 
+  ## # Use as.data.table()/as.data.frame()/as_tibble() to access results
+  ```
+  
+  Notice the `arrange()` function.
+
+---
+
+## Other data.table goodies
+
+- `shift()` Fast lead/lag for vectors and lists.
+
+- `fifelse()` Fast if-else, similar to base R's `ifelse()`.
+
+- `fcoalesce()` Fast coalescing of missing values.
+
+- `%between%` A short form of `(x &lt; lb) &amp; (x &gt; up)`
+
+- `%inrange%` A short form of `x %in% lb:up`
+
+- `%chin%` Fast match of character vectors, equivalent to `x %in% X`,
+  where both `x` and `X` are character vectors.
+  
+- `nafill()` Fill missing values using a constant, last observed value, or
+  the next observed value.
+
+---
+
+## Benchmarks
+
+- [H2O.ai](https://www.h2o.ai/)'s benchmark ([link](https://h2oai.github.io/db-benchmark/)): Designed by
+  the lead developer of data.table [Matt Dowle](https://rdatatable.gitlab.io/data.table/)
+
+- [RStudio's](https://rstudio.com) benchmark ([link](https://cran.r-project.org/web/packages/vroom/vignettes/benchmarks.html)):
+  Designed as part of the benchmarks with the [vroom](https://cran.r-package.org/package=vroom) package.
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

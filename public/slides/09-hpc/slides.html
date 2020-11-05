@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>High performance computing, cloud computing</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="George G. Vega Yon" />
+    <link rel="stylesheet" href="theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, title-slide
+
+# High performance computing, cloud computing
+## PM 566: Introduction to Health Data Science
+### George G. Vega Yon
+
+---
+
+
+&lt;!--Yeah... I have really long code chunks, so I just changed the default size :)--&gt;
+&lt;style type="text/css"&gt;
+code.r,code.cpp{
+  font-size:medium;
+}
+&lt;/style&gt;
+
+# Part I: intro
+
+---
+
+## What is HPC
+
+High Performance Computing (HPC) can relate to any of the following:
+
+- **Parallel computing**, i.e. using multiple resources (could be threads, cores, nodes, etc.) simultaneously to complete a task.
+
+- **Big data** working with large datasets (in/out-of-memory).
+
+We will mostly focus on parallel computing.
+
+---
+
+## Serial computation
+
+&lt;div align="center"&gt;
+&lt;figure&gt;
+&lt;img src="fig/pll-computing-explained-serial.svg" style="width:50%"&gt;
+&lt;figcaption&gt;Here we are using a single core. The function is applied one element at a time, leaving the other 3 cores without usage.&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;/div&gt;
+
+---
+
+## Parallel computation
+
+&lt;div align="center"&gt;
+&lt;figure&gt;
+&lt;img src="fig/pll-computing-explained-parallel.svg" style="width:50%"&gt;
+&lt;figcaption&gt;In this more intelligent way of computation, we are taking full advantage of our computer by using all 4 cores at the same time. This will translate in a reduced computation time which, in the case of complicated/long calculations, can be an important speed gain.&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;/div&gt;
+
+
+
+---
+
+## Parallel computing: Hardware
+
+When it comes to parallel computing, there are several ways (levels) in which we can speed up our analysis. From the Bottom up:
+
+- **[Thread level SIMD instructions](https://en.wikipedia.org/wiki/Vector_processor)**: In most modern processors support some level of what is called vectorization, this is, applying a single (same) instruction to streams of data, for example: adding vector `A` and `B`.
+
+- **[Hyper-Tthreading Technology](https://en.wikipedia.org/wiki/Hyper-threading)** (HTT): Intel's hyper-threading generates a virtual partition of a single core (processor) which, while not equivalent to having multiple physical threads, does speedup things.
+
+- **[Multi-core processor](https://en.wikipedia.org/wiki/Multi-core_processor)**: Most modern CPUs (Central Processing Unit) have two or more physical cores. A typical laptop computer has about 8 cores.
+
+- **[General-Purpose Computing on Graphics Processing Unit](https://en.wikipedia.org/wiki/General-purpose_computing_on_graphics_processing_units)** (GP-GPU): While modern CPUs have a couple of dozens of cores, GPUs can hold thousands of those. Designed for image processing, there's an increasing use of GPUs as an alternative of CPUs for scientific computing.
+
+- **[High-Performance Computing Cluster](https://en.wikipedia.org/wiki/Computer_cluster)** (HPC): A collection of computing nodes that are interconnected using a fast Ethernet network.
+
+- **[Grid Computing](https://en.wikipedia.org/wiki/Grid_computing)**: A collection of loosely interconnected machines that may or may not be in the same physical place, for example: HTCondor clusters. 
+
+---
+
+## Parallel computing: CPU components
+
+&lt;div align="center"&gt;
+&lt;figure&gt;
+&lt;img src="fig/cpu-slurm.png" style="width:40%"&gt;
+&lt;figcaption&gt;Taxonomy of CPUs (Downloaded from &lt;a href="https://slurm.schedmd.com/mc_support.html"&gt;https://slurm.schedmd.com/mc_support.html&lt;/a&gt;)&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;/div&gt;
+
+---
+
+&lt;div align="center"&gt;
+&lt;figure&gt;
+&lt;img src="fig/when_to_parallel.png" style="width:80%;"&gt;
+&lt;figcaption&gt;Ask yourself these questions before jumping into HPC!&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;/div&gt;
+
+---
+
+## Parallel computing in R
+
+While there are several alternatives (just take a look at the
+[High-Performance Computing Task View](https://cran.r-project.org/web/views/HighPerformanceComputing.html)),
+we'll focus on the following R-packages for **explicit parallelism**
+
+Some examples:
+
+&gt; *   [**parallel**](https://cran.r-project.org/package=parallel): R package that provides '[s]upport for parallel computation,
+    including random-number generation'.
+
+&gt; *   [**foreach**](https://cran.r-project.org/package=foreach): R package for 'general iteration over elements' in parallel fashion.
+
+&gt; *   [**future**](https://cran.r-project.org/package=future): '[A] lightweight and
+    unified Future API for sequential and parallel processing of R
+    expression via futures.' (won't cover here)
+    
+Implicit parallelism, on the other hand, are out-of-the-box tools that allow the
+programmer not to worry about parallelization, e.g. such as
+[**gpuR**](https://cran.r-project.org/package=gpuR) for Matrix manipulation using
+GPU, [**tensorflow**](https://cran.r-project.org/package=tensorflow)
+
+---
+
+And there's also a more advanced set of options
+
+&gt; *   [**Rcpp**](https://cran.r-project.org/package=Rcpp) + [OpenMP](https://www.openmp.org):
+    [Rcpp](https://cran.r-project.org/package=Rcpp) is an R package for integrating
+    R with C++, and OpenMP is a library for high-level parallelism for C/C++ and
+    Fortran.
+
+&gt; *   A ton of other type of resources, notably the tools for working with 
+    batch schedulers such as Slurm, HTCondor, etc.
+   
+---
+    
+## The parallel package
+
+*  Based on the `snow` and `multicore` R Packages.
+
+*  Explicit parallelism.
+
+*  Simple yet powerful idea: Parallel computing as multiple R sessions.
+
+*  Clusters can be made of both local and remote sessions
+
+*  Multiple types of cluster: `PSOCK`, `Fork`, `MPI`, etc.
+
+&lt;div style="text-align: center;"&gt;&lt;img src="fig/parallel-package.svg"/&gt;&lt;/div&gt;
+
+---
+
+# Parallel workflow
+
+(Usually) We do the following:
+
+1.  Create a `PSOCK/FORK` (or other) cluster using `makePSOCKCluster`/`makeForkCluster`
+    (or `makeCluster`)
+    
+2.  Copy/prepare each R session (if you are using a `PSOCK` cluster):
+
+    a.  Copy objects with `clusterExport`
+
+    b.  Pass expressions with `clusterEvalQ`
+
+    c.  Set a seed
+
+3.  Do your call: `parApply`, `parLapply`, etc. 
+
+4.  Stop the cluster with `clusterStop`
+
+---
+
+## Ex 1: Hello world!
+
+
+```r
+# 1. CREATING A CLUSTER
+library(parallel)
+cl &lt;- makePSOCKcluster(4)    
+x  &lt;- 20
+
+# 2. PREPARING THE CLUSTER
+clusterSetRNGStream(cl, 123) # Equivalent to `set.seed(123)`
+clusterExport(cl, "x")
+
+# 3. DO YOUR CALL
+clusterEvalQ(cl, {
+  paste0("Hello from process #", Sys.getpid(), ". I see x and it is equal to ", x)
+})
+```
+
+```
+## [[1]]
+## [1] "Hello from process #24675. I see x and it is equal to 20"
+## 
+## [[2]]
+## [1] "Hello from process #24676. I see x and it is equal to 20"
+## 
+## [[3]]
+## [1] "Hello from process #24674. I see x and it is equal to 20"
+## 
+## [[4]]
+## [1] "Hello from process #24673. I see x and it is equal to 20"
+```
+
+```r
+# 4. STOP THE CLUSTER
+stopCluster(cl)
+```
+
+---
+
+## Ex 2: Parallel regressions
+
+**Problem**: Run multiple regressions on a very wide dataset. We need to fit the
+following model:
+
+$$
+y = X_i\beta_i + \varepsilon,\quad \varepsilon\sim N(0, \sigma^2_i),\quad\forall i
+$$
+
+
+
+
+```r
+dim(X)
+```
+
+```
+## [1] 500 999
+```
+
+```r
+X[1:6, 1:5]
+```
+
+```
+##          x001        x002       x003       x004      x005
+## 1  0.61827227  1.72847041 -1.4810695 -0.2471871 1.4776281
+## 2  0.96777456 -0.19358426 -0.8176465  0.6356714 0.7292221
+## 3 -0.04303734 -0.06692844  0.9048826 -1.9277964 2.2947675
+## 4  0.84237608 -1.13685605 -1.8559158  0.4687967 0.9881953
+## 5 -1.91921443  1.83865873  0.5937039 -0.1410556 0.6507415
+## 6  0.59146153  0.81743419  0.3348553 -1.8771819 0.8181764
+```
+
+```r
+str(y)
+```
+
+```
+##  num [1:500] -0.8188 -0.5438 1.0209 0.0467 -0.4501 ...
+```
+
+---
+
+## Ex 2: Parallel regressions (cont'd 1)
+
+**Serial solution**: Use `apply` (forloop) to solve it
+
+
+```r
+#
+#
+#
+ans &lt;- apply(
+  
+  X      = X,
+  MARGIN = 2,
+  FUN    = function(x) coef(lm(y ~ x))
+  )
+
+ans[,1:5]
+```
+
+```
+##                    x001        x002        x003        x004        x005
+## (Intercept) -0.03449819 -0.03339681 -0.03728140 -0.03644192 -0.03717344
+## x           -0.06082548  0.02748265 -0.01327855 -0.08012361 -0.04067826
+```
+
+---
+
+## Ex 2: Parallel regressions (cont'd 2)
+
+**Parallel solution**: Use `parApply`
+
+
+```r
+library(parallel)
+cl &lt;- makePSOCKcluster(4L)
+clusterExport(cl, "y")
+ans &lt;- parApply(
+  cl     = cl,
+  X      = X,
+  MARGIN = 2,
+  FUN    = function(x) coef(lm(y ~ x))
+  )
+ 
+ans[,1:5]
+```
+
+```
+##                    x001        x002        x003        x004        x005
+## (Intercept) -0.03449819 -0.03339681 -0.03728140 -0.03644192 -0.03717344
+## x           -0.06082548  0.02748265 -0.01327855 -0.08012361 -0.04067826
+```
+
+---
+
+Are we going any faster?
+
+
+```r
+microbenchmark::microbenchmark(
+  parallel = parApply(
+    cl  = cl,
+    X   = X, MARGIN = 2,
+    FUN = function(x) coef(lm(y ~ x))
+    ),
+  serial = apply(
+    X   = X, MARGIN = 2,
+    FUN = function(x) coef(lm(y ~ x))
+    ), unit="relative"
+)
+```
+
+```
+## Unit: relative
+##      expr      min       lq     mean   median       uq      max neval
+##  parallel 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000   100
+##    serial 1.804607 1.758201 1.724739 1.724142 1.662065 1.750691   100
+```
+
+
+
+---
+
+# Part II: Extended Example
+
+---
+
+## Extended Example: SARS-CoV2 simulation
+
+An altered version of [Conway's game of life](https://en.wikipedia.org/wiki/Conway's_Game_of_Life)
+
+1. People live in torus, each individual having 8 neighbors.
+
+2. A healthy individual interacting with a sick neighbor has the following probabilities of contracting the disease:
+
+   a. 100% if neither wears a face-mask.
+   
+   b. 50% if only he wears the face-mask.
+   
+   c. 20% if only his neighbor wears the mask.
+   
+   d. 5% if both wear the face-mask.
+    
+4. Infected individuals may die with probability 10%.
+  
+We want to illustrate the importance of wearing face masks. We need to simulate a system with 2,500 (50 x 50) individuals, 1,000 times so we can analyze: (a) contagion curve, (b) death curve.
+
+More models like this: The [SIRD model](https://en.wikipedia.org/wiki/Compartmental_models_in_epidemiology#The_SIRD_model) (Susceptible-Infected-Recovered-Deceased)
+
+---
+
+## Conway's Game of Masks
+
+Download the program [here](sars-cov2.R).
+
+
+```r
+source("sars-cov2.R", echo=FALSE)
+
+# Looking at some constants
+probs_sick # Sick individual's probabilities
+```
+
+```
+##  deceased  infected recovered 
+##       0.1       0.4       0.5
+```
+
+```r
+probs_susc # Probabilities of i getting the disease 
+```
+
+```
+##                j doesn't wear j wears
+## i doesn't wear            0.9    0.20
+## i wears                   0.5    0.05
+```
+
+---
+
+## First look: How does the simulation looks like?
+
+
+```r
+set.seed(7123)
+one &lt;- simulate_covid(
+    pop_size    = 1600,
+    nsick       = 160,
+    nwears_mask = 1:400,
+    nsteps      = 20,
+    store       = TRUE
+    )
+
+one$statistics[c(1:5, 16:20),]
+```
+
+```
+##    susceptible infected recovered deceased
+## 0         1440      160         0        0
+## 1         1260      236        87       17
+## 2         1075      278       213       34
+## 3          909      282       349       60
+## 4          779      258       475       88
+## 15         399       10      1004      187
+## 16         398        6      1009      187
+## 17         398        1      1010      191
+## 18         398        1      1010      191
+## 19         397        1      1011      191
+```
+
+---
+
+## First look: How does the simulation looks like? (contd')
+
+
+```r
+# Location of who wears the facemask. This step is only for plotting
+wears &lt;- which(one$wears, arr.ind = TRUE) - 1
+wears &lt;- wears/(one$nr) * (1 + 1/one$nr)
+
+# Initializing the animation
+fig   &lt;- magick::image_device(600, 600, res = 96/2, pointsize = 24)
+for (i in 1:one$current_step) {
+  
+  # Plot
+  image(
+    one$temporal[,,i], col=c("gray", "tomato", "steelblue","black"),
+    main = paste("Time", i - 1L, "of", one$nsteps),
+    zlim = c(1,4)
+    )
+  points(wears, col="white", pch=20, cex=1.5)
+  legend(
+    "topright",
+    col    = c("gray", "tomato", "steelblue","black", "black"),
+    legend = c(names(codes), "wears a mask"),
+    pch    = c(rep(15, 4), 21)
+  )
+}
+
+# Finalizing plot and writing the animation
+dev.off()
+animation &lt;- magick::image_animate(fig, fps = 2)
+magick::image_write(animation, "covid1.gif")
+```
+
+
+---
+
+&lt;video controls width="400" height="400"&gt;
+&lt;source type="video/webm" src="fig/covid1.webm"&gt;
+&lt;/video&gt;
+
+---
+
+
+```r
+set.seed(123355)
+stats_nobody_wears_masks &lt;- replicate(50, {
+  simulate_covid(
+    pop_size    = 900,
+    nsick       = 10,
+    nwears_mask = 0,
+    nsteps      = 15)$statistics[,"deceased"]
+  }, simplify = FALSE
+  )
+
+set.seed(123355)
+stats_half_wears_masks &lt;- replicate(50, {
+  simulate_covid(
+    pop_size    = 900,
+    nsick       = 10,
+    nwears_mask = 450,
+    nsteps      = 15)$statistics[,"deceased"]
+  }, simplify = FALSE
+  )
+
+set.seed(123355)
+stats_all_wears_masks &lt;- replicate(50, {
+  simulate_covid(
+    pop_size    = 900,
+    nsick       = 10,
+    nwears_mask = 900,
+    nsteps      = 15)$statistics[,"deceased"]
+  }, simplify = FALSE
+  )
+```
+
+---
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="slides_files/figure-html/boxplot-1.svg" alt="Cumulative number of deceased as a function of whether none, half, or all individuals wear a face mask."  /&gt;
+&lt;p class="caption"&gt;Cumulative number of deceased as a function of whether none, half, or all individuals wear a face mask.&lt;/p&gt;
+&lt;/div&gt;
+
+---
+
+## Speed things up: Timing under the serial implementation
+
+We will use the function `system.time` to measure how much time it takes to complete 20 simulations in serial versus paralle fashion using 4 cores
+
+
+```r
+time_serial &lt;- system.time({
+  ans_serial &lt;- replicate(50, {
+    simulate_covid(
+      pop_size    = 900,
+      nsick       = 10,
+      nwears_mask = 900,
+      nsteps      = 20)$statistics[,"deceased"]
+    },
+    simplify = FALSE
+    )
+})
+```
+
+---
+
+## Speed things up: Parallel a Forking Cluster
+
+Alternative 1: If you are using Unix-like system (Ubuntu, OSX, etc.), you can
+take advantage of process forking, and thus, parallel's `mclapply` function:
+
+
+```r
+set.seed(1231)
+time_parallel_fork &lt;- system.time({
+  ans_parallel &lt;- parallel::mclapply(1:50, function(i) {
+    simulate_covid(
+      pop_size    = 900,
+      nsick       = 10,
+      nwears_mask = 900,
+      nsteps      = 20)$statistics[,"deceased"]
+    }, mc.cores = 2L
+  )
+})
+```
+
+---
+
+## Speed things up: Parallel with a Socket Cluster
+
+
+Alternative 2: Regardless of the operating system, we can use a Socket cluster,
+which is simply a group of fresh R sessions that listen to the parent/main/mother 
+session.
+
+
+```r
+# Step 1: Make the cluster
+cl &lt;- parallel::makePSOCKcluster(2L)
+```
+
+```r
+# Step 2: Prepare the cluster
+# We could either export all the needed variables
+parallel::clusterExport(
+  cl,
+  c("calc_stats", "codes", "dat", "get_neighbors", "init", "probs_sick",
+    "probs_susc", "simulate_covid", "update_status", "update_status_all"
+    )
+  )
+```
+
+Or simply running the simulation script in the other sessions
+
+
+```r
+# Step 2 (alt): Prepare the cluster
+parallel::clusterEvalQ(cl, source("sars-cov2.R"))
+parallel::clusterSetRNGStream(cl, 123) # Make sure it is reproducible!
+```
+
+---
+
+Bonus: Checking what are the processes running on the system
+
+```r
+(pids &lt;- c(
+  master    = Sys.getpid(),
+  offspring = unlist(parallel::clusterEvalQ(cl, Sys.getpid()))
+  ))
+#      master offspring1 offspring2 
+#     14810      15998      16012 
+```
+
+If you are using Unix, you can see more details:
+
+![](fig/ps-in-parallel.png)
+
+---
+
+## Speed things up: Parallel with a Socket Cluster (cont'd)
+
+
+```r
+# Step 3: Do your call
+time_parallel_sock &lt;- system.time({
+  ans_parallel &lt;- parallel::parLapply(cl, 1:50, function(i) {
+    simulate_covid(
+      pop_size    = 900,
+      nsick       = 10,
+      nwears_mask = 900,
+      nsteps      = 20)$statistics[,"deceased"]
+    }
+  )
+})
+
+# Step 4: Stop
+parallel::stopCluster(cl)
+```
+
+---
+
+Using two threads/processes, you can obtain the following speedup
+
+
+```r
+time_serial;time_parallel_sock;time_parallel_fork
+```
+
+```
+##    user  system elapsed 
+##  23.344   0.172  23.818
+```
+
+```
+##    user  system elapsed 
+##   0.001   0.000  11.082
+```
+
+```
+##    user  system elapsed 
+##  16.258   0.107  19.084
+```
+
+---
+
+# Part III: Cloud Computing
+
+---
+
+## Cloud Computing (a.k.a. on-demand computing)
+
+HPC clusters, super-computers, etc. need not to be bought... you can rent:
+
+- [Amazon Web Services (AWS)](https://aws.amazon.com)
+
+- [Google Cloud Computing](https://cloud.google.com)
+
+- [Microsoft Azure](https://azure.microsoft.com)
+
+These services provide more than just computing (storage, data analysis, etc.). But for computing and storage, there are other free resources, e.g.:
+
+- [The  Extreme Science and Engineering Discovery Environment (XSEDE)](https://www.xsede.org/)
+
+---
+
+## There are many ways to run R in the cloud
+
+At USC:
+
+- Center for Advanced Research Computing (CARC). USC users can request hundreds
+  of cores (literally). Take a look at the [slurmR package](https://cran.r-project.org/package=slurmR)
+
+Running R in:
+
+- Google Cloud: https://cloud.google.com/solutions/running-r-at-scale
+- Amazon Web Services: https://aws.amazon.com/blogs/big-data/running-r-on-aws/
+- Microsoft Azure: https://docs.microsoft.com/en-us/azure/architecture/data-guide/technology-choices/r-developers-guide
+
+---
+
+## Submitting jobs
+
+- A key feature of cloud services &gt; interact via command line.
+
+- You will need to familiarize with `Rscript` and `R CMD BATCH`.
+
+- Which is better? It depends on the application.
+
+---
+
+## Submitting jobs (examples)
+
+Imagine we have the following R script (download [here](dummy.R)):
+
+```r
+library(data.table)
+set.seed(1231)
+dat &lt;- data.table(y = rnorm(1e3), x = sample.int(5, 1e3, TRUE))
+dat[,mean(y), by = x]
+```
+
+**R CMD BATCH**
+
+This will run a non-interactive R session and put all the output
+([stdout](https://wikipedia.org/wiki/stdout) and [stderr](https://wikipedia.org/wiki/stderr)) to the file `dummy.Rout`.
+
+```
+R CMD BATCH --vanilla dummy.R dummy.Rout &amp;
+```
+
+**Rscript**
+
+This will also execute R in the background, with the difference that
+the output `dummy.Rout` will not capture `stderr` (messages, warnings and
+errors from R).
+
+```
+Rscript --vanilla dummy.R &gt; dummy.Rout &amp;
+```
+
+The `&amp;` at the end makes sure the job is submitted and does not wait for it to end.
+Try it yourself (5 mins)!
+
+---
+
+## Rscript
+
+The R script can be executed as program directly, if you specify where the
+`Rscript` program lives.
+
+The following example works in Unix. This is an R script named `since_born.R`
+(download [here](since_born.R))
+
+```bash
+#!/usr/bin/Rscript
+args &lt;- tail(commandArgs(), 0)
+message(Sys.Date() - as.Date(args), " days since you were born.")
+```
+
+This R script, can be executed in various ways...
+
+---
+
+## Rscript as a program
+
+For this we would need to change it to an executable. In unix you can use the
+[chmod](https://wikipedia.org/wiki/chmod) command: `chmod +x since_born.R`. This
+allows to:
+
+
+```bash
+./since_born.R 1988-03-02
+```
+
+```
+## 11913 days since you were born.
+```
+
+---
+
+## Rscript in a bash script (most common)
+
+In the case of running jobs in a cluster or something similar, we usually need to
+have a bash script, In our case, here we have a file named `since_born_bash.sh`
+that calls `Rscript` (download [here](since_born_bash.sh))
+
+```bash
+#!/bin/bash
+Rscript since_born.R 1988-03-02
+```
+Which we would execute something like this
+
+
+```bash
+sh since_born_bash.sh
+```
+
+```
+## 11913 days since you were born.
+```
+
+
+---
+
+# Summary
+
+- Parallel computing can speedup things.
+
+- Not always needed... need to make sure that you are taking advantage of vectorization.
+
+- Most of the time we look at "Embarrassingly parallel computing."
+
+- In R, explicit parallelism can be achieved using the **parallel** package:
+
+    1. Load the package and create a cluster **parallel::makeCluster()**
+    
+    2. Setup the environment **parallel::clusterEvalQ()**, **parallel::clusterExport()**, and **parallel::clusterSetRNGStream()**
+    
+    3. Make the call, e.g., **parallel::parLapply()**
+    
+    4. Stop the cluster **parallel::stopCluster()**
+
+---
+
+## Session info
+
+
+```
+## R version 4.0.2 (2020-06-22)
+## Platform: x86_64-pc-linux-gnu (64-bit)
+## Running under: Ubuntu 18.04.5 LTS
+## 
+## Matrix products: default
+## BLAS:   /usr/lib/x86_64-linux-gnu/atlas/libblas.so.3.10.3
+## LAPACK: /usr/lib/x86_64-linux-gnu/atlas/liblapack.so.3.10.3
+## 
+## locale:
+##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+##  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+##  [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+##  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+## [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+## 
+## attached base packages:
+## [1] parallel  stats     graphics  grDevices utils     datasets  methods  
+## [8] base     
+## 
+## loaded via a namespace (and not attached):
+##  [1] compiler_4.0.2  magrittr_1.5    tools_4.0.2     htmltools_0.5.0
+##  [5] xaringan_0.16   yaml_2.2.1      stringi_1.4.6   rmarkdown_2.3  
+##  [9] highr_0.8       knitr_1.29      stringr_1.4.0   xfun_0.15      
+## [13] digest_0.6.25   rlang_0.4.6     evaluate_0.14
+```
+
+---
+
+## (Bonus) Rcpp: Hello world!
+
+### The Fibonacci series
+
+&lt;img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/FibonacciSpiral.svg/354px-FibonacciSpiral.svg.png" width="400px"/&gt;
+
+$$
+Fib(n) = \left\{\begin{array}{ll}
+n &amp; \mbox{if }n \leq 1 \\ 
+Fib(n-1) + Fib(n - 2) &amp; \mbox{otherwise}
+\end{array}\right.
+$$
+
+---
+
+## Rcpp: Hello world! vers1
+
+The following C++ file, called `fib.cpp`
+
+
+```cpp
+#include &lt;Rcpp.h&gt;
+
+// [[Rcpp::export]]
+int fibCpp(int n) {
+  
+  if (n &lt; 2) {
+    return n;
+  }
+  
+  return fibCpp(n - 1) + fibCpp(n - 2);
+  
+}
+```
+
+Can be compiled within R using `Rcpp::sourceCpp("fib.cpp")`. This exports the function
+Back into R
+
+
+```r
+c(fibCpp(1), fibCpp(2), fibCpp(3), fibCpp(4), fibCpp(5))
+```
+
+```
+## [1] 1 1 2 3 5
+```
+
+---
+
+## Rcpp: Hello world! vers2 (with function overloading) 
+
+Rcpp data types are mapped directly to R data types, e.g. vectors of integer in 
+R can be used as `IntegerVector` in Rcpp.
+
+
+```cpp
+#include &lt;Rcpp.h&gt;
+
+using namespace Rcpp;
+
+// inline kind of implementation
+int fibCpp(int n) {return (n &lt; 2)? n : fibCpp(n - 1) + fibCpp(n - 2);}
+
+// [[Rcpp::export]]
+IntegerVector fibCpp(IntegerVector n) {
+
+  IntegerVector res(n.size());
+  for (int i = 0; i &lt; n.size(); ++i)
+    res[i] = fibCpp(n[i]);
+    
+  return res;
+  
+}
+```
+
+Back in R
+
+
+```r
+fibCpp(1:5)
+```
+
+```
+## [1] 1 1 2 3 5
+```
+
+---
+
+## RcppArmadillo and OpenMP
+
+*   Friendlier than [**RcppParallel**](http://rcppcore.github.io/RcppParallel/)...
+    at least for 'I-use-Rcpp-but-don't-actually-know-much-about-C++' users (like myself!).
+
+*   Must run only 'Thread-safe' calls, so calling R within parallel blocks can cause
+    problems (almost all the time).
+    
+*   Use `arma` objects, e.g. `arma::mat`, `arma::vec`, etc. Or, if you are used to them
+    `std::vector` objects as these are thread safe.
+
+*   Pseudo-Random Number Generation is not very straight forward... But C++11 has
+    a [nice set of functions](http://en.cppreference.com/w/cpp/numeric/random) that can be used together with OpenMP
+
+*   Need to think about how processors work, cache memory, etc. Otherwise you could
+    get into trouble... if your code is slower when run in parallel, then you probably
+    are facing [false sharing](https://software.intel.com/en-us/articles/avoiding-and-identifying-false-sharing-among-threads)
+    
+*   If R crashes... try running R with a debugger (see
+    [Section 4.3 in Writing R extensions](https://cran.r-project.org/doc/manuals/r-release/R-exts.html#Checking-memory-access)):
+    
+    ```shell
+    ~$ R --debugger=valgrind
+    ```
+---
+
+## RcppArmadillo and OpenMP workflow
+
+1.  Add the following to your C++ source code to use OpenMP, and tell Rcpp that
+    you need to include that in the compiler:
+    
+    ```cpp
+    #include &lt;omp.h&gt;
+    // [[Rcpp::plugins(openmp)]]
+    ```
+
+2.  Tell the compiler that you'll be running a block in parallel with openmp
+    
+    ```cpp
+    #pragma omp [directives] [options]
+    {
+      ...your neat parallel code...
+    }
+    ```
+    
+    You'll need to specify how OMP should handle the data:
+    
+    *   `shared`: Default, all threads access the same copy.
+    *   `private`: Each thread has its own copy (although not initialized).
+    *   `firstprivate` Each thread has its own copy initialized.
+    *   `lastprivate` Each thread has its own copy. The last value is the one stored in the main program.
+    
+    Setting `default(none)` is a good practice.
+    
+3.  Compile!
+
+---
+
+## Ex 3: RcppArmadillo + OpenMP
+
+Computing the distance matrix (see `?dist`)
+
+
+```cpp
+#include &lt;omp.h&gt;
+#include &lt;RcppArmadillo.h&gt;
+// [[Rcpp::depends(RcppArmadillo)]]
+// [[Rcpp::plugins(openmp)]]
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+arma::mat dist_par(const arma::mat &amp; X, int cores = 1) {
+  
+  // Some constants and the result
+  int N = (int) X.n_rows; int K = (int) X.n_cols;
+  arma::mat D(N,N,arma::fill::zeros);
+  
+  omp_set_num_threads(cores); // Setting the cores
+  
+#pragma omp parallel for shared(D, N, K, X) default(none)
+  for (int i=0; i&lt;N; ++i)
+    for (int j=0; j&lt;i; ++j) {
+      for (int k=0; k&lt;K; k++) 
+        D.at(i,j) += pow(X.at(i,k) - X.at(j,k), 2.0);
+      
+      // Computing square root
+      D.at(i,j) = sqrt(D.at(i,j)); D.at(j,i) = D.at(i,j);
+    }
+      
+  // My nice distance matrix
+  return D;
+}
+```
+
+---
+
+
+```r
+set.seed(1231)
+K &lt;- 1000
+n &lt;- 500
+x &lt;- matrix(rnorm(n*K), ncol=K)
+```
+
+
+```r
+# Benchmarking!
+microbenchmark::microbenchmark(
+  dist(x),                 # stats::dist
+  dist_par(x, cores = 1),  # 1 core
+  dist_par(x, cores = 2),  # 2 cores
+  times = 10, unit="relative"
+)
+```
+
+```
+## Unit: relative
+##                    expr      min       lq     mean   median      uq      max
+##                 dist(x) 1.733452 1.735796 1.691463 1.718409 1.71903 1.426328
+##  dist_par(x, cores = 1) 1.292001 1.299863 1.326148 1.289010 1.32564 1.408813
+##  dist_par(x, cores = 2) 1.000000 1.000000 1.000000 1.000000 1.00000 1.000000
+##  neval
+##     10
+##     10
+##     10
+```
+
+---
+
+## Resources
+
+*   [Package parallel](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf) 
+*   [Using the iterators package](https://cran.r-project.org/web/packages/iterators/vignettes/iterators.pdf)
+*   [Using the foreach package](https://cran.r-project.org/web/packages/foreach/vignettes/foreach.pdf)
+*   [32 OpenMP traps for C++ developers](https://software.intel.com/en-us/articles/32-openmp-traps-for-c-developers)
+*   [The OpenMP API specification for parallel programming](http://www.openmp.org/)
+*   ['openmp' tag in Rcpp gallery](gallery.rcpp.org/tags/openmp/)
+*   [OpenMP tutorials and articles](http://www.openmp.org/resources/tutorials-articles/)
+
+For more, checkout the [CRAN Task View on HPC](https://cran.r-project.org/web/views/HighPerformanceComputing.html){target="_blank"}
+
+---
+
+## Simulating `\(\pi\)`
+
+
+*   We know that `\(\pi = \frac{A}{r^2}\)`. We approximate it by randomly adding
+    points `\(x\)` to a square of size 2 centered at the origin.
+
+*   So, we approximate `\(\pi\)` as `\(\Pr\{\|x\| \leq 1\}\times 2^2\)`
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-3-1.jpeg" width="300px" height="300px" /&gt;
+
+---
+
+The R code to do this
+
+
+```r
+pisim &lt;- function(i, nsim) {  # Notice we don't use the -i-
+  # Random points
+  ans  &lt;- matrix(runif(nsim*2), ncol=2)
+  
+  # Distance to the origin
+  ans  &lt;- sqrt(rowSums(ans^2))
+  
+  # Estimated pi
+  (sum(ans &lt;= 1)*4)/nsim
+}
+```
+
+---
+
+
+```r
+library(parallel)
+# Setup
+cl &lt;- makePSOCKcluster(4L)
+clusterSetRNGStream(cl, 123)
+
+# Number of simulations we want each time to run
+nsim &lt;- 1e5
+
+# We need to make -nsim- and -pisim- available to the
+# cluster
+clusterExport(cl, c("nsim", "pisim"))
+
+# Benchmarking: parSapply and sapply will run this simulation
+# a hundred times each, so at the end we have 1e5*100 points
+# to approximate pi
+microbenchmark::microbenchmark(
+  parallel = parSapply(cl, 1:100, pisim, nsim=nsim),
+  serial   = sapply(1:100, pisim, nsim=nsim), times = 1, unit="relative"
+)
+```
+
+```
+## Unit: relative
+##      expr      min       lq     mean   median       uq      max neval
+##  parallel 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000     1
+##    serial 1.888322 1.888322 1.888322 1.888322 1.888322 1.888322     1
+```
+
+---
+
+## (Bonus) Overview of HPC
+
+Using [Flynn's classical taxonomy](https://en.wikipedia.org/wiki/Flynn%27s_taxonomy), we can classify parallel computing according to the following two dimmensions:
+
+a. Type of instruction: Single vs Multiple
+
+b. Data stream: Single vs Multiple
+
+&lt;figure&gt;
+&lt;img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/SISD.svg/480px-SISD.svg.png" style="width:23%;"&gt;
+&lt;img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/MISD.svg/480px-MISD.svg.png" style="width:23%;"&gt;
+&lt;img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/SIMD.svg/480px-SIMD.svg.png" style="width:23%;"&gt;
+&lt;img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/MIMD.svg/480px-MIMD.svg.png" style="width:23%;"&gt;
+&lt;figcaption&gt;&lt;a href="https://en.wikipedia.org/wiki/Michael_J._Flynn" target="_blank"&gt;Michael Flynn&lt;/a&gt;'s Taxonomy (&lt;a href="https://en.wikipedia.org/wiki/Flynn%27s_taxonomy" target="_blank"&gt;wiki&lt;/a&gt;)&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+---
+
+## (Bonus) Parallel computing: Software
+
+Implicit parallelization:
+
+- [tensorflow](https://en.wikipedia.org/wiki/TensorFlow): Machine learning framework
+- [pqR](http://www.pqr-project.org/): Branched version of R.
+- [Microsoft R](https://mran.microsoft.com/open): Microsoft's R private version (based on Revolution Analytics' R version).
+- [data.table](https://cran.r-project.org/package=data.table) (R package): Data wrangling using multiple cores.
+- [caret](https://cran.r-project.org/package=caret) (R package): A meta package, has various implementations using parallel computing.
+
+Explicit parallelization ([DIY](https://en.wikipedia.org/wiki/Do_it_yourself)):
+
+- [CUDA](https://en.wikipedia.org/wiki/CUDA) (C/C++ library): Programming with GP-GPUs.
+- [Open MP](https://openmp.org) (C/C++ library): Multi-core programming (CPUs).
+- [Open MPI](https://open-mpi.org) (C/C++ library): Large scale programming with multi-node systems.
+- [Threading Building Blocks](https://en.wikipedia.org/wiki/Threading_Building_Blocks) (C/C++ library): Intel's parallel computing library.
+- [Kokkos](https://kokkos.org/about/) (C++ library): A hardware-agnostic programming framework for HPC applications.
+- [parallel](https://CRAN.R-project.org/view=HighPerformanceComputing) (R package): R's built-in parallel computing package
+- [future](https://cran.r-project.org/package=future) (R package): Framework for parallelzing R.
+- [RcppParallel](https://cran.r-project.org/package=RcppParallel) (R C++ API wrapper): Header and templates for building [Rcpp](https://cran.r-project.org/package=Rcpp)+multi-threaded programs.
+- [julia](https://julialang.org) (programming language): High-performing, has a framework for parallel computing as well.
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": false,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
