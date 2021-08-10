@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Reading | Introduction to Health Data Science - PM 566</title>
-    <link>https://uscbiostats.github.io/PM566/reading/</link>
-      <atom:link href="https://uscbiostats.github.io/PM566/reading/index.xml" rel="self" type="application/rss+xml" />
+    <link>/reading/</link>
+      <atom:link href="/reading/index.xml" rel="self" type="application/rss+xml" />
     <description>Reading</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
     <image>
-      <url>https://uscbiostats.github.io/PM566/img/social-image.png</url>
+      <url>/img/social-image.png</url>
       <title>Reading</title>
-      <link>https://uscbiostats.github.io/PM566/reading/</link>
+      <link>/reading/</link>
     </image>
     
     <item>
       <title>Final Project</title>
-      <link>https://uscbiostats.github.io/PM566/reading/14-reading/</link>
+      <link>/reading/14-reading/</link>
       <pubDate>Wed, 18 Nov 2020 00:00:00 +0000</pubDate>
-      <guid>https://uscbiostats.github.io/PM566/reading/14-reading/</guid>
+      <guid>/reading/14-reading/</guid>
       <description>
-&lt;script src=&#34;https://uscbiostats.github.io/PM566/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 
 
 &lt;div id=&#34;required-reading&#34; class=&#34;section level1&#34;&gt;
@@ -34,11 +34,11 @@
     
     <item>
       <title>Interactive visualization and effective data communication II</title>
-      <link>https://uscbiostats.github.io/PM566/reading/13-reading/</link>
+      <link>/reading/13-reading/</link>
       <pubDate>Wed, 11 Nov 2020 00:00:00 +0000</pubDate>
-      <guid>https://uscbiostats.github.io/PM566/reading/13-reading/</guid>
+      <guid>/reading/13-reading/</guid>
       <description>
-&lt;script src=&#34;https://uscbiostats.github.io/PM566/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 
 
 &lt;div id=&#34;required-reading&#34; class=&#34;section level1&#34;&gt;
@@ -54,11 +54,11 @@
     
     <item>
       <title>Final project workshop: review project progress, preliminary presentations</title>
-      <link>https://uscbiostats.github.io/PM566/reading/12-reading/</link>
+      <link>/reading/12-reading/</link>
       <pubDate>Wed, 04 Nov 2020 00:00:00 +0000</pubDate>
-      <guid>https://uscbiostats.github.io/PM566/reading/12-reading/</guid>
+      <guid>/reading/12-reading/</guid>
       <description>
-&lt;script src=&#34;https://uscbiostats.github.io/PM566/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 
 
 &lt;div id=&#34;required-reading&#34; class=&#34;section level1&#34;&gt;
@@ -74,9 +74,9 @@
     
     <item>
       <title>Interactive visualization and effective data communication I</title>
-      <link>https://uscbiostats.github.io/PM566/reading/11-reading/</link>
+      <link>/reading/11-reading/</link>
       <pubDate>Wed, 28 Oct 2020 00:00:00 +0000</pubDate>
-      <guid>https://uscbiostats.github.io/PM566/reading/11-reading/</guid>
+      <guid>/reading/11-reading/</guid>
       <description>
 
 
@@ -140,9 +140,9 @@
     
     <item>
       <title>High performance computing, cloud computing</title>
-      <link>https://uscbiostats.github.io/PM566/reading/09-reading/</link>
+      <link>/reading/09-reading/</link>
       <pubDate>Wed, 21 Oct 2020 00:00:00 +0000</pubDate>
-      <guid>https://uscbiostats.github.io/PM566/reading/09-reading/</guid>
+      <guid>/reading/09-reading/</guid>
       <description>
 
 
@@ -163,11 +163,11 @@
     
     <item>
       <title>SQL</title>
-      <link>https://uscbiostats.github.io/PM566/reading/10-reading/</link>
+      <link>/reading/10-reading/</link>
       <pubDate>Wed, 21 Oct 2020 00:00:00 +0000</pubDate>
-      <guid>https://uscbiostats.github.io/PM566/reading/10-reading/</guid>
+      <guid>/reading/10-reading/</guid>
       <description>
-&lt;script src=&#34;https://uscbiostats.github.io/PM566/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 
 
 &lt;div id=&#34;required-reading&#34; class=&#34;section level1&#34;&gt;
@@ -182,11 +182,11 @@
     
     <item>
       <title>Midterm Exam</title>
-      <link>https://uscbiostats.github.io/PM566/reading/08-reading/</link>
+      <link>/reading/08-reading/</link>
       <pubDate>Wed, 07 Oct 2020 00:00:00 +0000</pubDate>
-      <guid>https://uscbiostats.github.io/PM566/reading/08-reading/</guid>
+      <guid>/reading/08-reading/</guid>
       <description>
-&lt;script src=&#34;https://uscbiostats.github.io/PM566/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 
 
 &lt;div id=&#34;required-reading&#34; class=&#34;section level1&#34;&gt;
@@ -202,9 +202,9 @@
     
     <item>
       <title>Scraping, APIs, and Regular Expressions</title>
-      <link>https://uscbiostats.github.io/PM566/reading/07-reading/</link>
+      <link>/reading/07-reading/</link>
       <pubDate>Wed, 30 Sep 2020 00:00:00 +0000</pubDate>
-      <guid>https://uscbiostats.github.io/PM566/reading/07-reading/</guid>
+      <guid>/reading/07-reading/</guid>
       <description>
 
 
@@ -230,11 +230,11 @@ package, which we will be using) (&lt;a href=&#34;https://r4ds.had.co.nz/strings
     
     <item>
       <title>Text Mining</title>
-      <link>https://uscbiostats.github.io/PM566/reading/06-reading/</link>
+      <link>/reading/06-reading/</link>
       <pubDate>Wed, 23 Sep 2020 00:00:00 +0000</pubDate>
-      <guid>https://uscbiostats.github.io/PM566/reading/06-reading/</guid>
+      <guid>/reading/06-reading/</guid>
       <description>
-&lt;script src=&#34;https://uscbiostats.github.io/PM566/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 
 
 &lt;div id=&#34;required-reading&#34; class=&#34;section level1&#34;&gt;
@@ -253,9 +253,9 @@ package, which we will be using) (&lt;a href=&#34;https://r4ds.had.co.nz/strings
     
     <item>
       <title>Data cleaning and wrangling</title>
-      <link>https://uscbiostats.github.io/PM566/reading/05-reading/</link>
+      <link>/reading/05-reading/</link>
       <pubDate>Wed, 16 Sep 2020 00:00:00 +0000</pubDate>
-      <guid>https://uscbiostats.github.io/PM566/reading/05-reading/</guid>
+      <guid>/reading/05-reading/</guid>
       <description>
 
 
@@ -283,9 +283,9 @@ jupyter &lt;a href=&#34;https://jupyter.org/install&#34;&gt;here&lt;/a&gt;.&lt;/
     
     <item>
       <title>Data visualization</title>
-      <link>https://uscbiostats.github.io/PM566/reading/04-reading/</link>
+      <link>/reading/04-reading/</link>
       <pubDate>Wed, 09 Sep 2020 00:00:00 +0000</pubDate>
-      <guid>https://uscbiostats.github.io/PM566/reading/04-reading/</guid>
+      <guid>/reading/04-reading/</guid>
       <description>
 
 
@@ -302,9 +302,9 @@ jupyter &lt;a href=&#34;https://jupyter.org/install&#34;&gt;here&lt;/a&gt;.&lt;/
     
     <item>
       <title>Exploratory data analysis</title>
-      <link>https://uscbiostats.github.io/PM566/reading/03-reading/</link>
+      <link>/reading/03-reading/</link>
       <pubDate>Wed, 02 Sep 2020 00:00:00 +0000</pubDate>
-      <guid>https://uscbiostats.github.io/PM566/reading/03-reading/</guid>
+      <guid>/reading/03-reading/</guid>
       <description>
 
 
@@ -331,11 +331,11 @@ jupyter &lt;a href=&#34;https://jupyter.org/install&#34;&gt;here&lt;/a&gt;.&lt;/
     
     <item>
       <title>Introduction to Data Science tools: R, R Markdown</title>
-      <link>https://uscbiostats.github.io/PM566/reading/01-reading/</link>
+      <link>/reading/01-reading/</link>
       <pubDate>Wed, 19 Aug 2020 00:00:00 +0000</pubDate>
-      <guid>https://uscbiostats.github.io/PM566/reading/01-reading/</guid>
+      <guid>/reading/01-reading/</guid>
       <description>
-&lt;script src=&#34;https://uscbiostats.github.io/PM566/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 
 
 &lt;div id=&#34;required-reading&#34; class=&#34;section level1&#34;&gt;
@@ -343,7 +343,7 @@ jupyter &lt;a href=&#34;https://jupyter.org/install&#34;&gt;here&lt;/a&gt;.&lt;/
 &lt;p&gt;You are expected to have read this when you show up for the first day of class. The following items are all rather short and shouldn’t take too long.
 The “How to read an R help page” section stops once you reach “A.1.2 The basics of accessing and selecting things”.&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;The &lt;a href=&#34;https://uscbiostats.github.io/PM566/Syllabus&#34;&gt;Syllabus&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;The &lt;a href=&#34;/Syllabus&#34;&gt;Syllabus&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;rmarkdown lessons &lt;a href=&#34;https://rmarkdown.rstudio.com/lesson-1.html&#34;&gt;1&lt;/a&gt;, &lt;a href=&#34;https://rmarkdown.rstudio.com/lesson-2.html&#34;&gt;2&lt;/a&gt;, &lt;a href=&#34;https://rmarkdown.rstudio.com/lesson-3.html&#34;&gt;3&lt;/a&gt; and &lt;a href=&#34;https://rmarkdown.rstudio.com/lesson-8.html&#34;&gt;8&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://socviz.co/appendix.html#a-little-more-about-r&#34;&gt;How to read an R help page&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -364,11 +364,11 @@ The “How to read an R help page” section stops once you reach “A.1.2 The b
     
     <item>
       <title>Version control and reproducible research</title>
-      <link>https://uscbiostats.github.io/PM566/reading/02-reading/</link>
+      <link>/reading/02-reading/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://uscbiostats.github.io/PM566/reading/02-reading/</guid>
+      <guid>/reading/02-reading/</guid>
       <description>
-&lt;script src=&#34;https://uscbiostats.github.io/PM566/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 
 
 &lt;div id=&#34;required-reading&#34; class=&#34;section level1&#34;&gt;

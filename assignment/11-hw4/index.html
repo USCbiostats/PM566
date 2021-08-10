@@ -36,7 +36,7 @@ The learning objectives are to conduct data scraping and perform text mining.
 # Total row sums fun1 &lt;- function(mat) { n &lt;- nrow(mat) ans &lt;- double(n) for (i in 1:n) { ans[i] &lt;- sum(mat[i, ]) } ans } fun1alt &lt;- function(mat) { # YOUR CODE HERE } # Cumulative sum by row fun2 &lt;- function(mat) { n &lt;- nrow(mat) k &lt;- ncol(mat) ans &lt;- mat for (i in 1:n) { for (j in 2:k) { ans[i,j] &lt;- mat[i, j] &#43; ans[i, j - 1] } } ans } fun2alt &lt;- function(mat) { # YOUR CODE HERE } # Use the data with this code set.">
 
   
-  <link rel="alternate" hreflang="en-us" href="https://uscbiostats.github.io/PM566/assignment/11-hw4/">
+  <link rel="alternate" hreflang="en-us" href="/assignment/11-hw4/">
 
   
 
@@ -50,7 +50,7 @@ The learning objectives are to conduct data scraping and perform text mining.
   
   
   
-  <script src="/PM566/js/mathjax-config.js"></script>
+  <script src="/js/mathjax-config.js"></script>
   
 
   
@@ -205,7 +205,7 @@ The learning objectives are to conduct data scraping and perform text mining.
   
   
   
-  <link rel="stylesheet" href="/PM566/css/academic.css">
+  <link rel="stylesheet" href="/css/academic.css">
 
   
 
@@ -217,11 +217,11 @@ The learning objectives are to conduct data scraping and perform text mining.
 
   
 
-  <link rel="manifest" href="/PM566/index.webmanifest">
-  <link rel="icon" type="image/png" href="/PM566/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_3.png">
-  <link rel="apple-touch-icon" type="image/png" href="/PM566/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_3.png">
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_3.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_3.png">
 
-  <link rel="canonical" href="https://uscbiostats.github.io/PM566/assignment/11-hw4/">
+  <link rel="canonical" href="/assignment/11-hw4/">
 
   
   
@@ -237,16 +237,16 @@ The learning objectives are to conduct data scraping and perform text mining.
   <meta property="twitter:creator" content="@USCBiostat">
   
   <meta property="og:site_name" content="Introduction to Health Data Science - PM 566">
-  <meta property="og:url" content="https://uscbiostats.github.io/PM566/assignment/11-hw4/">
+  <meta property="og:url" content="/assignment/11-hw4/">
   <meta property="og:title" content="Assignment 04 - HPC and SQL | Introduction to Health Data Science - PM 566">
   <meta property="og:description" content="Due Date October 28 November 4th, 2020 by midnight Pacific time.
 The learning objectives are to conduct data scraping and perform text mining.
  HPC Problem 1: Make sure your code is nice Rewrite the following R functions to make them faster. It is OK (and recommended) to take a look at Stackoverflow and Google
-# Total row sums fun1 &lt;- function(mat) { n &lt;- nrow(mat) ans &lt;- double(n) for (i in 1:n) { ans[i] &lt;- sum(mat[i, ]) } ans } fun1alt &lt;- function(mat) { # YOUR CODE HERE } # Cumulative sum by row fun2 &lt;- function(mat) { n &lt;- nrow(mat) k &lt;- ncol(mat) ans &lt;- mat for (i in 1:n) { for (j in 2:k) { ans[i,j] &lt;- mat[i, j] &#43; ans[i, j - 1] } } ans } fun2alt &lt;- function(mat) { # YOUR CODE HERE } # Use the data with this code set."><meta property="og:image" content="https://uscbiostats.github.io/PM566/img/social-image.png">
-  <meta property="twitter:image" content="https://uscbiostats.github.io/PM566/img/social-image.png"><meta property="og:locale" content="en-us">
+# Total row sums fun1 &lt;- function(mat) { n &lt;- nrow(mat) ans &lt;- double(n) for (i in 1:n) { ans[i] &lt;- sum(mat[i, ]) } ans } fun1alt &lt;- function(mat) { # YOUR CODE HERE } # Cumulative sum by row fun2 &lt;- function(mat) { n &lt;- nrow(mat) k &lt;- ncol(mat) ans &lt;- mat for (i in 1:n) { for (j in 2:k) { ans[i,j] &lt;- mat[i, j] &#43; ans[i, j - 1] } } ans } fun2alt &lt;- function(mat) { # YOUR CODE HERE } # Use the data with this code set."><meta property="og:image" content="/img/social-image.png">
+  <meta property="twitter:image" content="/img/social-image.png"><meta property="og:locale" content="en-us">
   
     
-    <meta property="article:modified_time" content="2021-08-10T16:32:05-07:00">
+    <meta property="article:modified_time" content="2021-08-10T16:50:53-07:00">
   
 
   
@@ -259,18 +259,18 @@ The learning objectives are to conduct data scraping and perform text mining.
   
 
 
-  <link rel="shortcut icon" href="https://uscbiostats.github.io/PM566/favicon.ico" />
-  <link rel="apple-touch-icon-precomposed" sizes="57x57" href="https://uscbiostats.github.io/PM566/img/apple-touch-icon-57x57.png" />
-  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="https://uscbiostats.github.io/PM566/img/apple-touch-icon-114x114.png" />
-  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://uscbiostats.github.io/PM566/img/apple-touch-icon-72x72.png" />
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://uscbiostats.github.io/PM566/img/apple-touch-icon-144x144.png" />
-  <link rel="apple-touch-icon-precomposed" sizes="120x120" href="https://uscbiostats.github.io/PM566/img/apple-touch-icon-120x120.png" />
-  <link rel="apple-touch-icon-precomposed" sizes="152x152" href="https://uscbiostats.github.io/PM566/img/apple-touch-icon-152x152.png" />
-  <link rel="icon" type="image/png" href="https://uscbiostats.github.io/PM566/img/favicon-32x32.png" sizes="32x32" />
-  <link rel="icon" type="image/png" href="https://uscbiostats.github.io/PM566/img/favicon-16x16.png" sizes="16x16" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/apple-touch-icon-152x152.png" />
+  <link rel="icon" type="image/png" href="/img/favicon-32x32.png" sizes="32x32" />
+  <link rel="icon" type="image/png" href="/img/favicon-16x16.png" sizes="16x16" />
   <meta name="application-name" content="PM566: Introduction to Health Data Science - PM 566" />
   <meta name="msapplication-TileColor" content="#FFFFFF" />
-  <meta name="msapplication-TileImage" content="https://uscbiostats.github.io/PM566/img/mstile-144x144.png" />
+  <meta name="msapplication-TileImage" content="/img/mstile-144x144.png" />
 
 
   <title>Assignment 04 - HPC and SQL | Introduction to Health Data Science - PM 566</title>
@@ -326,7 +326,7 @@ The learning objectives are to conduct data scraping and perform text mining.
 
     
     <div class="d-none d-lg-inline-flex">
-      <a class="navbar-brand" href="/PM566/">Introduction to Health Data Science - PM 566</a>
+      <a class="navbar-brand" href="/">Introduction to Health Data Science - PM 566</a>
     </div>
     
 
@@ -339,7 +339,7 @@ The learning objectives are to conduct data scraping and perform text mining.
 
     
     <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
-      <a class="navbar-brand" href="/PM566/">Introduction to Health Data Science - PM 566</a>
+      <a class="navbar-brand" href="/">Introduction to Health Data Science - PM 566</a>
     </div>
     
 
@@ -367,7 +367,7 @@ The learning objectives are to conduct data scraping and perform text mining.
         
 
         <li class="nav-item">
-          <a class="nav-link " href="/PM566/PM566/syllabus/"><span>Syllabus</span></a>
+          <a class="nav-link " href="/syllabus/"><span>Syllabus</span></a>
         </li>
 
         
@@ -389,7 +389,7 @@ The learning objectives are to conduct data scraping and perform text mining.
         
 
         <li class="nav-item">
-          <a class="nav-link " href="/PM566/PM566/schedule/"><span>Schedule</span></a>
+          <a class="nav-link " href="/schedule/"><span>Schedule</span></a>
         </li>
 
         
@@ -411,7 +411,7 @@ The learning objectives are to conduct data scraping and perform text mining.
         
 
         <li class="nav-item">
-          <a class="nav-link " href="/PM566/PM566/reference/"><span>Reference</span></a>
+          <a class="nav-link " href="/reference/"><span>Reference</span></a>
         </li>
 
         
@@ -735,7 +735,7 @@ dbWriteTable(con, &quot;category&quot;, category)</code></pre>
     
     
     
-    <script src="/PM566/js/academic.min.a21fcc4a4cdf5eeefae0603e61b3030c.js"></script>
+    <script src="/js/academic.min.a21fcc4a4cdf5eeefae0603e61b3030c.js"></script>
 
     
 

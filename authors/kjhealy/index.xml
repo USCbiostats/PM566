@@ -2,14 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Introduction to Health Data Science - PM 566</title>
-    <link>https://uscbiostats.github.io/PM566/authors/kjhealy/</link>
-      <atom:link href="https://uscbiostats.github.io/PM566/authors/kjhealy/index.xml" rel="self" type="application/rss+xml" />
+    <link>/authors/kjhealy/</link>
+      <atom:link href="/authors/kjhealy/index.xml" rel="self" type="application/rss+xml" />
     <description>Introduction to Health Data Science - PM 566</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
     <image>
-      <url>https://uscbiostats.github.io/PM566/img/social-image.png</url>
+      <url>/img/social-image.png</url>
       <title>Introduction to Health Data Science - PM 566</title>
-      <link>https://uscbiostats.github.io/PM566/authors/kjhealy/</link>
+      <link>/authors/kjhealy/</link>
     </image>
     
   </channel>

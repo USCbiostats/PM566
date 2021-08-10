@@ -33,7 +33,7 @@
   <meta name="description" content="knitr::opts_chunk$set(include = TRUE) Learning goals  Use a real world API to make queries and process the data. Use regular expressions to parse the information. Practice your GitHub skills.   Lab description In this lab, we will be working with the NCBI API to make queries and extract information using XML and regular expressions. For this lab, we will be using the httr, xml2, and stringr R packages.">
 
   
-  <link rel="alternate" hreflang="en-us" href="https://uscbiostats.github.io/PM566/assignment/07-lab/">
+  <link rel="alternate" hreflang="en-us" href="/assignment/07-lab/">
 
   
 
@@ -47,7 +47,7 @@
   
   
   
-  <script src="/PM566/js/mathjax-config.js"></script>
+  <script src="/js/mathjax-config.js"></script>
   
 
   
@@ -202,7 +202,7 @@
   
   
   
-  <link rel="stylesheet" href="/PM566/css/academic.css">
+  <link rel="stylesheet" href="/css/academic.css">
 
   
 
@@ -214,11 +214,11 @@
 
   
 
-  <link rel="manifest" href="/PM566/index.webmanifest">
-  <link rel="icon" type="image/png" href="/PM566/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_3.png">
-  <link rel="apple-touch-icon" type="image/png" href="/PM566/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_3.png">
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_3.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_3.png">
 
-  <link rel="canonical" href="https://uscbiostats.github.io/PM566/assignment/07-lab/">
+  <link rel="canonical" href="/assignment/07-lab/">
 
   
   
@@ -234,13 +234,13 @@
   <meta property="twitter:creator" content="@USCBiostat">
   
   <meta property="og:site_name" content="Introduction to Health Data Science - PM 566">
-  <meta property="og:url" content="https://uscbiostats.github.io/PM566/assignment/07-lab/">
+  <meta property="og:url" content="/assignment/07-lab/">
   <meta property="og:title" content="Lab 07 - Web scraping and Regular Expressions | Introduction to Health Data Science - PM 566">
-  <meta property="og:description" content="knitr::opts_chunk$set(include = TRUE) Learning goals  Use a real world API to make queries and process the data. Use regular expressions to parse the information. Practice your GitHub skills.   Lab description In this lab, we will be working with the NCBI API to make queries and extract information using XML and regular expressions. For this lab, we will be using the httr, xml2, and stringr R packages."><meta property="og:image" content="https://uscbiostats.github.io/PM566/img/social-image.png">
-  <meta property="twitter:image" content="https://uscbiostats.github.io/PM566/img/social-image.png"><meta property="og:locale" content="en-us">
+  <meta property="og:description" content="knitr::opts_chunk$set(include = TRUE) Learning goals  Use a real world API to make queries and process the data. Use regular expressions to parse the information. Practice your GitHub skills.   Lab description In this lab, we will be working with the NCBI API to make queries and extract information using XML and regular expressions. For this lab, we will be using the httr, xml2, and stringr R packages."><meta property="og:image" content="/img/social-image.png">
+  <meta property="twitter:image" content="/img/social-image.png"><meta property="og:locale" content="en-us">
   
     
-    <meta property="article:modified_time" content="2021-08-10T16:32:05-07:00">
+    <meta property="article:modified_time" content="2021-08-10T16:50:53-07:00">
   
 
   
@@ -253,18 +253,18 @@
   
 
 
-  <link rel="shortcut icon" href="https://uscbiostats.github.io/PM566/favicon.ico" />
-  <link rel="apple-touch-icon-precomposed" sizes="57x57" href="https://uscbiostats.github.io/PM566/img/apple-touch-icon-57x57.png" />
-  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="https://uscbiostats.github.io/PM566/img/apple-touch-icon-114x114.png" />
-  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://uscbiostats.github.io/PM566/img/apple-touch-icon-72x72.png" />
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://uscbiostats.github.io/PM566/img/apple-touch-icon-144x144.png" />
-  <link rel="apple-touch-icon-precomposed" sizes="120x120" href="https://uscbiostats.github.io/PM566/img/apple-touch-icon-120x120.png" />
-  <link rel="apple-touch-icon-precomposed" sizes="152x152" href="https://uscbiostats.github.io/PM566/img/apple-touch-icon-152x152.png" />
-  <link rel="icon" type="image/png" href="https://uscbiostats.github.io/PM566/img/favicon-32x32.png" sizes="32x32" />
-  <link rel="icon" type="image/png" href="https://uscbiostats.github.io/PM566/img/favicon-16x16.png" sizes="16x16" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/apple-touch-icon-152x152.png" />
+  <link rel="icon" type="image/png" href="/img/favicon-32x32.png" sizes="32x32" />
+  <link rel="icon" type="image/png" href="/img/favicon-16x16.png" sizes="16x16" />
   <meta name="application-name" content="PM566: Introduction to Health Data Science - PM 566" />
   <meta name="msapplication-TileColor" content="#FFFFFF" />
-  <meta name="msapplication-TileImage" content="https://uscbiostats.github.io/PM566/img/mstile-144x144.png" />
+  <meta name="msapplication-TileImage" content="/img/mstile-144x144.png" />
 
 
   <title>Lab 07 - Web scraping and Regular Expressions | Introduction to Health Data Science - PM 566</title>
@@ -320,7 +320,7 @@
 
     
     <div class="d-none d-lg-inline-flex">
-      <a class="navbar-brand" href="/PM566/">Introduction to Health Data Science - PM 566</a>
+      <a class="navbar-brand" href="/">Introduction to Health Data Science - PM 566</a>
     </div>
     
 
@@ -333,7 +333,7 @@
 
     
     <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
-      <a class="navbar-brand" href="/PM566/">Introduction to Health Data Science - PM 566</a>
+      <a class="navbar-brand" href="/">Introduction to Health Data Science - PM 566</a>
     </div>
     
 
@@ -361,7 +361,7 @@
         
 
         <li class="nav-item">
-          <a class="nav-link " href="/PM566/PM566/syllabus/"><span>Syllabus</span></a>
+          <a class="nav-link " href="/syllabus/"><span>Syllabus</span></a>
         </li>
 
         
@@ -383,7 +383,7 @@
         
 
         <li class="nav-item">
-          <a class="nav-link " href="/PM566/PM566/schedule/"><span>Schedule</span></a>
+          <a class="nav-link " href="/schedule/"><span>Schedule</span></a>
         </li>
 
         
@@ -405,7 +405,7 @@
         
 
         <li class="nav-item">
-          <a class="nav-link " href="/PM566/PM566/reference/"><span>Reference</span></a>
+          <a class="nav-link " href="/reference/"><span>Reference</span></a>
         </li>
 
         
@@ -765,7 +765,7 @@ knitr::kable(database)</code></pre>
     
     
     
-    <script src="/PM566/js/academic.min.a21fcc4a4cdf5eeefae0603e61b3030c.js"></script>
+    <script src="/js/academic.min.a21fcc4a4cdf5eeefae0603e61b3030c.js"></script>
 
     
 
