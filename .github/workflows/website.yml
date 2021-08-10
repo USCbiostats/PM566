@@ -15,6 +15,11 @@ jobs:
       - name: Container
         run: docker pull ${cntr}
 
+      - name: Submodule
+        run: |
+                git submodule init
+                git submodule update
+
       - name: Building website
         run: docker run --rm -i -v ${PWD}:/home/mnt -w /home/mnt ${cntr} Rscript -e 'blogdown::hugo_build()'
 
