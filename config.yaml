@@ -1,4 +1,4 @@
-baseurl: https://uscbiostats.github.io/PM566/
+# baseurl: https://uscbiostats.github.io/PM566/
 defaultContentLanguage: en
 title: "Introduction to Health Data Science - PM 566"
 theme: hugo-academic
