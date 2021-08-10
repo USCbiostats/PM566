@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en-us" 
+      xmlns:og="http://ogp.me/ns#" 
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.8.0">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Emil Hvitfeldt">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="Course objectives Learning Objectives Course Notes Technological Proficiency and Hardware/Software Required Readings and Supplementary Materials Supplementary References Description and Assessment of Assignments Grading Breakdown Assignment Submission Policy Schedule Statement for students with disabilities Statement on academic conduct and support systems  Academic Conduct: Support Systems:    Course objectives This course serves as an introduction to data science with focus on the acquisition and analysis of real-life data.">
+
+  
+  <link rel="alternate" hreflang="en-us" href="/syllabus/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="#098A9C">
+  
+
+  
+  
+  
+  <script src="/js/mathjax-config.js"></script>
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-1/css/all.min.css" integrity="sha256-4w9DunooKSr3MFXHXWyFER38WmPdm361bQS/2KUWZbU=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+        
+      
+    
+
+    
+
+    
+
+    
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js" integrity="sha256-Md1qLToewPeKjfAHU1zyPwOutccPAm5tahnaw7Osw0A=" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i&display=swap">
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.css">
+
+  
+
+
+
+
+  
+
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_2.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png">
+
+  <link rel="canonical" href="/syllabus/">
+
+  
+  
+  
+  
+  
+    
+  
+  
+  <meta property="twitter:card" content="summary_large_image">
+  
+  <meta property="twitter:site" content="@USCBiostat">
+  <meta property="twitter:creator" content="@USCBiostat">
+  
+  <meta property="og:site_name" content="Introduction to Health Data Science - PM 566">
+  <meta property="og:url" content="/syllabus/">
+  <meta property="og:title" content="Syllabus | Introduction to Health Data Science - PM 566">
+  <meta property="og:description" content="Course objectives Learning Objectives Course Notes Technological Proficiency and Hardware/Software Required Readings and Supplementary Materials Supplementary References Description and Assessment of Assignments Grading Breakdown Assignment Submission Policy Schedule Statement for students with disabilities Statement on academic conduct and support systems  Academic Conduct: Support Systems:    Course objectives This course serves as an introduction to data science with focus on the acquisition and analysis of real-life data."><meta property="og:image" content="/img/social-image.png">
+  <meta property="twitter:image" content="/img/social-image.png"><meta property="og:locale" content="en-us">
+  
+    
+    <meta property="article:modified_time" content="2020-08-19T12:17:54-07:00">
+  
+
+  
+
+
+
+  
+
+
+  
+
+
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/apple-touch-icon-152x152.png" />
+  <link rel="icon" type="image/png" href="/img/favicon-32x32.png" sizes="32x32" />
+  <link rel="icon" type="image/png" href="/img/favicon-16x16.png" sizes="16x16" />
+  <meta name="application-name" content="PM566: Introduction to Health Data Science - PM 566" />
+  <meta name="msapplication-TileColor" content="#FFFFFF" />
+  <meta name="msapplication-TileImage" content="/img/mstile-144x144.png" />
+
+
+  <title>Syllabus | Introduction to Health Data Science - PM 566</title>
+
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70"
+    data-target="#TableOfContents"
+    >
+
+    <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+    
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/">Introduction to Health Data Science - PM 566</a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/">Introduction to Health Data Science - PM 566</a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-end" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link  active" href="/syllabus/"><span>Syllabus</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/schedule/"><span>Schedule</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/reference/"><span>Reference</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+    <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1>Syllabus</h1>
+
+  
+
+  
+    
+
+
+<div class="article-metadata">
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  
+  
+
+  
+  
+
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+<div id="TOC">
+<ul>
+<li><a href="#course-objectives">Course objectives</a></li>
+<li><a href="#learning-objectives">Learning Objectives</a></li>
+<li><a href="#course-notes">Course Notes</a></li>
+<li><a href="#technological-proficiency-and-hardwaresoftware-required">Technological Proficiency and Hardware/Software Required</a></li>
+<li><a href="#readings-and-supplementary-materials">Readings and Supplementary Materials</a></li>
+<li><a href="#supplementary-references">Supplementary References</a></li>
+<li><a href="#description-and-assessment-of-assignments">Description and Assessment of Assignments</a></li>
+<li><a href="#grading-breakdown">Grading Breakdown</a></li>
+<li><a href="#assignment-submission-policy">Assignment Submission Policy</a></li>
+<li><a href="#schedule">Schedule</a></li>
+<li><a href="#statement-for-students-with-disabilities">Statement for students with disabilities</a></li>
+<li><a href="#statement-on-academic-conduct-and-support-systems">Statement on academic conduct and support systems</a>
+<ul>
+<li><a href="#academic-conduct">Academic Conduct:</a></li>
+<li><a href="#support-systems">Support Systems:</a></li>
+</ul></li>
+</ul>
+</div>
+
+<div id="course-objectives" class="section level2">
+<h2>Course objectives</h2>
+<p>This course serves as an introduction to data science with focus on the acquisition and analysis of real-life data. Students will learn the toolsets needed to 1) create workable and reproducible datasets by accessing, scraping, sampling and cleaning data; 2) conduct exploratory data analysis and data visualizations; 3) apply statistical tools to learn from data; and 4) build functions and basic apps. Coding languages R and Python will be used.</p>
+</div>
+<div id="learning-objectives" class="section level2">
+<h2>Learning Objectives</h2>
+<p>Through this course, students will become familiar with the techniques used in Data Science, applied to health-related datasets. Students will learn:</p>
+<ul>
+<li>Programming in R, and associated tools Markdown, Git</li>
+<li>Data visualization – summarizing data through interpretable summaires</li>
+<li>Data collection – data scraping, wrangling, cleaning, and sampling</li>
+<li>Exploratory data analysis – generating hypotheses and building intuition</li>
+<li>Basic statistical algorithms</li>
+<li>Building software packages and apps</li>
+</ul>
+<p><strong>Prerequisite(s):</strong> None</p>
+<p><strong>Recommended Preparation:</strong> Undergraduate course in statistics and programming</p>
+</div>
+<div id="course-notes" class="section level2">
+<h2>Course Notes</h2>
+<p>Lecture notes presented in class will be posted on GitHub.</p>
+</div>
+<div id="technological-proficiency-and-hardwaresoftware-required" class="section level2">
+<h2>Technological Proficiency and Hardware/Software Required</h2>
+<p>Computation using R (downloaded from <a href="http://cran.r-project.org" class="uri">http://cran.r-project.org</a>), and development tools including Git (<a href="https://github.com/" class="uri">https://github.com/</a>) and Markdown will be used throughout the semester.</p>
+</div>
+<div id="readings-and-supplementary-materials" class="section level2">
+<h2>Readings and Supplementary Materials</h2>
+<ol style="list-style-type: decimal">
+<li>R Programming for Data Science, 2019. Roger Peng. <a href="https://bookdown.org/rdpeng/rprogdatascience/" class="uri">https://bookdown.org/rdpeng/rprogdatascience/</a></li>
+</ol>
+</div>
+<div id="supplementary-references" class="section level2">
+<h2>Supplementary References</h2>
+<ol style="list-style-type: decimal">
+<li>R for Data Science, 2017 Garrett Grolemund and Hadley Wickham. <a href="http://r4ds.had.co.nz/" class="uri">http://r4ds.had.co.nz/</a></li>
+<li>Exploratory Data Analysis with R, 2020 Roger Peng <a href="https://bookdown.org/rdpeng/exdata/" class="uri">https://bookdown.org/rdpeng/exdata/</a></li>
+<li>Mastering Software Development in R, 2017 Roger Peng, Sean Kross, Brooke Anderson <a href="https://bookdown.org/rdpeng/RProgDA/" class="uri">https://bookdown.org/rdpeng/RProgDA/</a></li>
+</ol>
+</div>
+<div id="description-and-assessment-of-assignments" class="section level2">
+<h2>Description and Assessment of Assignments</h2>
+<p><strong>Assignments:</strong> There will be 5-6 assignments given throughout the semester, approximately every week. Students may discuss the problems with one another, however, individual solutions must be submitted and copying will not be tolerated. All assignments must be completed in R Markdown, and submitted through the Github classes portal of the course. Late assignments will be penalized by 20% for each day past the due date.</p>
+<p><strong>Final Project:</strong> The final project will be to develop a reproducible R package, Shiny app, or pipeline for analysis applied to a real-world dataset.</p>
+<p><strong>Labs:</strong> Lab attendance is mandatory and participation in the lab is required and counts as part of the overall lab grade.</p>
+</div>
+<div id="grading-breakdown" class="section level2">
+<h2>Grading Breakdown</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Assignment</th>
+<th>% of Grade</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Labs</td>
+<td>10%</td>
+</tr>
+<tr class="even">
+<td>Homework (6)</td>
+<td>30%</td>
+</tr>
+<tr class="odd">
+<td>In-Class Quizzes (3)</td>
+<td>10%</td>
+</tr>
+<tr class="even">
+<td>Midterm Exam</td>
+<td>20%</td>
+</tr>
+<tr class="odd">
+<td>Final Project</td>
+<td>30%</td>
+</tr>
+<tr class="even">
+<td>TOTAL</td>
+<td>100%</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="assignment-submission-policy" class="section level2">
+<h2>Assignment Submission Policy</h2>
+<p>Assignments shall be submitted on the Github classroom portal of the course. Late homework assignments will not be accepted without penalty, except when verifiable extenuating circumstances can be demonstrated.</p>
+</div>
+<div id="schedule" class="section level2">
+<h2>Schedule</h2>
+<table class="table schedule" style="max-width:100%">
+    <tbody>
+            <tr>
+             <td align="right" style="width:20%;text-align:left">Week 1</td>
+             <td style="width:50%;text-align:left">Introduction to Data Science tools: R, Python, Markdown, Git, command line tools</td>
+            </tr>
+            <tr>
+             <td align="right" style="width:20%;text-align:left">Week 2</td>
+             <td style="width:50%;text-align:left">Version Control &amp; Reproducible Research</td>
+            </tr>
+            <tr>
+             <td align="right" style="width:20%;text-align:left">Week 3</td>
+             <td style="width:50%;text-align:left">Exploratory data analysis</td>
+            </tr>
+            <tr>
+             <td align="right" style="width:20%;text-align:left">Week 4</td>
+             <td style="width:50%;text-align:left">Data visualization</td>
+            </tr>
+            <tr>
+             <td align="right" style="width:20%;text-align:left">Week 5</td>
+             <td style="width:50%;text-align:left">Data cleaning and wrangling</td>
+            </tr>
+            <tr>
+             <td align="right" style="width:20%;text-align:left">Week 6</td>
+             <td style="width:50%;text-align:left">Text Mining</td>
+            </tr>
+            <tr>
+             <td align="right" style="width:20%;text-align:left">Week 7</td>
+             <td style="width:50%;text-align:left">Scraping, APIs, and Regular Expressions</td>
+            </tr>
+            <tr>
+             <td align="right" style="width:20%;text-align:left">Week 8</td>
+             <td style="width:50%;text-align:left">Midterm Exam (no class)</td>
+            </tr>
+            <tr>
+             <td align="right" style="width:20%;text-align:left">Week 9</td>
+             <td style="width:50%;text-align:left">High performance computing, cloud computing</td>
+            </tr>
+            <tr>
+             <td align="right" style="width:20%;text-align:left">Week 10</td>
+             <td style="width:50%;text-align:left">Managing big data, SQL and non-SQL languages, Google BigQuery</td>
+            </tr>
+            <tr>
+             <td align="right" style="width:20%;text-align:left">Week 11</td>
+             <td style="width:50%;text-align:left">Interactive visualization and effective data communication I</td>
+            </tr>
+            <tr>
+             <td align="right" style="width:20%;text-align:left">Week 12</td>
+             <td style="width:50%;text-align:left">Final project workshop: review project progress, preliminary presentations</td>
+            </tr>
+            <tr>
+             <td align="right" style="width:20%;text-align:left">Week 13</td>
+             <td style="width:50%;text-align:left">Interactive visualization and effective data communication II</td>
+            </tr>
+            <tr>
+             <td align="right" style="width:20%;text-align:left">Week 14</td>
+             <td style="width:50%;text-align:left">Final Project</td>
+            </tr>
+
+    </tbody>
+
+</table>
+
+<p>As the weeks go by, consult the <a href="/schedule/">Schedule Page</a> for more information on weekly topics, problem sets, readings, and other materials. The schedule is likely to change as we go. Links to readings, assignments, and other materials from class will be posted on that page.</p>
+</div>
+<div id="statement-for-students-with-disabilities" class="section level2">
+<h2>Statement for students with disabilities</h2>
+<p>Any student requesting academic accommodations based on a disability is required to register with Disability Services and Programs (DSP) each semester. A letter of verification for approved accommodations can be obtained from DSP. Please be sure the letter is delivered to me (or to TA) as early in the semester as possible. DSP is located in STU 301 and is open 8:30 a.m.–5:00 p.m., Monday through Friday. The phone number for DSP is (213) 740-0776.</p>
+</div>
+<div id="statement-on-academic-conduct-and-support-systems" class="section level2">
+<h2>Statement on academic conduct and support systems</h2>
+<div id="academic-conduct" class="section level3">
+<h3>Academic Conduct:</h3>
+<p>Plagiarism – presenting someone else’s ideas as your own, either verbatim or recast in
+your own words – is a serious academic offense with serious consequences. Please
+familiarize yourself with the discussion of plagiarism in SCampus in Part B, Section 11,
+“Behavior Violating University Standards” policy.usc.edu/scampus-part-b. Other forms
+of academic dishonesty are equally unacceptable. See additional information in SCampus
+and university policies on scientific misconduct, policy.usc.edu/scientific-misconduct.</p>
+</div>
+<div id="support-systems" class="section level3">
+<h3>Support Systems:</h3>
+<p><em>Student Counseling Services (SCS) - (213) 740-7711 – 24/7 on call</em><br />
+Free and confidential mental health treatment for students, including short-term psychotherapy, group counseling, stress fitness workshops, and crisis intervention. <a href="https://engemannshc.usc.edu/counseling/" class="uri">https://engemannshc.usc.edu/counseling/</a></p>
+<p><em>National Suicide Prevention Lifeline - 1-800-273-8255</em><br />
+Provides free and confidential emotional support to people in suicidal crisis or emotional distress 24 hours a day, 7 days a week. <a href="http://www.suicidepreventionlifeline.org" class="uri">http://www.suicidepreventionlifeline.org</a></p>
+<p><em>Relationship and Sexual Violence Prevention Services (RSVP) - (213) 740-4900 - 24/7 on call</em><br />
+Free and confidential therapy services, workshops, and training for situations related to gender-based harm. <a href="https://engemannshc.usc.edu/rsvp/" class="uri">https://engemannshc.usc.edu/rsvp/</a></p>
+<p><em>Sexual Assault Resource Center</em><br />
+For more information about how to get help or help a survivor, rights, reporting options, and additional resources, visit the website: <a href="http://sarc.usc.edu/" class="uri">http://sarc.usc.edu/</a></p>
+<p><em>Office of Equity and Diversity (OED)/Title IX compliance – (213) 740-5086</em><br />
+Works with faculty, staff, visitors, applicants, and students around issues of protected class. <a href="https://equity.usc.edu/" class="uri">https://equity.usc.edu/</a></p>
+<p><em>Bias Assessment Response and Support</em><br />
+Incidents of bias, hate crimes and microaggressions need to be reported allowing for appropriate investigation and response. <a href="https://studentaffairs.usc.edu/bias-assessment-response-support/" class="uri">https://studentaffairs.usc.edu/bias-assessment-response-support/</a></p>
+<p><em>The Office of Disability Services and Programs</em><br />
+Provides certification for students with disabilities and helps arrange relevant accommodations. <a href="http://dsp.usc.edu" class="uri">http://dsp.usc.edu</a></p>
+<p><em>Student Support and Advocacy – (213) 821-4710</em><br />
+Assists students and families in resolving complex issues adversely affecting their success as a student EX: personal, financial, and academic. <a href="https://studentaffairs.usc.edu/ssa/" class="uri">https://studentaffairs.usc.edu/ssa/</a></p>
+<p><em>Diversity at USC</em><br />
+Information on events, programs and training, the Diversity Task Force (including representatives for each school), chronology, participation, and various resources for students. <a href="https://diversity.usc.edu/" class="uri">https://diversity.usc.edu/</a></p>
+<p><em>USC Emergency Information</em><br />
+Provides safety and other updates, including ways in which instruction will be continued if an officially declared emergency makes travel to campus infeasible, <a href="http://emergency.usc.edu" class="uri">http://emergency.usc.edu</a></p>
+<p><em>USC Department of Public Safety – 213-740-4321 (UPC) and 323-442-1000 (HSC) for 24-hour emergency assistance or to report a crime</em><br />
+Provides overall safety to USC community. <a href="http://dps.usc.edu" class="uri">http://dps.usc.edu</a></p>
+</div>
+</div>
+
+    </div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+</article>
+
+        
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/r.min.js"></script>
+        
+      
+
+    
+
+    
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    <script>const isSiteThemeDark = false;</script>
+    
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <script src="/js/academic.min.6f7ce8be710290b8c431bbc97f405d15.js"></script>
+
+    
+
+
+
+
+
+
+    
+    
+    <div class="container">
+        <footer>
+    <hr>
+
+    <div class="row course-info">
+        <div class="col-md-7">
+            <p>
+                <strong>PM566: Introduction to Health Data Science - PM 566 (Fall 2020)</strong><br>
+            </p>
+            <p>
+                <a href="https://www.usc.edu/" target="_blank" rel="noopener">University of Southern California</a>
+            </p>
+            <p>
+                <a href="https://preventivemedicine.usc.edu/" target="_blank" rel="noopener">Department of Preventive Medicine</a>
+            </p>
+            <p>
+                <a><i class="fas fa-user"></i>
+                    Meredith Franklin, George Vega Yon, Emil Hvitfeldt, Abigail Horn</a>
+            </p>
+            <p>
+                <a href="mailto:meredith.franklin@usc.edu"><i class="fas fa-envelope"></i>
+                    meredith.franklin@usc.edu</a>
+            </p>
+        </div>
+
+        <div class="col-md-5 credits">
+            <p>All content licensed under a <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.</p>                    
+            
+            <p><a href="https://github.com/USCbiostats/PM566" target="_blank" rel="noopener"><i class="fab fa-github"></i> View the source at GitHub.</a></p>
+        </div>
+    </div>
+</footer>
+
+    </div>
+    
+
+    
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+
+</html>

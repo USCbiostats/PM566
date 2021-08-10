@@ -1,0 +1,224 @@
+---
+title: "COVID-19 Daily Count from LA Times"
+author: "Abigail Horn"
+output:
+  html_document:
+    df_print: paged
+  pdf_document: default
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#Load Libraries
+
+
+```{r}
+library(tidyr)
+library(dplyr)
+library(readr)
+library(purrr)
+library(tibble)
+library(stringr)
+library(forcats)
+library(ggplot2)
+library(lubridate)
+
+library(MASS)
+library(reshape2)
+library(reshape)
+
+library(network)
+
+library(tidygraph)
+library(ggraph)
+library(plotly)
+library(visNetwork)
+library(networkD3)
+library(here)
+
+lab.dir <- here("static/slides/11-interactive-viz/lab/")
+
+```
+
+
+#Load data
+
+```{r}
+
+mapping <- read.csv(paste0(lab.dir,"Covid research - SPA Mapping.csv"))
+#case_data <- read.csv("latimes-place-totals.csv")
+
+case_data <- read.csv("https://raw.githubusercontent.com/datadesk/california-coronavirus-data/master/latimes-place-totals.csv ")
+
+case_data <- subset(case_data, county == "Los Angeles")
+
+str(mapping)
+str(case_data)
+
+```
+
+#Fix dates
+
+
+```{r}
+
+
+case_data$date <- as.Date(case_data$date)
+
+
+
+```
+
+
+#Merge datasets 
+
+```{r}
+
+case_data$place <- as.character(case_data$place)
+mapping$place  <- as.character(mapping$place)
+
+mapping$City.Name <- mapping$Clean.Name
+mapping$Clean.Name <- NULL
+
+data <- merge(case_data, mapping, by = "place", all = T)
+
+str(data)
+
+
+```
+
+#Create daily table total
+
+```{r}
+
+summary.LA <- data %>%
+ group_by(date) %>% 
+ summarise(confirmed_cases = sum(confirmed_cases)) %>%
+ ungroup()
+
+summary.LA
+
+summary.LA = summary.LA %>%
+  arrange(date) %>%  # first sort by day
+  mutate(Diff_day = date - lag(date),  # Difference in time (just in case there are gaps)
+         new_cases = confirmed_cases - lag(confirmed_cases)) # Difference in case between days 
+
+summary.LA
+
+```
+
+
+#Create daily table per City
+
+```{r}
+
+summary.city <- data %>%
+ group_by(date, City.Name) %>% 
+ summarise(confirmed_cases = sum(confirmed_cases)) %>%
+ ungroup()
+
+summary.city
+
+```
+
+
+#Add number of new case per city
+
+```{r}
+
+summary.city = summary.city %>%
+  group_by(City.Name) %>%
+  arrange(date) %>%  # first sort by day
+  mutate(Diff_day = date - lag(date),  # Difference in time (just in case there are gaps)
+         new_cases = confirmed_cases - lag(confirmed_cases)) %>% # Difference in case between days 
+ arrange(City.Name)
+
+summary.city
+
+#forcats::fct_explicit_na
+
+summary.city <- merge(summary.city, mapping, by = "City.Name", all = F)
+summary.city
+
+#write_csv(summary.city, "summary_city.csv")
+
+```
+
+
+
+#Create daily table per SPA
+
+```{r}
+
+summary.SPA <- data %>%
+ group_by(date, SPA, SPA.Name) %>% 
+ summarise( confirmed_cases = sum(confirmed_cases)) %>%
+ ungroup()
+
+summary.SPA
+
+summary.SPA = summary.SPA %>%
+  arrange(SPA,date) %>%  # first sort by day
+  mutate(Diff_day = date - lag(date),  # Difference in time (just in case there are gaps)
+         new_cases = confirmed_cases - lag(confirmed_cases)) %>% # Difference in case between days 
+ arrange(SPA)
+
+summary.SPA
+
+#write_csv(summary.SPA, "Summary_SPA.csv")
+
+```
+
+
+## Plots {.tabset}
+
+### LA County
+
+```{r}
+
+LA.plot <- ggplot(data = summary.LA, aes(x = date, y = confirmed_cases)) + 
+  geom_line()
+
+ggplotly(LA.plot)
+
+```
+
+### By SPA
+
+```{r}
+SPA.plot <- ggplot(data = subset(summary.SPA, SPA == 1 | SPA == 2 | SPA == 3 | SPA == 4 | SPA == 5 | SPA == 6 | SPA == 7 | SPA == 8), aes(x = date, y = confirmed_cases, color = SPA)) + 
+  geom_line()
+
+ggplotly(SPA.plot)  
+```
+
+
+### By City
+
+```{r}
+City.plot <- ggplot(data = subset(summary.city, City %in% c("Woodland Hills", "Sierra Madre")), aes(x = date, y = confirmed_cases, color = City)) +
+  geom_line()
+
+ggplotly(City.plot)
+
+
+City.plot <- ggplot(data = summary.city, aes(x = date, y = new_cases, color = City)) +
+  geom_line()
+
+ggplotly(City.plot)
+
+```
+
+{-}
+
+
+
+```{r}
+
+#write_csv(data, "data.csv")
+
+```
