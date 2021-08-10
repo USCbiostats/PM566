@@ -1,279 +1,170 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  
   <url>
-    <loc>/class/14-class/</loc>
-    <lastmod>2020-10-28T12:36:26-07:00</lastmod>
+    <loc>https://uscbiostats.github.io/PM566/class/14-class/</loc>
+    <lastmod>2021-08-10T16:32:05-07:00</lastmod>
+  </url><url>
+    <loc>https://uscbiostats.github.io/PM566/class/13-class/</loc>
+    <lastmod>2021-08-10T16:32:05-07:00</lastmod>
+  </url><url>
+    <loc>https://uscbiostats.github.io/PM566/class/12-class/</loc>
+    <lastmod>2021-08-10T16:32:05-07:00</lastmod>
+  </url><url>
+    <loc>https://uscbiostats.github.io/PM566/class/11-class/</loc>
+    <lastmod>2021-08-10T16:32:05-07:00</lastmod>
+  </url><url>
+    <loc>https://uscbiostats.github.io/PM566/class/09-class/</loc>
+    <lastmod>2021-08-10T16:32:05-07:00</lastmod>
+  </url><url>
+    <loc>https://uscbiostats.github.io/PM566/class/10-class/</loc>
+    <lastmod>2021-08-10T16:32:05-07:00</lastmod>
+  </url><url>
+    <loc>https://uscbiostats.github.io/PM566/class/08-class/</loc>
+    <lastmod>2021-08-10T16:32:05-07:00</lastmod>
+  </url><url>
+    <loc>https://uscbiostats.github.io/PM566/class/07-class/</loc>
+    <lastmod>2021-08-10T16:32:05-07:00</lastmod>
+  </url><url>
+    <loc>https://uscbiostats.github.io/PM566/class/06-class/</loc>
+    <lastmod>2021-08-10T16:32:05-07:00</lastmod>
+  </url><url>
+    <loc>https://uscbiostats.github.io/PM566/class/04-class/</loc>
+    <lastmod>2021-08-10T16:32:05-07:00</lastmod>
+  </url><url>
+    <loc>https://uscbiostats.github.io/PM566/class/03-class/</loc>
+    <lastmod>2021-08-10T16:32:05-07:00</lastmod>
+  </url><url>
+    <loc>https://uscbiostats.github.io/PM566/class/02-class/</loc>
+    <lastmod>2021-08-10T16:32:05-07:00</lastmod>
+  </url><url>
+    <loc>https://uscbiostats.github.io/PM566/class/01-class/</loc>
+    <lastmod>2021-08-10T16:32:05-07:00</lastmod>
+  </url><url>
+    <loc>https://uscbiostats.github.io/PM566/class/05-class/</loc>
+    <lastmod>2021-08-10T16:32:05-07:00</lastmod>
+  </url><url>
+    <loc>https://uscbiostats.github.io/PM566/class/</loc>
+    <lastmod>2021-08-10T16:32:05-07:00</lastmod>
+  </url><url>
+    <loc>https://uscbiostats.github.io/PM566/reading/</loc>
+    <lastmod>2021-08-10T16:32:05-07:00</lastmod>
+  </url><url>
+    <loc>https://uscbiostats.github.io/PM566/reading/14-reading/</loc>
+    <lastmod>2021-08-10T16:32:05-07:00</lastmod>
+  </url><url>
+    <loc>https://uscbiostats.github.io/PM566/reading/13-reading/</loc>
+    <lastmod>2021-08-10T16:32:05-07:00</lastmod>
+  </url><url>
+    <loc>https://uscbiostats.github.io/PM566/reading/12-reading/</loc>
+    <lastmod>2021-08-10T16:32:05-07:00</lastmod>
+  </url><url>
+    <loc>https://uscbiostats.github.io/PM566/reading/11-reading/</loc>
+    <lastmod>2021-08-10T16:32:05-07:00</lastmod>
+  </url><url>
+    <loc>https://uscbiostats.github.io/PM566/reading/09-reading/</loc>
+    <lastmod>2021-08-10T16:32:05-07:00</lastmod>
+  </url><url>
+    <loc>https://uscbiostats.github.io/PM566/reading/10-reading/</loc>
+    <lastmod>2021-08-10T16:32:05-07:00</lastmod>
+  </url><url>
+    <loc>https://uscbiostats.github.io/PM566/reading/08-reading/</loc>
+    <lastmod>2021-08-10T16:32:05-07:00</lastmod>
+  </url><url>
+    <loc>https://uscbiostats.github.io/PM566/reading/07-reading/</loc>
+    <lastmod>2021-08-10T16:32:05-07:00</lastmod>
+  </url><url>
+    <loc>https://uscbiostats.github.io/PM566/reading/06-reading/</loc>
+    <lastmod>2021-08-10T16:32:05-07:00</lastmod>
+  </url><url>
+    <loc>https://uscbiostats.github.io/PM566/reading/05-reading/</loc>
+    <lastmod>2021-08-10T16:32:05-07:00</lastmod>
+  </url><url>
+    <loc>https://uscbiostats.github.io/PM566/reading/04-reading/</loc>
+    <lastmod>2021-08-10T16:32:05-07:00</lastmod>
+  </url><url>
+    <loc>https://uscbiostats.github.io/PM566/reading/03-reading/</loc>
+    <lastmod>2021-08-10T16:32:05-07:00</lastmod>
+  </url><url>
+    <loc>https://uscbiostats.github.io/PM566/reading/01-reading/</loc>
+    <lastmod>2021-08-10T16:32:05-07:00</lastmod>
+  </url><url>
+    <loc>https://uscbiostats.github.io/PM566/authors/kjhealy/</loc>
+    <lastmod>2021-08-10T16:32:05-07:00</lastmod>
+  </url><url>
+    <loc>https://uscbiostats.github.io/PM566/assignment/03-hw1/</loc>
+    <lastmod>2021-08-10T16:32:05-07:00</lastmod>
+  </url><url>
+    <loc>https://uscbiostats.github.io/PM566/assignment/05-hw2/</loc>
+    <lastmod>2021-08-10T16:32:05-07:00</lastmod>
+  </url><url>
+    <loc>https://uscbiostats.github.io/PM566/assignment/09-hw3/</loc>
+    <lastmod>2021-08-10T16:32:05-07:00</lastmod>
+  </url><url>
+    <loc>https://uscbiostats.github.io/PM566/assignment/11-hw4/</loc>
+    <lastmod>2021-08-10T16:32:05-07:00</lastmod>
+  </url><url>
+    <loc>https://uscbiostats.github.io/PM566/assignment/13-hw5/</loc>
+    <lastmod>2021-08-10T16:32:05-07:00</lastmod>
+  </url><url>
+    <loc>https://uscbiostats.github.io/PM566/assignment/</loc>
+    <lastmod>2021-08-10T16:32:05-07:00</lastmod>
+  </url><url>
+    <loc>https://uscbiostats.github.io/PM566/authors/</loc>
+    <lastmod>2021-08-10T16:32:05-07:00</lastmod>
+  </url><url>
+    <loc>https://uscbiostats.github.io/PM566/</loc>
+    <lastmod>2021-08-10T16:32:05-07:00</lastmod>
+  </url><url>
+    <loc>https://uscbiostats.github.io/PM566/assignment/14-final/</loc>
+    <lastmod>2021-08-10T16:32:05-07:00</lastmod>
+  </url><url>
+    <loc>https://uscbiostats.github.io/PM566/assignment/01-lab/</loc>
+    <lastmod>2021-08-10T16:32:05-07:00</lastmod>
+  </url><url>
+    <loc>https://uscbiostats.github.io/PM566/assignment/02-lab/</loc>
+    <lastmod>2021-08-10T16:32:05-07:00</lastmod>
+  </url><url>
+    <loc>https://uscbiostats.github.io/PM566/assignment/03-lab/</loc>
+    <lastmod>2021-08-10T16:32:05-07:00</lastmod>
+  </url><url>
+    <loc>https://uscbiostats.github.io/PM566/assignment/04-lab/</loc>
+    <lastmod>2021-08-10T16:32:05-07:00</lastmod>
+  </url><url>
+    <loc>https://uscbiostats.github.io/PM566/assignment/05-lab/</loc>
+    <lastmod>2021-08-10T16:32:05-07:00</lastmod>
+  </url><url>
+    <loc>https://uscbiostats.github.io/PM566/assignment/06-lab/</loc>
+    <lastmod>2021-08-10T16:32:05-07:00</lastmod>
+  </url><url>
+    <loc>https://uscbiostats.github.io/PM566/assignment/07-lab/</loc>
+    <lastmod>2021-08-10T16:32:05-07:00</lastmod>
+  </url><url>
+    <loc>https://uscbiostats.github.io/PM566/assignment/10-lab/</loc>
+    <lastmod>2021-08-10T16:32:05-07:00</lastmod>
+  </url><url>
+    <loc>https://uscbiostats.github.io/PM566/assignment/11-lab-answers/</loc>
+    <lastmod>2021-08-10T16:32:05-07:00</lastmod>
+  </url><url>
+    <loc>https://uscbiostats.github.io/PM566/assignment/11-lab/</loc>
+    <lastmod>2021-08-10T16:32:05-07:00</lastmod>
+  </url><url>
+    <loc>https://uscbiostats.github.io/PM566/assignment/09-lab/</loc>
+    <lastmod>2021-08-10T16:32:05-07:00</lastmod>
+  </url><url>
+    <loc>https://uscbiostats.github.io/PM566/assignment/08-midterm/</loc>
+    <lastmod>2021-08-10T16:32:05-07:00</lastmod>
+  </url><url>
+    <loc>https://uscbiostats.github.io/PM566/reference/</loc>
+    <lastmod>2021-08-10T16:32:05-07:00</lastmod>
+  </url><url>
+    <loc>https://uscbiostats.github.io/PM566/schedule/</loc>
+    <lastmod>2021-08-10T16:32:05-07:00</lastmod>
+  </url><url>
+    <loc>https://uscbiostats.github.io/PM566/syllabus/</loc>
+    <lastmod>2021-08-10T16:32:05-07:00</lastmod>
+  </url><url>
+    <loc>https://uscbiostats.github.io/PM566/reading/02-reading/</loc>
+    <lastmod>2021-08-10T16:32:05-07:00</lastmod>
   </url>
-  
-  <url>
-    <loc>/class/13-class/</loc>
-    <lastmod>2020-11-04T12:31:28-08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/class/12-class/</loc>
-    <lastmod>2020-11-04T12:31:28-08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/class/11-class/</loc>
-    <lastmod>2020-10-28T12:36:26-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/class/09-class/</loc>
-    <lastmod>2020-10-13T17:05:23-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/class/10-class/</loc>
-    <lastmod>2020-10-21T01:44:31-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/class/08-class/</loc>
-    <lastmod>2020-08-11T14:07:17-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/class/07-class/</loc>
-    <lastmod>2020-09-30T12:12:11-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/class/06-class/</loc>
-    <lastmod>2020-09-23T00:23:43-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/class/04-class/</loc>
-    <lastmod>2020-09-09T11:04:30-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/class/03-class/</loc>
-    <lastmod>2020-08-25T14:37:07-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/class/02-class/</loc>
-    <lastmod>2020-08-25T14:37:07-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/class/01-class/</loc>
-    <lastmod>2020-08-19T11:17:29-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/class/05-class/</loc>
-    <lastmod>2020-09-09T22:46:05-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/class/</loc>
-    <lastmod>2020-08-11T12:04:05-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/reading/</loc>
-    <lastmod>2020-08-11T12:04:05-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/reading/14-reading/</loc>
-    <lastmod>2020-08-11T13:58:49-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/reading/13-reading/</loc>
-    <lastmod>2020-08-11T13:58:49-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/reading/12-reading/</loc>
-    <lastmod>2020-08-11T13:58:49-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/reading/11-reading/</loc>
-    <lastmod>2020-10-28T12:36:26-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/reading/09-reading/</loc>
-    <lastmod>2020-10-28T12:36:26-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/reading/10-reading/</loc>
-    <lastmod>2020-10-21T01:44:31-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/reading/08-reading/</loc>
-    <lastmod>2020-08-11T13:58:49-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/reading/07-reading/</loc>
-    <lastmod>2020-09-25T13:13:44-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/reading/06-reading/</loc>
-    <lastmod>2020-09-16T13:01:29-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/reading/05-reading/</loc>
-    <lastmod>2020-09-09T23:00:27-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/reading/04-reading/</loc>
-    <lastmod>2020-08-25T14:37:07-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/reading/03-reading/</loc>
-    <lastmod>2020-08-18T14:28:19-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/reading/01-reading/</loc>
-    <lastmod>2020-08-11T13:58:49-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/authors/kjhealy/</loc>
-    <lastmod>2020-04-01T15:19:51-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/assignment/03-hw1/</loc>
-    <lastmod>2020-09-02T10:56:25-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/assignment/05-hw2/</loc>
-    <lastmod>2020-09-09T22:11:18-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/assignment/09-hw3/</loc>
-    <lastmod>2020-09-30T14:48:55-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/assignment/11-hw4/</loc>
-    <lastmod>2020-10-26T10:44:28-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/assignment/13-hw5/</loc>
-    <lastmod>2020-10-27T18:10:40-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/assignment/</loc>
-    <lastmod>2020-08-11T12:04:05-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/authors/</loc>
-  </url>
-  
-  <url>
-    <loc>/</loc>
-    <lastmod>2020-04-01T13:14:23-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/assignment/14-final/</loc>
-    <lastmod>2020-11-04T15:56:18-08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/assignment/01-lab/</loc>
-    <lastmod>2020-08-19T11:17:29-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/assignment/02-lab/</loc>
-    <lastmod>2020-10-28T12:36:26-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/assignment/03-lab/</loc>
-    <lastmod>2020-09-09T10:24:47-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/assignment/04-lab/</loc>
-    <lastmod>2020-09-15T23:08:04-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/assignment/05-lab/</loc>
-    <lastmod>2020-09-16T09:33:31-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/assignment/06-lab/</loc>
-    <lastmod>2020-09-23T14:15:10-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/assignment/07-lab/</loc>
-    <lastmod>2020-09-29T18:30:17-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/assignment/10-lab/</loc>
-    <lastmod>2020-10-21T01:44:31-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/assignment/11-lab-answers/</loc>
-    <lastmod>2020-10-29T18:05:52-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/assignment/11-lab/</loc>
-    <lastmod>2020-10-29T18:05:52-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/assignment/09-lab/</loc>
-    <lastmod>2020-10-14T14:35:54-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/assignment/08-midterm/</loc>
-    <lastmod>2020-10-02T11:23:19-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/reference/</loc>
-    <lastmod>2020-09-15T23:08:04-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/schedule/</loc>
-    <lastmod>2020-08-11T11:48:58-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/syllabus/</loc>
-    <lastmod>2020-08-19T12:17:54-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/reading/02-reading/</loc>
-    <lastmod>2020-09-09T22:13:37-07:00</lastmod>
-  </url>
-  
 </urlset>
