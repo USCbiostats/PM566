@@ -104,13 +104,13 @@ instructor:
 
 course:
   number: "PM566"
-  semester: "Fall 2020"
+  semester: "Fall 2021"
   days: ""
   time: ""
   location: ""
   dates: ""
   github: "USCbiostats/PM566"
-  copyrightYear: "2020"
+  copyrightYear: "2021"
 
 university:
   name: University of Southern California

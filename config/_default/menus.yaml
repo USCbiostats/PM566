@@ -1,10 +1,10 @@
 main:
   - name: Syllabus
-    url: /syllabus/
+    url: syllabus/
     weight: 1
   - name: Schedule
-    url: /schedule/
+    url: schedule/
     weight: 2
   - name: Reference
-    url: /reference/
+    url: reference/
     weight: 3
