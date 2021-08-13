@@ -17,7 +17,7 @@
 
             {{- if .reading }}
             <td align="center" style="width:10%;text-align:center"><a
-                    href="{{ .Site.baseurl }}/reading/{{ .reading }}/">
+                    href="../reading/{{ .reading }}/">
                     <i class="fas fa-book-reader fa-lg"></i></a></td>
             {{- else }}
             <td align="center" style="width:10%;text-align:center">
@@ -27,7 +27,7 @@
             {{- end }}
 
             {{- if .class }}
-            <td align="center" style="width:10%;text-align:center"><a href="{{ .Site.baseurl }}/class/{{ .class }}/">
+            <td align="center" style="width:10%;text-align:center"><a href="../class/{{ .class }}/">
                     <i class="fas fa-chalkboard-teacher fa-lg"></i></a></td>
             {{- else }}
             <td align="center" style="width:10%;text-align:center">
@@ -38,7 +38,7 @@
             
             {{- if .assignment }}
             <td align="center" style="width:10%;text-align:center"><a
-                    href="{{ .Site.baseurl }}/assignment/{{ .assignment }}/">
+                    href="../assignment/{{ .assignment }}/">
                     <i class="fas fa-laptop-code"></i></a></td>
             {{- else }}
             <td align="center" style="width:10%;text-align:center">
