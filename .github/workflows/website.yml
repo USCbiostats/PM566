@@ -21,11 +21,13 @@ jobs:
                 git submodule update
 
       - name: Building website
-        run: docker run --rm -i -v ${PWD}:/home/mnt -w /home/mnt ${cntr} Rscript -e 'blogdown::hugo_build()'
+        run: |
+                cd website
+                docker run --rm -i -v ${PWD}:/home/mnt -w /home/mnt ${cntr} Rscript -e 'blogdown::hugo_build()'
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
+          publish_dir: ./website/public
 
