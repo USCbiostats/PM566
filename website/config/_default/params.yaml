@@ -89,16 +89,15 @@ edit_page:
 ## Additionally, for organizations, these details may be used to enrich search engine results.
 ############################
 
-author: Meredith Franklin, George Vega Yon, Emil Hvitfeldt, Abigail Horn
+author: George G. Vega Yon, Kim Siegmund, Abigail Horn
 
 instructor:
   name: >-
-    Meredith Franklin,
     George Vega Yon,
-    Emil Hvitfeldt,
+    Kim Siegmund,
     Abigail Horn
-  email: meredith.franklin@usc.edu
-  office: "SSB 202A"
+  email: vegayon@usc.edu
+  office: "TBA"
   contact_policy: >-
     By Appointment
 
@@ -117,8 +116,8 @@ university:
   url: "https://www.usc.edu/"
 
 school:
-  name: Department of Preventive Medicine
-  url: "https://preventivemedicine.usc.edu/"
+  name: Department of Population and Public Health Sciences
+  url: "https://pphs.usc.edu/"
 
 
 ############################
@@ -229,3 +228,4 @@ search:
 marketing:
   google_analytics: ''
   google_tag_manager: ''
+
