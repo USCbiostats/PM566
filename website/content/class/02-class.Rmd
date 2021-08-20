@@ -1,8 +1,8 @@
 ---
 title: "Version control and reproducible research"
 linktitle: "02: Version control"
-date: "2020-08-26"
-class_date: "2020-08-26"
+date: "2021-08-26"
+class_date: "2021-08-26"
 citeproc: false
 bibliography: ../../static/bib/references.bib
 csl: ../../static/bib/chicago-syllabus-no-bib.csl

@@ -1,8 +1,8 @@
 ---
 title: "Data cleaning and wrangling"
 linktitle: "5: Data Wrangling"
-date: "2020-01-10"
-class_date: "2020-09-16"
+date: "2021-01-10"
+class_date: "2021-09-16"
 citeproc: false
 bibliography: ../../static/bib/references.bib
 csl: ../../static/bib/chicago-syllabus-no-bib.csl
