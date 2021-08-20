@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Reading | Introduction to Health Data Science - PM 566</title>
+    <link>https://uscbiostats.github.io/PM566/reading/</link>
+      <atom:link href="https://uscbiostats.github.io/PM566/reading/index.xml" rel="self" type="application/rss+xml" />
+    <description>Reading</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><lastBuildDate>Wed, 18 Nov 2020 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://uscbiostats.github.io/PM566/img/social-image.png</url>
+      <title>Reading</title>
+      <link>https://uscbiostats.github.io/PM566/reading/</link>
+    </image>
+    
+    <item>
+      <title>Final Project</title>
+      <link>https://uscbiostats.github.io/PM566/reading/14-reading/</link>
+      <pubDate>Wed, 18 Nov 2020 00:00:00 +0000</pubDate>
+      <guid>https://uscbiostats.github.io/PM566/reading/14-reading/</guid>
+      <description>
+&lt;script src=&#34;https://uscbiostats.github.io/PM566/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;div id=&#34;required-reading&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Required reading&lt;/h1&gt;
+&lt;p&gt;To be announced&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;optional-reading&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Optional reading&lt;/h1&gt;
+&lt;p&gt;To be announced&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Interactive visualization and effective data communication II</title>
+      <link>https://uscbiostats.github.io/PM566/reading/13-reading/</link>
+      <pubDate>Wed, 11 Nov 2020 00:00:00 +0000</pubDate>
+      <guid>https://uscbiostats.github.io/PM566/reading/13-reading/</guid>
+      <description>
+&lt;script src=&#34;https://uscbiostats.github.io/PM566/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;div id=&#34;required-reading&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Required reading&lt;/h1&gt;
+&lt;p&gt;To be announced&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;optional-reading&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Optional reading&lt;/h1&gt;
+&lt;p&gt;To be announced&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Final project workshop: review project progress, preliminary presentations</title>
+      <link>https://uscbiostats.github.io/PM566/reading/12-reading/</link>
+      <pubDate>Wed, 04 Nov 2020 00:00:00 +0000</pubDate>
+      <guid>https://uscbiostats.github.io/PM566/reading/12-reading/</guid>
+      <description>
+&lt;script src=&#34;https://uscbiostats.github.io/PM566/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;div id=&#34;required-reading&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Required reading&lt;/h1&gt;
+&lt;p&gt;To be announced&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;optional-reading&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Optional reading&lt;/h1&gt;
+&lt;p&gt;To be announced&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Interactive visualization and effective data communication I</title>
+      <link>https://uscbiostats.github.io/PM566/reading/11-reading/</link>
+      <pubDate>Wed, 28 Oct 2020 00:00:00 +0000</pubDate>
+      <guid>https://uscbiostats.github.io/PM566/reading/11-reading/</guid>
+      <description>
+
+
+&lt;div id=&#34;required-reading&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Required reading&lt;/h1&gt;
+&lt;p&gt;You are expected to have read these items before class. Most of these linked sections/chapters are quite short.&lt;/p&gt;
+&lt;div id=&#34;interactive-visualization&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Interactive visualization&lt;/h2&gt;
+&lt;div id=&#34;introduction-to-plotly&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Introduction to plotly:&lt;/h3&gt;
+&lt;p&gt;Please read the following sections of &lt;a href=&#34;https://plotly-r.com/index.html&#34;&gt;Interactive web-based data visualization with R, plotly, and shiny&lt;/a&gt;, by Carson Sievert:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Creating Views (Plotly features): Sections 1-3, 5-7&lt;/li&gt;
+&lt;li&gt;Publishing Views: Sections 9-12&lt;/li&gt;
+&lt;li&gt;Arranging and Animating Views: Sections 13-14&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;introduction-to-shiny&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Introduction to Shiny:&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://shiny.rstudio.com/articles/interactive-docs.html&#34;&gt;Introduction to Interactive Documents&lt;/a&gt;: provides a quick guide to getting started with Shiny.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;creating-websites&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Creating websites&lt;/h2&gt;
+&lt;p&gt;We will be developing a website using rmarkdown’s site generator. Please read:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html&#34;&gt;Chapter 10.5: Websites in rmarkdown’s site generator&lt;/a&gt; in &lt;a href=&#34;https://bookdown.org/yihui/rmarkdown/&#34;&gt;R Markdown: The Definitive Guide&lt;/a&gt;, Yihui Xie, J. J. Allaire, Garrett Grolemund&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;optional-reading&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Optional reading&lt;/h1&gt;
+&lt;div id=&#34;interactive-visualization-1&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Interactive visualization&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;The official &lt;a href=&#34;http://shiny.rstudio.com&#34;&gt;Shiny website&lt;/a&gt; includes extensive articles, tutorials, and examples.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.coursera.org/lecture/data-products/shiny-1-1-xgyMn&#34;&gt;Coursera course on developing data products, sessions on Shiny, GoogleVis, and Plotly&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;For an introduction to creating dashboards see: &lt;a href=&#34;https://bookdown.org/yihui/rmarkdown/dashboards.html&#34;&gt;Chapter 5: Dashboards (Layout, Components, Shiny)&lt;/a&gt; from &lt;a href=&#34;https://bookdown.org/yihui/rmarkdown/&#34;&gt;R Markdown: The Definitive Guide&lt;/a&gt;, which provides a guide for using &lt;strong&gt;Shiny&lt;/strong&gt; with &lt;strong&gt;flexdashboard&lt;/strong&gt; to create interactive documents from R Markdown&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;website-development-in-rmarkdown&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Website development in rmarkdown&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;For a helpful tutorial on creating a website using rmarkdown, see: &lt;a href=&#34;https://www.emilyzabor.com/tutorials/rmarkdown_websites_tutorial.html&#34;&gt;Creating websites in R&lt;/a&gt;, Emily C. Zabor&lt;br /&gt;
+&lt;/li&gt;
+&lt;li&gt;For more advanced website creation using &lt;strong&gt;blogdown&lt;/strong&gt; and the website generators &lt;strong&gt;Hugo&lt;/strong&gt; and **Jeckyll see &lt;a href=&#34;https://bookdown.org/yihui/blogdown/&#34;&gt;Creating websites with R Markdown&lt;/a&gt;. &lt;a href=&#34;https://bookdown.org/yihui/blogdown/website-basics.html#website-basics&#34;&gt;Appendix B&lt;/a&gt; presents basic information about websites, such as HTML, CSS, and JavaScript.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;data-visualization-best-practices&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Data visualization best practices&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://kieranhealy.org/publications/dataviz/&#34;&gt;Data Visualization: A Practical Introduction&lt;/a&gt;, Kieran Healy&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://serialmentor.com/dataviz/&#34;&gt;Fundamentals of Data Visualization&lt;/a&gt;, Claus O. Wilke&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>High performance computing, cloud computing</title>
+      <link>https://uscbiostats.github.io/PM566/reading/09-reading/</link>
+      <pubDate>Wed, 21 Oct 2020 00:00:00 +0000</pubDate>
+      <guid>https://uscbiostats.github.io/PM566/reading/09-reading/</guid>
+      <description>
+
+
+&lt;div id=&#34;required-reading&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Required reading&lt;/h1&gt;
+&lt;p&gt;You are expected to have read this when you show up for the session:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Take a look at the High Performance Computing CRAN task View (&lt;a href=&#34;https://CRAN.R-project.org/view=HighPerformanceComputing&#34;&gt;link&lt;/a&gt;)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Chapter 22 of RD Peng’s &lt;a href=&#34;https://bookdown.org/rdpeng/rprogdatascience/&#34;&gt;R Programming for Data Science&lt;/a&gt; (&lt;a href=&#34;https://bookdown.org/rdpeng/rprogdatascience/parallel-computation.html&#34;&gt;link&lt;/a&gt;)&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;optional-reading&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Optional reading&lt;/h1&gt;
+&lt;p&gt;TBD&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>SQL</title>
+      <link>https://uscbiostats.github.io/PM566/reading/10-reading/</link>
+      <pubDate>Wed, 21 Oct 2020 00:00:00 +0000</pubDate>
+      <guid>https://uscbiostats.github.io/PM566/reading/10-reading/</guid>
+      <description>
+&lt;script src=&#34;https://uscbiostats.github.io/PM566/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;div id=&#34;required-reading&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Required reading&lt;/h1&gt;
+&lt;p&gt;No Reading for todays class&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;optional-reading&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Optional reading&lt;/h1&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Midterm Exam</title>
+      <link>https://uscbiostats.github.io/PM566/reading/08-reading/</link>
+      <pubDate>Wed, 07 Oct 2020 00:00:00 +0000</pubDate>
+      <guid>https://uscbiostats.github.io/PM566/reading/08-reading/</guid>
+      <description>
+&lt;script src=&#34;https://uscbiostats.github.io/PM566/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;div id=&#34;required-reading&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Required reading&lt;/h1&gt;
+&lt;p&gt;To be announced&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;optional-reading&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Optional reading&lt;/h1&gt;
+&lt;p&gt;To be announced&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Scraping, APIs, and Regular Expressions</title>
+      <link>https://uscbiostats.github.io/PM566/reading/07-reading/</link>
+      <pubDate>Wed, 30 Sep 2020 00:00:00 +0000</pubDate>
+      <guid>https://uscbiostats.github.io/PM566/reading/07-reading/</guid>
+      <description>
+
+
+&lt;div id=&#34;required-reading&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Required reading&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Chapter 17, Regular Expressions, from “R Programming for Data Science” (&lt;a href=&#34;https://bookdown.org/rdpeng/rprogdatascience/regular-expressions.html#&#34;&gt;link&lt;/a&gt;)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;The vignette from the R package &lt;code&gt;rvest&lt;/code&gt;: “Harvesting the web with rvest” (&lt;a href=&#34;https://rvest.tidyverse.org/articles/harvesting-the-web.html&#34;&gt;link&lt;/a&gt;)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;This post “HTTP: The Protocol Every Web Developer Must Know - Part 1”,
+excluding the section “Tools to View HTTP Traffic” &lt;a href=&#34;https://code.tutsplus.com/tutorials/http-the-protocol-every-web-developer-must-know-part-1--net-31177&#34;&gt;link&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;optional-reading&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Optional reading&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;A Full course on APIs by Zapier (&lt;a href=&#34;https://zapier.com/learn/apis/&#34;&gt;link&lt;/a&gt;)&lt;/li&gt;
+&lt;li&gt;R for Data Science chapter on Strings (includes a discussion of the &lt;code&gt;stringr&lt;/code&gt;
+package, which we will be using) (&lt;a href=&#34;https://r4ds.had.co.nz/strings.html&#34;&gt;link&lt;/a&gt;)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Text Mining</title>
+      <link>https://uscbiostats.github.io/PM566/reading/06-reading/</link>
+      <pubDate>Wed, 23 Sep 2020 00:00:00 +0000</pubDate>
+      <guid>https://uscbiostats.github.io/PM566/reading/06-reading/</guid>
+      <description>
+&lt;script src=&#34;https://uscbiostats.github.io/PM566/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;div id=&#34;required-reading&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Required reading&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://r4ds.had.co.nz/strings.html&#34;&gt;Chapter 14&lt;/a&gt; or &lt;a href=&#34;https://r4ds.had.co.nz/&#34;&gt;R for Data Science&lt;/a&gt; by &lt;a href=&#34;https://twitter.com/StatGarrett&#34;&gt;Garrett Grolemund&lt;/a&gt; and &lt;a href=&#34;https://twitter.com/hadleywickham&#34;&gt;Hadley Wickham&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.tidytextmining.com/tidytext.html&#34;&gt;Chapter 1&lt;/a&gt; of &lt;a href=&#34;https://www.tidytextmining.com/&#34;&gt;Text Mining with R&lt;/a&gt; by &lt;a href=&#34;https://twitter.com/juliasilge&#34;&gt;Julia Silge&lt;/a&gt; and &lt;a href=&#34;https://twitter.com/drob&#34;&gt;David Robinson&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;optional-reading&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Optional reading&lt;/h1&gt;
+&lt;p&gt;If you want more indept information about what is happening with regards to using text as data, tokenization, stopwords etc. Then you can look at the first 4 chapters of &lt;a href=&#34;https://smltar.com/&#34;&gt;Supervised Machine Learning for Text Analysis in R&lt;/a&gt; by &lt;a href=&#34;https://twitter.com/Emil_Hvitfeldt&#34;&gt;Emil Hvitfeldt&lt;/a&gt; and &lt;a href=&#34;https://twitter.com/juliasilge&#34;&gt;Julia Silge&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Data cleaning and wrangling</title>
+      <link>https://uscbiostats.github.io/PM566/reading/05-reading/</link>
+      <pubDate>Wed, 16 Sep 2020 00:00:00 +0000</pubDate>
+      <guid>https://uscbiostats.github.io/PM566/reading/05-reading/</guid>
+      <description>
+
+
+&lt;div id=&#34;required-reading&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Required reading&lt;/h1&gt;
+&lt;p&gt;You are expected to have read this when you show up for the session.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;The &lt;a href=&#34;https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro.html&#34;&gt;Introduction to data.table&lt;/a&gt;
+vignette included in the &lt;a href=&#34;https://cran.r-project.com/package=data.table&#34;&gt;data.table R package&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://r4ds.had.co.nz/transform.html&#34;&gt;“Chapter 5: Data Transformation”&lt;/a&gt; of the
+book &lt;a href=&#34;https://r4ds.had.co.nz/&#34;&gt;R for Data Science&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;optional-reading&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Optional reading&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;We recommend you going through the instructions to download Python
+&lt;a href=&#34;https://wiki.python.org/moin/BeginnersGuide/Download&#34;&gt;here&lt;/a&gt; and installing
+jupyter &lt;a href=&#34;https://jupyter.org/install&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;While we will not be using Pandas, here is a &lt;a href=&#34;https://pandas.pydata.org/docs/user_guide/10min.html&#34;&gt;neat short intro&lt;/a&gt; to it.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Data visualization</title>
+      <link>https://uscbiostats.github.io/PM566/reading/04-reading/</link>
+      <pubDate>Wed, 09 Sep 2020 00:00:00 +0000</pubDate>
+      <guid>https://uscbiostats.github.io/PM566/reading/04-reading/</guid>
+      <description>
+
+
+&lt;div id=&#34;required-reading&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Required reading&lt;/h1&gt;
+&lt;p&gt;Chapter 3 of &lt;a href=&#34;https://r4ds.had.co.nz/data-visualisation.html&#34;&gt;R for Data Science&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;optional-reading&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Optional reading&lt;/h1&gt;
+&lt;p&gt;Chapter 15 of &lt;a href=&#34;https://bookdown.org/rdpeng/exdata/the-ggplot2-plotting-system-part-2.html&#34;&gt;Exploratory Data Analysis with R&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Exploratory data analysis</title>
+      <link>https://uscbiostats.github.io/PM566/reading/03-reading/</link>
+      <pubDate>Wed, 02 Sep 2020 00:00:00 +0000</pubDate>
+      <guid>https://uscbiostats.github.io/PM566/reading/03-reading/</guid>
+      <description>
+
+
+&lt;div id=&#34;required-reading&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Required Reading&lt;/h1&gt;
+&lt;div id=&#34;exploratory-data-analysis&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Exploratory Data Analysis&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;The main text we will use for EDA is another book by Roger Peng, &lt;a href=&#34;https://bookdown.org/rdpeng/exdata/&#34;&gt;Exploratory Data Analysis with R&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Please focus on &lt;a href=&#34;https://bookdown.org/rdpeng/exdata/exploratory-data-analysis-checklist.html&#34;&gt;Chapter 4&lt;/a&gt;, &lt;a href=&#34;https://bookdown.org/rdpeng/exdata/principles-of-analytic-graphics.html&#34;&gt;Chapter 5&lt;/a&gt; and &lt;a href=&#34;https://bookdown.org/rdpeng/exdata/exploratory-graphs.html&#34;&gt;Chapter 6&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;optional-reading&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Optional reading&lt;/h1&gt;
+&lt;p&gt;The following are recommended (but not expected) for you to read&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro.html&#34;&gt;Introduction to data.table&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://r4ds.had.co.nz/exploratory-data-analysis.html&#34;&gt;Chapter 7 of R for Data Science&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Introduction to Data Science tools: R, R Markdown</title>
+      <link>https://uscbiostats.github.io/PM566/reading/01-reading/</link>
+      <pubDate>Wed, 19 Aug 2020 00:00:00 +0000</pubDate>
+      <guid>https://uscbiostats.github.io/PM566/reading/01-reading/</guid>
+      <description>
+&lt;script src=&#34;https://uscbiostats.github.io/PM566/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;div id=&#34;required-reading&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Required reading&lt;/h1&gt;
+&lt;p&gt;You are expected to have read this when you show up for the first day of class. The following items are all rather short and shouldn’t take too long.
+The “How to read an R help page” section stops once you reach “A.1.2 The basics of accessing and selecting things”.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The &lt;a href=&#34;https://uscbiostats.github.io/PM566/Syllabus&#34;&gt;Syllabus&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;rmarkdown lessons &lt;a href=&#34;https://rmarkdown.rstudio.com/lesson-1.html&#34;&gt;1&lt;/a&gt;, &lt;a href=&#34;https://rmarkdown.rstudio.com/lesson-2.html&#34;&gt;2&lt;/a&gt;, &lt;a href=&#34;https://rmarkdown.rstudio.com/lesson-3.html&#34;&gt;3&lt;/a&gt; and &lt;a href=&#34;https://rmarkdown.rstudio.com/lesson-8.html&#34;&gt;8&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://socviz.co/appendix.html#a-little-more-about-r&#34;&gt;How to read an R help page&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Additionally depending on your previous knowledge I would recommend you take a look at the &lt;a href=&#34;https://rstudio.cloud/learn/primers/1.2&#34;&gt;programming basics primer&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;optional-reading&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Optional reading&lt;/h1&gt;
+&lt;p&gt;The following articles are recommended (but not expected) for you to read if you want to get a glimpse into the world of data science and R as a language.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://nhsrcommunity.com/blog/how-r-changed-me-as-an-analyst/&#34;&gt;How R changed me as an analyst&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://m.signalvnoise.com/data-scientists-mostly-just-do-arithmetic-and-thats-a-good-thing/&#34;&gt;Data scientists mostly just do arithmetic and that’s a good thing&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://ropensci.org/blog/2017/09/01/nf-softwarereview/&#34;&gt;How rOpenSci uses Code Review to Promote Reproducible Science&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.tandfonline.com/doi/full/10.1080/10618600.2017.1384734&#34;&gt;50 Years of Data Science&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Version control and reproducible research</title>
+      <link>https://uscbiostats.github.io/PM566/reading/02-reading/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://uscbiostats.github.io/PM566/reading/02-reading/</guid>
+      <description>
+&lt;script src=&#34;https://uscbiostats.github.io/PM566/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;div id=&#34;required-reading&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Required reading&lt;/h1&gt;
+&lt;p&gt;You are expected to have read this when you show up for the session.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://happygitwithr.com/big-picture.html&#34;&gt;Chapter 1 Why Git? Why GitHub?&lt;/a&gt; of
+the “Happy Git and GitHub for the useR” by Jenny Bryan and Jim Hester.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Roger Peng’s Mastering Software Development Book Section 3.9 Version control
+and Github
+&lt;a href=&#34;https://bookdown.org/rdpeng/RProgDA/version-control-and-github.html&#34;&gt;(link)&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;You are also expected to have git installed in your system and having a
+GitHub account. For this see
+&lt;a href=&#34;https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration&#34;&gt;here&lt;/a&gt;
+and &lt;a href=&#34;http://github.com/&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;optional-reading&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Optional reading&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;Chapter one of the &lt;a href=&#34;https://git-scm.com/book/en/v2&#34;&gt;Pro git book&lt;/a&gt; will give you
+a more technical overview of what’s git and what happens under-the-hood.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
