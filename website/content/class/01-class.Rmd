@@ -22,7 +22,7 @@ editor_options:
 
 ## Lab Exercise
 
-[link](/assignment/01-lab)
+[link](/PM566/assignment/01-lab)
 
 
 [Download](/PM566/assignment/pm566-01-lab.zip)
