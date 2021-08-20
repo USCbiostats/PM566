@@ -78,7 +78,7 @@
 &lt;/div&gt;
 &lt;div id=&#34;slides&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Slides&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://uscbiostats.github.io/PM566/slides/12-interactive-viz2/slides.html&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;PM566/slides/12-interactive-viz2/slides.html&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
 &lt;/div&gt;
 </description>
     </item>
@@ -95,11 +95,11 @@
 
 &lt;div id=&#34;lab-exercise&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Lab Exercise&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://uscbiostats.github.io/PM566/assignment/11-lab&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;PM566/assignment/11-lab&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;slides&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Slides&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://uscbiostats.github.io/PM566/slides/11-interactive-viz/slides.html&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;PM566/slides/11-interactive-viz/slides.html&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;links&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Links&lt;/h2&gt;
@@ -120,11 +120,11 @@
 
 &lt;div id=&#34;lab-exercise&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Lab Exercise&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://uscbiostats.github.io/PM566/assignment/09-lab/&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;PM566/assignment/09-lab/&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;slides&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Slides&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://uscbiostats.github.io/PM566/slides/09-hpc/slides.html&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;PM566/slides/09-hpc/slides.html&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;links&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Links&lt;/h2&gt;
@@ -143,17 +143,16 @@
       <guid>https://uscbiostats.github.io/PM566/class/10-class/</guid>
       <description>
 &lt;!-- BLOGDOWN-HEAD --&gt;
-&lt;script src=&#34;https://uscbiostats.github.io/PM566/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 &lt;!-- /BLOGDOWN-HEAD --&gt;
 
 
 &lt;div id=&#34;lab-exercise&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Lab Exercise&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://uscbiostats.github.io/PM566/assignment/10-lab/&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;PM566/assignment/10-lab/&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;slides&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Slides&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://uscbiostats.github.io/PM566/slides/10-sql/slides.html&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;PM566/slides/10-sql/slides.html&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;links&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Links&lt;/h2&gt;
@@ -169,7 +168,6 @@
       <guid>https://uscbiostats.github.io/PM566/class/08-class/</guid>
       <description>
 &lt;!-- BLOGDOWN-HEAD --&gt;
-&lt;script src=&#34;https://uscbiostats.github.io/PM566/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 &lt;!-- /BLOGDOWN-HEAD --&gt;
 
 
@@ -200,11 +198,11 @@
 
 &lt;div id=&#34;lab-exercise&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Lab Exercise&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://uscbiostats.github.io/PM566/assignment/07-lab&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;PM566/assignment/07-lab&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;slides&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Slides&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://uscbiostats.github.io/PM566/slides/07-apis-regex/slides.html&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;PM566/slides/07-apis-regex/slides.html&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;links&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Links&lt;/h2&gt;
@@ -221,17 +219,16 @@ that will be featured in the class.&lt;/p&gt;
       <guid>https://uscbiostats.github.io/PM566/class/06-class/</guid>
       <description>
 &lt;!-- BLOGDOWN-HEAD --&gt;
-&lt;script src=&#34;https://uscbiostats.github.io/PM566/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 &lt;!-- /BLOGDOWN-HEAD --&gt;
 
 
 &lt;div id=&#34;lab-exercise&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Lab Exercise&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://uscbiostats.github.io/PM566/assignment/06-lab&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;PM566/assignment/06-lab&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;slides&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Slides&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://uscbiostats.github.io/PM566/slides/06-textmining/slides.html&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;PM566/slides/06-textmining/slides.html&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;links&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Links&lt;/h2&gt;
@@ -256,11 +253,11 @@ that will be featured in the class.&lt;/p&gt;
 
 &lt;div id=&#34;lab-exercise&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Lab Exercise&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://uscbiostats.github.io/PM566/assignment/04-lab&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;PM566/assignment/04-lab&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;slides&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Slides&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://uscbiostats.github.io/PM566/slides/04-visualization/slides.html&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;PM566/slides/04-visualization/slides.html&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;links&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Links&lt;/h2&gt;
@@ -281,11 +278,11 @@ that will be featured in the class.&lt;/p&gt;
 
 &lt;div id=&#34;lab-exercise&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Lab Exercise&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://uscbiostats.github.io/PM566/assignment/03-lab&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;PM566/assignment/03-lab&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;slides&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Slides&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://uscbiostats.github.io/PM566/slides/03-exploratory/slides.html&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;PM566/slides/03-exploratory/slides.html&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;links&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Links&lt;/h2&gt;
@@ -306,11 +303,11 @@ that will be featured in the class.&lt;/p&gt;
 
 &lt;div id=&#34;lab-exercise&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Lab Exercise&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://uscbiostats.github.io/PM566/assignment/02-lab&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;PM5661/assignment/02-lab&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;slides&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Slides&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://uscbiostats.github.io/PM566/slides/02-version-control/slides.html&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;PM5661/slides/02-version-control/slides.html&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;links&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Links&lt;/h2&gt;
@@ -329,18 +326,17 @@ that will be featured in the class.&lt;/p&gt;
       <guid>https://uscbiostats.github.io/PM566/class/01-class/</guid>
       <description>
 &lt;!-- BLOGDOWN-HEAD --&gt;
-&lt;script src=&#34;https://uscbiostats.github.io/PM566/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 &lt;!-- /BLOGDOWN-HEAD --&gt;
 
 
 &lt;div id=&#34;lab-exercise&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Lab Exercise&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://uscbiostats.github.io/PM566/assignment/01-lab&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://uscbiostats.github.io/PM566/assignment/pm566-01-lab.zip&#34;&gt;Download&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;assignment/01-lab&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;assignment/pm566-01-lab.zip&#34;&gt;Download&lt;/a&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;slides&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Slides&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://uscbiostats.github.io/PM566/slides/01-welcome/slides.html&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;slides/01-welcome/slides.html&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;links&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Links&lt;/h2&gt;
@@ -364,11 +360,11 @@ that will be featured in the class.&lt;/p&gt;
 
 &lt;div id=&#34;lab-exercise&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Lab Exercise&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://uscbiostats.github.io/PM566/assignment/05-lab&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;PM566/assignment/05-lab&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;slides&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Slides&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://uscbiostats.github.io/PM566/slides/05-data-wrangling/slides.html&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;PM566/slides/05-data-wrangling/slides.html&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;links&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Links&lt;/h2&gt;
