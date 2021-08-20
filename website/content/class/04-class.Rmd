@@ -22,11 +22,11 @@ editor_options:
 
 ## Lab Exercise
 
-[link](/assignment/04-lab)
+[link](PM566/assignment/04-lab)
 
 ## Slides
 
-[link](/slides/04-visualization/slides.html)
+[link](PM566/slides/04-visualization/slides.html)
 
 ## Links
 

@@ -22,11 +22,11 @@ editor_options:
 
 ## Lab Exercise
 
-[link](/assignment/07-lab)
+[link](PM566/assignment/07-lab)
 
 ## Slides
 
-[link](/slides/07-apis-regex/slides.html)
+[link](PM566/slides/07-apis-regex/slides.html)
 
 ## Links
 

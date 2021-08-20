@@ -22,11 +22,11 @@ editor_options:
 
 ## Lab Exercise
 
-[link](/assignment/06-lab)
+[link](PM566/assignment/06-lab)
 
 ## Slides
 
-[link](/slides/06-textmining/slides.html)
+[link](PM566/slides/06-textmining/slides.html)
 
 ## Links
 
