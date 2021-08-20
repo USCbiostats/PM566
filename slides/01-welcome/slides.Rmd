@@ -62,21 +62,21 @@ sass(sass_file("theme.sass"), output = "theme.css")
 
 # Instructors
 
-- Meredith Franklin
-- Emil Hansen
-- Abigail Horn
 - George Gerald Vega Yon
+- Kim Siegmund
+- Abigail Horn
+
 
 ---
 
 # Blackboard + Website
 
-https://blackboard.usc.edu/  
-"Official" class website  
-Announcements + Zoom + Grading
-
 https://github.com/USCbiostats/PM566  
+Official class website
 Syllabus, reading materials, slides, labs and assignments
+
+https://blackboard.usc.edu/  
+Announcements + Zoom + Grading
 
 ---
 
@@ -168,14 +168,14 @@ We will be back for labs at 2:30
 
 ---
 
-# First Lab `r emo::ji("tada")`
+# First Lab 
 
 The lab exercises can be found at: 
 
 Website -> Schedule -> `r fontawesome::fa("chalkboard-teacher")` -> Lab Exercise
 
-https://elastic-khorana-70231e.netlify.app/assignment/01-lab/
+https://USCbiostats.github.io/PM566/assignment/01-lab/
 
 Related Github Issue
 
-https://github.com/USCbiostats/PM566/issues/19
+https://github.com/USCbiostats/PM566/issues/38
