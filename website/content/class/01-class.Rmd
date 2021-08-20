@@ -22,14 +22,14 @@ editor_options:
 
 ## Lab Exercise
 
-[link](assignment/01-lab)
+[link](/assignment/01-lab)
 
 
-[Download](PM566/assignment/pm566-01-lab.zip)
+[Download](/PM566/assignment/pm566-01-lab.zip)
 
 ## Slides
 
-[link](PM566/slides/01-welcome/slides.html)
+[link](/PM566/slides/01-welcome/slides.html)
 
 ## Links
 
