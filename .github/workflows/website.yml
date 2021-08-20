@@ -3,7 +3,7 @@ name: PM566 website
 on: [push, pull_request]
 
 env:
-  cntr: uscbiostats/pm566:latest
+  cntr: uscbiostats/pm566:website
 
 jobs:
   build:
