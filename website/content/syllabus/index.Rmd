@@ -9,12 +9,6 @@ output:
       toc: TRUE
 ---
 
-```{r load-libraries, message=FALSE, warning=FALSE, include=FALSE}
-library(dplyr)
-library(tibble)
-library(pander)
-```
-
 [^courseinfo]: {-}
   `r blogdown::shortcode("courseinfo")`
 
