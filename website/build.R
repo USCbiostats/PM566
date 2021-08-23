@@ -9,5 +9,5 @@ things <- c(things, list.files("content/reading", pattern = "*Rmd", full.names =
 things <- c(things, path.expand("content/syllabus/index.Rmd"))
 
 
-build_site(build_rmd = filter_timestamp(things))
+build_site(build_rmd = things)
 
