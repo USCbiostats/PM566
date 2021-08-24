@@ -1,0 +1,10 @@
+FROM rocker/rstudio:4.1.0
+FROM rocker/tidyverse:4.1.0
+
+RUN Rscript -e 'utils::install.packages("blogdown");blogdown::install_hugo()'
+
+RUN apt-get update && apt-get install -y --no-install-recommends libxt6
+RUN Rscript -e 'utils::install.packages(c("Rcpp", "datasauRus", "tufte"))'
+
+
+
