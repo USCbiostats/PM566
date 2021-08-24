@@ -2,12 +2,14 @@
 # Course Material for PM566 (Fall 2021)
 
 The PM566 course website is
-[here](https://elastic-khorana-70231e.netlify.app/). We will be using
+[here](https://USCbiostats.github.io/PM566). We will be using
 this website to share all course material including lecture slides,
 labs, and assignments.
 
-Our class meets at 1pm every Wednesday. Zoom links for each lecture
-session are available in the course Blackboard.
+Our class meets at 9 AM every Friday.
+
+A [Dockerimage]() has been created for the class. Students can access
+the container in [docker](docker).
 
 # For instructors
 

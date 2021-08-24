@@ -1,10 +1,4 @@
----
-title: "Lab 01 - Hello R!"
-output: tufte::tufte_html
-link-citations: yes
----
-
-<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+<script src="01-lab_files/header-attrs-2.10/header-attrs.js"></script>
 
 
 <div id="learning-goals" class="section level1">
@@ -46,20 +40,20 @@ link-citations: yes
 <p>If you have R installed run the following code</p>
 <pre class="r"><code>R.version</code></pre>
 <pre><code>##                _                           
-## platform       x86_64-apple-darwin17.0     
+## platform       x86_64-pc-linux-gnu         
 ## arch           x86_64                      
-## os             darwin17.0                  
-## system         x86_64, darwin17.0          
+## os             linux-gnu                   
+## system         x86_64, linux-gnu           
 ## status                                     
 ## major          4                           
-## minor          0.2                         
-## year           2020                        
-## month          06                          
-## day            22                          
-## svn rev        78730                       
+## minor          1.0                         
+## year           2021                        
+## month          05                          
+## day            18                          
+## svn rev        80317                       
 ## language       R                           
-## version.string R version 4.0.2 (2020-06-22)
-## nickname       Taking Off Again</code></pre>
+## version.string R version 4.1.0 (2021-05-18)
+## nickname       Camp Pontanezen</code></pre>
 <p>This should tell you what version of R you are currently using. If your R version is lower then 3.6.0 I would strongly recommend updating. In general it is a good idea to update your R version, unless you have a project right now that depend on a specific version of R.</p>
 </div>
 </div>
@@ -115,7 +109,7 @@ library(datasauRus)</code></pre>
 <p>Let’s take a look at what these datasets are. To do so we can make a <em>frequency table</em> of the dataset variable:</p>
 <pre class="r"><code>datasaurus_dozen %&gt;%
   count(dataset)</code></pre>
-<pre><code>## # A tibble: 13 x 2
+<pre><code>## # A tibble: 13 × 2
 ##    dataset        n
 ##    &lt;chr&gt;      &lt;int&gt;
 ##  1 away         142
@@ -149,7 +143,7 @@ library(datasauRus)</code></pre>
 <p>Next, we need to visualize these data. We will use the <code>ggplot</code> function for this. Its first argument is the data you’re visualizing. Next we define the <code>aes</code>thetic mappings. In other words, the columns of the data that get mapped to certain aesthetic features of the plot, e.g. the <code>x</code> axis will represent the variable called <code>x</code> and the <code>y</code> axis will represent the variable called <code>y</code>. Then, we add another layer to this plot where we define which <code>geom</code>etric shapes we want to use to represent each observation in the data. In this case we want these to be points,m hence <code>geom_point</code>.</p>
 <pre class="r"><code>ggplot(data = dino_data, mapping = aes(x = x, y = y)) +
   geom_point()</code></pre>
-<p><img src="/assignment/01-lab_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p><img src="01-lab_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <p>If this seems like a lot, it is. And you will learn about the philosophy of building data visualizations in layer in detail in the upcoming class. For now, follow along with the code that is provided.</p>
 <p>For the second part of this exercises, we need to calculate a summary statistic: the correlation coefficient. Correlation coefficient, often referred to as <span class="math inline">\(r\)</span> in statistics, measures the linear association between two variables. You will see that some of the pairs of variables we plot do not have a linear relationship between them. This is exactly why we want to visualize first: visualize to assess the form of the relationship, and calculate <span class="math inline">\(r\)</span> only if relevant. In this case, calculating a correlation coefficient really doesn’t make sense since the relationship between <code>x</code> and <code>y</code> is definitely not linear – it’s dinosaurial!</p>
 <p>But, for illustrative purposes, let’s calculate correlation coefficient between <code>x</code> and <code>y</code>.</p>
