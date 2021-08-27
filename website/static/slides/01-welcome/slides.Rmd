@@ -76,7 +76,7 @@ Official class website
 Syllabus, reading materials, slides, labs and assignments
 
 https://blackboard.usc.edu/  
-Announcements + Zoom + Grading
+Announcements + Grading
 
 ---
 
@@ -104,7 +104,38 @@ collection of knowledge about
 
 ---
 
-![](img/demand.png)
+<figure align="center">
+<img src="img/data-science-drew-conway.jpg" style="width:600px">
+<figcaption>Source: https://berkeleysciencereview.com/2013/07/how-to-become-a-data-scientist-before-you-graduate/ Original by Drew Conway.</figcaption>
+</figure>
+
+---
+
+# Data science can be really cool
+
+<figure align="center">
+<img src="https://imgs.xkcd.com/comics/regular_expressions.png" style="width:450px">
+<figcaption>Source: https://xkcd.com/208/</figcaption>
+</figure>
+
+---
+
+# With great power comes great responsibility
+
+<figure align="center">
+<img src="https://imgs.xkcd.com/comics/extrapolating.png" style="width:500px">
+<figcaption>Fuente: https://xkcd.com/605/</figcaption>
+</figure>
+
+---
+
+<img src="img/demand.png" style="width:800px;">
+
+(Also see [here](https://www.amstat.org/asa/News/New-Report-Highlights-Growing-Demand-for-Data-Science-Analytics-Talent.aspx), 
+and [here](https://www.ibm.com/downloads/cas/3RL3VXGA),
+and [here](https://www.forbes.com/sites/gilpress/2021/06/27/salaries-and-job-opportunities-for-data-scientists-continue-to-rise/),
+and [here](https://www.glassdoor.com/research/job-market-report/)
+)
 
 ---
 
