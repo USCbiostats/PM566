@@ -97,7 +97,7 @@ instructor:
     Kim Siegmund,
     Abigail Horn
   email: vegayon@usc.edu
-  office: "TBA"
+  office: ""
   contact_policy: >-
     By Appointment
 
@@ -106,7 +106,7 @@ course:
   semester: "Fall 2021"
   days: ""
   time: ""
-  location: ""
+  location: "Hastings Auditorium (HSC)"
   dates: ""
   github: "USCbiostats/PM566"
   copyrightYear: "2021"
