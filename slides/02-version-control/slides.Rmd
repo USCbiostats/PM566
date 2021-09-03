@@ -3,18 +3,14 @@ title: "Version control and reproducible research"
 subtitle: "PM 566: Introduction to Health Data Science"
 author: "George G. Vega Yon"
 output:
-  # slidy_presentation
   xaringan::moon_reader:
-    # css: ["theme.css"]
     lib_dir: libs
     nature:
-      # beforeInit: "macros.js"
       ratio: "16:9"
       highlightStyle: github
       highlightLines: false
       countIncrementalSlides: false
       titleSlideClass: [center, middle]
-    # code_download: true
 ---
 
 # Part I: intro
