@@ -28,7 +28,7 @@ a file!
 different lines of code. If this is the case, after pull/push, git will integrate
 the changes without conflicts.
 
-We will be working with the repository https://github.com/USCbiostats/PM566-fall2020-whoami
+We will be working with the repository https://github.com/USCbiostats/PM566-whoami
 
 ## Step 1: For the project in your repo
 
