@@ -59,6 +59,13 @@ Once you "Fork" a project, GitHub will:
 <figcaption>Source: GitHub Help</figcaption>
 </figure>
 
+Or 
+
+<figure>
+<img src="https://user-images.githubusercontent.com/893619/132388465-849ef04d-ad4f-4365-a646-27e88cb9d828.png" width="600px">
+<figcaption>Source: Screenshot!</figcaption>
+</figure>
+
 Once you have a copy of the project in your account, you can proceede by
 "downloading it" to your computer using the `git clone` command. For example, if
 your github user name is `statsnerd` and the original repository is `Spoon-Knife`
@@ -148,79 +155,4 @@ For more information checkout [Creating a pull request from a fork
 ](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request-from-a-fork)
 on GitHub.
 
-<!--
-# Using GitHub classrooms
-
-When you start work on an exercises or assignment, you will need to complete the
-following steps:
-
-1. Accept the invitation to the assignment that you will receive (by email, I
-   think)
-
-2. Link the assignment to your Github ID (github will automatically ask you to
-   do this and help you get it done).
-
-3. Downoad the pseudocode (if there is any for that problem). The simplest way
-   to do this using RStudio is shown in the "Hello World" exercise that we will
-   be doing at the start of class on Week 1.
-
-4. As you are working on the problem, regularly "commit" your work. I will not
-   be able to see what you are doing, and comment on it, until you "push" the
-   work back to Github. Get into the habit of committing regularly.
-
-5. Once you have completed your work on that problem you need to "commit" you
-   work and then push it to github one final time.
-    
-    For each assignment there will be a Github issue
-    [here](https://github.com/PM520-Spring-2020/General-course-info/issues)
-    which you are required to reference when submitting the final version of
-    your assignment. This way I will be notified that your's is ready to be
-    reviewed. In order to use this functionallity, you can:
-    
-    - Add the full URL in the commit message or in a new comment like this:
-      `https://github.com/PM520-Spring-2020/General-course-info/issues/1`, or
-       
-    - Add a short version of it like this: `PM520-Spring-2020/General-course-info#1`
-    
-    For more information about automatic cross-reference links, take a look at
-    the Github documentation
-    [here](https://help.github.com/en/github/writing-on-github/autolinked-references-and-urls)
-
-
-## Testing out GitHub Classrooms
-
-The excercise is simple. You should either had received an email or directly
-forked the assignment from the course's [GitHub classroom website](UPS?). The
-excercise consists on the following:
-
-1. Setup the assignment repo following the instructions above.
-
-2. Clone the repo in your computer using `git clone`.
-
-3. Go and edit the `README.md` file in the repository. The `README.md` file
-   should have the following contents:
-   
-   ```markdown
-   # Getting to know you a bit more
-   
-   1. What is your favorite book?
-   
-   2. What is your favorite movie?
-   
-   3. What is your favorite kind of music?
-   
-   4. What would you like to learn from this class?
-   ```
-   
-   Answer the questions in the same `README.md` file.
-   
-4. Once you are done answering the questions, commit the changes and push them
-   to GitHub. The commit message should include a reference to the following
-   issue LINK TO THE ISSUE.
-
-And you are done!
-
-<!-- --- -->
-
-<!-- This set of lab exersixes have been adopted from [Mine Çetinkaya-Rundel](https://twitter.com/minebocek)'s class [Introduction to Data Science](https://github.com/ids-s1-19). -->
 

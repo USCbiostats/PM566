@@ -11,3 +11,5 @@ static/**/*.zip
 static/rmarkdown-libs/
 .httr-oauth
 .*
+vegayon-noaa-api-token.txt
+ncbi-api-key.txt

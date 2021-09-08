@@ -61,9 +61,8 @@ Computation using R (downloaded from http://cran.r-project.org), and development
 
 | Assignment           | % of Grade |
 |----------------------|------------|
-| Labs                 | 10%        |
+| Labs                 | 20%        |
 | Homework (6)         | 30%        |
-| In-Class Quizzes (3) | 10%        |
 | Midterm Exam         | 20%        |
 | Final Project        | 30%        |
 | TOTAL                | 100%       |

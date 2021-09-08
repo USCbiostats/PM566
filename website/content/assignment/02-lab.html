@@ -4,6 +4,7 @@ output: tufte::tufte_html
 link-citations: yes
 ---
 
+<script src="/PM566/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 
 <div id="learning-goals" class="section level1">
@@ -30,7 +31,7 @@ a file!</p>
 <h2>Step 1: For the project in your repo</h2>
 <p>Not a term/command actually available in Git, forking is a feature available in
 Github (as in other services) that allows users to create copies of other people’s
-projects to propose changes (i.e. make <strong>pull requests</strong>, i.e. “I have this
+projects to propose changes (i.e. make <strong>pull requests</strong>, i.e. “I have this
 great update to your project! Would you like to add it by <em>pulling it</em> into your
 repo?”).</p>
 <p>To start you just need to use the Fork button available on the project you would
@@ -50,6 +51,13 @@ Source: GitHub Help
 <img src="https://github-images.s3.amazonaws.com/help/pull_requests/recently_pushed_branch.png" width="600px">
 <figcaption>
 Source: GitHub Help
+</figcaption>
+</figure>
+<p>Or</p>
+<figure>
+<img src="https://user-images.githubusercontent.com/893619/132388465-849ef04d-ad4f-4365-a646-27e88cb9d828.png" width="600px">
+<figcaption>
+Source: Screenshot!
 </figcaption>
 </figure>
 <p>Once you have a copy of the project in your account, you can proceede by
@@ -77,7 +85,7 @@ do:</p>
 <ol style="list-style-type: decimal">
 <li><p>Find the line with your name/student id number.</p></li>
 <li><p>In that single line (i.e. not spanning multiple lines), write something about
-yourself, e.g. “I am from XYZ, I love doing ABC, …”.</p></li>
+yourself, e.g. “I am from XYZ, I love doing ABC, …”.</p></li>
 <li><p>(optional) if you feel like it, add at the beginning of the line a picture
 of yourself (or avatar) using either html or markdown. This will require you
 to include the figure in the repo (if you are not linking a web fig).</p></li>
@@ -116,80 +124,6 @@ your copy on github. In this stage, the PR will automatically update to reflect
 the new changes you made in your copy of the project.</p>
 <p>For more information checkout <a href="https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request-from-a-fork">Creating a pull request from a fork</a>
 on GitHub.</p>
-<!--
-# Using GitHub classrooms
-
-When you start work on an exercises or assignment, you will need to complete the
-following steps:
-
-1. Accept the invitation to the assignment that you will receive (by email, I
-   think)
-
-2. Link the assignment to your Github ID (github will automatically ask you to
-   do this and help you get it done).
-
-3. Downoad the pseudocode (if there is any for that problem). The simplest way
-   to do this using RStudio is shown in the "Hello World" exercise that we will
-   be doing at the start of class on Week 1.
-
-4. As you are working on the problem, regularly "commit" your work. I will not
-   be able to see what you are doing, and comment on it, until you "push" the
-   work back to Github. Get into the habit of committing regularly.
-
-5. Once you have completed your work on that problem you need to "commit" you
-   work and then push it to github one final time.
-    
-    For each assignment there will be a Github issue
-    [here](https://github.com/PM520-Spring-2020/General-course-info/issues)
-    which you are required to reference when submitting the final version of
-    your assignment. This way I will be notified that your's is ready to be
-    reviewed. In order to use this functionallity, you can:
-    
-    - Add the full URL in the commit message or in a new comment like this:
-      `https://github.com/PM520-Spring-2020/General-course-info/issues/1`, or
-       
-    - Add a short version of it like this: `PM520-Spring-2020/General-course-info#1`
-    
-    For more information about automatic cross-reference links, take a look at
-    the Github documentation
-    [here](https://help.github.com/en/github/writing-on-github/autolinked-references-and-urls)
-
-
-## Testing out GitHub Classrooms
-
-The excercise is simple. You should either had received an email or directly
-forked the assignment from the course's [GitHub classroom website](UPS?). The
-excercise consists on the following:
-
-1. Setup the assignment repo following the instructions above.
-
-2. Clone the repo in your computer using `git clone`.
-
-3. Go and edit the `README.md` file in the repository. The `README.md` file
-   should have the following contents:
-   
-   ```markdown
-   # Getting to know you a bit more
-   
-   1. What is your favorite book?
-   
-   2. What is your favorite movie?
-   
-   3. What is your favorite kind of music?
-   
-   4. What would you like to learn from this class?
-   ```
-   
-   Answer the questions in the same `README.md` file.
-   
-4. Once you are done answering the questions, commit the changes and push them
-   to GitHub. The commit message should include a reference to the following
-   issue LINK TO THE ISSUE.
-
-And you are done!
-
-<!-- --- -->
-<!-- This set of lab exersixes have been adopted from [Mine Çetinkaya-Rundel](https://twitter.com/minebocek)'s class [Introduction to Data Science](https://github.com/ids-s1-19). -->
 </div>
 </div>
 <div class="footnotes">
@@ -197,11 +131,11 @@ And you are done!
 <ol>
 <li id="fn1"><p>Team-members could be working on the same file but editing
 different lines of code. If this is the case, after pull/push, git will integrate
-the changes without conflicts.<a href="#fnref1" class="footnote-back">↩</a></p></li>
-<li id="fn2"><p>For more details, take a look at the <a href="https://guides.github.com/activities/forking/">Forking Projects</a> article in GitHub guides.<a href="#fnref2" class="footnote-back">↩</a></p></li>
+the changes without conflicts.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>For more details, take a look at the <a href="https://guides.github.com/activities/forking/">Forking Projects</a> article in GitHub guides.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
 <li id="fn3"><p>More info about how to deal with conflicts in this very neat
 post on stackoverflow.com <a href="https://stackoverflow.com/questions/161813/how-to-resolve-merge-conflicts-in-git?page=1&amp;tab=votes#tab-top">How to resolve merge conflicts in Git</a>.
 GitHub also has a way to solve conflicts in PRs, but this is only available to
-the admins of target repo. More info <a href="https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/resolving-a-merge-conflict-on-github">here</a>,<a href="#fnref3" class="footnote-back">↩</a></p></li>
+the admins of target repo. More info <a href="https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/resolving-a-merge-conflict-on-github">here</a>,<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
