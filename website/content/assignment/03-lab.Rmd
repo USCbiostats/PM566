@@ -1,6 +1,8 @@
 ---
 title: "Lab 03 - Exploratory Data Analysis"
-output: html_document
+output:
+  html_document:
+    html_preview: false
 link-citations: yes
 ---
 
@@ -32,8 +34,22 @@ We will work with the meteorological data presented in lecture. Recall the datas
 
 First download and then read in with data.table:fread()
 
-```{r, echo=TRUE, message=FALSE}
-download.file("https://raw.githubusercontent.com/USCbiostats/data-science-data/master/02_met/met_all.gz", "met_all.gz", method="libcurl", timeout = 60)
+```{r checking-file, include=FALSE}
+fn <- "https://raw.githubusercontent.com/USCbiostats/data-science-data/master/02_met/met_all.gz"
+if (!file.exists("met_all.gz"))
+  download.file(fn, destfile = "met_all.gz")
+met <- data.table::fread("met_all.gz")
+```
+
+
+```{r, echo=TRUE, message=FALSE, eval=FALSE}
+download.file(
+  "https://raw.githubusercontent.com/USCbiostats/data-science-data/master/02_met/met_all.gz",
+  destfile = "met_all.gz",
+  method   = "libcurl",
+  timeout  = 60
+  )
+
 met <- data.table::fread("met_all.gz")
 ```
 
