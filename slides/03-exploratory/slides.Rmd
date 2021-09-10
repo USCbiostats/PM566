@@ -1,7 +1,7 @@
 ---
 title: "Exploratory Data Analysis"
 subtitle: "PM 566: Introduction to Health Data Science"
-author: "Meredith Franklin"
+author: "Many"
 output:
   xaringan::moon_reader:
     css: ["theme.css"]
@@ -67,10 +67,16 @@ opts_chunk$set(
   out.width = "700px")
 ```
 
-```{r, echo = FALSE}
+```{r, include = FALSE}
 library(sass)
 sass(sass_file("theme.sass"), output = "theme.css")
 ```
+
+## Acknowledgment
+
+These slides were originally developed by Meredith Franklin and modified by George G. Vega Yon.
+
+---
 
 ## Exploratory Data Analysis
 
@@ -85,7 +91,9 @@ sass(sass_file("theme.sass"), output = "theme.css")
   + basic plots and graphs
 
 ---
+
 ## Pipeline
+
 .center[
 ![](img/data-science.png)
 ]
@@ -93,6 +101,7 @@ sass(sass_file("theme.sass"), output = "theme.css")
 EDA involves Import -> Tidy -> Transform -> Visualize. Basically it is everything before we do modeling, prediction or inference.
 
 ---
+
 ## EDA Checklist
 
 The goal of EDA is to better understand your data. Let's use the **checklist**:
@@ -122,6 +131,7 @@ The goal of EDA is to better understand your data. Let's use the **checklist**:
 8.  Make exploratory graphs
 
 ---
+
 ## Case study
 
 We are going to use a dataset created from the National Center for Environmental Information (https://www.ncei.noaa.gov/). The data are 2019 hourly measurements from weather stations across the continental U.S.
@@ -159,14 +169,18 @@ There are several ways to read in data (some depend on the type of data you have
 ## Read in the Data
 
 We will focus on base R, `data.table` and the `tidyverse`. Let's load the libraries we need to read in the data:
+
 ```{r, message=FALSE}
 library(data.table)
 library(tidyverse)
 ```
+
 Let's load in the data with `data.table`. I have it stored locally, but we will see how to load it straight from github in the lab.
-```{r}
-met = data.table::fread("/Users/meredith/Dropbox (University of Southern California)/Courses/PM566/met_all.gz")
+
+```{r readin-in}
+met <- data.table::fread("met_all.gz")
 ```
+
 ---
 
 ## Read in the Data
@@ -184,7 +198,8 @@ The other nice thing about `data.table` is that many of the base R functions wor
 ## Check the data
 
 We should check the dimensions of the data set. This can be done several ways:
-```{r}
+
+```{r check-dims}
 dim(met)
 nrow(met)
 ncol(met)
@@ -202,11 +217,12 @@ ncol(met)
 
 
 ## Check variables
-```{r}
+
+```{r dat-struct}
 str(met)
 ```
----
 
+---
 
 ## Check variables
 
@@ -225,6 +241,7 @@ We can get summary statistics on our `data.table` using `summary()` as we would 
 ```{r, out.height="50%", out.width="50%"}
 summary(met[,8:13])
 ```
+
 ---
 
 ## Check variables more closely
@@ -241,10 +258,12 @@ We know that we are supposed to have hourly measurements of weather data for the
 ## Check variables more closely
 
 We can generate tables for integer values
+
 ```{r}
 table(met$hour)
 table(met$month)
 ```
+
 ---
 
 ## Check variables more closely
@@ -256,24 +275,31 @@ table(met$year)
 summary(met$lat)
 summary(met$lon)
 ```
+
 ---
 
 ## Check variables more closely
+
 If we return to our initial question, what weather stations reported the hottest and coldest temperatures, we should take a closer look at our key variable, temperature (temp)
+
 ```{r}
 summary(met$temp)
 ```
-It looks like the temperatures are in Celcius. A temperature of -40 in August is really cold, we should see if this is an implausiple value.
+
+It looks like the temperatures are in Celsius. A temperature of -40 in August is really cold, we should see if this is an implausible value.
 
 ---
 
 ## Check variables more closely
+
 It also looks like there are a lot of missing data. Let us check the proportion of missings
 
 ```{r}
-dim(met[is.na(temp)])[1]/dim(met)[1]
+mean(is.na(met$temp))
 ```
+
 2.5% of the data are missing, which is not a huge amount.
+
 ---
 
 
@@ -281,21 +307,23 @@ dim(met[is.na(temp)])[1]/dim(met)[1]
 ## Check variables more closely
 
 In `data.table` we can easily subset the data and select certain columns
+
 ```{r}
-met_ss = met[temp == -40.00, .(hour, lat, lon, elev, wind.sp)]
+met_ss <- met[temp == -40.00, .(hour, lat, lon, elev, wind.sp)]
 
 dim(met_ss)
 summary(met_ss)
 ```
+
 ---
 
 ## Check variables more closely
 
-In `dplyr` we can do the same thing using  `filter` 
+In `dplyr` we can do the same thing using  `filter` and `select`
+
 ```{r}
-met_ss = filter(met, temp == -40.00) %>% 
-        select(USAFID, day, hour, 
-               lat, lon, elev, wind.sp)
+met_ss <- filter(met, temp == -40.00) %>% 
+  select(USAFID, day, hour, lat, lon, elev, wind.sp)
 
 dim(met_ss)
 summary(met_ss)
@@ -314,6 +342,7 @@ Go to [Google maps](https://www.google.com/maps/) and enter the coordinates for 
 ]
 
 It doesn't make much sense to have a -40C reading in the Gulf of Mexico off the coast of Louisiana.
+
 ---
 
 ## Summary statistics
@@ -324,55 +353,74 @@ First let us remove the -40C observations and then sort.
 In `data.table` we can use `order()` to sort. With over 2 million observations, `data.table` is the best solution since it is more computationally efficient.
 
 ```{r}
-met <- met[temp>-10]
-met2 <- met[order(temp)]
+met <- met[temp > -40]
+setorder(met, temp)
 ```
+
+This is equivalent to
+
+```r
+met <- met[temp > -10][order(temp)]
+```
+
 ---
 
 ## Summary statistics
+
 ```{r}
-head(met2)[,c(1,8:10,24)]
-tail(met2)[,c(1,8:10,24)]
+head(met)[,c(1,8:10,24)]
+tail(met)[,c(1,8:10,24)]
 ```
+
 ---
 
 ## Summary statistics
-The maximum hourly temperature is 56C at site 720267, and the minimum hourly temperature is -3C at site 726764.
+
+The maximum hourly temperature is `r met[.N]$temp`C at site `r met[.N]$USAFID`, and the minimum hourly temperature is `r met[1]$temp`C at site `r met[1]$USAFID`.
+
 ---
 
 ## Summary statistics
+
 We need to transform our data to answer our initial question. Let's find the **daily** mean max and min temperatures in `data.table`
+
 ```{r}
-met3<-met[,.(temp=mean(temp), lat=mean(lat), lon=mean(lon),elev=mean(elev)), by=c("USAFID", "day")]
-met4 <- met3[order(temp)]
-head(met4)
-tail(met4)
+met_daily <- met[, .(
+  temp = mean(temp),
+  lat  = mean(lat),
+  lon  = mean(lon),
+  elev = mean(elev)
+  ), by = c("USAFID", "day")][order(temp)]
+
+head(met_daily)
+tail(met_daily)
 ```
+
 ---
 
 ## Summary statistics
+
 Let's find the **daily** mean max and min temperatures in `dplyr`
-```{r}
-met5 <- met %>% group_by(USAFID, day) %>%
-         summarize(temp = mean(temp)) %>%
-          arrange(desc(temp))
-```
----
 
-
-## Summary statistics
-```{r}
-head(met5)
-tail(met5)
+```r
+met_daily_dplyr <- met %>% 
+  group_by(USAFID, day) %>%
+  summarize(temp = mean(temp)) %>%
+  arrange(desc(temp))
 ```
+
+(try it yourself)
+
 ---
 
 ## Summary statistics
-The maximum **daily** temperature is 34C at site 690150 and the minimum daily temperature is 4C at site 726130.
+
+The maximum **daily** temperature is `r met_daily[.N]$temp` C at site `r met_daily[.N]$USAFID` and the minimum daily temperature is `r met_daily[1]$temp`C at site `r met_daily[1]$USAFID`.
 
 ---
 
 ## Exploratory graphs
+
 With exploratory graphs we aim to:
 
 * debug any issues remaining in the data
@@ -385,103 +433,192 @@ Exploratory graphs do not need to be perfect, we will look at presentation ready
 ---
 
 ## Exploratory graphs
+
 Examples of exploratory graphs include:
 
 * histograms
 * boxplots
 * scatterplots
 * simple maps
-```{r, eval=FALSE, echo=FALSE}
 
-```
 ---
 
 ## Exploratory Graphs
+
 Focusing on the variable of interest, temperature, let's look at the distribution (after removing -40C)
+
 ```{r out.width = '50%', out.height='50%', fig.align = "center"}
 hist(met$temp)
 ```
+
 ---
 
-
 ## Exploratory Graphs
+
 Let's look at the daily data
+
 ```{r out.width = '50%', out.height='50%', fig.align = "center"}
-hist(met3$temp)
+hist(met_daily$temp)
 ```
+
 ---
 
-
 ## Exploratory Graphs
+
 A boxplot gives us an idea of the quantiles of the distribution and any outliers
+
 ```{r out.width = '60%', out.height='60%', fig.align = "center"}
 boxplot(met$temp, col = "blue")
 ```
+
 ---
 
-
 ## Exploratory Graphs
+
 Let's look at the daily data
+
 ```{r out.width = '60%', out.height='60%', fig.align = "center"}
-boxplot(met3$temp, col = "blue")
+boxplot(met_daily$temp, col = "blue")
 ```
+
 ---
 
 ## Exploratory Graphs
+
 A map will show us where the weather stations are located. First let's get the unique latitutdes and longitudes and see how many meteorological sites there are
+
 ```{r}
 met_stations <- (unique(met[,c("lat","lon")]))  
 dim(met_stations)
 ```
+
 ---
 
-
 ## Exploratory Graphs
+
 A map will show us where the weather stations are located. First let's get the unique latitutdes and longitudes and see how many meteorological sites there are.
+
 ```{r out.width = '40%', out.height='40%', fig.align = "center"}
 library(leaflet)
 leaflet(met_stations) %>% 
   addProviderTiles('CartoDB.Positron') %>% 
-  addCircles(lat=~lat,lng=~lon, opacity=1, fillOpacity=1, radius=400)
+  addCircles(lat = ~lat, lng = ~lon, opacity = 1, fillOpacity = 1, radius = 400)
 ```
+
 ---
 
 ## Exploratory Graphs
+
 Let's map the locations of the max and min daily temperatures.
-```{r out.width = '40%', out.height='40%', fig.align = "center"}
-min <- head(met4)[1]
-max <- tail(met4)[6]
+
+```r
+min <- met_daily[1]  # First observation.
+max <- met_daily[.N] # Last obs, .N is a special symbol in data.table
+
 leaflet() %>% 
   addProviderTiles('CartoDB.Positron') %>% 
-  addCircles(data=min, lat=~lat,lng=~lon, opacity=1, fillOpacity=1, radius=400, color="blue") %>%
-  addCircles(data=max, lat=~lat,lng=~lon, opacity=1, fillOpacity=1, radius=400, color="red")
+  addCircles(
+    data = min,
+    lat = ~lat, lng = ~lon, popup = "Min temp.",
+    opacity = 1, fillOpacity = 1, radius = 400, color = "blue"
+    ) %>%
+  addCircles(
+    data = max,
+    lat = ~lat, lng = ~lon, popup = "Max temp.",
+    opacity=1, fillOpacity=1, radius = 400, color = "red"
+    )
 ```
+
+(next slide)
+
 ---
-## Exploratory Graphs
-Scatterplots help us look at pairwise relationships. Let's see if there is any trend in temperature with latitude
-```{r out.width = '40%', out.height='40%', fig.align = "center"}
-plot(met3$lat, met3$temp, pch=19, cex=0.5)
+
+```{r out.width = '40%', out.height='40%', fig.align = "center", echo = FALSE}
+min <- met_daily[1]  # First observation.
+max <- met_daily[.N] # Last obs, .N is a special symbol in data.table
+
+leaflet() %>% 
+  addProviderTiles('CartoDB.Positron') %>% 
+  addCircles(
+    data = min,
+    lat = ~lat, lng = ~lon, popup = "Min temp.",
+    opacity = 1, fillOpacity = 1, radius = 400, color = "blue"
+    ) %>%
+  addCircles(
+    data = max,
+    lat = ~lat, lng = ~lon, popup = "Max temp.",
+    opacity=1, fillOpacity=1, radius = 400, color = "red"
+    )
 ```
+
+---
+
+## Exploratory Graphs
+
+Scatterplots help us look at pairwise relationships. Let's see if there is any trend in temperature with latitude
+
+```{r out.width = '40%', out.height='40%', fig.align = "center"}
+plot(met_daily$lat, met_daily$temp, pch=19, cex=0.5)
+```
+
+---
+
+equivalent to
+
+```{r plot_daily-bis, results='hide', out.width='40%'}
+met_daily[, plot(lat, temp, pch = 19, cex =0.5)]
+```
+
 There is a clear decrease in temperatures as you increase in latitude (i.e as you go north).
 
 ---
+
 ## Exploratory Graphs
+
 We can add a simple linear regression line to this plot using `lm()` and `abline()`. We can also add a title and change the axis labels.
-```{r out.width = '40%', out.height='40%', fig.align = "center"}
-mod<- lm(temp~lat, data=met3)
-plot(met3$lat, met3$temp, pch=19, cex=0.5, 
-     main="Temperature and Latitude", 
-     xlab="Latitude", ylab="Temperature (deg C)")
+
+```r
+mod <- lm(temp ~ lat, data = met_daily)
+met_daily[, plot(
+  lat, temp, pch=19, cex=0.5, 
+  main = "Temperature and Latitude", 
+  xlab = "Latitude", ylab = "Temperature (deg C)")
+  ]
+abline(mod, lwd=2, col="red")
+```
+
+(next slide)
+
+---
+
+```{r out.width = '50%', out.height='40%', fig.align = "center", results='hide', echo=FALSE}
+mod <- lm(temp ~ lat, data = met_daily)
+met_daily[, plot(
+  lat, temp, pch=19, cex=0.5, 
+  main = "Temperature and Latitude", 
+  xlab = "Latitude", ylab = "Temperature (deg C)")
+  ]
 abline(mod, lwd=2, col="red")
 ```
 
 ---
+
+Using `ggplot2` (next class)
+
+```{r last-ggplot2, out.width='50%'}
+library(ggplot2)
+ggplot(data = met_daily, mapping = aes(x = lat, y = temp)) +
+  geom_point() + geom_smooth(method = "lm", se = FALSE) +
+  labs(title = "Temperature and Latitute", xlab  = "Latitute", y = "Temperature (deg C)")
+```
+
+---
+
 # Summary
+
 In EDA we:
 
 * have an initial question that we aim to answer
 * import, check, clean the data
 * perform any data transformations to answer the initial question
 * make some basic graphs to examine the data and visualize the initial question
-
-
