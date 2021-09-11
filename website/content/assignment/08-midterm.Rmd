@@ -1,13 +1,14 @@
 ---
 title: "Midterm Exam/Project"
 output: html_document
+date: 2021-09-10
 ---
 
 ```{r setup}
 knitr::opts_chunk$set(include  = TRUE)
 ```
 
-Due Friday, October 9th, 2020 by midnight Pacific time
+Due Friday, October 22th, 2021 by midnight Pacific time
 
 **Learning Objective** To apply the skills learned in PM 566 (up to 9/30) by analyzing and interpreting a dataset of your choice.
 
