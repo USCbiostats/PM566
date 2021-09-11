@@ -241,7 +241,7 @@
   <meta property="og:description" content="Introduction to Health Data Science"><meta property="og:image" content="https://uscbiostats.github.io/PM566/img/social-image.png">
   <meta property="twitter:image" content="https://uscbiostats.github.io/PM566/img/social-image.png"><meta property="og:locale" content="en-us">
   
-    
+    <meta property="og:updated_time" content="2021-09-10T00:00:00&#43;00:00">
   
 
   
@@ -485,7 +485,7 @@
       <h2><a href="/PM566/assignment/03-hw1/" >Assignment 01 - Exploratory Data Analysis</a></h2>
       <div class="article-style">
         
-          Due Date This assignment is due at the end of the day September 9th, 2020
+          Due Date This assignment is due at the end of the day September 24th, 2021
  Learning Goals  Download, read, and get familiar with an external dataset. Step through the EDA “checklist” presented in class Practice making exploratory plots   Assignment Description We will work with air pollution data from the U.S. Environmental Protection Agency (EPA). The EPA has a national monitoring network of air pollution sites that The primary question you will answer is whether daily concentrations of PM\(_{2.
         
       </div>
@@ -498,7 +498,7 @@
       <h2><a href="/PM566/assignment/05-hw2/" >Assignment 02 - Data Viz and Wrangling</a></h2>
       <div class="article-style">
         
-          Due Date September 23, 2020 by midnight Pacific time.
+          Due Date October 8, 2021 by midnight Pacific time.
 For this assignment, we will be analyzing data from USC’s Children’s Health Study. The learning objectives are to conduct data wrangling and visualize the data with key questions in mind.
  Data Wrangling You will need to download two datasets from https://github.com/USCbiostats/data-science-data. The individual and regional CHS datasets in 01_chs. The individual data includes personal and health characteristics of children in 12 communities across Southern California.
         
@@ -512,7 +512,7 @@ For this assignment, we will be analyzing data from USC’s Children’s Health 
       <h2><a href="/PM566/assignment/09-hw3/" >Assignment 03 - Web Scraping and Text Mining</a></h2>
       <div class="article-style">
         
-          Due Date October 14, 2020 by midnight Pacific time.
+          Due Date November 5, 2021 by midnight Pacific time.
 The learning objectives are to conduct data scraping and perform text mining.
  APIs  Using the NCBI API, look for papers that show up under the term "sars-cov-2 trial vaccine." Look for the data in the pubmed database, and then retrieve the details of the paper as shown in lab 7. How many papers were you able to find?
         
@@ -526,10 +526,24 @@ The learning objectives are to conduct data scraping and perform text mining.
       <h2><a href="/PM566/assignment/11-hw4/" >Assignment 04 - HPC and SQL</a></h2>
       <div class="article-style">
         
-          Due Date October 28 November 4th, 2020 by midnight Pacific time.
+          Due Date November 19, 2021 by midnight Pacific time.
 The learning objectives are to conduct data scraping and perform text mining.
  HPC Problem 1: Make sure your code is nice Rewrite the following R functions to make them faster. It is OK (and recommended) to take a look at Stackoverflow and Google
 # Total row sums fun1 &lt;- function(mat) { n &lt;- nrow(mat) ans &lt;- double(n) for (i in 1:n) { ans[i] &lt;- sum(mat[i, ]) } ans } fun1alt &lt;- function(mat) { # YOUR CODE HERE } # Cumulative sum by row fun2 &lt;- function(mat) { n &lt;- nrow(mat) k &lt;- ncol(mat) ans &lt;- mat for (i in 1:n) { for (j in 2:k) { ans[i,j] &lt;- mat[i, j] + ans[i, j - 1] } } ans } fun2alt &lt;- function(mat) { # YOUR CODE HERE } # Use the data with this code set.
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div>
+      <h2><a href="/PM566/assignment/08-midterm/" >Midterm Exam/Project</a></h2>
+      <div class="article-style">
+        
+          knitr::opts_chunk$set(include = TRUE) Due Friday, October 22th, 2021 by midnight Pacific time
+Learning Objective To apply the skills learned in PM 566 (up to 9/30) by analyzing and interpreting a dataset of your choice.
+Narrative Through this project you will launch a portfolio of data science projects that will become seminal for your job hunt. This midterm is a stepping stone for the final project. The first step in any data analysis is to have a dataset for which you have formulated an interesting question.
         
       </div>
     </div>
@@ -601,18 +615,6 @@ The objective of the lab is to find the weather station with the highest elevati
         
           Learning Goals  Read in and prepare the meteorological dataset Create several graphs with different geoms() in ggplot2 Create a facet graph Conduct some customizations to the graphs Create a more detailed map using leaflet()   Lab Description We will again work with the meteorological data presented in lecture.
 The objective of the lab is to examine the association between monthly average dew point temperature and relative humidity in four regions of the US and by elevation.
-        
-      </div>
-    </div>
-  
-    
-    
-    
-    <div>
-      <h2><a href="/PM566/assignment/05-lab/" >Lab 05 - Data Wrangling</a></h2>
-      <div class="article-style">
-        
-          Learning goals  Use the merge() function to join two datasets. Deal with missings and impute data. Identify relevant observations using quantile(). Practice your GitHub skills.   Lab description For this lab we will be, again, dealing with the meteorological dataset downloaded from the NOAA, the met. In this case, we will use data.table to answer some questions regarding the met dataset, while at the same time practice your Git+GitHub skills for this project.
         
       </div>
     </div>
