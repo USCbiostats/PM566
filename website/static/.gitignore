@@ -1,6 +1,5 @@
 **/*.gzip
 **/*.zip
-**/libs/**
 **/*.csv
 **/*.rda
 **/*.RData
