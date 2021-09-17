@@ -1,12 +1,18 @@
 ---
 title: "Lab 04 - Data Visualization"
 output: html_document
+date: 2021-09-16
 link-citations: yes
 ---
 
+```{r}
+# Set to TRUE if you want the blocks to be evaluated 
+EVAL <- FALSE
+ECHO <- EVAL
+```
 
 
-```{r setup, message=FALSE, echo=FALSE, warning=FALSE}
+```{r setup, message=FALSE, echo = ECHO, warning=FALSE, eval = EVAL}
 #install.packages(c("data.table","leaflet"))
 library(data.table)
 library(leaflet)
@@ -26,7 +32,7 @@ library(tidyverse)
 
 We will again work with the meteorological data presented in lecture.
 
-**The objective of the lab is to examine the association between monthly average dew point temperature and relative humidity in four regions of the US and by elevation.**
+**The objective of the lab is to examine the association between weekly average dew point temperature and wind speed in four regions of the US and by elevation.**
 
 # Steps
 
@@ -34,7 +40,7 @@ We will again work with the meteorological data presented in lecture.
 
 First download and then read in with data.table:fread()
 
-```{r, echo=TRUE, message=FALSE}
+```{r, echo = TRUE, message=FALSE, eval = EVAL}
 if (!file.exists("met_all.gz"))
   download.file(
     url = "https://raw.githubusercontent.com/USCbiostats/data-science-data/master/02_met/met_all.gz",
@@ -49,15 +55,19 @@ met <- data.table::fread("met_all.gz")
 
 - Remove temperatures less than -17C
 - Make sure there are no missing data in the key variables coded as 9999, 999, etc
-- Take monthly averages by weather station
+- Generate a date variable using the functions `as.Date()` (hint: You will need the following to create a date `paste(year, month, day, sep = "-")`).
+- Using the `data.table::week` function, keep the observations of the first week of the month.
+- Compute the mean by station of the variables `temp`, `rh`, `wind.sp`, `vis.dist`, `dew.point`, `lat`,
+`lon`, and `elev`.
 - Create a region variable for NW, SW, NE, SE based on lon = -98.00 and lat = 39.71 degrees
 - Create a categorical variable for elevation as in the lecture slides
 
-```{r}
-met<-met[met$temp > -17]
-met[met$elev==9999.0] <- NA
+```{r, eval = EVAL, echo = ECHO}
+met <- met[temp > -17][elev == 9999.0, elev := NA]
+met[, week := week(as.Date(paste(year, month, day, sep = "-")))]
+met <- met[week == min(week, na.rm = TRUE)]
 
-met_avg<-met[,.(temp=mean(temp,na.rm=TRUE), rh=mean(rh,na.rm=TRUE), wind.sp=mean(wind.sp,na.rm=TRUE), 
+met_avg <- met[,.(temp=mean(temp,na.rm=TRUE), rh=mean(rh,na.rm=TRUE), wind.sp=mean(wind.sp,na.rm=TRUE), 
                 vis.dist=mean(vis.dist,na.rm=TRUE), dew.point = mean(dew.point, na.rm=TRUE), lat=mean(lat), lon=mean(lon), 
                 elev=mean(elev,na.rm=TRUE)), by="USAFID"]
 
@@ -71,16 +81,20 @@ table(met_avg$region)
 
 ```
 
-### 3. Use `geom_boxplot` to examine the dew point temperature and relative humidity by region
+### 3. Use `geom_violin` to examine the wind speed and dew point temperature by region
+
+You saw how to use `geom_boxplot` in class. Try using `geom_violin` instead (take a look at the help).
+(hint: You will need to set the `x` aesthetic to 1)
 
 - Use facets
 - Make sure to deal with `NA` category
 - Describe what you observe in the graph
-```{r}
+
+```{r, eval = EVAL, echo = ECHO}
 met_avg %>%
   filter(!(region %in% NA)) %>%
 ggplot()+
-  geom_boxplot(mapping = aes(y=dew.point, fill=region)) +
+  geom_violin(mapping = aes(y=wind.sp, x=1)) +
   facet_wrap(~region, nrow=2)
 
 met_avg %>%
@@ -89,78 +103,85 @@ ggplot()+
   geom_boxplot(mapping = aes(y=rh, fill=region)) +
   facet_wrap(~region, nrow=2)
 ```
- - Dew point temperature is higher in the south east....
- - Relative humidity....
 
-### 4. Use `geom_point` with `stat_smooth` to examine the association between dew point temperature and relative humidity by region
+
+### 4. Use `geom_jitter` with `stat_smooth` to examine the association between dew point temperature and wind speed by region
 
 - Colour points by region
 - Make sure to deal with `NA` category
 - Fit a linear regression line by region
 - Describe what you observe in the graph
 
-```{r}
+```{r, eval = EVAL, echo = ECHO}
 met_avg %>%
 filter(!(region %in% NA)) %>%
   ggplot(mapping = aes(x=dew.point, y=rh, color=region))+
-  geom_point()+
+  geom_jitter() + 
   stat_smooth(method=lm)
   
 ```
-- The association between dew point and relative humidity is positive in all regions (an increase dew.point is associated with an increase in rh)
-- Regional observations
+
 
 ### 5. Use `geom_bar` to create barplots of the weather stations by elevation category coloured by region
 
-- Bars by elevation category
+- Bars by elevation category using `position="dodge"`
 - Change colours from the default. Colour by region using `scale_fill_brewer` see [this](http://rstudio-pubs-static.s3.amazonaws.com/5312_98fc1aba2d5740dd849a5ab797cc2c8d.html)
 - Create nice labels on axes and add a title
 - Describe what you observe in the graph
 - Make sure to deal with `NA`
 
-```{r warning=FALSE, message=FALSE}
+```{r warning=FALSE, message=FALSE, eval = EVAL, echo = ECHO}
 met_avg %>%
 filter(!(region %in% NA)) %>%
   ggplot()+
-  geom_bar(mapping=aes(x=elev_cat,fill=region))+
+  geom_bar(mapping=aes(x=elev_cat,fill=region), position = "dodge")+
   scale_fill_brewer(palette = "PuOr")+
   labs(title="Number of weather stations by elevation category and region", x="Elevation Category", y= "Count")+
   theme_bw()
 
 ```
 
-### 6. Use `stat_summary` to examine mean dew point and relative humidity by region with standard deviation error bars
+### 6. Use `stat_summary` to examine mean dew point and wind speed by region with standard deviation error bars
 
 - Make sure to remove `NA`
 - Use fun.data="mean_sdl" in `stat_summary`
+- Add another layer of `stats_summary` but change the geom to `"errorbar"` (see the help).
 - Describe the graph and what you observe
 
-```{r}
+```{r, eval = EVAL, echo = ECHO}
 met_avg %>%
 filter(!(region %in% NA)) %>%
-  ggplot(mapping=aes(x=region, y=dew.point))+
+  ggplot(mapping=aes(x=region, y=dew.point)) +
+  stat_summary(fun.data="mean_sdl", geom="errorbar") +
   stat_summary(fun.data="mean_sdl")
-  
 ```
-- Dew point temperature is....describe dots and bars
-- Relative humidity is...
 
-### 7. Make a map showing the spatial trend in relative humidity in the US
+- Dew point temperature is...
+- Wind speed is...
+
+### 7. Make a map showing the spatial trend in relative h in the US
 
 - Make sure to remove `NA`
 - Use leaflet()
 - Make a colour palette with custom colours
+- Use `addMarkers` to include the top 10 places in relative h (hint: this will be useful `rank(-rh) <= 10`)
 - Add a legend
 
-```{r}
+```{r, eval = EVAL, echo = ECHO}
 met_avg2<-met_avg[!is.na(rh)]
+
+# Top five
+top5 <- met_avg2[rank(-rh) <= 10]
+
 rh_pal = colorNumeric(c('blue','purple','red'), domain=met_avg2$rh)
 leaflet(met_avg2) %>%
   addProviderTiles('OpenStreetMap') %>%
   addCircles(lat=~lat, lng=~lon, color=~rh_pal(rh), label=~paste0(round(rh,2), ' rh'), opacity=1,fillOpacity=1, radius=500) %>%
+  addMarkers(lat=~lat, lng=~lon, label=~paste0(round(rh,2), ' rh'), data = top5) %>%
   addLegend('bottomleft',pal=rh_pal, values=met_avg2$rh, title="Relative Humidity", opacity=1)
 
 ```
+
 - Describe trend in RH across the US
 
 ### 8. Use a ggplot extension
@@ -168,37 +189,3 @@ leaflet(met_avg2) %>%
 - Pick and extension (except cowplot) from [here](https://exts.ggplot2.tidyverse.org/gallery/) and make a plot of your choice using the met data (or met_avg)
 - Might want to try examples that come with the extension first (e.g. ggtech, gganimate, ggforce)
 
-```{r}
-
-library(ggstance)
-
-ggplot(mpg, aes(hwy, class, fill = factor(cyl))) +
-  geom_boxploth()
-
-met_avg %>%
-filter(!(region %in% NA)) %>%
-ggplot(mapping= aes(x=dew.point, y=region, fill=region)) +
-  geom_boxploth()
-
-
-library(ggthemes)
-
-met_avg %>%
-filter(!(region %in% NA)) %>%
-  ggplot(mapping=aes(x=region, y=dew.point))+
-  stat_summary(fun.data="mean_sdl")+
-  theme_fivethirtyeight()
-
-met_avg %>%
-filter(!(region %in% NA)) %>%
-  ggplot(mapping = aes(x=dew.point, y=rh, color=region))+
-  geom_point()+
-  stat_smooth(method=lm)+
-  theme_economist()
-
-# to save/write data locally
-# write.csv(met_avg, "/Documents/.../met_avg.csv",row.names=T)
-# saveRDS(met_avg,"/Documents/.../met_avg.rds")
-
-
-```

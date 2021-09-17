@@ -63,7 +63,7 @@ opts_chunk$set(
   out.width = "700px")
 ```
 
-```{r, echo = FALSE}
+```{r, include=FALSE}
 library(sass)
 sass(sass_file("theme.sass"), output = "theme.css")
 ```
