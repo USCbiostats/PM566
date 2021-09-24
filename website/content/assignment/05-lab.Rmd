@@ -1,6 +1,7 @@
 ---
 title: "Lab 05 - Data Wrangling"
 output: html_document
+date: 2021-09-23
 ---
 
 # Learning goals
@@ -168,10 +169,10 @@ All by the levels described before.
 
 ```
 
-Knit the document, commit your changes, and push them to GitHub. If you'd like, you can take this time to include the link of [the issue of the week](https://github.com/USCbiostats/PM566/issues/23) so that you let us know when you are done, e.g.,
+Knit the document, commit your changes, and push them to GitHub. If you'd like, you can take this time to include the link of [the issue of the week](https://github.com/USCbiostats/PM566/issues/42) so that you let us know when you are done, e.g.,
 
 ```bash
-git commit -a -m "Finalizing lab 5 https://github.com/USCbiostats/PM566/issues/23"
+git commit -a -m "Finalizing lab 5 https://github.com/USCbiostats/PM566/issues/42"
 ```
 
 
