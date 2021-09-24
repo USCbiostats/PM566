@@ -4,6 +4,8 @@
     <title>Week 5: Data Wrangling</title>
     <meta charset="utf-8" />
     <meta name="author" content="George G. Vega Yon" />
+    <meta name="date" content="2021-09-23" />
+    <script src="libs/header-attrs-2.8/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="theme.css" type="text/css" />
   </head>
@@ -14,6 +16,7 @@ class: center, middle, title-slide
 # Week 5: Data Wrangling
 ## PM 566: Introduction to Health Data Science
 ### George G. Vega Yon
+### 2021-09-23
 
 ---
 
@@ -24,7 +27,7 @@ class: center, middle, title-slide
 &lt;!--Yeah... I have really long code chunks, so I just changed the default size :)--&gt;
 &lt;style type="text/css"&gt;
 code.*, .remark-code, pre {
-  font-size:16px;
+  font-size:14px;
 }
 p,h1,h2,h3,h4 {
   font-family: system-ui
@@ -102,6 +105,10 @@ library(dplyr)
 ## The following objects are masked from 'package:base':
 ## 
 ##     intersect, setdiff, setequal, union
+```
+
+```r
+library(ggplot2)
 ```
 
 The `dtplyr` R package translates `dplyr` (`tidyverse`) syntax to `data.table`,
@@ -236,8 +243,8 @@ address(dat_ldt$parent)
 ```
 
 ```
-## [1] "0x56084b691dd0"
-## [1] "0x56084b691dd0"
+## [1] "0x55dbabaad760"
+## [1] "0x55dbabaad760"
 ```
 
 &lt;div align="center"&gt;
@@ -288,7 +295,7 @@ dat_ldt %&gt;% select(USAFID, lat, lon)
 ```
 
 ```
-## Source: local data table [?? x 3]
+## Source: local data table [2,377,343 x 3]
 ## Call:   `_DT1`[, .(USAFID, lat, lon)]
 ## 
 ##   USAFID   lat   lon
@@ -299,6 +306,7 @@ dat_ldt %&gt;% select(USAFID, lat, lon)
 ## 4 690150  34.3 -116.
 ## 5 690150  34.3 -116.
 ## 6 690150  34.3 -116.
+## # … with 2,377,337 more rows
 ## 
 ## # Use as.data.table()/as.data.frame()/as_tibble() to access results
 ```
@@ -537,8 +545,8 @@ In R with **dplyr::filter()**:
 ```r
 dat_ldt %&gt;%
   filter(day == 1, lat &gt; 40, (elev &lt; 500) | (elev &gt; 1000)) %&gt;%
-  compute() %&gt;% # Notice this line!
-  nrow()
+  collect() %&gt;% # Notice this line!
+  nrow() 
 ```
 
 ```
@@ -601,11 +609,6 @@ that allows accessing column names in a datatable's `Frame`.
 ```
 
 ![](slides_files/figure-html/unnamed-chunk-1-1.png)&lt;!-- --&gt;
-
-```
-## NULL
-## NULL
-```
 
 
 ---
@@ -702,24 +705,25 @@ dat_ldt %&gt;%
   mutate(
     elev2         = elev ^ 2,
     windsp_scaled = wind.sp/sd(wind.sp,na.rm=TRUE)
-  ) %&gt;% compute()
+  ) %&gt;% collect()
 ```
 
 ```
-## Source: local data table [2,377,343 x 15]
-## Call:   `_DT4`
-## 
-##   USAFID  WBAN  year month   day  hour   min   lat   lon  elev wind.sp  temp
-##    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;dbl&gt;
-## 1 690150 93121  2019     8     1     0    56  34.3 -116.   696     5.7  37.2
-## 2 690150 93121  2019     8     1     1    56  34.3 -116.   696     8.2  35.6
-## 3 690150 93121  2019     8     1     2    56  34.3 -116.   696     6.7  34.4
-## 4 690150 93121  2019     8     1     3    56  34.3 -116.   696     5.1  33.3
-## 5 690150 93121  2019     8     1     4    56  34.3 -116.   696     2.1  32.8
-## 6 690150 93121  2019     8     1     5    56  34.3 -116.   696     0    31.1
-## # … with 3 more variables: atm.press &lt;dbl&gt;, elev2 &lt;dbl&gt;, windsp_scaled &lt;dbl&gt;
-## 
-## # Use as.data.table()/as.data.frame()/as_tibble() to access results
+## # A tibble: 2,377,343 x 15
+##    USAFID  WBAN  year month   day  hour   min   lat   lon  elev wind.sp  temp
+##     &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;dbl&gt;
+##  1 690150 93121  2019     8     1     0    56  34.3 -116.   696     5.7  37.2
+##  2 690150 93121  2019     8     1     1    56  34.3 -116.   696     8.2  35.6
+##  3 690150 93121  2019     8     1     2    56  34.3 -116.   696     6.7  34.4
+##  4 690150 93121  2019     8     1     3    56  34.3 -116.   696     5.1  33.3
+##  5 690150 93121  2019     8     1     4    56  34.3 -116.   696     2.1  32.8
+##  6 690150 93121  2019     8     1     5    56  34.3 -116.   696     0    31.1
+##  7 690150 93121  2019     8     1     6    56  34.3 -116.   696     1.5  29.4
+##  8 690150 93121  2019     8     1     7    56  34.3 -116.   696     2.1  28.9
+##  9 690150 93121  2019     8     1     8    56  34.3 -116.   696     2.6  27.2
+## 10 690150 93121  2019     8     1     9    56  34.3 -116.   696     1.5  26.7
+## # … with 2,377,333 more rows, and 3 more variables: atm.press &lt;dbl&gt;,
+## #   elev2 &lt;dbl&gt;, windsp_scaled &lt;dbl&gt;
 ```
 
 Notice that, since `dat_ldt` is a pointer, the variables are now in `dat`.
@@ -767,9 +771,9 @@ as_tibble(dat_ldt) %&gt;%
   mutate(
     across(
       all_of(in_names),
-      sd,
-      .names = "{col}_scaled2",
-      na.rm = TRUE)
+      function(x) x/sd(x, na.rm = TRUE),
+      .names = "{col}_scaled2"
+      )
   ) %&gt;%
   # Just to print the last columns
   select(ends_with("_scaled2")) %&gt;%
@@ -780,10 +784,10 @@ as_tibble(dat_ldt) %&gt;%
 ## # A tibble: 4 x 3
 ##   wind.sp_scaled2 temp_scaled2 atm.press_scaled2
 ##             &lt;dbl&gt;        &lt;dbl&gt;             &lt;dbl&gt;
-## 1            2.15         6.06              4.06
-## 2            2.15         6.06              4.06
-## 3            2.15         6.06              4.06
-## 4            2.15         6.06              4.06
+## 1            2.65         6.14              249.
+## 2            3.82         5.88              249.
+## 3            3.12         5.68              249.
+## 4            2.37         5.50              249.
 ```
 
 Key thing here: This approach has no direct translation to `data.table`, which
@@ -853,7 +857,7 @@ merge(
 ```
 
 ```
-## [1] 2392120
+## [1] 2385443
 ```
 
 This is more rows! The original dataset, `dat`, has 2377343. This means
@@ -927,7 +931,7 @@ What happens when you change the options `all.x` and `all.y`?
     group_by(STATE, year, month, day) %&gt;%
     mutate(
       temp_imp2 = coalesce(temp, mean(temp, na.rm = TRUE))
-      ) %&gt;% compute()
+      ) %&gt;% collect()
   ```
 
 ---
@@ -938,24 +942,27 @@ Let's see how it looks like
 
 
 ```r
-dat[USAFID == 720172][order(year, month, day)][, {
-  op &lt;- par(mfrow = c(1, 2))
-  plot(temp, type = "l", col = "tomato")
-  plot(temp_imp, type = "l", col = "steelblue")
-  par(op)
-}]
-```
+# Preparing for ggplot2
+plotdata &lt;-dat[USAFID == 720172][order(year, month, day)]
+plotdata &lt;- rbind(
+  plotdata[, .(temp = temp, type = "raw")],
+  plotdata[USAFID == 720172][, .(temp = temp_imp, type = "filled")]
+)
 
-![](slides_files/figure-html/plot-groupped-1.png)&lt;!-- --&gt;
+# Generating an 'x' variable for time
+plotdata[, id := 1:.N, by = type]
 
-```
-##    mfrow
-## 1:     1
-## 2:     2
+plotdata %&gt;%
+  ggplot(aes(x = id, y = temp, col = type, lty = type)) +
+  geom_line()
 ```
 
 ---
 
+![](slides_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
+
+
+---
 ## Aggregating data: Summary table
 
 - Using `by` also allow us creating summaries of our data.
@@ -1027,8 +1034,8 @@ Notice the **keyby** option here: "Group by STATE and order by STATE".
   ```
   
   ```
-  ## Source: local data table [?? x 4]
-  ## Call:   head(`_DT5`[, .(temp_avg = mean(temp, na.rm = TRUE), wind.sp_avg = mean(wind.sp, 
+  ## Source: local data table [4 x 4]
+  ## Call:   head(`_DT3`[, .(temp_avg = mean(temp, na.rm = TRUE), wind.sp_avg = mean(wind.sp, 
   ##     na.rm = TRUE), atm.press_avg = mean(atm.press, na.rm = TRUE)), 
   ##     keyby = .(STATE)][order(STATE)], n = 4)
   ## 
@@ -1073,6 +1080,8 @@ Notice the **keyby** option here: "Group by STATE and order by STATE".
 
 - [RStudio's](https://rstudio.com) benchmark ([link](https://cran.r-project.org/web/packages/vroom/vignettes/benchmarks.html)):
   Designed as part of the benchmarks with the [vroom](https://cran.r-package.org/package=vroom) package.
+
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

@@ -5,6 +5,7 @@ author: "George G. Vega Yon"
 # output:
   # slidy_presentation:
   #   slide_level: 1
+date: 2021-09-23
 output:
   xaringan::moon_reader:
     css: ["theme.css", "default"]
@@ -19,7 +20,7 @@ output:
 ---
 
 ```{r setup, echo = FALSE}
-knitr::opts_chunk$set(eval = TRUE, results = "hold")
+knitr::opts_chunk$set(eval = TRUE, results = "hold", fig.width = 7, fig.height = 5)
 slides_eval <- TRUE
 ```
 
@@ -27,7 +28,7 @@ slides_eval <- TRUE
 <!--Yeah... I have really long code chunks, so I just changed the default size :)-->
 <style type="text/css">
 code.*, .remark-code, pre {
-  font-size:16px;
+  font-size:14px;
 }
 p,h1,h2,h3,h4 {
   font-family: system-ui
@@ -81,6 +82,7 @@ Take a look at this very neat cheat sheet by
 library(data.table)
 library(dtplyr)
 library(dplyr)
+library(ggplot2)
 ```
 
 The `dtplyr` R package translates `dplyr` (`tidyverse`) syntax to `data.table`,
@@ -413,8 +415,8 @@ In R with **dplyr::filter()**:
 ```{r filter1-tv, eval = slides_eval}
 dat_ldt %>%
   filter(day == 1, lat > 40, (elev < 500) | (elev > 1000)) %>%
-  compute() %>% # Notice this line!
-  nrow()
+  collect() %>% # Notice this line!
+  nrow() 
 ```
 
 ---
@@ -458,7 +460,7 @@ that allows accessing column names in a datatable's `Frame`.
 message("Question 1: ", nrow(dat[(temp < 25) & (temp > 18)]))
 # dat[temp %between% c(18, 25), .N] 
 
-# dat_ldt %>% filter(between(temp, 18, 25)) %>% compute() %>% nrow()
+# dat_ldt %>% filter(between(temp, 18, 25)) %>% collect() %>% nrow()
 
 # Question 2
 message("Question 2: ", dat[is.na(temp), .N])
@@ -466,14 +468,19 @@ message("Question 2: ", dat[is.na(temp), .N])
 # Question 3
 set.seed(123)
 message("Question 3")
-dat[is.na(temp)][sample.int(.N, 1000), plot(lon, lat, col = "steelblue", pch=8)]
-dat[!is.na(temp)][sample.int(.N, 1000), points(lon, lat, col = "tomato", pch=8)]
-legend(
-  "bottomleft",
-  fill = c("steelblue", "tomato"),
-  legend = c("temp is NA", "temp is not NA"),
-  bt = "n"
-  )
+
+# Drawing a sample
+idx <- dat[, list(x = sample.int(.N, 2000, replace = FALSE)), by = is.na(temp)]$x
+
+# Visualizing the data
+ggplot(map_data("state"), aes(x = long, y = lat)) +
+  geom_map(aes(map_id = region), map = map_data("state"), col = "lightgrey", fill = "gray") +
+  geom_jitter(
+    data    = dat[idx],
+    mapping = aes(x = lon, y = lat, col = is.na(temp)),
+    inherit.aes = FALSE, alpha = .5, cex = 2
+    )
+
 ```
 
 
@@ -569,7 +576,7 @@ dat_ldt %>%
   mutate(
     elev2         = elev ^ 2,
     windsp_scaled = wind.sp/sd(wind.sp,na.rm=TRUE)
-  ) %>% compute()
+  ) %>% collect()
 ```
 
 Notice that, since `dat_ldt` is a pointer, the variables are now in `dat`.
@@ -736,7 +743,7 @@ merge(x = dat, y = stations, by.x = "USAFID", by.y = "USAF",all.x = FALSE, all.y
     group_by(STATE, year, month, day) %>%
     mutate(
       temp_imp2 = coalesce(temp, mean(temp, na.rm = TRUE))
-      ) %>% compute()
+      ) %>% collect()
   ```
 
 ---
@@ -745,17 +752,42 @@ merge(x = dat, y = stations, by.x = "USAFID", by.y = "USAF",all.x = FALSE, all.y
 
 Let's see how it looks like
 
-```{r plot-groupped}
-dat[USAFID == 720172][order(year, month, day)][, {
-  op <- par(mfrow = c(1, 2))
-  plot(temp, type = "l", col = "tomato")
-  plot(temp_imp, type = "l", col = "steelblue")
-  par(op)
-}]
+```{r plot-groupped, eval = FALSE}
+# Preparing for ggplot2
+plotdata <-dat[USAFID == 720172][order(year, month, day)]
+plotdata <- rbind(
+  plotdata[, .(temp = temp, type = "raw")],
+  plotdata[USAFID == 720172][, .(temp = temp_imp, type = "filled")]
+)
+
+# Generating an 'x' variable for time
+plotdata[, id := 1:.N, by = type]
+
+plotdata %>%
+  ggplot(aes(x = id, y = temp, col = type, lty = type)) +
+  geom_line()
 ```
 
 ---
 
+```{r echo = FALSE}
+# Preparing for ggplot2
+plotdata <-dat[USAFID == 720172][order(year, month, day)]
+plotdata <- rbind(
+  plotdata[, .(temp = temp, type = "raw")],
+  plotdata[USAFID == 720172][, .(temp = temp_imp, type = "filled")]
+)
+
+# Generating an 'x' variable for time
+plotdata[, id := 1:.N, by = type]
+
+plotdata %>%
+  ggplot(aes(x = id, y = temp, col = type, lty = type)) +
+  geom_line()
+```
+
+
+---
 ## Aggregating data: Summary table
 
 - Using `by` also allow us creating summaries of our data.
