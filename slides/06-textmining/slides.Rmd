@@ -59,7 +59,7 @@ opts_chunk$set(
 
 ```{r, echo = FALSE}
 library(sass)
-library(countdown)
+# library(countdown)
 sass(sass_file("theme.sass"), output = "theme.css")
 ```
 
@@ -67,6 +67,11 @@ sass(sass_file("theme.sass"), output = "theme.css")
 .orange {color: #EF8633}
 ```
 
+## Acknowledgment
+
+These slides were originally developed by Emil Hvitfeldt and modified by George G. Vega Yon.
+
+---
 
 # Plan for the week
 
@@ -93,19 +98,11 @@ Works seemlessly with ggplot2, dplyr and tidyr.
 
 # Alice's Adventures in Wonderland
 
-```{r}
-#devtools::install_github("EmilHvitfeldt/tidygutenbergr")
+Download the alice dataset from https://USCBiostats.github.io/PM566/slides/06-textmining/alice.rds (or from [here](alice.rds))
+
+```{r message=FALSE, warning=FALSE}
 library(tidyverse)
-library(tidygutenbergr)
-
-alice <- alices_adventures()
-```
-
----
-
-# Alice's Adventures in Wonderland
-
-```{r}
+alice <- readRDS("alice.rds")
 alice
 ```
 
@@ -321,9 +318,6 @@ stop_words %>%
 - herself
 ]
 
-```{r, echo=FALSE}
-countdown(minutes = 0, seconds = 15)
-```
 
 ---
 
@@ -351,9 +345,6 @@ countdown(minutes = 0, seconds = 15)
 - system1
 ]
 
-```{r, echo=FALSE}
-countdown(minutes = 0, seconds = 15)
-```
 
 ---
 
@@ -381,9 +372,6 @@ countdown(minutes = 0, seconds = 15)
 - statistically
 ]
 
-```{r, echo=FALSE}
-countdown(minutes = 0, seconds = 15)
-```
 
 ---
 
