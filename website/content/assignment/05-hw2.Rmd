@@ -26,6 +26,11 @@ combined, you will need to do the following:
 1. After merging the data, make sure you don’t have any duplicates by counting
    the number of rows. Make sure it matches.
    
+   In the case of missing values, impute data using the average within the
+   variables "male" and "hispanic." If you are interested (and feel adventurous)
+   in the theme of Data Imputation, take a look at this paper on "Multiple Imputation"
+   using the Amelia R package [here](https://gking.harvard.edu/files/gking/files/amelia_jss.pdf).
+   
 2. Create a new categorical variable named “obesity_level” using the BMI measurement
    (underweight BMI<14; normal BMI 14-22; overweight BMI 22-24; obese BMI>24).
    To make sure the variable is rightly coded, create a summary table that contains
@@ -39,10 +44,7 @@ combined, you will need to do the following:
    sd of “Forced expiratory volume in 1 second (ml)” and asthma indicator by
    town, sex, obesity level, and "smoke_gas_exposure."
    
- In the case of missing values, impute data using the average within the
- variables "male" and "hispanic." If you are interested (and feel adventurous)
- in the theme of Data Imputation, take a look at this paper on "Multiple Imputation"
- using the Amelia R package [here](https://gking.harvard.edu/files/gking/files/amelia_jss.pdf).
+
 
 ## Looking at the Data (EDA)
 

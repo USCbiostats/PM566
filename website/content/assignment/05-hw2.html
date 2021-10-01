@@ -26,7 +26,11 @@ Once downloaded, you can merge these datasets using the location variable. Once
 combined, you will need to do the following:</p>
 <ol style="list-style-type: decimal">
 <li><p>After merging the data, make sure you don’t have any duplicates by counting
-the number of rows. Make sure it matches.</p></li>
+the number of rows. Make sure it matches.</p>
+<p>In the case of missing values, impute data using the average within the
+variables “male” and “hispanic.” If you are interested (and feel adventurous)
+in the theme of Data Imputation, take a look at this paper on “Multiple Imputation”
+using the Amelia R package <a href="https://gking.harvard.edu/files/gking/files/amelia_jss.pdf">here</a>.</p></li>
 <li><p>Create a new categorical variable named “obesity_level” using the BMI measurement
 (underweight BMI&lt;14; normal BMI 14-22; overweight BMI 22-24; obese BMI&gt;24).
 To make sure the variable is rightly coded, create a summary table that contains
@@ -38,10 +42,6 @@ in total.</p></li>
 sd of “Forced expiratory volume in 1 second (ml)” and asthma indicator by
 town, sex, obesity level, and “smoke_gas_exposure.”</p></li>
 </ol>
-<p>In the case of missing values, impute data using the average within the
-variables “male” and “hispanic.” If you are interested (and feel adventurous)
-in the theme of Data Imputation, take a look at this paper on “Multiple Imputation”
-using the Amelia R package <a href="https://gking.harvard.edu/files/gking/files/amelia_jss.pdf">here</a>.</p>
 </div>
 <div id="looking-at-the-data-eda" class="section level2">
 <h2>Looking at the Data (EDA)</h2>
