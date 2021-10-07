@@ -1,9 +1,10 @@
 ---
 title: "Lab 07 - Web scraping and Regular Expressions"
 output: html_document
+date: 2021-10-07
 ---
 
-```{r setup}
+```{r setup, echo=FALSE}
 knitr::opts_chunk$set(include  = TRUE)
 ```
 
