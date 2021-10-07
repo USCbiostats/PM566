@@ -217,7 +217,7 @@ View [here](https://ghcdn.rawgit.org/:user/:repo/:tag/:file)
 For example, if we wanted to add a direct link the HTML page of lecture 7, we could do something like the following:
 
 ```md
-View [here](https://ghcdn.rawgit.org/USCbiostats/PM566/master/static/slides/07-apis-regex/slides.html)
+View [here](https://ghcdn.rawgit.org/USCbiostats/PM566/master/website/static/slides/07-apis-regex/slides.html) 
 ```
 
 
