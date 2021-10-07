@@ -270,15 +270,15 @@ Notice the `ignore.case = TRUE`. This is equivalent to transforming the text to 
 
 ---
 
-## Regex Lookup text: Gender of the patient
+## Regex Lookup text: Pronoun of the patient
 
-Now, let's try to guess the gender of the patient. To do so, we could tag by
-using the words *he, she, him, her, his, hers* (see [this article on sexist text](https://dictionary.cambridge.org/grammar/british-grammar/sexist-language?q=He%2C+she%2C+him%2C+her%2C+his%2C+hers)):
+Now, let's try to guess the pronoun of the patient. To do so, we could tag by
+using the words *he, his, him, they, them, theirs, ze, hir, hirs, she, hers, her* (see [this article on sexist text](https://dictionary.cambridge.org/grammar/british-grammar/sexist-language?q=He%2C+she%2C+him%2C+her%2C+his%2C+hers)):
 
 ```{r}
-mtsamples[, gender := str_extract(
+mtsamples[, pronoun := str_extract(
   string  = tolower(transcription),
-  pattern = "he|his|him|she|hers|her"
+  pattern = "he|his|him|they|them|theirs|ze|hir|hirs|she|hers|her"
 )]
 ```
 
@@ -286,11 +286,11 @@ What is the problem with this approach?
 
 ---
 
-## Regex Lookup text: Gender of the patient (cont. 1)
+## Regex Lookup text: Pronoun of the patient (cont. 1)
 
 For this we use the following regular expression:
 
-`(?<=\W|^)(he|his|him|she|hers|her)(?=\W|$)`
+`(?<=\W|^)(he|his|him|they|them|theirs|ze|hir|hirs|she|hers|her)(?=\W|$)`
 
 Bit by bit this is:
 
@@ -302,21 +302,20 @@ Bit by bit this is:
     - `\W` any no alpha numeric character, this is equivalent to `[^[:alnum:]]`, `|` or
     - `$` the end of the text.
 
-```{r gender-regex}
-mtsamples[, gender := str_extract(
+```{r pronoun-regex}
+mtsamples[, pronoun := str_extract(
   string  = tolower(transcription), 
-  pattern = "(?<=\\W|^)(he|his|him|she|hers|her)(?=\\W|$)"
+  pattern = "(?<=\\W|^)(he|his|him|they|them|theirs|ze|hir|hirs|she|hers|her)(?=\\W|$)"
   )]
-mtsamples[1:10, gender]
+mtsamples[1:10, pronoun]
 ```
 
 ---
 
-## Regex Lookup text: Gender of the patient (cont. 2)
+## Regex Lookup text: Pronoun of the patient (cont. 2)
 
-```{r gender-regex-cont}
-mtsamples[, female := fifelse(gender %in% c("he", "his", "him"), FALSE, TRUE)]
-mtsamples[, table(gender, female, useNA = "always")]
+```{r Pronoun-regex-cont}
+mtsamples[, table(pronoun, useNA = "always")]
 ```
 
 
@@ -374,7 +373,8 @@ and [`httr`](https://cran.r-project.org/package=httr) R packages.
 We would like to capture the table of COVID-19 death rates per country directly from Wikipedia.
 
 ```{r setup-scrape}
-library(rvest) # This loads the xml2 R package
+library(rvest)
+library(xml2)
 
 # Reading the HTML table with the function xml2::read_html
 covid <- read_html(
@@ -489,7 +489,7 @@ go_query <- GET(
   query = list(
     evidence          = "ECO:0000006",
     relationship_type = "involved_in"
-  ),
+  ), 
   # May need to pass this option to curl to allow to wait for at least
   # 60 seconds before returning error.
   config = config(
@@ -664,7 +664,7 @@ API for "[...] demographic-specific health recommendations" (details at [health.
 
 ```{r health-advice, cache=TRUE}
 health_advises <- GET(
-  url  = "https://health.gov/",
+  url  = "https://health.gov/", 
   path = "myhealthfinder/api/v3/myhealthfinder.json",
   query = list(
     lang = "en",
@@ -700,9 +700,9 @@ health_advises_ans <- content(health_advises)
 
 # Getting the titles
 txt <- with(health_advises_ans$Result$Resources, c(
-  sapply(All$Resource, "[[", "Title"),
-  sapply(Some$Resource, "[[", "Title"),
-  sapply(Interest$Resource, "[[", "Title")
+  sapply(all$Resource, "[[", "Title"),
+  sapply(some$Resource, "[[", "Title"),
+  sapply(`You may also be interested in these health topics:`$Resource, "[[", "Title")
 ))
 cat(txt, sep = "; ")
 ```
