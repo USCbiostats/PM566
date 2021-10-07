@@ -366,6 +366,8 @@ mtsamples[, table(cancer_type)]
 - Under-the-hood, `rvest` is a wrapper of the [`xml2`](https://cran.r-project.org/package=xml2)
 and [`httr`](https://cran.r-project.org/package=httr) R packages.
 
+(in the case of [dynamic websites](https://en.wikipedia.org/wiki/Dynamic_web_page), take a look at [selenium](https://en.wikipedia.org/wiki/Selenium_(software)))
+
 ---
 
 ## Web scraping raw HTML: Example
