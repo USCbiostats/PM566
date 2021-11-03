@@ -7,9 +7,7 @@ date: November 5, 2021
 
 # Setup
 
-DELETE THIS CHUNK
-
-```{r setup}
+```{r setup, include=FALSE}
 knitr::opts_chunk$set(eval = FALSE)
 library(RSQLite)
 library(DBI)

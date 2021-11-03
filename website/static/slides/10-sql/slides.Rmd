@@ -521,3 +521,148 @@ x19
 # clean up
 dbDisconnect(con)
 ```
+
+---
+
+# SQL Joins
+
+Here are the different types of the JOINs in SQL:
+
+- `(INNER) JOIN`: Returns records that have matching values in both tables
+- `LEFT (OUTER)` JOIN: Returns all records from the left table, and the matched records from the right table
+- `RIGHT (OUTER)` JOIN: Returns all records from the right table, and the matched records from the left table
+- `FULL (OUTER)` JOIN: Returns all records when there is a match in either left or right table
+
+---
+
+# SQL Joins (cont.)
+
+<div align="center">
+<img src="https://www.w3schools.com/sql/img_innerjoin.gif">
+<img src="https://www.w3schools.com/sql/img_leftjoin.gif">
+<img src="https://www.w3schools.com/sql/img_rightjoin.gif">
+<img src="https://www.w3schools.com/sql/img_fulljoin.gif">
+</div>
+
+To learn more about joins (and practice), checkout the [W3Schools website](https://www.w3schools.com/sql/sql_join.asp).
+
+---
+
+# SQL Joins with CHS Data
+
+We first start by loading the datasets from https://github.com/USCBiostats/data-science-data
+
+```{r, echo=TRUE}
+# Download
+chs_regional   <- read.csv("https://github.com/USCbiostats/data-science-data/raw/master/01_chs/chs_regional.csv")
+chs_individual <- read.csv("https://github.com/USCbiostats/data-science-data/raw/master/01_chs/chs_individual.csv")
+
+# Dropping some regions
+chs_regional   <- subset(chs_regional, !townname %in% c("Alpine", "Lompoc"))
+chs_individual <- subset(chs_individual, townname != "Lancaster")
+```
+
+---
+
+```{r}
+# Set the dataset
+con <- dbConnect(SQLite(), ":memory:")
+dbWriteTable(con, "regional", chs_regional)
+dbWriteTable(con, "individual", chs_individual)
+```
+
+We now can illustrate the joins
+
+---
+
+## SQL **INNER join** 
+
+<img src="https://www.w3schools.com/sql/img_innerjoin.gif" width="10%">
+
+- `chs_individual` has `r nrow(chs_individual)` rows
+- `chs_regional` has `r nrow(chs_regional)` rows
+
+```{r}
+ans <- dbGetQuery(con,
+  "SELECT * FROM regional AS a
+  INNER JOIN individual AS b 
+  ON a.townname = b.townname
+  ")
+nrow(ans)
+```
+
+---
+
+## SQL **LEFT join** 
+
+<img src="https://www.w3schools.com/sql/img_leftjoin.gif" width="10%">
+
+- `chs_individual` has `r nrow(chs_individual)` rows
+- `chs_regional` has `r nrow(chs_regional)` rows
+
+```{r}
+ans <- dbGetQuery(con,
+  "SELECT * FROM regional AS a
+  LEFT JOIN individual AS b 
+  ON a.townname = b.townname
+  ")
+nrow(ans)
+```
+
+---
+
+## SQL **RIGHT join** 
+
+<img src="https://www.w3schools.com/sql/img_rightjoin.gif" width="10%">
+
+- `chs_individual` has `r nrow(chs_individual)` rows
+- `chs_regional` has `r nrow(chs_regional)` rows
+
+```{r}
+ans <- dbGetQuery(con,
+  "SELECT * FROM individual AS a
+  LEFT JOIN regional   AS b /* RIGHT joins are not supported by SQLite*/
+  ON a.townname = b.townname
+  ")
+nrow(ans)
+```
+
+---
+
+## SQL **FULL join** 
+
+<img src="https://www.w3schools.com/sql/img_fulljoin.gif" width="10%">
+
+- `chs_individual` has `r nrow(chs_individual)` rows
+- `chs_regional` has `r nrow(chs_regional)` rows
+
+```{r, eval = FALSE}
+ans <- dbGetQuery(con,
+  "SELECT * FROM individual AS a
+  FULL JOIN regional   AS b 
+  ON a.townname = b.townname
+  ")
+```
+
+You would get an error: "RIGHT and FULL OUTER JOINS are not currently supported Execution halted
+
+---
+
+## SQL **FULL join** (cont.)
+
+<img src="https://www.w3schools.com/sql/img_fulljoin.gif" width="10%">
+
+- `chs_individual` has `r nrow(chs_individual)` rows
+- `chs_regional` has `r nrow(chs_regional)` rows
+
+```{r, warning=FALSE}
+ans <- dbGetQuery(con,
+  "SELECT * FROM individual AS a LEFT JOIN regional AS b 
+    ON a.townname = b.townname
+  UNION
+  SELECT * FROM regional AS a LEFT JOIN individual AS b 
+    ON a.townname = b.townname
+  ")
+nrow(ans)
+dbDisconnect(con)
+```
