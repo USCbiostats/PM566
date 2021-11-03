@@ -70,7 +70,7 @@ sass(sass_file("theme.sass"), output = "theme.css")
 
 ## Acknowledgment
 
-These slides were originally developed by Meredith Franklin and modified by George G. Vega Yon.
+These slides were originally developed by Meredith Franklin (and Paul Marjoram) and modified by George G. Vega Yon.
 
 ---
 

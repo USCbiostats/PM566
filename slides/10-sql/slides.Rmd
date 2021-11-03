@@ -1,6 +1,6 @@
 ---
 title: "SQL"
-subtitle: "PM566 - Week 10"
+subtitle: "PM566 - Week 11"
 author: "Emil Hvitfeldt<br>(presented by George G Vega Yon)"
 date: ""
 output:
@@ -57,12 +57,12 @@ opts_chunk$set(
   out.width = "700px")
 ```
 
-```{r, echo = FALSE}
+```{r, include=FALSE}
 library(sass)
 sass(sass_file("theme.sass"), output = "theme.css")
 ```
 
-```{css, echo = FALSE}
+```{css, include=FALSE}
 .orange {color: #EF8633}
 ```
 
@@ -76,6 +76,11 @@ con <- dbConnect(SQLite(), ":memory:")
 dbWriteTable(con, "penguins", palmerpenguins::penguins)
 ```
 
+## Acknowledgment
+
+These slides were originally developed by Emil Hvitfeldt and modified by George G. Vega Yon.
+
+---
 
 # Plan for the week
 
@@ -239,7 +244,7 @@ All examples shown with SQLite
 # Pengiuns data
 
 ```{r, echo=FALSE}
-reactable::reactable(palmerpenguins::penguins)
+reactable::reactable(palmerpenguins::penguins, defaultPageSize = 5)
 ```
 
 ---
@@ -526,25 +531,44 @@ dbDisconnect(con)
 
 # SQL Joins
 
-Here are the different types of the JOINs in SQL:
+How do we use multiple tables in a single query? Using JOINs clauses:
 
-- `(INNER) JOIN`: Returns records that have matching values in both tables
-- `LEFT (OUTER)` JOIN: Returns all records from the left table, and the matched records from the right table
-- `RIGHT (OUTER)` JOIN: Returns all records from the right table, and the matched records from the left table
-- `FULL (OUTER)` JOIN: Returns all records when there is a match in either left or right table
-
----
-
-# SQL Joins (cont.)
-
-<div align="center">
-<img src="https://www.w3schools.com/sql/img_innerjoin.gif">
-<img src="https://www.w3schools.com/sql/img_leftjoin.gif">
-<img src="https://www.w3schools.com/sql/img_rightjoin.gif">
-<img src="https://www.w3schools.com/sql/img_fulljoin.gif">
+<div style="font-size: 14pt">
+<ul>
+<li><code>(INNER) JOIN</code>: Returns records that have matching values in both tables</li>
+<li><code>LEFT (OUTER)</code> JOIN: Returns all records from the left table, and the matched records from the right table</li>
+<li><code>RIGHT (OUTER)</code> JOIN: Returns all records from the right table, and the matched records from the left table</li>
+<li><code>FULL (OUTER)</code> JOIN: Returns all records when there is a match in either left or right table</li>
+</ul>
 </div>
 
 To learn more about joins (and practice), checkout the [W3Schools website](https://www.w3schools.com/sql/sql_join.asp).
+
+---
+
+# SQL Joins (cont. 1)
+
+- <img src="https://www.w3schools.com/sql/img_innerjoin.gif">
+  ```r
+  merge(x, y, all.x = FALSE, all.y = FALSE)
+  ```
+- <img src="https://www.w3schools.com/sql/img_leftjoin.gif">
+  ```r
+  merge(x, y, all.x = TRUE, all.y = FALSE)
+  ```
+
+---
+
+# SQL Joins (cont. 2)
+
+- <img src="https://www.w3schools.com/sql/img_rightjoin.gif">
+  ```r
+  merge(x, y, all.x = FALSE, all.y = TRUE)
+  ```
+- <img src="https://www.w3schools.com/sql/img_fulljoin.gif">
+  ```r
+  merge(x, y, all.x = TRUE, all.y = TRUE)
+  ```
 
 ---
 
@@ -577,15 +601,15 @@ We now can illustrate the joins
 
 ## SQL **INNER join** 
 
-<img src="https://www.w3schools.com/sql/img_innerjoin.gif" width="10%">
+<img src="https://www.w3schools.com/sql/img_innerjoin.gif" width="15    %">
 
 - `chs_individual` has `r nrow(chs_individual)` rows
 - `chs_regional` has `r nrow(chs_regional)` rows
 
 ```{r}
 ans <- dbGetQuery(con,
-  "SELECT * FROM regional AS a
-  INNER JOIN individual AS b 
+  "SELECT *
+  FROM regional AS a INNER JOIN individual AS b 
   ON a.townname = b.townname
   ")
 nrow(ans)
@@ -595,17 +619,16 @@ nrow(ans)
 
 ## SQL **LEFT join** 
 
-<img src="https://www.w3schools.com/sql/img_leftjoin.gif" width="10%">
+<img src="https://www.w3schools.com/sql/img_leftjoin.gif" width="15%">
 
 - `chs_individual` has `r nrow(chs_individual)` rows
 - `chs_regional` has `r nrow(chs_regional)` rows
 
 ```{r}
 ans <- dbGetQuery(con,
-  "SELECT * FROM regional AS a
-  LEFT JOIN individual AS b 
-  ON a.townname = b.townname
-  ")
+  "SELECT *
+  FROM regional AS a LEFT JOIN individual AS b 
+  ON a.townname = b.townname")
 nrow(ans)
 ```
 
@@ -613,17 +636,16 @@ nrow(ans)
 
 ## SQL **RIGHT join** 
 
-<img src="https://www.w3schools.com/sql/img_rightjoin.gif" width="10%">
+<img src="https://www.w3schools.com/sql/img_rightjoin.gif" width="15%">
 
 - `chs_individual` has `r nrow(chs_individual)` rows
 - `chs_regional` has `r nrow(chs_regional)` rows
 
 ```{r}
 ans <- dbGetQuery(con,
-  "SELECT * FROM individual AS a
-  LEFT JOIN regional   AS b /* RIGHT joins are not supported by SQLite*/
-  ON a.townname = b.townname
-  ")
+  "SELECT * /* RIGHT joins are not supported by SQLite*/
+  FROM individual AS a LEFT JOIN regional AS b 
+  ON a.townname = b.townname")
 nrow(ans)
 ```
 
@@ -631,17 +653,16 @@ nrow(ans)
 
 ## SQL **FULL join** 
 
-<img src="https://www.w3schools.com/sql/img_fulljoin.gif" width="10%">
+<img src="https://www.w3schools.com/sql/img_fulljoin.gif" width="15%">
 
 - `chs_individual` has `r nrow(chs_individual)` rows
 - `chs_regional` has `r nrow(chs_regional)` rows
 
 ```{r, eval = FALSE}
 ans <- dbGetQuery(con,
-  "SELECT * FROM individual AS a
-  FULL JOIN regional   AS b 
-  ON a.townname = b.townname
-  ")
+  "SELECT *
+  FROM individual AS a FULL JOIN regional AS b 
+  ON a.townname = b.townname")
 ```
 
 You would get an error: "RIGHT and FULL OUTER JOINS are not currently supported Execution halted
@@ -650,7 +671,7 @@ You would get an error: "RIGHT and FULL OUTER JOINS are not currently supported 
 
 ## SQL **FULL join** (cont.)
 
-<img src="https://www.w3schools.com/sql/img_fulljoin.gif" width="10%">
+<img src="https://www.w3schools.com/sql/img_fulljoin.gif" width="15%">
 
 - `chs_individual` has `r nrow(chs_individual)` rows
 - `chs_regional` has `r nrow(chs_regional)` rows
