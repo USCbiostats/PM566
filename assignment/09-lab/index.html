@@ -30,7 +30,7 @@
   
     
   
-  <meta name="description" content="Learning goals In this lab, you are expected to learn/put in practice the following skills:
+  <meta name="description" content="Learning goals In this lab1, you are expected to learn/put in practice the following skills:
  Evaluate whether a problem can be parallelized or not. Practice with the parallel package. Use Rscript to submit jobs Practice your skills with Git.  Problem 1: Think Give yourself a few minutes to think about what you just learned. List three examples of problems that you believe may be solved using parallel computing, and check for packages on the HPC CRAN task view that may be related to it.">
 
   
@@ -237,7 +237,7 @@
   <meta property="og:site_name" content="Introduction to Health Data Science - PM 566">
   <meta property="og:url" content="https://uscbiostats.github.io/PM566/assignment/09-lab/">
   <meta property="og:title" content="Lab 9 - HPC | Introduction to Health Data Science - PM 566">
-  <meta property="og:description" content="Learning goals In this lab, you are expected to learn/put in practice the following skills:
+  <meta property="og:description" content="Learning goals In this lab1, you are expected to learn/put in practice the following skills:
  Evaluate whether a problem can be parallelized or not. Practice with the parallel package. Use Rscript to submit jobs Practice your skills with Git.  Problem 1: Think Give yourself a few minutes to think about what you just learned. List three examples of problems that you believe may be solved using parallel computing, and check for packages on the HPC CRAN task view that may be related to it."><meta property="og:image" content="https://uscbiostats.github.io/PM566/img/social-image.png">
   <meta property="twitter:image" content="https://uscbiostats.github.io/PM566/img/social-image.png"><meta property="og:locale" content="en-us">
   
@@ -513,11 +513,12 @@
 
     <div class="article-style">
       
+<script src="/PM566/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 
 <div id="learning-goals" class="section level1">
 <h1>Learning goals</h1>
-<p>In this lab, you are expected to learn/put in practice the following skills:</p>
+<p>In this lab<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>, you are expected to learn/put in practice the following skills:</p>
 <ul>
 <li>Evaluate whether a problem can be parallelized or not.</li>
 <li>Practice with the parallel package.</li>
@@ -540,8 +541,11 @@ poission with mean <code>lambda</code>.</li>
 </ol>
 <pre class="r"><code>fun1 &lt;- function(n = 100, k = 4, lambda = 4) {
   x &lt;- NULL
+  
   for (i in 1:n)
     x &lt;- rbind(x, rpois(k, lambda))
+  
+  return(x)
 }
 
 fun1alt &lt;- function(n = 100, k = 4, lambda = 4) {
@@ -622,7 +626,7 @@ x &lt;- cbind(rnorm(n)); y &lt;- x*5 + rnorm(n)
 
 # Checking if we get something similar as lm
 ans0 &lt;- confint(lm(y~x))
-ans1 &lt;- my_boot(dat = data.frame(x, y), mi_stat, R = R, ncpus = 2L)
+ans1 &lt;- my_boot(dat = data.frame(x, y), my_stat, R = R, ncpus = 2L)
 
 # You should get something like this
 t(apply(ans1, 2, quantile, c(.025,.975)))
@@ -636,8 +640,8 @@ ans0
 <ol start="2" style="list-style-type: decimal">
 <li>Check whether your version actually goes faster than the non-parallel version:</li>
 </ol>
-<pre class="r"><code>system.time(my_boot(dat = data.frame(x, y), mi_stat, R = 4000, ncpus = 1L))
-system.time(my_boot(dat = data.frame(x, y), mi_stat, R = 4000, ncpus = 2L))</code></pre>
+<pre class="r"><code>system.time(my_boot(dat = data.frame(x, y), my_stat, R = 4000, ncpus = 1L))
+system.time(my_boot(dat = data.frame(x, y), my_stat, R = 4000, ncpus = 2L))</code></pre>
 </div>
 <div id="problem-4-compile-this-markdown-document-using-rscript" class="section level2">
 <h2>Problem 4: Compile this markdown document using Rscript</h2>
@@ -647,6 +651,14 @@ in your terminal:</p>
 <p>Where <code>[full-path-to-your-Rmd-file.Rmd]</code> should be replace with the full path to
 your Rmd file… :).</p>
 </div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>In Fall 2021 we realized there were a couple of typos in the
+pseudo-code, in particular, <code>fun1()</code> was not returning a value and <code>mi_stat</code>
+was replaces with <code>my_stat</code>.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
 
     </div>
