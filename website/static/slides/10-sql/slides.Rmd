@@ -1,7 +1,7 @@
 ---
 title: "SQL"
 subtitle: "PM566 - Week 10"
-author: "Emil Hvitfeldt"
+author: "Emil Hvitfeldt<br>(presented by George G Vega Yon)"
 date: ""
 output:
   xaringan::moon_reader:
@@ -59,7 +59,6 @@ opts_chunk$set(
 
 ```{r, echo = FALSE}
 library(sass)
-library(countdown)
 sass(sass_file("theme.sass"), output = "theme.css")
 ```
 

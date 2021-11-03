@@ -13,7 +13,7 @@ The learning objectives are to conduct data scraping and perform text mining.
 
 ## APIs
 
--   Using the NCBI API, look for papers that show up under the term \"sars-cov-2 trial vaccine." Look for the data in the pubmed database, and then retrieve the details of the paper as shown in lab 7. How many papers were you able to find?
+-   Using the NCBI API, look for papers that show up under the term "sars-cov-2 trial vaccine children." Look for the data in the pubmed database, and then retrieve the details of the paper as shown in lab 7. How many papers were you able to find?
 
 -   Using the list of pubmed ids you retrieved, download each papers' details using the query parameter rettype = abstract. If you get more than 250 ids, just keep the first 250.
 

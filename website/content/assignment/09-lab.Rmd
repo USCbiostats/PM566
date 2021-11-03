@@ -6,7 +6,7 @@ link-citations: yes
 
 # Learning goals
 
-In this lab, you are expected to learn/put in practice the following skills:
+In this lab[^changes], you are expected to learn/put in practice the following skills:
 
 - Evaluate whether a problem can be parallelized or not.
 - Practice with the parallel package.
@@ -30,8 +30,11 @@ poission with mean `lambda`.
 ```{r p2-fun1, eval = FALSE}
 fun1 <- function(n = 100, k = 4, lambda = 4) {
   x <- NULL
+  
   for (i in 1:n)
     x <- rbind(x, rpois(k, lambda))
+  
+  return(x)
 }
 
 fun1alt <- function(n = 100, k = 4, lambda = 4) {
@@ -121,7 +124,7 @@ x <- cbind(rnorm(n)); y <- x*5 + rnorm(n)
 
 # Checking if we get something similar as lm
 ans0 <- confint(lm(y~x))
-ans1 <- my_boot(dat = data.frame(x, y), mi_stat, R = R, ncpus = 2L)
+ans1 <- my_boot(dat = data.frame(x, y), my_stat, R = R, ncpus = 2L)
 
 # You should get something like this
 t(apply(ans1, 2, quantile, c(.025,.975)))
@@ -138,8 +141,8 @@ ans0
 
 
 ```{r benchmark-problem3, eval = FALSE}
-system.time(my_boot(dat = data.frame(x, y), mi_stat, R = 4000, ncpus = 1L))
-system.time(my_boot(dat = data.frame(x, y), mi_stat, R = 4000, ncpus = 2L))
+system.time(my_boot(dat = data.frame(x, y), my_stat, R = 4000, ncpus = 1L))
+system.time(my_boot(dat = data.frame(x, y), my_stat, R = 4000, ncpus = 2L))
 ```
 
 ## Problem 4: Compile this markdown document using Rscript
@@ -153,3 +156,7 @@ Rscript --vanilla -e 'rmarkdown::render("[full-path-to-your-Rmd-file.Rmd]")' &
 
 Where `[full-path-to-your-Rmd-file.Rmd]` should be replace with the full path to
 your Rmd file... :).
+
+[^changes]: In Fall 2021 we realized there were a couple of typos in the 
+pseudo-code, in particular, `fun1()` was not returning a value and `mi_stat`
+was replaces with `my_stat`.

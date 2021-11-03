@@ -2,6 +2,7 @@
 title: "Lab 10 - SQL"
 output: tufte::tufte_html
 link-citations: yes
+date: November 5, 2021
 ---
 
 # Setup
