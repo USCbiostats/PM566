@@ -1,6 +1,6 @@
 ---
-title: "Interactive visualization and effective data communication II"
-date: "2020-11-11"
+title: "Final project workshop: review project progress, preliminary presentations"
+date: "2021-12-03"
 citeproc: false
 bibliography: ../../static/bib/references.bib
 csl: ../../static/bib/chicago-fullnote-bibliography-no-bib.csl
