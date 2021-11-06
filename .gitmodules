@@ -1,3 +1,6 @@
 [submodule "themes/hugo-academic"]
 	path = website/themes/hugo-academic
 	url = https://github.com/gcushen/hugo-academic.git
+[submodule "hugo-academic"]
+	path = hugo-academic
+	url = https://github.com/gcushen/hugo-academic
