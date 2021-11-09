@@ -1,23 +1,22 @@
 # Course Material for PM566
 
-The course website is based off the [course template](https://github.com/kjhealy/course_template) by [Kieran Healy](https://kieranhealy.org/).
-
-The PM566 course webpage is linked at the top of this page.
+The course website is based on the [course template](https://github.com/kjhealy/course_template) by [Kieran Healy](https://kieranhealy.org/).
 
 This skeleton uses the [Academic Hugo theme](https://sourcethemes.com/academic/), with some slight template modifications found in `/assets/` 
-and `layouts/`. The theme is included as a submodule, so when when cloning for the first time, use this command to get the theme too:
-
-    git submodule update --init --recursive
+and `layouts/`.
     
-Then you can use `blogdown::serve_site()` to render the website locally. Remember to run `blogdown::serve_site()` before pushing new changes.
+Then you can use `blogdown::serve_site()` to render the website locally.
+Remember to run `blogdown::serve_site()` before pushing new changes. Make sure you
+run it within the `website` folder.
+
 
 # Adding material
 
-To add material for week X you need to do the following.
+To add material for week "X," you need to do the following.
 
 ## Readings page
 
-Create a file named `0X-reading.Rmd` in the `content/reading/` folder. You can use the following as a starting point:
+Create a file named `0X-reading.Rmd` in the `website/content/reading/` folder. You can use the following as a starting point:
 
 ```
 ---
@@ -34,11 +33,11 @@ csl: ../../static/bib/chicago-fullnote-bibliography-no-bib.csl
 
 ```
 
-This page follows general rmarkdown syntax. You don't need to knit this file as it automatically is knitted each time the website is rendered. Refrain for having long running code in this document. Once you are done with this file, modify `data/schedule.yaml` by adding `reading: "0X-reading"` as the appropriate week.
+This page follows general rmarkdown syntax. You don't need to knit this file as it automatically is knitted each time the website is rendered. Refrain for having long-running code in this document. Once you are done with this file, modify `website/data/schedule.yaml` by adding `reading: "0X-reading"` as the appropriate week.
 
 ## Class page
 
-Create a file named `0X-class.Rmd` in the `content/reading/` folder. You can use the following as a starting point:
+Create a file named `0X-class.Rmd` in the `website/content/reading/` folder. You can use the following as a starting point:
 
 ```
 ---
@@ -91,11 +90,11 @@ to link to your slides follow the folder structure you used to save your slides 
 
 The assignment folder is where we keep all lab exersice, assignment and exam pages.
 
-Create a fil in the `content/assignment/` folder. Prefix it with the week 0X, and append it with something meaningful. `0X-lab.Rmd` for lab exercises, `0X-project.Rmd` for projects etc.
+Create a fil in the `website/content/assignment/` folder. Prefix it with the week 0X, and append it with something meaningful. `0X-lab.Rmd` for lab exercises, `0X-project.Rmd` for projects etc.
 
 The file will be knitted when the website is rendered.
 
-If you want a specific (only one) assignment page to appear on the schedule page you need to modify `data/schedule.yaml` by adding `assignment: "0X-proejct"` as the appropriate week.
+If you want a specific (only one) assignment page to appear on the schedule page you need to modify `website/data/schedule.yaml` by adding `assignment: "0X-proejct"` as the appropriate week.
 
 If you want to refer to an assignment from another page you can write 
 
@@ -110,7 +109,7 @@ To add slides create a folder in the `static/slides` folder with the `0X-somethi
 
 The rmarkdown files in here will NOT be knitted when the website is rendered.
 
-To link to your slides you simply the filepath relative to the `static/` folder. So the `slides.html` file in the `0X-hello/` folder can be linked to by writing
+To link to your slides you simply the filepath relative to the `website/static/` folder. So the `slides.html` file in the `0X-hello/` folder can be linked to by writing
 
 ```
 [link](/slides/0X-hello/slides.html)
