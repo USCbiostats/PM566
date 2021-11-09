@@ -5,12 +5,120 @@
     <link>https://uscbiostats.github.io/PM566/reading/</link>
       <atom:link href="https://uscbiostats.github.io/PM566/reading/index.xml" rel="self" type="application/rss+xml" />
     <description>Reading</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><lastBuildDate>Fri, 27 Aug 2021 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><lastBuildDate>Fri, 03 Dec 2021 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://uscbiostats.github.io/PM566/img/social-image.png</url>
       <title>Reading</title>
       <link>https://uscbiostats.github.io/PM566/reading/</link>
     </image>
+    
+    <item>
+      <title>Final project workshop: review project progress, preliminary presentations</title>
+      <link>https://uscbiostats.github.io/PM566/reading/13-reading/</link>
+      <pubDate>Fri, 03 Dec 2021 00:00:00 +0000</pubDate>
+      <guid>https://uscbiostats.github.io/PM566/reading/13-reading/</guid>
+      <description>
+&lt;script src=&#34;https://uscbiostats.github.io/PM566/PM566/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;div id=&#34;required-reading&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Required reading&lt;/h1&gt;
+&lt;p&gt;To be announced&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;optional-reading&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Optional reading&lt;/h1&gt;
+&lt;p&gt;To be announced&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Interactive visualization and effective data communication II</title>
+      <link>https://uscbiostats.github.io/PM566/reading/12-reading/</link>
+      <pubDate>Fri, 19 Nov 2021 00:00:00 +0000</pubDate>
+      <guid>https://uscbiostats.github.io/PM566/reading/12-reading/</guid>
+      <description>
+&lt;script src=&#34;https://uscbiostats.github.io/PM566/PM566/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;div id=&#34;required-reading&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Required reading&lt;/h1&gt;
+&lt;p&gt;We will be developing a website using rmarkdown’s site generator. Please read:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://bookdown.org/yihui/rmarkdown/&#34;&gt;R Markdown: The Definitive Guide&lt;/a&gt;, Yihui Xie, J. J. Allaire, Garrett Grolemund&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html&#34;&gt;Chapter 10.5: Websites in rmarkdown’s site generator&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;optional-reading&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Optional reading&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;For a helpful tutorial on creating a website using rmarkdown, see: &lt;a href=&#34;https://www.emilyzabor.com/tutorials/rmarkdown_websites_tutorial.html&#34;&gt;Creating websites in R&lt;/a&gt;, Emily C. Zabor&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;For more advanced website creation using &lt;strong&gt;blogdown&lt;/strong&gt; and the website generators &lt;strong&gt;Hugo&lt;/strong&gt; and &lt;strong&gt;Jeckyll&lt;/strong&gt; see&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://bookdown.org/yihui/blogdown/&#34;&gt;Creating websites with R Markdown&lt;/a&gt;, by Yihui Xie, Amber Thomas, Alison Presmanes Hill. &lt;a href=&#34;https://bookdown.org/yihui/blogdown/website-basics.html#website-basics&#34;&gt;Appendix B&lt;/a&gt; presents basic information about websites, such as HTML, CSS, and JavaScript.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://gohugo.io/&#34;&gt;Hugo&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Interactive visualization and effective data communication I</title>
+      <link>https://uscbiostats.github.io/PM566/reading/11-reading/</link>
+      <pubDate>Fri, 12 Nov 2021 00:00:00 +0000</pubDate>
+      <guid>https://uscbiostats.github.io/PM566/reading/11-reading/</guid>
+      <description>
+&lt;script src=&#34;https://uscbiostats.github.io/PM566/PM566/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;div id=&#34;required-reading&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Required reading&lt;/h1&gt;
+&lt;p&gt;You are expected to have read these items before class. Most of these linked sections/chapters are quite short.&lt;/p&gt;
+&lt;div id=&#34;plotly&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Plotly&lt;/h2&gt;
+&lt;p&gt;Please read the following sections of &lt;a href=&#34;https://plotly-r.com/index.html&#34;&gt;Interactive web-based data visualization with R, plotly, and shiny&lt;/a&gt;, by Carson Sievert:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Creating Views (Plotly features): Sections 1-3, 5-7&lt;/li&gt;
+&lt;li&gt;Publishing Views: Sections 9-12&lt;/li&gt;
+&lt;li&gt;Arranging and Animating Views: Sections 13-14&lt;/li&gt;
+&lt;li&gt;Linking Multiple Data Views: Sections 15&lt;/li&gt;
+&lt;li&gt;Server-side linking with Shiny: Section 17&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;shiny&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Shiny&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://shiny.rstudio.com/articles/interactive-docs.html&#34;&gt;Introduction to Interactive Documents&lt;/a&gt;: provides a quick guide to getting started with Shiny.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;dashboards&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Dashboards&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://bookdown.org/yihui/rmarkdown/dashboards.html&#34;&gt;Chapter 5: Dashboards (Layout, Components, Shiny)&lt;/a&gt; from &lt;a href=&#34;https://bookdown.org/yihui/rmarkdown/&#34;&gt;R Markdown: The Definitive Guide&lt;/a&gt;, Yihui Xie, J. J. Allaire, Garrett Grolemund, provides a guide for using &lt;strong&gt;Shiny&lt;/strong&gt; with &lt;strong&gt;flexdashboard&lt;/strong&gt; to create interactive documents from R Markdown&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;optional-reading&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Optional reading&lt;/h1&gt;
+&lt;div id=&#34;interactive-visualization&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Interactive visualization&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;The official &lt;a href=&#34;http://shiny.rstudio.com&#34;&gt;Shiny website&lt;/a&gt; includes extensive articles, tutorials, and examples.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.coursera.org/lecture/data-products/shiny-1-1-xgyMn&#34;&gt;Coursera course on developing data products, sessions on Shiny, GoogleVis, and Plotly&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;data-visualization-best-practices&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Data visualization best practices&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://kieranhealy.org/publications/dataviz/&#34;&gt;Data Visualization: A Practical Introduction&lt;/a&gt;, Kieran Healy&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://serialmentor.com/dataviz/&#34;&gt;Fundamentals of Data Visualization&lt;/a&gt;, Claus O. Wilke&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>Introduction to Data Science tools: R, R Markdown</title>
@@ -50,46 +158,6 @@ The “How to read an R help page” section stops once you reach “A.1.2 The b
       <link>https://uscbiostats.github.io/PM566/reading/14-reading/</link>
       <pubDate>Wed, 18 Nov 2020 00:00:00 +0000</pubDate>
       <guid>https://uscbiostats.github.io/PM566/reading/14-reading/</guid>
-      <description>
-&lt;script src=&#34;https://uscbiostats.github.io/PM566/PM566/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
-
-
-&lt;div id=&#34;required-reading&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;Required reading&lt;/h1&gt;
-&lt;p&gt;To be announced&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;optional-reading&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;Optional reading&lt;/h1&gt;
-&lt;p&gt;To be announced&lt;/p&gt;
-&lt;/div&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Interactive visualization and effective data communication II</title>
-      <link>https://uscbiostats.github.io/PM566/reading/13-reading/</link>
-      <pubDate>Wed, 11 Nov 2020 00:00:00 +0000</pubDate>
-      <guid>https://uscbiostats.github.io/PM566/reading/13-reading/</guid>
-      <description>
-&lt;script src=&#34;https://uscbiostats.github.io/PM566/PM566/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
-
-
-&lt;div id=&#34;required-reading&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;Required reading&lt;/h1&gt;
-&lt;p&gt;To be announced&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;optional-reading&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;Optional reading&lt;/h1&gt;
-&lt;p&gt;To be announced&lt;/p&gt;
-&lt;/div&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Final project workshop: review project progress, preliminary presentations</title>
-      <link>https://uscbiostats.github.io/PM566/reading/12-reading/</link>
-      <pubDate>Wed, 04 Nov 2020 00:00:00 +0000</pubDate>
-      <guid>https://uscbiostats.github.io/PM566/reading/12-reading/</guid>
       <description>
 &lt;script src=&#34;https://uscbiostats.github.io/PM566/PM566/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 

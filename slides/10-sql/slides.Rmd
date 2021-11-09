@@ -687,3 +687,83 @@ ans <- dbGetQuery(con,
 nrow(ans)
 dbDisconnect(con)
 ```
+
+---
+
+## What happens when there are no records matching
+
+Step 1: Let's break things
+
+```{r}
+chs_individual2 <- subset(
+  chs_individual, !(townname %in% chs_regional$townname)
+  )
+
+unique(chs_individual2$townname)
+chs_regional$townname
+
+```
+
+---
+
+Step 2: Rebuild the Database
+
+```{r}
+con <- dbConnect(SQLite(), ":memory:")
+dbWriteTable(con, "regional", chs_regional)
+dbWriteTable(con, "individual", chs_individual2)
+```
+
+What happens now?
+
+---
+
+Re-running the full join, 
+
+- `chs_individual` has `r nrow(chs_individual2)` rows
+- `chs_regional` has `r nrow(chs_regional)` rows
+
+```{r, warning=FALSE}
+ans <- dbGetQuery(con,
+  "SELECT * FROM individual AS a LEFT JOIN regional AS b 
+    ON a.townname = b.townname
+  UNION
+  SELECT * FROM regional AS a LEFT JOIN individual AS b 
+    ON a.townname = b.townname
+  ")
+nrow(ans)
+dbDisconnect(con)
+```
+
+---
+
+What happens when we have multiple matching records in both tables?
+
+```{r, warning=FALSE}
+
+dbWriteTable(con, "regional_dpl", rbind(chs_regional, chs_regional))
+
+nrow(rbind(chs_regional, chs_regional))
+
+ans <- dbGetQuery(con,
+  "SELECT * FROM regional_dpl AS a LEFT JOIN regional_dpl AS b 
+    ON a.townname = b.townname
+  UNION
+  SELECT * FROM regional_dpl AS a LEFT JOIN regional_dpl AS b 
+    ON a.townname = b.townname
+  ")
+nrow(ans)
+```
+
+---
+
+```{r}
+ans <- dbGetQuery(con,
+  "SELECT * FROM regional_dpl AS a INNER JOIN regional_dpl AS b 
+    ON a.townname = b.townname
+  ")
+nrow(ans)
+dbDisconnect(con)
+
+```
+
