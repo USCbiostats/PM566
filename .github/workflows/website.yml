@@ -15,11 +15,11 @@ jobs:
       - name: Container
         run: docker pull ${cntr}
 
-      - name: Submodule
-        run: |
-                cd website
-                git submodule init
-                git submodule update
+        #      - name: Submodule
+        #run: |
+        #        cd website
+        #        git submodule init
+        #        git submodule update
 
       - name: Building website
         run: |
