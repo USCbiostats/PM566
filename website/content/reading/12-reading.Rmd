@@ -12,7 +12,7 @@ We will be developing a website using rmarkdown's site generator. Please read:
 
 - [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/), Yihui Xie, J. J. Allaire, Garrett Grolemund
 
-  - [Chapter 10.5: Websites in rmarkdown’s site generator](https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html)
+- [Chapter 10.5: Websites in rmarkdown’s site generator](https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html)
 
 # Optional reading
 
@@ -20,7 +20,7 @@ We will be developing a website using rmarkdown's site generator. Please read:
   
 - For more advanced website creation using **blogdown** and the website generators **Hugo** and **Jeckyll** see 
 
-  - [Creating websites with R Markdown](https://bookdown.org/yihui/blogdown/), by Yihui Xie, Amber Thomas, Alison Presmanes Hill. [Appendix B](https://bookdown.org/yihui/blogdown/website-basics.html#website-basics) presents basic information about websites, such as HTML, CSS, and JavaScript.
+- [Creating websites with R Markdown](https://bookdown.org/yihui/blogdown/), by Yihui Xie, Amber Thomas, Alison Presmanes Hill. [Appendix B](https://bookdown.org/yihui/blogdown/website-basics.html#website-basics) presents basic information about websites, such as HTML, CSS, and JavaScript.
  
-  - [Hugo](https://gohugo.io/)
+- [Hugo](https://gohugo.io/)
 

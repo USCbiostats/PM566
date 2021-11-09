@@ -7286,12 +7286,12 @@ pre,
 code {
   font-family: "" Source Code Pro ", " Inconsolata ", " Liberation Mono ", Menlo, Courier, monospace", monospace;
   color: #c7254e;
-  background-color: #f9f2f4; }
+  /* Match bg of default highlight theme. */
+  background-color: #f8f8f8; }
 
 pre {
   margin: 0 0 1rem 0;
-  background-color: #f8f8f8;
-  /* Match default highlight theme. */
+  /* Match bg of default highlight theme. */
   border-color: #f8f8f8;
   font-size: 0.7rem;
   border-radius: 4px; }
@@ -7645,6 +7645,36 @@ div.alert a {
   background-color: #fff5f7;
   border-color: #ff3860; }
 
+.svg-icon {
+  display: inline-flex;
+  align-self: center; }
+
+.svg-icon {
+  height: 0.9em;
+  width: 0.9em; }
+
+.svg-icon.svg-baseline {
+  bottom: 0.1em;
+  line-height: 1;
+  position: relative; }
+
+.footer-license-icons {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  list-style: none;
+  height: auto;
+  width: auto;
+  font-size: 0;
+  text-decoration: none; }
+
+.footer-license-icons img {
+  display: inline-flex;
+  margin-right: 8px;
+  height: 22px;
+  vertical-align: text-bottom; }
+
 /*************************************************
  *  Navigation bar
  **************************************************/
@@ -7810,6 +7840,11 @@ ul.nav-icons li.nav-item a.nav-link {
   background: #282a36;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
   border: 1px solid #44475a; }
+
+/* In page listings, display the linked summaries as normal text except for the hover cursor. */
+a.summary-link {
+  color: unset;
+  text-decoration: none; }
 
 .card {
   margin-bottom: 1.5rem;
@@ -8108,6 +8143,11 @@ article .article-metadata {
 
 .article-metadata a:hover {
   color: #098A9C; }
+
+.article-metadata .author-notes {
+  cursor: help;
+  vertical-align: super;
+  font-size: 0.7em; }
 
 .article-categories {
   white-space: nowrap;
@@ -9041,7 +9081,7 @@ body.dark,
   background-color: #44475a; }
 
 .dark pre {
-  background-color: #44475a;
+  /* Match `pre` bg color above. */
   border-color: #44475a; }
 
 .dark .markup-quote {
@@ -9123,6 +9163,12 @@ div.mermaid {
   width: 100%;
   text-align: center;
   margin-bottom: 1rem; }
+
+/*************************************************
+ *  Style for right to left (RTL) languages.
+ **************************************************/
+html[dir="rtl"] body {
+  text-align: right; }
 
 h1, h2 {
   font-weight: 700; }

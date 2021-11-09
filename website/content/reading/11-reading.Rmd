@@ -14,6 +14,7 @@ You are expected to have read these items before class. Most of these linked sec
 
 Please read the following sections of [Interactive web-based data visualization with R, plotly, and shiny](https://plotly-r.com/index.html), by Carson Sievert:
 
+
 - Creating Views (Plotly features): Sections 1-3, 5-7
 - Publishing Views: Sections 9-12
 - Arranging and Animating Views: Sections 13-14
