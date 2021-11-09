@@ -53,9 +53,9 @@
 &lt;h1&gt;Optional reading&lt;/h1&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;For a helpful tutorial on creating a website using rmarkdown, see: &lt;a href=&#34;https://www.emilyzabor.com/tutorials/rmarkdown_websites_tutorial.html&#34;&gt;Creating websites in R&lt;/a&gt;, Emily C. Zabor&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;For more advanced website creation using &lt;strong&gt;blogdown&lt;/strong&gt; and the website generators &lt;strong&gt;Hugo&lt;/strong&gt; and &lt;strong&gt;Jeckyll&lt;/strong&gt; see&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;For more advanced static website creation using &lt;strong&gt;blogdown&lt;/strong&gt; and the website generators &lt;strong&gt;Hugo&lt;/strong&gt; and &lt;strong&gt;Jeckyll&lt;/strong&gt; see&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://bookdown.org/yihui/blogdown/&#34;&gt;Creating websites with R Markdown&lt;/a&gt;, by Yihui Xie, Amber Thomas, Alison Presmanes Hill. &lt;a href=&#34;https://bookdown.org/yihui/blogdown/website-basics.html#website-basics&#34;&gt;Appendix B&lt;/a&gt; presents basic information about websites, such as HTML, CSS, and JavaScript.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://gohugo.io/&#34;&gt;Hugo&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://gohugo.io/&#34;&gt;Hugo&lt;/a&gt; – can explore themes and operate with them using &lt;code&gt;blogdown&lt;/code&gt;.&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 </description>
