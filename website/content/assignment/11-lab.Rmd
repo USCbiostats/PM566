@@ -8,7 +8,20 @@ editor_options:
 always_allow_html: true
 ---
 
+Grab lab file using command line: 
 
+```sh
+# Step 1
+cd ~/Documents
+mkdir lab11
+cd lab11
+
+# Step 2
+wget https://raw.githubusercontent.com/USCbiostats/PM566/master/website/content/assignment/11-lab.Rmd
+
+```
+
+**And remember to set `eval=TRUE`**
 
 ```{r setup, message=FALSE, echo=FALSE, warning=FALSE}
 library(data.table)
