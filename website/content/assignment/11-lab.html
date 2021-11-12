@@ -1,5 +1,6 @@
 ---
 title: "Lab 11 - Interactive Visualization"
+date: "11/12/2021"
 output: html_document
 link-citations: yes
 editor_options: 
@@ -106,6 +107,7 @@ max(cv_states$date)</code></pre>
 <ul>
 <li>Hint: You can set <code>new_cases</code> equal to the difference between cases on date i and date i-1, starting on date i=2</li>
 </ul></li>
+<li><p>Filter to dates after June 1, 2021</p></li>
 <li><p>Use <code>plotly</code> for EDA: See if there are outliers or values that don’t make sense for <code>new_cases</code> and <code>new_deaths</code>. Which states and which dates have strange values?</p></li>
 <li><p>Correct outliers: Set negative values for <code>new_cases</code> or <code>new_deaths</code> to 0</p></li>
 <li><p>Recalculate <code>cases</code> and <code>deaths</code> as cumulative sum of updated <code>new_cases</code> and <code>new_deaths</code></p></li>
@@ -384,7 +386,7 @@ fig &lt;- fig %&gt;% layout(
 fig_pick.date &lt;- fig
 
 #############
-### For Today
+### Map for today&#39;s date
 
 # Extract the data for each state by its abbreviation
 cv_per100 &lt;- cv_states_today %&gt;%  select(state, abb, newper100k, cases, deaths) # select data

@@ -1,5 +1,6 @@
 ---
 title: "Lab 11 - Interactive Visualization"
+date: "11/12/2021"
 output: html_document
 link-citations: yes
 editor_options: 
@@ -128,6 +129,8 @@ max(cv_states$date)
 
 - Add variables for new cases, `new_cases`, and new deaths, `new_deaths`: 
   - Hint: You can set `new_cases` equal to the difference between cases on date i and date i-1, starting on date i=2
+  
+- Filter to dates after June 1, 2021
 
 - Use `plotly` for EDA: See if there are outliers or values that don't make sense for `new_cases` and `new_deaths`. Which states and which dates have strange values?
 
@@ -420,7 +423,7 @@ fig <- fig %>% layout(
 fig_pick.date <- fig
 
 #############
-### For Today
+### Map for today's date
 
 # Extract the data for each state by its abbreviation
 cv_per100 <- cv_states_today %>%  select(state, abb, newper100k, cases, deaths) # select data
