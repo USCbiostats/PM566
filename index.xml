@@ -2954,6 +2954,7 @@ max(cv_states$date)&lt;/code&gt;&lt;/pre&gt;
 &lt;ul&gt;
 &lt;li&gt;Hint: You can set &lt;code&gt;new_cases&lt;/code&gt; equal to the difference between cases on date i and date i-1, starting on date i=2&lt;/li&gt;
 &lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Filter to dates after June 1, 2021&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Use &lt;code&gt;plotly&lt;/code&gt; for EDA: See if there are outliers or values that don’t make sense for &lt;code&gt;new_cases&lt;/code&gt; and &lt;code&gt;new_deaths&lt;/code&gt;. Which states and which dates have strange values?&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Correct outliers: Set negative values for &lt;code&gt;new_cases&lt;/code&gt; or &lt;code&gt;new_deaths&lt;/code&gt; to 0&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Recalculate &lt;code&gt;cases&lt;/code&gt; and &lt;code&gt;deaths&lt;/code&gt; as cumulative sum of updated &lt;code&gt;new_cases&lt;/code&gt; and &lt;code&gt;new_deaths&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
@@ -3232,7 +3233,7 @@ fig &amp;lt;- fig %&amp;gt;% layout(
 fig_pick.date &amp;lt;- fig
 
 #############
-### For Today
+### Map for today&amp;#39;s date
 
 # Extract the data for each state by its abbreviation
 cv_per100 &amp;lt;- cv_states_today %&amp;gt;%  select(state, abb, newper100k, cases, deaths) # select data
