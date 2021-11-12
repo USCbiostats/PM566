@@ -2122,6 +2122,16 @@ subplot(fig_May1, fig_Today)&lt;/code&gt;&lt;/pre&gt;
 &lt;script src=&#34;https://uscbiostats.github.io/PM566/PM566/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 
 
+&lt;p&gt;Grab lab file using command line:&lt;/p&gt;
+&lt;pre class=&#34;sh&#34;&gt;&lt;code&gt;# Step 1
+cd ~/Documents
+mkdir lab11
+cd lab11
+
+# Step 2
+wget https://raw.githubusercontent.com/USCbiostats/PM566/master/website/content/assignment/11-lab.Rmd
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;And remember to set &lt;code&gt;eval=TRUE&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
 &lt;div id=&#34;learning-goals&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Learning Goals&lt;/h1&gt;
 &lt;ul&gt;
