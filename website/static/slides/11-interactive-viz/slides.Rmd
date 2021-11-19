@@ -24,9 +24,10 @@ pre{
   font-size:20px;
 }
 code.r,code.cpp{
-  font-size:large
+  font-size:medium
 }
 </style>
+
 
 
 ```{r, eval=TRUE, include=FALSE}
@@ -34,18 +35,21 @@ library(knitr)
 library(magrittr)
 library(ggplot2)
 # # load required packages
-# if(!require(magrittr)) install.packages("magrittr", repos = "http://cran.us.r-project.org")
-# #if(!require(rvest)) install.packages("rvest", repos = "http://cran.us.r-project.org")
-# #if(!require(readxl)) install.packages("readxl", repos = "http://cran.us.r-project.org")
-# if(!require(dplyr)) install.packages("dplyr", repos = "http://cran.us.r-project.org")
-# #if(!require(maps)) install.packages("maps", repos = "http://cran.us.r-project.org")
-# if(!require(ggplot2)) install.packages("ggplot2", repos = "http://cran.us.r-project.org")
-# #if(!require(reshape2)) install.packages("reshape2", repos = "http://cran.us.r-project.org")
-# #if(!require(ggiraph)) install.packages("ggiraph", repos = "http://cran.us.r-project.org")
-# #if(!require(RColorBrewer)) install.packages("RColorBrewer", repos = "http://cran.us.r-project.org")
-# #if(!require(leaflet)) install.packages("leaflet", repos = "http://cran.us.r-project.org")
-# if(!require(plotly)) install.packages("plotly", repos = "http://cran.us.r-project.org")
-# #if(!require(geojsonio)) install.packages("geojsonio", repos = "http://cran.us.r-project.org")
+if(!require(magrittr)) install.packages("magrittr", repos = "http://cran.us.r-project.org")
+#if(!require(rvest)) install.packages("rvest", repos = "http://cran.us.r-project.org")
+#if(!require(readxl)) install.packages("readxl", repos = "http://cran.us.r-project.org")
+if(!require(dplyr)) install.packages("dplyr", repos = "http://cran.us.r-project.org")
+#if(!require(maps)) install.packages("maps", repos = "http://cran.us.r-project.org")
+if(!require(ggplot2)) install.packages("ggplot2", repos = "http://cran.us.r-project.org")
+#if(!require(reshape2)) install.packages("reshape2", repos = "http://cran.us.r-project.org")
+#if(!require(ggiraph)) install.packages("ggiraph", repos = "http://cran.us.r-project.org")
+#if(!require(RColorBrewer)) install.packages("RColorBrewer", repos = "http://cran.us.r-project.org")
+#if(!require(leaflet)) install.packages("leaflet", repos = "http://cran.us.r-project.org")
+if(!require(plotly)) install.packages("plotly", repos = "http://cran.us.r-project.org")
+#if(!require(geojsonio)) install.packages("geojsonio", repos = "http://cran.us.r-project.org")
+if(!require(here)) install.packages("here", repos = "http://cran.us.r-project.org")
+if(!require(fs)) install.packages("fs", repos = "http://cran.us.r-project.org")
+if(!require(widgetframe)) install.packages("widgetframe", repos = "http://cran.us.r-project.org")
 
 opts_chunk$set(
   warning = FALSE,
@@ -55,6 +59,8 @@ opts_chunk$set(
   fig.align = 'center',
   fig.asp = 0.618, # 1 / phi
   out.width = "700px")
+
+options(htmltools.dir.version = TRUE)
 
 
 ```
@@ -185,22 +191,15 @@ Interactive graphics are well suited to communicating high-dimensional or otherw
 
 ---
 
-# Schedule: 3 Class Sessions on Interactive Visualization 
+# 2 Classes on Interactive Visualization in Data Science
 
-**10/28 (Today)**:
+**11/12 (Today)**:
   - Creating interactive graphs with **plotly** for R package and tables with **DataTable**
 
-**11/04**: 
+**11/19**: 
   - Create a website using RStudio and GitHub Pages
   - Share your interactive graphics
   - Survey other options for sharing interactive graphics (Shiny apps, dashboards)
-
-**11/11**:  
-  1. Guest speakers discussing interactive visualization in practice
-    - [BioRealm.ai](https://www.biorealm.ai/) (data science statistical genetics company)
-    - [NASA JPL](https://www.jpl.nasa.gov/)
-
-  2. Project workshop
 
 ---
 
@@ -216,12 +215,14 @@ Interactive graphics are well suited to communicating high-dimensional or otherw
   </figure>
 </div>
 
-  - Plotly is an open source interactive graphing library creating and sharing interactive graphics
+  - Plotly is an open source library for creating and sharing interactive graphics
 
   - It is powered by the JavaScript graphing library [plotly.js](https://github.com/plotly/plotly.js) and is designed on principles of adding layers
 
   - Plotly can work with several programming languages and applications including R, JavaScript,
 Python, Matlab, and Excel. 
+
+  - Plotly for R graphics are based on the `htmlwidgets` framework, which allows them to work seamlessly inside of larger rmarkdown documents, inside shiny apps, RStudio, Jupyter notebooks, the R prompt, and more.
 
 ---
 
@@ -243,7 +244,7 @@ Python, Matlab, and Excel.
 
 ---
 
-## `plot_ly()`
+## `plot_ly()` function
 
 - The `plot_ly()` function has numerous arguments that are unique to the R package (e.g., `color`, `stroke`, `span`, `symbol`, `linetype`, etc.) and make it easier to encode data variables as visual properties (e.g., color). By default, these arguments map values of a data variable to a visual range defined by the plural form of the argument
 
@@ -270,7 +271,7 @@ Python, Matlab, and Excel.
 
 ## `ggplotly()`
 
-- We also have the option of working with `ggplotly()` function from the **plotly** package, which can translate **ggplot2** to **plotly**. 
+- We also have the option of working with the `ggplotly()` function from the **plotly** package, which can translate **ggplot2** to **plotly**. 
 
 - The essence of this is very straightforward: 
 
@@ -326,7 +327,8 @@ In the lab we will preprocess this data together.
 
 ```{r, eval=TRUE, echo=TRUE, message=FALSE}
 # import data
-cv_states = read.csv("input_data/coronavirus_states.csv")
+
+cv_states = read.csv(path(here("website/static/slides/11-interactive-viz/input_data/coronavirus_states.csv")))
 
 # format the date
 cv_states$date = as.Date(cv_states$date, format="%Y-%m-%d")
@@ -368,8 +370,8 @@ Let's start with a scatterplot of population-normalized (`per100k`) deaths vs. c
 
 - Specify a scatterplot by `type = "scatter"` and `mode = 'markers'`
 - Notice how the arguments for the `x` and `y` variables as specified as formulas, with the tilde operator (`~`)
-- Use `color` to specify an additional data dimension (factor or continuous), each level of which is mapped to a different color (factor or continuous) 
-- Use `colors` is used to specify the range of colors
+- Use `color` to specify an additional data dimension (factor or continuous), and map each level of the dimension to a different color (factor or continuous) 
+- `colors` is used to specify the range of colors
 
 ```{r, eval=FALSE}
 cv_states_today %>% 
@@ -387,13 +389,16 @@ cv_states_today %>%
 ```{r, echo=FALSE, message=FALSE}
 library(plotly)
 library(widgetframe)
-test.widget <- cv_states_today %>% 
+test.widget <- 
+  cv_states_today %>% 
            plot_ly(x = ~deathsper100k, y = ~per100k, 
                    type = 'scatter',
                    mode = 'markers',
                    color = ~state,
                    colors = "Blues")
+#widgetframe::frameWidget(test.widget, width = '75%')
 widgetframe::frameWidget(test.widget, width = '75%')
+
 ```
 
 <br>
@@ -622,7 +627,7 @@ fig <- fig %>% add_fun(function(p) {
 
 ## Annotations
 
-```{r, echo=FALSE, message=FALSE}
+```{r, eval=FALSE, echo=FALSE, message=FALSE}
 p <- ggplot(cv_states_today, aes(x=deathsper100k, y=per100k, size=naive_CFR)) + geom_point() + geom_smooth()
 fig <- p %>%
   ggplotly(layerData = 2, originalData = F) %>%
