@@ -4,6 +4,7 @@
     <title>Interactive Visualization 2: Building Websites</title>
     <meta charset="utf-8" />
     <meta name="author" content="Abigail Horn" />
+    <script src="libs/header-attrs-2.11/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
   </head>
@@ -53,25 +54,20 @@ class: center, middle, title-slide
 
 
 
-# Schedule: 3 Class Sessions on Interactive Visualization 
+# Schedule 
 
-**10/28 Week 11 (Last week)**:
+**11/12 Lecture 11 (Last week)**:
   - Creating interactive graphs with **plotly** for R package and tables with **DataTable**
 
-**11/04 Week 12 (Today)**: 
+**11/19 Lecture 12 (Today)**: 
   - Create a website using R Markdown and GitHub Pages (like [this](https://abigailhorn.github.io/PM566-final-project/)!)
   - Share interactive plots on the website
-  - Survey other options for sharing interactive graphics (Shiny apps, dashboards)
-  - Note: Assignment due (hpc and sql)
+  - Note: [Assignment due (hpc and sql)](/content/assignment/11-hw4.html)
 
-**11/11 Week 13 (Next week)**:  
-  1. Guest speakers discussing interactive visualization in practice
-    - [BioRealm.ai](https://www.biorealm.ai/) (data science statistical genetics company)
-    - [NASA JPL](https://www.jpl.nasa.gov/)
-
-  2. Project workshop
+**11/26 Thanksgiving Holiday**
   
-  - Note: Assignment due (interactive viz I and II)
+**12/3 Lecture 13 Final Project Workshop**
+  - Note: [Assignment due (interactive viz I and II)](/content/assignment/13-hw5.html)
 
 ---
 
@@ -79,7 +75,7 @@ class: center, middle, title-slide
 
 **Last week**:
 
-  - Interactive plots (`Plotly`)
+  - Interactive plots (`plotly`)
   
   - Interactive maps (`plotly`, `Leaflet`)
   
@@ -93,13 +89,14 @@ class: center, middle, title-slide
 
 We will build static websites using R Markdown and GitHub Pages. We will learn how to render text, code, visuals, and interactive visuals (e.g. with **plotly**, **leaflet**, **DT**, etc.) on the website.
   
+
 ---
 
 # Building websites in R Markdown with GitHub Pages
 
 --
 
-To understand how websites are built in R Markdown, we first must understand a bit about how R Markdown documents are rendered, specifically, to produce HTML output.
+To understand how websites are built in R Markdown, we first must understand a bit about &lt;span style="background-color: #B9BFFF"&gt;how R Markdown documents are rendered&lt;/span&gt; to produce HTML output.
 
 It is not essential to understand all the inner workings of this process to be able to create a website. However, it is important to understand which component is responsible for what since this will make it easier to target appropriate help files when you need them!
 
@@ -164,7 +161,17 @@ The workflow in more detail is as follows:
 
 --
 
-Along the way, we add structure and style. A wide range of tools to help us in this process. For creating HTML output, some of these include **cascading style sheets (CSS)** for adding style (e.g., fonts, colors, spacing) to Web documents, raw HTML code, and Pandoc templates. 
+Along the way, we add &lt;span style="background-color: #B9BFFF"&gt;structure and style&lt;/span&gt;. A wide range of tools helps us in this process. For creating HTML output, some of these include *Cascading Style Sheets (CSS)* for adding style (e.g., fonts, colors, spacing) to Web documents, raw HTML code, and Pandoc templates. 
+
+---
+
+## YAML metadata
+
+--
+
+YAML = &lt;s&gt;Yet Another Markup Language&lt;/s&gt; YAML Ain't Markup Language
+
+It is a *serialization language* used as a format for configuration files. *Serialization* is the process of converting an object into a format that can be transmitted or stored, by converting the object series of bits. This series of bits is then read later to reconstruct the object.
 
 ---
 
@@ -188,7 +195,7 @@ The YAML metadata affects the code, content, and the output. It is processed dur
 
 --
 
-- The `title` and `author` fields are processed by Pandoc to set the values of template variables &lt;sup&gt;1&lt;/sup&gt;
+- The `title` and `author` fields are processed by Pandoc to set the values of template variables
 
 - The `output` field is used by **rmarkdown** to apply the output format function `rmarkdown::html_document()` in the rendering process. For creating a website we will need to pass additional arguments to the format that we are specifying in `output`.
 
@@ -205,7 +212,7 @@ Note that not all R Markdown documents are eventually compiled through Pandoc. T
 
 - The **xaringan** package passes the `.md` output to a JavaScript library, which renders the Markdown content in the web browser. All slides for this course have been produced using this package!
 
-- The **blogdown** package supports the `.Rmarkdown` document format, which is knitted to `.markdown`, and this Markdown document is usually rendered to HTML by an external site generator. Using **blogdown** is another way to create a website out of R Markdown (but today we will be focusing on creating websites using **rmarkdown** and Pandoc)
+- The **blogdown** package supports the `.Rmarkdown` document format, which is knitted to `.md`, and this Markdown document is usually rendered to HTML by an external site generator. Using **blogdown** is another way to create a website out of R Markdown (but today we will be focusing on creating websites using **rmarkdown** and Pandoc)
 
 ---
 
@@ -213,7 +220,7 @@ Note that not all R Markdown documents are eventually compiled through Pandoc. T
 
 --
 
-In short, `rmarkdown::render()` = `knitr::knit()` + Pandoc
+In short: `rmarkdown::render()` = `knitr::knit()` + Pandoc
 
 &lt;br&gt;
 
@@ -223,9 +230,104 @@ The YAML metadata in the R Markdown file dictates the process and how the output
 
 &lt;br&gt;
 
---
+---
 
-**We will now explore the additional pieces needed to create a website using R Markdown.**
+
+# Website basics
+
+The most common components of a web page are HTML, CSS, and JavaScript. HTML is relatively simple to learn, but CSS and JavaScript can be much more complicated, depending on how much you want to learn and what you want to do with them.
+
+You don't need to know much of HTML, CSS, or JavaScript to develop a website using R Markdown. If you want to tweak the appearance of your website, you must have some basic knowledge of web development.
+
+
+---
+
+## HTML basics
+
+HTML = Hyper Text Markup Language. It is the language behind most web pages you see.
+
+All elements in HTML are represented by tags. Most HTML tags appear in pairs, with an opening tag and a closing tag, and content is placed between the opening and closing tags, e.g., `&lt;span style="background-color: #B9BFFF"&gt;This is highlighted text&lt;/span&gt;` --&gt; &lt;span style="background-color: #B9BFFF"&gt;This is highlighted text&lt;/span&gt;.
+
+There are a few exceptions, such as the `&lt;img&gt;` tag, which can be closed by a slash / in the opening tag, e.g., `&lt;img src="foo.png" /&gt;`. You can specify attributes of an element in the opening tag using the syntax name=value (a few attributes do not require value).
+
+Basically an HTML document consists a `head` section and `body` section. You can specify the metadata and include assets like CSS files in the head section.
+
+You can use `View -&gt; Developer -&gt; Source` to see HTML source code.
+
+---
+
+## Helpful HTML
+
+Font size and color
+`&lt;font size="3" color="red"&gt;Text here!&lt;/font&gt;`
+
+Columns
+`&lt;div class="col2"&gt; and &lt;/div&gt;`
+
+Centered text
+`&lt;center&gt;**Here the text is centered. Here are good resources:**&lt;/center&gt;`
+
+Small image right-aligned
+`&lt;div align="right"&gt;&lt;img src="images/Rmd_cheatsheet.png" width="150px"&gt;&lt;/div&gt;`
+
+Large image centered:
+`&lt;center&gt;&lt;img src="images/Rmd_cheatsheet.png" width="500px"&gt;&lt;/center&gt;`
+
+---
+
+## CSS basics
+
+
+CSS = Cascading Stylesheets (CSS). It is a language is used to describe the look and formatting of documents written in HTML. it is responsible for the visual style of your site, responsible for components including:
+- color palettes,
+- images,
+- layouts/margins
+- fonts
+
+as well as onteractive components like
+
+- dropdown menus
+- buttons, and
+- forms
+
+There are 3 ways to define styles:
+
+- in-line with HTML 
+- placing a style section in your HTML document
+- define the CSS in an external file that is then referenced as a link in your HTML (most flexible)
+
+
+---
+
+## JavaScript
+
+JavaScript is a programming language (unlike HTML and CSS, which do not contain any programming logic).
+
+It is typically used to manipulate elements on a web page. 
+
+An effective way to learn it is through the JavaScript console in the Developer Tools of your web browser because you can interactively type code in the console and execute it, which feels similar to executing R code in the R console (e.g., in RStudio). You may open any web page in your web browser, then open the JavaScript console, and try the code below on any web page:
+
+```
+document.body.style.background = 'orange';
+```
+
+Which should turn the background orange, unless the page has already defined background colors for certain elements.
+
+To effectively use JavaScript, you have to learn both the basic syntax of JavaScript and how to select elements on a page before you can manipulate them.
+
+Learn more on the blogdown website To effectively use JavaScript, you have to learn both the basic syntax of JavaScript and how to select elements on a page before you can manipulate them.
+
+---
+
+## Website basics: learning more
+
+The best way to learn about what goes into web development: use "Developer Tools", e.g. `View -&gt; Developer` in Google Chrome. Or right click and "inspect".
+
+A brief intro to HTML, CSS, and JavaScript is provided in the [blogdown book](https://bookdown.org/yihui/blogdown/website-basics.html)
+
+You can also learn more at [w3schools](https://www.w3schools.com/) or course StackOverflow!
+
+
 
 ---
 
@@ -237,13 +339,14 @@ The YAML metadata in the R Markdown file dictates the process and how the output
 
 A _dynamic site_ relies on a server-side language to do certain computing and sends potentially different content depending on different conditions. A common language is PHP, and a typical example of a dynamic site is a web forum. For example, each user has a profile page, but typically this does not mean the server has stored a different HTML profile page for every single user. Instead, the server will fetch the user data from a database, and render the profile page dynamically.
 
-A _static site_ often consists of HTML files (with optional external dependencies like images and JavaScript libraries), and the web server sends exactly the same content to the web browser no matter who visits the web pages. There is no dynamic computing on the server when a page is requested. 
+A _static site_ consists of static files such as HTML, CSS, JavaScript, images, etc., and the web server sends exactly the same content to the web browser no matter who visits the web pages. There is no dynamic computing on the server when a page is requested. *It is just one folder of static files.*
+
 
 ---
 
 ## Creating websites through **rmarkdown**
 
-**rmarkdown** has a built-in *static* site generator, which we will be using today. It uses Bootstrap styles and themes (which you can choose from).
+**rmarkdown** has a built-in *static* site generator, which we will be using today. It uses Bootstrap CSS styles and themes (which you can choose from).
 
 --
 
@@ -255,7 +358,7 @@ There are many existing static site generators, including Hugo, Jekyll, and Hexo
 - You are familiar with generating single-page HTML output from R Markdown
 - You want to build a simple website with a few pages
 - It suffices to use a flat directory of `.Rmd` files
-- Don't require features such as forums or RSS feeds
+- You don't require features such as forums or RSS feeds
 
 ---
 
@@ -516,11 +619,24 @@ If you execute the `rmarkdown::render_site()` function from within the directory
 
 **Note**: The `include` and `exclude` fields of `_site.yml` can be used to override this default behavior
 
+
 ---
 
 # Helpful features
 
 ---
+
+## R Markdown website themes
+
+R Markdown makes styling easy for you. The HTML output of R Markdown includes the Bootstrap framework. Bootstrap has multiple themes we can choose from.
+
+We can change the website’s theme in _site.yml. Explore themes [here](https://www.datadreaming.org/post/r-markdown-theme-gallery/#:~:text=There%20are%2012%20additional%20themes,your%20theme%20from%20the%20default%20.)
+
+Valid themes include “default”, “cerulean”, “journal”, “flatly”, “readable”, “spacelab”, “united”, “cosmo”, “lumen”, “paper”, “sandstone”, “simplex”, and “yeti”.
+
+
+---
+
 
 ## R scripts
 
@@ -567,6 +683,13 @@ widgetframe::frameWidget(test.widget, width = '75%')
 
 ---
 
+## Adding dynamic content
+
+To add something dynamic and always changing with external input (like a comment box), you can incorporate an outside commenting system like [Disqus](https://gohugo.io/content-management/comments/). Disqus is a third-party service that provides comment and community capabilities to websites via JavaScript.
+
+
+---
+
 ## knitr caching
 
 If your website is time consuming to render, you may want to enable **knitr**'s caching during the development of the site, so that you can more rapidly preview. To enable caching for an individual chunk, just add the `cache = TRUE` chunk option:
@@ -603,45 +726,40 @@ rmarkdown::clean_site()
 
 ---
 
-## Themes
+## How to help people find your site
 
-The HTML output of R Markdown includes the Bootstrap framework. Bootstrap has multiple themes we can choose from.
+How to help people find your site, i.e. Search Engine Optimization, is the art of making a website easy for search engines like Google to understand. There are multiple books and moreover companies devoted to improving SEO. A few key points:
 
-We can change the website’s theme in _site.yml. Explore themes [here](https://www.datadreaming.org/post/r-markdown-theme-gallery/#:~:text=There%20are%2012%20additional%20themes,your%20theme%20from%20the%20default%20.)
+- The title that you select for each page and post is a very important signal to Google and other search engines telling them what that page is about.
 
-Valid themes include “default”, “cerulean”, “journal”, “flatly”, “readable”, “spacelab”, “united”, “cosmo”, “lumen”, “paper”, “sandstone”, “simplex”, and “yeti”.
+- Description tags are also critical to explain what a page is about. In HTML documents, description tags are one way to provide metadata about the page. You can add a description to your YAML header like:
 
+```
+description: "A brief description of this page that helps SEO find it!.";
+```
 
----
+- URL structure matters.
 
-## Helpful HTML
+A good place to learn more is the Google Search Engine Optimization Starter Guide (http://bit.ly/google-seo-starter)
 
-Font size and color
-`&lt;font size="3" color="red"&gt;Text here!&lt;/font&gt;`
-
-Columns
-`&lt;div class="col2"&gt; and &lt;/div&gt;`
-
-Centered text
-`&lt;center&gt;**Here the text is centered. Here are good resources:**&lt;/center&gt;`
-
-Small image right-aligned
-`&lt;div align="right"&gt;&lt;img src="images/Rmd_cheatsheet.png" width="150px"&gt;&lt;/div&gt;`
-
-Large image centered:
-`&lt;center&gt;&lt;img src="images/Rmd_cheatsheet.png" width="500px"&gt;&lt;/center&gt;`
 
 ---
 
-# Overview: Deploy website through GitHub setup
+# Deploying website
 
-R Markdown websites are static HTML sites that can be deployed to any standard web server. All site content (generated documents and supporting files) are copied into the `_site` directory, so deployment is simply a matter of moving that directory to the appropriate directory of a web server.
+Your static website is basically a folder containing static files. 
+
+All site content (generated documents and supporting files) are copied into the `_site` directory, so deployment is simply a matter of moving that directory to the appropriate directory of a web server, and your website will be up and running shortly. 
+
+The key question is which web server you want to use. 
 
 We will focus on hosting websites through GitHub pages. Hosting websites on GitHub pages is free. We will see how to do this in the lab.
 
-There are other free sites for website hosting, and another popular choice is [Netlify](https://www.netlify.com/).
+There are other free sites for website hosting, and another popular and free choice is [Netlify](https://www.netlify.com/).
 
---
+---
+
+## Deploying website through GitHub pages
 
 The workflow for deploying to GitHub pages is as follows: 
 
@@ -658,14 +776,15 @@ We will overview this in more detail during the lab.
 
 # More advanced website creation options with .Rmd files
 
-**blogdown** package, built on the third-party static website generator Hugo: provides support for developing a website from `.Rmd` files based on Hugo
+**blogdown** package, built on the static website generator Hugo: provides support for developing a website from `.Rmd` files based on Hugo
   
 Benefits of **blogdown**/Hugo combination over **rmarkdown** built in generator: 
 
-- Hugo is a general-purpose site generator that is highly customizable, many themes available
+- Hugo is a general-purpose site generator that is highly customizable
 - Supports more features, e.g. RSS feeds, metadata especially common in blogs such as categories and tags
 - faster to render content
 - extended syntax, which means it is highly suitable for technical writing
+- Many [beautiful themes](https://themes.gohugo.io/) available
 
 &lt;div style="text-align: center;"&gt;
   &lt;a href="https://themes.gohugo.io/"&gt;
@@ -675,9 +794,25 @@ Benefits of **blogdown**/Hugo combination over **rmarkdown** built in generator:
   &lt;figcaption&gt;&lt;b&gt;Window into the themes available from Hugo's website generator&lt;/b&gt;&lt;/figcaption&gt;
 &lt;/div&gt;
 
+---
 
+## Website with Hugo and **blogdown**
 
+Developing a website with Hugo and **blogdown** is not that much more complicated. It uses the following file and folder structure:
 
+- `config.toml`
+- `content/`
+- `static/`
+- `themes/`
+- `layouts/`
+
+You can read more about this in the [**blogdown** book, Chapter 2](https://bookdown.org/yihui/blogdown/hugo.html)
+
+Some example websites using Hugo and **blogdown**:
+- [Malcolm Barrett](https://malco.io/)
+- [Me!](https://abigailhorn.netlify.app/)
+- [Andreas Handel](https://www.andreashandel.com/)
+  - See Andreas' [tutorial](https://www.andreashandel.com/posts/blogdown-website-1/) on creating a Hugo Academic theme website in **blogdown**
 
 
 
@@ -716,7 +851,7 @@ Tutorials on creating a website using R Markdown
 
 #### More advanced website development using R Markdown
 
-- For more advanced website creation using **blogdown** and the website generator Hugo see [Creating websites with R Markdown](https://bookdown.org/yihui/blogdown/)
+- For more advanced website creation using **blogdown** and the website generator Hugo see [Creating websites with R Markdown](https://bookdown.org/yihui/blogdown/). 
 - [Appendix B](https://bookdown.org/yihui/blogdown/website-basics.html#website-basics) of the **blogdown** book presents basic information about websites, such as HTML, CSS, and JavaScript
 - A good resource for further information on customizing CSS and JavaScript is [w3schools](https://www.w3schools.com/w3css/defaulT.asp)
 
@@ -731,7 +866,7 @@ Tutorials on creating a website using R Markdown
 
 This lecture is based on [Chapter 10.5: Websites in rmarkdown’s site generator](https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html) from the book [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/), by Yihui Xie, J. J. Allaire, Garrett Grolemund 
 
-It pulls also from the tutorial [Creating websites in R](https://www.emilyzabor.com/tutorials/rmarkdown_websites_tutorial.html) by Emily C. Zabor
+It pulls also from the tutorial [Creating websites in R](https://www.emilyzabor.com/tutorials/rmarkdown_websites_tutorial.html) by Emily C. Zabor 
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
