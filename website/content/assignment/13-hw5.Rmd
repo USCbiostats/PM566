@@ -5,10 +5,14 @@ output: tufte::tufte_html
 
 ## Due Date
 
-November 11, 2020 by midnight Pacific time.
+December 3, 2021 by midnight Pacific time.
 
 ## Interactive Visualization I and II
 
 1. Using your midterm/final project data, create 3 different interactive visualizations using the tools learned in week 11 class/lab.
 
-2. Include the visualizations created in 1. on your github.io website.
+2. Include the visualizations created in (1) on your final project website hosted on `GitHub Pages`.
+
+3. Rename your final project website by modifying the relevant text in the `.yml` configuration file and the YAML header in the `index.Rmd` file. You may also modify the name of your GitHub repo so that the website url also provides a descriptive name.
+
+**Extra Credit**: Create content across 2 pages on your website. You can use the example content from [Lab 12](https://github.com/AbigailHorn/PM566-final-project) as an example.
