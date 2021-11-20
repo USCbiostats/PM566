@@ -1437,18 +1437,21 @@ jupyter &lt;a href=&#34;https://jupyter.org/install&#34;&gt;here&lt;/a&gt;.&lt;/
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://uscbiostats.github.io/PM566/assignment/13-hw5/</guid>
       <description>
+&lt;script src=&#34;https://uscbiostats.github.io/PM566/PM566/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 
 
 &lt;div id=&#34;due-date&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Due Date&lt;/h2&gt;
-&lt;p&gt;November 11, 2020 by midnight Pacific time.&lt;/p&gt;
+&lt;p&gt;December 3, 2021 by midnight Pacific time.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;interactive-visualization-i-and-ii&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Interactive Visualization I and II&lt;/h2&gt;
 &lt;ol style=&#34;list-style-type: decimal&#34;&gt;
 &lt;li&gt;&lt;p&gt;Using your midterm/final project data, create 3 different interactive visualizations using the tools learned in week 11 class/lab.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Include the visualizations created in 1. on your github.io website.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Include the visualizations created in (1) on your final project website hosted on &lt;code&gt;GitHub Pages&lt;/code&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Rename your final project website by modifying the relevant text in the &lt;code&gt;.yml&lt;/code&gt; configuration file and the YAML header in the &lt;code&gt;index.Rmd&lt;/code&gt; file. You may also modify the name of your GitHub repo so that the website url also provides a descriptive name.&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;Extra Credit&lt;/strong&gt;: Create content across 2 pages on your website. You can use the example content from &lt;a href=&#34;https://github.com/AbigailHorn/PM566-final-project&#34;&gt;Lab 12&lt;/a&gt; as an example.&lt;/p&gt;
 &lt;/div&gt;
 </description>
     </item>
