@@ -19,3 +19,6 @@ To upload materials, take a look at [this guide](adding-materials.md).
 
 The contents of the Fall 2020 version of the class can be found
 [here](https://github.com/USCbiostats/PM566/tree/fall2020).
+
+The contents of the Fall 2021 version of the class can be found
+[here](https://github.com/USCbiostats/PM566/tree/fall2021).

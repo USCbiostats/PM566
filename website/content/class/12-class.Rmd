@@ -24,6 +24,8 @@ editor_options:
 
 Lab is on a website at [this link](https://abigailhorn.github.io/PM566-final-project/12-lab.html)
 
+Test
+
 ## Slides
 
 [link](/PM566/slides/12-interactive-viz2/slides.html)
