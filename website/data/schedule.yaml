@@ -1,7 +1,7 @@
 lessons:
 
   - title: "Introduction to Data Science tools: R, Python, Markdown, Git, command line tools"
-    date: "Week 1 (8/27)"
+    date: "Week 1 (8/24)"
     class: "01-class"
     reading: "01-reading"
     assignment: ""
