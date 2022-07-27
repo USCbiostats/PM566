@@ -60,11 +60,10 @@ library(sass)
 sass(sass_file("theme.sass"), output = "theme.css")
 ```
 
-# Instructors
+# Instructor
 
-- George Gerald Vega Yon
 - Kim Siegmund
-- Abigail Horn
+
 
 
 ---
