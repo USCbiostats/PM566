@@ -1,6 +1,6 @@
 ---
 title: "High performance computing, cloud computing"
-linktitle: "10: HPC"
+linktitle: "09: HPC"
 date: "2021-10-21"
 class_date: "2021-10-21"
 citeproc: false
