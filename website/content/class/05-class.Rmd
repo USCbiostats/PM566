@@ -1,6 +1,6 @@
 ---
 title: "Data cleaning and wrangling"
-linktitle: "05: Data Wrangling"
+linktitle: "5: Data Wrangling"
 date: "2021-01-10"
 class_date: "2021-09-16"
 citeproc: false
