@@ -10,3 +10,5 @@ things <- c(things, path.expand("content/syllabus/index.Rmd"))
 
 build_site(build_rmd = things)
 
+# step 2. run the next command at terminal/console
+# blogdown::serve_site()
