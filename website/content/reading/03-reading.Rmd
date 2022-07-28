@@ -1,6 +1,6 @@
 ---
 title: "Exploratory data analysis"
-date: "2020-09-02"
+date: "2022-09-07"
 citeproc: false
 bibliography: ../../static/bib/references.bib
 csl: ../../static/bib/chicago-fullnote-bibliography-no-bib.csl

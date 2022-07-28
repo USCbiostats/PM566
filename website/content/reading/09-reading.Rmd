@@ -1,6 +1,6 @@
 ---
 title: "High performance computing, cloud computing"
-date: "2020-10-21"
+date: "2022-10-26"
 citeproc: false
 bibliography: ../../static/bib/references.bib
 csl: ../../static/bib/chicago-fullnote-bibliography-no-bib.csl

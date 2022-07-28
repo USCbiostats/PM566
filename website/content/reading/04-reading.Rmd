@@ -1,6 +1,6 @@
 ---
 title: "Data visualization"
-date: "2020-09-09"
+date: "2022-09-14"
 citeproc: false
 bibliography: ../../static/bib/references.bib
 csl: ../../static/bib/chicago-fullnote-bibliography-no-bib.csl
