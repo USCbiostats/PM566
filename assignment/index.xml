@@ -5,12 +5,429 @@
     <link>https://uscbiostats.github.io/PM566/assignment/</link>
       <atom:link href="https://uscbiostats.github.io/PM566/assignment/index.xml" rel="self" type="application/rss+xml" />
     <description>Assignments</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><lastBuildDate>Thu, 07 Oct 2021 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><lastBuildDate>Wed, 16 Nov 2022 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://uscbiostats.github.io/PM566/img/social-image.png</url>
       <title>Assignments</title>
       <link>https://uscbiostats.github.io/PM566/assignment/</link>
     </image>
+    
+    <item>
+      <title>Assignment 05 - Interactive Visualization I and II</title>
+      <link>https://uscbiostats.github.io/PM566/assignment/13-hw5/</link>
+      <pubDate>Wed, 16 Nov 2022 00:00:00 +0000</pubDate>
+      <guid>https://uscbiostats.github.io/PM566/assignment/13-hw5/</guid>
+      <description>
+
+
+&lt;div id=&#34;due-date&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Due Date&lt;/h2&gt;
+&lt;p&gt;This assignment is due by midnight Pacific time, December 2nd, 2022&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;interactive-visualization-i-and-ii&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Interactive Visualization I and II&lt;/h2&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;p&gt;Using your midterm/final project data, create 3 different interactive visualizations using the tools learned in week 11 class/lab.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Include the visualizations created in (1) on your final project website hosted on &lt;code&gt;GitHub Pages&lt;/code&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Rename your final project website by modifying the relevant text in the &lt;code&gt;.yml&lt;/code&gt; configuration file and the YAML header in the &lt;code&gt;index.Rmd&lt;/code&gt; file. You may also modify the name of your GitHub repo so that the website url also provides a descriptive name.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;Extra Credit&lt;/strong&gt;: Create content across 2 pages on your website. You can use the example content from &lt;a href=&#34;https://github.com/AbigailHorn/PM566-final-project&#34;&gt;Lab 12&lt;/a&gt; as an example.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Final Project</title>
+      <link>https://uscbiostats.github.io/PM566/assignment/14-final/</link>
+      <pubDate>Wed, 16 Nov 2022 00:00:00 +0000</pubDate>
+      <guid>https://uscbiostats.github.io/PM566/assignment/14-final/</guid>
+      <description>
+
+
+&lt;div id=&#34;final-project&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Final Project&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Presentation (5 minutes): Wednesday November 30th, 2022&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Written report (single spaced, 6-8 pages where 3-4 pages are tables and figures): Wednesday December 7, 2022&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Learning Objective&lt;/strong&gt;: To apply the skills learned in
+PM 566 by analyzing and interpreting a dataset of your choice.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Narrative&lt;/strong&gt;: Through this project you will launch a
+portfolio of data science projects that will become seminal for your job
+hunt.&lt;/p&gt;
+&lt;p&gt;Using the dataset from your midterm, make sure you have
+formulated a clear and concise question to answer. You will apply the
+skills learned throughout the semester to answer this question.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Deliverables&lt;/strong&gt;: 1) A 5-minute presentation where you
+walk us through your website; 2) A written report with embedded tables
+and figures that is submitted as a PDF to a final project-specific
+github repository &lt;em&gt;and&lt;/em&gt; as a downloadable link on your website.
+Please see the checklist below for additional
+details.&lt;/p&gt;
+&lt;p&gt;The report should have the following sections (elaborate
+from what was written in the midterm):
+&lt;strong&gt;Introduction&lt;/strong&gt; (provide background on your
+dataset and formulated question), &lt;strong&gt;Methods&lt;/strong&gt;
+(include how and where the data were acquired, how you cleaned and
+wrangled the data, what tools you used for data exploration),
+&lt;strong&gt;Results&lt;/strong&gt; (provide final, publication ready
+tables and figures from your analysis, refer to your website if needed),
+and a brief &lt;strong&gt;Conclusion and Summary&lt;/strong&gt; where
+you describe your findings.&lt;/p&gt;
+&lt;p&gt;In your report, please do not include code (so make sure
+&lt;code&gt;echo = FALSE&lt;/code&gt;), unformatted output, or dataset summaries (e.g. output
+from head(), str(), etc.)&lt;/p&gt;
+&lt;div id=&#34;checklist-for-final-project&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Checklist for Final Project&lt;/h2&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;p&gt;&lt;span dir=&#34;ltr&#34;&gt;&lt;strong&gt;Create a website&lt;/strong&gt; (HTML document and all the
+required files, including figures). It should feature:&lt;/span&gt;&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;p&gt;&lt;span dir=&#34;ltr&#34;&gt;A brief description of the project,&lt;/span&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;span dir=&#34;ltr&#34;&gt;Interactive visualizations, also with a
+description so that people can understand what they are
+looking at, and&lt;/span&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;span dir=&#34;ltr&#34;&gt;A link to the PDF version of the actual report
+(i.e. a link to “Download the report.”).&lt;/span&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;span dir=&#34;ltr&#34;&gt;Your home page should feature no more than
+five interactive tables and figures. If you want to include
+more to showcase your skills, we request you do so by adding
+extra pages to the website. We will only evaluate the homepage
+of the website.&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;The actual analysis should be included in the PDF
+report. &lt;strong&gt;The PDF report can refer to visualizations included in the
+website&lt;/strong&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;span dir=&#34;ltr&#34;&gt;&lt;strong&gt;Upload everything&lt;/strong&gt;, source code, website files,
+and PDF report, to the GitHub repository.&lt;/span&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;span dir=&#34;ltr&#34;&gt;Make sure that the &lt;strong&gt;website&lt;/strong&gt;, which is to be
+&lt;strong&gt;hosted in GitHub pages&lt;/strong&gt;, actually &lt;strong&gt;works&lt;/strong&gt;, i.e., figures and
+interactive visualizations are properly rendered when visiting the
+website..&lt;/span&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;span dir=&#34;ltr&#34;&gt;&lt;strong&gt;Have a README.md file&lt;/strong&gt; in the upper level of
+the repository. This file provides general information about the
+project, like title, brief description, etc.&lt;/span&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;span dir=&#34;ltr&#34;&gt;The &lt;strong&gt;README.md file links to the website&lt;/strong&gt;, e.g.
+&lt;a href=&#34;https://username.github.io/pm566-project&#34; class=&#34;uri&#34;&gt;https://username.github.io/pm566-project&lt;/a&gt;, .&lt;/span&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;span dir=&#34;ltr&#34;&gt;Have a &lt;strong&gt;“data” folder&lt;/strong&gt; with either the data or
+instructions about how to acquire it. You should provide the
+instructions in a README.md within that folder.&lt;/span&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;span dir=&#34;ltr&#34;&gt;&lt;strong&gt;(optional)&lt;/strong&gt; Your document is &lt;strong&gt;fully
+reproducible&lt;/strong&gt;, meaning you don’t have paths to files not shared
+in the repository. For example, if you are loading a dataset with
+“fread,” it should be something like
+“fread(“&lt;a href=&#34;https://data.com/dataset.csv&#34; class=&#34;uri&#34;&gt;https://data.com/dataset.csv&lt;/a&gt;”),” so you are directly
+using data online, or “fread(“data/dataset.csv”),” so the data
+needed has been shared on GitHub and is contained in the path
+“data/dataset.csv.”&lt;/span&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Assignment 04 - HPC and SQL</title>
+      <link>https://uscbiostats.github.io/PM566/assignment/11-hw4/</link>
+      <pubDate>Wed, 02 Nov 2022 00:00:00 +0000</pubDate>
+      <guid>https://uscbiostats.github.io/PM566/assignment/11-hw4/</guid>
+      <description>
+
+
+&lt;div id=&#34;due-date&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Due Date&lt;/h2&gt;
+&lt;p&gt;This assignment is due by midnight Pacific time, November 18, 2022&lt;/p&gt;
+&lt;p&gt;The learning objectives are to conduct data scraping and perform text mining.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;hpc&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;HPC&lt;/h2&gt;
+&lt;div id=&#34;problem-1-make-sure-your-code-is-nice&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Problem 1: Make sure your code is nice&lt;/h3&gt;
+&lt;p&gt;Rewrite the following R functions to make them faster. It is OK (and recommended) to take a look at Stackoverflow and Google&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Total row sums
+fun1 &amp;lt;- function(mat) {
+  n &amp;lt;- nrow(mat)
+  ans &amp;lt;- double(n) 
+  for (i in 1:n) {
+    ans[i] &amp;lt;- sum(mat[i, ])
+  }
+  ans
+}
+
+fun1alt &amp;lt;- function(mat) {
+  # YOUR CODE HERE
+}
+
+# Cumulative sum by row
+fun2 &amp;lt;- function(mat) {
+  n &amp;lt;- nrow(mat)
+  k &amp;lt;- ncol(mat)
+  ans &amp;lt;- mat
+  for (i in 1:n) {
+    for (j in 2:k) {
+      ans[i,j] &amp;lt;- mat[i, j] + ans[i, j - 1]
+    }
+  }
+  ans
+}
+
+fun2alt &amp;lt;- function(mat) {
+  # YOUR CODE HERE
+}
+
+
+# Use the data with this code
+set.seed(2315)
+dat &amp;lt;- matrix(rnorm(200 * 100), nrow = 200)
+
+# Test for the first
+microbenchmark::microbenchmark(
+  fun1(dat),
+  fun1alt(dat), unit = &amp;quot;relative&amp;quot;, check = &amp;quot;equivalent&amp;quot;
+)
+
+# Test for the second
+microbenchmark::microbenchmark(
+  fun2(dat),
+  fun2alt(dat), unit = &amp;quot;relative&amp;quot;, check = &amp;quot;equivalent&amp;quot;
+)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The last argument, check = “equivalent”, is included to make sure that the functions return the same result.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;problem-2-make-things-run-faster-with-parallel-computing&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Problem 2: Make things run faster with parallel computing&lt;/h3&gt;
+&lt;p&gt;The following function allows simulating PI&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;sim_pi &amp;lt;- function(n = 1000, i = NULL) {
+  p &amp;lt;- matrix(runif(n*2), ncol = 2)
+  mean(rowSums(p^2) &amp;lt; 1) * 4
+}
+
+# Here is an example of the run
+set.seed(156)
+sim_pi(1000) # 3.132&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In order to get accurate estimates, we can run this function multiple times, with the following code:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# This runs the simulation a 4,000 times, each with 10,000 points
+set.seed(1231)
+system.time({
+  ans &amp;lt;- unlist(lapply(1:4000, sim_pi, n = 10000))
+  print(mean(ans))
+})&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Rewrite the previous code using &lt;code&gt;parLapply()&lt;/code&gt; to make it run faster. Make sure you set the seed using &lt;code&gt;clusterSetRNGStream()&lt;/code&gt;:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# YOUR CODE HERE
+system.time({
+  # YOUR CODE HERE
+  ans &amp;lt;- # YOUR CODE HERE
+  print(mean(ans))
+  # YOUR CODE HERE
+})&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;sql&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;SQL&lt;/h2&gt;
+&lt;p&gt;Setup a temporary database by running the following chunk&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# install.packages(c(&amp;quot;RSQLite&amp;quot;, &amp;quot;DBI&amp;quot;))
+
+library(RSQLite)
+library(DBI)
+
+# Initialize a temporary in memory database
+con &amp;lt;- dbConnect(SQLite(), &amp;quot;:memory:&amp;quot;)
+
+# Download tables
+film &amp;lt;- read.csv(&amp;quot;https://raw.githubusercontent.com/ivanceras/sakila/master/csv-sakila-db/film.csv&amp;quot;)
+film_category &amp;lt;- read.csv(&amp;quot;https://raw.githubusercontent.com/ivanceras/sakila/master/csv-sakila-db/film_category.csv&amp;quot;)
+category &amp;lt;- read.csv(&amp;quot;https://raw.githubusercontent.com/ivanceras/sakila/master/csv-sakila-db/category.csv&amp;quot;)
+
+# Copy data.frames to database
+dbWriteTable(con, &amp;quot;film&amp;quot;, film)
+dbWriteTable(con, &amp;quot;film_category&amp;quot;, film_category)
+dbWriteTable(con, &amp;quot;category&amp;quot;, category)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;When you write a new chunk, remember to replace the &lt;code&gt;r&lt;/code&gt; with &lt;code&gt;sql, connection=con&lt;/code&gt;. Some of these questions will reqruire you to use an inner join. Read more about them here &lt;a href=&#34;https://www.w3schools.com/sql/sql_join_inner.asp&#34; class=&#34;uri&#34;&gt;https://www.w3schools.com/sql/sql_join_inner.asp&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;question-1&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Question 1&lt;/h2&gt;
+&lt;p&gt;How many many movies is there avaliable in each &lt;code&gt;rating&lt;/code&gt; catagory.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;question-2&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Question 2&lt;/h2&gt;
+&lt;p&gt;What is the average replacement cost and rental rate for each &lt;code&gt;rating&lt;/code&gt; category.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;question-3&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Question 3&lt;/h2&gt;
+&lt;p&gt;Use table &lt;code&gt;film_category&lt;/code&gt; together with &lt;code&gt;film&lt;/code&gt; to find the how many films there are witth each category ID&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;question-4&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Question 4&lt;/h2&gt;
+&lt;p&gt;Incorporate table &lt;code&gt;category&lt;/code&gt; into the answer to the previous question to find the name of the most popular category.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Assignment 03 - Web Scraping and Text Mining</title>
+      <link>https://uscbiostats.github.io/PM566/assignment/09-hw3/</link>
+      <pubDate>Wed, 05 Oct 2022 00:00:00 +0000</pubDate>
+      <guid>https://uscbiostats.github.io/PM566/assignment/09-hw3/</guid>
+      <description>
+
+
+&lt;div id=&#34;due-date&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Due Date&lt;/h2&gt;
+&lt;p&gt;This assignment is due by midnight Pacific time, November 2, 2022&lt;/p&gt;
+&lt;p&gt;The learning objectives are to conduct data scraping and perform text mining.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;apis&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;APIs&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Using the NCBI API, look for papers that show up under the term “sars-cov-2 trial vaccine.” Look for the data in the pubmed database, and then retrieve the details of the paper as shown in lab 7. How many papers were you able to find?&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Using the list of pubmed ids you retrieved, download each papers’ details using the query parameter rettype = abstract. If you get more than 250 ids, just keep the first 250.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;As we did in lab 7. Create a dataset containing the following:&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Pubmed ID number,&lt;/li&gt;
+&lt;li&gt;Title of the paper,&lt;/li&gt;
+&lt;li&gt;Name of the journal where it was published,&lt;/li&gt;
+&lt;li&gt;Publication date, and&lt;/li&gt;
+&lt;li&gt;Abstract of the paper (if any).&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;text-mining&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Text Mining&lt;/h2&gt;
+&lt;p&gt;A new dataset has been added to the data science data repository &lt;a href=&#34;https://github.com/USCbiostats/data-science-data/tree/master/03_pubmed&#34; class=&#34;uri&#34;&gt;https://github.com/USCbiostats/data-science-data/tree/master/03_pubmed&lt;/a&gt;. The dataset contains 3241 abstracts from articles across 5 search terms. Your job is to analyse these abstracts to find interesting insights.&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Tokenize the abstracts and count the number of each token. Do you see anything interesting? Does removing stop words change what tokens appear as the most frequent? What are the 5 most common tokens for each search term after removing stopwords?&lt;/li&gt;
+&lt;li&gt;Tokenize the abstracts into bigrams. Find the 10 most common bigram and visualize them with ggplot2.&lt;/li&gt;
+&lt;li&gt;Calculate the TF-IDF value for each word-search term combination. (here you want the search term to be the “document”) What are the 5 tokens from each search term with the highest TF-IDF value? How are the results different from the answers you got in question 1?&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Midterm Exam/Project</title>
+      <link>https://uscbiostats.github.io/PM566/assignment/08-midterm/</link>
+      <pubDate>Wed, 05 Oct 2022 00:00:00 +0000</pubDate>
+      <guid>https://uscbiostats.github.io/PM566/assignment/08-midterm/</guid>
+      <description>
+
+
+&lt;p&gt;Due Sunday, October 23rd, 2022 by midnight Pacific time&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Learning Objective&lt;/strong&gt; To apply the skills learned in PM 566 (up to Oct 5th) by analyzing and interpreting a dataset of your choice.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Narrative&lt;/strong&gt; Through this project you will launch a portfolio of data science projects that will become seminal for your job hunt. This midterm is a stepping stone for the final project.
+The first step in any data analysis is to have a dataset for which you have formulated an interesting question. If you do not have a dataset to work with, you may choose one from our &lt;a href=&#34;https://uscbiostats.github.io/PM566/PM566/reference/#data&#34;&gt;list of suggestions&lt;/a&gt;. With your dataset, formulate a clear and concise question to answer and conduct data wrangling, exploratory data analysis, and data visualization to explore/answer this question.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Deliverable&lt;/strong&gt;: A knitted R markdown &lt;em&gt;written report&lt;/em&gt; (.html) with embedded tables and figures that is submitted to a project-specific github repository that you create. The report should have the following sections: Introduction (provide background on your dataset and formulated question), Methods (include how and where the data were acquired, how you cleaned and wrangled the data, what tools you used for data exploration), Preliminary Results (provide summary statistics in tabular form and publication-quality figures, take a look at the kable function from knitr to write nice tables in Rmarkdown), and a brief Conclusion about what you found in terms of the formulated question.&lt;/p&gt;
+&lt;p&gt;In your report, please do not include unformatted output or dataset summaries (e.g. output from head(), str(), etc.). You should summarize these aspects of your data within the text.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Assignment 02 - Data Viz and Wrangling</title>
+      <link>https://uscbiostats.github.io/PM566/assignment/05-hw2/</link>
+      <pubDate>Wed, 14 Sep 2022 00:00:00 +0000</pubDate>
+      <guid>https://uscbiostats.github.io/PM566/assignment/05-hw2/</guid>
+      <description>
+
+
+&lt;div id=&#34;due-date&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Due Date&lt;/h2&gt;
+&lt;p&gt;This assignment is due by midnight Pacific time, October 7th, 2022&lt;/p&gt;
+&lt;p&gt;For this assignment, we will be analyzing data from USC’s Children’s Health Study.
+The learning objectives are to conduct data wrangling and visualize the data with key questions in mind.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;data-wrangling&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Data Wrangling&lt;/h2&gt;
+&lt;p&gt;You will need to download two datasets from &lt;a href=&#34;https://github.com/USCbiostats/data-science-data&#34; class=&#34;uri&#34;&gt;https://github.com/USCbiostats/data-science-data&lt;/a&gt;. The &lt;a href=&#34;https://raw.githubusercontent.com/USCbiostats/data-science-data/master/01_chs/chs_individual.csv&#34;&gt;individual&lt;/a&gt;
+and &lt;a href=&#34;https://raw.githubusercontent.com/USCbiostats/data-science-data/master/01_chs/chs_regional.csv&#34;&gt;regional&lt;/a&gt;
+CHS datasets in &lt;code&gt;01_chs&lt;/code&gt;.
+The individual data includes personal and health characteristics of children in
+12 communities across Southern California. The regional data include air quality
+measurements at the community level.
+Once downloaded, you can merge these datasets using the location variable. Once
+combined, you will need to do the following:&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;p&gt;After merging the data, make sure you don’t have any duplicates by counting
+the number of rows. Make sure it matches.&lt;/p&gt;
+&lt;p&gt;In the case of missing values, impute data using the average within the
+variables “male” and “hispanic.” If you are interested (and feel adventurous)
+in the theme of Data Imputation, take a look at this paper on “Multiple Imputation”
+using the Amelia R package &lt;a href=&#34;https://gking.harvard.edu/files/gking/files/amelia_jss.pdf&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Create a new categorical variable named “obesity_level” using the BMI measurement
+(underweight BMI&amp;lt;14; normal BMI 14-22; overweight BMI 22-24; obese BMI&amp;gt;24).
+To make sure the variable is rightly coded, create a summary table that contains
+the minimum BMI, maximum BMI, and the total number of observations per category.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Create another categorical variable named “smoke_gas_exposure” that summarizes
+“Second Hand Smoke” and “Gas Stove.” The variable should have four categories
+in total.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Create four summary tables showing the average (or proportion, if binary) and
+sd of “Forced expiratory volume in 1 second (ml)” and asthma indicator by
+town, sex, obesity level, and “smoke_gas_exposure.”&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div id=&#34;looking-at-the-data-eda&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Looking at the Data (EDA)&lt;/h2&gt;
+&lt;p&gt;The primary questions of interest are:
+1. What is the association between BMI and FEV (forced expiratory volume)?
+2. What is the association between smoke and gas exposure and FEV?
+3. What is the association between PM2.5 exposure and FEV?&lt;/p&gt;
+&lt;p&gt;Follow the EDA checklist from week 3 and the previous assignment. Be sure to focus on the key variables.
+Visualization
+Create the following figures and interpret them. Be sure to include easily understandable axes, titles, and legends.&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Facet plot showing scatterplots with regression lines of BMI vs FEV by “townname”.&lt;/li&gt;
+&lt;li&gt;Stacked histograms of FEV by BMI category and FEV by smoke/gas exposure. Use different color schemes than the ggplot default.&lt;/li&gt;
+&lt;li&gt;Barchart of BMI by smoke/gas exposure.&lt;/li&gt;
+&lt;li&gt;Statistical summary graphs of FEV by BMI and FEV by smoke/gas exposure category.&lt;/li&gt;
+&lt;li&gt;A leaflet map showing the concentrations of PM2.5 mass in each of the CHS communities.&lt;/li&gt;
+&lt;li&gt;Choose a visualization to examine whether PM2.5 mass is associated with FEV.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Assignment 01 - Exploratory Data Analysis</title>
+      <link>https://uscbiostats.github.io/PM566/assignment/03-hw1/</link>
+      <pubDate>Wed, 07 Sep 2022 00:00:00 +0000</pubDate>
+      <guid>https://uscbiostats.github.io/PM566/assignment/03-hw1/</guid>
+      <description>
+
+
+&lt;div id=&#34;due-date&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Due Date&lt;/h1&gt;
+&lt;p&gt;This assignment is due by midnight Pacific time September 23rd, 2022&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;learning-goals&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Learning Goals&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;Download, read, and get familiar with an external dataset.&lt;/li&gt;
+&lt;li&gt;Step through the EDA “checklist” presented in class&lt;/li&gt;
+&lt;li&gt;Practice making exploratory plots&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;assignment-description&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Assignment Description&lt;/h1&gt;
+&lt;p&gt;We will work with air pollution data from the U.S. Environmental Protection Agency (EPA). The EPA has a national monitoring network of air pollution sites that The primary question you will answer is whether daily concentrations of PM&lt;span class=&#34;math inline&#34;&gt;\(_{2.5}\)&lt;/span&gt; (particulate matter air pollution with aerodynamic diameter less than 2.5 &lt;span class=&#34;math inline&#34;&gt;\(\mu\)&lt;/span&gt;m) have decreased in California over the last 15 years (from 2004 to 2019).&lt;/p&gt;
+&lt;p&gt;A primer on particulate matter air pollution can be found &lt;a href=&#34;https://www.epa.gov/pm-pollution/particulate-matter-pm-basics&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Your assignment should be completed in R markdown.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;steps&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Steps&lt;/h1&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;p&gt;Given the formulated question from the assignment description, you will now conduct EDA Checklist items 2-4. First, download 2004 and 2019 data for all sites in California from the &lt;a href=&#34;https://www.epa.gov/outdoor-air-quality-data/download-daily-data&#34;&gt;EPA Air Quality Data website&lt;/a&gt;. Read in the data using data.table(). For each of the two datasets, check the dimensions, headers, footers, variable names and variable types. Check for any data issues, particularly in the key variable we are analyzing. Make sure you write up a summary of all of your findings.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Combine the two years of data into one data frame. Use the Date variable to create a new column for year, which will serve as an identifier. Change the names of the key variables so that they are easier to refer to in your code.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Create a basic map in leaflet() that shows the locations of the sites (make sure to use different colors for each year). Summarize the spatial distribution of the monitoring sites.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Check for any missing or implausible values of PM&lt;span class=&#34;math inline&#34;&gt;\(_{2.5}\)&lt;/span&gt; in the combined dataset. Explore the proportions of each and provide a summary of any temporal patterns you see in these observations.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Explore the main question of interest at three different spatial levels. Create exploratory plots (e.g. boxplots, histograms, line plots) and summary statistics that best suit each level of data. Be sure to write up explanations of what you observe in these data.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;state&lt;/li&gt;
+&lt;li&gt;county&lt;/li&gt;
+&lt;li&gt;site in Los Angeles&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr /&gt;
+&lt;p&gt;This homework has been adapted from the &lt;a href=&#34;https://bookdown.org/rdpeng/exdata/data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html&#34;&gt;case study&lt;/a&gt; in Roger Peng’s &lt;a href=&#34;https://bookdown.org/rdpeng/exdata/&#34;&gt;Exploratory Data Analysis with R&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>Lab 07 - Web scraping and Regular Expressions</title>
@@ -181,24 +598,6 @@ knitr::kable(database)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;md&#34;&gt;&lt;code&gt;View [here](https://ghcdn.rawgit.org/USCbiostats/PM566/master/website/static/slides/07-apis-regex/slides.html) &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Midterm Exam/Project</title>
-      <link>https://uscbiostats.github.io/PM566/assignment/08-midterm/</link>
-      <pubDate>Tue, 05 Oct 2021 00:00:00 +0000</pubDate>
-      <guid>https://uscbiostats.github.io/PM566/assignment/08-midterm/</guid>
-      <description>
-&lt;script src=&#34;https://uscbiostats.github.io/PM566/PM566/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
-
-
-&lt;p&gt;Due Sunday, October 24th, 2021 by midnight Pacific time&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Learning Objective&lt;/strong&gt; To apply the skills learned in PM 566 (up to Oct 8th) by analyzing and interpreting a dataset of your choice.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Narrative&lt;/strong&gt; Through this project you will launch a portfolio of data science projects that will become seminal for your job hunt. This midterm is a stepping stone for the final project.
-The first step in any data analysis is to have a dataset for which you have formulated an interesting question. If you do not have a dataset to work with, you may choose one from our &lt;a href=&#34;https://uscbiostats.github.io/PM566/PM566/reference/#data&#34;&gt;list of suggestions&lt;/a&gt;. With your dataset, formulate a clear and concise question to answer and conduct data wrangling, exploratory data analysis, and data visualization to explore/answer this question.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Deliverable&lt;/strong&gt;: A knitted R markdown &lt;em&gt;written report&lt;/em&gt; (.html) with embedded tables and figures that is submitted to a project-specific github repository that you create. The report should have the following sections: Introduction (provide background on your dataset and formulated question), Methods (include how and where the data were acquired, how you cleaned and wrangled the data, what tools you used for data exploration), Preliminary Results (provide summary statistics in tabular form and publication-quality figures, take a look at the kable function from knitr to write nice tables in Rmarkdown), and a brief Conclusion about what you found in terms of the formulated question.&lt;/p&gt;
-&lt;p&gt;In your report, please do not include unformatted output or dataset summaries (e.g. output from head(), str(), etc.). You should summarize these aspects of your data within the text.&lt;/p&gt;
 </description>
     </item>
     
@@ -400,412 +799,6 @@ met &amp;lt;- data.table::fread(&amp;quot;met_all.gz&amp;quot;)&lt;/code&gt;&lt;
 &lt;li&gt;Pick and extension (except cowplot) from &lt;a href=&#34;https://exts.ggplot2.tidyverse.org/gallery/&#34;&gt;here&lt;/a&gt; and make a plot of your choice using the met data (or met_avg)&lt;/li&gt;
 &lt;li&gt;Might want to try examples that come with the extension first (e.g. ggtech, gganimate, ggforce)&lt;/li&gt;
 &lt;/ul&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Assignment 01 - Exploratory Data Analysis</title>
-      <link>https://uscbiostats.github.io/PM566/assignment/03-hw1/</link>
-      <pubDate>Fri, 10 Sep 2021 00:00:00 +0000</pubDate>
-      <guid>https://uscbiostats.github.io/PM566/assignment/03-hw1/</guid>
-      <description>
-&lt;script src=&#34;https://uscbiostats.github.io/PM566/PM566/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
-
-
-&lt;div id=&#34;due-date&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;Due Date&lt;/h1&gt;
-&lt;p&gt;This assignment is due at the end of the day September 24th, 2021&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;learning-goals&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;Learning Goals&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;Download, read, and get familiar with an external dataset.&lt;/li&gt;
-&lt;li&gt;Step through the EDA “checklist” presented in class&lt;/li&gt;
-&lt;li&gt;Practice making exploratory plots&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;div id=&#34;assignment-description&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;Assignment Description&lt;/h1&gt;
-&lt;p&gt;We will work with air pollution data from the U.S. Environmental Protection Agency (EPA). The EPA has a national monitoring network of air pollution sites that The primary question you will answer is whether daily concentrations of PM&lt;span class=&#34;math inline&#34;&gt;\(_{2.5}\)&lt;/span&gt; (particulate matter air pollution with aerodynamic diameter less than 2.5 &lt;span class=&#34;math inline&#34;&gt;\(\mu\)&lt;/span&gt;m) have decreased in California over the last 15 years (from 2004 to 2019).&lt;/p&gt;
-&lt;p&gt;A primer on particulate matter air pollution can be found &lt;a href=&#34;https://www.epa.gov/pm-pollution/particulate-matter-pm-basics&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Your assignment should be completed in R markdown.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;steps&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;Steps&lt;/h1&gt;
-&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
-&lt;li&gt;&lt;p&gt;Given the formulated question from the assignment description, you will now conduct EDA Checklist items 2-4. First, download 2004 and 2019 data for all sites in California from the &lt;a href=&#34;https://www.epa.gov/outdoor-air-quality-data/download-daily-data&#34;&gt;EPA Air Quality Data website&lt;/a&gt;. Read in the data using data.table(). For each of the two datasets, check the dimensions, headers, footers, variable names and variable types. Check for any data issues, particularly in the key variable we are analyzing. Make sure you write up a summary of all of your findings.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Combine the two years of data into one data frame. Use the Date variable to create a new column for year, which will serve as an identifier. Change the names of the key variables so that they are easier to refer to in your code.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Create a basic map in leaflet() that shows the locations of the sites (make sure to use different colors for each year). Summarize the spatial distribution of the monitoring sites.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Check for any missing or implausible values of PM&lt;span class=&#34;math inline&#34;&gt;\(_{2.5}\)&lt;/span&gt; in the combined dataset. Explore the proportions of each and provide a summary of any temporal patterns you see in these observations.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Explore the main question of interest at three different spatial levels. Create exploratory plots (e.g. boxplots, histograms, line plots) and summary statistics that best suit each level of data. Be sure to write up explanations of what you observe in these data.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;state&lt;/li&gt;
-&lt;li&gt;county&lt;/li&gt;
-&lt;li&gt;site in Los Angeles&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;hr /&gt;
-&lt;p&gt;This homework has been adapted from the &lt;a href=&#34;https://bookdown.org/rdpeng/exdata/data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html&#34;&gt;case study&lt;/a&gt; in Roger Peng’s &lt;a href=&#34;https://bookdown.org/rdpeng/exdata/&#34;&gt;Exploratory Data Analysis with R&lt;/a&gt;&lt;/p&gt;
-&lt;/div&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Assignment 02 - Data Viz and Wrangling</title>
-      <link>https://uscbiostats.github.io/PM566/assignment/05-hw2/</link>
-      <pubDate>Fri, 10 Sep 2021 00:00:00 +0000</pubDate>
-      <guid>https://uscbiostats.github.io/PM566/assignment/05-hw2/</guid>
-      <description>
-&lt;script src=&#34;https://uscbiostats.github.io/PM566/PM566/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
-
-
-&lt;div id=&#34;due-date&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Due Date&lt;/h2&gt;
-&lt;p&gt;October 8, 2021 by midnight Pacific time.&lt;/p&gt;
-&lt;p&gt;For this assignment, we will be analyzing data from USC’s Children’s Health Study.
-The learning objectives are to conduct data wrangling and visualize the data with key questions in mind.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;data-wrangling&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Data Wrangling&lt;/h2&gt;
-&lt;p&gt;You will need to download two datasets from &lt;a href=&#34;https://github.com/USCbiostats/data-science-data&#34; class=&#34;uri&#34;&gt;https://github.com/USCbiostats/data-science-data&lt;/a&gt;. The &lt;a href=&#34;https://raw.githubusercontent.com/USCbiostats/data-science-data/master/01_chs/chs_individual.csv&#34;&gt;individual&lt;/a&gt;
-and &lt;a href=&#34;https://raw.githubusercontent.com/USCbiostats/data-science-data/master/01_chs/chs_regional.csv&#34;&gt;regional&lt;/a&gt;
-CHS datasets in &lt;code&gt;01_chs&lt;/code&gt;.
-The individual data includes personal and health characteristics of children in
-12 communities across Southern California. The regional data include air quality
-measurements at the community level.
-Once downloaded, you can merge these datasets using the location variable. Once
-combined, you will need to do the following:&lt;/p&gt;
-&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
-&lt;li&gt;&lt;p&gt;After merging the data, make sure you don’t have any duplicates by counting
-the number of rows. Make sure it matches.&lt;/p&gt;
-&lt;p&gt;In the case of missing values, impute data using the average within the
-variables “male” and “hispanic.” If you are interested (and feel adventurous)
-in the theme of Data Imputation, take a look at this paper on “Multiple Imputation”
-using the Amelia R package &lt;a href=&#34;https://gking.harvard.edu/files/gking/files/amelia_jss.pdf&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Create a new categorical variable named “obesity_level” using the BMI measurement
-(underweight BMI&amp;lt;14; normal BMI 14-22; overweight BMI 22-24; obese BMI&amp;gt;24).
-To make sure the variable is rightly coded, create a summary table that contains
-the minimum BMI, maximum BMI, and the total number of observations per category.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Create another categorical variable named “smoke_gas_exposure” that summarizes
-“Second Hand Smoke” and “Gas Stove.” The variable should have four categories
-in total.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Create four summary tables showing the average (or proportion, if binary) and
-sd of “Forced expiratory volume in 1 second (ml)” and asthma indicator by
-town, sex, obesity level, and “smoke_gas_exposure.”&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div id=&#34;looking-at-the-data-eda&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Looking at the Data (EDA)&lt;/h2&gt;
-&lt;p&gt;The primary questions of interest are:
-1. What is the association between BMI and FEV (forced expiratory volume)?
-2. What is the association between smoke and gas exposure and FEV?
-3. What is the association between PM2.5 exposure and FEV?&lt;/p&gt;
-&lt;p&gt;Follow the EDA checklist from week 3 and the previous assignment. Be sure to focus on the key variables.
-Visualization
-Create the following figures and interpret them. Be sure to include easily understandable axes, titles, and legends.&lt;/p&gt;
-&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
-&lt;li&gt;Facet plot showing scatterplots with regression lines of BMI vs FEV by “townname”.&lt;/li&gt;
-&lt;li&gt;Stacked histograms of FEV by BMI category and FEV by smoke/gas exposure. Use different color schemes than the ggplot default.&lt;/li&gt;
-&lt;li&gt;Barchart of BMI by smoke/gas exposure.&lt;/li&gt;
-&lt;li&gt;Statistical summary graphs of FEV by BMI and FEV by smoke/gas exposure category.&lt;/li&gt;
-&lt;li&gt;A leaflet map showing the concentrations of PM2.5 mass in each of the CHS communities.&lt;/li&gt;
-&lt;li&gt;Choose a visualization to examine whether PM2.5 mass is associated with FEV.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Assignment 03 - Web Scraping and Text Mining</title>
-      <link>https://uscbiostats.github.io/PM566/assignment/09-hw3/</link>
-      <pubDate>Fri, 10 Sep 2021 00:00:00 +0000</pubDate>
-      <guid>https://uscbiostats.github.io/PM566/assignment/09-hw3/</guid>
-      <description>
-&lt;script src=&#34;https://uscbiostats.github.io/PM566/PM566/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
-
-
-&lt;div id=&#34;due-date&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Due Date&lt;/h2&gt;
-&lt;p&gt;November 5, 2021 by midnight Pacific time.&lt;/p&gt;
-&lt;p&gt;The learning objectives are to conduct data scraping and perform text mining.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;apis&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;APIs&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;Using the NCBI API, look for papers that show up under the term “sars-cov-2 trial vaccine.” Look for the data in the pubmed database, and then retrieve the details of the paper as shown in lab 7. How many papers were you able to find?&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Using the list of pubmed ids you retrieved, download each papers’ details using the query parameter rettype = abstract. If you get more than 250 ids, just keep the first 250.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;As we did in lab 7. Create a dataset containing the following:&lt;/p&gt;
-&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
-&lt;li&gt;Pubmed ID number,&lt;/li&gt;
-&lt;li&gt;Title of the paper,&lt;/li&gt;
-&lt;li&gt;Name of the journal where it was published,&lt;/li&gt;
-&lt;li&gt;Publication date, and&lt;/li&gt;
-&lt;li&gt;Abstract of the paper (if any).&lt;/li&gt;
-&lt;/ol&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;div id=&#34;text-mining&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Text Mining&lt;/h2&gt;
-&lt;p&gt;A new dataset has been added to the data science data repository &lt;a href=&#34;https://github.com/USCbiostats/data-science-data/tree/master/03_pubmed&#34; class=&#34;uri&#34;&gt;https://github.com/USCbiostats/data-science-data/tree/master/03_pubmed&lt;/a&gt;. The dataset contains 3241 abstracts from articles across 5 search terms. Your job is to analyse these abstracts to find interesting insights.&lt;/p&gt;
-&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
-&lt;li&gt;Tokenize the abstracts and count the number of each token. Do you see anything interesting? Does removing stop words change what tokens appear as the most frequent? What are the 5 most common tokens for each search term after removing stopwords?&lt;/li&gt;
-&lt;li&gt;Tokenize the abstracts into bigrams. Find the 10 most common bigram and visualize them with ggplot2.&lt;/li&gt;
-&lt;li&gt;Calculate the TF-IDF value for each word-search term combination. (here you want the search term to be the “document”) What are the 5 tokens from each search term with the highest TF-IDF value? How are the results different from the answers you got in question 1?&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Assignment 04 - HPC and SQL</title>
-      <link>https://uscbiostats.github.io/PM566/assignment/11-hw4/</link>
-      <pubDate>Fri, 10 Sep 2021 00:00:00 +0000</pubDate>
-      <guid>https://uscbiostats.github.io/PM566/assignment/11-hw4/</guid>
-      <description>
-&lt;script src=&#34;https://uscbiostats.github.io/PM566/PM566/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
-
-
-&lt;div id=&#34;due-date&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Due Date&lt;/h2&gt;
-&lt;p&gt;November 19, 2021 by midnight Pacific time.&lt;/p&gt;
-&lt;p&gt;The learning objectives are to conduct data scraping and perform text mining.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;hpc&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;HPC&lt;/h2&gt;
-&lt;div id=&#34;problem-1-make-sure-your-code-is-nice&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;Problem 1: Make sure your code is nice&lt;/h3&gt;
-&lt;p&gt;Rewrite the following R functions to make them faster. It is OK (and recommended) to take a look at Stackoverflow and Google&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Total row sums
-fun1 &amp;lt;- function(mat) {
-  n &amp;lt;- nrow(mat)
-  ans &amp;lt;- double(n) 
-  for (i in 1:n) {
-    ans[i] &amp;lt;- sum(mat[i, ])
-  }
-  ans
-}
-
-fun1alt &amp;lt;- function(mat) {
-  # YOUR CODE HERE
-}
-
-# Cumulative sum by row
-fun2 &amp;lt;- function(mat) {
-  n &amp;lt;- nrow(mat)
-  k &amp;lt;- ncol(mat)
-  ans &amp;lt;- mat
-  for (i in 1:n) {
-    for (j in 2:k) {
-      ans[i,j] &amp;lt;- mat[i, j] + ans[i, j - 1]
-    }
-  }
-  ans
-}
-
-fun2alt &amp;lt;- function(mat) {
-  # YOUR CODE HERE
-}
-
-
-# Use the data with this code
-set.seed(2315)
-dat &amp;lt;- matrix(rnorm(200 * 100), nrow = 200)
-
-# Test for the first
-microbenchmark::microbenchmark(
-  fun1(dat),
-  fun1alt(dat), unit = &amp;quot;relative&amp;quot;, check = &amp;quot;equivalent&amp;quot;
-)
-
-# Test for the second
-microbenchmark::microbenchmark(
-  fun2(dat),
-  fun2alt(dat), unit = &amp;quot;relative&amp;quot;, check = &amp;quot;equivalent&amp;quot;
-)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The last argument, check = “equivalent”, is included to make sure that the functions return the same result.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;problem-2-make-things-run-faster-with-parallel-computing&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;Problem 2: Make things run faster with parallel computing&lt;/h3&gt;
-&lt;p&gt;The following function allows simulating PI&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;sim_pi &amp;lt;- function(n = 1000, i = NULL) {
-  p &amp;lt;- matrix(runif(n*2), ncol = 2)
-  mean(rowSums(p^2) &amp;lt; 1) * 4
-}
-
-# Here is an example of the run
-set.seed(156)
-sim_pi(1000) # 3.132&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;In order to get accurate estimates, we can run this function multiple times, with the following code:&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# This runs the simulation a 4,000 times, each with 10,000 points
-set.seed(1231)
-system.time({
-  ans &amp;lt;- unlist(lapply(1:4000, sim_pi, n = 10000))
-  print(mean(ans))
-})&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Rewrite the previous code using &lt;code&gt;parLapply()&lt;/code&gt; to make it run faster. Make sure you set the seed using &lt;code&gt;clusterSetRNGStream()&lt;/code&gt;:&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# YOUR CODE HERE
-system.time({
-  # YOUR CODE HERE
-  ans &amp;lt;- # YOUR CODE HERE
-  print(mean(ans))
-  # YOUR CODE HERE
-})&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&#34;sql&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;SQL&lt;/h2&gt;
-&lt;p&gt;Setup a temporary database by running the following chunk&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# install.packages(c(&amp;quot;RSQLite&amp;quot;, &amp;quot;DBI&amp;quot;))
-
-library(RSQLite)
-library(DBI)
-
-# Initialize a temporary in memory database
-con &amp;lt;- dbConnect(SQLite(), &amp;quot;:memory:&amp;quot;)
-
-# Download tables
-film &amp;lt;- read.csv(&amp;quot;https://raw.githubusercontent.com/ivanceras/sakila/master/csv-sakila-db/film.csv&amp;quot;)
-film_category &amp;lt;- read.csv(&amp;quot;https://raw.githubusercontent.com/ivanceras/sakila/master/csv-sakila-db/film_category.csv&amp;quot;)
-category &amp;lt;- read.csv(&amp;quot;https://raw.githubusercontent.com/ivanceras/sakila/master/csv-sakila-db/category.csv&amp;quot;)
-
-# Copy data.frames to database
-dbWriteTable(con, &amp;quot;film&amp;quot;, film)
-dbWriteTable(con, &amp;quot;film_category&amp;quot;, film_category)
-dbWriteTable(con, &amp;quot;category&amp;quot;, category)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;When you write a new chunk, remember to replace the &lt;code&gt;r&lt;/code&gt; with &lt;code&gt;sql, connection=con&lt;/code&gt;. Some of these questions will reqruire you to use an inner join. Read more about them here &lt;a href=&#34;https://www.w3schools.com/sql/sql_join_inner.asp&#34; class=&#34;uri&#34;&gt;https://www.w3schools.com/sql/sql_join_inner.asp&lt;/a&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;question-1&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Question 1&lt;/h2&gt;
-&lt;p&gt;How many many movies is there avaliable in each &lt;code&gt;rating&lt;/code&gt; catagory.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;question-2&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Question 2&lt;/h2&gt;
-&lt;p&gt;What is the average replacement cost and rental rate for each &lt;code&gt;rating&lt;/code&gt; category.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;question-3&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Question 3&lt;/h2&gt;
-&lt;p&gt;Use table &lt;code&gt;film_category&lt;/code&gt; together with &lt;code&gt;film&lt;/code&gt; to find the how many films there are witth each category ID&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;question-4&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Question 4&lt;/h2&gt;
-&lt;p&gt;Incorporate table &lt;code&gt;category&lt;/code&gt; into the answer to the previous question to find the name of the most popular category.&lt;/p&gt;
-&lt;/div&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Assignment 05 - Interactive Visualization I and II</title>
-      <link>https://uscbiostats.github.io/PM566/assignment/13-hw5/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://uscbiostats.github.io/PM566/assignment/13-hw5/</guid>
-      <description>
-&lt;script src=&#34;https://uscbiostats.github.io/PM566/PM566/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
-
-
-&lt;div id=&#34;due-date&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Due Date&lt;/h2&gt;
-&lt;p&gt;December 3, 2021 by midnight Pacific time.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;interactive-visualization-i-and-ii&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Interactive Visualization I and II&lt;/h2&gt;
-&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
-&lt;li&gt;&lt;p&gt;Using your midterm/final project data, create 3 different interactive visualizations using the tools learned in week 11 class/lab.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Include the visualizations created in (1) on your final project website hosted on &lt;code&gt;GitHub Pages&lt;/code&gt;.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Rename your final project website by modifying the relevant text in the &lt;code&gt;.yml&lt;/code&gt; configuration file and the YAML header in the &lt;code&gt;index.Rmd&lt;/code&gt; file. You may also modify the name of your GitHub repo so that the website url also provides a descriptive name.&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;&lt;strong&gt;Extra Credit&lt;/strong&gt;: Create content across 2 pages on your website. You can use the example content from &lt;a href=&#34;https://github.com/AbigailHorn/PM566-final-project&#34;&gt;Lab 12&lt;/a&gt; as an example.&lt;/p&gt;
-&lt;/div&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Final Project</title>
-      <link>https://uscbiostats.github.io/PM566/assignment/14-final/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://uscbiostats.github.io/PM566/assignment/14-final/</guid>
-      <description>
-&lt;script src=&#34;https://uscbiostats.github.io/PM566/PM566/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
-
-
-&lt;div id=&#34;final-project&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;Final Project&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;Presentation (5 minutes): Friday December 3, 2021&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Written report (single spaced, 6-8 pages where 3-4 pages are tables and figures): Friday December 10, 2021&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;Learning Objective&lt;/strong&gt;: To apply the skills learned in
-PM 566 by analyzing and interpreting a dataset of your choice.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Narrative&lt;/strong&gt;: Through this project you will launch a
-portfolio of data science projects that will become seminal for your job
-hunt.&lt;/p&gt;
-&lt;p&gt;Using the dataset from your midterm, make sure you have
-formulated a clear and concise question to answer. You will apply the
-skills learned throughout the semester to answer this question.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Deliverables&lt;/strong&gt;: 1) A 5-minute presentation where you
-walk us through your website; 2) A written report with embedded tables
-and figures that is submitted as a PDF to a final project-specific
-github repository &lt;em&gt;and&lt;/em&gt; as a downloadable link on your website.
-Please see the checklist below for additional
-details.&lt;/p&gt;
-&lt;p&gt;The report should have the following sections (elaborate
-from what was written in the midterm):
-&lt;strong&gt;Introduction&lt;/strong&gt; (provide background on your
-dataset and formulated question), &lt;strong&gt;Methods&lt;/strong&gt;
-(include how and where the data were acquired, how you cleaned and
-wrangled the data, what tools you used for data exploration),
-&lt;strong&gt;Results&lt;/strong&gt; (provide final, publication ready
-tables and figures from your analysis, refer to your website if needed),
-and a brief &lt;strong&gt;Conclusion and Summary&lt;/strong&gt; where
-you describe your findings.&lt;/p&gt;
-&lt;p&gt;In your report, please do not include code (so make sure
-&lt;code&gt;echo = FALSE&lt;/code&gt;), unformatted output, or dataset summaries (e.g. output
-from head(), str(), etc.)&lt;/p&gt;
-&lt;div id=&#34;checklist-for-final-project&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Checklist for Final Project&lt;/h2&gt;
-&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
-&lt;li&gt;&lt;p&gt;&lt;span dir=&#34;ltr&#34;&gt;&lt;strong&gt;Create a website&lt;/strong&gt; (HTML document and all the
-required files, including figures). It should feature:&lt;/span&gt;&lt;/p&gt;
-&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
-&lt;li&gt;&lt;p&gt;&lt;span dir=&#34;ltr&#34;&gt;A brief description of the project,&lt;/span&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;span dir=&#34;ltr&#34;&gt;Interactive visualizations, also with a
-description so that people can understand what they are
-looking at, and&lt;/span&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;span dir=&#34;ltr&#34;&gt;A link to the PDF version of the actual report
-(i.e. a link to “Download the report.”).&lt;/span&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;span dir=&#34;ltr&#34;&gt;Your home page should feature no more than
-five interactive tables and figures. If you want to include
-more to showcase your skills, we request you do so by adding
-extra pages to the website. We will only evaluate the homepage
-of the website.&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;The actual analysis should be included in the PDF
-report. &lt;strong&gt;The PDF report can refer to visualizations included in the
-website&lt;/strong&gt;.&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;span dir=&#34;ltr&#34;&gt;&lt;strong&gt;Upload everything&lt;/strong&gt;, source code, website files,
-and PDF report, to the GitHub repository.&lt;/span&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;span dir=&#34;ltr&#34;&gt;Make sure that the &lt;strong&gt;website&lt;/strong&gt;, which is to be
-&lt;strong&gt;hosted in GitHub pages&lt;/strong&gt;, actually &lt;strong&gt;works&lt;/strong&gt;, i.e., figures and
-interactive visualizations are properly rendered when visiting the
-website..&lt;/span&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;span dir=&#34;ltr&#34;&gt;&lt;strong&gt;Have a README.md file&lt;/strong&gt; in the upper level of
-the repository. This file provides general information about the
-project, like title, brief description, etc.&lt;/span&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;span dir=&#34;ltr&#34;&gt;The &lt;strong&gt;README.md file links to the website&lt;/strong&gt;, e.g.
-&lt;a href=&#34;https://username.github.io/pm566-project&#34; class=&#34;uri&#34;&gt;https://username.github.io/pm566-project&lt;/a&gt;, .&lt;/span&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;span dir=&#34;ltr&#34;&gt;Have a &lt;strong&gt;“data” folder&lt;/strong&gt; with either the data or
-instructions about how to acquire it. You should provide the
-instructions in a README.md within that folder.&lt;/span&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;span dir=&#34;ltr&#34;&gt;&lt;strong&gt;(optional)&lt;/strong&gt; Your document is &lt;strong&gt;fully
-reproducible&lt;/strong&gt;, meaning you don’t have paths to files not shared
-in the repository. For example, if you are loading a dataset with
-“fread,” it should be something like
-“fread(“&lt;a href=&#34;https://data.com/dataset.csv&#34; class=&#34;uri&#34;&gt;https://data.com/dataset.csv&lt;/a&gt;”),” so you are directly
-using data online, or “fread(“data/dataset.csv”),” so the data
-needed has been shared on GitHub and is contained in the path
-“data/dataset.csv.”&lt;/span&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 </description>
