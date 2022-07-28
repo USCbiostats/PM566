@@ -5,7 +5,7 @@
     <link>https://uscbiostats.github.io/PM566/</link>
       <atom:link href="https://uscbiostats.github.io/PM566/index.xml" rel="self" type="application/rss+xml" />
     <description>Course materials</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><lastBuildDate>Wed, 30 Nov 2022 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><lastBuildDate>Wed, 07 Dec 2022 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://uscbiostats.github.io/PM566/img/social-image.png</url>
       <title>Course materials</title>
@@ -15,7 +15,7 @@
     <item>
       <title>Final Project</title>
       <link>https://uscbiostats.github.io/PM566/class/14-class/</link>
-      <pubDate>Thu, 18 Nov 2021 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 07 Dec 2022 00:00:00 +0000</pubDate>
       <guid>https://uscbiostats.github.io/PM566/class/14-class/</guid>
       <description>
 &lt;!-- BLOGDOWN-HEAD --&gt;
@@ -41,7 +41,7 @@
     <item>
       <title>Final project workshop: review project progress, preliminary presentations</title>
       <link>https://uscbiostats.github.io/PM566/class/13-class/</link>
-      <pubDate>Thu, 11 Nov 2021 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 30 Nov 2022 00:00:00 +0000</pubDate>
       <guid>https://uscbiostats.github.io/PM566/class/13-class/</guid>
       <description>
 &lt;!-- BLOGDOWN-HEAD --&gt;
@@ -67,7 +67,7 @@
     <item>
       <title>Interactive visualization and effective data communication II</title>
       <link>https://uscbiostats.github.io/PM566/class/12-class/</link>
-      <pubDate>Thu, 04 Nov 2021 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 16 Nov 2022 00:00:00 +0000</pubDate>
       <guid>https://uscbiostats.github.io/PM566/class/12-class/</guid>
       <description>
 &lt;!-- BLOGDOWN-HEAD --&gt;
@@ -90,7 +90,7 @@
     <item>
       <title>Interactive visualization and effective data communication I</title>
       <link>https://uscbiostats.github.io/PM566/class/11-class/</link>
-      <pubDate>Thu, 28 Oct 2021 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 09 Nov 2022 00:00:00 +0000</pubDate>
       <guid>https://uscbiostats.github.io/PM566/class/11-class/</guid>
       <description>
 &lt;!-- BLOGDOWN-HEAD --&gt;
@@ -114,9 +114,35 @@
     </item>
     
     <item>
+      <title>SQL</title>
+      <link>https://uscbiostats.github.io/PM566/class/10-class/</link>
+      <pubDate>Wed, 02 Nov 2022 00:00:00 +0000</pubDate>
+      <guid>https://uscbiostats.github.io/PM566/class/10-class/</guid>
+      <description>
+&lt;!-- BLOGDOWN-HEAD --&gt;
+&lt;script src=&#34;https://uscbiostats.github.io/PM566/PM566/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+&lt;!-- /BLOGDOWN-HEAD --&gt;
+
+
+&lt;div id=&#34;lab-exercise&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Lab Exercise&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://uscbiostats.github.io/PM566/PM566/assignment/10-lab/&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;slides&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Slides&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://uscbiostats.github.io/PM566/PM566/slides/10-sql/slides.html&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;links&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Links&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.w3schools.com/sql/&#34; class=&#34;uri&#34;&gt;https://www.w3schools.com/sql/&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
       <title>High performance computing, cloud computing</title>
       <link>https://uscbiostats.github.io/PM566/class/09-class/</link>
-      <pubDate>Thu, 21 Oct 2021 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 26 Oct 2022 00:00:00 +0000</pubDate>
       <guid>https://uscbiostats.github.io/PM566/class/09-class/</guid>
       <description>
 &lt;!-- BLOGDOWN-HEAD --&gt;
@@ -143,61 +169,9 @@
     </item>
     
     <item>
-      <title>SQL</title>
-      <link>https://uscbiostats.github.io/PM566/class/10-class/</link>
-      <pubDate>Thu, 21 Oct 2021 00:00:00 +0000</pubDate>
-      <guid>https://uscbiostats.github.io/PM566/class/10-class/</guid>
-      <description>
-&lt;!-- BLOGDOWN-HEAD --&gt;
-&lt;script src=&#34;https://uscbiostats.github.io/PM566/PM566/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
-&lt;!-- /BLOGDOWN-HEAD --&gt;
-
-
-&lt;div id=&#34;lab-exercise&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Lab Exercise&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://uscbiostats.github.io/PM566/PM566/assignment/10-lab/&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;slides&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Slides&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://uscbiostats.github.io/PM566/PM566/slides/10-sql/slides.html&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;links&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Links&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://www.w3schools.com/sql/&#34; class=&#34;uri&#34;&gt;https://www.w3schools.com/sql/&lt;/a&gt;&lt;/p&gt;
-&lt;/div&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Midterm Exam</title>
-      <link>https://uscbiostats.github.io/PM566/class/08-class/</link>
-      <pubDate>Thu, 07 Oct 2021 00:00:00 +0000</pubDate>
-      <guid>https://uscbiostats.github.io/PM566/class/08-class/</guid>
-      <description>
-&lt;!-- BLOGDOWN-HEAD --&gt;
-&lt;script src=&#34;https://uscbiostats.github.io/PM566/PM566/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
-&lt;!-- /BLOGDOWN-HEAD --&gt;
-
-
-&lt;div id=&#34;lab-exercise&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Lab Exercise&lt;/h2&gt;
-&lt;p&gt;To be announced&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;slides&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Slides&lt;/h2&gt;
-&lt;p&gt;To be announced&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;links&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Links&lt;/h2&gt;
-&lt;p&gt;To be announced&lt;/p&gt;
-&lt;/div&gt;
-</description>
-    </item>
-    
-    <item>
       <title>Week 7: Scraping, APIs, and Regular Expressions</title>
       <link>https://uscbiostats.github.io/PM566/class/07-class/</link>
-      <pubDate>Thu, 30 Sep 2021 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 05 Oct 2022 00:00:00 +0000</pubDate>
       <guid>https://uscbiostats.github.io/PM566/class/07-class/</guid>
       <description>
 &lt;!-- BLOGDOWN-HEAD --&gt;
@@ -224,7 +198,7 @@ that will be featured in the class.&lt;/p&gt;
     <item>
       <title>Text mining</title>
       <link>https://uscbiostats.github.io/PM566/class/06-class/</link>
-      <pubDate>Thu, 23 Sep 2021 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 28 Sep 2022 00:00:00 +0000</pubDate>
       <guid>https://uscbiostats.github.io/PM566/class/06-class/</guid>
       <description>
 &lt;!-- BLOGDOWN-HEAD --&gt;
@@ -252,9 +226,39 @@ that will be featured in the class.&lt;/p&gt;
     </item>
     
     <item>
+      <title>Data cleaning and wrangling</title>
+      <link>https://uscbiostats.github.io/PM566/class/05-class/</link>
+      <pubDate>Wed, 21 Sep 2022 00:00:00 +0000</pubDate>
+      <guid>https://uscbiostats.github.io/PM566/class/05-class/</guid>
+      <description>
+&lt;!-- BLOGDOWN-HEAD --&gt;
+&lt;script src=&#34;https://uscbiostats.github.io/PM566/PM566/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+&lt;!-- /BLOGDOWN-HEAD --&gt;
+
+
+&lt;div id=&#34;lab-exercise&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Lab Exercise&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://uscbiostats.github.io/PM566/PM566/assignment/05-lab&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;slides&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Slides&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://uscbiostats.github.io/PM566/PM566/slides/05-data-wrangling/slides.html&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;links&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Links&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;R &lt;a href=&#34;https://rdatatable.gitlab.io/data.table/&#34;&gt;data.table&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;python &lt;a href=&#34;https://github.com/h2oai/datatable&#34;&gt;data.table&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.python.org/&#34;&gt;Python&lt;/a&gt; and &lt;a href=&#34;https://jupyter.org/&#34;&gt;Jupyter&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Data visualization</title>
       <link>https://uscbiostats.github.io/PM566/class/04-class/</link>
-      <pubDate>Thu, 09 Sep 2021 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 14 Sep 2022 00:00:00 +0000</pubDate>
       <guid>https://uscbiostats.github.io/PM566/class/04-class/</guid>
       <description>
 &lt;!-- BLOGDOWN-HEAD --&gt;
@@ -280,7 +284,7 @@ that will be featured in the class.&lt;/p&gt;
     <item>
       <title>Exploratory data analysis</title>
       <link>https://uscbiostats.github.io/PM566/class/03-class/</link>
-      <pubDate>Thu, 02 Sep 2021 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 07 Sep 2022 00:00:00 +0000</pubDate>
       <guid>https://uscbiostats.github.io/PM566/class/03-class/</guid>
       <description>
 &lt;!-- BLOGDOWN-HEAD --&gt;
@@ -306,7 +310,7 @@ that will be featured in the class.&lt;/p&gt;
     <item>
       <title>Version control and reproducible research</title>
       <link>https://uscbiostats.github.io/PM566/class/02-class/</link>
-      <pubDate>Thu, 26 Aug 2021 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 31 Aug 2022 00:00:00 +0000</pubDate>
       <guid>https://uscbiostats.github.io/PM566/class/02-class/</guid>
       <description>
 &lt;!-- BLOGDOWN-HEAD --&gt;
@@ -335,7 +339,7 @@ that will be featured in the class.&lt;/p&gt;
     <item>
       <title>Look at Data / Up and Running in R and ggplot</title>
       <link>https://uscbiostats.github.io/PM566/class/01-class/</link>
-      <pubDate>Thu, 19 Aug 2021 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 24 Aug 2022 00:00:00 +0000</pubDate>
       <guid>https://uscbiostats.github.io/PM566/class/01-class/</guid>
       <description>
 &lt;!-- BLOGDOWN-HEAD --&gt;
@@ -363,10 +367,10 @@ that will be featured in the class.&lt;/p&gt;
     </item>
     
     <item>
-      <title>Data cleaning and wrangling</title>
-      <link>https://uscbiostats.github.io/PM566/class/05-class/</link>
-      <pubDate>Sun, 10 Jan 2021 00:00:00 +0000</pubDate>
-      <guid>https://uscbiostats.github.io/PM566/class/05-class/</guid>
+      <title>Midterm Exam</title>
+      <link>https://uscbiostats.github.io/PM566/class/08-class/</link>
+      <pubDate>Thu, 07 Oct 2021 00:00:00 +0000</pubDate>
+      <guid>https://uscbiostats.github.io/PM566/class/08-class/</guid>
       <description>
 &lt;!-- BLOGDOWN-HEAD --&gt;
 &lt;script src=&#34;https://uscbiostats.github.io/PM566/PM566/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
@@ -375,19 +379,15 @@ that will be featured in the class.&lt;/p&gt;
 
 &lt;div id=&#34;lab-exercise&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Lab Exercise&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://uscbiostats.github.io/PM566/PM566/assignment/05-lab&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;To be announced&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;slides&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Slides&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://uscbiostats.github.io/PM566/PM566/slides/05-data-wrangling/slides.html&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;To be announced&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;links&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Links&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;R &lt;a href=&#34;https://rdatatable.gitlab.io/data.table/&#34;&gt;data.table&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;python &lt;a href=&#34;https://github.com/h2oai/datatable&#34;&gt;data.table&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.python.org/&#34;&gt;Python&lt;/a&gt; and &lt;a href=&#34;https://jupyter.org/&#34;&gt;Jupyter&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;To be announced&lt;/p&gt;
 &lt;/div&gt;
 </description>
     </item>
