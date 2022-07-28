@@ -1,11 +1,12 @@
 ---
 title: "Assignment 05 - Interactive Visualization I and II"
 output: tufte::tufte_html
+date: 2022-11-16
 ---
 
 ## Due Date
 
-December 3, 2021 by midnight Pacific time.
+This assignment is due by midnight Pacific time, December 2nd, 2022
 
 ## Interactive Visualization I and II
 

@@ -1,13 +1,14 @@
 ---
 title: "Final Project"
 output: tufte::tufte_html
+date: 2022-11-16
 ---
 
 # Final Project
 
-- Presentation (5 minutes): Friday December 3, 2021
+- Presentation (5 minutes): Wednesday November 30th, 2022
 
-- Written report (single spaced, 6-8 pages where 3-4 pages are tables and figures): Friday December 10, 2021
+- Written report (single spaced, 6-8 pages where 3-4 pages are tables and figures): Wednesday December 7, 2022
 
 **Learning Objective**: To apply the skills learned in
 PM 566 by analyzing and interpreting a dataset of your choice.

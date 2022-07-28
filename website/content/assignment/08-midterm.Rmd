@@ -1,16 +1,16 @@
 ---
 title: "Midterm Exam/Project"
 output: html_document
-date: 2021-10-05
+date: 2022-10-05
 ---
 
 ```{r setup, echo=FALSE}
 knitr::opts_chunk$set(include  = TRUE)
 ```
 
-Due Sunday, October 24th, 2021 by midnight Pacific time 
+Due Sunday, October 23rd, 2022 by midnight Pacific time 
 
-**Learning Objective** To apply the skills learned in PM 566 (up to Oct 8th) by analyzing and interpreting a dataset of your choice.
+**Learning Objective** To apply the skills learned in PM 566 (up to Oct 5th) by analyzing and interpreting a dataset of your choice.
 
 **Narrative** Through this project you will launch a portfolio of data science projects that will become seminal for your job hunt. This midterm is a stepping stone for the final project.
 The first step in any data analysis is to have a dataset for which you have formulated an interesting question. If you do not have a dataset to work with, you may choose one from our [list of suggestions](/PM566/reference/#data). With your dataset, formulate a clear and concise question to answer and conduct data wrangling, exploratory data analysis, and data visualization to explore/answer this question.

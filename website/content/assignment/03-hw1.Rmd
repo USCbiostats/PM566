@@ -2,12 +2,12 @@
 title: "Assignment 01 - Exploratory Data Analysis"
 output: tufte::tufte_html
 link-citations: yes
-date: 2021-09-10
+date: 2022-09-07
 ---
 
 # Due Date
 
-This assignment is due at the end of the day September 24th, 2021
+This assignment is due by midnight Pacific time September 23rd, 2022
 
 # Learning Goals
 - Download, read, and get familiar with an external dataset. 

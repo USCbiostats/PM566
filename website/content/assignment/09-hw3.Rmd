@@ -2,12 +2,12 @@
 title: "Assignment 03 - Web Scraping and Text Mining"
 output: tufte::tufte_html
 link-citations: yes
-date: 2021-09-10
+date: 2022-10-05
 ---
 
 ## Due Date
 
-November 5, 2021 by midnight Pacific time.
+This assignment is due by midnight Pacific time, November 2, 2022 
 
 The learning objectives are to conduct data scraping and perform text mining.
 

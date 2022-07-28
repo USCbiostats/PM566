@@ -1,12 +1,12 @@
 ---
 title: "Assignment 04 - HPC and SQL"
 output: tufte::tufte_html
-date: 2021-09-10
+date: 2022-11-02
 ---
 
 ## Due Date
 
-November 19, 2021 by midnight Pacific time.
+This assignment is due by midnight Pacific time, November 18, 2022
 
 The learning objectives are to conduct data scraping and perform text mining.
 
