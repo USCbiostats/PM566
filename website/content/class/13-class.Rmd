@@ -1,8 +1,8 @@
 ---
 title: "Final project workshop: review project progress, preliminary presentations"
 linktitle: "13: Final project"
-date: "2021-11-11"
-class_date: "2021-11-11"
+date: "2022-11-30"
+class_date: "2022-11-30"
 citeproc: false
 bibliography: ../../static/bib/references.bib
 csl: ../../static/bib/chicago-syllabus-no-bib.csl

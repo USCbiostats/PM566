@@ -1,8 +1,8 @@
 ---
 title: "Interactive visualization and effective data communication II"
 linktitle: "12: Interactive Visualization II"
-date: "2021-11-04"
-class_date: "2021-11-04"
+date: "2022-11-16"
+class_date: "2022-11-16"
 citeproc: false
 bibliography: ../../static/bib/references.bib
 csl: ../../static/bib/chicago-syllabus-no-bib.csl

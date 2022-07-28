@@ -1,8 +1,8 @@
 ---
 title: "High performance computing, cloud computing"
 linktitle: "09: HPC"
-date: "2021-10-21"
-class_date: "2021-10-21"
+date: "2022-10-26"
+class_date: "2022-10-26"
 citeproc: false
 bibliography: ../../static/bib/references.bib
 csl: ../../static/bib/chicago-syllabus-no-bib.csl

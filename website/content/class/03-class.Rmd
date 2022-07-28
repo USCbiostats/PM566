@@ -1,8 +1,8 @@
 ---
 title: "Exploratory data analysis"
 linktitle: "03: EDA"
-date: "2021-09-02"
-class_date: "2021-09-02"
+date: "2022-09-07"
+class_date: "2022-09-07"
 citeproc: false
 bibliography: ../../static/bib/references.bib
 csl: ../../static/bib/chicago-syllabus-no-bib.csl

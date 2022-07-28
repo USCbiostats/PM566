@@ -1,8 +1,8 @@
 ---
 title: "Week 7: Scraping, APIs, and Regular Expressions"
 linktitle: "07: Scraping, APIs, and Regex"
-date: "2021-09-30"
-class_date: "2021-09-30"
+date: "2022-10-05"
+class_date: "2022-10-05"
 citeproc: false
 bibliography: ../../static/bib/references.bib
 csl: ../../static/bib/chicago-syllabus-no-bib.csl
