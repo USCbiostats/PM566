@@ -1,12 +1,12 @@
 
-# Course Material for PM566 (Fall 2021)
+# Course Material for PM566 (Fall 2022)
 
 The PM566 course website is
 [here](https://USCbiostats.github.io/PM566). We will be using
 this website to share all course material including lecture slides,
 labs, and assignments.
 
-Our class meets at 9 AM every Friday.
+Our class meets at 1 PM every Wednesday.
 
 A [Dockerimage]() has been created for the class. Students can access
 the container in [docker](docker).
