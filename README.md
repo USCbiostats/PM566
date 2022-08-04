@@ -8,8 +8,6 @@ labs, and assignments.
 
 Our class meets at 1 PM every Wednesday.
 
-A [Dockerimage]() has been created for the class. Students can access
-the container in [docker](docker).
 
 # For instructors
 
