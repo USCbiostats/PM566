@@ -75,7 +75,7 @@ Assignments shall be submitted on the Github classroom portal of the course. Lat
 
 `r blogdown::shortcode("topiclist")`
 
-As the weeks go by, consult the [Schedule Page](/schedule/) for more information on weekly topics, problem sets, readings, and other materials. The schedule is likely to change as we go. Links to readings, assignments, and other materials from class will be posted on that page. 
+As the weeks go by, consult the [Schedule Page](/PM566/schedule/) for more information on weekly topics, problem sets, readings, and other materials. The schedule is likely to change as we go. Links to readings, assignments, and other materials from class will be posted on that page. 
 
 
 ## Statement for students with disabilities
