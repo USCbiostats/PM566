@@ -65,7 +65,7 @@ Open the R Markdown (Rmd) file called `lab-01-hello-r.Rmd`. It will likely ask y
 
 RStudio is comprised of four panes.
 
-![](/assignment-img/rstudio-anatomy.png)
+![](../../static/assignment-img/rstudio-anatomy.png)
 
 - On the bottom left is the Console, this is where you can write code that will be evaluated. Try typing `2 + 2` here and hit enter, what do you get?
 
@@ -196,7 +196,7 @@ Click on the gear icon in on top of the R Markdown document, and select "Output 
 
 You can also use different figure sizes for different figures. To do so click on the gear icon within the chunk where you want to make a change. Changing the figure sizes added new options to these chunks: `fig.width` and `fig.height`. You can change them by defining different values directly in your R Markdown document as well.
 
-![](/assignment-img/theme-highlight.png)
+![](../../static/assignment-img/theme-highlight.png)
 
 - **Change the look of your report:** 
 
