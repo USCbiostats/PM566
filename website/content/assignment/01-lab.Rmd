@@ -29,7 +29,7 @@ And to make versioning simpler, this is a solo lab. Additionally, we want to mak
 
 ## 1. Download project
 
-Go the the the lab page for this week on the [website](https://elastic-khorana-70231e.netlify.app/). You should see a "download" button under the "Lab Exercise" section. Click it to download the material.
+Go the the the lab page for this week on the [website](/PM566/class/01-class/). You should see a "download" button under the "Lab Exercise" section. Click it to download the material.
 
 ## 2 Download R
 
