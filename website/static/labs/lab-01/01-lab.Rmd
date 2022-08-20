@@ -1,6 +1,6 @@
 ---
 title: "Lab 01 - Hello R!"
-output: tufte::tufte_html
+output: html_document
 link-citations: yes
 ---
 
@@ -65,11 +65,7 @@ Open the R Markdown (Rmd) file called `lab-01-hello-r.Rmd`. It will likely ask y
 
 RStudio is comprised of four panes.
 
-![](../../static/assignment-img/rstudio-anatomy.png)
-
-```{r rstudio-anatomy, fig.fullwidth=TRUE, echo = FALSE}
-knitr::include_graphics("assignment-img/rstudio-anatomy.png")
-```
+![](../../assignment-img/rstudio-anatomy.png)
 
 - On the bottom left is the Console, this is where you can write code that will be evaluated. Try typing `2 + 2` here and hit enter, what do you get?
 
@@ -108,7 +104,8 @@ The top portion of your R Markdown file (between the three dashed lines) is call
 
 Open the R Markdown (Rmd) file in your project, change the author name to your name, and knit the document.
 
-![](/assignment-img/yaml-raw-to-rendered.png)
+![](../../assignment-img/yaml-raw-to-rendered.png)
+
 # Data
 
 The data frame we will be working with today is called `datasaurus_dozen` and it's in the `datasauRus` package. Actually, this single data frame contains 13 datasets, designed to show us  why data visualisation is important and how summary statistics alone can be misleading. The different datasets are maked by the `dataset` variable.
@@ -190,17 +187,27 @@ datasaurus_dozen %>%
 
 You're done with the data analysis exercises, but we'd like you to do two more things:
 
-![](/assignment-img/fig-resize-global.png)
+```{r fig-resize-global, fig.width=2,fig.height=3, echo = FALSE}
+knitr::include_graphics("../../assignment-img/fig-resize-global.png")
+```
+
 
 - **Resize your figures:** 
 
 Click on the gear icon in on top of the R Markdown document, and select "Output Options..." in the dropdown menu. In the pop up dialogue box go to the Figures tab and change the height and width of the figures, and hit OK when done. Then, knit your document and see how you like the new sizes. Change and knit again and again until you're happy with the figure sizes. Note that these values get saved in the YAML.
 
-![](/assignment-img/fig-resize-local.png)
+
+```{r fig-resize-local, fig.width=3,fig.height=2, echo = FALSE}
+knitr::include_graphics("../../assignment-img/fig-resize-local.png")
+```
 
 You can also use different figure sizes for different figures. To do so click on the gear icon within the chunk where you want to make a change. Changing the figure sizes added new options to these chunks: `fig.width` and `fig.height`. You can change them by defining different values directly in your R Markdown document as well.
 
-![](../../static/assignment-img/theme-highlight.png)
+
+```{r theme-highlight, fig.width=2,fig.height=3, echo = FALSE}
+knitr::include_graphics("../../assignment-img/theme-highlight.png")
+```
+
 
 - **Change the look of your report:** 
 

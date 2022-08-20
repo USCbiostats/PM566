@@ -22,10 +22,10 @@ editor_options:
 
 ## Lab Exercise
 
-[link](/PM566/assignment/01-lab)
+[link](/PM566/labs/lab-01/01-lab.html)
 
 
-[Download](/PM566/assignment/pm566-01-lab.zip)
+[Download](/PM566/labs/lab-01/pm566-01-lab.zip)
 
 ## Slides
 
