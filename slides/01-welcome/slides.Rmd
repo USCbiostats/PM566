@@ -170,7 +170,7 @@ Over 16,000 packages added to CRAN
 <img src="https://rstudio.com/wp-content/uploads/2018/10/RStudio-Logo.svg" width="400px" alt="RStudio logo">
 
 > RStudio is an integrated development environment (IDE) for R.
---- https://rstudio.org/products/rstudio
+--- https://www.rstudio.com/products/rstudio/
 
 ---
 
