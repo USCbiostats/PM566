@@ -194,7 +194,7 @@ Over 16,000 packages added to CRAN
 
 # Break time
 
-We will be back for labs at 2:30
+Following break we will run lab 01
 
 ---
 
@@ -204,8 +204,8 @@ The lab exercises can be found at:
 
 Website -> Schedule -> `r fontawesome::fa("chalkboard-teacher")` -> Lab Exercise
 
-https://USCbiostats.github.io/PM566/assignment/01-lab/
+https://uscbiostats.github.io/PM566/labs/lab-01/01-lab.html
 
 Related Github Issue
 
-https://github.com/USCbiostats/PM566/issues/38
+https://github.com/USCbiostats/PM566/issues/54
