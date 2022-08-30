@@ -18,7 +18,7 @@ You are expected to have read this when you show up for the session.
   [(link)](https://bookdown.org/rdpeng/RProgDA/version-control-and-github.html)
 
 You are also expected to have git installed in your system and having a
-GitHub account. For this see
+GitHub account. For this see [here](https://git-scm.com/downloads), 
 [here](https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration)
 and [here](http://github.com/).
 
