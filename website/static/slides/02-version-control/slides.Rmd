@@ -95,7 +95,7 @@ In these cases, and no doubt others, a version control system should make your l
 
 ## How can I use Git
 
-There are sevearl ways to include Git in your work-pipeline. A few are:
+There are several ways to include Git in your work-pipeline. A few are:
 
 - Through command line
 
@@ -153,7 +153,7 @@ More alternatives [here](https://git-scm.com/download/gui).
 
 ## Hands-on 0: Introduce yourself
 
-Set up your git install with `git confing`, start by telling who you are
+Set up your git install with `git config`, start by telling who you are
 
 
 ```ssh
@@ -260,15 +260,15 @@ b. Add the remote using `git remote add`, in particular
   
   The use the commands `git status` and `git remote -v` to see what's going on.
   
-c. Push the changes to the remote using `git push` like this:
+c. Push the changes to the remote using `git branch` and `git push` like this:
    
   ```sh
-  $ git push -u origin master
+  $ git branch -M main
+  $ git push -u origin main
   ```
   
   You should also check the status of the project using `git status` to see
-  what git tells you about it. Origin is the tag associated with the remote repo
-  su setted up, while master is the tag associated with the current branch of
+  what git tells you about it. Origin is the tag associated with the remote repo you set up, while main is the tag associated with the current branch of
   your repo.
 
 
@@ -301,7 +301,7 @@ Recommended: Complete GitHub's Training team ["Uploading your project to GitHub"
 ## Hands-on 2: Remote repository (solutions b)
 
 For part (b), there are a couple of solutions, first, you could try using
-your ssh-key (if you setted up)
+your ssh-key (if you set it up)
 
 ```sh
 # (b)
@@ -310,8 +310,8 @@ git remote -v
 git status
 ```
 
-Otherwise, you can use the simple URL (this will propt user+password)
-every time you want to push (and pull, if private).
+Otherwise, you can use the simple URL (this will prompt user+password)
+every time you want to push (and pull, if private).  When asked for your password, GitHub actually wants your Personal access token.
 
 ```sh
 # (b)
@@ -324,13 +324,16 @@ git status
 
 ## Hands-on 2: Remote repository (solutions c)
 
-For the first `git push`, you need to specify source (master) and target
-(origin) and set the upstream (the `-u` option):
+The command `git branch`, will create a branch named main. 
+
+For the first `git push`, you need to specify source (main) and target
+(origin) and set the upstream (the `-u` option): 
 
 ```sh
 # (c)
-git push -u origin master
-git status
+ git branch -M main
+ git push -u origin main
+ git status
 ```
 
 The `--set-upstream`, which was invoked with `-u`, will set the tracking reference
