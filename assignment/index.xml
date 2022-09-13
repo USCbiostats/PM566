@@ -430,381 +430,6 @@ Create the following figures and interpret them. Be sure to include easily under
     </item>
     
     <item>
-      <title>Lab 07 - Web scraping and Regular Expressions</title>
-      <link>https://uscbiostats.github.io/PM566/assignment/07-lab/</link>
-      <pubDate>Thu, 07 Oct 2021 00:00:00 +0000</pubDate>
-      <guid>https://uscbiostats.github.io/PM566/assignment/07-lab/</guid>
-      <description>
-&lt;script src=&#34;https://uscbiostats.github.io/PM566/PM566/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
-
-
-&lt;div id=&#34;learning-goals&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;Learning goals&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;Use a real world API to make queries and process the data.&lt;/li&gt;
-&lt;li&gt;Use regular expressions to parse the information.&lt;/li&gt;
-&lt;li&gt;Practice your GitHub skills.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;div id=&#34;lab-description&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;Lab description&lt;/h1&gt;
-&lt;p&gt;In this lab, we will be working with the &lt;a href=&#34;https://www.ncbi.nlm.nih.gov/home/develop/api/&#34;&gt;NCBI API&lt;/a&gt;
-to make queries and extract information using XML and regular expressions. For this lab, we will
-be using the &lt;code&gt;httr&lt;/code&gt;, &lt;code&gt;xml2&lt;/code&gt;, and &lt;code&gt;stringr&lt;/code&gt; R packages.&lt;/p&gt;
-&lt;p&gt;This markdown document should be rendered using &lt;code&gt;github_document&lt;/code&gt; document.&lt;/p&gt;
-&lt;div id=&#34;question-1-how-many-sars-cov-2-papers&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Question 1: How many sars-cov-2 papers?&lt;/h2&gt;
-&lt;p&gt;Build an automatic counter of sars-cov-2 papers using PubMed. You will need to apply XPath as we did during the lecture to extract the number of results returned by PubMed in the following web address:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;https://pubmed.ncbi.nlm.nih.gov/?term=sars-cov-2&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Complete the lines of code:&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Downloading the website
-website &amp;lt;- xml2::read_html(&amp;quot;[URL]&amp;quot;)
-
-# Finding the counts
-counts &amp;lt;- xml2::xml_find_first(website, &amp;quot;[XPath]&amp;quot;)
-
-# Turning it into text
-counts &amp;lt;- as.character(counts)
-
-# Extracting the data using regex
-stringr::str_extract(counts, &amp;quot;[REGEX FOR NUMBERS WITH COMMAS/DOTS]&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Don’t forget to commit your work!&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;question-2-academic-publications-on-covid19-and-hawaii&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Question 2: Academic publications on COVID19 and Hawaii&lt;/h2&gt;
-&lt;p&gt;You need to query the following
-The parameters passed to the query are documented &lt;a href=&#34;https://www.ncbi.nlm.nih.gov/books/NBK25499/&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Use the function &lt;code&gt;httr::GET()&lt;/code&gt; to make the following query:&lt;/p&gt;
-&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
-&lt;li&gt;&lt;p&gt;Baseline URL: &lt;a href=&#34;https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi&#34; class=&#34;uri&#34;&gt;https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Query parameters:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;db: pubmed&lt;/li&gt;
-&lt;li&gt;term: covid19 hawaii&lt;/li&gt;
-&lt;li&gt;retmax: 1000&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(httr)
-query_ids &amp;lt;- GET(
-  url   = &amp;quot;BASELINE URL&amp;quot;,
-  query = list(&amp;quot;QUERY PARAMETERS&amp;quot;)
-)
-
-# Extracting the content of the response of GET
-ids &amp;lt;- httr::content(query_ids)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The query will return an XML object, we can turn it into a character list to
-analyze the text directly with &lt;code&gt;as.character()&lt;/code&gt;. Another way of processing the
-data could be using lists with the function &lt;code&gt;xml2::as_list()&lt;/code&gt;. We will skip the
-latter for now.&lt;/p&gt;
-&lt;p&gt;Take a look at the data, and continue with the next question (don’t forget to
-commit and push your results to your GitHub repo!).&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;question-3-get-details-about-the-articles&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Question 3: Get details about the articles&lt;/h2&gt;
-&lt;p&gt;The Ids are wrapped around text in the following way: &lt;code&gt;&amp;lt;Id&amp;gt;... id number ...&amp;lt;/Id&amp;gt;&lt;/code&gt;.
-we can use a regular expression that extract that information. Fill out the
-following lines of code:&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Turn the result into a character vector
-ids &amp;lt;- as.character(ids)
-
-# Find all the ids 
-ids &amp;lt;- stringr::str_extract_all(ids, &amp;quot;PATTERN&amp;quot;)[[1]]
-
-# Remove all the leading and trailing &amp;lt;Id&amp;gt; &amp;lt;/Id&amp;gt;. Make use of &amp;quot;|&amp;quot;
-ids &amp;lt;- stringr::str_remove_all(ids, &amp;quot;PATTERN&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;With the ids in hand, we can now try to get the abstracts of the papers. As
-before, we will need to coerce the contents (results) to a list using:&lt;/p&gt;
-&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
-&lt;li&gt;&lt;p&gt;Baseline url: &lt;a href=&#34;https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi&#34; class=&#34;uri&#34;&gt;https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Query parameters:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;db: pubmed&lt;/li&gt;
-&lt;li&gt;id: A character with all the ids separated by comma, e.g., “1232131,546464,13131”&lt;/li&gt;
-&lt;li&gt;retmax: 1000&lt;/li&gt;
-&lt;li&gt;rettype: abstract&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;&lt;strong&gt;Pro-tip&lt;/strong&gt;: If you want &lt;code&gt;GET()&lt;/code&gt; to take some element literal, wrap it around &lt;code&gt;I()&lt;/code&gt; (as you would do in a formula in R). For example, the text &lt;code&gt;&#34;123,456&#34;&lt;/code&gt; is replaced with &lt;code&gt;&#34;123%2C456&#34;&lt;/code&gt;. If you don’t want that behavior, you would need to do the following &lt;code&gt;I(&#34;123,456&#34;)&lt;/code&gt;.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;publications &amp;lt;- GET(
-  url   = &amp;quot;BASELINE URL HERE&amp;quot;,
-  query = list(
-    &amp;quot;PARAMETERS OF THE QUERY&amp;quot;
-    )
-)
-
-# Turning the output into character vector
-publications &amp;lt;- httr::content(publications)
-publications_txt &amp;lt;- as.character(publications)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;With this in hand, we can now analyze the data. This is also a good time for committing and pushing your work!&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;question-4-distribution-of-universities-schools-and-departments&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Question 4: Distribution of universities, schools, and departments&lt;/h2&gt;
-&lt;p&gt;Using the function &lt;code&gt;stringr::str_extract_all()&lt;/code&gt; applied on &lt;code&gt;publications_txt&lt;/code&gt;, capture all the terms of the form:&lt;/p&gt;
-&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
-&lt;li&gt;University of …&lt;/li&gt;
-&lt;li&gt;… Institute of …&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;Write a regular expression that captures all such instances&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;institution &amp;lt;- str_extract_all(
-  publications_txt,
-  &amp;quot;[YOUR REGULAR EXPRESSION HERE]&amp;quot;
-  ) 
-institution &amp;lt;- unlist(institution)
-table(institution)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Repeat the exercise and this time focus on schools and departments in the form of&lt;/p&gt;
-&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
-&lt;li&gt;School of …&lt;/li&gt;
-&lt;li&gt;Department of …&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;And tabulate the results&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;schools_and_deps &amp;lt;- str_extract_all(
-  abstracts_txt,
-  &amp;quot;[YOUR REGULAR EXPRESSION HERE]&amp;quot;
-  )
-table(schools_and_deps)&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;div id=&#34;question-5-form-a-database&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Question 5: Form a database&lt;/h2&gt;
-&lt;p&gt;We want to build a dataset which includes the title and the abstract of the
-paper. The title of all records is enclosed by the HTML tag &lt;code&gt;ArticleTitle&lt;/code&gt;, and
-the abstract by &lt;code&gt;Abstract&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;Before applying the functions to extract text directly, it will help to process
-the XML a bit. We will use the &lt;code&gt;xml2::xml_children()&lt;/code&gt; function to keep one element
-per id. This way, if a paper is missing the abstract, or something else, we will be able to properly match PUBMED IDS with their corresponding records.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;pub_char_list &amp;lt;- xml2::xml_children(publications)
-pub_char_list &amp;lt;- sapply(pub_char_list, as.character)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now, extract the abstract and article title for each one of the elements of
-&lt;code&gt;pub_char_list&lt;/code&gt;. You can either use &lt;code&gt;sapply()&lt;/code&gt; as we just did, or simply
-take advantage of vectorization of &lt;code&gt;stringr::str_extract&lt;/code&gt;&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;abstracts &amp;lt;- str_extract(pub_char_list, &amp;quot;[YOUR REGULAR EXPRESSION]&amp;quot;)
-abstracts &amp;lt;- str_remove_all(abstracts, &amp;quot;[CLEAN ALL THE HTML TAGS]&amp;quot;)
-abstracts &amp;lt;- str_remove_all(abstracts, &amp;quot;[CLEAN ALL EXTRA WHITE SPACE AND NEW LINES]&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;How many of these don’t have an abstract? Now, the title&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;titles &amp;lt;- str_extract(pub_char_list, &amp;quot;[YOUR REGULAR EXPRESSION]&amp;quot;)
-titles &amp;lt;- str_remove_all(titles, &amp;quot;[CLEAN ALL THE HTML TAGS]&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Finally, put everything together into a single &lt;code&gt;data.frame&lt;/code&gt; and use
-&lt;code&gt;knitr::kable&lt;/code&gt; to print the results&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;database &amp;lt;- data.frame(
-  &amp;quot;[DATA TO CONCATENATE]&amp;quot;
-)
-knitr::kable(database)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Done! Knit the document, commit, and push.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;final-pro-tip-optional&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Final Pro Tip (optional)&lt;/h2&gt;
-&lt;p&gt;You can still share the HTML document on github. You can include a link in your &lt;code&gt;README.md&lt;/code&gt; file as the following:&lt;/p&gt;
-&lt;pre class=&#34;md&#34;&gt;&lt;code&gt;View [here](https://ghcdn.rawgit.org/:user/:repo/:tag/:file)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;For example, if we wanted to add a direct link the HTML page of lecture 7, we could do something like the following:&lt;/p&gt;
-&lt;pre class=&#34;md&#34;&gt;&lt;code&gt;View [here](https://ghcdn.rawgit.org/USCbiostats/PM566/master/website/static/slides/07-apis-regex/slides.html) &lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Lab 06 - Text Mining</title>
-      <link>https://uscbiostats.github.io/PM566/assignment/06-lab/</link>
-      <pubDate>Fri, 01 Oct 2021 00:00:00 +0000</pubDate>
-      <guid>https://uscbiostats.github.io/PM566/assignment/06-lab/</guid>
-      <description>
-
-
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;knitr::opts_chunk$set(eval = FALSE, include  = FALSE)&lt;/code&gt;&lt;/pre&gt;
-&lt;div id=&#34;learning-goals&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;Learning goals&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;Use &lt;code&gt;unnest_tokens()&lt;/code&gt; and &lt;code&gt;unnest_ngrams()&lt;/code&gt; to extract tokens and ngrams from text.&lt;/li&gt;
-&lt;li&gt;Use dplyr and ggplot2 to analyze text data&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;div id=&#34;lab-description&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;Lab description&lt;/h1&gt;
-&lt;p&gt;For this lab we will be working with a new dataset. The dataset contains transcription samples from &lt;a href=&#34;https://www.mtsamples.com/&#34; class=&#34;uri&#34;&gt;https://www.mtsamples.com/&lt;/a&gt;. And is loaded and “fairly” cleaned at &lt;a href=&#34;https://raw.githubusercontent.com/USCbiostats/data-science-data/master/00_mtsamples/mtsamples.csv&#34; class=&#34;uri&#34;&gt;https://raw.githubusercontent.com/USCbiostats/data-science-data/master/00_mtsamples/mtsamples.csv&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;This markdown document should be rendered using &lt;code&gt;github_document&lt;/code&gt; document.&lt;/p&gt;
-&lt;!-- # Setup the Git project and the GitHub repository --&gt;
-&lt;!-- 1. Go to your documents (or wherever you are planning to store the data) in your computer, and create a folder for this project, for example, &#34;PM566-labs&#34; --&gt;
-&lt;!-- 2. In that folder, save [this template](https://raw.githubusercontent.com/USCbiostats/PM566/master/website/content/assignment/06-lab.Rmd) as &#34;README.Rmd&#34;. This will be the markdown file where all the magic will happen. --&gt;
-&lt;!-- 3. Go to your GitHub account and create a new repository, hopefully of the same name that this folder has, i.e., &#34;PM566-labs&#34;. --&gt;
-&lt;!-- 4. Initialize the Git project, add the &#34;README.Rmd&#34; file, and make your first commit. --&gt;
-&lt;!-- 5. Add the repo you just created on GitHub.com to the list of remotes, and push your commit to origin while setting the upstream. --&gt;
-&lt;div id=&#34;setup-packages&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;Setup packages&lt;/h3&gt;
-&lt;p&gt;You should load in &lt;code&gt;dplyr&lt;/code&gt;, (or &lt;code&gt;data.table&lt;/code&gt; if you want to work that way), &lt;code&gt;ggplot2&lt;/code&gt; and &lt;code&gt;tidytext&lt;/code&gt;.
-If you don’t already have &lt;code&gt;tidytext&lt;/code&gt; then you can install with&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;read-in-medical-transcriptions&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;read in Medical Transcriptions&lt;/h3&gt;
-&lt;p&gt;Loading in reference transcription samples from &lt;a href=&#34;https://www.mtsamples.com/&#34; class=&#34;uri&#34;&gt;https://www.mtsamples.com/&lt;/a&gt;&lt;/p&gt;
-&lt;hr /&gt;
-&lt;/div&gt;
-&lt;div id=&#34;question-1-what-specialties-do-we-have&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Question 1: What specialties do we have?&lt;/h2&gt;
-&lt;p&gt;We can use &lt;code&gt;count()&lt;/code&gt; from &lt;code&gt;dplyr&lt;/code&gt; to figure out how many different catagories do we have? Are these catagories related? overlapping? evenly distributed?&lt;/p&gt;
-&lt;hr /&gt;
-&lt;/div&gt;
-&lt;div id=&#34;question-2&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Question 2&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;Tokenize the the words in the &lt;code&gt;transcription&lt;/code&gt; column&lt;/li&gt;
-&lt;li&gt;Count the number of times each token appears&lt;/li&gt;
-&lt;li&gt;Visualize the top 20 most frequent words&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Explain what we see from this result. Does it makes sense? What insights (if any) do we get?&lt;/p&gt;
-&lt;hr /&gt;
-&lt;/div&gt;
-&lt;div id=&#34;question-3&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Question 3&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;Redo visualization but remove stopwords before&lt;/li&gt;
-&lt;li&gt;Bonus points if you remove numbers as well&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;What do we see know that we have removed stop words? Does it give us a better idea of what the text is about?&lt;/p&gt;
-&lt;hr /&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&#34;question-4&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;Question 4&lt;/h1&gt;
-&lt;p&gt;repeat question 2, but this time tokenize into bi-grams. how does the result change if you look at tri-grams?&lt;/p&gt;
-&lt;hr /&gt;
-&lt;/div&gt;
-&lt;div id=&#34;question-5&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;Question 5&lt;/h1&gt;
-&lt;p&gt;Using the results you got from questions 4. Pick a word and count the words that appears after and before it.&lt;/p&gt;
-&lt;hr /&gt;
-&lt;/div&gt;
-&lt;div id=&#34;question-6&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;Question 6&lt;/h1&gt;
-&lt;p&gt;Which words are most used in each of the specialties. you can use &lt;code&gt;group_by()&lt;/code&gt; and &lt;code&gt;top_n()&lt;/code&gt; from &lt;code&gt;dplyr&lt;/code&gt; to have the calculations be done within each specialty. Remember to remove stopwords. How about the most 5 used words?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;question-7---extra&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;Question 7 - extra&lt;/h1&gt;
-&lt;p&gt;Find your own insight in the data:&lt;/p&gt;
-&lt;p&gt;Ideas:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Interesting ngrams&lt;/li&gt;
-&lt;li&gt;See if certain words are used more in some specialties then others&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Lab 04 - Data Visualization</title>
-      <link>https://uscbiostats.github.io/PM566/assignment/04-lab/</link>
-      <pubDate>Thu, 16 Sep 2021 00:00:00 +0000</pubDate>
-      <guid>https://uscbiostats.github.io/PM566/assignment/04-lab/</guid>
-      <description>
-&lt;script src=&#34;https://uscbiostats.github.io/PM566/PM566/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
-
-
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Set to TRUE if you want the blocks to be evaluated 
-EVAL &amp;lt;- FALSE
-ECHO &amp;lt;- EVAL&lt;/code&gt;&lt;/pre&gt;
-&lt;div id=&#34;learning-goals&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;Learning Goals&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;Read in and prepare the meteorological dataset&lt;/li&gt;
-&lt;li&gt;Create several graphs with different &lt;code&gt;geoms()&lt;/code&gt; in &lt;code&gt;ggplot2&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Create a facet graph&lt;/li&gt;
-&lt;li&gt;Conduct some customizations to the graphs&lt;/li&gt;
-&lt;li&gt;Create a more detailed map using &lt;code&gt;leaflet()&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;div id=&#34;lab-description&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;Lab Description&lt;/h1&gt;
-&lt;p&gt;We will again work with the meteorological data presented in lecture.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;The objective of the lab is to examine the association between weekly average dew point temperature and wind speed in four regions of the US and by elevation.&lt;/strong&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;steps&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;Steps&lt;/h1&gt;
-&lt;div id=&#34;read-in-the-data&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;1. Read in the data&lt;/h3&gt;
-&lt;p&gt;First download and then read in with data.table:fread()&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;if (!file.exists(&amp;quot;met_all.gz&amp;quot;))
-  download.file(
-    url = &amp;quot;https://raw.githubusercontent.com/USCbiostats/data-science-data/master/02_met/met_all.gz&amp;quot;,
-    destfile = &amp;quot;met_all.gz&amp;quot;,
-    method   = &amp;quot;libcurl&amp;quot;,
-    timeout  = 60
-    )
-met &amp;lt;- data.table::fread(&amp;quot;met_all.gz&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;div id=&#34;prepare-the-data&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;2. Prepare the data&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;Remove temperatures less than -17C&lt;/li&gt;
-&lt;li&gt;Make sure there are no missing data in the key variables coded as 9999, 999, etc&lt;/li&gt;
-&lt;li&gt;Generate a date variable using the functions &lt;code&gt;as.Date()&lt;/code&gt; (hint: You will need the following to create a date &lt;code&gt;paste(year, month, day, sep = &#34;-&#34;)&lt;/code&gt;).&lt;/li&gt;
-&lt;li&gt;Using the &lt;code&gt;data.table::week&lt;/code&gt; function, keep the observations of the first week of the month.&lt;/li&gt;
-&lt;li&gt;Compute the mean by station of the variables &lt;code&gt;temp&lt;/code&gt;, &lt;code&gt;rh&lt;/code&gt;, &lt;code&gt;wind.sp&lt;/code&gt;, &lt;code&gt;vis.dist&lt;/code&gt;, &lt;code&gt;dew.point&lt;/code&gt;, &lt;code&gt;lat&lt;/code&gt;,
-&lt;code&gt;lon&lt;/code&gt;, and &lt;code&gt;elev&lt;/code&gt;.&lt;/li&gt;
-&lt;li&gt;Create a region variable for NW, SW, NE, SE based on lon = -98.00 and lat = 39.71 degrees&lt;/li&gt;
-&lt;li&gt;Create a categorical variable for elevation as in the lecture slides&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;div id=&#34;use-geom_violin-to-examine-the-wind-speed-and-dew-point-temperature-by-region&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;3. Use &lt;code&gt;geom_violin&lt;/code&gt; to examine the wind speed and dew point temperature by region&lt;/h3&gt;
-&lt;p&gt;You saw how to use &lt;code&gt;geom_boxplot&lt;/code&gt; in class. Try using &lt;code&gt;geom_violin&lt;/code&gt; instead (take a look at the help).
-(hint: You will need to set the &lt;code&gt;x&lt;/code&gt; aesthetic to 1)&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Use facets&lt;/li&gt;
-&lt;li&gt;Make sure to deal with &lt;code&gt;NA&lt;/code&gt; category&lt;/li&gt;
-&lt;li&gt;Describe what you observe in the graph&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;div id=&#34;use-geom_jitter-with-stat_smooth-to-examine-the-association-between-dew-point-temperature-and-wind-speed-by-region&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;4. Use &lt;code&gt;geom_jitter&lt;/code&gt; with &lt;code&gt;stat_smooth&lt;/code&gt; to examine the association between dew point temperature and wind speed by region&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;Colour points by region&lt;/li&gt;
-&lt;li&gt;Make sure to deal with &lt;code&gt;NA&lt;/code&gt; category&lt;/li&gt;
-&lt;li&gt;Fit a linear regression line by region&lt;/li&gt;
-&lt;li&gt;Describe what you observe in the graph&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;div id=&#34;use-geom_bar-to-create-barplots-of-the-weather-stations-by-elevation-category-coloured-by-region&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;5. Use &lt;code&gt;geom_bar&lt;/code&gt; to create barplots of the weather stations by elevation category coloured by region&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;Bars by elevation category using &lt;code&gt;position=&#34;dodge&#34;&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Change colours from the default. Colour by region using &lt;code&gt;scale_fill_brewer&lt;/code&gt; see &lt;a href=&#34;http://rstudio-pubs-static.s3.amazonaws.com/5312_98fc1aba2d5740dd849a5ab797cc2c8d.html&#34;&gt;this&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Create nice labels on axes and add a title&lt;/li&gt;
-&lt;li&gt;Describe what you observe in the graph&lt;/li&gt;
-&lt;li&gt;Make sure to deal with &lt;code&gt;NA&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;div id=&#34;use-stat_summary-to-examine-mean-dew-point-and-wind-speed-by-region-with-standard-deviation-error-bars&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;6. Use &lt;code&gt;stat_summary&lt;/code&gt; to examine mean dew point and wind speed by region with standard deviation error bars&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;Make sure to remove &lt;code&gt;NA&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Use fun.data=“mean_sdl” in &lt;code&gt;stat_summary&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Add another layer of &lt;code&gt;stats_summary&lt;/code&gt; but change the geom to &lt;code&gt;&#34;errorbar&#34;&lt;/code&gt; (see the help).&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Describe the graph and what you observe&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Dew point temperature is…&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Wind speed is…&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;div id=&#34;make-a-map-showing-the-spatial-trend-in-relative-h-in-the-us&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;7. Make a map showing the spatial trend in relative h in the US&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;Make sure to remove &lt;code&gt;NA&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Use leaflet()&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Make a colour palette with custom colours&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Use &lt;code&gt;addMarkers&lt;/code&gt; to include the top 10 places in relative h (hint: this will be useful &lt;code&gt;rank(-rh) &amp;lt;= 10&lt;/code&gt;)&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Add a legend&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Describe trend in RH across the US&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;div id=&#34;use-a-ggplot-extension&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;8. Use a ggplot extension&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;Pick and extension (except cowplot) from &lt;a href=&#34;https://exts.ggplot2.tidyverse.org/gallery/&#34;&gt;here&lt;/a&gt; and make a plot of your choice using the met data (or met_avg)&lt;/li&gt;
-&lt;li&gt;Might want to try examples that come with the extension first (e.g. ggtech, gganimate, ggforce)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-</description>
-    </item>
-    
-    <item>
       <title>Lab 01 - Hello R!</title>
       <link>https://uscbiostats.github.io/PM566/assignment/01-lab/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -1543,6 +1168,121 @@ Summarize any trends that you see in these time series plots.&lt;/p&gt;
     </item>
     
     <item>
+      <title>Lab 04 - Data Visualization</title>
+      <link>https://uscbiostats.github.io/PM566/assignment/04-lab/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://uscbiostats.github.io/PM566/assignment/04-lab/</guid>
+      <description>
+
+
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Set to TRUE if you want the blocks to be evaluated 
+EVAL &amp;lt;- FALSE
+ECHO &amp;lt;- EVAL&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;learning-goals&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Learning Goals&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;Read in and prepare the meteorological dataset&lt;/li&gt;
+&lt;li&gt;Create several graphs with different &lt;code&gt;geoms()&lt;/code&gt; in &lt;code&gt;ggplot2&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Create a facet graph&lt;/li&gt;
+&lt;li&gt;Conduct some customizations to the graphs&lt;/li&gt;
+&lt;li&gt;Create a more detailed map using &lt;code&gt;leaflet()&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;lab-description&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Lab Description&lt;/h1&gt;
+&lt;p&gt;We will again work with the meteorological data presented in lecture.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;The objective of the lab is to examine the association between weekly average dew point temperature and wind speed in four regions of the US and by elevation.&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;steps&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Steps&lt;/h1&gt;
+&lt;div id=&#34;read-in-the-data&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;1. Read in the data&lt;/h3&gt;
+&lt;p&gt;First download and then read in with data.table:fread()&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;if (!file.exists(&amp;quot;met_all.gz&amp;quot;))
+  download.file(
+    url = &amp;quot;https://raw.githubusercontent.com/USCbiostats/data-science-data/master/02_met/met_all.gz&amp;quot;,
+    destfile = &amp;quot;met_all.gz&amp;quot;,
+    method   = &amp;quot;libcurl&amp;quot;,
+    timeout  = 60
+    )
+met &amp;lt;- data.table::fread(&amp;quot;met_all.gz&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;prepare-the-data&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;2. Prepare the data&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Remove temperatures less than -17C&lt;/li&gt;
+&lt;li&gt;Make sure there are no missing data in the key variables coded as 9999, 999, etc&lt;/li&gt;
+&lt;li&gt;Generate a date variable using the functions &lt;code&gt;as.Date()&lt;/code&gt; (hint: You will need the following to create a date &lt;code&gt;paste(year, month, day, sep = &#34;-&#34;)&lt;/code&gt;).&lt;/li&gt;
+&lt;li&gt;Using the &lt;code&gt;data.table::week&lt;/code&gt; function, keep the observations of the first week of the month.&lt;/li&gt;
+&lt;li&gt;Compute the mean by station of the variables &lt;code&gt;temp&lt;/code&gt;, &lt;code&gt;rh&lt;/code&gt;, &lt;code&gt;wind.sp&lt;/code&gt;, &lt;code&gt;vis.dist&lt;/code&gt;, &lt;code&gt;dew.point&lt;/code&gt;, &lt;code&gt;lat&lt;/code&gt;,
+&lt;code&gt;lon&lt;/code&gt;, and &lt;code&gt;elev&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Create a region variable for NW, SW, NE, SE based on lon = -98.00 and lat = 39.71 degrees&lt;/li&gt;
+&lt;li&gt;Create a categorical variable for elevation as in the lecture slides&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;use-geom_violin-to-examine-the-wind-speed-and-dew-point-temperature-by-region&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;3. Use &lt;code&gt;geom_violin&lt;/code&gt; to examine the wind speed and dew point temperature by region&lt;/h3&gt;
+&lt;p&gt;You saw how to use &lt;code&gt;geom_boxplot&lt;/code&gt; in class. Try using &lt;code&gt;geom_violin&lt;/code&gt; instead (take a look at the help).
+(hint: You will need to set the &lt;code&gt;x&lt;/code&gt; aesthetic to 1)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Use facets&lt;/li&gt;
+&lt;li&gt;Make sure to deal with &lt;code&gt;NA&lt;/code&gt; category&lt;/li&gt;
+&lt;li&gt;Describe what you observe in the graph&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;use-geom_jitter-with-stat_smooth-to-examine-the-association-between-dew-point-temperature-and-wind-speed-by-region&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;4. Use &lt;code&gt;geom_jitter&lt;/code&gt; with &lt;code&gt;stat_smooth&lt;/code&gt; to examine the association between dew point temperature and wind speed by region&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Colour points by region&lt;/li&gt;
+&lt;li&gt;Make sure to deal with &lt;code&gt;NA&lt;/code&gt; category&lt;/li&gt;
+&lt;li&gt;Fit a linear regression line by region&lt;/li&gt;
+&lt;li&gt;Describe what you observe in the graph&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;use-geom_bar-to-create-barplots-of-the-weather-stations-by-elevation-category-coloured-by-region&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;5. Use &lt;code&gt;geom_bar&lt;/code&gt; to create barplots of the weather stations by elevation category coloured by region&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Bars by elevation category using &lt;code&gt;position=&#34;dodge&#34;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Change colours from the default. Colour by region using &lt;code&gt;scale_fill_brewer&lt;/code&gt; see &lt;a href=&#34;http://rstudio-pubs-static.s3.amazonaws.com/5312_98fc1aba2d5740dd849a5ab797cc2c8d.html&#34;&gt;this&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Create nice labels on axes and add a title&lt;/li&gt;
+&lt;li&gt;Describe what you observe in the graph&lt;/li&gt;
+&lt;li&gt;Make sure to deal with &lt;code&gt;NA&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;use-stat_summary-to-examine-mean-dew-point-and-wind-speed-by-region-with-standard-deviation-error-bars&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;6. Use &lt;code&gt;stat_summary&lt;/code&gt; to examine mean dew point and wind speed by region with standard deviation error bars&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Make sure to remove &lt;code&gt;NA&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Use fun.data=“mean_sdl” in &lt;code&gt;stat_summary&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Add another layer of &lt;code&gt;stats_summary&lt;/code&gt; but change the geom to &lt;code&gt;&#34;errorbar&#34;&lt;/code&gt; (see the help).&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Describe the graph and what you observe&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Dew point temperature is…&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Wind speed is…&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;make-a-map-showing-the-spatial-trend-in-relative-h-in-the-us&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;7. Make a map showing the spatial trend in relative h in the US&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Make sure to remove &lt;code&gt;NA&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Use leaflet()&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Make a colour palette with custom colours&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Use &lt;code&gt;addMarkers&lt;/code&gt; to include the top 10 places in relative h (hint: this will be useful &lt;code&gt;rank(-rh) &amp;lt;= 10&lt;/code&gt;)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Add a legend&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Describe trend in RH across the US&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;use-a-ggplot-extension&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;8. Use a ggplot extension&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Pick and extension (except cowplot) from &lt;a href=&#34;https://exts.ggplot2.tidyverse.org/gallery/&#34;&gt;here&lt;/a&gt; and make a plot of your choice using the met data (or met_avg)&lt;/li&gt;
+&lt;li&gt;Might want to try examples that come with the extension first (e.g. ggtech, gganimate, ggforce)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Lab 05 - Data Wrangling</title>
       <link>https://uscbiostats.github.io/PM566/assignment/05-lab/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -1679,6 +1419,264 @@ stations &amp;lt;- stations[n == 1,][, n := NULL]&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;All by the levels described before.&lt;/p&gt;
 &lt;p&gt;Knit the document, commit your changes, and push them to GitHub. If you’d like, you can take this time to include the link of &lt;a href=&#34;https://github.com/USCbiostats/PM566/issues/23&#34;&gt;the issue of the week&lt;/a&gt; so that you let us know when you are done, e.g.,&lt;/p&gt;
 &lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;git commit -a -m &amp;quot;Finalizing lab 5 https://github.com/USCbiostats/PM566/issues/23&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Lab 06 - Text Mining</title>
+      <link>https://uscbiostats.github.io/PM566/assignment/06-lab/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://uscbiostats.github.io/PM566/assignment/06-lab/</guid>
+      <description>
+
+
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;knitr::opts_chunk$set(eval = FALSE, include  = FALSE)&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;learning-goals&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Learning goals&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;Use &lt;code&gt;unnest_tokens()&lt;/code&gt; and &lt;code&gt;unnest_ngrams()&lt;/code&gt; to extract tokens and ngrams from text.&lt;/li&gt;
+&lt;li&gt;Use dplyr and ggplot2 to analyze text data&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;lab-description&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Lab description&lt;/h1&gt;
+&lt;p&gt;For this lab we will be working with a new dataset. The dataset contains transcription samples from &lt;a href=&#34;https://www.mtsamples.com/&#34; class=&#34;uri&#34;&gt;https://www.mtsamples.com/&lt;/a&gt;. And is loaded and “fairly” cleaned at &lt;a href=&#34;https://raw.githubusercontent.com/USCbiostats/data-science-data/master/00_mtsamples/mtsamples.csv&#34; class=&#34;uri&#34;&gt;https://raw.githubusercontent.com/USCbiostats/data-science-data/master/00_mtsamples/mtsamples.csv&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;This markdown document should be rendered using &lt;code&gt;github_document&lt;/code&gt; document.&lt;/p&gt;
+&lt;!-- # Setup the Git project and the GitHub repository --&gt;
+&lt;!-- 1. Go to your documents (or wherever you are planning to store the data) in your computer, and create a folder for this project, for example, &#34;PM566-labs&#34; --&gt;
+&lt;!-- 2. In that folder, save [this template](https://raw.githubusercontent.com/USCbiostats/PM566/master/website/content/assignment/06-lab.Rmd) as &#34;README.Rmd&#34;. This will be the markdown file where all the magic will happen. --&gt;
+&lt;!-- 3. Go to your GitHub account and create a new repository, hopefully of the same name that this folder has, i.e., &#34;PM566-labs&#34;. --&gt;
+&lt;!-- 4. Initialize the Git project, add the &#34;README.Rmd&#34; file, and make your first commit. --&gt;
+&lt;!-- 5. Add the repo you just created on GitHub.com to the list of remotes, and push your commit to origin while setting the upstream. --&gt;
+&lt;div id=&#34;setup-packages&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Setup packages&lt;/h3&gt;
+&lt;p&gt;You should load in &lt;code&gt;dplyr&lt;/code&gt;, (or &lt;code&gt;data.table&lt;/code&gt; if you want to work that way), &lt;code&gt;ggplot2&lt;/code&gt; and &lt;code&gt;tidytext&lt;/code&gt;.
+If you don’t already have &lt;code&gt;tidytext&lt;/code&gt; then you can install with&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;read-in-medical-transcriptions&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;read in Medical Transcriptions&lt;/h3&gt;
+&lt;p&gt;Loading in reference transcription samples from &lt;a href=&#34;https://www.mtsamples.com/&#34; class=&#34;uri&#34;&gt;https://www.mtsamples.com/&lt;/a&gt;&lt;/p&gt;
+&lt;hr /&gt;
+&lt;/div&gt;
+&lt;div id=&#34;question-1-what-specialties-do-we-have&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Question 1: What specialties do we have?&lt;/h2&gt;
+&lt;p&gt;We can use &lt;code&gt;count()&lt;/code&gt; from &lt;code&gt;dplyr&lt;/code&gt; to figure out how many different catagories do we have? Are these catagories related? overlapping? evenly distributed?&lt;/p&gt;
+&lt;hr /&gt;
+&lt;/div&gt;
+&lt;div id=&#34;question-2&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Question 2&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Tokenize the the words in the &lt;code&gt;transcription&lt;/code&gt; column&lt;/li&gt;
+&lt;li&gt;Count the number of times each token appears&lt;/li&gt;
+&lt;li&gt;Visualize the top 20 most frequent words&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Explain what we see from this result. Does it makes sense? What insights (if any) do we get?&lt;/p&gt;
+&lt;hr /&gt;
+&lt;/div&gt;
+&lt;div id=&#34;question-3&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Question 3&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Redo visualization but remove stopwords before&lt;/li&gt;
+&lt;li&gt;Bonus points if you remove numbers as well&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;What do we see know that we have removed stop words? Does it give us a better idea of what the text is about?&lt;/p&gt;
+&lt;hr /&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;question-4&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Question 4&lt;/h1&gt;
+&lt;p&gt;repeat question 2, but this time tokenize into bi-grams. how does the result change if you look at tri-grams?&lt;/p&gt;
+&lt;hr /&gt;
+&lt;/div&gt;
+&lt;div id=&#34;question-5&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Question 5&lt;/h1&gt;
+&lt;p&gt;Using the results you got from questions 4. Pick a word and count the words that appears after and before it.&lt;/p&gt;
+&lt;hr /&gt;
+&lt;/div&gt;
+&lt;div id=&#34;question-6&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Question 6&lt;/h1&gt;
+&lt;p&gt;Which words are most used in each of the specialties. you can use &lt;code&gt;group_by()&lt;/code&gt; and &lt;code&gt;top_n()&lt;/code&gt; from &lt;code&gt;dplyr&lt;/code&gt; to have the calculations be done within each specialty. Remember to remove stopwords. How about the most 5 used words?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;question-7---extra&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Question 7 - extra&lt;/h1&gt;
+&lt;p&gt;Find your own insight in the data:&lt;/p&gt;
+&lt;p&gt;Ideas:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Interesting ngrams&lt;/li&gt;
+&lt;li&gt;See if certain words are used more in some specialties then others&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Lab 07 - Web scraping and Regular Expressions</title>
+      <link>https://uscbiostats.github.io/PM566/assignment/07-lab/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://uscbiostats.github.io/PM566/assignment/07-lab/</guid>
+      <description>
+
+
+&lt;div id=&#34;learning-goals&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Learning goals&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;Use a real world API to make queries and process the data.&lt;/li&gt;
+&lt;li&gt;Use regular expressions to parse the information.&lt;/li&gt;
+&lt;li&gt;Practice your GitHub skills.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;lab-description&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Lab description&lt;/h1&gt;
+&lt;p&gt;In this lab, we will be working with the &lt;a href=&#34;https://www.ncbi.nlm.nih.gov/home/develop/api/&#34;&gt;NCBI API&lt;/a&gt;
+to make queries and extract information using XML and regular expressions. For this lab, we will
+be using the &lt;code&gt;httr&lt;/code&gt;, &lt;code&gt;xml2&lt;/code&gt;, and &lt;code&gt;stringr&lt;/code&gt; R packages.&lt;/p&gt;
+&lt;p&gt;This markdown document should be rendered using &lt;code&gt;github_document&lt;/code&gt; document.&lt;/p&gt;
+&lt;div id=&#34;question-1-how-many-sars-cov-2-papers&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Question 1: How many sars-cov-2 papers?&lt;/h2&gt;
+&lt;p&gt;Build an automatic counter of sars-cov-2 papers using PubMed. You will need to apply XPath as we did during the lecture to extract the number of results returned by PubMed in the following web address:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;https://pubmed.ncbi.nlm.nih.gov/?term=sars-cov-2&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Complete the lines of code:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Downloading the website
+website &amp;lt;- xml2::read_html(&amp;quot;[URL]&amp;quot;)
+
+# Finding the counts
+counts &amp;lt;- xml2::xml_find_first(website, &amp;quot;[XPath]&amp;quot;)
+
+# Turning it into text
+counts &amp;lt;- as.character(counts)
+
+# Extracting the data using regex
+stringr::str_extract(counts, &amp;quot;[REGEX FOR NUMBERS WITH COMMAS/DOTS]&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Don’t forget to commit your work!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;question-2-academic-publications-on-covid19-and-hawaii&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Question 2: Academic publications on COVID19 and Hawaii&lt;/h2&gt;
+&lt;p&gt;You need to query the following
+The parameters passed to the query are documented &lt;a href=&#34;https://www.ncbi.nlm.nih.gov/books/NBK25499/&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Use the function &lt;code&gt;httr::GET()&lt;/code&gt; to make the following query:&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;p&gt;Baseline URL: &lt;a href=&#34;https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi&#34; class=&#34;uri&#34;&gt;https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Query parameters:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;db: pubmed&lt;/li&gt;
+&lt;li&gt;term: covid19 hawaii&lt;/li&gt;
+&lt;li&gt;retmax: 1000&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(httr)
+query_ids &amp;lt;- GET(
+  url   = &amp;quot;BASELINE URL&amp;quot;,
+  query = list(&amp;quot;QUERY PARAMETERS&amp;quot;)
+)
+
+# Extracting the content of the response of GET
+ids &amp;lt;- httr::content(query_ids)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The query will return an XML object, we can turn it into a character list to
+analyze the text directly with &lt;code&gt;as.character()&lt;/code&gt;. Another way of processing the
+data could be using lists with the function &lt;code&gt;xml2::as_list()&lt;/code&gt;. We will skip the
+latter for now.&lt;/p&gt;
+&lt;p&gt;Take a look at the data, and continue with the next question (don’t forget to
+commit and push your results to your GitHub repo!).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;question-3-get-details-about-the-articles&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Question 3: Get details about the articles&lt;/h2&gt;
+&lt;p&gt;The Ids are wrapped around text in the following way: &lt;code&gt;&amp;lt;Id&amp;gt;... id number ...&amp;lt;/Id&amp;gt;&lt;/code&gt;.
+we can use a regular expression that extract that information. Fill out the
+following lines of code:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Turn the result into a character vector
+ids &amp;lt;- as.character(ids)
+
+# Find all the ids 
+ids &amp;lt;- stringr::str_extract_all(ids, &amp;quot;PATTERN&amp;quot;)[[1]]
+
+# Remove all the leading and trailing &amp;lt;Id&amp;gt; &amp;lt;/Id&amp;gt;. Make use of &amp;quot;|&amp;quot;
+ids &amp;lt;- stringr::str_remove_all(ids, &amp;quot;PATTERN&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;With the ids in hand, we can now try to get the abstracts of the papers. As
+before, we will need to coerce the contents (results) to a list using:&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;p&gt;Baseline url: &lt;a href=&#34;https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi&#34; class=&#34;uri&#34;&gt;https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Query parameters:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;db: pubmed&lt;/li&gt;
+&lt;li&gt;id: A character with all the ids separated by comma, e.g., “1232131,546464,13131”&lt;/li&gt;
+&lt;li&gt;retmax: 1000&lt;/li&gt;
+&lt;li&gt;rettype: abstract&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;Pro-tip&lt;/strong&gt;: If you want &lt;code&gt;GET()&lt;/code&gt; to take some element literal, wrap it around &lt;code&gt;I()&lt;/code&gt; (as you would do in a formula in R). For example, the text &lt;code&gt;&#34;123,456&#34;&lt;/code&gt; is replaced with &lt;code&gt;&#34;123%2C456&#34;&lt;/code&gt;. If you don’t want that behavior, you would need to do the following &lt;code&gt;I(&#34;123,456&#34;)&lt;/code&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;publications &amp;lt;- GET(
+  url   = &amp;quot;BASELINE URL HERE&amp;quot;,
+  query = list(
+    &amp;quot;PARAMETERS OF THE QUERY&amp;quot;
+    )
+)
+
+# Turning the output into character vector
+publications &amp;lt;- httr::content(publications)
+publications_txt &amp;lt;- as.character(publications)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;With this in hand, we can now analyze the data. This is also a good time for committing and pushing your work!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;question-4-distribution-of-universities-schools-and-departments&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Question 4: Distribution of universities, schools, and departments&lt;/h2&gt;
+&lt;p&gt;Using the function &lt;code&gt;stringr::str_extract_all()&lt;/code&gt; applied on &lt;code&gt;publications_txt&lt;/code&gt;, capture all the terms of the form:&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;University of …&lt;/li&gt;
+&lt;li&gt;… Institute of …&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Write a regular expression that captures all such instances&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;institution &amp;lt;- str_extract_all(
+  publications_txt,
+  &amp;quot;[YOUR REGULAR EXPRESSION HERE]&amp;quot;
+  ) 
+institution &amp;lt;- unlist(institution)
+table(institution)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Repeat the exercise and this time focus on schools and departments in the form of&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;School of …&lt;/li&gt;
+&lt;li&gt;Department of …&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;And tabulate the results&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;schools_and_deps &amp;lt;- str_extract_all(
+  abstracts_txt,
+  &amp;quot;[YOUR REGULAR EXPRESSION HERE]&amp;quot;
+  )
+table(schools_and_deps)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;question-5-form-a-database&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Question 5: Form a database&lt;/h2&gt;
+&lt;p&gt;We want to build a dataset which includes the title and the abstract of the
+paper. The title of all records is enclosed by the HTML tag &lt;code&gt;ArticleTitle&lt;/code&gt;, and
+the abstract by &lt;code&gt;Abstract&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Before applying the functions to extract text directly, it will help to process
+the XML a bit. We will use the &lt;code&gt;xml2::xml_children()&lt;/code&gt; function to keep one element
+per id. This way, if a paper is missing the abstract, or something else, we will be able to properly match PUBMED IDS with their corresponding records.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;pub_char_list &amp;lt;- xml2::xml_children(publications)
+pub_char_list &amp;lt;- sapply(pub_char_list, as.character)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now, extract the abstract and article title for each one of the elements of
+&lt;code&gt;pub_char_list&lt;/code&gt;. You can either use &lt;code&gt;sapply()&lt;/code&gt; as we just did, or simply
+take advantage of vectorization of &lt;code&gt;stringr::str_extract&lt;/code&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;abstracts &amp;lt;- str_extract(pub_char_list, &amp;quot;[YOUR REGULAR EXPRESSION]&amp;quot;)
+abstracts &amp;lt;- str_remove_all(abstracts, &amp;quot;[CLEAN ALL THE HTML TAGS]&amp;quot;)
+abstracts &amp;lt;- str_remove_all(abstracts, &amp;quot;[CLEAN ALL EXTRA WHITE SPACE AND NEW LINES]&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;How many of these don’t have an abstract? Now, the title&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;titles &amp;lt;- str_extract(pub_char_list, &amp;quot;[YOUR REGULAR EXPRESSION]&amp;quot;)
+titles &amp;lt;- str_remove_all(titles, &amp;quot;[CLEAN ALL THE HTML TAGS]&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Finally, put everything together into a single &lt;code&gt;data.frame&lt;/code&gt; and use
+&lt;code&gt;knitr::kable&lt;/code&gt; to print the results&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;database &amp;lt;- data.frame(
+  &amp;quot;[DATA TO CONCATENATE]&amp;quot;
+)
+knitr::kable(database)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Done! Knit the document, commit, and push.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;final-pro-tip-optional&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Final Pro Tip (optional)&lt;/h2&gt;
+&lt;p&gt;You can still share the HTML document on github. You can include a link in your &lt;code&gt;README.md&lt;/code&gt; file as the following:&lt;/p&gt;
+&lt;pre class=&#34;md&#34;&gt;&lt;code&gt;View [here](https://ghcdn.rawgit.org/:user/:repo/:tag/:file)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;For example, if we wanted to add a direct link the HTML page of lecture 7, we could do something like the following:&lt;/p&gt;
+&lt;pre class=&#34;md&#34;&gt;&lt;code&gt;View [here](https://ghcdn.rawgit.org/USCbiostats/PM566/master/website/static/slides/07-apis-regex/slides.html) &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 </description>
