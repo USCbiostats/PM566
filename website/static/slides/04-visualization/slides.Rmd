@@ -80,7 +80,7 @@ These slides were originally developed by Meredith Franklin (and Paul Marjoram) 
 knitr::include_graphics("img/ggplot2.png")
 ```
 
-This lecture provides an introduction to ggplot2, an R package that provides vastly better graphics options than R's default plots, histrograms, etc.
+This lecture provides an introduction to ggplot2, an R package that provides vastly better graphics options than R's default plots, histograms, etc.
 
 This section is based on chapter 3 of  ["R for Data Science"](https://r4ds.had.co.nz/)
 
@@ -403,7 +403,9 @@ ggplot(data = us_map, aes(x = long, y = lat, fill = region)) +
 
 ggplot2 provides over 40 geoms, and extension packages provide even more (see https://ggplot2.tidyverse.org/reference/ for a sampling). 
 
-The best way to get a comprehensive overview is the ggplot2 cheatsheet, which you can find at https://rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf
+The best way to get a comprehensive overview is the ggplot2 cheatsheet, which you can find at
+https://github.com/rstudio/cheatsheets/blob/main/data-visualization-2.1.pdf
+
 
 ```{r, out.width='50%', echo=FALSE}
 knitr::include_graphics("img/geoms.png")
@@ -719,7 +721,7 @@ https://r-graphics.org/
 
 A briefer summary can be found here:
 
-https://rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf
+https://github.com/rstudio/cheatsheets/blob/main/data-visualization-2.1.pdf
 
 Rstudio has a variety of other great Cheatsheets.
 
