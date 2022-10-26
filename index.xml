@@ -784,7 +784,7 @@ dbWriteTable(con, &amp;quot;category&amp;quot;, category)&lt;/code&gt;&lt;/pre&g
 
 &lt;div id=&#34;due-date&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Due Date&lt;/h2&gt;
-&lt;p&gt;This assignment is due by midnight Pacific time, November 2, 2022&lt;/p&gt;
+&lt;p&gt;This assignment is due by midnight Pacific time, November 4, 2022&lt;/p&gt;
 &lt;p&gt;The learning objectives are to conduct data scraping and perform text mining.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;apis&#34; class=&#34;section level2&#34;&gt;
