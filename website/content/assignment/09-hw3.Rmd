@@ -7,7 +7,7 @@ date: 2022-10-05
 
 ## Due Date
 
-This assignment is due by midnight Pacific time, November 2, 2022 
+This assignment is due by midnight Pacific time, November 4, 2022 
 
 The learning objectives are to conduct data scraping and perform text mining.
 
