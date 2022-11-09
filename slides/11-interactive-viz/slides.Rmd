@@ -32,6 +32,7 @@ code.r,code.cpp{
 
 ```{r, eval=TRUE, include=FALSE}
 library(knitr)
+library(tidyr)
 library(magrittr)
 library(ggplot2)
 # # load required packages
@@ -193,10 +194,10 @@ Interactive graphics are well suited to communicating high-dimensional or otherw
 
 # 2 Classes on Interactive Visualization in Data Science
 
-**11/12 (Today)**:
+**Today**:
   - Creating interactive graphs with **plotly** for R package and tables with **DataTable**
 
-**11/19**: 
+**Next week**: 
   - Create a website using RStudio and GitHub Pages
   - Share your interactive graphics
   - Survey other options for sharing interactive graphics (Shiny apps, dashboards)
@@ -510,10 +511,14 @@ cv_states_today %>%
           type = 'scatter', mode = 'markers', color = ~state,
           size = ~naive_CFR, sizes = c(5, 70), marker = list(sizemode='diameter', opacity=0.5),
           hoverinfo = 'text',
-          text = ~paste( paste(state, ":", sep=""), paste(" Cases per 100k: ", per100k, sep="") , paste(" Deaths per 100k: ", 
-                        deathsper100k, sep=""), paste(" CFR (%): ", naive_CFR,sep=""), sep = "<br>")) %>% 
+          text = ~paste( paste(state, ":", sep=""), 
+                    paste(" Cases per 100k: ", per100k, sep="") ,
+              paste(" Deaths per 100k: ", deathsper100k, sep=""),
+              paste(" CFR (%): ", naive_CFR,sep=""), 
+              sep = "<br>")) %>% 
   layout(title = "Cases, Deaths, and Naive Case Fatality Rate for US States",
-                  yaxis = list(title = "Cases"), xaxis = list(title = "Deaths"),
+        yaxis = list(title = "Cases"), 
+         xaxis = list(title = "Deaths"),
          hovermode = "compare")
 ```
 
@@ -547,10 +552,14 @@ cv_states_today %>%
           type = 'scatter3d', mode = 'markers', color = ~state,
           size = ~naive_CFR, sizes = c(5, 70), marker = list(sizemode='diameter', opacity=0.5),
           hoverinfo = 'text',
-          text = ~paste( paste(state, ":", sep=""), paste(" Cases per 100k: ", per100k, sep="") , paste(" Deaths per 100k: ", 
-                        deathsper100k, sep=""), paste(" CFR (%): ", naive_CFR,sep=""), sep = "<br>")) %>% 
+          text = ~paste( paste(state, ":", sep=""), 
+                    paste(" Cases per 100k: ", per100k, sep="") ,
+              paste(" Deaths per 100k: ", deathsper100k, sep=""),
+              paste(" CFR (%): ", naive_CFR,sep=""), 
+              sep = "<br>")) %>% 
   layout(title = "Cases, Deaths, and Naive Case Fatality Rate for US States",
-                  yaxis = list(title = "Cases"), xaxis = list(title = "Deaths"),
+          yaxis = list(title = "Cases"), 
+          xaxis = list(title = "Deaths"),
          hovermode = "compare")
 ```
 
@@ -581,7 +590,8 @@ widgetframe::frameWidget(p, width = '75%')
 
 ```{r, eval=FALSE}
 library(ggplot2)
-p <- ggplot(cv_states_today, aes(x=deathsper100k, y=per100k, size=naive_CFR)) + geom_point() + geom_smooth()
+p <- ggplot(cv_states_today, aes(x=deathsper100k, y=per100k, size=naive_CFR)) + 
+          geom_point() + geom_smooth()
 ggplotly(p)
 ```
 
@@ -627,7 +637,7 @@ fig <- fig %>% add_fun(function(p) {
 
 ## Annotations
 
-```{r, eval=FALSE, echo=FALSE, message=FALSE}
+```{r, echo=FALSE, message=FALSE}
 p <- ggplot(cv_states_today, aes(x=deathsper100k, y=per100k, size=naive_CFR)) + geom_point() + geom_smooth()
 fig <- p %>%
   ggplotly(layerData = 2, originalData = F) %>%
@@ -656,8 +666,10 @@ widgetframe::frameWidget(fig, width = '75%')
 cv_states %>% filter(population>7500000) %>% 
 plot_ly(x = ~date, y = ~deaths, color = ~state, type = "scatter", mode = "lines",
         hoverinfo = 'text',
-        text = ~paste( paste("Date: ", date, sep=""), paste(state, ":", sep=""), paste(" Deaths (total): ", deaths, sep=""), 
-                       paste(" Deaths per 100k: ", deathsper100k, sep=""), sep = "<br>"))
+        text = ~paste(paste(state, ":", sep=""), 
+                  paste("Date: ", date, sep=""),
+                  paste(" Deaths (total): ", deaths, sep=""), 
+                  paste(" Deaths per 100k: ", deathsper100k, sep=""), sep = "<br>"))
 ```
 
 ---
@@ -668,7 +680,9 @@ plot_ly(x = ~date, y = ~deaths, color = ~state, type = "scatter", mode = "lines"
 p<- cv_states %>% filter(population>7500000) %>% 
 plot_ly(x = ~date, y = ~deaths, color = ~state, type = "scatter", mode = "lines",
         hoverinfo = 'text',
-        text = ~paste( paste("Date: ", date, sep=""), paste(state, ":", sep=""), paste(" Deaths (total): ", deaths, sep=""), 
+        text = ~paste( paste(state,":", sep=""), 
+                       paste("Date: ", date, sep=""),
+                       paste(" Deaths (total): ", deaths, sep=""), 
                        paste(" Deaths per 100k: ", deathsper100k, sep=""), sep = "<br>"))
 widgetframe::frameWidget(p, width = '75%')
 ```
@@ -689,9 +703,23 @@ It helps to be able to see the exact values for each date upon hover.
 
 ```{r, eval=FALSE}
 g1 = plot_ly(cv_states, x = ~date, y = ~deaths, color = ~state, type = "scatter", mode = "lines")
-g2 = ggplot(cv_states, aes(x = date, y = cases, color = state)) + geom_line() + geom_point(size = .5, alpha = 0.5)
+g2 = ggplot(cv_states, aes(x = date, y = cases, color = state)) +
+          geom_line() + geom_point(size = .5, alpha = 0.5)
 g2_plotly <- ggplotly(g2)
 subplot(g1, g2_plotly)
+```
+
+---
+
+## Line graph: `ggplotly()`
+
+```{r, echo=FALSE, message=FALSE}
+g1 = plot_ly(cv_states, x = ~date, y = ~deaths, color = ~state, type = "scatter", mode = "lines")
+g2 = ggplot(cv_states, aes(x = date, y = cases, color = state)) + 
+            geom_line() + geom_point(size = .5, alpha = 0.5)
+g2_plotly <- ggplotly(g2)
+sp <- subplot(g1, g2_plotly)
+widgetframe::frameWidget(sp, width = '80%')
 ```
 
 ---
@@ -702,9 +730,28 @@ subplot(g1, g2_plotly)
 
 ```{r, eval=FALSE}
 g1 = ggplot(cv_states, aes(x = date, y = cases, color = state, 
-                           text=paste( paste("Date: ", date, sep=""), paste(state, ":", sep=""), paste(" Cases (total): ", cases, sep=""),sep = "<br>") )) + geom_line() + geom_point(size = .5, alpha = 0.5) 
+              text=paste(paste(state, ":", sep=""), 
+                         paste("Date: ", date, sep=""),
+                    paste(" Cases (total): ", cases, sep=""),
+                      sep = "<br>") )) + 
+          geom_line() + geom_point(size = .5, alpha = 0.5) 
+ggplotly(g1, tooltip = "text")
+
+```
+
+---
+
+## Specifying text with `ggplotly()`
+
+```{r, echo=FALSE, message=FALSE}
+g1 = ggplot(cv_states, aes(x = date, y = cases, color = state, 
+                text=paste(paste(state,":", sep=""), 
+                           paste("Date: ", date, sep=""),
+                      paste(" Cases (total): ", cases, sep=""),
+                      sep = "<br>") )) + 
+          geom_line() + geom_point(size = .5, alpha = 0.5) 
 g2<-ggplotly(g1, tooltip = "text")
-widgetframe::frameWidget(g2, width = '75%')
+widgetframe::frameWidget(g2, width = '80%')
 ```
 
 ---
@@ -746,12 +793,39 @@ subplot(g1, g2_plotly)
 
 ```{r, eval=FALSE}
 library(tidyr)
-cv_states_mat <- cv_states %>% select(state, date, newdeathsper100k) %>% filter(date>"2020-03-31") %>% filter(newdeathsper100k < 10)
-cv_states_mat2 <- as.data.frame(pivot_wider(cv_states_mat, names_from = state, values_from = newdeathsper100k))
+cv_states_mat <- cv_states %>% 
+            select(state, date, newdeathsper100k) %>% 
+            filter(date>"2020-03-31") %>% 
+            filter(newdeathsper100k < 10)
+cv_states_mat2 <- as.data.frame(pivot_wider(cv_states_mat,
+                                            names_from = state,
+                                            values_from = newdeathsper100k))
 rownames(cv_states_mat2) <- cv_states_mat2$date
 cv_states_mat2$date <- NULL
 head(cv_states_mat2)
 ```
+
+```{r, echo=FALSE, message=FALSE}
+cv_states_mat <- cv_states %>% 
+            select(state, date, newdeathsper100k) %>% 
+            filter(date>"2020-03-31") %>% 
+            filter(newdeathsper100k < 10)
+cv_states_mat2 <- as.data.frame(pivot_wider(cv_states_mat,
+                                            names_from = state,
+                                            values_from = newdeathsper100k))
+rownames(cv_states_mat2) <- cv_states_mat2$date
+cv_states_mat2$date <- NULL
+```
+
+
+---
+
+## Heatmap
+
+```{r}
+head(cv_states_mat2)
+```
+
 
 ---
 
@@ -762,11 +836,7 @@ head(cv_states_mat2)
 - You can hide or show scale using `showscale=T/F`
 
 ```{r, eval=FALSE}
-library(tidyr)
-cv_states_mat <- cv_states %>% select(state, date, newdeathsper100k) %>% filter(date>"2020-03-31") %>% filter(newdeathsper100k < 10)
-cv_states_mat2 <- as.data.frame(pivot_wider(cv_states_mat, names_from = state, values_from = newdeathsper100k))
-rownames(cv_states_mat2) <- cv_states_mat2$date
-cv_states_mat2$date <- NULL
+
 data <- as.matrix(cv_states_mat2)
 
 plot_ly(x=colnames(data), y=rownames(data),
@@ -780,11 +850,12 @@ plot_ly(x=colnames(data), y=rownames(data),
 ## Heatmap
 
 ```{r, message=FALSE, echo=FALSE}
-library(tidyr)
-cv_states_mat <- cv_states %>% select(state, date, newdeathsper100k) %>% filter(date>"2020-03-31") %>% filter(newdeathsper100k < 8)
-cv_states_mat2 <- as.data.frame(pivot_wider(cv_states_mat, names_from = state, values_from = newdeathsper100k))
-rownames(cv_states_mat2) <- cv_states_mat2$date
-cv_states_mat2$date <- NULL
+#library(tidyr)
+#cv_states_mat <- cv_states %>% select(state, date, #newdeathsper100k) %>% filter(date>"2020-03-31") %>% #filter(newdeathsper100k < 8)
+#cv_states_mat2 <- as.data.frame(pivot_wider(cv_states_mat, #names_from = state, values_from = newdeathsper100k))
+#rownames(cv_states_mat2) <- cv_states_mat2$date
+#cv_states_mat2$date <- NULL
+
 cv_states_mat2 <- as.matrix(cv_states_mat2)
 
 p<-plot_ly(x=colnames(cv_states_mat2), y=rownames(cv_states_mat2),
@@ -810,6 +881,21 @@ plot_ly(x=colnames(cv_states_mat2), y=rownames(cv_states_mat2),
              type="surface",
              showscale=F)
 ```
+
+---
+
+## 3D Surface
+
+
+
+```{r, echo=FALSE, message=FALSE}
+ps <- plot_ly(x=colnames(cv_states_mat2), y=rownames(cv_states_mat2),
+             z=~cv_states_mat2,
+             type="surface",
+             showscale=F)
+widgetframe::frameWidget(ps, width = '95%')
+```
+
 
 ---
 
