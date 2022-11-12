@@ -967,8 +967,11 @@ set_map_details <- list(
 # Create the map
 fig <- plot_geo(cv_CFR2, locationmode = 'USA-states') %>% 
   add_trace(
-    z = ~naive_CFR, text = ~hover, locations = ~state,
-    color = ~naive_CFR, colors = 'Blues'
+    z = ~naive_CFR, 
+    text = ~hover, 
+    locations = ~state,
+    color = ~naive_CFR, 
+    colors = 'Blues'
   )
 fig <- fig %>% colorbar(title = "CFR")
 fig <- fig %>% layout(
@@ -984,7 +987,8 @@ fig <- fig %>% layout(
 ```{r, message=FALSE, echo=FALSE}
 
 # Extract the data
-cv_CFR <- cv_states_today %>% select(state, naive_CFR) # select data
+cv_CFR <- cv_states_today %>% 
+          select(state, naive_CFR) # select data
 
 # Get state abbreviations and map to state names
 library(dplyr)
@@ -997,7 +1001,9 @@ cv_CFR2$state <- cv_CFR2$abb
 cv_CFR2$abb <- NULL
 
 # Create hover text
-cv_CFR2$hover <- with(cv_CFR, paste(state.name, '<br>', "CFR:", naive_CFR))
+cv_CFR2$hover <- with(cv_CFR2, 
+                      paste(state.name, '<br>', 
+                            "CFR:", naive_CFR))
 
 # Set up mapping details
 set_map_details <- list(
@@ -1010,8 +1016,11 @@ set_map_details <- list(
 # Create the map
 fig <- plot_geo(cv_CFR2, locationmode = 'USA-states') %>% 
   add_trace(
-    z = ~naive_CFR, text = ~hover, locations = ~state,
-    color = ~naive_CFR, colors = 'Blues'
+    z = ~naive_CFR, 
+    text = ~hover, 
+    locations = ~state,
+    color = ~naive_CFR, 
+    colors = 'Blues'
   )
 fig <- fig %>% colorbar(title = "CFR")
 fig <- fig %>% layout(
