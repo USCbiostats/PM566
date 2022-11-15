@@ -16,4 +16,4 @@ This assignment is due by midnight Pacific time, December 2nd, 2022
 
 3. Rename your final project website by modifying the relevant text in the `.yml` configuration file and the YAML header in the `index.Rmd` file. You may also modify the name of your GitHub repo so that the website url also provides a descriptive name.
 
-**Extra Credit**: Create content across 2 pages on your website. You can use the example content from [Lab 12](https://github.com/AbigailHorn/PM566-final-project) as an example.
+**Extra Credit**: Create content across 2 pages on your website. You can use the example content from [Lab 12](https://github.com/ksiegmund/PM566-lab12-example) as an example.

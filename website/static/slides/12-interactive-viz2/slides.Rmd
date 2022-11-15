@@ -76,18 +76,18 @@ opts_chunk$set(
 
 # Schedule 
 
-**11/12 Lecture 11 (Last week)**:
+**Lecture 11 (Last week)**:
   - Creating interactive graphs with **plotly** for R package and tables with **DataTable**
 
-**11/19 Lecture 12 (Today)**: 
-  - Create a website using R Markdown and GitHub Pages (like [this](https://abigailhorn.github.io/PM566-final-project/)!)
+**Lecture 12 (Today)**: 
+  - Create a website using R Markdown and GitHub Pages (like [this](https://ksiegmund.github.io/PM566-lab12-example/)!)
   - Share interactive plots on the website
-  - Note: [Assignment due (hpc and sql)](PM566/content/assignment/11-hw4.html)
+  - Note: [Assignment due Friday (hpc and sql)](https://uscbiostats.github.io/PM566/assignment/11-hw4/)
 
-**11/26 Thanksgiving Holiday**
+**11/23 Thanksgiving Holiday**
   
-**12/3 Lecture 13 Final Project Workshop**
-  - Note: [Assignment due (interactive viz I and II)](PM566/content/assignment/13-hw5.html)
+**11/30 Lecture 13 Final Project Workshop**
+  - Note: [Assignment due Dec 2 (interactive viz I and II)](https://uscbiostats.github.io/PM566/assignment/13-hw5/)
 
 ---
 
