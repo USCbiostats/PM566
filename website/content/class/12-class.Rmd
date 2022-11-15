@@ -22,7 +22,7 @@ editor_options:
 
 ## Lab Exercise
 
-Lab is on a website at [this link](https://abigailhorn.github.io/PM566-final-project/12-lab.html)
+Lab is on a website at [this link](https://ksiegmund.github.io/PM566-lab12-example/12-lab.html)
 
 Test
 
