@@ -20,7 +20,7 @@ design:
     text_color_light: true
 
 cta_note:
-  label: Fall 2021<br>Department of Population and Public Health Sciences<br>University of Southern California
+  label: Fall 2023<br>Department of Population and Public Health Sciences<br>University of Southern California
 ---
 
 **PM 566**

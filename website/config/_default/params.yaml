@@ -89,25 +89,25 @@ edit_page:
 ## Additionally, for organizations, these details may be used to enrich search engine results.
 ############################
 
-author: Kim Siegmund
+author: Kelly Street
 
 instructor:
   name: >-
-    Kim Siegmund
-  email: kims@usc.edu
-  office: "Soto Street Building (SSB)"
+    Kelly Street
+  email: kelly.street@usc.edu
+  office: "Soto Street Building (SSB) 202V"
   contact_policy: >-
-    By Appointment
+    Wednesdays 2-3pm or by appointment
 
 course:
   number: "PM566"
-  semester: "Fall 2022"
+  semester: "Fall 2023"
   days: ""
   time: ""
-  location: "Soto Street Building (SSB)"
+  location: "Soto Street Building (SSB) 114"
   dates: ""
   github: "USCbiostats/PM566"
-  copyrightYear: "2022"
+  copyrightYear: "2023"
 
 university:
   name: University of Southern California
