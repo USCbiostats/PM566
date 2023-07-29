@@ -14,14 +14,14 @@ output:
 
 ## Course objectives
 
-This course serves as an introduction to data science with focus on the acquisition and analysis of real-life data. Students will learn the toolsets needed to 1) create workable and reproducible datasets by accessing, scraping, sampling and cleaning data; 2) conduct exploratory data analysis and data visualizations; 3) apply statistical tools to learn from data; and 4) build functions and basic apps. Coding languages R and Python will be used.
+This course serves as an introduction to data science with a focus on the acquisition and analysis of real-life data. Students will learn the toolsets needed to 1) create workable and reproducible datasets by accessing, scraping, sampling and cleaning data; 2) conduct exploratory data analysis and data visualization; 3) apply statistical tools to learn from data; and 4) build functions and basic apps. Coding languages R and Python will be used.
 
 ## Learning Objectives
 
-Through this course, students will become familiar with the techniques used in Data Science, applied to health-related datasets. Students will learn:
+Through this course, students will become familiar with the techniques used in data science, applied to health-related datasets. Students will learn:
 
 - Programming in R, and associated tools Markdown, Git
-- Data visualization – summarizing data through interpretable summaires
+- Data visualization – summarizing data through interpretable summaries
 - Data collection – data scraping, wrangling, cleaning, and sampling
 - Exploratory data analysis – generating hypotheses and building intuition
 - Basic statistical algorithms
@@ -48,12 +48,13 @@ Computation using R (downloaded from http://cran.r-project.org), and development
 1. R for Data Science, 2017 Garrett Grolemund and Hadley Wickham. http://r4ds.had.co.nz/
 1. Exploratory Data Analysis with R, 2020 Roger Peng https://bookdown.org/rdpeng/exdata/
 1. Mastering Software Development in R, 2017 Roger Peng, Sean Kross, Brooke Anderson https://bookdown.org/rdpeng/RProgDA/
+1. R Packages, 2023 Hadley Wickham and Jennifer Bryan. https://r-pkgs.org/
 
 ## Description and Assessment of Assignments
 
 **Assignments:** There will be 5 assignments given throughout the semester, approximately 1 every 2 weeks. Students may discuss the problems with one another, however, individual solutions must be submitted and copying will not be tolerated. All assignments must be completed in R Markdown, and submitted through the Github classes portal of the course. Late assignments will be penalized by 20% for each day past the due date.
 
-**Final Project:** The final project will be to write a report for an analysis applied to a real-world dataset and to create a website that includes interactive visualizations to display data/results. The source code, website files, PDF report, will be uploaded to GitHub.
+**Final Project:** The final project will be to write a report for an analysis applied to a real-world dataset and to create a website that includes interactive visualizations to display data/results. The source code, website files, and PDF report will be uploaded to GitHub.
 
 **Labs:** Lab attendance is mandatory and participation in the lab is required and counts as part of the overall lab grade.
 
