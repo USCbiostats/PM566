@@ -1,8 +1,8 @@
 ---
 title: "Text mining"
 linktitle: "06: Text Mining"
-date: "2022-09-28"
-class_date: "2022-09-28"
+date: "2023-09-29"
+class_date: "2023-09-29"
 citeproc: false
 bibliography: ../../static/bib/references.bib
 csl: ../../static/bib/chicago-syllabus-no-bib.csl

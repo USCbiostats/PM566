@@ -1,8 +1,8 @@
 ---
 title: "SQL"
 linktitle: "10: SQL"
-date: "2022-11-02"
-class_date: "2022-11-02"
+date: "2023-10-27"
+class_date: "2023-10-27"
 citeproc: false
 bibliography: ../../static/bib/references.bib
 csl: ../../static/bib/chicago-syllabus-no-bib.csl

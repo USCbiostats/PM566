@@ -1,8 +1,8 @@
 ---
 title: "Look at Data / Up and Running in R and ggplot"
 linktitle: "01: Look at Data"
-date: "2022-08-24"
-class_date: "2022-08-24"
+date: "2023-08-25"
+class_date: "2023-08-25"
 citeproc: false
 bibliography: ../../static/bib/references.bib
 csl: ../../static/bib/chicago-syllabus-no-bib.csl

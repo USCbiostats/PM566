@@ -1,8 +1,8 @@
 ---
 title: "Data visualization"
 linktitle: "04: Data visualization"
-date: "2022-09-14"
-class_date: "2022-09-14"
+date: "2023-09-15"
+class_date: "2023-09-15"
 citeproc: false
 bibliography: ../../static/bib/references.bib
 csl: ../../static/bib/chicago-syllabus-no-bib.csl

@@ -1,8 +1,8 @@
 ---
 title: "Midterm Exam"
 linktitle: "08: Midterm Exam"
-date: "2021-10-07"
-class_date: "2021-10-07"
+date: "2023-10-13"
+class_date: "2023-10-13"
 citeproc: false
 bibliography: ../../static/bib/references.bib
 csl: ../../static/bib/chicago-syllabus-no-bib.csl
