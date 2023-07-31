@@ -25,7 +25,7 @@ editor_options:
 [link](/PM566/labs/lab-01/01-lab.html)
 
 
-[Download](https://github.com/USCbiostats/PM566/blob/master/website/static/labs/lab-01/pm566-01-lab.zip)
+[Download](https://github.com/USCbiostats/PM566/blob/master/website/static/labs/lab-01/pm566-01-lab.zip) (click the "download" icon on the right, near the "Raw" button, then unzip the file)
 
 ## Slides
 
