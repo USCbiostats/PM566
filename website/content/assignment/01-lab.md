@@ -84,7 +84,7 @@ Open the R Markdown (Rmd) file called `lab-01-hello-r.Rmd`. It will likely ask y
 
 RStudio is comprised of four panes.
 
-![](../../static/assignment-img/rstudio-anatomy.png)
+![](assignment-img/rstudio-anatomy.png)
 
 <img src="../../static/assignment-img/rstudio-anatomy.png" width="500" />
 
