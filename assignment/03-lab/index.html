@@ -30,8 +30,8 @@
   
     
   
-  <meta name="description" content="Learning Goals  Read in and get familiar with the meteorology dataset Step through the EDA “checklist” presented in the class slides Practice making exploratory graphs  Lab Description We will work with the meteorological data presented in lecture. Recall the dataset consists of weather station readings in the continental US.
-The objective of the lab is to find the weather station with the highest elevation and look at patterns in the time series of its wind speed and temperature.">
+  <meta name="description" content="Learning Goals  Read in and get familiar with the meteorology dataset Step through the EDA “checklist” presented in the class slides Practice making exploratory graphs  As you do this, think about what questions you would like to ask regarding this data. What would you ask a collaborator who was more familiar with it?
+Lab Description We will work with the meteorological data presented in lecture.">
 
   
   <link rel="alternate" hreflang="en-us" href="https://uscbiostats.github.io/PM566/assignment/03-lab/">
@@ -246,8 +246,8 @@ The objective of the lab is to find the weather station with the highest elevati
   <meta property="og:site_name" content="Introduction to Health Data Science - PM 566">
   <meta property="og:url" content="https://uscbiostats.github.io/PM566/assignment/03-lab/">
   <meta property="og:title" content="Lab 03 - Exploratory Data Analysis | Introduction to Health Data Science - PM 566">
-  <meta property="og:description" content="Learning Goals  Read in and get familiar with the meteorology dataset Step through the EDA “checklist” presented in the class slides Practice making exploratory graphs  Lab Description We will work with the meteorological data presented in lecture. Recall the dataset consists of weather station readings in the continental US.
-The objective of the lab is to find the weather station with the highest elevation and look at patterns in the time series of its wind speed and temperature."><meta property="og:image" content="https://uscbiostats.github.io/PM566/img/social-image.png">
+  <meta property="og:description" content="Learning Goals  Read in and get familiar with the meteorology dataset Step through the EDA “checklist” presented in the class slides Practice making exploratory graphs  As you do this, think about what questions you would like to ask regarding this data. What would you ask a collaborator who was more familiar with it?
+Lab Description We will work with the meteorological data presented in lecture."><meta property="og:image" content="https://uscbiostats.github.io/PM566/img/social-image.png">
   <meta property="twitter:image" content="https://uscbiostats.github.io/PM566/img/social-image.png"><meta property="og:locale" content="en-us">
   
     
@@ -540,6 +540,7 @@ The objective of the lab is to find the weather station with the highest elevati
 <li>Step through the EDA “checklist” presented in the class slides</li>
 <li>Practice making exploratory graphs</li>
 </ul>
+<p>As you do this, think about what questions you would like to ask regarding this data. What would you ask a collaborator who was more familiar with it?</p>
 <h1 id="lab-description">Lab Description</h1>
 <p>We will work with the meteorological data presented in lecture. Recall the dataset consists of weather station readings in the continental US.</p>
 <p><strong>The objective of the lab is to find the weather station with the highest elevation and look at patterns in the time series of its wind speed and temperature.</strong></p>
@@ -942,6 +943,15 @@ head(elev)
 </code></pre>
 <p><img src="/PM566/assignment/03-lab_files/figure-html/unnamed-chunk-13-2.png" width="672" />
 Summarize any trends that you see in these time series plots.</p>
+<h3 id="further-exploration">Further exploration</h3>
+<p>If you have time, feel free to explore some of the other variables in this dataset and their relationships to each other. There are many different types of summaries and visualization strategies that we have not discussed, but which could provide interesting perspectives on the data.</p>
+<p>Some other useful plotting functions include:</p>
+<ul>
+<li><code>pairs</code> for making all pairwise scatter plots in a dataset with &gt;2 dimensions.</li>
+<li><code>heatmap</code> and/or <code>corrplot</code> (from the <code>corrplot</code> package) for visualizing matrices in general or correlation matrices in particular.</li>
+<li><code>image</code> a low-level matrix visualization function</li>
+<li><code>barplot</code>, especially with <code>table</code>, for visualizing frequencies of categorical variables.</li>
+</ul>
 
     </div>
 
