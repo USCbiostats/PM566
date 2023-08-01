@@ -4,14 +4,13 @@ output: tufte::tufte_html
 link-citations: yes
 ---
 
-<script src="/PM566/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 
 <div id="learning-goals" class="section level1">
 <h1>Learning goals</h1>
 <p>In this lab, you are expected to learn/put in practice the following skills:</p>
 <ul>
-<li>Forking on GitHub</li>
+<li>Forking a repository on GitHub</li>
 <li>Git workflow clone/commit/push</li>
 <li>Using pull requests (PR)</li>
 </ul>
@@ -22,71 +21,49 @@ the course, meaning that your grade will depend on it :).</p>
 <div id="updating-a-single-repo" class="section level1">
 <h1>Updating a single repo</h1>
 <p>One of the most common tasks that people uses git for is for collaborating. While
-in general team members organize such that there are no overlapping editing of
-the files, git is smart enough to avoid clashes when multiple edits are done in
+in general team members organize such that there is no overlapping editing of
+the files, <code>git</code> is (usually) smart enough to avoid clashes when multiple edits are done in
 the same document<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. To show this, we will do a collaborative edit of
 a file!</p>
 <p>We will be working with the repository <a href="https://github.com/USCbiostats/PM566-whoami" class="uri">https://github.com/USCbiostats/PM566-whoami</a></p>
-<div id="step-1-for-the-project-in-your-repo" class="section level2">
-<h2>Step 1: For the project in your repo</h2>
+<div id="step-1-fork-the-project-to-create-your-own-repo" class="section level2">
+<h2>Step 1: Fork the project to create your own repo</h2>
 <p>Not a term/command actually available in Git, forking is a feature available in
 Github (as in other services) that allows users to create copies of other people’s
 projects to propose changes (i.e. make <strong>pull requests</strong>, i.e. “I have this
-great update to your project! Would you like to add it by <em>pulling it</em> into your
+great update for your project! Would you like to add it by <em>pulling it</em> into your
 repo?”).</p>
-<p>To start you just need to use the Fork button available on the project you would
+<p>To start, you just need to use the Fork button available on the main page of the repository you would
 like to contribute to<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>:</p>
-<figure>
-<img src="https://github-images.s3.amazonaws.com/help/bootcamp/Bootcamp-Fork.png" width="400px">
-<figcaption>
-Source: GitHub Help
-</figcaption>
-</figure>
 <p>Once you “Fork” a project, GitHub will:</p>
 <ol style="list-style-type: decimal">
 <li><p>Create a copy (using <code>git clone</code>) of that project in your account.</p></li>
-<li><p>Set up a pipeline to generate pull requests.</p></li>
+<li><p>Set up a pipeline to generate pull requests for the original repository.</p></li>
 </ol>
-<figure>
-<img src="https://github-images.s3.amazonaws.com/help/pull_requests/recently_pushed_branch.png" width="600px">
-<figcaption>
-Source: GitHub Help
-</figcaption>
-</figure>
-<p>Or</p>
-<figure>
-<img src="https://user-images.githubusercontent.com/893619/132388465-849ef04d-ad4f-4365-a646-27e88cb9d828.png" width="600px">
-<figcaption>
-Source: Screenshot!
-</figcaption>
-</figure>
 <p>Once you have a copy of the project in your account, you can proceede by
 “downloading it” to your computer using the <code>git clone</code> command. For example, if
-your github user name is <code>statsnerd</code> and the original repository is <code>Spoon-Knife</code>
-(as in the example), you could use the following in your command line</p>
-<pre class="shell"><code>cd a-place-where-you-want-to-download-the-thing
-git clone https://github.com/statsnerd/Spoon-Knife.git</code></pre>
+your github user name is <code>statsnerd</code> and the original repository is <code>PM566-whoami</code>, you could use the following in your command line</p>
+<pre class="shell"><code>cd where/you/want/to/download/the/thing
+git clone https://github.com/statsnerd/PM566-whoami.git</code></pre>
 <p>And if you have your ssh credentials set up, you can do instead</p>
-<pre class="shell"><code>cd a-place-where-you-want-to-download-the-thing
-git clone git@github.com:statsnerd/Spoon-Knife.git</code></pre>
+<pre class="shell"><code>cd where/you/want/to/download/the/thing
+git clone git@github.com:statsnerd/PM566-whoami.git</code></pre>
 <p>This way you will get a copy of the repository in your local machine. Now, let’s
 see how can we update the project!</p>
 </div>
 <div id="step-2-modifying-the-corresponding-line" class="section level2">
 <h2>Step 2: Modifying the corresponding line</h2>
 <p>If you got the correct copy, you should find a very simple repository with only
-two files: <code>.gitignore</code> and <code>README.md</code>. The first file is just a reference file
-for git to know what things it should be “looking at” (checkout the lecture
-slides), so we will <strong>ignore it</strong> at this time (pun intended). The second file
-is the one that we will be playing with. The readme file, which happens to be
+two files: <code>CODE_OF_CONDUCT.md</code> and <code>README.md</code>. The first file is a general code of conduct for the project, which we do not need to edit. The second file
+is the one that we will be playing with. The README file, which happens to be
 a <a href="https://en.wikipedia.org/wiki/Markdown">Markdown</a> file, contains, or at least
-will contain, your and your team members biographies. Here is what you need to
+will contain, your and your team members’ biographies. Here is what you need to
 do:</p>
 <ol style="list-style-type: decimal">
-<li><p>Find the line with your name/student id number.</p></li>
+<li><p>Find the line with your name.</p></li>
 <li><p>In that single line (i.e. not spanning multiple lines), write something about
 yourself, e.g. “I am from XYZ, I love doing ABC, …”.</p></li>
-<li><p>(optional) if you feel like it, add at the beginning of the line a picture
+<li><p>(optional) if you feel like it, add at the end of the line a picture
 of yourself (or avatar) using either html or markdown. This will require you
 to include the figure in the repo (if you are not linking a web fig).</p></li>
 <li><p>Commit the changes and push the changes to your repo using <code>git commit</code> and
@@ -108,25 +85,25 @@ are out-dated with respect to the main repository, meaning that the main reposit
 was modified <em>after</em> your fork and your proposed changes cannot be merged without
 generating conflicts<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>. For now, let’s just look at the simple case.</p>
 <p>To create the PR, you just need to go to your online copy of the project and
-click on “Compare &amp; pull request” link:</p>
+click on “Contribute” then “Open Pull Request”:</p>
 <figure>
-<img src="https://github-images.s3.amazonaws.com/help/pull_requests/recently_pushed_branch.png" width="600px">
+<img src="https://user-images.githubusercontent.com/893619/132388465-849ef04d-ad4f-4365-a646-27e88cb9d828.png" width="600px">
 <figcaption>
-Source: GitHub Help
+You can submit pull requests to the original repo from your copy of it via the “Contribute” button.
 </figcaption>
 </figure>
-<p>This will create a PR in the reference repository. GitHub will automatically
+<p>This will create a PR in the original repository. GitHub will automatically
 analyze the PR and check whether merging the PR to the master branch will result
 in a conflict or not. If all is OK, then the owner/admin of the repository can
 merge the PR. Otherwise, if there’s a conflict, you can go back to your local
 repo, make the needed changes, commit the changes, and push the changes to
-your copy on github. In this stage, the PR will automatically update to reflect
+your copy on GitHub. In this stage, the PR will automatically update to reflect
 the new changes you made in your copy of the project.</p>
-<p>For more information checkout <a href="https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request-from-a-fork">Creating a pull request from a fork</a>
+<p>For more information, check out <a href="https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request-from-a-fork">Creating a pull request from a fork</a>
 on GitHub.</p>
 </div>
 </div>
-<div class="footnotes">
+<div class="footnotes footnotes-end-of-document">
 <hr />
 <ol>
 <li id="fn1"><p>Team-members could be working on the same file but editing
