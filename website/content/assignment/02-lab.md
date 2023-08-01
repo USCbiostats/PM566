@@ -1,0 +1,140 @@
+---
+title: "Lab 02 - GitHub"
+output: tufte::tufte_html
+link-citations: yes
+---
+
+# Learning goals
+
+In this lab, you are expected to learn/put in practice the following skills:
+
+- Forking a repository on GitHub
+- Git workflow clone/commit/push
+- Using pull requests (PR)
+
+The last bit of the lab will deal with GitHub Classrooms. While this is not a
+fundamental tool for academia/industry, we will be using this tool throughout
+the course, meaning that your grade will depend on it :).
+
+# Updating a single repo
+
+One of the most common tasks that people uses git for is for collaborating. While
+in general team members organize such that there is no overlapping editing of
+the files, `git` is (usually) smart enough to avoid clashes when multiple edits are done in
+the same document[^multiedits]. To show this, we will do a collaborative edit of
+a file!
+
+[^multiedits]: Team-members could be working on the same file but editing
+different lines of code. If this is the case, after pull/push, git will integrate
+the changes without conflicts.
+
+We will be working with the repository https://github.com/USCbiostats/PM566-whoami
+
+## Step 1: Fork the project to create your own repo
+
+Not a term/command actually available in Git, forking is a feature available in
+Github (as in other services) that allows users to create copies of other people's
+projects to propose changes (i.e. make **pull requests**, i.e. "I have this
+great update for your project! Would you like to add it by *pulling it* into your
+repo?").
+
+To start, you just need to use the Fork button available on the main page of the repository you would
+like to contribute to[^githubmanualfork]:
+
+[^githubmanualfork]: For more details, take a look at the [Forking Projects](https://guides.github.com/activities/forking/) article in GitHub guides.
+
+
+Once you "Fork" a project, GitHub will:
+
+1. Create a copy (using `git clone`) of that project in your account.
+
+2. Set up a pipeline to generate pull requests for the original repository.
+
+
+Once you have a copy of the project in your account, you can proceede by
+"downloading it" to your computer using the `git clone` command. For example, if
+your github user name is `statsnerd` and the original repository is `PM566-whoami`, you could use the following in your command line
+
+```shell
+cd where/you/want/to/download/the/thing
+git clone https://github.com/statsnerd/PM566-whoami.git
+```
+
+And if you have your ssh credentials set up, you can do instead
+
+```shell
+cd where/you/want/to/download/the/thing
+git clone git@github.com:statsnerd/PM566-whoami.git
+```
+
+This way you will get a copy of the repository in your local machine. Now, let's
+see how can we update the project!
+
+## Step 2: Modifying the corresponding line
+
+If you got the correct copy, you should find a very simple repository with only
+two files: `CODE_OF_CONDUCT.md` and `README.md`. The first file is a general code of conduct for the project, which we do not need to edit. The second file
+is the one that we will be playing with. The README file, which happens to be
+a [Markdown](https://en.wikipedia.org/wiki/Markdown) file, contains, or at least
+will contain, your and your team members' biographies. Here is what you need to
+do:
+
+1. Find the line with your name.
+
+2. In that single line (i.e. not spanning multiple lines), write something about
+yourself, e.g. "I am from XYZ, I love doing ABC, ...".
+
+3. (optional) if you feel like it, add at the end of the line a picture
+of yourself (or avatar) using either html or markdown. This will require you
+to include the figure in the repo (if you are not linking a web fig).
+
+4. Commit the changes and push the changes to your repo using `git commit` and
+`git push`, e.g.
+
+```sh
+git commit -a -m "[A short but meaningful message]"
+# git add [your-avatar.png] ... if you need to add a picture
+git push
+```
+
+You are now one step closer to make your first "pull request". We will see how
+that happens in the next part.
+
+
+## Step 3: Do the pull request
+
+This is the final step. Overall, pull requests (PR) are as complex as the proposed
+changes are. The PR that you are about to make should go smoothly, yet, any time
+that you make a new PR, the changes should be able to be `merged` in the original
+repository without conflicts. Conflicts may only appear if the proposed changes
+are out-dated with respect to the main repository, meaning that the main repository
+was modified *after* your fork and your proposed changes cannot be merged without
+generating conflicts[^mergeconflicts]. For now, let's just look at the simple case.
+
+[^mergeconflicts]: More info about how to deal with conflicts in this very neat
+post on stackoverflow.com [How to resolve merge conflicts in Git](https://stackoverflow.com/questions/161813/how-to-resolve-merge-conflicts-in-git?page=1&tab=votes#tab-top).
+GitHub also has a way to solve conflicts in PRs, but this is only available to
+the admins of target repo. More info [here](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/resolving-a-merge-conflict-on-github),
+
+
+To create the PR, you just need to go to your online copy of the project and
+click on "Contribute" then "Open Pull Request":
+
+<figure>
+<img src="https://user-images.githubusercontent.com/893619/132388465-849ef04d-ad4f-4365-a646-27e88cb9d828.png" width="600px">
+<figcaption>You can submit pull requests to the original repo from your copy of it via the "Contribute" button.</figcaption>
+</figure>
+
+This will create a PR in the original repository. GitHub will automatically
+analyze the PR and check whether merging the PR to the master branch will result
+in a conflict or not. If all is OK, then the owner/admin of the repository can
+merge the PR. Otherwise, if there's a conflict, you can go back to your local
+repo, make the needed changes, commit the changes, and push the changes to
+your copy on GitHub. In this stage, the PR will automatically update to reflect
+the new changes you made in your copy of the project.
+
+For more information, check out [Creating a pull request from a fork
+](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request-from-a-fork)
+on GitHub.
+
+

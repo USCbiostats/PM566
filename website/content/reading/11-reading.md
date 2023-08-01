@@ -1,0 +1,45 @@
+---
+title: "Interactive visualization and effective data communication I"
+date: "2022-11-09"
+citeproc: false
+bibliography: ../../static/bib/references.bib
+csl: ../../static/bib/chicago-fullnote-bibliography-no-bib.csl
+---
+
+# Required reading
+
+You are expected to have read these items before class. Most of these linked sections/chapters are quite short.
+
+## Plotly
+
+Please read the following sections of [Interactive web-based data visualization with R, plotly, and shiny](https://plotly-r.com/index.html), by Carson Sievert:
+
+- Creating Views (Plotly features): Sections 1-3, 5-7
+- Publishing Views: Sections 9-12
+- Arranging and Animating Views: Sections 13-14
+- Linking Multiple Data Views: Sections 15
+- Server-side linking with Shiny: Section 17
+
+## Shiny
+
+- [Introduction to Interactive Documents](https://shiny.rstudio.com/articles/interactive-docs.html): provides a quick guide to getting started with Shiny.
+
+## Dashboards
+
+- [Chapter 5: Dashboards (Layout, Components, Shiny)](https://bookdown.org/yihui/rmarkdown/dashboards.html) from [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/), Yihui Xie, J. J. Allaire, Garrett Grolemund, provides a guide for using **Shiny** with **flexdashboard** to create interactive documents from R Markdown
+
+<br>
+<br>
+<br>
+
+# Optional reading
+
+## Interactive visualization
+
+- The official [Shiny website](http://shiny.rstudio.com) includes extensive articles, tutorials, and examples.
+- [Coursera course on developing data products, sessions on Shiny, GoogleVis, and Plotly](https://www.coursera.org/lecture/data-products/shiny-1-1-xgyMn)
+
+## Data visualization best practices
+
+- [Data Visualization: A Practical Introduction](https://kieranhealy.org/publications/dataviz/), Kieran Healy
+- [Fundamentals of Data Visualization](https://serialmentor.com/dataviz/), Claus O. Wilke
