@@ -68,7 +68,7 @@ RStudio is comprised of four panes.
 ![](../../static/assignment-img/rstudio-anatomy.png)
 
 ```{r rstudio-anatomy, fig.fullwidth=TRUE, echo = FALSE}
-knitr::include_graphics("assignment-img/rstudio-anatomy.png")
+knitr::include_graphics("../../static/assignment-img/rstudio-anatomy.png")
 ```
 
 - On the bottom left is the Console, this is where you can write code that will be evaluated. Try typing `2 + 2` here and hit enter, what do you get?
