@@ -45,7 +45,7 @@ If you have R installed run the following code
 R.version
 ```
 
-This should tell you what version of R you are currently using. If your R version is lower then 3.6.0 I would strongly recommend updating. In general it is a good idea to update your R version, unless you have a project right now that depend on a specific version of R.
+This should tell you what version of R you are currently using. If your R version is lower then 4.3.0 I would strongly recommend updating. In general it is a good idea to update your R version, unless you have a project right now that depend on a specific version of R.
 
 ## 2.2 Download RStudio
 
