@@ -32,7 +32,7 @@
   
   <meta name="description" content="Due Date This assignment is due by midnight Pacific time, October 7th, 2022
 For this assignment, we will be analyzing data from USC’s Children’s Health Study. The learning objectives are to conduct data wrangling and visualize the data with key questions in mind.
- Data Wrangling You will need to download two datasets from https://github.com/USCbiostats/data-science-data. The individual and regional CHS datasets in 01_chs. The individual data includes personal and health characteristics of children in 12 communities across Southern California.">
+Data Wrangling You will need to download two datasets from https://github.com/USCbiostats/data-science-data. The individual and regional CHS datasets in 01_chs. The individual data includes personal and health characteristics of children in 12 communities across Southern California.">
 
   
   <link rel="alternate" hreflang="en-us" href="https://uscbiostats.github.io/PM566/assignment/05-hw2/">
@@ -249,7 +249,7 @@ For this assignment, we will be analyzing data from USC’s Children’s Health 
   <meta property="og:title" content="Assignment 02 - Data Viz and Wrangling | Introduction to Health Data Science - PM 566">
   <meta property="og:description" content="Due Date This assignment is due by midnight Pacific time, October 7th, 2022
 For this assignment, we will be analyzing data from USC’s Children’s Health Study. The learning objectives are to conduct data wrangling and visualize the data with key questions in mind.
- Data Wrangling You will need to download two datasets from https://github.com/USCbiostats/data-science-data. The individual and regional CHS datasets in 01_chs. The individual data includes personal and health characteristics of children in 12 communities across Southern California."><meta property="og:image" content="https://uscbiostats.github.io/PM566/img/social-image.png">
+Data Wrangling You will need to download two datasets from https://github.com/USCbiostats/data-science-data. The individual and regional CHS datasets in 01_chs. The individual data includes personal and health characteristics of children in 12 communities across Southern California."><meta property="og:image" content="https://uscbiostats.github.io/PM566/img/social-image.png">
   <meta property="twitter:image" content="https://uscbiostats.github.io/PM566/img/social-image.png"><meta property="og:locale" content="en-us">
   
     
@@ -527,62 +527,67 @@ For this assignment, we will be analyzing data from USC’s Children’s Health 
   <div class="article-container">
 
     <div class="article-style">
-      
-
-
-<div id="due-date" class="section level2">
-<h2>Due Date</h2>
+      <h2 id="due-date">Due Date</h2>
 <p>This assignment is due by midnight Pacific time, October 7th, 2022</p>
 <p>For this assignment, we will be analyzing data from USC’s Children’s Health Study.
 The learning objectives are to conduct data wrangling and visualize the data with key questions in mind.</p>
-</div>
-<div id="data-wrangling" class="section level2">
-<h2>Data Wrangling</h2>
-<p>You will need to download two datasets from <a href="https://github.com/USCbiostats/data-science-data" class="uri">https://github.com/USCbiostats/data-science-data</a>. The <a href="https://raw.githubusercontent.com/USCbiostats/data-science-data/master/01_chs/chs_individual.csv">individual</a>
-and <a href="https://raw.githubusercontent.com/USCbiostats/data-science-data/master/01_chs/chs_regional.csv">regional</a>
+<h2 id="data-wrangling">Data Wrangling</h2>
+<p>You will need to download two datasets from 
+<a href="https://github.com/USCbiostats/data-science-data" target="_blank" rel="noopener">https://github.com/USCbiostats/data-science-data</a>. The 
+<a href="https://raw.githubusercontent.com/USCbiostats/data-science-data/master/01_chs/chs_individual.csv" target="_blank" rel="noopener">individual</a>
+and 
+<a href="https://raw.githubusercontent.com/USCbiostats/data-science-data/master/01_chs/chs_regional.csv" target="_blank" rel="noopener">regional</a>
 CHS datasets in <code>01_chs</code>.
 The individual data includes personal and health characteristics of children in
 12 communities across Southern California. The regional data include air quality
 measurements at the community level.
 Once downloaded, you can merge these datasets using the location variable. Once
 combined, you will need to do the following:</p>
-<ol style="list-style-type: decimal">
-<li><p>After merging the data, make sure you don’t have any duplicates by counting
+<ol>
+<li>
+<p>After merging the data, make sure you don’t have any duplicates by counting
 the number of rows. Make sure it matches.</p>
 <p>In the case of missing values, impute data using the average within the
-variables “male” and “hispanic.” If you are interested (and feel adventurous)
-in the theme of Data Imputation, take a look at this paper on “Multiple Imputation”
-using the Amelia R package <a href="https://gking.harvard.edu/files/gking/files/amelia_jss.pdf">here</a>.</p></li>
-<li><p>Create a new categorical variable named “obesity_level” using the BMI measurement
+variables &ldquo;male&rdquo; and &ldquo;hispanic.&rdquo; If you are interested (and feel adventurous)
+in the theme of Data Imputation, take a look at this paper on &ldquo;Multiple Imputation&rdquo;
+using the Amelia R package 
+<a href="https://gking.harvard.edu/files/gking/files/amelia_jss.pdf" target="_blank" rel="noopener">here</a>.</p>
+</li>
+<li>
+<p>Create a new categorical variable named “obesity_level” using the BMI measurement
 (underweight BMI&lt;14; normal BMI 14-22; overweight BMI 22-24; obese BMI&gt;24).
 To make sure the variable is rightly coded, create a summary table that contains
-the minimum BMI, maximum BMI, and the total number of observations per category.</p></li>
-<li><p>Create another categorical variable named “smoke_gas_exposure” that summarizes
-“Second Hand Smoke” and “Gas Stove.” The variable should have four categories
-in total.</p></li>
-<li><p>Create four summary tables showing the average (or proportion, if binary) and
+the minimum BMI, maximum BMI, and the total number of observations per category.</p>
+</li>
+<li>
+<p>Create another categorical variable named &ldquo;smoke_gas_exposure&rdquo; that summarizes
+&ldquo;Second Hand Smoke&rdquo; and &ldquo;Gas Stove.&rdquo; The variable should have four categories
+in total.</p>
+</li>
+<li>
+<p>Create four summary tables showing the average (or proportion, if binary) and
 sd of “Forced expiratory volume in 1 second (ml)” and asthma indicator by
-town, sex, obesity level, and “smoke_gas_exposure.”</p></li>
+town, sex, obesity level, and &ldquo;smoke_gas_exposure.&rdquo;</p>
+</li>
 </ol>
-</div>
-<div id="looking-at-the-data-eda" class="section level2">
-<h2>Looking at the Data (EDA)</h2>
-<p>The primary questions of interest are:
-1. What is the association between BMI and FEV (forced expiratory volume)?
-2. What is the association between smoke and gas exposure and FEV?
-3. What is the association between PM2.5 exposure and FEV?</p>
+<h2 id="looking-at-the-data-eda">Looking at the Data (EDA)</h2>
+<p>The primary questions of interest are:</p>
+<ol>
+<li>What is the association between BMI and FEV (forced expiratory volume)?</li>
+<li>What is the association between smoke and gas exposure and FEV?</li>
+<li>What is the association between PM2.5 exposure and FEV?</li>
+</ol>
 <p>Follow the EDA checklist from week 3 and the previous assignment. Be sure to focus on the key variables.
 Visualization
 Create the following figures and interpret them. Be sure to include easily understandable axes, titles, and legends.</p>
-<ol style="list-style-type: decimal">
-<li>Facet plot showing scatterplots with regression lines of BMI vs FEV by “townname”.</li>
+<ol>
+<li>Facet plot showing scatterplots with regression lines of  BMI vs FEV by “townname”.</li>
 <li>Stacked histograms of FEV by BMI category and FEV by smoke/gas exposure. Use different color schemes than the ggplot default.</li>
 <li>Barchart of BMI by smoke/gas exposure.</li>
 <li>Statistical summary graphs of FEV by BMI and FEV by smoke/gas exposure category.</li>
 <li>A leaflet map showing the concentrations of PM2.5 mass in each of the CHS communities.</li>
 <li>Choose a visualization to examine whether PM2.5 mass is associated with FEV.</li>
 </ol>
-</div>
 
     </div>
 

@@ -30,7 +30,7 @@
   
     
   
-  <meta name="description" content="Learning goals  Use the merge() function to join two datasets. Deal with missings and impute data. Identify relevant observations using quantile(). Practice your GitHub skills.   Lab description For this lab we will be, again, dealing with the meteorological dataset downloaded from the NOAA, the met. In this case, we will use data.table to answer some questions regarding the met dataset, while at the same time practice your Git&#43;GitHub skills for this project.">
+  <meta name="description" content="Learning goals  Use the merge() function to join two datasets. Deal with missings and impute data. Identify relevant observations using quantile(). Practice your GitHub skills.  Lab description For this lab we will be, again, dealing with the meteorological dataset downloaded from the NOAA, the met. In this case, we will use data.table to answer some questions regarding the met dataset, while at the same time practice your Git&#43;GitHub skills for this project.">
 
   
   <link rel="alternate" hreflang="en-us" href="https://uscbiostats.github.io/PM566/assignment/05-lab/">
@@ -245,7 +245,7 @@
   <meta property="og:site_name" content="Introduction to Health Data Science - PM 566">
   <meta property="og:url" content="https://uscbiostats.github.io/PM566/assignment/05-lab/">
   <meta property="og:title" content="Lab 05 - Data Wrangling | Introduction to Health Data Science - PM 566">
-  <meta property="og:description" content="Learning goals  Use the merge() function to join two datasets. Deal with missings and impute data. Identify relevant observations using quantile(). Practice your GitHub skills.   Lab description For this lab we will be, again, dealing with the meteorological dataset downloaded from the NOAA, the met. In this case, we will use data.table to answer some questions regarding the met dataset, while at the same time practice your Git&#43;GitHub skills for this project."><meta property="og:image" content="https://uscbiostats.github.io/PM566/img/social-image.png">
+  <meta property="og:description" content="Learning goals  Use the merge() function to join two datasets. Deal with missings and impute data. Identify relevant observations using quantile(). Practice your GitHub skills.  Lab description For this lab we will be, again, dealing with the meteorological dataset downloaded from the NOAA, the met. In this case, we will use data.table to answer some questions regarding the met dataset, while at the same time practice your Git&#43;GitHub skills for this project."><meta property="og:image" content="https://uscbiostats.github.io/PM566/img/social-image.png">
   <meta property="twitter:image" content="https://uscbiostats.github.io/PM566/img/social-image.png"><meta property="og:locale" content="en-us">
   
     
@@ -523,34 +523,37 @@
   <div class="article-container">
 
     <div class="article-style">
-      
-
-
-<div id="learning-goals" class="section level1">
-<h1>Learning goals</h1>
+      <h1 id="learning-goals">Learning goals</h1>
 <ul>
 <li>Use the <code>merge()</code> function to join two datasets.</li>
 <li>Deal with missings and impute data.</li>
 <li>Identify relevant observations using <code>quantile()</code>.</li>
 <li>Practice your GitHub skills.</li>
 </ul>
-</div>
-<div id="lab-description" class="section level1">
-<h1>Lab description</h1>
+<h1 id="lab-description">Lab description</h1>
 <p>For this lab we will be, again, dealing with the meteorological dataset downloaded from the NOAA, the <code>met</code>. In this case, we will use <code>data.table</code> to answer some questions regarding the <code>met</code> dataset, while at the same time practice your Git+GitHub skills for this project.</p>
 <p>This markdown document should be rendered using <code>github_document</code> document.</p>
-</div>
-<div id="part-1-setup-the-git-project-and-the-github-repository" class="section level1">
-<h1>Part 1: Setup the Git project and the GitHub repository</h1>
-<ol style="list-style-type: decimal">
-<li><p>Go to your documents (or wherever you are planning to store the data) in your computer, and create a folder for this project, for example, “PM566-labs”</p></li>
-<li><p>In that folder, save <a href="https://raw.githubusercontent.com/USCbiostats/PM566/master/content/assignment/05-lab.Rmd">this template</a> as “README.Rmd”. This will be the markdown file where all the magic will happen.</p></li>
-<li><p>Go to your GitHub account and create a new repository, hopefully of the same name that this folder has, i.e., “PM566-labs”.</p></li>
-<li><p>Initialize the Git project, add the “README.Rmd” file, and make your first commit.</p></li>
-<li><p>Add the repo you just created on GitHub.com to the list of remotes, and push your commit to origin while setting the upstream.</p></li>
+<h1 id="part-1-setup-the-git-project-and-the-github-repository">Part 1: Setup the Git project and the GitHub repository</h1>
+<ol>
+<li>
+<p>Go to your documents (or wherever you are planning to store the data) in your computer, and create a folder for this project, for example, &ldquo;PM566-labs&rdquo;</p>
+</li>
+<li>
+<p>In that folder, save 
+<a href="https://raw.githubusercontent.com/USCbiostats/PM566/master/content/assignment/05-lab.Rmd" target="_blank" rel="noopener">this template</a> as &ldquo;README.Rmd&rdquo;. This will be the markdown file where all the magic will happen.</p>
+</li>
+<li>
+<p>Go to your GitHub account and create a new repository, hopefully of the same name that this folder has, i.e., &ldquo;PM566-labs&rdquo;.</p>
+</li>
+<li>
+<p>Initialize the Git project, add the &ldquo;README.Rmd&rdquo; file, and make your first commit.</p>
+</li>
+<li>
+<p>Add the repo you just created on GitHub.com to the list of remotes, and push your commit to origin while setting the upstream.</p>
+</li>
 </ol>
 <p>Most of the steps can be done using command line:</p>
-<pre class="sh"><code># Step 1
+<pre><code class="language-sh"># Step 1
 cd ~/Documents
 mkdir PM566-labs
 cd PM566-labs
@@ -569,9 +572,10 @@ git commit -m &quot;First commit&quot;
 
 # Step 5
 git remote add origin git@github.com:[username]/PM566-labs
-git push -u origin master</code></pre>
+git push -u origin master
+</code></pre>
 <p>You can also complete the steps in R (replace with your paths/username when needed)</p>
-<pre class="r"><code># Step 1
+<pre><code class="language-r"># Step 1
 setwd(&quot;~/Documents&quot;)
 dir.create(&quot;PM566-labs&quot;)
 setwd(&quot;PM566-labs&quot;)
@@ -586,19 +590,24 @@ download.file(
 
 # Step 4
 system(&quot;git init &amp;&amp; git add README.Rmd&quot;)
-system(&#39;git commit -m &quot;First commit&quot;&#39;)
+system('git commit -m &quot;First commit&quot;')
 
 # Step 5
 system(&quot;git remote add origin git@github.com:[username]/PM566-labs&quot;)
-system(&quot;git push -u origin master&quot;)</code></pre>
+system(&quot;git push -u origin master&quot;)
+</code></pre>
 <p>Once you are done setting up the project, you can now start working with the MET data.</p>
-<div id="setup-in-r" class="section level2">
-<h2>Setup in R</h2>
-<ol style="list-style-type: decimal">
-<li><p>Load the <code>data.table</code> (and the <code>dtplyr</code> and <code>dplyr</code> packages if you plan to work with those).</p></li>
-<li><p>Load the met data from <a href="https://raw.githubusercontent.com/USCbiostats/data-science-data/master/02_met/met_all.gz" class="uri">https://raw.githubusercontent.com/USCbiostats/data-science-data/master/02_met/met_all.gz</a>, and also the station data. For the later, you can use the code we used during lecture to pre-process the stations data:</p></li>
+<h2 id="setup-in-r">Setup in R</h2>
+<ol>
+<li>
+<p>Load the <code>data.table</code> (and the <code>dtplyr</code> and <code>dplyr</code> packages if you plan to work with those).</p>
+</li>
+<li>
+<p>Load the met data from 
+<a href="https://raw.githubusercontent.com/USCbiostats/data-science-data/master/02_met/met_all.gz," target="_blank" rel="noopener">https://raw.githubusercontent.com/USCbiostats/data-science-data/master/02_met/met_all.gz,</a> and also the station data. For the later, you can use the code we used during lecture to pre-process the stations data:</p>
+</li>
 </ol>
-<pre class="r"><code># Download the data
+<pre><code class="language-r"># Download the data
 stations &lt;- fread(&quot;ftp://ftp.ncdc.noaa.gov/pub/data/noaa/isd-history.csv&quot;)
 stations[, USAF := as.integer(USAF)]
 
@@ -615,30 +624,23 @@ stations &lt;- stations[!is.na(USAF)]
 
 # Removing duplicates
 stations[, n := 1:.N, by = .(USAF)]
-stations &lt;- stations[n == 1,][, n := NULL]</code></pre>
-<ol start="3" style="list-style-type: decimal">
+stations &lt;- stations[n == 1,][, n := NULL]
+</code></pre>
+<ol start="3">
 <li>Merge the data as we did during the lecture.</li>
 </ol>
-</div>
-<div id="question-1-representative-station-for-the-us" class="section level2">
-<h2>Question 1: Representative station for the US</h2>
+<h2 id="question-1-representative-station-for-the-us">Question 1: Representative station for the US</h2>
 <p>What is the median station in terms of temperature, wind speed, and atmospheric pressure? Look for the three weather stations that best represent continental US using the <code>quantile()</code> function. Do these three coincide?</p>
-<p>Knit the document, commit your changes, and Save it on GitHub. Don’t forget to add <code>README.md</code> to the tree, the first time you render it.</p>
-</div>
-<div id="question-2-representative-station-per-state" class="section level2">
-<h2>Question 2: Representative station per state</h2>
+<p>Knit the document, commit your changes, and Save it on GitHub. Don&rsquo;t forget to add <code>README.md</code> to the tree, the first time you render it.</p>
+<h2 id="question-2-representative-station-per-state">Question 2: Representative station per state</h2>
 <p>Just like the previous question, you are asked to identify what is the most representative, the median, station per state. This time, instead of looking at one variable at a time, look at the euclidean distance. If multiple stations show in the median, select the one located at the lowest latitude.</p>
 <p>Knit the doc and save it on GitHub.</p>
-</div>
-<div id="question-3-in-the-middle" class="section level2">
-<h2>Question 3: In the middle?</h2>
+<h2 id="question-3-in-the-middle">Question 3: In the middle?</h2>
 <p>For each state, identify what is the station that is closest to the mid-point of the state. Combining these with the stations you identified in the previous question, use <code>leaflet()</code> to visualize all ~100 points in the same figure, applying different colors for those identified in this question.</p>
 <p>Knit the doc and save it on GitHub.</p>
-</div>
-<div id="question-4-means-of-means" class="section level2">
-<h2>Question 4: Means of means</h2>
-<p>Using the <code>quantile()</code> function, generate a summary table that shows the number of states included, average temperature, wind-speed, and atmospheric pressure by the variable “average temperature level,” which you’ll need to create.</p>
-<p>Start by computing the states’ average temperature. Use that measurement to classify them according to the following criteria:</p>
+<h2 id="question-4-means-of-means">Question 4: Means of means</h2>
+<p>Using the <code>quantile()</code> function, generate a summary table that shows the number of states included, average temperature, wind-speed, and atmospheric pressure by the variable &ldquo;average temperature level,&rdquo; which you&rsquo;ll need to create.</p>
+<p>Start by computing the states' average temperature. Use that measurement to classify them according to the following criteria:</p>
 <ul>
 <li>low: temp &lt; 20</li>
 <li>Mid: temp &gt;= 20 and temp &lt; 25</li>
@@ -653,10 +655,10 @@ stations &lt;- stations[n == 1,][, n := NULL]</code></pre>
 <li>Mean temperature, wind-speed, and atmospheric pressure.</li>
 </ul>
 <p>All by the levels described before.</p>
-<p>Knit the document, commit your changes, and push them to GitHub. If you’d like, you can take this time to include the link of <a href="https://github.com/USCbiostats/PM566/issues/42">the issue of the week</a> so that you let us know when you are done, e.g.,</p>
-<pre class="bash"><code>git commit -a -m &quot;Finalizing lab 5 https://github.com/USCbiostats/PM566/issues/42&quot;</code></pre>
-</div>
-</div>
+<p>Knit the document, commit your changes, and push them to GitHub. If you&rsquo;d like, you can take this time to include the link of 
+<a href="https://github.com/USCbiostats/PM566/issues/42" target="_blank" rel="noopener">the issue of the week</a> so that you let us know when you are done, e.g.,</p>
+<pre><code class="language-bash">git commit -a -m &quot;Finalizing lab 5 https://github.com/USCbiostats/PM566/issues/42&quot;
+</code></pre>
 
     </div>
 

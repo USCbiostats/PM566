@@ -32,7 +32,7 @@
   
   <meta name="description" content="Grab lab file using command line:
 # Step 1 cd ~/Documents mkdir lab11 cd lab11 # Step 2 wget https://raw.githubusercontent.com/USCbiostats/PM566/master/website/content/assignment/11-lab.Rmd  And remember to set eval=TRUE
-Learning Goals  Read in and process the COVID dataset from the New York Times GitHub repository Create interactive graphs of different types using plot_ly() and ggplotly() functions Customize the hoverinfo and other plot features Create a Choropleth map using plot_geo()   Lab Description We will work with COVID data downloaded from the New York Times.">
+Learning Goals  Read in and process the COVID dataset from the New York Times GitHub repository Create interactive graphs of different types using plot_ly() and ggplotly() functions Customize the hoverinfo and other plot features Create a Choropleth map using plot_geo()  Lab Description We will work with COVID data downloaded from the New York Times.">
 
   
   <link rel="alternate" hreflang="en-us" href="https://uscbiostats.github.io/PM566/assignment/11-lab/">
@@ -249,7 +249,7 @@ Learning Goals  Read in and process the COVID dataset from the New York Times Gi
   <meta property="og:title" content="Lab 11 - Interactive Visualization | Introduction to Health Data Science - PM 566">
   <meta property="og:description" content="Grab lab file using command line:
 # Step 1 cd ~/Documents mkdir lab11 cd lab11 # Step 2 wget https://raw.githubusercontent.com/USCbiostats/PM566/master/website/content/assignment/11-lab.Rmd  And remember to set eval=TRUE
-Learning Goals  Read in and process the COVID dataset from the New York Times GitHub repository Create interactive graphs of different types using plot_ly() and ggplotly() functions Customize the hoverinfo and other plot features Create a Choropleth map using plot_geo()   Lab Description We will work with COVID data downloaded from the New York Times."><meta property="og:image" content="https://uscbiostats.github.io/PM566/img/social-image.png">
+Learning Goals  Read in and process the COVID dataset from the New York Times GitHub repository Create interactive graphs of different types using plot_ly() and ggplotly() functions Customize the hoverinfo and other plot features Create a Choropleth map using plot_geo()  Lab Description We will work with COVID data downloaded from the New York Times."><meta property="og:image" content="https://uscbiostats.github.io/PM566/img/social-image.png">
   <meta property="twitter:image" content="https://uscbiostats.github.io/PM566/img/social-image.png"><meta property="og:locale" content="en-us">
   
     
@@ -525,45 +525,38 @@ Learning Goals  Read in and process the COVID dataset from the New York Times Gi
   <div class="article-container">
 
     <div class="article-style">
-      
-
-
-<p>Grab lab file using command line:</p>
-<pre class="sh"><code># Step 1
+      <p>Grab lab file using command line:</p>
+<pre><code class="language-sh"># Step 1
 cd ~/Documents
 mkdir lab11
 cd lab11
 
 # Step 2
 wget https://raw.githubusercontent.com/USCbiostats/PM566/master/website/content/assignment/11-lab.Rmd
+
 </code></pre>
 <p><strong>And remember to set <code>eval=TRUE</code></strong></p>
-<div id="learning-goals" class="section level1">
-<h1>Learning Goals</h1>
+<h1 id="learning-goals">Learning Goals</h1>
 <ul>
 <li>Read in and process the COVID dataset from the New York Times GitHub repository</li>
 <li>Create interactive graphs of different types using <code>plot_ly()</code> and <code>ggplotly()</code> functions</li>
 <li>Customize the hoverinfo and other plot features</li>
 <li>Create a Choropleth map using <code>plot_geo()</code></li>
 </ul>
-</div>
-<div id="lab-description" class="section level1">
-<h1>Lab Description</h1>
+<h1 id="lab-description">Lab Description</h1>
 <p>We will work with COVID data downloaded from the New York Times. The dataset consists of COVID-19 cases and deaths in each US state during the course of the COVID epidemic.</p>
 <p><strong>The objective of this lab is to explore relationships between cases, deaths, and population sizes of US states, and plot data to demonstrate this</strong></p>
-</div>
-<div id="steps" class="section level1">
-<h1>Steps</h1>
-<div id="i.-reading-and-processing-the-new-york-times-nyt-state-level-covid-19-data" class="section level2">
-<h2>I. Reading and processing the New York Times (NYT) state-level COVID-19 data</h2>
-<div id="read-in-the-data" class="section level3">
-<h3>1. Read in the data</h3>
+<h1 id="steps">Steps</h1>
+<h2 id="i-reading-and-processing-the-new-york-times-nyt-state-level-covid-19-data">I. Reading and processing the New York Times (NYT) state-level COVID-19 data</h2>
+<h3 id="1-read-in-the-data">1. Read in the data</h3>
 <ul>
-<li>Read in the COVID data with data.table:fread() from the NYT GitHub repository: “<a href="https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv" class="uri">https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv</a>”</li>
-<li>Read in the state population data with data.table:fread() from the repository: “<a href="https://raw.githubusercontent.com/COVID19Tracking/associated-data/master/us_census_data/us_census_2018_population_estimates_states.csv" class="uri">https://raw.githubusercontent.com/COVID19Tracking/associated-data/master/us_census_data/us_census_2018_population_estimates_states.csv</a>””</li>
+<li>Read in the COVID data with data.table:fread() from the NYT GitHub repository: &ldquo;
+<a href="https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv%22" target="_blank" rel="noopener">https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv"</a></li>
+<li>Read in the state population data with data.table:fread() from the repository: &ldquo;
+<a href="https://raw.githubusercontent.com/COVID19Tracking/associated-data/master/us_census_data/us_census_2018_population_estimates_states.csv%22%22" target="_blank" rel="noopener">https://raw.githubusercontent.com/COVID19Tracking/associated-data/master/us_census_data/us_census_2018_population_estimates_states.csv""</a></li>
 <li>Merge datasets</li>
 </ul>
-<pre class="r"><code>## data extracted from New York Times state-level data from NYT Github repository
+<pre><code class="language-r">## data extracted from New York Times state-level data from NYT Github repository
 # https://github.com/nytimes/covid-19-data
 
 ## state-level population information from us_census_data available on GitHub repository:
@@ -581,21 +574,19 @@ state_pops$state &lt;- state_pops$state_name
 state_pops$state_name &lt;- NULL
 
 ### FINISH THE CODE HERE
-cv_states &lt;- merge(cv_states, state_pops, by=________)</code></pre>
-</div>
-<div id="look-at-the-data" class="section level3">
-<h3>2. Look at the data</h3>
+cv_states &lt;- merge(cv_states, state_pops, by=________)
+</code></pre>
+<h3 id="2-look-at-the-data">2. Look at the data</h3>
 <ul>
 <li>Inspect the dimensions, <code>head</code>, and <code>tail</code> of the data</li>
 <li>Inspect the structure of each variables. Are they in the correct format?</li>
 </ul>
-<pre class="r"><code>dim(cv_states)
+<pre><code class="language-r">dim(cv_states)
 head(cv_states)
 tail(cv_states)
-str(cv_states)</code></pre>
-</div>
-<div id="format-the-data" class="section level3">
-<h3>3. Format the data</h3>
+str(cv_states)
+</code></pre>
+<h3 id="3-format-the-data">3. Format the data</h3>
 <ul>
 <li>Make date into a date variable</li>
 <li>Make state into a factor variable</li>
@@ -603,7 +594,7 @@ str(cv_states)</code></pre>
 <li>Confirm the variables are now correctly formatted</li>
 <li>Inspect the range values for each variable. What is the date range? The range of cases and deaths?</li>
 </ul>
-<pre class="r"><code># format the date
+<pre><code class="language-r"># format the date
 cv_states$date &lt;- as.Date(cv_states$date, format=&quot;%Y-%m-%d&quot;)
 
 # format the state and state abbreviation (abb) variables
@@ -625,23 +616,36 @@ tail(cv_states)
 head(cv_states)
 summary(cv_states)
 min(cv_states$date)
-max(cv_states$date)</code></pre>
-</div>
-<div id="add-new_cases-and-new_deaths-and-correct-outliers" class="section level3">
-<h3>4. Add <code>new_cases</code> and <code>new_deaths</code> and correct outliers</h3>
+max(cv_states$date)
+</code></pre>
+<h3 id="4-add-new_cases-and-new_deaths-and-correct-outliers">4. Add <code>new_cases</code> and <code>new_deaths</code> and correct outliers</h3>
 <ul>
-<li><p>Add variables for new cases, <code>new_cases</code>, and new deaths, <code>new_deaths</code>:</p>
+<li>
+<p>Add variables for new cases, <code>new_cases</code>, and new deaths, <code>new_deaths</code>:</p>
 <ul>
 <li>Hint: You can set <code>new_cases</code> equal to the difference between cases on date i and date i-1, starting on date i=2</li>
-</ul></li>
-<li><p>Filter to dates after June 1, 2021</p></li>
-<li><p>Use <code>plotly</code> for EDA: See if there are outliers or values that don’t make sense for <code>new_cases</code> and <code>new_deaths</code>. Which states and which dates have strange values?</p></li>
-<li><p>Correct outliers: Set negative values for <code>new_cases</code> or <code>new_deaths</code> to 0</p></li>
-<li><p>Recalculate <code>cases</code> and <code>deaths</code> as cumulative sum of updated <code>new_cases</code> and <code>new_deaths</code></p></li>
-<li><p>Get the rolling average of new cases and new deaths to smooth over time</p></li>
-<li><p>Inspect data again interactively</p></li>
 </ul>
-<pre class="r"><code># Add variables for new_cases and new_deaths:
+</li>
+<li>
+<p>Filter to dates after June 1, 2021</p>
+</li>
+<li>
+<p>Use <code>plotly</code> for EDA: See if there are outliers or values that don&rsquo;t make sense for <code>new_cases</code> and <code>new_deaths</code>. Which states and which dates have strange values?</p>
+</li>
+<li>
+<p>Correct outliers: Set negative values for <code>new_cases</code> or <code>new_deaths</code> to 0</p>
+</li>
+<li>
+<p>Recalculate <code>cases</code> and <code>deaths</code> as cumulative sum of updated <code>new_cases</code> and <code>new_deaths</code></p>
+</li>
+<li>
+<p>Get the rolling average of new cases and new deaths to smooth over time</p>
+</li>
+<li>
+<p>Inspect data again interactively</p>
+</li>
+</ul>
+<pre><code class="language-r"># Add variables for new_cases and new_deaths:
 for (i in 1:length(state_list)) {
   cv_subset = subset(cv_states, state == state_list[i])
   cv_subset = cv_subset[order(cv_subset$date),]
@@ -697,28 +701,33 @@ for (i in 1:length(state_list)) {
 }
 
 # Smooth new counts
-cv_states$new_cases = zoo::rollmean(cv_states$new_cases, k=7, fill=NA, align=&#39;right&#39;) %&gt;% round(digits = 0)
-cv_states$new_deaths = zoo::rollmean(cv_states$new_deaths, k=7, fill=NA, align=&#39;right&#39;) %&gt;% round(digits = 0)
+cv_states$new_cases = zoo::rollmean(cv_states$new_cases, k=7, fill=NA, align='right') %&gt;% round(digits = 0)
+cv_states$new_deaths = zoo::rollmean(cv_states$new_deaths, k=7, fill=NA, align='right') %&gt;% round(digits = 0)
 
 # Inspect data again interactively
 p2&lt;-ggplot(cv_states, aes(x = date, y = new_deaths, color = state)) + geom_line() + geom_point(size = .5, alpha = 0.5)
 ggplotly(p2)
-#p2=NULL</code></pre>
-</div>
-<div id="add-additional-variables" class="section level3">
-<h3>5. Add additional variables</h3>
+#p2=NULL
+</code></pre>
+<h3 id="5-add-additional-variables">5. Add additional variables</h3>
 <ul>
-<li><p>Add population-normalized (by 100,000) variables for each variable type (rounded to 1 decimal place). Make sure the variables you calculate are in the correct format (<code>numeric</code>). You can use the following variable names:</p>
+<li>
+<p>Add population-normalized (by 100,000) variables for each variable type (rounded to 1 decimal place). Make sure the variables you calculate are in the correct format (<code>numeric</code>). You can use the following variable names:</p>
 <ul>
 <li><code>per100k</code> = cases per 100,000 population</li>
 <li><code>newper100k</code>= new cases per 100,000</li>
 <li><code>deathsper100k</code> = deaths per 100,000</li>
 <li><code>newdeathsper100k</code> = new deaths per 100,000</li>
-</ul></li>
-<li><p>Add a “naive CFR” variable representing <code>deaths / cases</code> on each date for each state</p></li>
-<li><p>Create a dataframe representing values on the most recent date, <code>cv_states_today</code>, as done in lecture</p></li>
 </ul>
-<pre class="r"><code>### FINISH CODE HERE
+</li>
+<li>
+<p>Add a &ldquo;naive CFR&rdquo; variable representing <code>deaths / cases</code> on each date for each state</p>
+</li>
+<li>
+<p>Create a dataframe representing values on the most recent date, <code>cv_states_today</code>, as done in lecture</p>
+</li>
+</ul>
+<pre><code class="language-r">### FINISH CODE HERE
 # add population normalized (by 100,000) counts for each variable
 cv_states$per100k =  as.numeric(format(round(cv_states$cases/(cv_states$________/100000),1),nsmall=1))
 cv_states$newper100k =  as.numeric(format(round(cv_states$new_cases/(cv_states$________/100000),1),nsmall=1))
@@ -729,34 +738,33 @@ cv_states$newdeathsper100k =  as.numeric(format(round(cv_states$new_deaths/(cv_s
 cv_states = cv_states %&gt;% mutate(naive_CFR = round((deaths*100/cases),2))
 
 # create a `cv_states_today` variable
-cv_states_today = subset(cv_states, date==max(cv_states$date))</code></pre>
-</div>
-</div>
-<div id="ii.-scatterplots" class="section level2">
-<h2>II. Scatterplots</h2>
-<div id="explore-scatterplots-using-plot_ly" class="section level3">
-<h3>6. Explore scatterplots using <code>plot_ly()</code></h3>
+cv_states_today = subset(cv_states, date==max(cv_states$date))
+</code></pre>
+<h2 id="ii-scatterplots">II. Scatterplots</h2>
+<h3 id="6-explore-scatterplots-using-plot_ly">6. Explore scatterplots using <code>plot_ly()</code></h3>
 <ul>
-<li>Create a scatterplot using <code>plot_ly()</code> representing <code>pop_density</code> vs. various variables (e.g. <code>cases</code>, <code>per100k</code>, <code>deaths</code>, <code>deathsper100k</code>) for each state on most recent date (<code>cv_states_today</code>)
+<li>Create a scatterplot using <code>plot_ly()</code> representing <code>pop_density</code> vs. various variables (e.g. <code>cases</code>, <code>per100k</code>, <code>deaths</code>, <code>deathsper100k</code>) for each state on most recent date (<code>cv_states_today</code>)
 <ul>
 <li>Color points by state and size points by state population</li>
 <li>Use hover to identify any outliers.</li>
 <li>Remove those outliers and replot.</li>
-</ul></li>
+</ul>
+</li>
 <li>Choose one plot. For this plot:
 <ul>
 <li>Add hoverinfo specifying the state name, cases per 100k, and deaths per 100k, similarly to how we did this in the lecture notes</li>
 <li>Add layout information to title the chart and the axes</li>
-<li>Enable <code>hovermode = "compare"</code></li>
-</ul></li>
+<li>Enable <code>hovermode = &quot;compare&quot;</code></li>
 </ul>
-<pre class="r"><code>### FINISH CODE HERE
+</li>
+</ul>
+<pre><code class="language-r">### FINISH CODE HERE
 
 # pop_density vs. cases
 cv_states_today %&gt;% 
   plot_ly(x = ~pop_density, y = ~cases, 
-          type = _______, mode = &#39;markers&#39;, color = ~______,
-          size = ~population, sizes = c(5, 70), marker = list(sizemode=&#39;diameter&#39;, opacity=0.5))
+          type = _______, mode = 'markers', color = ~______,
+          size = ~population, sizes = c(5, 70), marker = list(sizemode='diameter', opacity=0.5))
 
 # filter out &quot;District of Columbia&quot;
 cv_states_today_filter &lt;- cv_states_today %&gt;% filter(state!=&quot;District of Columbia&quot;)
@@ -764,68 +772,70 @@ cv_states_today_filter &lt;- cv_states_today %&gt;% filter(state!=&quot;District
 # pop_density vs. cases after filtering
 cv_states_today_filter %&gt;% 
   plot_ly(x = ~pop_density, y = ~cases, 
-          type = _______, mode = &#39;markers&#39;, color = ~_______,
-          size = ~population, sizes = c(5, 70), marker = list(sizemode=&#39;diameter&#39;, opacity=0.5))
+          type = _______, mode = 'markers', color = ~_______,
+          size = ~population, sizes = c(5, 70), marker = list(sizemode='diameter', opacity=0.5))
 
 # pop_density vs. deathsper100k
 cv_states_today_filter %&gt;% 
   plot_ly(x = ~pop_density, y = ~deathsper100k,
-          type = _______, mode = &#39;markers&#39;, color = ~_______,
-          size = ~population, sizes = c(5, 70), marker = list(sizemode=&#39;diameter&#39;, opacity=0.5))
+          type = _______, mode = 'markers', color = ~_______,
+          size = ~population, sizes = c(5, 70), marker = list(sizemode='diameter', opacity=0.5))
 
 # Adding hoverinfo
 cv_states_today_filter %&gt;% 
   plot_ly(x = ~pop_density, y = ~deathsper100k,
-          type = _______, mode = &#39;markers&#39;, color = ~_______,
-          size = ~population, sizes = c(5, 70), marker = list(sizemode=&#39;diameter&#39;, opacity=0.5),
-          hoverinfo = &#39;text&#39;,
+          type = _______, mode = 'markers', color = ~_______,
+          size = ~population, sizes = c(5, 70), marker = list(sizemode='diameter', opacity=0.5),
+          hoverinfo = 'text',
           text = ~paste( paste(state, &quot;:&quot;, sep=&quot;&quot;), paste(&quot; Cases per 100k: &quot;, per100k, sep=&quot;&quot;) , 
                          paste(&quot; Deaths per 100k: &quot;, _______, sep=&quot;&quot;), sep = &quot;&lt;br&gt;&quot;)) %&gt;%
   layout(title = &quot;Population-normalized COVID-19 deaths (per 100k) vs. population density for US states&quot;,
                   yaxis = list(title = &quot;Deaths per 100k&quot;), xaxis = list(title = &quot;Population Density&quot;),
-         hovermode = &quot;compare&quot;)</code></pre>
-</div>
-<div id="explore-scatterplot-trend-interactively-using-ggplotly-and-geom_smooth" class="section level3">
-<h3>7. Explore scatterplot trend interactively using <code>ggplotly()</code> and <code>geom_smooth()</code></h3>
+         hovermode = &quot;compare&quot;)
+</code></pre>
+<h3 id="7-explore-scatterplot-trend-interactively-using-ggplotly-and-geom_smooth">7. Explore scatterplot trend interactively using <code>ggplotly()</code> and <code>geom_smooth()</code></h3>
 <ul>
-<li>For <code>pop_density</code> vs. <code>newdeathsper100k</code> create a chart with the same variables using <code>gglot_ly()</code></li>
-<li>Explore the pattern between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> using <code>geom_smooth()</code>
+<li>For <code>pop_density</code> vs. <code>newdeathsper100k</code> create a chart with the same variables using <code>gglot_ly()</code></li>
+<li>Explore the pattern between <code>\(x\)</code> and <code>\(y\)</code> using <code>geom_smooth()</code>
 <ul>
 <li>Explain what you see. Do you think <code>pop_density</code> is a correlate of <code>newdeathsper100k</code>?</li>
-</ul></li>
 </ul>
-<pre class="r"><code>### FINISH CODE HERE
+</li>
+</ul>
+<pre><code class="language-r">### FINISH CODE HERE
 p &lt;- ggplot(cv_states_today_scatter, aes(x=pop_density, y=deathsper100k, size=population)) + geom_point() + _______
-ggplotly(p)</code></pre>
-</div>
-<div id="multiple-line-chart" class="section level3">
-<h3>8. Multiple line chart</h3>
+ggplotly(p)
+</code></pre>
+<h3 id="8-multiple-line-chart">8. Multiple line chart</h3>
 <ul>
 <li>Create a line chart of the <code>naive_CFR</code> for all states over time using <code>plot_ly()</code>
 <ul>
 <li>Use the zoom and pan tools to inspect the <code>naive_CFR</code> for the states that had an increase in September. How have they changed over time?</li>
-</ul></li>
+</ul>
+</li>
 <li>Create one more line chart, for Florida only, which shows <code>new_cases</code> and <code>new_deaths</code> together in one plot. Hint: use <code>add_layer()</code>
 <ul>
-<li>Use hoverinfo to “eyeball” the approximate peak of deaths and peak of cases. What is the time delay between the peak of cases and the peak of deaths?</li>
-</ul></li>
+<li>Use hoverinfo to &ldquo;eyeball&rdquo; the approximate peak of deaths and peak of cases. What is the time delay between the peak of cases and the peak of deaths?</li>
 </ul>
-<pre class="r"><code>### FINISH CODE HERE
+</li>
+</ul>
+<pre><code class="language-r">### FINISH CODE HERE
 # Line chart for naive_CFR for all states over time using `plot_ly()`
 plot_ly(cv_states, x = ~date, y = ~_______, color = ~state, type = &quot;scatter&quot;, mode = &quot;lines&quot;)
 
 ### FINISH CODE HERE
 # Line chart for Florida showing new_cases and new_deaths together
-cv_states %&gt;% filter(state==&quot;Florida&quot;) %&gt;% plot_ly(x = ~date, y = ~new_cases, type = &quot;scatter&quot;, mode = &quot;lines&quot;) %&gt;% _______(x = ~date, y = ~new_deaths, type = &quot;scatter&quot;, mode = &quot;lines&quot;) </code></pre>
-</div>
-<div id="heatmaps" class="section level3">
-<h3>9. Heatmaps</h3>
-<p>Create a heatmap to visualize <code>new_cases</code> for each state on each date greater than June 1st, 2021
-- Start by mapping selected features in the dataframe into a matrix using the <strong>tidyr</strong> package function <code>pivot_wider()</code>, naming the rows and columns, as done in the lecture notes
-- Use <code>plot_ly()</code> to create a heatmap out of this matrix. Which states stand out?
-- Repeat with <code>newper100k</code> variable. Now which states stand out?
-- Create a second heatmap in which the pattern of <code>new_cases</code> for each state over time becomes more clear by filtering to only look at dates every two weeks</p>
-<pre class="r"><code>### FINISH CODE HERE
+cv_states %&gt;% filter(state==&quot;Florida&quot;) %&gt;% plot_ly(x = ~date, y = ~new_cases, type = &quot;scatter&quot;, mode = &quot;lines&quot;) %&gt;% _______(x = ~date, y = ~new_deaths, type = &quot;scatter&quot;, mode = &quot;lines&quot;) 
+</code></pre>
+<h3 id="9-heatmaps">9. Heatmaps</h3>
+<p>Create a heatmap to visualize <code>new_cases</code> for each state on each date greater than June 1st, 2021</p>
+<ul>
+<li>Start by mapping selected features in the dataframe into a matrix using the <strong>tidyr</strong> package function <code>pivot_wider()</code>, naming the rows and columns, as done in the lecture notes</li>
+<li>Use <code>plot_ly()</code> to create a heatmap out of this matrix. Which states stand out?</li>
+<li>Repeat with <code>newper100k</code> variable. Now which states stand out?</li>
+<li>Create a second heatmap in which the pattern of <code>new_cases</code> for each state over time becomes more clear by filtering to only look at dates every two weeks</li>
+</ul>
+<pre><code class="language-r">### FINISH CODE HERE
 # Map state, date, and new_cases to a matrix
 library(tidyr)
 cv_states_mat &lt;- cv_states %&gt;% select(state, date, new_cases) %&gt;% dplyr::filter(date&gt;as.Date(&quot;2021-06-15&quot;))
@@ -865,17 +875,16 @@ cv_states_mat2 &lt;- as.matrix(cv_states_mat2)
 plot_ly(x=colnames(cv_states_mat2), y=rownames(cv_states_mat2),
              z=~cv_states_mat2,
              type=&quot;heatmap&quot;,
-             showscale=T)</code></pre>
-</div>
-<div id="map" class="section level3">
-<h3>10. Map</h3>
+             showscale=T)
+</code></pre>
+<h3 id="10-map">10. Map</h3>
 <ul>
 <li>Create a map to visualize the <code>naive_CFR</code> by state on October 15, 2021</li>
 <li>Compare with a map visualizing the <code>naive_CFR</code> by state on most recent date</li>
 <li>Plot the two maps together using <code>subplot()</code>. Make sure the shading is for the same range of values (google is your friend for this)</li>
 <li>Describe the difference in the pattern of the CFR.</li>
 </ul>
-<pre class="r"><code>### For specified date
+<pre><code class="language-r">### For specified date
 
 pick.date = &quot;2021-10-15&quot;
 
@@ -886,34 +895,34 @@ cv_per100$state &lt;- cv_per100$abb
 cv_per100$abb &lt;- NULL
 
 # Create hover text
-cv_per100$hover &lt;- with(cv_per100, paste(state_name, &#39;&lt;br&gt;&#39;, &quot;Cases per 100k: &quot;, newper100k, &#39;&lt;br&gt;&#39;, &quot;Cases: &quot;, cases, &#39;&lt;br&gt;&#39;, &quot;Deaths: &quot;, deaths))
+cv_per100$hover &lt;- with(cv_per100, paste(state_name, '&lt;br&gt;', &quot;Cases per 100k: &quot;, newper100k, '&lt;br&gt;', &quot;Cases: &quot;, cases, '&lt;br&gt;', &quot;Deaths: &quot;, deaths))
 
 # Set up mapping details
 set_map_details &lt;- list(
-  scope = &#39;usa&#39;,
-  projection = list(type = &#39;albers usa&#39;),
+  scope = 'usa',
+  projection = list(type = 'albers usa'),
   showlakes = TRUE,
-  lakecolor = toRGB(&#39;white&#39;)
+  lakecolor = toRGB('white')
 )
 
 # Make sure both maps are on the same color scale
 shadeLimit &lt;- 125
 
 # Create the map
-fig &lt;- plot_geo(cv_per100, locationmode = &#39;USA-states&#39;) %&gt;% 
+fig &lt;- plot_geo(cv_per100, locationmode = 'USA-states') %&gt;% 
   add_trace(
     z = ~newper100k, text = ~hover, locations = ~state,
-    color = ~newper100k, colors = &#39;Purples&#39;
+    color = ~newper100k, colors = 'Purples'
   )
 fig &lt;- fig %&gt;% colorbar(title = paste0(&quot;Cases per 100k: &quot;, pick.date), limits = c(0,shadeLimit))
 fig &lt;- fig %&gt;% layout(
-    title = paste(&#39;Cases per 100k by State as of &#39;, pick.date, &#39;&lt;br&gt;(Hover for value)&#39;),
+    title = paste('Cases per 100k by State as of ', pick.date, '&lt;br&gt;(Hover for value)'),
     geo = set_map_details
   )
 fig_pick.date &lt;- fig
 
 #############
-### Map for today&#39;s date
+### Map for today's date
 
 # Extract the data for each state by its abbreviation
 cv_per100 &lt;- cv_states_today %&gt;%  select(state, abb, newper100k, cases, deaths) # select data
@@ -922,35 +931,33 @@ cv_per100$state &lt;- cv_per100$abb
 cv_per100$abb &lt;- NULL
 
 # Create hover text
-cv_per100$hover &lt;- with(cv_per100, paste(state_name, &#39;&lt;br&gt;&#39;, &quot;Cases per 100k: &quot;, newper100k, &#39;&lt;br&gt;&#39;, &quot;Cases: &quot;, cases, &#39;&lt;br&gt;&#39;, &quot;Deaths: &quot;, deaths))
+cv_per100$hover &lt;- with(cv_per100, paste(state_name, '&lt;br&gt;', &quot;Cases per 100k: &quot;, newper100k, '&lt;br&gt;', &quot;Cases: &quot;, cases, '&lt;br&gt;', &quot;Deaths: &quot;, deaths))
 
 # Set up mapping details
 set_map_details &lt;- list(
-  scope = &#39;usa&#39;,
-  projection = list(type = &#39;albers usa&#39;),
+  scope = 'usa',
+  projection = list(type = 'albers usa'),
   showlakes = TRUE,
-  lakecolor = toRGB(&#39;white&#39;)
+  lakecolor = toRGB('white')
 )
 
 # Create the map
-fig &lt;- plot_geo(cv_per100, locationmode = &#39;USA-states&#39;) %&gt;% 
+fig &lt;- plot_geo(cv_per100, locationmode = 'USA-states') %&gt;% 
   add_trace(
     z = ~newper100k, text = ~hover, locations = ~state,
-    color = ~newper100k, colors = &#39;Purples&#39;
+    color = ~newper100k, colors = 'Purples'
   )
 fig &lt;- fig %&gt;% colorbar(title = paste0(&quot;Cases per 100k: &quot;, Sys.Date()), limits = c(0,shadeLimit))
 fig &lt;- fig %&gt;% layout(
-    title = paste(&#39;Cases per 100k by State as of&#39;, Sys.Date(), &#39;&lt;br&gt;(Hover for value)&#39;),
+    title = paste('Cases per 100k by State as of', Sys.Date(), '&lt;br&gt;(Hover for value)'),
     geo = set_map_details
   )
 fig_Today &lt;- fig
 
 
 ### Plot together 
-________(fig_pick.date, fig_Today, nrows = 2, margin = .05)</code></pre>
-</div>
-</div>
-</div>
+________(fig_pick.date, fig_Today, nrows = 2, margin = .05)
+</code></pre>
 
     </div>
 

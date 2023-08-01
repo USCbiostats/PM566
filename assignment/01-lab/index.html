@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en-us" 
+      xmlns:og="http://ogp.me/ns#" 
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.8.0">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  
+
+  
+  
+  
+    
+  
+  <meta name="description" content="Learning goals  Get acquainted with R and RStudio, which we will be using throughout the course to analyze data as well as to learn the statistical concepts discussed in the course. Appreciate the value of visualization in exploring the relationship between variables. Start using R for building plots and calculating summary statistics.  Terminology We&rsquo;ve already thrown around a few new terms, so let&rsquo;s define them before we proceed.">
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://uscbiostats.github.io/PM566/assignment/01-lab/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="#098A9C">
+  
+
+  
+  
+  
+  <script src="/PM566/js/mathjax-config.js"></script>
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-1/css/all.min.css" integrity="sha256-4w9DunooKSr3MFXHXWyFER38WmPdm361bQS/2KUWZbU=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+        
+      
+    
+
+    
+
+    
+
+    
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js" integrity="sha256-Md1qLToewPeKjfAHU1zyPwOutccPAm5tahnaw7Osw0A=" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+
+  
+
+  
+  
+  
+    
+      
+      
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i&display=swap">
+    
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/PM566/css/academic.css">
+
+  
+
+
+
+
+  
+
+
+  
+  
+
+  
+
+  <link rel="manifest" href="/PM566/index.webmanifest">
+  <link rel="icon" type="image/png" href="/PM566/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_3.png">
+  <link rel="apple-touch-icon" type="image/png" href="/PM566/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_3.png">
+
+  <link rel="canonical" href="https://uscbiostats.github.io/PM566/assignment/01-lab/">
+
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <meta property="twitter:card" content="summary_large_image">
+  
+  <meta property="twitter:site" content="@USCBiostat">
+  <meta property="twitter:creator" content="@USCBiostat">
+  
+  <meta property="og:site_name" content="Introduction to Health Data Science - PM 566">
+  <meta property="og:url" content="https://uscbiostats.github.io/PM566/assignment/01-lab/">
+  <meta property="og:title" content="Lab 01 - Hello R! | Introduction to Health Data Science - PM 566">
+  <meta property="og:description" content="Learning goals  Get acquainted with R and RStudio, which we will be using throughout the course to analyze data as well as to learn the statistical concepts discussed in the course. Appreciate the value of visualization in exploring the relationship between variables. Start using R for building plots and calculating summary statistics.  Terminology We&rsquo;ve already thrown around a few new terms, so let&rsquo;s define them before we proceed."><meta property="og:image" content="https://uscbiostats.github.io/PM566/img/social-image.png">
+  <meta property="twitter:image" content="https://uscbiostats.github.io/PM566/img/social-image.png"><meta property="og:locale" content="en-us">
+  
+    
+    
+  
+
+  
+
+
+
+  
+
+
+  
+
+
+  <link rel="shortcut icon" href="https://uscbiostats.github.io/PM566/favicon.ico" />
+  <link rel="apple-touch-icon-precomposed" sizes="57x57" href="https://uscbiostats.github.io/PM566/img/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="https://uscbiostats.github.io/PM566/img/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://uscbiostats.github.io/PM566/img/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://uscbiostats.github.io/PM566/img/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="120x120" href="https://uscbiostats.github.io/PM566/img/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="152x152" href="https://uscbiostats.github.io/PM566/img/apple-touch-icon-152x152.png" />
+  <link rel="icon" type="image/png" href="https://uscbiostats.github.io/PM566/img/favicon-32x32.png" sizes="32x32" />
+  <link rel="icon" type="image/png" href="https://uscbiostats.github.io/PM566/img/favicon-16x16.png" sizes="16x16" />
+  <meta name="application-name" content="PM566: Introduction to Health Data Science - PM 566" />
+  <meta name="msapplication-TileColor" content="#FFFFFF" />
+  <meta name="msapplication-TileImage" content="https://uscbiostats.github.io/PM566/img/mstile-144x144.png" />
+
+
+  <title>Lab 01 - Hello R! | Introduction to Health Data Science - PM 566</title>
+
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70"
+    data-target="#TableOfContents"
+    >
+
+    <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+    
+
+
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/PM566/">Introduction to Health Data Science - PM 566</a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/PM566/">Introduction to Health Data Science - PM 566</a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-end" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/PM566/syllabus/"><span>Syllabus</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/PM566/schedule/"><span>Schedule</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/PM566/reference/"><span>Reference</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+    <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1>Lab 01 - Hello R!</h1>
+
+  
+
+  
+    
+
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    January 1, 0001
+  </span>
+  
+
+  
+
+  
+
+  
+  
+  
+
+  
+  
+
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <h1 id="learning-goals">Learning goals</h1>
+<ul>
+<li>Get acquainted with R and RStudio, which we will be using throughout the course to analyze data as well as to learn the statistical concepts discussed in the course.</li>
+<li>Appreciate the value of visualization in exploring the relationship between variables.</li>
+<li>Start using R for building plots and calculating summary statistics.</li>
+</ul>
+<h1 id="terminology">Terminology</h1>
+<p>We&rsquo;ve already thrown around a few new terms, so let&rsquo;s define them before we proceed.</p>
+<ul>
+<li><strong>R</strong>: Name of the programming language we will be using throughout the course.</li>
+<li><strong>RStudio</strong>: An integrated development environment for R. In other words, a convenient interface for writing and running R code.</li>
+</ul>
+<p>I like to think of R as the engine of the car, and RStudio is the dashboard.</p>
+<h1 id="starting-slow">Starting slow</h1>
+<p>As the labs progress, you are encouraged to explore beyond what the labs dictate; a willingness to experiment will make you a much better programmer. Before we get to that stage, however, you need to build some basic fluency in R. Today we begin with the fundamental building blocks of R and RStudio: the interface, reading in data, and basic commands.</p>
+<p>And to make versioning simpler, this is a solo lab. Additionally, we want to make sure everyone gets a significant amount of time at the steering wheel.</p>
+<h1 id="getting-started">Getting started</h1>
+<h2 id="1-download-project">1 Download project</h2>
+<p>Go the the the lab page for this week on the 
+<a href="/PM566/class/01-class/">website</a>. You should see a &ldquo;Download&rdquo; button under the &ldquo;Lab Exercise&rdquo; section. Click it to download the template for your responses to this lab, <code>01-lab-hello-r.Rmd</code>.</p>
+<h2 id="2-download-r">2 Download R</h2>
+<h3 id="if-you-dont-have-r-installed">If you don&rsquo;t have R installed.</h3>
+<p>Go to the 
+<a href="https://cran.r-project.org/" target="_blank" rel="noopener">CRAN</a> and download R, make sure you get the version that matches your operating system.</p>
+<h3 id="if-you-have-r-installed">If you have R installed</h3>
+<p>If you have R installed run the following code</p>
+<pre><code class="language-r">R.version
+</code></pre>
+<pre><code>##                _                           
+## platform       x86_64-apple-darwin20       
+## arch           x86_64                      
+## os             darwin20                    
+## system         x86_64, darwin20            
+## status                                     
+## major          4                           
+## minor          3.1                         
+## year           2023                        
+## month          06                          
+## day            16                          
+## svn rev        84548                       
+## language       R                           
+## version.string R version 4.3.1 (2023-06-16)
+## nickname       Beagle Scouts
+</code></pre>
+<p>This should tell you what version of R you are currently using. If your R version is lower then 4.3.0 I would strongly recommend updating. In general it is a good idea to update your R version, unless you have a project right now that depend on a specific version of R.</p>
+<h2 id="22-download-rstudio">2.2 Download RStudio</h2>
+<p>We recommend using RStudio as your IDE if you don&rsquo;t already have it installed. You can go to the 
+<a href="https://rstudio.com/products/rstudio/download/" target="_blank" rel="noopener">RStudio</a> website to download and install the software.</p>
+<h2 id="23-launch-rstudio">2.3 Launch RStudio</h2>
+<p>You have 2 ways to open the lab project we will be working with. Inside the folder is a <code>pm566-01-lab.Rproj</code> file, opening this file should launch your RStudio project.</p>
+<p>You can also open the RStudio application first and then open the project by going <code>file -&gt; open project...</code></p>
+<h2 id="3-get-working">3. Get working!</h2>
+<p>Open the R Markdown (Rmd) file called <code>lab-01-hello-r.Rmd</code>. It will likely ask you if you would like to install a package that is required, click Install.</p>
+<h1 id="hello-rstudio">Hello RStudio!</h1>
+<p>RStudio is comprised of four panes.</p>
+<p><img src="../../static/assignment-img/rstudio-anatomy.png" alt=""></p>
+<p><img src="../../static/assignment-img/rstudio-anatomy.png" width="500" /></p>
+<ul>
+<li>
+<p>On the bottom left is the Console, this is where you can write code that will be evaluated. Try typing <code>2 + 2</code> here and hit enter, what do you get?</p>
+</li>
+<li>
+<p>On the bottom right is the Files pane, as well as other panes that will come handy as we start our analysis.</p>
+</li>
+<li>
+<p>If you click on a file, it will open in the editor, on the top left pane.</p>
+</li>
+<li>
+<p>Finally, the top right pane shows your Environment. If you define a variable it would show up there. Try typing <code>x &lt;- 2</code> in the Console and hit enter, what do you get in the Environment pane?</p>
+</li>
+</ul>
+<h1 id="packages">Packages</h1>
+<p>R is an open-source language, and developers contribute functionality to R via packages. In this lab we will work with three packages: <code>datasauRus</code> which contains the dataset, and <code>tidyverse</code> which is a collection of packages for doing data analysis in a &ldquo;tidy&rdquo; way.</p>
+<p>Load these packages by running the following in the Console.</p>
+<pre><code class="language-r">library(tidyverse) 
+library(datasauRus)
+</code></pre>
+<p>If you haven&rsquo;t installed these packages yet and R complains, then you can install these packages by running the following command. (Note that R package names are case-sensitive)</p>
+<pre><code class="language-r">install.packages(c(&quot;tidyverse&quot;, &quot;datasauRus&quot;))
+</code></pre>
+<p>Note that the packages are also loaded with the same commands in your R Markdown document.</p>
+<h1 id="warm-up">Warm up</h1>
+<p>Before we introduce the data, let&rsquo;s warm up with some simple exercises.</p>
+<p>The top portion of your R Markdown file (between the three dashed lines) is called YAML. It stands for &ldquo;YAML Ain&rsquo;t Markup Language&rdquo;. It is a human friendly data serialization standard for all programming languages. All you need to know is that this area is called the YAML (we will refer to it as such) and that it contains meta information about your document.</p>
+<h2 id="yaml">YAML</h2>
+<p>Open the R Markdown (Rmd) file in your project, change the author name to your name, and knit the document.</p>
+<p><img src="../../static/assignment-img/yaml-raw-to-rendered.png" alt=""></p>
+<h1 id="data">Data</h1>
+<p>The data frame we will be working with today is called <code>datasaurus_dozen</code> and it&rsquo;s in the <code>datasauRus</code> package. Actually, this single data frame contains 13 datasets, designed to show us  why data visualisation is important and how summary statistics alone can be misleading. The different datasets are marked by the <code>dataset</code> variable.</p>
+<p>To find out more about the dataset, type the following in your Console: <code>?datasaurus_dozen</code>. A question mark before the name of an object will always bring up its help file. This command must be ran in the Console.</p>
+<h2 id="question-1">Question 1</h2>
+<ol>
+<li>Based on the help file, how many rows and how many columns does the <code>datasaurus_dozen</code> file have? What are the variables included in the data frame? Add your responses to your lab report.</li>
+</ol>
+<p>Let&rsquo;s take a look at what these datasets are. To do so we can make a <em>frequency table</em> of the dataset variable:</p>
+<pre><code class="language-r">datasaurus_dozen %&gt;%
+  count(dataset)
+</code></pre>
+<pre><code>## # A tibble: 13 × 2
+##    dataset        n
+##    &lt;chr&gt;      &lt;int&gt;
+##  1 away         142
+##  2 bullseye     142
+##  3 circle       142
+##  4 dino         142
+##  5 dots         142
+##  6 h_lines      142
+##  7 high_lines   142
+##  8 slant_down   142
+##  9 slant_up     142
+## 10 star         142
+## 11 v_lines      142
+## 12 wide_lines   142
+## 13 x_shape      142
+</code></pre>
+<pre><code class="language-r"># table(datasaurus_dozen$dataset)
+</code></pre>
+<p>The original Datasaurus (<code>dino</code>) was created by Alberto Cairo in 
+<a href="http://www.thefunctionalart.com/2016/08/download-datasaurus-never-trust-summary.html" target="_blank" rel="noopener">this great blog post</a>. The other Dozen were generated using simulated annealing and the process is described in the paper <em>Same Stats, Different Graphs: Generating Datasets with Varied Appearance and Identical Statistics</em> through Simulated Annealing by Justin Matejka and George Fitzmaurice. In the paper, the authors simulate a variety of datasets that the same summary statistics to the Datasaurus but have very different distributions.</p>
+<h1 id="data-visualization-and-summary">Data visualization and summary</h1>
+<h2 id="question-2">Question 2</h2>
+<ol start="2">
+<li>Plot <code>y</code> vs. <code>x</code> for the <code>dino</code> dataset. Then, calculate the correlation coefficient between <code>x</code> and <code>y</code> for this dataset.</li>
+</ol>
+<p>Below is the code you will need to complete this exercise. Basically, the answer is already given, but you need to include relevant bits in your Rmd document and successfully knit it and view the results.</p>
+<p>Start with the <code>datasaurus_dozen</code> and pipe it into the <code>filter</code> function to filter for observations where <code>dataset == &quot;dino&quot;</code>. Store the resulting filtered data frame as a new data frame called <code>dino_data</code>.</p>
+<pre><code class="language-r">dino_data &lt;- datasaurus_dozen %&gt;%
+  filter(dataset == &quot;dino&quot;)
+# dino_data &lt;- datasaurus_dozen[datasaurus_dozen$dataset == 'dino', ]
+</code></pre>
+<p>There is a lot going on here, so let&rsquo;s slow down and unpack it a bit.</p>
+<p>First, the pipe operator: <code>%&gt;%</code>, takes what comes before it and sends it as the first argument to what comes after it. So here, we&rsquo;re saying <code>filter</code> the <code>datasaurus_dozen</code> data frame for observations where <code>dataset == &quot;dino&quot;</code>.</p>
+<p>Second, the assignment operator: <code>&lt;-</code>, assigns the name <code>dino_data</code> to the filtered data frame.</p>
+<p>Next, we need to visualize these data. We will use the <code>ggplot</code> function for this. Its first argument is the data you&rsquo;re visualizing. Next we define the <code>aes</code>thetic mappings. In other words, the columns of the data that get mapped to certain aesthetic features of the plot, e.g. the <code>x</code> axis will represent the variable called <code>x</code> and the <code>y</code> axis will represent the variable called <code>y</code>. Then, we add another layer to this plot where we define which <code>geom</code>etric shapes we want to use to represent each observation in the data. In this case we want these to be points,m hence <code>geom_point</code>.</p>
+<pre><code class="language-r">ggplot(data = dino_data, mapping = aes(x = x, y = y)) +
+  geom_point()
+</code></pre>
+<p><img src="/PM566/assignment/01-lab_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<pre><code class="language-r"># plot(dino_data$x, dino_data$y)
+</code></pre>
+<p>If this seems like a lot, it is. And you will learn about the philosophy of building data visualizations in layers in detail in the upcoming class. For now, follow along with the code that is provided.</p>
+<p>For the second part of these exercises, we need to calculate a summary statistic: the correlation coefficient. Correlation coefficient, often referred to as <code>\(r\)</code> in statistics, measures the linear association between two variables. You will see that some of the pairs of variables we plot do not have a linear relationship between them. This is exactly why we want to visualize first: visualize to assess the form of the relationship, and calculate <code>\(r\)</code> only if relevant. In this case, calculating a correlation coefficient really doesn&rsquo;t make sense since the relationship between <code>x</code> and <code>y</code> is definitely not linear &ndash; it&rsquo;s dinosaurial!</p>
+<p>But, for illustrative purposes, let&rsquo;s calculate correlation coefficient between <code>x</code> and <code>y</code>.</p>
+<p>Start with <code>dino_data</code> and calculate a summary statistic that we will call <code>r</code> as the <code>cor</code>relation between <code>x</code> and <code>y</code>.</p>
+<pre><code class="language-r">dino_data %&gt;%
+  summarize(r = cor(x, y))
+# cor(dino_data$x, dino_data$y)
+</code></pre>
+<h2 id="question-3">Question 3</h2>
+<ol start="3">
+<li>Plot <code>y</code> vs. <code>x</code> for the <code>star</code> dataset. You can (and should) reuse code we introduced above, just replace the dataset name with the desired dataset. Then, calculate the correlation coefficient between <code>x</code> and <code>y</code> for this dataset. How does this value compare to the <code>r</code> of <code>dino</code>?</li>
+</ol>
+<h2 id="question-4">Question 4</h2>
+<ol start="4">
+<li>Plot <code>y</code> vs. <code>x</code> for the <code>circle</code> dataset. You can (and should) reuse code we introduced above, just replace the dataset name with the desired dataset. Then, calculate the correlation coefficient between <code>x</code> and <code>y</code> for this dataset. How does this value compare to the <code>r</code> of <code>dino</code>?</li>
+</ol>
+<p>Facet by the dataset variable, placing the plots in a 3 column grid, and don&rsquo;t add a legend.</p>
+<h2 id="question-5">Question 5</h2>
+<ol start="5">
+<li>Finally, let&rsquo;s plot all datasets at once. In order to do this we will make use of facetting.</li>
+</ol>
+<pre><code class="language-r">ggplot(datasaurus_dozen, aes(x = x, y = y, color = dataset))+
+  geom_point()+
+  facet_wrap(~ dataset, ncol = 3) +
+  theme(legend.position = &quot;none&quot;)
+# layout(matrix(1:16, ncol=4))
+# for(i in 1:length(unique(datasaurus_dozen$dataset))){
+#   dset_name &lt;- unique(datasaurus_dozen$dataset)[i]
+#   subset &lt;- datasaurus_dozen[datasaurus_dozen$dataset == dset_name, ]
+#   plot(subset$x, subset$y, main = dset_name, col = i)
+# }
+# layout(1)
+</code></pre>
+<p>And we can use the <code>group_by</code> function to generate all correlation coefficients.</p>
+<pre><code class="language-r">datasaurus_dozen %&gt;%
+  group_by(dataset) %&gt;%
+  summarize(r = cor(x, y))
+# sapply(unique(datasaurus_dozen$dataset), function(ds){
+#     subset &lt;- datasaurus_dozen[datasaurus_dozen$dataset == ds, ]
+#     cor(subset$x, subset$y)
+# })
+</code></pre>
+<p>You&rsquo;re done with the data analysis exercises, but we&rsquo;d like you to do two more things:</p>
+<p><img src="../../static/assignment-img/fig-resize-global.png" alt=""></p>
+<ul>
+<li><strong>Resize your figures:</strong></li>
+</ul>
+<p>Click on the gear icon in on top of the R Markdown document, and select &ldquo;Output Options&hellip;&rdquo; in the dropdown menu. In the pop up dialogue box go to the Figures tab and change the height and width of the figures, and hit OK when done. Then, knit your document and see how you like the new sizes. Change and knit again and again until you&rsquo;re happy with the figure sizes. Note that these values get saved in the YAML.</p>
+<p><img src="../../static/assignment-img/fig-resize-local.png" alt=""></p>
+<p>You can also use different figure sizes for different figures. To do so click on the gear icon within the chunk where you want to make a change. Changing the figure sizes added new options to these chunks: <code>fig.width</code> and <code>fig.height</code>. You can change them by defining different values directly in your R Markdown document as well.</p>
+<p><img src="../../static/assignment-img/theme-highlight.png" alt=""></p>
+<ul>
+<li><strong>Change the look of your report:</strong></li>
+</ul>
+<p>Once again click on the gear icon in on top of the R Markdown document, and select &ldquo;Output Options&hellip;&rdquo; in the dropdown menu. In the General tab of the pop up dialogue box try out different syntax highlighting and theme options. Hit OK and knit your document to see how it looks. Play around with these until you&rsquo;re happy with the look.</p>
+<h1 id="optional">Optional</h1>
+<p>If you have time you can explore the different ways you can add styling to your rmarkdown document.</p>
+<p>Here is a 
+<a href="https://rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf" target="_blank" rel="noopener">cheatsheet</a></p>
+<p>and a 
+<a href="https://www.markdownguide.org/cheat-sheet/" target="_blank" rel="noopener">markdown cheatsheet</a></p>
+<hr>
+<p>This set of lab exersixes have been adopted from 
+<a href="https://twitter.com/minebocek" target="_blank" rel="noopener">Mine Çetinkaya-Rundel</a>&rsquo;s class 
+<a href="https://github.com/ids-s1-19" target="_blank" rel="noopener">Introduction to Data Science</a>.</p>
+
+    </div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  </div>
+</article>
+
+        
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/r.min.js"></script>
+        
+      
+
+    
+
+    
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    <script>const isSiteThemeDark = false;</script>
+    
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <script src="/PM566/js/academic.min.f30a8b5a880e824aab9653942c89109b.js"></script>
+
+    
+
+
+
+
+
+
+    
+    
+    <div class="container">
+        <footer>
+    <hr>
+
+    <div class="row course-info">
+        <div class="col-md-7">
+            <p>
+                <strong>PM566: Introduction to Health Data Science - PM 566 (Fall 2023)</strong><br>
+            </p>
+            <p>
+                <a href="https://www.usc.edu/" target="_blank" rel="noopener">University of Southern California</a>
+            </p>
+            <p>
+                <a href="https://pphs.usc.edu/" target="_blank" rel="noopener">Department of Population and Public Health Sciences</a>
+            </p>
+            <p>
+                <a><i class="fas fa-user"></i>
+                    Kelly Street</a>
+            </p>
+            <p>
+                <a href="mailto:kelly.street@usc.edu"><i class="fas fa-envelope"></i>
+                    kelly.street@usc.edu</a>
+            </p>
+        </div>
+
+        <div class="col-md-5 credits">
+            <p>All content licensed under a <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.</p>                    
+            
+            <p><a href="https://github.com/USCbiostats/PM566" target="_blank" rel="noopener"><i class="fab fa-github"></i> View the source at GitHub.</a></p>
+        </div>
+    </div>
+</footer>
+
+    </div>
+    
+
+    
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+
+</html>

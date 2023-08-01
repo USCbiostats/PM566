@@ -472,18 +472,9 @@
 
 <div class="universal-wrapper">
   
-  <div class="article-style">
-
-
-<div id="weekly-memos" class="section level1">
-<h1>Weekly memos</h1>
-</div>
-<div id="problem-sets" class="section level1">
-<h1>Problem sets</h1>
-</div>
-<div id="projects" class="section level1">
-<h1>Projects</h1>
-</div>
+  <div class="article-style"><h1 id="weekly-memos">Weekly memos</h1>
+<h1 id="problem-sets">Problem sets</h1>
+<h1 id="projects">Projects</h1>
 </div>
   
 
@@ -493,10 +484,23 @@
     
     
     <div>
+      <h2><a href="/PM566/assignment/03-lab/" >Lab 03 - Exploratory Data Analysis</a></h2>
+      <div class="article-style">
+        
+          Learning Goals  Read in and get familiar with the meteorology dataset Step through the EDA “checklist” presented in the class slides Practice making exploratory graphs  Lab Description We will work with the meteorological data presented in lecture. Recall the dataset consists of weather station readings in the continental US.
+The objective of the lab is to find the weather station with the highest elevation and look at patterns in the time series of its wind speed and temperature.
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div>
       <h2><a href="/PM566/assignment/04-lab/" >Lab 04 - Data Visualization</a></h2>
       <div class="article-style">
         
-          # Set to TRUE if you want the blocks to be evaluated EVAL &lt;- FALSE ECHO &lt;- EVAL Learning Goals  Read in and prepare the meteorological dataset Create several graphs with different geoms() in ggplot2 Create a facet graph Conduct some customizations to the graphs Create a more detailed map using leaflet()   Lab Description We will again work with the meteorological data presented in lecture.
+          # Set to TRUE if you want the blocks to be evaluated EVAL &lt;- FALSE ECHO &lt;- EVAL  Learning Goals  Read in and prepare the meteorological dataset Create several graphs with different geoms() in ggplot2 Create a facet graph Conduct some customizations to the graphs Create a more detailed map using leaflet()  Lab Description We will again work with the meteorological data presented in lecture.
 The objective of the lab is to examine the association between weekly average dew point temperature and wind speed in four regions of the US and by elevation.
         
       </div>
@@ -509,7 +513,7 @@ The objective of the lab is to examine the association between weekly average de
       <h2><a href="/PM566/assignment/06-lab/" >Lab 06 - Text Mining</a></h2>
       <div class="article-style">
         
-          knitr::opts_chunk$set(eval = FALSE, include = FALSE) Learning goals  Use unnest_tokens() and unnest_ngrams() to extract tokens and ngrams from text. Use dplyr and ggplot2 to analyze text data   Lab description For this lab we will be working with a new dataset. The dataset contains transcription samples from https://www.mtsamples.com/. And is loaded and “fairly” cleaned at https://raw.githubusercontent.com/USCbiostats/data-science-data/master/00_mtsamples/mtsamples.csv.
+          knitr::opts_chunk$set(eval = FALSE, include = FALSE)  Learning goals  Use unnest_tokens() and unnest_ngrams() to extract tokens and ngrams from text. Use dplyr and ggplot2 to analyze text data  Lab description For this lab we will be working with a new dataset. The dataset contains transcription samples from https://www.mtsamples.com/. And is loaded and &ldquo;fairly&rdquo; cleaned at https://raw.githubusercontent.com/USCbiostats/data-science-data/master/00_mtsamples/mtsamples.csv.
 This markdown document should be rendered using github_document document.
 Setup packages You should load in dplyr, (or data.
         
@@ -523,7 +527,7 @@ Setup packages You should load in dplyr, (or data.
       <h2><a href="/PM566/assignment/07-lab/" >Lab 07 - Web scraping and Regular Expressions</a></h2>
       <div class="article-style">
         
-          Learning goals  Use a real world API to make queries and process the data. Use regular expressions to parse the information. Practice your GitHub skills.   Lab description In this lab, we will be working with the NCBI API to make queries and extract information using XML and regular expressions. For this lab, we will be using the httr, xml2, and stringr R packages.
+          Learning goals  Use a real world API to make queries and process the data. Use regular expressions to parse the information. Practice your GitHub skills.  Lab description In this lab, we will be working with the NCBI API to make queries and extract information using XML and regular expressions. For this lab, we will be using the httr, xml2, and stringr R packages.
 This markdown document should be rendered using github_document document.
         
       </div>
@@ -536,9 +540,20 @@ This markdown document should be rendered using github_document document.
       <h2><a href="/PM566/assignment/10-lab/" >Lab 10 - SQL</a></h2>
       <div class="article-style">
         
-          Setup # install.packages(c(&quot;RSQLite&quot;, &quot;DBI&quot;)) library(RSQLite) library(DBI) # Initialize a temporary in memory database con &lt;- dbConnect(SQLite(), &quot;:memory:&quot;) # Download tables actor &lt;- read.csv(&quot;https://raw.githubusercontent.com/ivanceras/sakila/master/csv-sakila-db/actor.csv&quot;) rental &lt;- read.csv(&quot;https://raw.githubusercontent.com/ivanceras/sakila/master/csv-sakila-db/rental.csv&quot;) customer &lt;- read.csv(&quot;https://raw.githubusercontent.com/ivanceras/sakila/master/csv-sakila-db/customer.csv&quot;) payment &lt;- read.csv(&quot;https://raw.githubusercontent.com/ivanceras/sakila/master/csv-sakila-db/payment_p2007_01.csv&quot;) # Copy data.frames to database dbWriteTable(con, &quot;actor&quot;, actor) dbWriteTable(con, &quot;rental&quot;, rental) dbWriteTable(con, &quot;customer&quot;, customer) dbWriteTable(con, &quot;payment&quot;, payment) dbListTables(con) TIP: Use can use the following QUERY to see the structure of a table
-PRAGMA table_info(actor) SQL references:
-https://www.w3schools.com/sql/
+          Setup # install.packages(c(&quot;RSQLite&quot;, &quot;DBI&quot;)) library(RSQLite) library(DBI) # Initialize a temporary in memory database con &lt;- dbConnect(SQLite(), &quot;:memory:&quot;) # Download tables actor &lt;- read.csv(&quot;https://raw.githubusercontent.com/ivanceras/sakila/master/csv-sakila-db/actor.csv&quot;) rental &lt;- read.csv(&quot;https://raw.githubusercontent.com/ivanceras/sakila/master/csv-sakila-db/rental.csv&quot;) customer &lt;- read.csv(&quot;https://raw.githubusercontent.com/ivanceras/sakila/master/csv-sakila-db/customer.csv&quot;) payment &lt;- read.csv(&quot;https://raw.githubusercontent.com/ivanceras/sakila/master/csv-sakila-db/payment_p2007_01.csv&quot;) # Copy data.frames to database dbWriteTable(con, &quot;actor&quot;, actor) dbWriteTable(con, &quot;rental&quot;, rental) dbWriteTable(con, &quot;customer&quot;, customer) dbWriteTable(con, &quot;payment&quot;, payment)  dbListTables(con)  TIP: Use can use the following QUERY to see the structure of a table
+PRAGMA table_info(actor)  SQL references:
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div>
+      <h2><a href="/PM566/assignment/11-lab-2020/" >Lab 11 - Interactive Visualization</a></h2>
+      <div class="article-style">
+        
+          Learning Goals  Read in and process the COVID dataset from the New York Times GitHub repository Create interactive graphs of different types using plot_ly() and ggplotly() functions Customize the hoverinfo and other plot features Create a Choropleth map using plot_geo() Create an interactive table using DataTable  Lab Description We will work with the COVID data presented in lecture.
         
       </div>
     </div>
@@ -550,7 +565,7 @@ https://www.w3schools.com/sql/
       <h2><a href="/PM566/assignment/11-lab-answers/" >Lab 11 - Interactive Visualization</a></h2>
       <div class="article-style">
         
-          Learning Goals  Read in and process the COVID dataset from the New York Times GitHub repository Create interactive graphs of different types using plot_ly() and ggplotly() functions Customize the hoverinfo and other plot features Create a Choropleth map using plot_geo()   Lab Description We will work with COVID data downloaded from the New York Times. The dataset consists of COVID-19 cases and deaths in each US state during the course of the COVID epidemic.
+          Learning Goals  Read in and process the COVID dataset from the New York Times GitHub repository Create interactive graphs of different types using plot_ly() and ggplotly() functions Customize the hoverinfo and other plot features Create a Choropleth map using plot_geo()  Lab Description We will work with COVID data downloaded from the New York Times.
         
       </div>
     </div>
@@ -564,7 +579,7 @@ https://www.w3schools.com/sql/
         
           Grab lab file using command line:
 # Step 1 cd ~/Documents mkdir lab11 cd lab11 # Step 2 wget https://raw.githubusercontent.com/USCbiostats/PM566/master/website/content/assignment/11-lab.Rmd  And remember to set eval=TRUE
-Learning Goals  Read in and process the COVID dataset from the New York Times GitHub repository Create interactive graphs of different types using plot_ly() and ggplotly() functions Customize the hoverinfo and other plot features Create a Choropleth map using plot_geo()   Lab Description We will work with COVID data downloaded from the New York Times.
+Learning Goals  Read in and process the COVID dataset from the New York Times GitHub repository Create interactive graphs of different types using plot_ly() and ggplotly() functions Customize the hoverinfo and other plot features Create a Choropleth map using plot_geo()  Lab Description We will work with COVID data downloaded from the New York Times.
         
       </div>
     </div>

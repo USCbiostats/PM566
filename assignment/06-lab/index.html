@@ -30,7 +30,7 @@
   
     
   
-  <meta name="description" content="knitr::opts_chunk$set(eval = FALSE, include = FALSE) Learning goals  Use unnest_tokens() and unnest_ngrams() to extract tokens and ngrams from text. Use dplyr and ggplot2 to analyze text data   Lab description For this lab we will be working with a new dataset. The dataset contains transcription samples from https://www.mtsamples.com/. And is loaded and “fairly” cleaned at https://raw.githubusercontent.com/USCbiostats/data-science-data/master/00_mtsamples/mtsamples.csv.
+  <meta name="description" content="knitr::opts_chunk$set(eval = FALSE, include = FALSE)  Learning goals  Use unnest_tokens() and unnest_ngrams() to extract tokens and ngrams from text. Use dplyr and ggplot2 to analyze text data  Lab description For this lab we will be working with a new dataset. The dataset contains transcription samples from https://www.mtsamples.com/. And is loaded and &ldquo;fairly&rdquo; cleaned at https://raw.githubusercontent.com/USCbiostats/data-science-data/master/00_mtsamples/mtsamples.csv.
 This markdown document should be rendered using github_document document.
 Setup packages You should load in dplyr, (or data.">
 
@@ -247,7 +247,7 @@ Setup packages You should load in dplyr, (or data.">
   <meta property="og:site_name" content="Introduction to Health Data Science - PM 566">
   <meta property="og:url" content="https://uscbiostats.github.io/PM566/assignment/06-lab/">
   <meta property="og:title" content="Lab 06 - Text Mining | Introduction to Health Data Science - PM 566">
-  <meta property="og:description" content="knitr::opts_chunk$set(eval = FALSE, include = FALSE) Learning goals  Use unnest_tokens() and unnest_ngrams() to extract tokens and ngrams from text. Use dplyr and ggplot2 to analyze text data   Lab description For this lab we will be working with a new dataset. The dataset contains transcription samples from https://www.mtsamples.com/. And is loaded and “fairly” cleaned at https://raw.githubusercontent.com/USCbiostats/data-science-data/master/00_mtsamples/mtsamples.csv.
+  <meta property="og:description" content="knitr::opts_chunk$set(eval = FALSE, include = FALSE)  Learning goals  Use unnest_tokens() and unnest_ngrams() to extract tokens and ngrams from text. Use dplyr and ggplot2 to analyze text data  Lab description For this lab we will be working with a new dataset. The dataset contains transcription samples from https://www.mtsamples.com/. And is loaded and &ldquo;fairly&rdquo; cleaned at https://raw.githubusercontent.com/USCbiostats/data-science-data/master/00_mtsamples/mtsamples.csv.
 This markdown document should be rendered using github_document document.
 Setup packages You should load in dplyr, (or data."><meta property="og:image" content="https://uscbiostats.github.io/PM566/img/social-image.png">
   <meta property="twitter:image" content="https://uscbiostats.github.io/PM566/img/social-image.png"><meta property="og:locale" content="en-us">
@@ -525,20 +525,17 @@ Setup packages You should load in dplyr, (or data."><meta property="og:image" co
   <div class="article-container">
 
     <div class="article-style">
-      
-
-
-<pre class="r"><code>knitr::opts_chunk$set(eval = FALSE, include  = FALSE)</code></pre>
-<div id="learning-goals" class="section level1">
-<h1>Learning goals</h1>
+      <pre><code class="language-r">knitr::opts_chunk$set(eval = FALSE, include  = FALSE)
+</code></pre>
+<h1 id="learning-goals">Learning goals</h1>
 <ul>
 <li>Use <code>unnest_tokens()</code> and <code>unnest_ngrams()</code> to extract tokens and ngrams from text.</li>
 <li>Use dplyr and ggplot2 to analyze text data</li>
 </ul>
-</div>
-<div id="lab-description" class="section level1">
-<h1>Lab description</h1>
-<p>For this lab we will be working with a new dataset. The dataset contains transcription samples from <a href="https://www.mtsamples.com/" class="uri">https://www.mtsamples.com/</a>. And is loaded and “fairly” cleaned at <a href="https://raw.githubusercontent.com/USCbiostats/data-science-data/master/00_mtsamples/mtsamples.csv" class="uri">https://raw.githubusercontent.com/USCbiostats/data-science-data/master/00_mtsamples/mtsamples.csv</a>.</p>
+<h1 id="lab-description">Lab description</h1>
+<p>For this lab we will be working with a new dataset. The dataset contains transcription samples from 
+<a href="https://www.mtsamples.com/" target="_blank" rel="noopener">https://www.mtsamples.com/</a>. And is loaded and &ldquo;fairly&rdquo; cleaned at 
+<a href="https://raw.githubusercontent.com/USCbiostats/data-science-data/master/00_mtsamples/mtsamples.csv" target="_blank" rel="noopener">https://raw.githubusercontent.com/USCbiostats/data-science-data/master/00_mtsamples/mtsamples.csv</a>.</p>
 <p>This markdown document should be rendered using <code>github_document</code> document.</p>
 <!-- # Setup the Git project and the GitHub repository -->
 <!-- 1. Go to your documents (or wherever you are planning to store the data) in your computer, and create a folder for this project, for example, "PM566-labs" -->
@@ -546,64 +543,46 @@ Setup packages You should load in dplyr, (or data."><meta property="og:image" co
 <!-- 3. Go to your GitHub account and create a new repository, hopefully of the same name that this folder has, i.e., "PM566-labs". -->
 <!-- 4. Initialize the Git project, add the "README.Rmd" file, and make your first commit. -->
 <!-- 5. Add the repo you just created on GitHub.com to the list of remotes, and push your commit to origin while setting the upstream. -->
-<div id="setup-packages" class="section level3">
-<h3>Setup packages</h3>
+<h3 id="setup-packages">Setup packages</h3>
 <p>You should load in <code>dplyr</code>, (or <code>data.table</code> if you want to work that way), <code>ggplot2</code> and <code>tidytext</code>.
-If you don’t already have <code>tidytext</code> then you can install with</p>
-</div>
-<div id="read-in-medical-transcriptions" class="section level3">
-<h3>read in Medical Transcriptions</h3>
-<p>Loading in reference transcription samples from <a href="https://www.mtsamples.com/" class="uri">https://www.mtsamples.com/</a></p>
-<hr />
-</div>
-<div id="question-1-what-specialties-do-we-have" class="section level2">
-<h2>Question 1: What specialties do we have?</h2>
+If you don&rsquo;t already have <code>tidytext</code> then you can install with</p>
+<h3 id="read-in-medical-transcriptions">read in Medical Transcriptions</h3>
+<p>Loading in reference transcription samples from 
+<a href="https://www.mtsamples.com/" target="_blank" rel="noopener">https://www.mtsamples.com/</a></p>
+<hr>
+<h2 id="question-1-what-specialties-do-we-have">Question 1: What specialties do we have?</h2>
 <p>We can use <code>count()</code> from <code>dplyr</code> to figure out how many different catagories do we have? Are these catagories related? overlapping? evenly distributed?</p>
-<hr />
-</div>
-<div id="question-2" class="section level2">
-<h2>Question 2</h2>
+<hr>
+<h2 id="question-2">Question 2</h2>
 <ul>
 <li>Tokenize the the words in the <code>transcription</code> column</li>
 <li>Count the number of times each token appears</li>
 <li>Visualize the top 20 most frequent words</li>
 </ul>
 <p>Explain what we see from this result. Does it makes sense? What insights (if any) do we get?</p>
-<hr />
-</div>
-<div id="question-3" class="section level2">
-<h2>Question 3</h2>
+<hr>
+<h2 id="question-3">Question 3</h2>
 <ul>
 <li>Redo visualization but remove stopwords before</li>
 <li>Bonus points if you remove numbers as well</li>
 </ul>
 <p>What do we see know that we have removed stop words? Does it give us a better idea of what the text is about?</p>
-<hr />
-</div>
-</div>
-<div id="question-4" class="section level1">
-<h1>Question 4</h1>
+<hr>
+<h1 id="question-4">Question 4</h1>
 <p>repeat question 2, but this time tokenize into bi-grams. how does the result change if you look at tri-grams?</p>
-<hr />
-</div>
-<div id="question-5" class="section level1">
-<h1>Question 5</h1>
+<hr>
+<h1 id="question-5">Question 5</h1>
 <p>Using the results you got from questions 4. Pick a word and count the words that appears after and before it.</p>
-<hr />
-</div>
-<div id="question-6" class="section level1">
-<h1>Question 6</h1>
+<hr>
+<h1 id="question-6">Question 6</h1>
 <p>Which words are most used in each of the specialties. you can use <code>group_by()</code> and <code>top_n()</code> from <code>dplyr</code> to have the calculations be done within each specialty. Remember to remove stopwords. How about the most 5 used words?</p>
-</div>
-<div id="question-7---extra" class="section level1">
-<h1>Question 7 - extra</h1>
+<h1 id="question-7---extra">Question 7 - extra</h1>
 <p>Find your own insight in the data:</p>
 <p>Ideas:</p>
 <ul>
 <li>Interesting ngrams</li>
 <li>See if certain words are used more in some specialties then others</li>
 </ul>
-</div>
 
     </div>
 
