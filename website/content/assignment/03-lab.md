@@ -24,6 +24,8 @@ link-citations: yes
 - Step through the EDA “checklist” presented in the class slides
 - Practice making exploratory graphs
 
+As you do this, think about what questions you would like to ask regarding this data. What would you ask a collaborator who was more familiar with it?
+
 # Lab Description
 
 We will work with the meteorological data presented in lecture. Recall the dataset consists of weather station readings in the continental US.
@@ -512,3 +514,13 @@ plot(elev$date, elev$wind.sp, type='l')
 
 <img src="/PM566/assignment/03-lab_files/figure-html/unnamed-chunk-13-2.png" width="672" />
 Summarize any trends that you see in these time series plots.
+
+### Further exploration
+
+If you have time, feel free to explore some of the other variables in this dataset and their relationships to each other. There are many different types of summaries and visualization strategies that we have not discussed, but which could provide interesting perspectives on the data.
+
+Some other useful plotting functions include:
+- `pairs` for making all pairwise scatter plots in a dataset with \>2 dimensions.
+- `heatmap` and/or `corrplot` (from the `corrplot` package) for visualizing matrices in general or correlation matrices in particular.
+- `image` a low-level matrix visualization function
+- `barplot`, especially with `table`, for visualizing frequencies of categorical variables.

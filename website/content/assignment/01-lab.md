@@ -86,7 +86,7 @@ RStudio is comprised of four panes.
 
 ![](/PM566/assignment-img/rstudio-anatomy.png)
 
-<img src="../../static/assignment-img/rstudio-anatomy.png" width="500" />
+
 
 - On the bottom left is the Console, this is where you can write code that will be evaluated. Try typing `2 + 2` here and hit enter, what do you get?
 
