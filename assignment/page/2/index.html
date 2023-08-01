@@ -493,10 +493,11 @@
     
     
     <div>
-      <h2><a href="/PM566/assignment/05-lab/" >Lab 05 - Data Wrangling</a></h2>
+      <h2><a href="/PM566/assignment/04-lab/" >Lab 04 - Data Visualization</a></h2>
       <div class="article-style">
         
-          Learning goals  Use the merge() function to join two datasets. Deal with missings and impute data. Identify relevant observations using quantile(). Practice your GitHub skills.   Lab description For this lab we will be, again, dealing with the meteorological dataset downloaded from the NOAA, the met. In this case, we will use data.table to answer some questions regarding the met dataset, while at the same time practice your Git+GitHub skills for this project.
+          # Set to TRUE if you want the blocks to be evaluated EVAL &lt;- FALSE ECHO &lt;- EVAL Learning Goals  Read in and prepare the meteorological dataset Create several graphs with different geoms() in ggplot2 Create a facet graph Conduct some customizations to the graphs Create a more detailed map using leaflet()   Lab Description We will again work with the meteorological data presented in lecture.
+The objective of the lab is to examine the association between weekly average dew point temperature and wind speed in four regions of the US and by elevation.
         
       </div>
     </div>
@@ -537,6 +538,7 @@ This markdown document should be rendered using github_document document.
         
           Setup # install.packages(c(&quot;RSQLite&quot;, &quot;DBI&quot;)) library(RSQLite) library(DBI) # Initialize a temporary in memory database con &lt;- dbConnect(SQLite(), &quot;:memory:&quot;) # Download tables actor &lt;- read.csv(&quot;https://raw.githubusercontent.com/ivanceras/sakila/master/csv-sakila-db/actor.csv&quot;) rental &lt;- read.csv(&quot;https://raw.githubusercontent.com/ivanceras/sakila/master/csv-sakila-db/rental.csv&quot;) customer &lt;- read.csv(&quot;https://raw.githubusercontent.com/ivanceras/sakila/master/csv-sakila-db/customer.csv&quot;) payment &lt;- read.csv(&quot;https://raw.githubusercontent.com/ivanceras/sakila/master/csv-sakila-db/payment_p2007_01.csv&quot;) # Copy data.frames to database dbWriteTable(con, &quot;actor&quot;, actor) dbWriteTable(con, &quot;rental&quot;, rental) dbWriteTable(con, &quot;customer&quot;, customer) dbWriteTable(con, &quot;payment&quot;, payment) dbListTables(con) TIP: Use can use the following QUERY to see the structure of a table
 PRAGMA table_info(actor) SQL references:
+https://www.w3schools.com/sql/
         
       </div>
     </div>
