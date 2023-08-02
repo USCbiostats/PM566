@@ -68,6 +68,7 @@ to get data.
 - US Center for Disease Control and Prevention [Data](https://data.cdc.gov/)
 - California Health and Human Services [Open Data Portal](https://data.chhs.ca.gov/)
 - Covid Data [CovidTracker](https://covidtracking.com/)
+- USC [Sustainability Data](https://sustainabilitydata.usc.edu/arcgis/apps/sites/#/usc-sustainability-data-hub)
 
 ### Academic Publications and related
 
