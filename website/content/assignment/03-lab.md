@@ -515,6 +515,10 @@ plot(elev$date, elev$wind.sp, type='l')
 <img src="/PM566/assignment/03-lab_files/figure-html/unnamed-chunk-13-2.png" width="672" />
 Summarize any trends that you see in these time series plots.
 
+### Ask questions
+
+By now, you might have some specific questions about how the data was gathered and what some of the different variables and values mean. In a real-world analysis, these questions could potentially be answered by a collaborator, possibly part of the team that collected the data. If you haven’t already, now would be a good time to look at the accompanying [data dictionary](https://github.com/USCbiostats/data-science-data/blob/master/02_met/met-datadictionary.pdf) for this dataset and see if it can answer any of your questions.
+
 ### Further exploration
 
 If you have time, feel free to explore some of the other variables in this dataset and their relationships to each other. There are many different types of summaries and visualization strategies that we have not discussed, but which could provide interesting perspectives on the data.

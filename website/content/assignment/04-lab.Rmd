@@ -35,6 +35,8 @@ We will again work with the meteorological data presented in lecture.
 
 Per [Wikipedia](https://en.wikipedia.org/wiki/Dew_point): "The dew point of a given body of air is the temperature to which it must be cooled to become saturated with water vapor. This temperature depends on the pressure and water content of the air." 
 
+Again, feel free to supplement your knowledge of this dataset by checking out the [data dictionary](https://github.com/USCbiostats/data-science-data/blob/master/02_met/met-datadictionary.pdf).
+
 
 # Steps
 

@@ -175,6 +175,10 @@ plot(elev$date, elev$wind.sp, type='l')
 ```
 Summarize any trends that you see in these time series plots.
 
+### Ask questions
+
+By now, you might have some specific questions about how the data was gathered and what some of the different variables and values mean. In a real-world analysis, these questions could potentially be answered by a collaborator, possibly part of the team that collected the data. If you haven't already, now would be a good time to look at the accompanying [data dictionary](https://github.com/USCbiostats/data-science-data/blob/master/02_met/met-datadictionary.pdf) for this dataset and see if it can answer any of your questions.
+
 
 ### Further exploration
 
