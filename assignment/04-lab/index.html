@@ -31,7 +31,7 @@
     
   
   <meta name="description" content="# Set to TRUE if you want the blocks to be evaluated EVAL &lt;- FALSE ECHO &lt;- EVAL  Learning Goals  Read in and prepare the meteorological dataset Create several graphs with different geoms() in ggplot2 Create a facet graph Conduct some customizations to the graphs Create a more detailed map using leaflet()  Lab Description We will again work with the meteorological data presented in lecture.
-The objective of the lab is to examine the association between weekly average dew point temperature and wind speed in four regions of the US and by elevation.">
+The objective of the lab is to examine the association between weekly average dew point and wind speed in four regions of the US and by elevation.">
 
   
   <link rel="alternate" hreflang="en-us" href="https://uscbiostats.github.io/PM566/assignment/04-lab/">
@@ -247,7 +247,7 @@ The objective of the lab is to examine the association between weekly average de
   <meta property="og:url" content="https://uscbiostats.github.io/PM566/assignment/04-lab/">
   <meta property="og:title" content="Lab 04 - Data Visualization | Introduction to Health Data Science - PM 566">
   <meta property="og:description" content="# Set to TRUE if you want the blocks to be evaluated EVAL &lt;- FALSE ECHO &lt;- EVAL  Learning Goals  Read in and prepare the meteorological dataset Create several graphs with different geoms() in ggplot2 Create a facet graph Conduct some customizations to the graphs Create a more detailed map using leaflet()  Lab Description We will again work with the meteorological data presented in lecture.
-The objective of the lab is to examine the association between weekly average dew point temperature and wind speed in four regions of the US and by elevation."><meta property="og:image" content="https://uscbiostats.github.io/PM566/img/social-image.png">
+The objective of the lab is to examine the association between weekly average dew point and wind speed in four regions of the US and by elevation."><meta property="og:image" content="https://uscbiostats.github.io/PM566/img/social-image.png">
   <meta property="twitter:image" content="https://uscbiostats.github.io/PM566/img/social-image.png"><meta property="og:locale" content="en-us">
   
     
@@ -537,10 +537,12 @@ ECHO &lt;- EVAL
 </ul>
 <h1 id="lab-description">Lab Description</h1>
 <p>We will again work with the meteorological data presented in lecture.</p>
-<p><strong>The objective of the lab is to examine the association between weekly average dew point temperature and wind speed in four regions of the US and by elevation.</strong></p>
+<p><strong>The objective of the lab is to examine the association between weekly average dew point and wind speed in four regions of the US and by elevation.</strong></p>
+<p>Per 
+<a href="https://en.wikipedia.org/wiki/Dew_point" target="_blank" rel="noopener">Wikipedia</a>: &ldquo;The dew point of a given body of air is the temperature to which it must be cooled to become saturated with water vapor. This temperature depends on the pressure and water content of the air.&rdquo;</p>
 <h1 id="steps">Steps</h1>
 <h3 id="1-read-in-the-data">1. Read in the data</h3>
-<p>First download and then read in with data.table:fread()</p>
+<p>First download and then read in with <code>data.table::fread()</code></p>
 <pre><code class="language-r">if (!file.exists(&quot;met_all.gz&quot;))
   download.file(
     url = &quot;https://raw.githubusercontent.com/USCbiostats/data-science-data/master/02_met/met_all.gz&quot;,
@@ -561,37 +563,37 @@ met &lt;- data.table::fread(&quot;met_all.gz&quot;)
 <li>Create a region variable for NW, SW, NE, SE based on lon = -98.00 and lat = 39.71 degrees</li>
 <li>Create a categorical variable for elevation as in the lecture slides</li>
 </ul>
-<h3 id="3-use-geom_violin-to-examine-the-wind-speed-and-dew-point-temperature-by-region">3. Use <code>geom_violin</code> to examine the wind speed and dew point temperature by region</h3>
+<h3 id="3-use-geom_violin-to-examine-the-wind-speed-and-dew-point-by-region">3. Use <code>geom_violin</code> to examine the wind speed and dew point by region</h3>
 <p>You saw how to use <code>geom_boxplot</code> in class. Try using <code>geom_violin</code> instead (take a look at the help).
 (hint: You will need to set the <code>x</code> aesthetic to 1)</p>
 <ul>
 <li>Use facets</li>
-<li>Make sure to deal with <code>NA</code> category</li>
+<li>Make sure to deal with <code>NA</code>s</li>
 <li>Describe what you observe in the graph</li>
 </ul>
-<h3 id="4-use-geom_jitter-with-stat_smooth-to-examine-the-association-between-dew-point-temperature-and-wind-speed-by-region">4. Use <code>geom_jitter</code> with <code>stat_smooth</code> to examine the association between dew point temperature and wind speed by region</h3>
+<h3 id="4-use-geom_jitter-with-stat_smooth-to-examine-the-association-between-dew-point-and-wind-speed-by-region">4. Use <code>geom_jitter</code> with <code>stat_smooth</code> to examine the association between dew point and wind speed by region</h3>
 <ul>
-<li>Colour points by region</li>
-<li>Make sure to deal with <code>NA</code> category</li>
+<li>Color points by region</li>
+<li>Make sure to deal with <code>NA</code>s</li>
 <li>Fit a linear regression line by region</li>
 <li>Describe what you observe in the graph</li>
 </ul>
-<h3 id="5-use-geom_bar-to-create-barplots-of-the-weather-stations-by-elevation-category-coloured-by-region">5. Use <code>geom_bar</code> to create barplots of the weather stations by elevation category coloured by region</h3>
+<h3 id="5-use-geom_bar-to-create-barplots-of-the-weather-stations-by-elevation-category-colored-by-region">5. Use <code>geom_bar</code> to create barplots of the weather stations by elevation category colored by region</h3>
 <ul>
 <li>Bars by elevation category using <code>position=&quot;dodge&quot;</code></li>
-<li>Change colours from the default. Colour by region using <code>scale_fill_brewer</code> see 
+<li>Change colors from the default. Color by region using <code>scale_fill_brewer</code> see 
 <a href="http://rstudio-pubs-static.s3.amazonaws.com/5312_98fc1aba2d5740dd849a5ab797cc2c8d.html" target="_blank" rel="noopener">this</a></li>
-<li>Create nice labels on axes and add a title</li>
+<li>Create nice labels on the axes and add a title</li>
 <li>Describe what you observe in the graph</li>
-<li>Make sure to deal with <code>NA</code></li>
+<li>Make sure to deal with <code>NA</code> values</li>
 </ul>
 <h3 id="6-use-stat_summary-to-examine-mean-dew-point-and-wind-speed-by-region-with-standard-deviation-error-bars">6. Use <code>stat_summary</code> to examine mean dew point and wind speed by region with standard deviation error bars</h3>
 <ul>
 <li>
-<p>Make sure to remove <code>NA</code></p>
+<p>Make sure to remove <code>NA</code>s</p>
 </li>
 <li>
-<p>Use fun.data=&ldquo;mean_sdl&rdquo; in <code>stat_summary</code></p>
+<p>Use <code>fun.data=&quot;mean_sdl&quot;</code> in <code>stat_summary</code></p>
 </li>
 <li>
 <p>Add another layer of <code>stats_summary</code> but change the geom to <code>&quot;errorbar&quot;</code> (see the help).</p>
@@ -600,36 +602,36 @@ met &lt;- data.table::fread(&quot;met_all.gz&quot;)
 <p>Describe the graph and what you observe</p>
 </li>
 <li>
-<p>Dew point temperature is&hellip;</p>
+<p>Dew point is&hellip;</p>
 </li>
 <li>
 <p>Wind speed is&hellip;</p>
 </li>
 </ul>
-<h3 id="7-make-a-map-showing-the-spatial-trend-in-relative-h-in-the-us">7. Make a map showing the spatial trend in relative h in the US</h3>
+<h3 id="7-make-a-map-showing-the-spatial-trend-in-relative-humidity-in-the-us">7. Make a map showing the spatial trend in relative humidity in the US</h3>
 <ul>
 <li>
-<p>Make sure to remove <code>NA</code></p>
+<p>Make sure to remove <code>NA</code>s</p>
 </li>
 <li>
 <p>Use leaflet()</p>
 </li>
 <li>
-<p>Make a colour palette with custom colours</p>
+<p>Make a color palette with custom colors</p>
 </li>
 <li>
-<p>Use <code>addMarkers</code> to include the top 10 places in relative h (hint: this will be useful <code>rank(-rh) &lt;= 10</code>)</p>
+<p>Use <code>addMarkers</code> to include the top 10 places in relative humidity (hint: this will be useful <code>rank(-rh) &lt;= 10</code>)</p>
 </li>
 <li>
 <p>Add a legend</p>
 </li>
 <li>
-<p>Describe trend in RH across the US</p>
+<p>Describe the trend in RH across the US</p>
 </li>
 </ul>
 <h3 id="8-use-a-ggplot-extension">8. Use a ggplot extension</h3>
 <ul>
-<li>Pick and extension (except cowplot) from 
+<li>Pick an extension (except cowplot) from 
 <a href="https://exts.ggplot2.tidyverse.org/gallery/" target="_blank" rel="noopener">here</a> and make a plot of your choice using the met data (or met_avg)</li>
 <li>Might want to try examples that come with the extension first (e.g. ggtech, gganimate, ggforce)</li>
 </ul>
