@@ -27,13 +27,16 @@ ECHO <- EVAL
 
 We will again work with the meteorological data presented in lecture.
 
-**The objective of the lab is to examine the association between weekly average dew point temperature and wind speed in four regions of the US and by elevation.**
+**The objective of the lab is to examine the association between weekly average dew point and wind speed in four regions of the US and by elevation.**
+
+Per [Wikipedia](https://en.wikipedia.org/wiki/Dew_point): "The dew point of a given body of air is the temperature to which it must be cooled to become saturated with water vapor. This temperature depends on the pressure and water content of the air." 
+
 
 # Steps
 
 ### 1. Read in the data
 
-First download and then read in with data.table:fread()
+First download and then read in with `data.table::fread()`
 
 
 ```r
@@ -60,64 +63,64 @@ met <- data.table::fread("met_all.gz")
 
 
 
-### 3. Use `geom_violin` to examine the wind speed and dew point temperature by region
+### 3. Use `geom_violin` to examine the wind speed and dew point by region
 
 You saw how to use `geom_boxplot` in class. Try using `geom_violin` instead (take a look at the help).
 (hint: You will need to set the `x` aesthetic to 1)
 
 - Use facets
-- Make sure to deal with `NA` category
+- Make sure to deal with `NA`s
 - Describe what you observe in the graph
 
 
 
 
-### 4. Use `geom_jitter` with `stat_smooth` to examine the association between dew point temperature and wind speed by region
+### 4. Use `geom_jitter` with `stat_smooth` to examine the association between dew point and wind speed by region
 
-- Colour points by region
-- Make sure to deal with `NA` category
+- Color points by region
+- Make sure to deal with `NA`s
 - Fit a linear regression line by region
 - Describe what you observe in the graph
 
 
 
 
-### 5. Use `geom_bar` to create barplots of the weather stations by elevation category coloured by region
+### 5. Use `geom_bar` to create barplots of the weather stations by elevation category colored by region
 
 - Bars by elevation category using `position="dodge"`
-- Change colours from the default. Colour by region using `scale_fill_brewer` see [this](http://rstudio-pubs-static.s3.amazonaws.com/5312_98fc1aba2d5740dd849a5ab797cc2c8d.html)
-- Create nice labels on axes and add a title
+- Change colors from the default. Color by region using `scale_fill_brewer` see [this](http://rstudio-pubs-static.s3.amazonaws.com/5312_98fc1aba2d5740dd849a5ab797cc2c8d.html)
+- Create nice labels on the axes and add a title
 - Describe what you observe in the graph
-- Make sure to deal with `NA`
+- Make sure to deal with `NA` values
 
 
 
 ### 6. Use `stat_summary` to examine mean dew point and wind speed by region with standard deviation error bars
 
-- Make sure to remove `NA`
-- Use fun.data="mean_sdl" in `stat_summary`
+- Make sure to remove `NA`s
+- Use `fun.data="mean_sdl"` in `stat_summary`
 - Add another layer of `stats_summary` but change the geom to `"errorbar"` (see the help).
 - Describe the graph and what you observe
 
 
 
-- Dew point temperature is...
+- Dew point is...
 - Wind speed is...
 
-### 7. Make a map showing the spatial trend in relative h in the US
+### 7. Make a map showing the spatial trend in relative humidity in the US
 
-- Make sure to remove `NA`
+- Make sure to remove `NA`s
 - Use leaflet()
-- Make a colour palette with custom colours
-- Use `addMarkers` to include the top 10 places in relative h (hint: this will be useful `rank(-rh) <= 10`)
+- Make a color palette with custom colors
+- Use `addMarkers` to include the top 10 places in relative humidity (hint: this will be useful `rank(-rh) <= 10`)
 - Add a legend
 
 
 
-- Describe trend in RH across the US
+- Describe the trend in RH across the US
 
 ### 8. Use a ggplot extension
 
-- Pick and extension (except cowplot) from [here](https://exts.ggplot2.tidyverse.org/gallery/) and make a plot of your choice using the met data (or met_avg)
+- Pick an extension (except cowplot) from [here](https://exts.ggplot2.tidyverse.org/gallery/) and make a plot of your choice using the met data (or met_avg)
 - Might want to try examples that come with the extension first (e.g. ggtech, gganimate, ggforce)
 
