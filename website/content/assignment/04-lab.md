@@ -5,11 +5,6 @@ link-citations: yes
 ---
 
 
-```r
-# Set to TRUE if you want the blocks to be evaluated 
-EVAL <- FALSE
-ECHO <- EVAL
-```
 
 
 

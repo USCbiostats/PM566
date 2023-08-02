@@ -4,7 +4,7 @@ output: html_document
 link-citations: yes
 ---
 
-```{r}
+```{r, echo = FALSE}
 # Set to TRUE if you want the blocks to be evaluated 
 EVAL <- FALSE
 ECHO <- EVAL
