@@ -60,6 +60,7 @@ to get data.
 
 ### Health and Biological data
 
+- CDC [National Center for Health Statistics](https://www.cdc.gov/nchs/data_access/ftp_data.htm)
 - NIH [Cancer Surveillance](https://seer.cancer.gov/)
 - World Health Organization [WHO data](https://www.who.int/gho/database/en/)
 - UniProt [data](https://www.uniprot.org/)
@@ -69,6 +70,7 @@ to get data.
 - California Health and Human Services [Open Data Portal](https://data.chhs.ca.gov/)
 - Covid Data [CovidTracker](https://covidtracking.com/)
 - USC [Sustainability Data](https://sustainabilitydata.usc.edu/arcgis/apps/sites/#/usc-sustainability-data-hub)
+- [Bureau of Transportation Statistics](https://www.bts.gov/browse-statistical-products-and-data)
 
 ### Academic Publications and related
 
@@ -77,16 +79,25 @@ to get data.
 - Harvard [Dataverse](https://dataverse.harvard.edu/)
 - Elsevier [Developers API](https://dev.elsevier.com/)
 
-### Other data
+### Government data
 
+- US Open Data Initiative [DATA.GOV](https://www.data.gov/)
+- Census Data [Explorer](https://data.census.gov/) and [National Historical Geographic Information System (NHGIS)](https://www.nhgis.org/)
+- [Bureau of Economic Analysis](https://www.bea.gov/data)
+- [Bureau of Labor Statistics](https://www.bls.gov/data/)
+- Housing data [Zillow](https://www.zillow.com/howto/api/APIOverview.htm)
+- [Bureau of Justice Statistics](https://bjs.ojp.gov/data)
+National Center for Education Statistics: [The Nation's Report Card](https://www.nationsreportcard.gov/ndecore/landing)
 - Los Angeles [city data](https://data.lacity.org/)
 - Los Angeles [crime data](http://www.lapdonline.org/crime_mapping_and_compstat)
-- FiveThirtyEight [open data](https://data.fivethirtyeight.com/)
+
+### Other data
+
 - World Bank [open data](https://data.worldbank.org/)
-- US Open Data Initiative [DATA.GOV](https://www.data.gov/)
-- Census Data [National Historical Geographic Information System (NHGIS)](https://www.nhgis.org/)
-- Housing data [Zillow](https://www.zillow.com/howto/api/APIOverview.htm)
+- [Inter-university Consortium for Political and Social Research (ICPSR)](https://www.icpsr.umich.edu/web/pages/)
+- FiveThirtyEight [open data](https://data.fivethirtyeight.com/)
 - Kaggle [datasets](https://www.kaggle.com/datasets)
+- Literally all of [Wikipedia](https://en.wikipedia.org/wiki/Wikipedia:Database_download)
 
 ### Social Networks
 
