@@ -2,12 +2,12 @@
 title: "Assignment 01 - Exploratory Data Analysis"
 output: tufte::tufte_html
 link-citations: yes
-date: 2022-09-07
+date: 2023-09-08
 ---
 
 # Due Date
 
-This assignment is due by midnight Pacific time September 23rd, 2022
+This assignment is due by midnight Pacific Time, September 22nd, 2023.
 
 # Learning Goals
 - Download, read, and get familiar with an external dataset. 
@@ -17,7 +17,7 @@ This assignment is due by midnight Pacific time September 23rd, 2022
 
 # Assignment Description
 
-We will work with air pollution data from the U.S. Environmental Protection Agency (EPA). The EPA has a national monitoring network of air pollution sites that The primary question you will answer is whether daily concentrations of PM$_{2.5}$ (particulate matter air pollution with aerodynamic diameter less than 2.5 $\mu$m) have decreased in California over the last 15 years (from 2004 to 2019).
+We will work with air pollution data from the U.S. Environmental Protection Agency (EPA). The EPA has a national monitoring network of air pollution sites that The primary question you will answer is whether daily concentrations of PM$_{2.5}$ (particulate matter air pollution with aerodynamic diameter less than 2.5 $\mu$m) have decreased in California over the last 20 years (from 2002 to 2022).
 
 A primer on particulate matter air pollution can be found [here](https://www.epa.gov/pm-pollution/particulate-matter-pm-basics).
 
@@ -25,7 +25,7 @@ Your assignment should be completed in R markdown.
 
 # Steps
 
-1. Given the formulated question from the assignment description, you will now conduct EDA Checklist items 2-4. First, download 2004 and 2019 data for all sites in California from the [EPA Air Quality Data website](https://www.epa.gov/outdoor-air-quality-data/download-daily-data). Read in the data using data.table(). For each of the two datasets, check the dimensions, headers, footers, variable names and variable types. Check for any data issues, particularly in the key variable we are analyzing. Make sure you write up a summary of all of your findings.
+1. Given the formulated question from the assignment description, you will now conduct EDA Checklist items 2-4. First, download 2002 and 2022 data for all sites in California from the [EPA Air Quality Data website](https://www.epa.gov/outdoor-air-quality-data/download-daily-data). Read in the data using `data.table()`. For each of the two datasets, check the dimensions, headers, footers, variable names and variable types. Check for any data issues, particularly in the key variable we are analyzing. Make sure you write up a summary of all of your findings.
 
 2. Combine the two years of data into one data frame. Use the Date variable to create a new column for year, which will serve as an identifier. Change the names of the key variables so that they are easier to refer to in your code.
 
