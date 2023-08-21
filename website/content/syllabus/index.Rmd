@@ -12,7 +12,17 @@ output:
 [^courseinfo]: {-}
   `r blogdown::shortcode("courseinfo")`
 
-## Course objectives
+## PM 566: Introduction to Health Data Science
+
+**Term**: Fall 2023
+
+**Time**: Friday 9am - 12:55pm
+
+**Location**: SSB 114
+
+**Units**: 4
+
+## Course Overview
 
 This course serves as an introduction to data science with a focus on the acquisition and analysis of real-life data. Students will learn the toolsets needed to 1) create workable and reproducible datasets by accessing, scraping, sampling and cleaning data; 2) conduct exploratory data analysis and data visualization; 3) apply statistical tools to learn from data; and 4) build functions and basic apps. Coding languages R and Python will be used.
 
@@ -45,14 +55,15 @@ Computation using R (downloaded from http://cran.r-project.org), and development
 
 ## Supplementary References
 
-1. R for Data Science, 2017 Garrett Grolemund and Hadley Wickham. http://r4ds.had.co.nz/
-1. Exploratory Data Analysis with R, 2020 Roger Peng https://bookdown.org/rdpeng/exdata/
-1. Mastering Software Development in R, 2017 Roger Peng, Sean Kross, Brooke Anderson https://bookdown.org/rdpeng/RProgDA/
-1. R Packages, 2023 Hadley Wickham and Jennifer Bryan. https://r-pkgs.org/
+1. R for Data Science, 2017. Garrett Grolemund and Hadley Wickham. http://r4ds.had.co.nz/
+1. Exploratory Data Analysis with R, 2020. Roger Peng. https://bookdown.org/rdpeng/exdata/
+1. Mastering Software Development in R, 2017. Roger Peng, Sean Kross, Brooke Anderson. https://bookdown.org/rdpeng/RProgDA/
+1. R Packages, 2023. Hadley Wickham and Jennifer Bryan. https://r-pkgs.org/
+1. Modern Data Science with R, 2023. Benjamin S. Baumer, Daniel T. Kaplan, and Nicholas J. Horton. https://mdsr-book.github.io/mdsr3e/
 
 ## Description and Assessment of Assignments
 
-**Assignments:** There will be 5 assignments given throughout the semester, approximately 1 every 2 weeks. Students may discuss the problems with one another, however, individual solutions must be submitted and copying will not be tolerated. All assignments must be completed in R Markdown, and submitted through the Github classes portal of the course. Late assignments will be penalized by 20% for each day past the due date.
+**Assignments:** There will be 5 assignments given throughout the semester, approximately 1 every 2 weeks. Students may discuss the problems with one another, however, individual solutions must be submitted and copying will not be tolerated. All assignments must be completed in Quarto or R Markdown, and submitted through the Github classes portal of the course. Late assignments will be penalized by 20% for each day past the due date.
 
 **Final Project:** The final project will be to write a report for an analysis applied to a real-world dataset and to create a website that includes interactive visualizations to display data/results. The source code, website files, and PDF report will be uploaded to GitHub.
 
@@ -79,23 +90,29 @@ Assignments shall be submitted on the Github classroom portal of the course. Lat
 As the weeks go by, consult the [Schedule Page](/PM566/schedule/) for more information on weekly topics, problem sets, readings, and other materials. The schedule is likely to change as we go. Links to readings, assignments, and other materials from class will be posted on that page. 
 
 
-## Statement on academic conduct and support systems
+## Academic Integrity
 
-### Academic Conduct:
+The University of Southern California is foremost a learning community committed to fostering successful scholars and researchers dedicated to the pursuit of knowledge and the transmission of ideas. Academic misconduct is in contrast to the university’s mission to educate students through a broad array of first-rank academic, professional, and extracurricular programs and includes any act of dishonesty in the submission of academic work (either in draft or final form).  
 
-Plagiarism – presenting someone else’s ideas as your own, either verbatim or recast in
-your own words – is a serious academic offense with serious consequences. Please
-familiarize yourself with the discussion of plagiarism in SCampus in Part B, Section 11,
-“Behavior Violating University Standards” http://policy.usc.edu/scampus-part-b. Other forms
-of academic dishonesty are equally unacceptable. See additional information in SCampus
-and university policies on scientific misconduct, http://policy.usc.edu/research-and-scholarship-misconduct.
+This course will follow the expectations for academic integrity as stated in the [USC Student Handbook](https://policy.usc.edu/studenthandbook/). All students are expected to submit assignments that are original work and prepared specifically for the course/section in this academic term. You may not submit work written by others or “recycle” work prepared for other courses without obtaining written permission from the instructor(s). Students suspected of engaging in academic misconduct will be reported to the Office of Academic Integrity.
 
-### Students and Disability Accommodations: 
+Other violations of academic misconduct include, but are not limited to, cheating, plagiarism, fabrication (e.g., falsifying data), knowingly assisting others in acts of academic dishonesty, and any act that gains or is intended to gain an unfair academic advantage.
+
+The impact of academic dishonesty is far-reaching and is considered a serious offense against the university and could result in outcomes such as failure on the assignment, failure in the course, suspension, or even expulsion from the university.
+
+For more information about academic integrity see the [student handbook](https://policy.usc.edu/studenthandbook/) or the [Office of Academic Integrity’s website](https://academicintegrity.usc.edu/), and university policies on [Research and Scholarship Misconduct](https://policy.usc.edu/research-and-scholarship-misconduct/).
+
+
+### Statement on the use of Artificial Intelligence
+
+Generative artificial intelligence (AI) may be used under the direction and rules specified by the course instructor in specific circumstances as outlined in the syllabus. The student is responsible for the quality and content of all written assignments. Unless otherwise indicated by the course instructor, generative AI may be used to create an initial literature review, document outline and/or to organize material toward a first draft of a class paper, proofreading, or grammatical accuracy; however the final content of the written document and critical thinking of the ideas presented in the document must represent the student’s individual work and ideas learned through course content and/or research conducted from sources outside of the generative AI system. The student must include an annotation on all materials submitted that explicitly documents how AI was used to generate the document and properly reference both the sources and the AI tools such as ChatGPT (OpenAI, 2023). The student must review the information in the document and edit for accuracy, completeness, proper grammar, and demonstrate that the wording accurately reflects the student's understanding and purpose in writing the text. Students should be aware that text generated solely from AI generators may include factual errors, bias, and may contain incomplete or inaccurate reference information, in addition to furthering appropriating knowledge produced by historically marginalized scholars without proper crediting. If you have any questions on whether a specific AI tool is allowed for any aspect of your work in this class, please ask your instructor for guidance. Failure to ensure agreement with your instructor on use of AI, prior to doing so, may result in a zero score. (NOTE: instructors have sophisticated tools to determine AI plagiarism.)
+
+## Students and Disability Accommodations: 
 
 USC welcomes students with disabilities into all of the University’s educational programs. The Office of Student Accessibility Services (OSAS) is responsible for the determination of appropriate accommodations for students who encounter disability-related barriers. Once a student has completed the OSAS process (registration, initial appointment, and submitted documentation) and accommodations are determined to be reasonable and appropriate, a Letter of Accommodation (LOA) will be available to generate for each course. The LOA must be given to each course instructor by the student and followed up with a discussion. This should be done as early in the semester as possible as accommodations are not retroactive. More information can be found at http://osas.usc.edu. You may contact OSAS at (213) 740-0776 or via email at osasfrontdesk@usc.edu.
 
 
-### Support Systems:
+## Support Systems:
 
 *Counseling and Mental Health - (213) 740-9355 – 24/7 on call*  
 https://studenthealth.usc.edu/counseling/   
