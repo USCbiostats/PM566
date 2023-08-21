@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>References | Introduction to Health Data Science - PM 566</title>
+    <link>https://uscbiostats.github.io/PM566/reference/</link>
+      <atom:link href="https://uscbiostats.github.io/PM566/reference/index.xml" rel="self" type="application/rss+xml" />
+    <description>References</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
+    <image>
+      <url>https://uscbiostats.github.io/PM566/img/social-image.png</url>
+      <title>References</title>
+      <link>https://uscbiostats.github.io/PM566/reference/</link>
+    </image>
+    
+  </channel>
+</rss>
