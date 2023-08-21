@@ -1,21 +1,20 @@
 ---
 title: "Final Project"
 output: tufte::tufte_html
-date: 2022-11-16
+date: 2023-11-17
 ---
 
 # Final Project
 
-- Presentation (5 minutes): Wednesday November 30th, 2022
+- Presentation (5 minutes): Friday December 1st, 2023
 
-- Written report (single spaced, 6-8 pages where 3-4 pages are tables and figures): Wednesday December 7, 2022
+- Written report (single spaced, 6-8 pages where 3-4 pages are tables and figures): Friday December 8th, 2023.
 
 **Learning Objective**: To apply the skills learned in
 PM 566 by analyzing and interpreting a dataset of your choice.
 
 **Narrative**: Through this project you will launch a
-portfolio of data science projects that will become seminal for your job
-hunt.
+portfolio of data science projects that will become seminal for your job hunt.
 
 Using the dataset from your midterm, make sure you have
 formulated a clear and concise question to answer. You will apply the
@@ -24,7 +23,7 @@ skills learned throughout the semester to answer this question.
 **Deliverables**: 1) A 5-minute presentation where you
 walk us through your website; 2) A written report with embedded tables
 and figures that is submitted as a PDF to a final project-specific
-github repository *and* as a downloadable link on your website.
+GitHub repository *and* as a downloadable link on your website.
 Please see the checklist below for additional
 details.
 
@@ -35,7 +34,7 @@ dataset and formulated question), **Methods**
 (include how and where the data were acquired, how you cleaned and
 wrangled the data, what tools you used for data exploration),
 **Results** (provide final, publication ready
-tables and figures from your analysis, refer to your website if needed),
+tables and figures from your analysis, make separate subsections as needed),
 and a brief **Conclusion and Summary** where
 you describe your findings.
 
