@@ -29,7 +29,7 @@ And to make versioning simpler, this is a solo lab. Additionally, we want to mak
 
 ## 1 Download project
 
-Go the the the lab page for this week on the [website](/PM566/class/01-class/). You should see a "Download" button under the "Lab Exercise" section. Click it to download the template for your responses to this lab, `01-lab-hello-r.Rmd`.
+Go the the the lab page for this week on the [website](/PM566/class/01-class/). You should see a "Download" button under the "Lab Exercise" section. Click it to download the template for your responses to this lab, `01-lab-hello-r.qmd`.
 
 ## 2 Download R
 
