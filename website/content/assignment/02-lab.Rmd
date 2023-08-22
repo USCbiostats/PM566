@@ -18,7 +18,7 @@ the course, meaning that your grade will depend on it :).
 
 # Updating a single repo
 
-One of the most common tasks that people uses git for is for collaborating. While
+One of the most common tasks that people use git for is for collaborating. While
 in general team members organize such that there is no overlapping editing of
 the files, `git` is (usually) smart enough to avoid clashes when multiple edits are done in
 the same document[^multiedits]. To show this, we will do a collaborative edit of
