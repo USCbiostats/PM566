@@ -12,7 +12,7 @@ The learning objectives are to conduct data scraping and perform text mining.
 
 ## HPC
 
-### Problem  1: Make sure your code is nice
+### Problem  1: Make things run faster
 Rewrite the following R functions to make them faster. It is OK (and recommended) to take a look at Stackoverflow and Google
 
 ```{r, eval = FALSE}
@@ -65,10 +65,11 @@ microbenchmark::microbenchmark(
 )
 ```
 
-The last argument, check = “equivalent”, is included to make sure that the functions return the same result.
+The last argument, `check = “equivalent”`, is included to make sure that the functions return the same result.
 
 ### Problem 2: Make things run faster with parallel computing
-The following function allows simulating PI
+
+The following function allows simulating pi:
 
 ```{r, eval = FALSE}
 sim_pi <- function(n = 1000, i = NULL) {
@@ -132,15 +133,15 @@ When you write a new chunk, remember to replace the `r` with `sql, connection=co
 
 ## Question 1
 
-How many many movies is there avaliable in each `rating` catagory.
+How many many movies are avaliable in each `rating` catagory?
 
 ## Question 2
 
-What is the average replacement cost and rental rate for each `rating` category.
+What is the average replacement cost and rental rate for each `rating` category?
 
 ## Question 3
 
-Use table `film_category` together with `film` to find the how many films there are witth each category ID 
+Use table `film_category` together with `film` to find how many films there are with each category ID.
 
 ## Question 4
 

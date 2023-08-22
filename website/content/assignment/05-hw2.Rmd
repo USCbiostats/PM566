@@ -55,7 +55,9 @@ The primary questions of interest are:
 
 
 Follow the EDA checklist from week 3 and the previous assignment. Be sure to focus on the key variables.
-Visualization
+
+## Visualization
+
 Create the following figures and interpret them. Be sure to include easily understandable axes, titles, and legends. 
 
 
