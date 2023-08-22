@@ -560,7 +560,7 @@ Learning Goals  Download, read, and get familiar with an external dataset. Step 
         
           Due Date This assignment is due by midnight Pacific Time, November 17th, 2023.
 The learning objectives are to conduct data scraping and perform text mining.
-HPC Problem 1: Make sure your code is nice Rewrite the following R functions to make them faster. It is OK (and recommended) to take a look at Stackoverflow and Google
+HPC Problem 1: Make things run faster Rewrite the following R functions to make them faster. It is OK (and recommended) to take a look at Stackoverflow and Google
 # Total row sums fun1 &lt;- function(mat) { n &lt;- nrow(mat) ans &lt;- double(n) for (i in 1:n) { ans[i] &lt;- sum(mat[i, ]) } ans } fun1alt &lt;- function(mat) { # YOUR CODE HERE } # Cumulative sum by row fun2 &lt;- function(mat) { n &lt;- nrow(mat) k &lt;- ncol(mat) ans &lt;- mat for (i in 1:n) { for (j in 2:k) { ans[i,j] &lt;- mat[i, j] + ans[i, j - 1] } } ans } fun2alt &lt;- function(mat) { # YOUR CODE HERE } # Use the data with this code set.
         
       </div>

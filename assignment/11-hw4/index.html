@@ -32,7 +32,7 @@
   
   <meta name="description" content="Due Date This assignment is due by midnight Pacific Time, November 17th, 2023.
 The learning objectives are to conduct data scraping and perform text mining.
-HPC Problem 1: Make sure your code is nice Rewrite the following R functions to make them faster. It is OK (and recommended) to take a look at Stackoverflow and Google
+HPC Problem 1: Make things run faster Rewrite the following R functions to make them faster. It is OK (and recommended) to take a look at Stackoverflow and Google
 # Total row sums fun1 &lt;- function(mat) { n &lt;- nrow(mat) ans &lt;- double(n) for (i in 1:n) { ans[i] &lt;- sum(mat[i, ]) } ans } fun1alt &lt;- function(mat) { # YOUR CODE HERE } # Cumulative sum by row fun2 &lt;- function(mat) { n &lt;- nrow(mat) k &lt;- ncol(mat) ans &lt;- mat for (i in 1:n) { for (j in 2:k) { ans[i,j] &lt;- mat[i, j] &#43; ans[i, j - 1] } } ans } fun2alt &lt;- function(mat) { # YOUR CODE HERE } # Use the data with this code set.">
 
   
@@ -250,7 +250,7 @@ HPC Problem 1: Make sure your code is nice Rewrite the following R functions to 
   <meta property="og:title" content="Assignment 04 - HPC and SQL | Introduction to Health Data Science - PM 566">
   <meta property="og:description" content="Due Date This assignment is due by midnight Pacific Time, November 17th, 2023.
 The learning objectives are to conduct data scraping and perform text mining.
-HPC Problem 1: Make sure your code is nice Rewrite the following R functions to make them faster. It is OK (and recommended) to take a look at Stackoverflow and Google
+HPC Problem 1: Make things run faster Rewrite the following R functions to make them faster. It is OK (and recommended) to take a look at Stackoverflow and Google
 # Total row sums fun1 &lt;- function(mat) { n &lt;- nrow(mat) ans &lt;- double(n) for (i in 1:n) { ans[i] &lt;- sum(mat[i, ]) } ans } fun1alt &lt;- function(mat) { # YOUR CODE HERE } # Cumulative sum by row fun2 &lt;- function(mat) { n &lt;- nrow(mat) k &lt;- ncol(mat) ans &lt;- mat for (i in 1:n) { for (j in 2:k) { ans[i,j] &lt;- mat[i, j] &#43; ans[i, j - 1] } } ans } fun2alt &lt;- function(mat) { # YOUR CODE HERE } # Use the data with this code set."><meta property="og:image" content="https://uscbiostats.github.io/PM566/img/social-image.png">
   <meta property="twitter:image" content="https://uscbiostats.github.io/PM566/img/social-image.png"><meta property="og:locale" content="en-us">
   
@@ -533,7 +533,7 @@ HPC Problem 1: Make sure your code is nice Rewrite the following R functions to 
 <p>This assignment is due by midnight Pacific Time, November 17th, 2023.</p>
 <p>The learning objectives are to conduct data scraping and perform text mining.</p>
 <h2 id="hpc">HPC</h2>
-<h3 id="problem--1-make-sure-your-code-is-nice">Problem  1: Make sure your code is nice</h3>
+<h3 id="problem--1-make-things-run-faster">Problem  1: Make things run faster</h3>
 <p>Rewrite the following R functions to make them faster. It is OK (and recommended) to take a look at Stackoverflow and Google</p>
 <pre><code class="language-r"># Total row sums
 fun1 &lt;- function(mat) {
@@ -583,9 +583,9 @@ microbenchmark::microbenchmark(
   fun2alt(dat), unit = &quot;relative&quot;, check = &quot;equivalent&quot;
 )
 </code></pre>
-<p>The last argument, check = “equivalent”, is included to make sure that the functions return the same result.</p>
+<p>The last argument, <code>check = “equivalent”</code>, is included to make sure that the functions return the same result.</p>
 <h3 id="problem-2-make-things-run-faster-with-parallel-computing">Problem 2: Make things run faster with parallel computing</h3>
-<p>The following function allows simulating PI</p>
+<p>The following function allows simulating pi:</p>
 <pre><code class="language-r">sim_pi &lt;- function(n = 1000, i = NULL) {
   p &lt;- matrix(runif(n*2), ncol = 2)
   mean(rowSums(p^2) &lt; 1) * 4
@@ -635,11 +635,11 @@ dbWriteTable(con, &quot;category&quot;, category)
 <p>When you write a new chunk, remember to replace the <code>r</code> with <code>sql, connection=con</code>. Some of these questions will reqruire you to use an  inner join. Read more about them here 
 <a href="https://www.w3schools.com/sql/sql_join_inner.asp" target="_blank" rel="noopener">https://www.w3schools.com/sql/sql_join_inner.asp</a></p>
 <h2 id="question-1">Question 1</h2>
-<p>How many many movies is there avaliable in each <code>rating</code> catagory.</p>
+<p>How many many movies are avaliable in each <code>rating</code> catagory?</p>
 <h2 id="question-2">Question 2</h2>
-<p>What is the average replacement cost and rental rate for each <code>rating</code> category.</p>
+<p>What is the average replacement cost and rental rate for each <code>rating</code> category?</p>
 <h2 id="question-3">Question 3</h2>
-<p>Use table <code>film_category</code> together with <code>film</code> to find the how many films there are witth each category ID</p>
+<p>Use table <code>film_category</code> together with <code>film</code> to find how many films there are with each category ID.</p>
 <h2 id="question-4">Question 4</h2>
 <p>Incorporate table <code>category</code> into the answer to the previous question to find the name of the most popular category.</p>
 
