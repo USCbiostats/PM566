@@ -573,7 +573,7 @@
 <p>You have 2 ways to open the lab project we will be working with. Inside the folder is a <code>pm566-01-lab.Rproj</code> file, opening this file should launch your RStudio project.</p>
 <p>You can also open the RStudio application first and then open the project by going <code>file -&gt; open project...</code></p>
 <h2 id="3-get-working">3. Get working!</h2>
-<p>Open the R Markdown (Rmd) file called <code>lab-01-hello-r.Rmd</code>. It will likely ask you if you would like to install a package that is required, click Install.</p>
+<p>Open the Quarto markdown (qmd) file called <code>lab-01-hello-r.qmd</code>. It will likely ask you if you would like to install a package that is required, click Install.</p>
 <h1 id="hello-rstudio">Hello RStudio!</h1>
 <p>RStudio is comprised of four panes.</p>
 <p><img src="/PM566/assignment-img/rstudio-anatomy.png" alt=""></p>
@@ -600,16 +600,16 @@ library(datasauRus)
 <p>If you haven&rsquo;t installed these packages yet and R complains, then you can install these packages by running the following command. (Note that R package names are case-sensitive)</p>
 <pre><code class="language-r">install.packages(c(&quot;tidyverse&quot;, &quot;datasauRus&quot;))
 </code></pre>
-<p>Note that the packages are also loaded with the same commands in your R Markdown document.</p>
+<p>Note that the packages are also loaded with the same commands in your Quarto document.</p>
 <h1 id="warm-up">Warm up</h1>
 <p>Before we introduce the data, let&rsquo;s warm up with some simple exercises.</p>
-<p>The top portion of your R Markdown file (between the three dashed lines) is called YAML. It stands for &ldquo;YAML Ain&rsquo;t Markup Language&rdquo;. It is a human friendly data serialization standard for all programming languages. All you need to know is that this area is called the YAML (we will refer to it as such) and that it contains meta information about your document.</p>
+<p>The top portion of your Quarto file (between the three dashed lines) is called YAML. It stands for &ldquo;YAML Ain&rsquo;t Markup Language&rdquo;. It is a human-friendly data serialization standard for all programming languages. All you need to know is that this area is called the YAML (we will refer to it as such) and that it contains meta information about your document.</p>
 <h2 id="yaml">YAML</h2>
-<p>Open the R Markdown (Rmd) file in your project, change the author name to your name, and knit the document.</p>
+<p>Open the Quarto (qmd) file in your project, change the author name to your name, and Render the document.</p>
 <p><img src="../../static/assignment-img/yaml-raw-to-rendered.png" alt=""></p>
 <h1 id="data">Data</h1>
 <p>The data frame we will be working with today is called <code>datasaurus_dozen</code> and it&rsquo;s in the <code>datasauRus</code> package. Actually, this single data frame contains 13 datasets, designed to show us  why data visualisation is important and how summary statistics alone can be misleading. The different datasets are marked by the <code>dataset</code> variable.</p>
-<p>To find out more about the dataset, type the following in your Console: <code>?datasaurus_dozen</code>. A question mark before the name of an object will always bring up its help file. This command must be ran in the Console.</p>
+<p>To find out more about the dataset, type the following in your Console: <code>?datasaurus_dozen</code>. A question mark before the name of an object will always bring up its help file. This command must be run in the Console.</p>
 <h2 id="question-1">Question 1</h2>
 <ol>
 <li>Based on the help file, how many rows and how many columns does the <code>datasaurus_dozen</code> file have? What are the variables included in the data frame? Add your responses to your lab report.</li>
@@ -703,23 +703,14 @@ library(datasauRus)
 # })
 </code></pre>
 <p>You&rsquo;re done with the data analysis exercises, but we&rsquo;d like you to do two more things:</p>
-<p><img src="../../static/assignment-img/fig-resize-global.png" alt=""></p>
-<ul>
-<li><strong>Resize your figures:</strong></li>
-</ul>
-<p>Click on the gear icon in on top of the R Markdown document, and select &ldquo;Output Options&hellip;&rdquo; in the dropdown menu. In the pop up dialogue box go to the Figures tab and change the height and width of the figures, and hit OK when done. Then, knit your document and see how you like the new sizes. Change and knit again and again until you&rsquo;re happy with the figure sizes. Note that these values get saved in the YAML.</p>
-<p><img src="../../static/assignment-img/fig-resize-local.png" alt=""></p>
-<p>You can also use different figure sizes for different figures. To do so click on the gear icon within the chunk where you want to make a change. Changing the figure sizes added new options to these chunks: <code>fig.width</code> and <code>fig.height</code>. You can change them by defining different values directly in your R Markdown document as well.</p>
-<p><img src="../../static/assignment-img/theme-highlight.png" alt=""></p>
-<ul>
-<li><strong>Change the look of your report:</strong></li>
-</ul>
-<p>Once again click on the gear icon in on top of the R Markdown document, and select &ldquo;Output Options&hellip;&rdquo; in the dropdown menu. In the General tab of the pop up dialogue box try out different syntax highlighting and theme options. Hit OK and knit your document to see how it looks. Play around with these until you&rsquo;re happy with the look.</p>
-<h1 id="optional">Optional</h1>
-<p>If you have time you can explore the different ways you can add styling to your rmarkdown document.</p>
-<p>Here is a 
-<a href="https://rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf" target="_blank" rel="noopener">cheatsheet</a></p>
-<p>and a 
+<p><strong>Resize your figures:</strong></p>
+<p>Add the fields <code>fig-width</code> and <code>fig-height</code> to the YAML header of your document. These will allow you to specify the size (in inches) of any figures generated by the code chunks in your report.</p>
+<p>You can also use different figure sizes for different figures. If you are in the Visual editor mode, switch to Source mode. Notice that each R chunk starts and ends with three backticks. Click on the gear icon in the top right of a code chunk and select &ldquo;Use custom figure size&rdquo; in the pop-up menu. Set the height and width of the figures and hit Apply when done. Then, render your document and see how you like the new sizes. Change and render again and again until you&rsquo;re happy with all the figure sizes. Note that changing the figure sizes added new options to these chunks: <code>fig.width</code> and <code>fig.height</code>. You can change them by defining different values directly in your Quarto document as well.</p>
+<p><strong>Change the look of your report:</strong></p>
+<p>If you have time you can explore the different ways you can add styling to your document. Try adding a <code>theme</code> field to the YAML header and see if you can find valid names of different themes.</p>
+<p>Here is a Quarto 
+<a href="https://rstudio.github.io/cheatsheets/quarto.pdf" target="_blank" rel="noopener">cheatsheet</a>
+and a general 
 <a href="https://www.markdownguide.org/cheat-sheet/" target="_blank" rel="noopener">markdown cheatsheet</a></p>
 <hr>
 <p>This set of lab exersixes have been adopted from 
