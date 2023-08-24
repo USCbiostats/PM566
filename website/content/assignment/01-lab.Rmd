@@ -27,11 +27,7 @@ And to make versioning simpler, this is a solo lab. Additionally, we want to mak
 
 # Getting started
 
-## 1 Download project
-
-Go the the the lab page for this week on the [website](/PM566/class/01-class/). You should see a "Download" button under the "Lab Exercise" section. Click it to download the template for your responses to this lab, `01-lab-hello-r.qmd`.
-
-## 2 Download R
+## 1 Download R
 
 ### If you don't have R installed.
 
@@ -47,19 +43,31 @@ R.version
 
 This should tell you what version of R you are currently using. If your R version is lower then 4.3.0 I would strongly recommend updating. In general it is a good idea to update your R version, unless you have a project right now that depend on a specific version of R.
 
-## 2.2 Download RStudio
+## 1.2 Download RStudio
 
 We recommend using RStudio as your IDE if you don't already have it installed. You can go to the [RStudio](https://rstudio.com/products/rstudio/download/) website to download and install the software.
 
-## 2.3 Launch RStudio
+## 1.3 Launch RStudio
 
 You have 2 ways to open the lab project we will be working with. Inside the folder is a `pm566-01-lab.Rproj` file, opening this file should launch your RStudio project.
 
 You can also open the RStudio application first and then open the project by going `file -> open project...`
 
-## 3. Get working!
+## Start a new Project
 
-Open the Quarto markdown (qmd) file called `lab-01-hello-r.qmd`. It will likely ask you if you would like to install a package that is required, click Install.
+RStudio Projects are a great way to stay organized and keep all of your work on a particular topic in one place. Project files keep track of things like the R objects you are using and which files you have open, so that you can quickly jump in and out of different work environments.
+
+In the top right of the RStudio window, you should see a drop-down menu that says "Project: (None)". Click on this and then "New Project...", which will open up a dialogue box. If you have already created a directory (folder) for you Lab 1 materials, you can associate this Project with an existing directory, otherwise use the dialogue box to create a new directory. We'll use the generic Project type, "New Project". Then give it a name like "Lab 1", choose where you want to save it on your computer, and click "Create Project". Now in the top right, you should see "Lab 1" next to the R Project logo.
+
+## Create a Quarto document
+
+We will use Quarto documents a lot in this course because they are reproducible and allow us to seamlessly integrate code and text.
+
+In the top left, you will see a "New File" icon that leads to a drop-down menu. Click on this and then "Quarto document...", which will open up a dialogue box. You can leave most of the settings on their defaults for now, just give your document a title and author (yourself) and click "Create". RStudio may ask you if you would like to install a package that is required, and if so, click "Install".
+
+This will open the default Quarto document, which already contains some example content. Read through it, then remove this content and set up new sections titled "Question 1" through "Question 5". Under each section title, add an R code chunk via "Insert...", "Executable Cell", "R". This document will serve as the template for your responses to this lab.
+
+Save your Quarto markdown (`qmd`) file as `lab-01-hello-r.qmd` and see what happens when you click "Render".
 
 # Hello RStudio!
 
