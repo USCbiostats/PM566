@@ -20,7 +20,7 @@ output:
 
 **Location**: SSB 114
 
-**Units**: 4
+**Units**: 4 
 
 ## Course Overview
 
