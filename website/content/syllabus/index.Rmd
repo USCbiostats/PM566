@@ -12,7 +12,7 @@ output:
 [^courseinfo]: {-}
   `r blogdown::shortcode("courseinfo")`
 
-## PM 566: Introduction to Health Data Science
+## PM 566: Introduction to Health Data Science 
 
 **Term**: Fall 2023
 
