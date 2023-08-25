@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en-us" 
+      xmlns:og="http://ogp.me/ns#" 
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.8.0">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  
+
+  
+  
+  
+    
+  
+  <meta name="description" content="Here’s your roadmap for the semester!
+  Readings should be completed before each class session  Class materials (slides, in-class activities, etc.) will be added on the day of class  Assignments are due by 11:59 PM on the day they are due     Week 1 (8/25) Introduction to Data Science tools: R, Python, Markdown, Git, command line tools       Week 2 (9/1) Version Control &amp; Reproducible Research       Week 3 (9/8) Exploratory data analysis       Week 4 (9/15) Data visualization      Week 5 (9/22) Data cleaning and wrangling       Week 6 (9/29) Text Mining      Week 7 (10/6) Scraping, APIs, and Regular Expressions       Week 8 (10/13) Fall Recess (No class).">
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://uscbiostats.github.io/PM566/schedule/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="#098A9C">
+  
+
+  
+  
+  
+  <script src="/PM566/js/mathjax-config.js"></script>
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-1/css/all.min.css" integrity="sha256-4w9DunooKSr3MFXHXWyFER38WmPdm361bQS/2KUWZbU=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+        
+      
+    
+
+    
+
+    
+
+    
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js" integrity="sha256-Md1qLToewPeKjfAHU1zyPwOutccPAm5tahnaw7Osw0A=" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+
+  
+
+  
+  
+  
+    
+      
+      
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i&display=swap">
+    
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/PM566/css/academic.css">
+
+  
+
+
+
+
+  
+
+
+  
+  
+
+  
+
+  <link rel="manifest" href="/PM566/index.webmanifest">
+  <link rel="icon" type="image/png" href="/PM566/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_3.png">
+  <link rel="apple-touch-icon" type="image/png" href="/PM566/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_3.png">
+
+  <link rel="canonical" href="https://uscbiostats.github.io/PM566/schedule/">
+
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <meta property="twitter:card" content="summary_large_image">
+  
+  <meta property="twitter:site" content="@USCBiostat">
+  <meta property="twitter:creator" content="@USCBiostat">
+  
+  <meta property="og:site_name" content="Introduction to Health Data Science - PM 566">
+  <meta property="og:url" content="https://uscbiostats.github.io/PM566/schedule/">
+  <meta property="og:title" content="Schedule | Introduction to Health Data Science - PM 566">
+  <meta property="og:description" content="Here’s your roadmap for the semester!
+  Readings should be completed before each class session  Class materials (slides, in-class activities, etc.) will be added on the day of class  Assignments are due by 11:59 PM on the day they are due     Week 1 (8/25) Introduction to Data Science tools: R, Python, Markdown, Git, command line tools       Week 2 (9/1) Version Control &amp; Reproducible Research       Week 3 (9/8) Exploratory data analysis       Week 4 (9/15) Data visualization      Week 5 (9/22) Data cleaning and wrangling       Week 6 (9/29) Text Mining      Week 7 (10/6) Scraping, APIs, and Regular Expressions       Week 8 (10/13) Fall Recess (No class)."><meta property="og:image" content="https://uscbiostats.github.io/PM566/img/social-image.png">
+  <meta property="twitter:image" content="https://uscbiostats.github.io/PM566/img/social-image.png"><meta property="og:locale" content="en-us">
+  
+    
+    
+  
+
+  
+
+
+
+  
+
+
+  
+
+
+  <link rel="shortcut icon" href="https://uscbiostats.github.io/PM566/favicon.ico" />
+  <link rel="apple-touch-icon-precomposed" sizes="57x57" href="https://uscbiostats.github.io/PM566/img/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="https://uscbiostats.github.io/PM566/img/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://uscbiostats.github.io/PM566/img/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://uscbiostats.github.io/PM566/img/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="120x120" href="https://uscbiostats.github.io/PM566/img/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="152x152" href="https://uscbiostats.github.io/PM566/img/apple-touch-icon-152x152.png" />
+  <link rel="icon" type="image/png" href="https://uscbiostats.github.io/PM566/img/favicon-32x32.png" sizes="32x32" />
+  <link rel="icon" type="image/png" href="https://uscbiostats.github.io/PM566/img/favicon-16x16.png" sizes="16x16" />
+  <meta name="application-name" content="PM566: Introduction to Health Data Science - PM 566" />
+  <meta name="msapplication-TileColor" content="#FFFFFF" />
+  <meta name="msapplication-TileImage" content="https://uscbiostats.github.io/PM566/img/mstile-144x144.png" />
+
+
+  <title>Schedule | Introduction to Health Data Science - PM 566</title>
+
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70"
+    data-target="#TableOfContents"
+    >
+
+    <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+    
+
+
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/PM566/">Introduction to Health Data Science - PM 566</a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/PM566/">Introduction to Health Data Science - PM 566</a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-end" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/PM566/syllabus/"><span>Syllabus</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link  active" href="/PM566/schedule/"><span>Schedule</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/PM566/reference/"><span>Reference</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+    <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1>Schedule</h1>
+
+  
+
+  
+    
+
+
+<div class="article-metadata">
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  
+  
+
+  
+  
+
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <p>Here’s your roadmap for the semester!</p>
+<ul>
+<li><i class="fas fa-book-reader"></i> Readings should be completed <em><strong>before</strong></em> each class session</li>
+<li><i class="fas fa-chalkboard-teacher"></i> Class materials (slides, in-class activities, etc.) will be added on the day of class</li>
+<li><i class="fas fa-laptop-code"></i> Assignments are due by <strong>11:59 PM</strong> on the day they are due</li>
+</ul>
+<hr>
+<table class="table schedule" style="max-width:100%">
+    <tbody>
+        <tr>
+            <td align="right" style="width:20%;text-align:right">Week 1 (8/25)</td>
+            <td style="width:50%;text-align:left">Introduction to Data Science tools: R, Python, Markdown, Git, command line tools</td>
+            <td align="center" style="width:10%;text-align:center"><a
+                    href="../reading/01-reading/">
+                    <i class="fas fa-book-reader fa-lg"></i></a></td>
+            <td align="center" style="width:10%;text-align:center"><a href="../class/01-class/">
+                    <i class="fas fa-chalkboard-teacher fa-lg"></i></a></td>
+            <td align="center" style="width:10%;text-align:center">
+                <font color="f1f1f1">
+                    <i class="fas fa-laptop-code"></i></font>
+            </td>
+        </tr>
+        <tr>
+            <td align="right" style="width:20%;text-align:right">Week 2 (9/1)</td>
+            <td style="width:50%;text-align:left">Version Control &amp; Reproducible Research</td>
+            <td align="center" style="width:10%;text-align:center"><a
+                    href="../reading/02-reading/">
+                    <i class="fas fa-book-reader fa-lg"></i></a></td>
+            <td align="center" style="width:10%;text-align:center"><a href="../class/02-class/">
+                    <i class="fas fa-chalkboard-teacher fa-lg"></i></a></td>
+            <td align="center" style="width:10%;text-align:center">
+                <font color="f1f1f1">
+                    <i class="fas fa-laptop-code"></i></font>
+            </td>
+        </tr>
+        <tr>
+            <td align="right" style="width:20%;text-align:right">Week 3 (9/8)</td>
+            <td style="width:50%;text-align:left">Exploratory data analysis</td>
+            <td align="center" style="width:10%;text-align:center"><a
+                    href="../reading/03-reading/">
+                    <i class="fas fa-book-reader fa-lg"></i></a></td>
+            <td align="center" style="width:10%;text-align:center"><a href="../class/03-class/">
+                    <i class="fas fa-chalkboard-teacher fa-lg"></i></a></td>
+            <td align="center" style="width:10%;text-align:center">
+                <font color="f1f1f1">
+                    <i class="fas fa-laptop-code"></i></font>
+            </td>
+        </tr>
+        <tr>
+            <td align="right" style="width:20%;text-align:right">Week 4 (9/15)</td>
+            <td style="width:50%;text-align:left">Data visualization</td>
+            <td align="center" style="width:10%;text-align:center"><a
+                    href="../reading/04-reading/">
+                    <i class="fas fa-book-reader fa-lg"></i></a></td>
+            <td align="center" style="width:10%;text-align:center"><a href="../class/04-class/">
+                    <i class="fas fa-chalkboard-teacher fa-lg"></i></a></td>
+            <td align="center" style="width:10%;text-align:center"><a
+                    href="../assignment/03-hw1/">
+                    <i class="fas fa-laptop-code"></i></a></td>
+        </tr>
+        <tr>
+            <td align="right" style="width:20%;text-align:right">Week 5 (9/22)</td>
+            <td style="width:50%;text-align:left">Data cleaning and wrangling</td>
+            <td align="center" style="width:10%;text-align:center"><a
+                    href="../reading/05-reading/">
+                    <i class="fas fa-book-reader fa-lg"></i></a></td>
+            <td align="center" style="width:10%;text-align:center"><a href="../class/05-class/">
+                    <i class="fas fa-chalkboard-teacher fa-lg"></i></a></td>
+            <td align="center" style="width:10%;text-align:center">
+                <font color="f1f1f1">
+                    <i class="fas fa-laptop-code"></i></font>
+            </td>
+        </tr>
+        <tr>
+            <td align="right" style="width:20%;text-align:right">Week 6 (9/29)</td>
+            <td style="width:50%;text-align:left">Text Mining</td>
+            <td align="center" style="width:10%;text-align:center"><a
+                    href="../reading/06-reading/">
+                    <i class="fas fa-book-reader fa-lg"></i></a></td>
+            <td align="center" style="width:10%;text-align:center"><a href="../class/06-class/">
+                    <i class="fas fa-chalkboard-teacher fa-lg"></i></a></td>
+            <td align="center" style="width:10%;text-align:center"><a
+                    href="../assignment/05-hw2/">
+                    <i class="fas fa-laptop-code"></i></a></td>
+        </tr>
+        <tr>
+            <td align="right" style="width:20%;text-align:right">Week 7 (10/6)</td>
+            <td style="width:50%;text-align:left">Scraping, APIs, and Regular Expressions</td>
+            <td align="center" style="width:10%;text-align:center"><a
+                    href="../reading/07-reading/">
+                    <i class="fas fa-book-reader fa-lg"></i></a></td>
+            <td align="center" style="width:10%;text-align:center"><a href="../class/07-class/">
+                    <i class="fas fa-chalkboard-teacher fa-lg"></i></a></td>
+            <td align="center" style="width:10%;text-align:center">
+                <font color="f1f1f1">
+                    <i class="fas fa-laptop-code"></i></font>
+            </td>
+        </tr>
+        <tr>
+            <td align="right" style="width:20%;text-align:right">Week 8 (10/13)</td>
+            <td style="width:50%;text-align:left">Fall Recess (No class). Midterm Exam</td>
+            <td align="center" style="width:10%;text-align:center">
+                <font color="f1f1f1">
+                    <i class="fas fa-book-reader fa-lg"></i></font>
+            </td>
+            <td align="center" style="width:10%;text-align:center">
+                <font color="f1f1f1">
+                    <i class="fas fa-chalkboard-teacher fa-lg"></i></font>
+            </td>
+            <td align="center" style="width:10%;text-align:center"><a
+                    href="../assignment/08-midterm/">
+                    <i class="fas fa-laptop-code"></i></a></td>
+        </tr>
+        <tr>
+            <td align="right" style="width:20%;text-align:right">Week 9 (10/20)</td>
+            <td style="width:50%;text-align:left">(Midterm Exam due) High performance computing, cloud computing</td>
+            <td align="center" style="width:10%;text-align:center"><a
+                    href="../reading/09-reading/">
+                    <i class="fas fa-book-reader fa-lg"></i></a></td>
+            <td align="center" style="width:10%;text-align:center"><a href="../class/09-class/">
+                    <i class="fas fa-chalkboard-teacher fa-lg"></i></a></td>
+            <td align="center" style="width:10%;text-align:center">
+                <font color="f1f1f1">
+                    <i class="fas fa-laptop-code"></i></font>
+            </td>
+        </tr>
+        <tr>
+            <td align="right" style="width:20%;text-align:right">Week 10 (10/27)</td>
+            <td style="width:50%;text-align:left">Managing big data, SQL and non-SQL languages, Google BigQuery</td>
+            <td align="center" style="width:10%;text-align:center"><a
+                    href="../reading/10-reading/">
+                    <i class="fas fa-book-reader fa-lg"></i></a></td>
+            <td align="center" style="width:10%;text-align:center"><a href="../class/10-class/">
+                    <i class="fas fa-chalkboard-teacher fa-lg"></i></a></td>
+            <td align="center" style="width:10%;text-align:center"><a
+                    href="../assignment/09-hw3/">
+                    <i class="fas fa-laptop-code"></i></a></td>
+        </tr>
+        <tr>
+            <td align="right" style="width:20%;text-align:right">Week 11 (11/3)</td>
+            <td style="width:50%;text-align:left">Interactive visualization and effective data communication I</td>
+            <td align="center" style="width:10%;text-align:center"><a
+                    href="../reading/11-reading/">
+                    <i class="fas fa-book-reader fa-lg"></i></a></td>
+            <td align="center" style="width:10%;text-align:center"><a href="../class/11-class/">
+                    <i class="fas fa-chalkboard-teacher fa-lg"></i></a></td>
+            <td align="center" style="width:10%;text-align:center">
+                <font color="f1f1f1">
+                    <i class="fas fa-laptop-code"></i></font>
+            </td>
+        </tr>
+        <tr>
+            <td align="right" style="width:20%;text-align:right">Week 12 (11/10)</td>
+            <td style="width:50%;text-align:left">Veterans Day (No class)</td>
+            <td align="center" style="width:10%;text-align:center">
+                <font color="f1f1f1">
+                    <i class="fas fa-book-reader fa-lg"></i></font>
+            </td>
+            <td align="center" style="width:10%;text-align:center">
+                <font color="f1f1f1">
+                    <i class="fas fa-chalkboard-teacher fa-lg"></i></font>
+            </td>
+            <td align="center" style="width:10%;text-align:center"><a
+                    href="../assignment/11-hw4/">
+                    <i class="fas fa-laptop-code"></i></a></td>
+        </tr>
+        <tr>
+            <td align="right" style="width:20%;text-align:right">Week 13 (11/17)</td>
+            <td style="width:50%;text-align:left">Interactive visualization and effective data communication II</td>
+            <td align="center" style="width:10%;text-align:center"><a
+                    href="../reading/12-reading/">
+                    <i class="fas fa-book-reader fa-lg"></i></a></td>
+            <td align="center" style="width:10%;text-align:center"><a href="../class/12-class/">
+                    <i class="fas fa-chalkboard-teacher fa-lg"></i></a></td>
+            <td align="center" style="width:10%;text-align:center">
+                <font color="f1f1f1">
+                    <i class="fas fa-laptop-code"></i></font>
+            </td>
+        </tr>
+        <tr>
+            <td align="right" style="width:20%;text-align:right">Week 14 (11/24)</td>
+            <td style="width:50%;text-align:left">Thanksgiving Holiday</td>
+            <td align="center" style="width:10%;text-align:center">
+                <font color="f1f1f1">
+                    <i class="fas fa-book-reader fa-lg"></i></font>
+            </td>
+            <td align="center" style="width:10%;text-align:center">
+                <font color="f1f1f1">
+                    <i class="fas fa-chalkboard-teacher fa-lg"></i></font>
+            </td>
+            <td align="center" style="width:10%;text-align:center"><a
+                    href="../assignment/13-hw5/">
+                    <i class="fas fa-laptop-code"></i></a></td>
+        </tr>
+        <tr>
+            <td align="right" style="width:20%;text-align:right">Week 15 (12/1)</td>
+            <td style="width:50%;text-align:left">Final project workshop: review project progress, preliminary presentations</td>
+            <td align="center" style="width:10%;text-align:center"><a
+                    href="../reading/13-reading/">
+                    <i class="fas fa-book-reader fa-lg"></i></a></td>
+            <td align="center" style="width:10%;text-align:center"><a href="../class/13-class/">
+                    <i class="fas fa-chalkboard-teacher fa-lg"></i></a></td>
+            <td align="center" style="width:10%;text-align:center">
+                <font color="f1f1f1">
+                    <i class="fas fa-laptop-code"></i></font>
+            </td>
+        </tr>
+        <tr>
+            <td align="right" style="width:20%;text-align:right">Week 16 (12/8)</td>
+            <td style="width:50%;text-align:left">Final Project</td>
+            <td align="center" style="width:10%;text-align:center"><a
+                    href="../reading/14-reading/">
+                    <i class="fas fa-book-reader fa-lg"></i></a></td>
+            <td align="center" style="width:10%;text-align:center"><a href="../class/14-class/">
+                    <i class="fas fa-chalkboard-teacher fa-lg"></i></a></td>
+            <td align="center" style="width:10%;text-align:center"><a
+                    href="../assignment/14-final/">
+                    <i class="fas fa-laptop-code"></i></a></td>
+        </tr>
+<pre><code>&lt;/tbody&gt;
+</code></pre>
+</table>
+
+    </div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+</article>
+
+        
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/r.min.js"></script>
+        
+      
+
+    
+
+    
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    <script>const isSiteThemeDark = false;</script>
+    
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <script src="/PM566/js/academic.min.f30a8b5a880e824aab9653942c89109b.js"></script>
+
+    
+
+
+
+
+
+
+    
+    
+    <div class="container">
+        <footer>
+    <hr>
+
+    <div class="row course-info">
+        <div class="col-md-7">
+            <p>
+                <strong>PM566: Introduction to Health Data Science - PM 566 (Fall 2023)</strong><br>
+            </p>
+            <p>
+                <a href="https://www.usc.edu/" target="_blank" rel="noopener">University of Southern California</a>
+            </p>
+            <p>
+                <a href="https://pphs.usc.edu/" target="_blank" rel="noopener">Department of Population and Public Health Sciences</a>
+            </p>
+            <p>
+                <a><i class="fas fa-user"></i>
+                    Kelly Street</a>
+            </p>
+            <p>
+                <a href="mailto:kelly.street@usc.edu"><i class="fas fa-envelope"></i>
+                    kelly.street@usc.edu</a>
+            </p>
+        </div>
+
+        <div class="col-md-5 credits">
+            <p>All content licensed under a <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.</p>                    
+            
+            <p><a href="https://github.com/USCbiostats/PM566" target="_blank" rel="noopener"><i class="fab fa-github"></i> View the source at GitHub.</a></p>
+        </div>
+    </div>
+</footer>
+
+    </div>
+    
+
+    
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+
+</html>
