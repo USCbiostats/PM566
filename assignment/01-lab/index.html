@@ -538,10 +538,7 @@
 <p>As the labs progress, you are encouraged to explore beyond what the labs dictate; a willingness to experiment will make you a much better programmer. Before we get to that stage, however, you need to build some basic fluency in R. Today we begin with the fundamental building blocks of R and RStudio: the interface, reading in data, and basic commands.</p>
 <p>And to make versioning simpler, this is a solo lab. Additionally, we want to make sure everyone gets a significant amount of time at the steering wheel.</p>
 <h1 id="getting-started">Getting started</h1>
-<h2 id="1-download-project">1 Download project</h2>
-<p>Go the the the lab page for this week on the 
-<a href="/PM566/class/01-class/">website</a>. You should see a &ldquo;Download&rdquo; button under the &ldquo;Lab Exercise&rdquo; section. Click it to download the template for your responses to this lab, <code>01-lab-hello-r.qmd</code>.</p>
-<h2 id="2-download-r">2 Download R</h2>
+<h2 id="1-download-r">1 Download R</h2>
 <h3 id="if-you-dont-have-r-installed">If you don&rsquo;t have R installed.</h3>
 <p>Go to the 
 <a href="https://cran.r-project.org/" target="_blank" rel="noopener">CRAN</a> and download R, make sure you get the version that matches your operating system.</p>
@@ -566,14 +563,20 @@
 ## nickname       Beagle Scouts
 </code></pre>
 <p>This should tell you what version of R you are currently using. If your R version is lower then 4.3.0 I would strongly recommend updating. In general it is a good idea to update your R version, unless you have a project right now that depend on a specific version of R.</p>
-<h2 id="22-download-rstudio">2.2 Download RStudio</h2>
+<h2 id="12-download-rstudio">1.2 Download RStudio</h2>
 <p>We recommend using RStudio as your IDE if you don&rsquo;t already have it installed. You can go to the 
 <a href="https://rstudio.com/products/rstudio/download/" target="_blank" rel="noopener">RStudio</a> website to download and install the software.</p>
-<h2 id="23-launch-rstudio">2.3 Launch RStudio</h2>
+<h2 id="13-launch-rstudio">1.3 Launch RStudio</h2>
 <p>You have 2 ways to open the lab project we will be working with. Inside the folder is a <code>pm566-01-lab.Rproj</code> file, opening this file should launch your RStudio project.</p>
 <p>You can also open the RStudio application first and then open the project by going <code>file -&gt; open project...</code></p>
-<h2 id="3-get-working">3. Get working!</h2>
-<p>Open the Quarto markdown (qmd) file called <code>lab-01-hello-r.qmd</code>. It will likely ask you if you would like to install a package that is required, click Install.</p>
+<h2 id="start-a-new-project">Start a new Project</h2>
+<p>RStudio Projects are a great way to stay organized and keep all of your work on a particular topic in one place. Project files keep track of things like the R objects you are using and which files you have open, so that you can quickly jump in and out of different work environments.</p>
+<p>In the top right of the RStudio window, you should see a drop-down menu that says &ldquo;Project: (None)&rdquo;. Click on this and then &ldquo;New Project&hellip;&rdquo;, which will open up a dialogue box. If you have already created a directory (folder) for you Lab 1 materials, you can associate this Project with an existing directory, otherwise use the dialogue box to create a new directory. We&rsquo;ll use the generic Project type, &ldquo;New Project&rdquo;. Then give it a name like &ldquo;Lab 1&rdquo;, choose where you want to save it on your computer, and click &ldquo;Create Project&rdquo;. Now in the top right, you should see &ldquo;Lab 1&rdquo; next to the R Project logo.</p>
+<h2 id="create-a-quarto-document">Create a Quarto document</h2>
+<p>We will use Quarto documents a lot in this course because they are reproducible and allow us to seamlessly integrate code and text.</p>
+<p>In the top left, you will see a &ldquo;New File&rdquo; icon that leads to a drop-down menu. Click on this and then &ldquo;Quarto document&hellip;&rdquo;, which will open up a dialogue box. You can leave most of the settings on their defaults for now, just give your document a title and author (yourself) and click &ldquo;Create&rdquo;. RStudio may ask you if you would like to install a package that is required, and if so, click &ldquo;Install&rdquo;.</p>
+<p>This will open the default Quarto document, which already contains some example content. Read through it, then remove this content and set up new sections titled &ldquo;Question 1&rdquo; through &ldquo;Question 5&rdquo;. Under each section title, add an R code chunk via &ldquo;Insert&hellip;&rdquo;, &ldquo;Executable Cell&rdquo;, &ldquo;R&rdquo;. This document will serve as the template for your responses to this lab.</p>
+<p>Save your Quarto markdown (<code>qmd</code>) file as <code>lab-01-hello-r.qmd</code> and see what happens when you click &ldquo;Render&rdquo;.</p>
 <h1 id="hello-rstudio">Hello RStudio!</h1>
 <p>RStudio is comprised of four panes.</p>
 <p><img src="/PM566/assignment-img/rstudio-anatomy.png" alt=""></p>
