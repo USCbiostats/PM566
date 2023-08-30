@@ -13,7 +13,7 @@ You are expected to have read this when you show up for the session.
 - [Chapter 1 Why Git? Why GitHub?](https://happygitwithr.com/big-picture.html) of
   the "Happy Git and GitHub for the useR" by Jenny Bryan and Jim Hester.
 
-- Roger Peng's Mastering Software Development Book Section 3.9 Version control
+- Roger Peng's Mastering Software Development Book Section 3.8 Version control
   and Github
   [(link)](https://bookdown.org/rdpeng/RProgDA/version-control-and-github.html)
 
