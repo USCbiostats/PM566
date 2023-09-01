@@ -12,10 +12,6 @@ In this lab, you are expected to learn/put in practice the following skills:
 - Git workflow clone/commit/push
 - Using pull requests (PR)
 
-The last bit of the lab will deal with GitHub Classrooms. While this is not a
-fundamental tool for academia/industry, we will be using this tool throughout
-the course, meaning that your grade will depend on it :).
-
 # Updating a single repo
 
 One of the most common tasks that people use git for is for collaborating. While
