@@ -549,12 +549,12 @@ Lab Description We will work with the meteorological data presented in lecture."
 <p>First download and then read in with data.table:fread()</p>
 <pre><code class="language-r">download.file(
   &quot;https://raw.githubusercontent.com/USCbiostats/data-science-data/master/02_met/met_all.gz&quot;,
-  destfile = &quot;met_all.gz&quot;,
+  destfile = file.path(&quot;~&quot;, &quot;Downloads&quot;, &quot;met_all.gz&quot;),
   method   = &quot;libcurl&quot;,
   timeout  = 60
-  )
+)
 
-met &lt;- data.table::fread(&quot;met_all.gz&quot;)
+met &lt;- data.table::fread(file.path(&quot;~&quot;, &quot;Downloads&quot;, &quot;met_all.gz&quot;))
 </code></pre>
 <h3 id="2-check-the-dimensions-headers-footers-how-many-columns-rows-are-there">2. Check the dimensions, headers, footers. How many columns, rows are there?</h3>
 <pre><code class="language-r">dim(met)
@@ -792,7 +792,7 @@ head(met2)
 <h3 id="6-calculate-summary-statistics">6. Calculate summary statistics</h3>
 <p>Remember to keep the initial question in mind. We want to pick out the weather station with maximum elevation and examine its windspeed and temperature.</p>
 <p>Some ideas: select the weather station with maximum elevation; look at the correlation between temperature and wind speed; look at the correlation between temperature and wind speed with hour and day of the month.</p>
-<pre><code class="language-r">elev &lt;- met[elev==max(elev)]
+<pre><code class="language-r">elev &lt;- met[elev==max(elev), ]
 summary(elev)
 </code></pre>
 <pre><code>##      USAFID            WBAN          year          month        day      
@@ -943,11 +943,11 @@ head(elev)
 </code></pre>
 <p><img src="/PM566/assignment/03-lab_files/figure-html/unnamed-chunk-13-2.png" width="672" />
 Summarize any trends that you see in these time series plots.</p>
-<h3 id="ask-questions">Ask questions</h3>
-<p>By now, you might have some specific questions about how the data was gathered and what some of the different variables and values mean. In a real-world analysis, these questions could potentially be answered by a collaborator, possibly part of the team that collected the data. If you haven’t already, now would be a good time to look at the accompanying 
-<a href="https://github.com/USCbiostats/data-science-data/blob/master/02_met/met-datadictionary.pdf" target="_blank" rel="noopener">data dictionary</a> for this dataset and see if it can answer any of your questions.</p>
-<h3 id="further-exploration">Further exploration</h3>
-<p>If you have time, feel free to explore some of the other variables in this dataset and their relationships to each other. There are many different types of summaries and visualization strategies that we have not discussed, but which could provide interesting perspectives on the data.</p>
+<h3 id="8-ask-questions">8. Ask questions</h3>
+<p>By now, you might have some specific questions about how the data was gathered and what some of the different variables and values mean. Alternatively, maybe you have an idea for how some of the variable should be related and you want to explore that relationship. In a real-world analysis, these questions could potentially be answered by a collaborator, who may have been part of the team that collected the data. What questions do you have about the data?</p>
+<p>If you haven’t already, now would be a good time to look at the accompanying 
+<a href="https://github.com/USCbiostats/data-science-data/blob/master/02_met/met-datadictionary.pdf" target="_blank" rel="noopener">data dictionary</a> for this dataset and see if it can answer any of your questions. If you have questions about the nature of the dataset and how it was gathered, this might be able to help.</p>
+<p>For questions about variables in the dataset or relationships between them, try making some more exploratory plots. Do you see the patterns you would expect? There are many different types of summaries and visualization strategies that we have not discussed, but which could provide interesting perspectives on the data.</p>
 <p>Some other useful plotting functions include:</p>
 <ul>
 <li><code>pairs</code> for making all pairwise scatter plots in a dataset with &gt;2 dimensions.</li>
