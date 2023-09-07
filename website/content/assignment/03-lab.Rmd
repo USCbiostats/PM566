@@ -47,12 +47,12 @@ met <- data.table::fread("met_all.gz")
 ```{r, echo=TRUE, message=FALSE, eval=FALSE}
 download.file(
   "https://raw.githubusercontent.com/USCbiostats/data-science-data/master/02_met/met_all.gz",
-  destfile = "met_all.gz",
+  destfile = file.path("~", "Downloads", "met_all.gz"),
   method   = "libcurl",
   timeout  = 60
-  )
+)
 
-met <- data.table::fread("met_all.gz")
+met <- data.table::fread(file.path("~", "Downloads", "met_all.gz"))
 ```
 
 ### 2. Check the dimensions, headers, footers. How many columns, rows are there?
@@ -126,7 +126,7 @@ Remember to keep the initial question in mind. We want to pick out the weather s
 Some ideas: select the weather station with maximum elevation; look at the correlation between temperature and wind speed; look at the correlation between temperature and wind speed with hour and day of the month.
 
 ```{r}
-elev <- met[elev==max(elev)]
+elev <- met[elev==max(elev), ]
 summary(elev)
 ```
 
@@ -175,14 +175,13 @@ plot(elev$date, elev$wind.sp, type='l')
 ```
 Summarize any trends that you see in these time series plots.
 
-### Ask questions
+### 8. Ask questions
 
-By now, you might have some specific questions about how the data was gathered and what some of the different variables and values mean. In a real-world analysis, these questions could potentially be answered by a collaborator, possibly part of the team that collected the data. If you haven't already, now would be a good time to look at the accompanying [data dictionary](https://github.com/USCbiostats/data-science-data/blob/master/02_met/met-datadictionary.pdf) for this dataset and see if it can answer any of your questions.
+By now, you might have some specific questions about how the data was gathered and what some of the different variables and values mean. Alternatively, maybe you have an idea for how some of the variable should be related and you want to explore that relationship. In a real-world analysis, these questions could potentially be answered by a collaborator, who may have been part of the team that collected the data. What questions do you have about the data?
 
+If you haven't already, now would be a good time to look at the accompanying [data dictionary](https://github.com/USCbiostats/data-science-data/blob/master/02_met/met-datadictionary.pdf) for this dataset and see if it can answer any of your questions. If you have questions about the nature of the dataset and how it was gathered, this might be able to help.
 
-### Further exploration
-
-If you have time, feel free to explore some of the other variables in this dataset and their relationships to each other. There are many different types of summaries and visualization strategies that we have not discussed, but which could provide interesting perspectives on the data.
+For questions about variables in the dataset or relationships between them, try making some more exploratory plots. Do you see the patterns you would expect? There are many different types of summaries and visualization strategies that we have not discussed, but which could provide interesting perspectives on the data.
 
 Some other useful plotting functions include:
  - `pairs` for making all pairwise scatter plots in a dataset with >2 dimensions.
