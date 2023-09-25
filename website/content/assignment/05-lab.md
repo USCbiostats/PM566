@@ -21,7 +21,7 @@ This markdown document should be rendered using `github_document` document.
 
 1. Go to your documents (or wherever you are planning to store the data) in your computer, and create a folder for this project, for example, "PM566-labs"
 
-2. In that folder, save [this template](https://raw.githubusercontent.com/USCbiostats/PM566/master/content/assignment/05-lab.Rmd) as "README.Rmd". This will be the markdown file where all the magic will happen.
+2. In that folder, save [this template](https://raw.githubusercontent.com/USCbiostats/PM566/master/website/content/assignment/05-lab.Rmd) as "README.Rmd". This will be the markdown file where all the magic will happen.
 
 3. Go to your GitHub account and create a new repository, hopefully of the same name that this folder has, i.e., "PM566-labs".
 
@@ -38,7 +38,7 @@ mkdir PM566-labs
 cd PM566-labs
 
 # Step 2
-wget https://raw.githubusercontent.com/USCbiostats/PM566/master/content/assignment/05-lab.Rmd 
+wget https://raw.githubusercontent.com/USCbiostats/PM566/master/website/content/assignment/05-lab.Rmd 
 mv 05-lab.Rmd README.md
 
 # Step 3
@@ -64,7 +64,7 @@ setwd("PM566-labs")
 
 # Step 2
 download.file(
-  "https://raw.githubusercontent.com/USCbiostats/PM566/master/content/assignment/05-lab.Rmd",
+  "https://raw.githubusercontent.com/USCbiostats/PM566/master/website/content/assignment/05-lab.Rmd",
   destfile = "README.Rmd"
   )
 
@@ -118,7 +118,7 @@ What is the median station in terms of temperature, wind speed, and atmospheric 
 
 
 
-Knit the document, commit your changes, and Save it on GitHub. Don't forget to add `README.md` to the tree, the first time you render it.
+Knit the document, commit your changes, and push it to GitHub. Don't forget to add `README.md` to the tree, the first time you render it.
 
 ## Question 2: Representative station per state
 
@@ -160,11 +160,12 @@ All by the levels described before.
 
 
 
-Knit the document, commit your changes, and push them to GitHub. If you'd like, you can take this time to include the link of [the issue of the week](https://github.com/USCbiostats/PM566/issues/42) so that you let us know when you are done, e.g.,
+Knit the document, commit your changes, and push them to GitHub. Once you're done, you can email me the link to your repository or, preferably, link to the [Lab 5 Issue](https://github.com/USCbiostats/PM566/issues/68) in your commit message, as follows:
 
 ```bash
-git commit -a -m "Finalizing lab 5 https://github.com/USCbiostats/PM566/issues/42"
+git commit -a -m "Finalizing lab 5 https://github.com/USCbiostats/PM566/issues/68"
 ```
 
+This will let me know which version of your repository to look at for grading purposes.
 
 
