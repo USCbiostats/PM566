@@ -540,7 +540,7 @@
 </li>
 <li>
 <p>In that folder, save 
-<a href="https://raw.githubusercontent.com/USCbiostats/PM566/master/content/assignment/05-lab.Rmd" target="_blank" rel="noopener">this template</a> as &ldquo;README.Rmd&rdquo;. This will be the markdown file where all the magic will happen.</p>
+<a href="https://raw.githubusercontent.com/USCbiostats/PM566/master/website/content/assignment/05-lab.Rmd" target="_blank" rel="noopener">this template</a> as &ldquo;README.Rmd&rdquo;. This will be the markdown file where all the magic will happen.</p>
 </li>
 <li>
 <p>Go to your GitHub account and create a new repository, hopefully of the same name that this folder has, i.e., &ldquo;PM566-labs&rdquo;.</p>
@@ -559,7 +559,7 @@ mkdir PM566-labs
 cd PM566-labs
 
 # Step 2
-wget https://raw.githubusercontent.com/USCbiostats/PM566/master/content/assignment/05-lab.Rmd 
+wget https://raw.githubusercontent.com/USCbiostats/PM566/master/website/content/assignment/05-lab.Rmd 
 mv 05-lab.Rmd README.md
 
 # Step 3
@@ -582,7 +582,7 @@ setwd(&quot;PM566-labs&quot;)
 
 # Step 2
 download.file(
-  &quot;https://raw.githubusercontent.com/USCbiostats/PM566/master/content/assignment/05-lab.Rmd&quot;,
+  &quot;https://raw.githubusercontent.com/USCbiostats/PM566/master/website/content/assignment/05-lab.Rmd&quot;,
   destfile = &quot;README.Rmd&quot;
   )
 
@@ -631,7 +631,7 @@ stations &lt;- stations[n == 1,][, n := NULL]
 </ol>
 <h2 id="question-1-representative-station-for-the-us">Question 1: Representative station for the US</h2>
 <p>What is the median station in terms of temperature, wind speed, and atmospheric pressure? Look for the three weather stations that best represent continental US using the <code>quantile()</code> function. Do these three coincide?</p>
-<p>Knit the document, commit your changes, and Save it on GitHub. Don&rsquo;t forget to add <code>README.md</code> to the tree, the first time you render it.</p>
+<p>Knit the document, commit your changes, and push it to GitHub. Don&rsquo;t forget to add <code>README.md</code> to the tree, the first time you render it.</p>
 <h2 id="question-2-representative-station-per-state">Question 2: Representative station per state</h2>
 <p>Just like the previous question, you are asked to identify what is the most representative, the median, station per state. This time, instead of looking at one variable at a time, look at the euclidean distance. If multiple stations show in the median, select the one located at the lowest latitude.</p>
 <p>Knit the doc and save it on GitHub.</p>
@@ -655,10 +655,11 @@ stations &lt;- stations[n == 1,][, n := NULL]
 <li>Mean temperature, wind-speed, and atmospheric pressure.</li>
 </ul>
 <p>All by the levels described before.</p>
-<p>Knit the document, commit your changes, and push them to GitHub. If you&rsquo;d like, you can take this time to include the link of 
-<a href="https://github.com/USCbiostats/PM566/issues/42" target="_blank" rel="noopener">the issue of the week</a> so that you let us know when you are done, e.g.,</p>
-<pre><code class="language-bash">git commit -a -m &quot;Finalizing lab 5 https://github.com/USCbiostats/PM566/issues/42&quot;
+<p>Knit the document, commit your changes, and push them to GitHub. Once you&rsquo;re done, you can email me the link to your repository or, preferably, link to the 
+<a href="https://github.com/USCbiostats/PM566/issues/68" target="_blank" rel="noopener">Lab 5 Issue</a> in your commit message, as follows:</p>
+<pre><code class="language-bash">git commit -a -m &quot;Finalizing lab 5 https://github.com/USCbiostats/PM566/issues/68&quot;
 </code></pre>
+<p>This will let me know which version of your repository to look at for grading purposes.</p>
 
     </div>
 
