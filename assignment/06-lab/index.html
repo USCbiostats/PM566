@@ -30,9 +30,8 @@
   
     
   
-  <meta name="description" content="knitr::opts_chunk$set(eval = FALSE, include = FALSE)  Learning goals  Use unnest_tokens() and unnest_ngrams() to extract tokens and ngrams from text. Use dplyr and ggplot2 to analyze text data  Lab description For this lab we will be working with a new dataset. The dataset contains transcription samples from https://www.mtsamples.com/. And is loaded and &ldquo;fairly&rdquo; cleaned at https://raw.githubusercontent.com/USCbiostats/data-science-data/master/00_mtsamples/mtsamples.csv.
-This markdown document should be rendered using github_document document.
-Setup packages You should load in dplyr, (or data.">
+  <meta name="description" content="knitr::opts_chunk$set(eval = FALSE, include = TRUE)  Learning goals  Use unnest_tokens() and unnest_ngrams() to extract tokens and ngrams from text. Use dplyr and ggplot2 to analyze text data  Lab description For this lab we will be working with a new dataset. The dataset contains transcription samples from https://www.mtsamples.com/. And is loaded and &ldquo;fairly&rdquo; cleaned at https://raw.githubusercontent.com/USCbiostats/data-science-data/master/00_mtsamples/mtsamples.csv.
+Setup packages You should load in dplyr, (or data.table if you want to work that way), ggplot2 and tidytext.">
 
   
   <link rel="alternate" hreflang="en-us" href="https://uscbiostats.github.io/PM566/assignment/06-lab/">
@@ -247,9 +246,8 @@ Setup packages You should load in dplyr, (or data.">
   <meta property="og:site_name" content="Introduction to Health Data Science - PM 566">
   <meta property="og:url" content="https://uscbiostats.github.io/PM566/assignment/06-lab/">
   <meta property="og:title" content="Lab 06 - Text Mining | Introduction to Health Data Science - PM 566">
-  <meta property="og:description" content="knitr::opts_chunk$set(eval = FALSE, include = FALSE)  Learning goals  Use unnest_tokens() and unnest_ngrams() to extract tokens and ngrams from text. Use dplyr and ggplot2 to analyze text data  Lab description For this lab we will be working with a new dataset. The dataset contains transcription samples from https://www.mtsamples.com/. And is loaded and &ldquo;fairly&rdquo; cleaned at https://raw.githubusercontent.com/USCbiostats/data-science-data/master/00_mtsamples/mtsamples.csv.
-This markdown document should be rendered using github_document document.
-Setup packages You should load in dplyr, (or data."><meta property="og:image" content="https://uscbiostats.github.io/PM566/img/social-image.png">
+  <meta property="og:description" content="knitr::opts_chunk$set(eval = FALSE, include = TRUE)  Learning goals  Use unnest_tokens() and unnest_ngrams() to extract tokens and ngrams from text. Use dplyr and ggplot2 to analyze text data  Lab description For this lab we will be working with a new dataset. The dataset contains transcription samples from https://www.mtsamples.com/. And is loaded and &ldquo;fairly&rdquo; cleaned at https://raw.githubusercontent.com/USCbiostats/data-science-data/master/00_mtsamples/mtsamples.csv.
+Setup packages You should load in dplyr, (or data.table if you want to work that way), ggplot2 and tidytext."><meta property="og:image" content="https://uscbiostats.github.io/PM566/img/social-image.png">
   <meta property="twitter:image" content="https://uscbiostats.github.io/PM566/img/social-image.png"><meta property="og:locale" content="en-us">
   
     
@@ -525,7 +523,7 @@ Setup packages You should load in dplyr, (or data."><meta property="og:image" co
   <div class="article-container">
 
     <div class="article-style">
-      <pre><code class="language-r">knitr::opts_chunk$set(eval = FALSE, include  = FALSE)
+      <pre><code class="language-r">knitr::opts_chunk$set(eval = FALSE, include  = TRUE)
 </code></pre>
 <h1 id="learning-goals">Learning goals</h1>
 <ul>
@@ -536,22 +534,28 @@ Setup packages You should load in dplyr, (or data."><meta property="og:image" co
 <p>For this lab we will be working with a new dataset. The dataset contains transcription samples from 
 <a href="https://www.mtsamples.com/" target="_blank" rel="noopener">https://www.mtsamples.com/</a>. And is loaded and &ldquo;fairly&rdquo; cleaned at 
 <a href="https://raw.githubusercontent.com/USCbiostats/data-science-data/master/00_mtsamples/mtsamples.csv" target="_blank" rel="noopener">https://raw.githubusercontent.com/USCbiostats/data-science-data/master/00_mtsamples/mtsamples.csv</a>.</p>
-<p>This markdown document should be rendered using <code>github_document</code> document.</p>
-<!-- # Setup the Git project and the GitHub repository -->
-<!-- 1. Go to your documents (or wherever you are planning to store the data) in your computer, and create a folder for this project, for example, "PM566-labs" -->
-<!-- 2. In that folder, save [this template](https://raw.githubusercontent.com/USCbiostats/PM566/master/website/content/assignment/06-lab.Rmd) as "README.Rmd". This will be the markdown file where all the magic will happen. -->
-<!-- 3. Go to your GitHub account and create a new repository, hopefully of the same name that this folder has, i.e., "PM566-labs". -->
-<!-- 4. Initialize the Git project, add the "README.Rmd" file, and make your first commit. -->
-<!-- 5. Add the repo you just created on GitHub.com to the list of remotes, and push your commit to origin while setting the upstream. -->
 <h3 id="setup-packages">Setup packages</h3>
 <p>You should load in <code>dplyr</code>, (or <code>data.table</code> if you want to work that way), <code>ggplot2</code> and <code>tidytext</code>.
 If you don&rsquo;t already have <code>tidytext</code> then you can install with</p>
+<pre><code class="language-r">install.packages(&quot;tidytext&quot;)
+</code></pre>
 <h3 id="read-in-medical-transcriptions">read in Medical Transcriptions</h3>
 <p>Loading in reference transcription samples from 
 <a href="https://www.mtsamples.com/" target="_blank" rel="noopener">https://www.mtsamples.com/</a></p>
+<pre><code class="language-r">library(readr)
+library(dplyr)
+mt_samples &lt;- read_csv(&quot;https://raw.githubusercontent.com/USCbiostats/data-science-data/master/00_mtsamples/mtsamples.csv&quot;)
+mt_samples &lt;- mt_samples %&gt;%
+  select(description, medical_specialty, transcription)
+
+head(mt_samples)
+</code></pre>
 <hr>
 <h2 id="question-1-what-specialties-do-we-have">Question 1: What specialties do we have?</h2>
 <p>We can use <code>count()</code> from <code>dplyr</code> to figure out how many different catagories do we have? Are these catagories related? overlapping? evenly distributed?</p>
+<pre><code class="language-r">mt_samples %&gt;%
+  count(___, sort = TRUE)
+</code></pre>
 <hr>
 <h2 id="question-2">Question 2</h2>
 <ul>
