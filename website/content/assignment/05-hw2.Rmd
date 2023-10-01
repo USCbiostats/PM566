@@ -28,6 +28,7 @@ combined, you will need to do the following:
    
    In the case of missing values, impute data using the average amongst 
    individuals with the same values for the "male" and "hispanic" variables. 
+   For categorical variables, take the mode.
    If you are interested (and feel adventurous)
    in the theme of Data Imputation, take a look at this paper on "Multiple 
    Imputation"
