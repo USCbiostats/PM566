@@ -547,10 +547,13 @@ combined, you will need to do the following:</p>
 <li>
 <p>After merging the data, make sure you don’t have any duplicates by counting
 the number of rows. Make sure it matches.</p>
-<p>In the case of missing values, impute data using the average within the
-variables &ldquo;male&rdquo; and &ldquo;hispanic.&rdquo; If you are interested (and feel adventurous)
-in the theme of Data Imputation, take a look at this paper on &ldquo;Multiple Imputation&rdquo;
-using the Amelia R package 
+<p>In the case of missing values, impute data using the average amongst
+individuals with the same values for the &ldquo;male&rdquo; and &ldquo;hispanic&rdquo; variables.
+If you are interested (and feel adventurous)
+in the theme of Data Imputation, take a look at this paper on &ldquo;Multiple
+Imputation&rdquo;
+using the Amelia R package
+
 <a href="https://gking.harvard.edu/files/gking/files/amelia_jss.pdf" target="_blank" rel="noopener">here</a>.</p>
 </li>
 <li>
@@ -566,7 +569,7 @@ in total.</p>
 </li>
 <li>
 <p>Create four summary tables showing the average (or proportion, if binary) and
-sd of “Forced expiratory volume in 1 second (ml)” and asthma indicator by
+sd of “Forced expiratory volume in 1 second (ml)” (an asthma indicator) by
 town, sex, obesity level, and &ldquo;smoke_gas_exposure.&rdquo;</p>
 </li>
 </ol>
