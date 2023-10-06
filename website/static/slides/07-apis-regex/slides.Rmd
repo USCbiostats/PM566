@@ -414,7 +414,7 @@ Live Example! (inspect elements in [Google Chrome](https://developers.google.com
 Now that we know the path, let's use that and extract
 
 ```{r get-table-covid}
-table <- xml_find_all(covid, xpath = "/html/body/div[3]/div[3]/div[5]/div[1]/table[2]")
+table <- xml_find_all(covid, xpath = '//*[@id="covid-19-pandemic-cases-and-mortality-by-country"]/div[5]/table')
 table <- html_table(table) # This returns a list of tables
 head(table[[1]])
 ```

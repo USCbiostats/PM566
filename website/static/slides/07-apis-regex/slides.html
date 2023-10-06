@@ -4,16 +4,22 @@
     <title>Week 7: Scraping, APIs, and Regular Expressions</title>
     <meta charset="utf-8" />
     <meta name="author" content="George G. Vega Yon" />
-    <script src="libs/header-attrs-2.11/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.25/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
   </head>
   <body>
     <textarea id="source">
 class: center, middle, title-slide
 
+.title[
 # Week 7: Scraping, APIs, and Regular Expressions
+]
+.subtitle[
 ## PM 566: Introduction to Health Data Science
+]
+.author[
 ### George G. Vega Yon
+]
 
 ---
 
@@ -22,7 +28,7 @@ class: center, middle, title-slide
 
 - Introduction to Regular Expressions
 
-- Understand the fundamentals of Web Scrapping
+- Understand the fundamentals of Web Scraping
 
 - Learn how to use an API
 
@@ -364,11 +370,11 @@ For this we use the following regular expression:
 Bit by bit this is:
 
 - `(?&lt;=regex)` lookback search.
-    - `\W` any no alpha numeric character, this is equivalent to `[^[:alnum:]]`, `|` or
-    - `^` the begging of text,
+    - `\W` any non-alphanumeric character, this is equivalent to `[^[:alnum:]]`, `|` or
+    - `^` the beginning of text,
 - `he|his|him...` any of these words,
 - `(?=regex)` followed by,
-    - `\W` any no alpha numeric character, this is equivalent to `[^[:alnum:]]`, `|` or
+    - `\W` any non-alphanumeric character, this is equivalent to `[^[:alnum:]]`, `|` or
     - `$` the end of the text.
 
 
@@ -445,7 +451,7 @@ mtsamples[, table(cancer_type)]
 
 ---
 
-## Fundamentals of Web Scrapping
+## Fundamentals of Web Scraping
 
 **What?**
 
@@ -455,7 +461,7 @@ mtsamples[, table(cancer_type)]
 
 - The [`rvest`](https://cran.r-project.org/package=rvest) R package provides various tools for reading and processing web data.
 
-- Under-the-hood, `rvest` is a wrapper of the [`xml2`](https://cran.r-project.org/package=xml2)
+- Under the hood, `rvest` is a wrapper of the [`xml2`](https://cran.r-project.org/package=xml2)
 and [`httr`](https://cran.r-project.org/package=httr) R packages.
 
 (in the case of [dynamic websites](https://en.wikipedia.org/wiki/Dynamic_web_page), take a look at [selenium](https://en.wikipedia.org/wiki/Selenium_(software)))
@@ -476,22 +482,22 @@ covid &lt;- read_html(
   x = "https://en.wikipedia.org/wiki/COVID-19_pandemic_death_rates_by_country"
   )
 
-# Let's the the output
+# Let's look at the the output
 covid
 ```
 
 ```
 ## {html_document}
-## &lt;html class="client-nojs" lang="en" dir="ltr"&gt;
+## &lt;html class="client-nojs vector-feature-language-in-header-enabled vector-feature-language-in-main-page-header-disabled vector-feature-sticky-header-disabled vector-feature-page-tools-pinned-disabled vector-feature-toc-pinned-clientpref-1 vector-feature-main-menu-pinned-disabled vector-feature-limited-width-clientpref-1 vector-feature-limited-width-content-enabled vector-feature-zebra-design-disabled vector-feature-custom-font-size-clientpref-disabled vector-feature-client-preferences-disabled vector-feature-typography-survey-disabled" lang="en" dir="ltr"&gt;
 ## [1] &lt;head&gt;\n&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8 ...
-## [2] &lt;body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject  ...
+## [2] &lt;body class="skin-vector skin-vector-search-vue mediawiki ltr sitedir-ltr ...
 ```
 
 ---
 
 ## Web scraping raw HTML: Example (cont 1.)
 
-- We want to get the HTML table that shows up in the doc To do such, we can use the
+- We want to get the HTML table that shows up in the doc. To do so, we can use the
   function `xml2::xml_find_all()` and `rvest::html_table()`
 
 - The first will locate the place in the document that matches a given **XPath**
@@ -511,25 +517,25 @@ Live Example! (inspect elements in [Google Chrome](https://developers.google.com
 
 ## Web scraping with `xml2` and the `rvest` package (cont. 2)
 
-Now that we know what is the path, let's use that and extract
+Now that we know the path, let's use that and extract
 
 
 ```r
-table &lt;- xml_find_all(covid, xpath = "/html/body/div[3]/div[3]/div[5]/div[1]/table[2]")
+table &lt;- xml_find_all(covid, xpath = '//*[@id="covid-19-pandemic-cases-and-mortality-by-country"]/div[5]/table')
 table &lt;- html_table(table) # This returns a list of tables
 head(table[[1]])
 ```
 
 ```
-## # A tibble: 6 × 8
-##   Country                `Deaths per mill… Deaths  Cases ``    ``    ``    ``   
-##   &lt;chr&gt;                  &lt;chr&gt;             &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;
-## 1 World[a]               613               4,828,… 236,… &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 
-## 2 Peru                   5,982             199,559 2,18… &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 
-## 3 Bosnia and Herzegovina 3,309             10,802  238,… &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 
-## 4 North Macedonia        3,244             6,758   193,… &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 
-## 5 Hungary                3,140             30,253  825,… &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 
-## 6 Montenegro             3,128             1,965   133,… &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;
+## # A tibble: 6 × 4
+##   Country                `Deaths / million` Deaths    Cases      
+##   &lt;chr&gt;                  &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;      
+## 1 World[a]               872                6,960,770 771,150,460
+## 2 Peru                   6,511              221,704   4,520,727  
+## 3 Bulgaria               5,664              38,414    1,302,188  
+## 4 Bosnia and Herzegovina 5,057              16,354    403,155    
+## 5 Hungary                4,896              48,807    2,206,311  
+## 6 North Macedonia        4,750              9,946     349,104
 ```
 
 ---
@@ -566,7 +572,7 @@ Structure of a URL (source: &lt;a href="https://code.tutsplus.com/tutorials/http
 
 ## Web APIs with curl
 
-Under-the-hood, the `httr` (and thus `curl`) sends request somewhat like this
+Under the hood, the `httr` (and thus `curl`) sends request somewhat like this
 
 ```bash
 curl -X GET https://google.com -w "%{content_type}\n%{http_code}\n"
@@ -653,12 +659,11 @@ go_query
 ```
 
 ```
-## Response [http://api.geneontology.org/api/bioentity/function/GO:0140374/genes?evidence=ECO%3A0000006&amp;relationship_type=involved_in]
-##   Date: 2020-09-30 05:30
+## Response [https://api.geneontology.org/api/bioentity/function/GO:0140374/genes?evidence=ECO%3A0000006&amp;relationship_type=involved_in]
+##   Date: 2023-10-06 02:48
 ##   Status: 200
 ##   Content-Type: application/json
-##   Size: 18 kB
-## {"associations": [{"id": "556e6950726f744b42094f39353738360944445835380909474...
+##   Size: 418 kB
 ```
 
 Remember the codes:
@@ -691,10 +696,10 @@ str(dat)
 ```
 
 ```
-## 'data.frame':	21 obs. of  3 variables:
-##  $ Gene       : chr  "ZFIN:ZDB-GENE-200316-1" "UniProtKB:O95786" "UniProtKB:Q9H078" "UniProtKB:P20591" ...
-##  $ taxon_id   : chr  "NCBITaxon:7955" "NCBITaxon:9606" "NCBITaxon:9606" "NCBITaxon:9606" ...
-##  $ taxon_label: chr  "Danio rerio" "Homo sapiens" "Homo sapiens" "Homo sapiens" ...
+## 'data.frame':	390 obs. of  3 variables:
+##  $ Gene       : chr  "UniProtKB:A0A5F8GBV6" "UniProtKB:H2XPN7" "UniProtKB:E2QXT4" "UniProtKB:Q9GLV6" ...
+##  $ taxon_id   : chr  "NCBITaxon:13616" "NCBITaxon:7719" "NCBITaxon:9615" "NCBITaxon:9823" ...
+##  $ taxon_label: chr  "Monodelphis domestica" "Ciona intestinalis" "Canis lupus familiaris" "Sus scrofa" ...
 ```
 
 
@@ -717,14 +722,14 @@ knitr::kable(head(dat),
 Table: Genes experimentally annotated with the function
   **antiviral innate immune response** (GO:0140374)
 
-|Gene                   |taxon_id       |taxon_label  |
-|:----------------------|:--------------|:------------|
-|ZFIN:ZDB-GENE-200316-1 |NCBITaxon:7955 |Danio rerio  |
-|UniProtKB:O95786       |NCBITaxon:9606 |Homo sapiens |
-|UniProtKB:Q9H078       |NCBITaxon:9606 |Homo sapiens |
-|UniProtKB:P20591       |NCBITaxon:9606 |Homo sapiens |
-|UniProtKB:Q9NVI7       |NCBITaxon:9606 |Homo sapiens |
-|UniProtKB:P00973       |NCBITaxon:9606 |Homo sapiens |
+|Gene                 |taxon_id        |taxon_label            |
+|:--------------------|:---------------|:----------------------|
+|UniProtKB:A0A5F8GBV6 |NCBITaxon:13616 |Monodelphis domestica  |
+|UniProtKB:H2XPN7     |NCBITaxon:7719  |Ciona intestinalis     |
+|UniProtKB:E2QXT4     |NCBITaxon:9615  |Canis lupus familiaris |
+|UniProtKB:Q9GLV6     |NCBITaxon:9823  |Sus scrofa             |
+|UniProtKB:Q5QSL2     |NCBITaxon:8022  |Oncorhynchus mykiss    |
+|UniProtKB:B5XBW9     |NCBITaxon:8030  |Salmo salar            |
 
 ---
 
@@ -842,14 +847,14 @@ health_advises
 
 ```
 ## Response [https://health.gov/myhealthfinder/api/v3/myhealthfinder.json?lang=en&amp;age=32&amp;sex=male&amp;tobaccoUse=0]
-##   Date: 2021-10-07 22:35
+##   Date: 2023-10-06 02:49
 ##   Status: 200
 ##   Content-Type: application/json
-##   Size: 296 kB
+##   Size: 365 kB
 ## {
 ##     "Result": {
 ##         "Error": "False",
-##         "Total": 17,
+##         "Total": 18,
 ##         "Query": {
 ##             "ApiVersion": "3",
 ##             "ApiType": "myhealthfinder",
@@ -878,7 +883,7 @@ txt &lt;- with(health_advises_ans$Result$Resources, c(
 cat(txt, sep = "; ")
 ```
 
-Protect Yourself from Seasonal Flu; Hepatitis C Screening: Questions for the doctor; Talk with Your Doctor About Depression; Get Shots to Protect Your Health (Adults Ages 19 to 49); Get Tested for HIV; Get Your Blood Pressure Checked; Drink Alcohol Only in Moderation; Quit Smoking; Watch Your Weight; Testing for Syphilis: Questions for the doctor; Eat Healthy; Protect Yourself from Hepatitis B; Testing for Latent Tuberculosis: Questions for the doctor; Get Active; Quitting Smoking: Conversation starters; Manage Stress; Alcohol Use: Conversation starters
+Hepatitis C Screening: Questions for the Doctor; Quit Smoking; Protect Yourself from Seasonal Flu; Talk with Your Doctor About Depression; Drink Alcohol Only in Moderation; Get Vaccines to Protect Your Health (Adults Ages 19 to 49); Get Tested for HIV; Get Your Blood Pressure Checked; Talk with Your Doctor About Drug Misuse; Aim for a Healthy Weight; Eat Healthy; Testing for Syphilis: Questions for the Doctor; Protect Yourself from Hepatitis B; Testing for Latent Tuberculosis: Questions for the Doctor; Manage Stress; Alcohol Use: Conversation Starters; Get Active; Quitting Smoking: Conversation Starters
 
 ---
 
@@ -1017,6 +1022,19 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
 (function() {
   "use strict"
   // Replace <script> tags in slides area to make them executable
