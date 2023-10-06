@@ -19,7 +19,7 @@ output:
 
 - Introduction to Regular Expressions
 
-- Understand the fundamentals of Web Scrapping
+- Understand the fundamentals of Web Scraping
 
 - Learn how to use an API
 
@@ -295,11 +295,11 @@ For this we use the following regular expression:
 Bit by bit this is:
 
 - `(?<=regex)` lookback search.
-    - `\W` any no alpha numeric character, this is equivalent to `[^[:alnum:]]`, `|` or
-    - `^` the begging of text,
+    - `\W` any non-alphanumeric character, this is equivalent to `[^[:alnum:]]`, `|` or
+    - `^` the beginning of text,
 - `he|his|him...` any of these words,
 - `(?=regex)` followed by,
-    - `\W` any no alpha numeric character, this is equivalent to `[^[:alnum:]]`, `|` or
+    - `\W` any non-alphanumeric character, this is equivalent to `[^[:alnum:]]`, `|` or
     - `$` the end of the text.
 
 ```{r pronoun-regex}
@@ -353,7 +353,7 @@ mtsamples[, table(cancer_type)]
 
 ---
 
-## Fundamentals of Web Scrapping
+## Fundamentals of Web Scraping
 
 **What?**
 
@@ -363,7 +363,7 @@ mtsamples[, table(cancer_type)]
 
 - The [`rvest`](https://cran.r-project.org/package=rvest) R package provides various tools for reading and processing web data.
 
-- Under-the-hood, `rvest` is a wrapper of the [`xml2`](https://cran.r-project.org/package=xml2)
+- Under the hood, `rvest` is a wrapper of the [`xml2`](https://cran.r-project.org/package=xml2)
 and [`httr`](https://cran.r-project.org/package=httr) R packages.
 
 (in the case of [dynamic websites](https://en.wikipedia.org/wiki/Dynamic_web_page), take a look at [selenium](https://en.wikipedia.org/wiki/Selenium_(software)))
@@ -383,7 +383,7 @@ covid <- read_html(
   x = "https://en.wikipedia.org/wiki/COVID-19_pandemic_death_rates_by_country"
   )
 
-# Let's the the output
+# Let's look at the the output
 covid
 ```
 
@@ -391,7 +391,7 @@ covid
 
 ## Web scraping raw HTML: Example (cont 1.)
 
-- We want to get the HTML table that shows up in the doc To do such, we can use the
+- We want to get the HTML table that shows up in the doc. To do so, we can use the
   function `xml2::xml_find_all()` and `rvest::html_table()`
 
 - The first will locate the place in the document that matches a given **XPath**
@@ -411,7 +411,7 @@ Live Example! (inspect elements in [Google Chrome](https://developers.google.com
 
 ## Web scraping with `xml2` and the `rvest` package (cont. 2)
 
-Now that we know what is the path, let's use that and extract
+Now that we know the path, let's use that and extract
 
 ```{r get-table-covid}
 table <- xml_find_all(covid, xpath = "/html/body/div[3]/div[3]/div[5]/div[1]/table[2]")
@@ -453,7 +453,7 @@ Structure of a URL (source: <a href="https://code.tutsplus.com/tutorials/http-th
 
 ## Web APIs with curl
 
-Under-the-hood, the `httr` (and thus `curl`) sends request somewhat like this
+Under the hood, the `httr` (and thus `curl`) sends request somewhat like this
 
 ```bash
 curl -X GET https://google.com -w "%{content_type}\n%{http_code}\n"
