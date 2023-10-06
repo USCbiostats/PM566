@@ -31,7 +31,7 @@
     
   
   <meta name="description" content="Learning goals  Use a real world API to make queries and process the data. Use regular expressions to parse the information. Practice your GitHub skills.  Lab description In this lab, we will be working with the NCBI API to make queries and extract information using XML and regular expressions. For this lab, we will be using the httr, xml2, and stringr R packages.
-This markdown document should be rendered using github_document document.">
+Question 1: How many sars-cov-2 papers?">
 
   
   <link rel="alternate" hreflang="en-us" href="https://uscbiostats.github.io/PM566/assignment/07-lab/">
@@ -247,7 +247,7 @@ This markdown document should be rendered using github_document document.">
   <meta property="og:url" content="https://uscbiostats.github.io/PM566/assignment/07-lab/">
   <meta property="og:title" content="Lab 07 - Web scraping and Regular Expressions | Introduction to Health Data Science - PM 566">
   <meta property="og:description" content="Learning goals  Use a real world API to make queries and process the data. Use regular expressions to parse the information. Practice your GitHub skills.  Lab description In this lab, we will be working with the NCBI API to make queries and extract information using XML and regular expressions. For this lab, we will be using the httr, xml2, and stringr R packages.
-This markdown document should be rendered using github_document document."><meta property="og:image" content="https://uscbiostats.github.io/PM566/img/social-image.png">
+Question 1: How many sars-cov-2 papers?"><meta property="og:image" content="https://uscbiostats.github.io/PM566/img/social-image.png">
   <meta property="twitter:image" content="https://uscbiostats.github.io/PM566/img/social-image.png"><meta property="og:locale" content="en-us">
   
     
@@ -534,7 +534,6 @@ This markdown document should be rendered using github_document document."><meta
 <a href="https://www.ncbi.nlm.nih.gov/home/develop/api/" target="_blank" rel="noopener">NCBI API</a>
 to make queries and extract information using XML and regular expressions. For this lab, we will
 be using the <code>httr</code>, <code>xml2</code>, and <code>stringr</code> R packages.</p>
-<p>This markdown document should be rendered using <code>github_document</code> document.</p>
 <h2 id="question-1-how-many-sars-cov-2-papers">Question 1: How many sars-cov-2 papers?</h2>
 <p>Build an automatic counter of sars-cov-2 papers using PubMed. You will need to apply XPath as we did during the lecture to extract the number of results returned by PubMed in the following web address:</p>
 <pre><code>https://pubmed.ncbi.nlm.nih.gov/?term=sars-cov-2
@@ -552,9 +551,8 @@ counts &lt;- as.character(counts)
 # Extracting the data using regex
 stringr::str_extract(counts, &quot;[REGEX FOR NUMBERS WITH COMMAS/DOTS]&quot;)
 </code></pre>
-<p>Don&rsquo;t forget to commit your work!</p>
 <h2 id="question-2-academic-publications-on-covid19-and-hawaii">Question 2: Academic publications on COVID19 and Hawaii</h2>
-<p>You need to query the following
+<p>You need to query the following.
 The parameters passed to the query are documented 
 <a href="https://www.ncbi.nlm.nih.gov/books/NBK25499/" target="_blank" rel="noopener">here</a>.</p>
 <p>Use the function <code>httr::GET()</code> to make the following query:</p>
@@ -585,11 +583,10 @@ ids &lt;- httr::content(query_ids)
 analyze the text directly with <code>as.character()</code>. Another way of processing the
 data could be using lists with the function <code>xml2::as_list()</code>. We will skip the
 latter for now.</p>
-<p>Take a look at the data, and continue with the next question (don&rsquo;t forget to
-commit and push your results to your GitHub repo!).</p>
+<p>Take a look at the data, and continue with the next question.</p>
 <h2 id="question-3-get-details-about-the-articles">Question 3: Get details about the articles</h2>
-<p>The Ids are wrapped around text in the following way: <code>&lt;Id&gt;... id number ...&lt;/Id&gt;</code>.
-we can use a regular expression that extract that information. Fill out the
+<p>The IDs are wrapped around text in the following way: <code>&lt;Id&gt;... id number ...&lt;/Id&gt;</code>.
+We can use a regular expression that extracts that information. Fill out the
 following lines of code:</p>
 <pre><code class="language-r"># Turn the result into a character vector
 ids &lt;- as.character(ids)
@@ -600,7 +597,7 @@ ids &lt;- stringr::str_extract_all(ids, &quot;PATTERN&quot;)[[1]]
 # Remove all the leading and trailing &lt;Id&gt; &lt;/Id&gt;. Make use of &quot;|&quot;
 ids &lt;- stringr::str_remove_all(ids, &quot;PATTERN&quot;)
 </code></pre>
-<p>With the ids in hand, we can now try to get the abstracts of the papers. As
+<p>With the IDs in hand, we can now try to get the abstracts of the papers. As
 before, we will need to coerce the contents (results) to a list using:</p>
 <ol>
 <li>
@@ -662,7 +659,7 @@ paper. The title of all records is enclosed by the HTML tag <code>ArticleTitle</
 the abstract by <code>Abstract</code>.</p>
 <p>Before applying the functions to extract text directly, it will help to process
 the XML a bit. We will use the <code>xml2::xml_children()</code> function to keep one element
-per id. This way, if a paper is missing the abstract, or something else, we will be able to properly match PUBMED IDS with their corresponding records.</p>
+per ID. This way, if a paper is missing the abstract, or something else, we will be able to properly match PUBMED IDS with their corresponding records.</p>
 <pre><code class="language-r">pub_char_list &lt;- xml2::xml_children(publications)
 pub_char_list &lt;- sapply(pub_char_list, as.character)
 </code></pre>
@@ -685,13 +682,6 @@ titles &lt;- str_remove_all(titles, &quot;[CLEAN ALL THE HTML TAGS]&quot;)
 knitr::kable(database)
 </code></pre>
 <p>Done! Knit the document, commit, and push.</p>
-<h2 id="final-pro-tip-optional">Final Pro Tip (optional)</h2>
-<p>You can still share the HTML document on github. You can include a link in your <code>README.md</code> file as the following:</p>
-<pre><code class="language-md">View [here](https://ghcdn.rawgit.org/:user/:repo/:tag/:file)
-</code></pre>
-<p>For example, if we wanted to add a direct link the HTML page of lecture 7, we could do something like the following:</p>
-<pre><code class="language-md">View [here](https://ghcdn.rawgit.org/USCbiostats/PM566/master/website/static/slides/07-apis-regex/slides.html) 
-</code></pre>
 
     </div>
 
