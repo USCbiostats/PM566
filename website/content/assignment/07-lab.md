@@ -18,8 +18,6 @@ In this lab, we will be working with the [NCBI API](https://www.ncbi.nlm.nih.gov
 to make queries and extract information using XML and regular expressions. For this lab, we will
 be using the `httr`, `xml2`, and `stringr` R packages.
 
-This markdown document should be rendered using `github_document` document.
-
 ## Question 1: How many sars-cov-2 papers?
 
 Build an automatic counter of sars-cov-2 papers using PubMed. You will need to apply XPath as we did during the lecture to extract the number of results returned by PubMed in the following web address:
@@ -45,11 +43,10 @@ counts <- as.character(counts)
 stringr::str_extract(counts, "[REGEX FOR NUMBERS WITH COMMAS/DOTS]")
 ```
 
-Don't forget to commit your work!
 
 ## Question 2: Academic publications on COVID19 and Hawaii
 
-You need to query the following
+You need to query the following. 
 The parameters passed to the query are documented [here](https://www.ncbi.nlm.nih.gov/books/NBK25499/).
 
 Use the function `httr::GET()` to make the following query:
@@ -80,13 +77,12 @@ analyze the text directly with `as.character()`. Another way of processing the
 data could be using lists with the function `xml2::as_list()`. We will skip the
 latter for now.
 
-Take a look at the data, and continue with the next question (don't forget to 
-commit and push your results to your GitHub repo!).
+Take a look at the data, and continue with the next question.
 
 ## Question 3: Get details about the articles
 
-The Ids are wrapped around text in the following way: `<Id>... id number ...</Id>`.
-we can use a regular expression that extract that information. Fill out the
+The IDs are wrapped around text in the following way: `<Id>... id number ...</Id>`.
+We can use a regular expression that extracts that information. Fill out the
 following lines of code:
 
 
@@ -101,7 +97,7 @@ ids <- stringr::str_extract_all(ids, "PATTERN")[[1]]
 ids <- stringr::str_remove_all(ids, "PATTERN")
 ```
 
-With the ids in hand, we can now try to get the abstracts of the papers. As
+With the IDs in hand, we can now try to get the abstracts of the papers. As
 before, we will need to coerce the contents (results) to a list using:
 
 1. Baseline url: https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi
@@ -173,7 +169,7 @@ the abstract by `Abstract`.
 
 Before applying the functions to extract text directly, it will help to process
 the XML a bit. We will use the `xml2::xml_children()` function to keep one element
-per id. This way, if a paper is missing the abstract, or something else, we will be able to properly match PUBMED IDS with their corresponding records.
+per ID. This way, if a paper is missing the abstract, or something else, we will be able to properly match PUBMED IDS with their corresponding records.
 
 
 
@@ -213,19 +209,5 @@ knitr::kable(database)
 ```
 
 Done! Knit the document, commit, and push.
-
-## Final Pro Tip (optional)
-
-You can still share the HTML document on github. You can include a link in your `README.md` file as the following:
-
-```md
-View [here](https://ghcdn.rawgit.org/:user/:repo/:tag/:file)
-```
-
-For example, if we wanted to add a direct link the HTML page of lecture 7, we could do something like the following:
-
-```md
-View [here](https://ghcdn.rawgit.org/USCbiostats/PM566/master/website/static/slides/07-apis-regex/slides.html) 
-```
 
 
