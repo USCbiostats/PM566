@@ -30,8 +30,8 @@
   
     
   
-  <meta name="description" content="Learning goals In this lab1, you are expected to learn/put in practice the following skills:
- Evaluate whether a problem can be parallelized or not. Practice with the parallel package. Use Rscript to submit jobs Practice your skills with Git.  Problem 1: Think Give yourself a few minutes to think about what you just learned. List three examples of problems that you believe may be solved using parallel computing, and check for packages on the HPC CRAN task view that may be related to it.">
+  <meta name="description" content="Learning goals In this lab, you are expected to learn/put in practice the following skills:
+ Evaluate whether a problem can be parallelized or not. Practice with the parallel package.  Problem 1: Vectorization The following functions can be written to be more efficient without using parallel. Write a faster version of each function and show that (1) the outputs are the same as the slow version, and (2) your version is faster.">
 
   
   <link rel="alternate" hreflang="en-us" href="https://uscbiostats.github.io/PM566/assignment/09-lab/">
@@ -246,8 +246,8 @@
   <meta property="og:site_name" content="Introduction to Health Data Science - PM 566">
   <meta property="og:url" content="https://uscbiostats.github.io/PM566/assignment/09-lab/">
   <meta property="og:title" content="Lab 9 - HPC | Introduction to Health Data Science - PM 566">
-  <meta property="og:description" content="Learning goals In this lab1, you are expected to learn/put in practice the following skills:
- Evaluate whether a problem can be parallelized or not. Practice with the parallel package. Use Rscript to submit jobs Practice your skills with Git.  Problem 1: Think Give yourself a few minutes to think about what you just learned. List three examples of problems that you believe may be solved using parallel computing, and check for packages on the HPC CRAN task view that may be related to it."><meta property="og:image" content="https://uscbiostats.github.io/PM566/img/social-image.png">
+  <meta property="og:description" content="Learning goals In this lab, you are expected to learn/put in practice the following skills:
+ Evaluate whether a problem can be parallelized or not. Practice with the parallel package.  Problem 1: Vectorization The following functions can be written to be more efficient without using parallel. Write a faster version of each function and show that (1) the outputs are the same as the slow version, and (2) your version is faster."><meta property="og:image" content="https://uscbiostats.github.io/PM566/img/social-image.png">
   <meta property="twitter:image" content="https://uscbiostats.github.io/PM566/img/social-image.png"><meta property="og:locale" content="en-us">
   
     
@@ -524,29 +524,22 @@
 
     <div class="article-style">
       <h1 id="learning-goals">Learning goals</h1>
-<p>In this lab<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>, you are expected to learn/put in practice the following skills:</p>
+<p>In this lab, you are expected to learn/put in practice the following skills:</p>
 <ul>
 <li>Evaluate whether a problem can be parallelized or not.</li>
 <li>Practice with the parallel package.</li>
-<li>Use Rscript to submit jobs</li>
-<li>Practice your skills with Git.</li>
 </ul>
-<h2 id="problem-1-think">Problem 1: Think</h2>
-<p>Give yourself a few minutes to think about what you just learned. List three
-examples of problems that you believe may be solved using parallel computing,
-and check for packages on the HPC CRAN task view that may be related to it.</p>
-<h2 id="problem-2-before-you">Problem 2: Before you</h2>
-<p>The following functions can be written to be more efficient without using
-parallel:</p>
+<h2 id="problem-1-vectorization">Problem 1: Vectorization</h2>
+<p>The following functions can be written to be more efficient without using parallel. Write a faster version of each function and show that (1) the outputs are the same as the slow version, and (2) your version is faster.</p>
 <ol>
-<li>This function generates a <code>n x k</code> dataset with all its entries distributed
-poission with mean <code>lambda</code>.</li>
+<li>This function generates an <code>n x k</code> dataset with all its entries drawn from a Poission distribution with mean <code>lambda</code>.</li>
 </ol>
 <pre><code class="language-r">fun1 &lt;- function(n = 100, k = 4, lambda = 4) {
   x &lt;- NULL
   
-  for (i in 1:n)
-    x &lt;- rbind(x, rpois(k, lambda))
+  for (i in 1:n){
+    x &lt;- rbind(x, rpois(k, lambda))    
+  }
   
   return(x)
 }
@@ -554,15 +547,16 @@ poission with mean <code>lambda</code>.</li>
 fun1alt &lt;- function(n = 100, k = 4, lambda = 4) {
   # YOUR CODE HERE
 }
-
-# Benchmarking
+</code></pre>
+<p>Show that <code>fun2</code> generates a matrix with the same dimensions as <code>fun1</code> and that the values inside the two matrices follow similar distributions. Then check the speed of the two functions with the following code:</p>
+<pre><code class="language-r"># Benchmarking
 microbenchmark::microbenchmark(
   fun1(),
   fun1alt()
 )
 </code></pre>
 <ol start="2">
-<li>Find the column max (hint: Checkout the function <code>max.col()</code>).</li>
+<li>This function finds the maximum value of each column of a matrix (hint: check out the <code>max.col()</code> function).</li>
 </ol>
 <pre><code class="language-r"># Data Generating Process (10 x 10,000 matrix)
 set.seed(1234)
@@ -576,49 +570,36 @@ fun2 &lt;- function(x) {
 fun2alt &lt;- function(x) {
   # YOUR CODE HERE
 }
-
-# Benchmarking
-microbenchmark::microbenchmark(
-  fun2(),
-  fun2alt()
-)
 </code></pre>
-<h2 id="problem-3-parallelize-everyhing">Problem 3: Parallelize everyhing</h2>
-<p>We will now turn our attention to non-parametric
+<p>Show that both functions return the same output for a given input matrix, <code>x</code>. Then check the speed of the two functions.</p>
+<h2 id="problem-3-parallelization">Problem 3: Parallelization</h2>
+<p>We will now turn our attention to the statistical concept of
 
-<a href="https://en.wikipedia.org/wiki/Bootstrapping_%28statistics%29" target="_blank" rel="noopener">bootstrapping</a>.
-Among its many uses, non-parametric bootstrapping allow us to obtain confidence
-intervals for parameter estimates without relying on parametric assumptions.</p>
-<p>The main assumption is that we can approximate many experiments by resampling
-observations from our original dataset, which reflects the population.</p>
-<p>This function implements the non-parametric bootstrap:</p>
+<a href="https://en.wikipedia.org/wiki/Bootstrapping_%28statistics%29" target="_blank" rel="noopener">bootstrapping</a>. Among its many uses, non-parametric bootstrapping allows us to obtain confidence intervals for parameter estimates without relying on parametric assumptions. Don&rsquo;t worry if these concepts are unfamiliar, we only care about the computation methods in this lab, not the statistics.</p>
+<p>The main assumption is that we can approximate the results of many repeated experiments by resampling observations from our original dataset, which reflects the population.</p>
+<ol>
+<li>This function implements a serial version of the bootstrap. Edit this function to parallelize the <code>lapply</code> loop, using whichever method you prefer. Rather than specifying the number of cores to use, use the number given by the <code>ncpus</code> argument, so that we can test it with different numbers of cores later.</li>
+</ol>
 <pre><code class="language-r">my_boot &lt;- function(dat, stat, R, ncpus = 1L) {
   
   # Getting the random indices
   n &lt;- nrow(dat)
   idx &lt;- matrix(sample.int(n, n*R, TRUE), nrow=n, ncol=R)
- 
-  # Making the cluster using `ncpus`
-  # STEP 1: GOES HERE
-  # STEP 2: GOES HERE
   
-    # STEP 3: THIS FUNCTION NEEDS TO BE REPLACES WITH parLapply
+  # THIS FUNCTION NEEDS TO BE PARALELLIZED
+  # EDIT THIS CODE:
   ans &lt;- lapply(seq_len(R), function(i) {
     stat(dat[idx[,i], , drop=FALSE])
   })
   
-  # Coercing the list into a matrix
+  # Converting the list into a matrix
   ans &lt;- do.call(rbind, ans)
-  
-  # STEP 4: GOES HERE
-  
-  ans
-  
+
+  return(ans)
 }
 </code></pre>
-<ol>
-<li>Use the previous pseudocode, and make it work with parallel. Here is just an example
-for you to try:</li>
+<ol start="2">
+<li>Once you have a version of the <code>my_boot()</code> function that runs on multiple cores, check that it provides accurate results by comparing it to a parametric model:</li>
 </ol>
 <pre><code class="language-r"># Bootstrap of an OLS
 my_stat &lt;- function(d) coef(lm(y ~ x, data=d))
@@ -643,29 +624,12 @@ ans0
 ## (Intercept) -0.1379033 0.04797344
 ## x            4.8650100 5.04883353
 </code></pre>
-<ol start="2">
-<li>Check whether your version actually goes faster than the non-parallel version:</li>
+<ol start="3">
+<li>Check whether your version actually goes faster when it&rsquo;s run on multiple cores (since this might take a little while to run, we&rsquo;ll use <code>system.time</code> and just run each version once, rather than <code>microbenchmark</code>, which would run each version 100 times, by default):</li>
 </ol>
 <pre><code class="language-r">system.time(my_boot(dat = data.frame(x, y), my_stat, R = 4000, ncpus = 1L))
 system.time(my_boot(dat = data.frame(x, y), my_stat, R = 4000, ncpus = 2L))
 </code></pre>
-<h2 id="problem-4-compile-this-markdown-document-using-rscript">Problem 4: Compile this markdown document using Rscript</h2>
-<p>Once you have saved this Rmd file, try running the following command
-in your terminal:</p>
-<pre><code class="language-bash">Rscript --vanilla -e 'rmarkdown::render(&quot;[full-path-to-your-Rmd-file.Rmd]&quot;)' &amp;
-</code></pre>
-<p>Where <code>[full-path-to-your-Rmd-file.Rmd]</code> should be replace with the full path to
-your Rmd file&hellip; :).</p>
-<section class="footnotes" role="doc-endnotes">
-<hr>
-<ol>
-<li id="fn:1" role="doc-endnote">
-<p>In Fall 2021 we realized there were a couple of typos in the
-pseudo-code, in particular, <code>fun1()</code> was not returning a value and <code>mi_stat</code>
-was replaces with <code>my_stat</code>.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
-</li>
-</ol>
-</section>
 
     </div>
 
