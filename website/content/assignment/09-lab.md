@@ -6,34 +6,26 @@ link-citations: yes
 
 # Learning goals
 
-In this lab[^changes], you are expected to learn/put in practice the following skills:
+In this lab, you are expected to learn/put in practice the following skills:
 
 - Evaluate whether a problem can be parallelized or not.
 - Practice with the parallel package.
-- Use Rscript to submit jobs
-- Practice your skills with Git.
 
-## Problem 1: Think
 
-Give yourself a few minutes to think about what you just learned. List three
-examples of problems that you believe may be solved using parallel computing,
-and check for packages on the HPC CRAN task view that may be related to it.
+## Problem 1: Vectorization
 
-## Problem 2: Before you
+The following functions can be written to be more efficient without using parallel. Write a faster version of each function and show that (1) the outputs are the same as the slow version, and (2) your version is faster.
 
-The following functions can be written to be more efficient without using
-parallel:
-
-1. This function generates a `n x k` dataset with all its entries distributed
-poission with mean `lambda`.
+1. This function generates an `n x k` dataset with all its entries drawn from a Poission distribution with mean `lambda`.
 
 
 ```r
 fun1 <- function(n = 100, k = 4, lambda = 4) {
   x <- NULL
   
-  for (i in 1:n)
-    x <- rbind(x, rpois(k, lambda))
+  for (i in 1:n){
+    x <- rbind(x, rpois(k, lambda))    
+  }
   
   return(x)
 }
@@ -41,7 +33,12 @@ fun1 <- function(n = 100, k = 4, lambda = 4) {
 fun1alt <- function(n = 100, k = 4, lambda = 4) {
   # YOUR CODE HERE
 }
+```
 
+Show that `fun2` generates a matrix with the same dimensions as `fun1` and that the values inside the two matrices follow similar distributions. Then check the speed of the two functions with the following code:
+
+
+```r
 # Benchmarking
 microbenchmark::microbenchmark(
   fun1(),
@@ -49,7 +46,7 @@ microbenchmark::microbenchmark(
 )
 ```
 
-2.  Find the column max (hint: Checkout the function `max.col()`).
+2.  This function finds the maximum value of each column of a matrix (hint: check out the `max.col()` function).
 
 
 ```r
@@ -65,25 +62,19 @@ fun2 <- function(x) {
 fun2alt <- function(x) {
   # YOUR CODE HERE
 }
-
-# Benchmarking
-microbenchmark::microbenchmark(
-  fun2(),
-  fun2alt()
-)
 ```
 
-## Problem 3: Parallelize everyhing
+Show that both functions return the same output for a given input matrix, `x`. Then check the speed of the two functions.
 
-We will now turn our attention to non-parametric 
-[bootstrapping](https://en.wikipedia.org/wiki/Bootstrapping_(statistics)).
-Among its many uses, non-parametric bootstrapping allow us to obtain confidence
-intervals for parameter estimates without relying on parametric assumptions.
 
-The main assumption is that we can approximate many experiments by resampling
-observations from our original dataset, which reflects the population. 
+## Problem 3: Parallelization
 
-This function implements the non-parametric bootstrap:
+We will now turn our attention to the statistical concept of
+[bootstrapping](https://en.wikipedia.org/wiki/Bootstrapping_(statistics)). Among its many uses, non-parametric bootstrapping allows us to obtain confidence intervals for parameter estimates without relying on parametric assumptions. Don't worry if these concepts are unfamiliar, we only care about the computation methods in this lab, not the statistics.
+
+The main assumption is that we can approximate the results of many repeated experiments by resampling observations from our original dataset, which reflects the population. 
+
+1. This function implements a serial version of the bootstrap. Edit this function to parallelize the `lapply` loop, using whichever method you prefer. Rather than specifying the number of cores to use, use the number given by the `ncpus` argument, so that we can test it with different numbers of cores later.
 
 
 ```r
@@ -92,28 +83,22 @@ my_boot <- function(dat, stat, R, ncpus = 1L) {
   # Getting the random indices
   n <- nrow(dat)
   idx <- matrix(sample.int(n, n*R, TRUE), nrow=n, ncol=R)
- 
-  # Making the cluster using `ncpus`
-  # STEP 1: GOES HERE
-  # STEP 2: GOES HERE
   
-    # STEP 3: THIS FUNCTION NEEDS TO BE REPLACES WITH parLapply
+  # THIS FUNCTION NEEDS TO BE PARALELLIZED
+  # EDIT THIS CODE:
   ans <- lapply(seq_len(R), function(i) {
     stat(dat[idx[,i], , drop=FALSE])
   })
   
-  # Coercing the list into a matrix
+  # Converting the list into a matrix
   ans <- do.call(rbind, ans)
-  
-  # STEP 4: GOES HERE
-  
-  ans
-  
+
+  return(ans)
 }
 ```
 
-1. Use the previous pseudocode, and make it work with parallel. Here is just an example
-for you to try:
+
+2. Once you have a version of the `my_boot()` function that runs on multiple cores, check that it provides accurate results by comparing it to a parametric model:
 
 
 ```r
@@ -141,8 +126,7 @@ ans0
 ## x            4.8650100 5.04883353
 ```
 
-2. Check whether your version actually goes faster than the non-parallel version:
-
+3. Check whether your version actually goes faster when it's run on multiple cores (since this might take a little while to run, we'll use `system.time` and just run each version once, rather than `microbenchmark`, which would run each version 100 times, by default):
 
 
 ```r
@@ -150,18 +134,3 @@ system.time(my_boot(dat = data.frame(x, y), my_stat, R = 4000, ncpus = 1L))
 system.time(my_boot(dat = data.frame(x, y), my_stat, R = 4000, ncpus = 2L))
 ```
 
-## Problem 4: Compile this markdown document using Rscript
-
-Once you have saved this Rmd file, try running the following command
-in your terminal:
-
-```bash
-Rscript --vanilla -e 'rmarkdown::render("[full-path-to-your-Rmd-file.Rmd]")' &
-```
-
-Where `[full-path-to-your-Rmd-file.Rmd]` should be replace with the full path to
-your Rmd file... :).
-
-[^changes]: In Fall 2021 we realized there were a couple of typos in the 
-pseudo-code, in particular, `fun1()` was not returning a value and `mi_stat`
-was replaces with `my_stat`.
