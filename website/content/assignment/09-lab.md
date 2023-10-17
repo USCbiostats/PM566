@@ -35,7 +35,7 @@ fun1alt <- function(n = 100, k = 4, lambda = 4) {
 }
 ```
 
-Show that `fun2` generates a matrix with the same dimensions as `fun1` and that the values inside the two matrices follow similar distributions. Then check the speed of the two functions with the following code:
+Show that `fun1alt` generates a matrix with the same dimensions as `fun1` and that the values inside the two matrices follow similar distributions. Then check the speed of the two functions with the following code:
 
 
 ```r
