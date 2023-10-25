@@ -30,7 +30,7 @@
   
     
   
-  <meta name="description" content="Setup # install.packages(c(&quot;RSQLite&quot;, &quot;DBI&quot;)) library(RSQLite) library(DBI) # Initialize a temporary in memory database con &lt;- dbConnect(SQLite(), &quot;:memory:&quot;) # Download tables actor &lt;- read.csv(&quot;https://raw.githubusercontent.com/ivanceras/sakila/master/csv-sakila-db/actor.csv&quot;) rental &lt;- read.csv(&quot;https://raw.githubusercontent.com/ivanceras/sakila/master/csv-sakila-db/rental.csv&quot;) customer &lt;- read.csv(&quot;https://raw.githubusercontent.com/ivanceras/sakila/master/csv-sakila-db/customer.csv&quot;) payment &lt;- read.csv(&quot;https://raw.githubusercontent.com/ivanceras/sakila/master/csv-sakila-db/payment_p2007_01.csv&quot;) # Copy data.frames to database dbWriteTable(con, &quot;actor&quot;, actor) dbWriteTable(con, &quot;rental&quot;, rental) dbWriteTable(con, &quot;customer&quot;, customer) dbWriteTable(con, &quot;payment&quot;, payment)  dbListTables(con)  TIP: Use can use the following QUERY to see the structure of a table
+  <meta name="description" content="Setup # install.packages(c(&quot;RSQLite&quot;, &quot;DBI&quot;)) library(RSQLite) library(DBI) # Initialize a temporary in memory database con &lt;- dbConnect(SQLite(), &quot;:memory:&quot;) # Download tables actor &lt;- read.csv(&quot;https://raw.githubusercontent.com/ivanceras/sakila/master/csv-sakila-db/actor.csv&quot;) rental &lt;- read.csv(&quot;https://raw.githubusercontent.com/ivanceras/sakila/master/csv-sakila-db/rental.csv&quot;) customer &lt;- read.csv(&quot;https://raw.githubusercontent.com/ivanceras/sakila/master/csv-sakila-db/customer.csv&quot;) payment &lt;- read.csv(&quot;https://raw.githubusercontent.com/ivanceras/sakila/master/csv-sakila-db/payment_p2007_01.csv&quot;) # Copy data.frames to database dbWriteTable(con, &quot;actor&quot;, actor) dbWriteTable(con, &quot;rental&quot;, rental) dbWriteTable(con, &quot;customer&quot;, customer) dbWriteTable(con, &quot;payment&quot;, payment)  dbListTables(con)  TIP: You can use the following QUERY to see the structure of a table
 PRAGMA table_info(actor)  SQL references:">
 
   
@@ -246,7 +246,7 @@ PRAGMA table_info(actor)  SQL references:">
   <meta property="og:site_name" content="Introduction to Health Data Science - PM 566">
   <meta property="og:url" content="https://uscbiostats.github.io/PM566/assignment/10-lab/">
   <meta property="og:title" content="Lab 10 - SQL | Introduction to Health Data Science - PM 566">
-  <meta property="og:description" content="Setup # install.packages(c(&quot;RSQLite&quot;, &quot;DBI&quot;)) library(RSQLite) library(DBI) # Initialize a temporary in memory database con &lt;- dbConnect(SQLite(), &quot;:memory:&quot;) # Download tables actor &lt;- read.csv(&quot;https://raw.githubusercontent.com/ivanceras/sakila/master/csv-sakila-db/actor.csv&quot;) rental &lt;- read.csv(&quot;https://raw.githubusercontent.com/ivanceras/sakila/master/csv-sakila-db/rental.csv&quot;) customer &lt;- read.csv(&quot;https://raw.githubusercontent.com/ivanceras/sakila/master/csv-sakila-db/customer.csv&quot;) payment &lt;- read.csv(&quot;https://raw.githubusercontent.com/ivanceras/sakila/master/csv-sakila-db/payment_p2007_01.csv&quot;) # Copy data.frames to database dbWriteTable(con, &quot;actor&quot;, actor) dbWriteTable(con, &quot;rental&quot;, rental) dbWriteTable(con, &quot;customer&quot;, customer) dbWriteTable(con, &quot;payment&quot;, payment)  dbListTables(con)  TIP: Use can use the following QUERY to see the structure of a table
+  <meta property="og:description" content="Setup # install.packages(c(&quot;RSQLite&quot;, &quot;DBI&quot;)) library(RSQLite) library(DBI) # Initialize a temporary in memory database con &lt;- dbConnect(SQLite(), &quot;:memory:&quot;) # Download tables actor &lt;- read.csv(&quot;https://raw.githubusercontent.com/ivanceras/sakila/master/csv-sakila-db/actor.csv&quot;) rental &lt;- read.csv(&quot;https://raw.githubusercontent.com/ivanceras/sakila/master/csv-sakila-db/rental.csv&quot;) customer &lt;- read.csv(&quot;https://raw.githubusercontent.com/ivanceras/sakila/master/csv-sakila-db/customer.csv&quot;) payment &lt;- read.csv(&quot;https://raw.githubusercontent.com/ivanceras/sakila/master/csv-sakila-db/payment_p2007_01.csv&quot;) # Copy data.frames to database dbWriteTable(con, &quot;actor&quot;, actor) dbWriteTable(con, &quot;rental&quot;, rental) dbWriteTable(con, &quot;customer&quot;, customer) dbWriteTable(con, &quot;payment&quot;, payment)  dbListTables(con)  TIP: You can use the following QUERY to see the structure of a table
 PRAGMA table_info(actor)  SQL references:"><meta property="og:image" content="https://uscbiostats.github.io/PM566/img/social-image.png">
   <meta property="twitter:image" content="https://uscbiostats.github.io/PM566/img/social-image.png"><meta property="og:locale" content="en-us">
   
@@ -546,51 +546,51 @@ dbWriteTable(con, &quot;payment&quot;, payment)
 </code></pre>
 <pre><code class="language-r">dbListTables(con)
 </code></pre>
-<p>TIP: Use can use the following QUERY to see the structure of a table</p>
+<p>TIP: You can use the following QUERY to see the structure of a table</p>
 <pre><code class="language-sql">PRAGMA table_info(actor)
 </code></pre>
 <p>SQL references:</p>
 <p>
 <a href="https://www.w3schools.com/sql/" target="_blank" rel="noopener">https://www.w3schools.com/sql/</a></p>
 <h1 id="exercise-1">Exercise 1</h1>
-<p>Retrive the actor ID, first name and last name for all actors using the <code>actor</code> table. Sort by last name and then by first name.</p>
+<p>Edit the code below to retrieve the actor ID, first name and last name for all actors using the <code>actor</code> table. Sort by last name and then by first name (note that the code chunk below is set up to run SQL code rather than R code).</p>
 <pre><code class="language-sql">SELECT
 FROM
 ORDER by
 </code></pre>
 <h1 id="exercise-2">Exercise 2</h1>
-<p>Retrive the actor ID, first name, and last name for actors whose last name equals &lsquo;WILLIAMS&rsquo; or &lsquo;DAVIS&rsquo;.</p>
+<p>Retrieve the actor ID, first name, and last name for actors whose last name equals &lsquo;WILLIAMS&rsquo; or &lsquo;DAVIS&rsquo;.</p>
 <pre><code class="language-sql">SELECT 
 FROM 
 WHERE ___ IN ('WILLIAMS', 'DAVIS')
 </code></pre>
 <h1 id="exercise-3">Exercise 3</h1>
-<p>Write a query against the <code>rental</code> table that returns the IDs of the customers who rented a film on July 5, 2005 (use the rental.rental_date column, and you can use the date() function to ignore the time component). Include a single row for each distinct customer ID.</p>
+<p>Write a query against the <code>rental</code> table that returns the IDs of the customers who rented a film on July 5, 2005 (use the rental.rental_date column, and you can use the <code>date()</code> function to ignore the time component). Include a single row for each distinct customer ID.</p>
 <pre><code class="language-sql">SELECT DISTINCT 
 FROM 
 WHERE date(___) = '2005-07-05'
 </code></pre>
 <h1 id="exercise-4">Exercise 4</h1>
 <h2 id="exercise-41">Exercise 4.1</h2>
-<p>Construct a query that retrives all rows from the <code>payment</code> table where the amount is either 1.99, 7.99, 9.99.</p>
+<p>Construct a query that retrieves all rows from the <code>payment</code> table where the amount is either 1.99, 7.99, 9.99.</p>
 <pre><code class="language-sql">SELECT *
 FROM ___
 WHERE ___ IN (1.99, 7.99, 9.99)
 </code></pre>
 <h2 id="exercise-42">Exercise 4.2</h2>
-<p>Construct a query that retrives all rows from the <code>payment</code> table where the amount is greater then 5</p>
+<p>Construct a query that retrieves all rows from the <code>payment</code> table where the amount is greater then 5.</p>
 <pre><code class="language-sql">SELECT *
 FROM 
 WHERE 
 </code></pre>
 <h2 id="exercise-42-1">Exercise 4.2</h2>
-<p>Construct a query that retrives all rows from the <code>payment</code> table where the amount is greater then 5 and less then 8</p>
+<p>Construct a query that retrieves all rows from the <code>payment</code> table where the amount is greater then 5 and less then 8.</p>
 <pre><code class="language-sql">SELECT *
 FROM ___
 WHERE ___ AND ___
 </code></pre>
 <h1 id="exercise-5">Exercise 5</h1>
-<p>Retrive all the payment IDs and their amount from the customers whose last name is &lsquo;DAVIS&rsquo;.</p>
+<p>Retrieve all the payment IDs and their amounts from the customers whose last name is &lsquo;DAVIS&rsquo;.</p>
 <pre><code class="language-sql">SELECT 
 FROM 
   INNER JOIN 
@@ -599,15 +599,15 @@ AND
 </code></pre>
 <h1 id="exercise-6">Exercise 6</h1>
 <h2 id="exercise-61">Exercise 6.1</h2>
-<p>Use <code>COUNT(*)</code> to count the number of rows in <code>rental</code></p>
+<p>Use <code>COUNT(*)</code> to count the number of rows in <code>rental</code>.</p>
 <pre><code class="language-sql">
 </code></pre>
 <h2 id="exercise-62">Exercise 6.2</h2>
-<p>Use <code>COUNT(*)</code> and <code>GROUP BY</code> to count the number of rentals for each <code>customer_id</code></p>
+<p>Use <code>COUNT(*)</code> and <code>GROUP BY</code> to count the number of rentals for each <code>customer_id</code>.</p>
 <pre><code class="language-sql">
 </code></pre>
 <h2 id="exercise-63">Exercise 6.3</h2>
-<p>Repeat the previous query and sort by the count in descending order</p>
+<p>Repeat the previous query and sort by the count in descending order.</p>
 <pre><code class="language-sql">
 </code></pre>
 <h2 id="exercise-64">Exercise 6.4</h2>
@@ -619,11 +619,11 @@ AND
 <pre><code class="language-sql">
 </code></pre>
 <h2 id="exercise-71">Exercise 7.1</h2>
-<p>Modify the above query to do those calculations for each <code>customer_id</code></p>
+<p>Modify the above query to do those calculations for each <code>customer_id</code>.</p>
 <pre><code class="language-sql">
 </code></pre>
 <h2 id="exercise-72">Exercise 7.2</h2>
-<p>Modify the above query to only keep the <code>customer_id</code>s that have more then 5 payments</p>
+<p>Modify the above query to only keep the <code>customer_id</code>s that have more then 5 payments.</p>
 <pre><code class="language-sql">
 </code></pre>
 <h1 id="cleanup">Cleanup</h1>

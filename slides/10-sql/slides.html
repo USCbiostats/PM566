@@ -3,24 +3,31 @@
   <head>
     <title>SQL</title>
     <meta charset="utf-8" />
-    <meta name="author" content="Emil Hvitfeldt (presented by George G Vega Yon)" />
-    <script src="libs/header-attrs-2.11/header-attrs.js"></script>
+    <meta name="author" content="Emil Hvitfeldt (presented by Kelly Street)" />
+    <script src="libs/header-attrs-2.25/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <script src="libs/core-js-2.5.3/shim.min.js"></script>
-    <script src="libs/react-17.0.0/react.min.js"></script>
-    <script src="libs/react-17.0.0/react-dom.min.js"></script>
+    <script src="libs/react-18.2.0/react.min.js"></script>
+    <script src="libs/react-18.2.0/react-dom.min.js"></script>
     <script src="libs/reactwidget-1.0.0/react-tools.js"></script>
-    <script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
-    <script src="libs/reactable-binding-0.2.3/reactable.js"></script>
+    <script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+    <link href="libs/reactable-0.4.4/reactable.css" rel="stylesheet" />
+    <script src="libs/reactable-binding-0.4.4/reactable.js"></script>
     <link rel="stylesheet" href="theme.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
 class: center, middle, title-slide
 
+.title[
 # SQL
+]
+.subtitle[
 ## PM566 - Week 11
-### Emil Hvitfeldt<br>(presented by George G Vega Yon)
+]
+.author[
+### Emil Hvitfeldt<br>(presented by Kelly Street)
+]
 
 ---
 
@@ -43,7 +50,7 @@ These slides were originally developed by Emil Hvitfeldt and modified by George 
 
 - See what relational databases are
 - How to query a relational database with SQL
-- How SQL have similaties with dplyr
+- Similarities between SQL and dplyr
 
 ---
 
@@ -131,7 +138,7 @@ Each table in a relational database contains information that uniquely identifie
 
 some columns contain shared information across tables.
 
-These columns are called *foreign keys* and they serve the purpose of connection the rows in different tables together
+These columns are called *foreign keys* and they serve the purpose of connecting the rows in different tables together
 
 ---
 
@@ -139,9 +146,9 @@ These columns are called *foreign keys* and they serve the purpose of connection
 
 - **Entity** Something of interest to the users
 - **Column** An individual peice of data stored in a table
-- **Row** A set of columns thatt together completely describe an entity or some action on an entity. Also called a **record**
+- **Row** A set of columns that together completely describe an entity or some action on an entity. Also called a **record**
 - **Table** A set of rows
-- **Result key** Another name for a nonpersistent table, generally the result of a SQL query
+- **Result key** Another name for a non-persistent table, generally the result of a SQL query
 - **Primary key** One or more columns that can be used as a unique identifier for each row in a table
 - **Foreign key** One or more columns that can be used together to identify a single row in another table
 
@@ -190,7 +197,7 @@ All examples shown with SQLite
 # SQL query clauses
 
 - **SELECT** Determines which columns to include the query's result set
-- **FROM** Identifies the tables from which to retrive daat and how the tables should be joined
+- **FROM** Identifies the tables from which to retrieve data and how the tables should be joined
 - **WHERE** Filters out unwanted data
 - **GROUP BY** Used to group rows together by common column values
 - **HAVING** Filters out unwanted groups
@@ -200,8 +207,8 @@ All examples shown with SQLite
 
 # Pengiuns data
 
-<div id="htmlwidget-433e244632da4664d20b" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-433e244632da4664d20b">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"species":["Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap"],"island":["Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream"],"bill_length_mm":[39.1,39.5,40.3,"NA",36.7,39.3,38.9,39.2,34.1,42,37.8,37.8,41.1,38.6,34.6,36.6,38.7,42.5,34.4,46,37.8,37.7,35.9,38.2,38.8,35.3,40.6,40.5,37.9,40.5,39.5,37.2,39.5,40.9,36.4,39.2,38.8,42.2,37.6,39.8,36.5,40.8,36,44.1,37,39.6,41.1,37.5,36,42.3,39.6,40.1,35,42,34.5,41.4,39,40.6,36.5,37.6,35.7,41.3,37.6,41.1,36.4,41.6,35.5,41.1,35.9,41.8,33.5,39.7,39.6,45.8,35.5,42.8,40.9,37.2,36.2,42.1,34.6,42.9,36.7,35.1,37.3,41.3,36.3,36.9,38.3,38.9,35.7,41.1,34,39.6,36.2,40.8,38.1,40.3,33.1,43.2,35,41,37.7,37.8,37.9,39.7,38.6,38.2,38.1,43.2,38.1,45.6,39.7,42.2,39.6,42.7,38.6,37.3,35.7,41.1,36.2,37.7,40.2,41.4,35.2,40.6,38.8,41.5,39,44.1,38.5,43.1,36.8,37.5,38.1,41.1,35.6,40.2,37,39.7,40.2,40.6,32.1,40.7,37.3,39,39.2,36.6,36,37.8,36,41.5,46.1,50,48.7,50,47.6,46.5,45.4,46.7,43.3,46.8,40.9,49,45.5,48.4,45.8,49.3,42,49.2,46.2,48.7,50.2,45.1,46.5,46.3,42.9,46.1,44.5,47.8,48.2,50,47.3,42.8,45.1,59.6,49.1,48.4,42.6,44.4,44,48.7,42.7,49.6,45.3,49.6,50.5,43.6,45.5,50.5,44.9,45.2,46.6,48.5,45.1,50.1,46.5,45,43.8,45.5,43.2,50.4,45.3,46.2,45.7,54.3,45.8,49.8,46.2,49.5,43.5,50.7,47.7,46.4,48.2,46.5,46.4,48.6,47.5,51.1,45.2,45.2,49.1,52.5,47.4,50,44.9,50.8,43.4,51.3,47.5,52.1,47.5,52.2,45.5,49.5,44.5,50.8,49.4,46.9,48.4,51.1,48.5,55.9,47.2,49.1,47.3,46.8,41.7,53.4,43.3,48.1,50.5,49.8,43.5,51.5,46.2,55.1,44.5,48.8,47.2,"NA",46.8,50.4,45.2,49.9,46.5,50,51.3,45.4,52.7,45.2,46.1,51.3,46,51.3,46.6,51.7,47,52,45.9,50.5,50.3,58,46.4,49.2,42.4,48.5,43.2,50.6,46.7,52,50.5,49.5,46.4,52.8,40.9,54.2,42.5,51,49.7,47.5,47.6,52,46.9,53.5,49,46.2,50.9,45.5,50.9,50.8,50.1,49,51.5,49.8,48.1,51.4,45.7,50.7,42.5,52.2,45.2,49.3,50.2,45.6,51.9,46.8,45.7,55.8,43.5,49.6,50.8,50.2],"bill_depth_mm":[18.7,17.4,18,"NA",19.3,20.6,17.8,19.6,18.1,20.2,17.1,17.3,17.6,21.2,21.1,17.8,19,20.7,18.4,21.5,18.3,18.7,19.2,18.1,17.2,18.9,18.6,17.9,18.6,18.9,16.7,18.1,17.8,18.9,17,21.1,20,18.5,19.3,19.1,18,18.4,18.5,19.7,16.9,18.8,19,18.9,17.9,21.2,17.7,18.9,17.9,19.5,18.1,18.6,17.5,18.8,16.6,19.1,16.9,21.1,17,18.2,17.1,18,16.2,19.1,16.6,19.4,19,18.4,17.2,18.9,17.5,18.5,16.8,19.4,16.1,19.1,17.2,17.6,18.8,19.4,17.8,20.3,19.5,18.6,19.2,18.8,18,18.1,17.1,18.1,17.3,18.9,18.6,18.5,16.1,18.5,17.9,20,16,20,18.6,18.9,17.2,20,17,19,16.5,20.3,17.7,19.5,20.7,18.3,17,20.5,17,18.6,17.2,19.8,17,18.5,15.9,19,17.6,18.3,17.1,18,17.9,19.2,18.5,18.5,17.6,17.5,17.5,20.1,16.5,17.9,17.1,17.2,15.5,17,16.8,18.7,18.6,18.4,17.8,18.1,17.1,18.5,13.2,16.3,14.1,15.2,14.5,13.5,14.6,15.3,13.4,15.4,13.7,16.1,13.7,14.6,14.6,15.7,13.5,15.2,14.5,15.1,14.3,14.5,14.5,15.8,13.1,15.1,14.3,15,14.3,15.3,15.3,14.2,14.5,17,14.8,16.3,13.7,17.3,13.6,15.7,13.7,16,13.7,15,15.9,13.9,13.9,15.9,13.3,15.8,14.2,14.1,14.4,15,14.4,15.4,13.9,15,14.5,15.3,13.8,14.9,13.9,15.7,14.2,16.8,14.4,16.2,14.2,15,15,15.6,15.6,14.8,15,16,14.2,16.3,13.8,16.4,14.5,15.6,14.6,15.9,13.8,17.3,14.4,14.2,14,17,15,17.1,14.5,16.1,14.7,15.7,15.8,14.6,14.4,16.5,15,17,15.5,15,13.8,16.1,14.7,15.8,14,15.1,15.2,15.9,15.2,16.3,14.1,16,15.7,16.2,13.7,"NA",14.3,15.7,14.8,16.1,17.9,19.5,19.2,18.7,19.8,17.8,18.2,18.2,18.9,19.9,17.8,20.3,17.3,18.1,17.1,19.6,20,17.8,18.6,18.2,17.3,17.5,16.6,19.4,17.9,19,18.4,19,17.8,20,16.6,20.8,16.7,18.8,18.6,16.8,18.3,20.7,16.6,19.9,19.5,17.5,19.1,17,17.9,18.5,17.9,19.6,18.7,17.3,16.4,19,17.3,19.7,17.3,18.8,16.6,19.9,18.8,19.4,19.5,16.5,17,19.8,18.1,18.2,19,18.7],"flipper_length_mm":[181,186,195,"NA",193,190,181,195,193,190,186,180,182,191,198,185,195,197,184,194,174,180,189,185,180,187,183,187,172,180,178,178,188,184,195,196,190,180,181,184,182,195,186,196,185,190,182,179,190,191,186,188,190,200,187,191,186,193,181,194,185,195,185,192,184,192,195,188,190,198,190,190,196,197,190,195,191,184,187,195,189,196,187,193,191,194,190,189,189,190,202,205,185,186,187,208,190,196,178,192,192,203,183,190,193,184,199,190,181,197,198,191,193,197,191,196,188,199,189,189,187,198,176,202,186,199,191,195,191,210,190,197,193,199,187,190,191,200,185,193,193,187,188,190,192,185,190,184,195,193,187,201,211,230,210,218,215,210,211,219,209,215,214,216,214,213,210,217,210,221,209,222,218,215,213,215,215,215,216,215,210,220,222,209,207,230,220,220,213,219,208,208,208,225,210,216,222,217,210,225,213,215,210,220,210,225,217,220,208,220,208,224,208,221,214,231,219,230,214,229,220,223,216,221,221,217,216,230,209,220,215,223,212,221,212,224,212,228,218,218,212,230,218,228,212,224,214,226,216,222,203,225,219,228,215,228,216,215,210,219,208,209,216,229,213,230,217,230,217,222,214,"NA",215,222,212,213,192,196,193,188,197,198,178,197,195,198,193,194,185,201,190,201,197,181,190,195,181,191,187,193,195,197,200,200,191,205,187,201,187,203,195,199,195,210,192,205,210,187,196,196,196,201,190,212,187,198,199,201,193,203,187,197,191,203,202,194,206,189,195,207,202,193,210,198],"body_mass_g":[3750,3800,3250,"NA",3450,3650,3625,4675,3475,4250,3300,3700,3200,3800,4400,3700,3450,4500,3325,4200,3400,3600,3800,3950,3800,3800,3550,3200,3150,3950,3250,3900,3300,3900,3325,4150,3950,3550,3300,4650,3150,3900,3100,4400,3000,4600,3425,2975,3450,4150,3500,4300,3450,4050,2900,3700,3550,3800,2850,3750,3150,4400,3600,4050,2850,3950,3350,4100,3050,4450,3600,3900,3550,4150,3700,4250,3700,3900,3550,4000,3200,4700,3800,4200,3350,3550,3800,3500,3950,3600,3550,4300,3400,4450,3300,4300,3700,4350,2900,4100,3725,4725,3075,4250,2925,3550,3750,3900,3175,4775,3825,4600,3200,4275,3900,4075,2900,3775,3350,3325,3150,3500,3450,3875,3050,4000,3275,4300,3050,4000,3325,3500,3500,4475,3425,3900,3175,3975,3400,4250,3400,3475,3050,3725,3000,3650,4250,3475,3450,3750,3700,4000,4500,5700,4450,5700,5400,4550,4800,5200,4400,5150,4650,5550,4650,5850,4200,5850,4150,6300,4800,5350,5700,5000,4400,5050,5000,5100,4100,5650,4600,5550,5250,4700,5050,6050,5150,5400,4950,5250,4350,5350,3950,5700,4300,4750,5550,4900,4200,5400,5100,5300,4850,5300,4400,5000,4900,5050,4300,5000,4450,5550,4200,5300,4400,5650,4700,5700,4650,5800,4700,5550,4750,5000,5100,5200,4700,5800,4600,6000,4750,5950,4625,5450,4725,5350,4750,5600,4600,5300,4875,5550,4950,5400,4750,5650,4850,5200,4925,4875,4625,5250,4850,5600,4975,5500,4725,5500,4700,5500,4575,5500,5000,5950,4650,5500,4375,5850,4875,6000,4925,"NA",4850,5750,5200,5400,3500,3900,3650,3525,3725,3950,3250,3750,4150,3700,3800,3775,3700,4050,3575,4050,3300,3700,3450,4400,3600,3400,2900,3800,3300,4150,3400,3800,3700,4550,3200,4300,3350,4100,3600,3900,3850,4800,2700,4500,3950,3650,3550,3500,3675,4450,3400,4300,3250,3675,3325,3950,3600,4050,3350,3450,3250,4050,3800,3525,3950,3650,3650,4000,3400,3775,4100,3775],"sex":["male","female","female",null,"female","male","female","male",null,null,null,null,"female","male","male","female","female","male","female","male","female","male","female","male","male","female","male","female","female","male","female","male","female","male","female","male","male","female","female","male","female","male","female","male","female","male","male",null,"female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","male","female","male","female","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","male","female","female","male","female","male","female","male","female","male","male","female","female","male","female","male","female","male","female","male","female","male","female","male","female","male","male","female","female","male","female","male",null,"male","female","male","male","female","female","male","female","male","female","male","female","male","female","male","female","male","male","female","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male",null,"male","female","male","female","male","male","female","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","male","female","female","male","female","male","female","male",null,"male","female","male","female","male","female","male","female","male","female","male",null,"male","female",null,"female","male","female","male","female","male","male","female","male","female","female","male","female","male","female","male","female","male","female","male","male","female","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","male","female","female","male","female","male","male","female","male","female","female","male","female","male","male","female","female","male","female","male","female","male","female","male","male","female","male","female","female","male","female","male","male","female"],"year":[2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009]},"columns":[{"accessor":"species","name":"species","type":"factor"},{"accessor":"island","name":"island","type":"factor"},{"accessor":"bill_length_mm","name":"bill_length_mm","type":"numeric"},{"accessor":"bill_depth_mm","name":"bill_depth_mm","type":"numeric"},{"accessor":"flipper_length_mm","name":"flipper_length_mm","type":"numeric"},{"accessor":"body_mass_g","name":"body_mass_g","type":"numeric"},{"accessor":"sex","name":"sex","type":"factor"},{"accessor":"year","name":"year","type":"numeric"}],"defaultPageSize":5,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"9a2cc7d4a87a438137865530f51dd842","key":"9a2cc7d4a87a438137865530f51dd842"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div class="reactable html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-bba4945658f94e114e3f" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-bba4945658f94e114e3f">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"species":["Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Adelie","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Gentoo","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap","Chinstrap"],"island":["Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Torgersen","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Biscoe","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream","Dream"],"bill_length_mm":[39.1,39.5,40.3,"NA",36.7,39.3,38.9,39.2,34.1,42,37.8,37.8,41.1,38.6,34.6,36.6,38.7,42.5,34.4,46,37.8,37.7,35.9,38.2,38.8,35.3,40.6,40.5,37.9,40.5,39.5,37.2,39.5,40.9,36.4,39.2,38.8,42.2,37.6,39.8,36.5,40.8,36,44.1,37,39.6,41.1,37.5,36,42.3,39.6,40.1,35,42,34.5,41.4,39,40.6,36.5,37.6,35.7,41.3,37.6,41.1,36.4,41.6,35.5,41.1,35.9,41.8,33.5,39.7,39.6,45.8,35.5,42.8,40.9,37.2,36.2,42.1,34.6,42.9,36.7,35.1,37.3,41.3,36.3,36.9,38.3,38.9,35.7,41.1,34,39.6,36.2,40.8,38.1,40.3,33.1,43.2,35,41,37.7,37.8,37.9,39.7,38.6,38.2,38.1,43.2,38.1,45.6,39.7,42.2,39.6,42.7,38.6,37.3,35.7,41.1,36.2,37.7,40.2,41.4,35.2,40.6,38.8,41.5,39,44.1,38.5,43.1,36.8,37.5,38.1,41.1,35.6,40.2,37,39.7,40.2,40.6,32.1,40.7,37.3,39,39.2,36.6,36,37.8,36,41.5,46.1,50,48.7,50,47.6,46.5,45.4,46.7,43.3,46.8,40.9,49,45.5,48.4,45.8,49.3,42,49.2,46.2,48.7,50.2,45.1,46.5,46.3,42.9,46.1,44.5,47.8,48.2,50,47.3,42.8,45.1,59.6,49.1,48.4,42.6,44.4,44,48.7,42.7,49.6,45.3,49.6,50.5,43.6,45.5,50.5,44.9,45.2,46.6,48.5,45.1,50.1,46.5,45,43.8,45.5,43.2,50.4,45.3,46.2,45.7,54.3,45.8,49.8,46.2,49.5,43.5,50.7,47.7,46.4,48.2,46.5,46.4,48.6,47.5,51.1,45.2,45.2,49.1,52.5,47.4,50,44.9,50.8,43.4,51.3,47.5,52.1,47.5,52.2,45.5,49.5,44.5,50.8,49.4,46.9,48.4,51.1,48.5,55.9,47.2,49.1,47.3,46.8,41.7,53.4,43.3,48.1,50.5,49.8,43.5,51.5,46.2,55.1,44.5,48.8,47.2,"NA",46.8,50.4,45.2,49.9,46.5,50,51.3,45.4,52.7,45.2,46.1,51.3,46,51.3,46.6,51.7,47,52,45.9,50.5,50.3,58,46.4,49.2,42.4,48.5,43.2,50.6,46.7,52,50.5,49.5,46.4,52.8,40.9,54.2,42.5,51,49.7,47.5,47.6,52,46.9,53.5,49,46.2,50.9,45.5,50.9,50.8,50.1,49,51.5,49.8,48.1,51.4,45.7,50.7,42.5,52.2,45.2,49.3,50.2,45.6,51.9,46.8,45.7,55.8,43.5,49.6,50.8,50.2],"bill_depth_mm":[18.7,17.4,18,"NA",19.3,20.6,17.8,19.6,18.1,20.2,17.1,17.3,17.6,21.2,21.1,17.8,19,20.7,18.4,21.5,18.3,18.7,19.2,18.1,17.2,18.9,18.6,17.9,18.6,18.9,16.7,18.1,17.8,18.9,17,21.1,20,18.5,19.3,19.1,18,18.4,18.5,19.7,16.9,18.8,19,18.9,17.9,21.2,17.7,18.9,17.9,19.5,18.1,18.6,17.5,18.8,16.6,19.1,16.9,21.1,17,18.2,17.1,18,16.2,19.1,16.6,19.4,19,18.4,17.2,18.9,17.5,18.5,16.8,19.4,16.1,19.1,17.2,17.6,18.8,19.4,17.8,20.3,19.5,18.6,19.2,18.8,18,18.1,17.1,18.1,17.3,18.9,18.6,18.5,16.1,18.5,17.9,20,16,20,18.6,18.9,17.2,20,17,19,16.5,20.3,17.7,19.5,20.7,18.3,17,20.5,17,18.6,17.2,19.8,17,18.5,15.9,19,17.6,18.3,17.1,18,17.9,19.2,18.5,18.5,17.6,17.5,17.5,20.1,16.5,17.9,17.1,17.2,15.5,17,16.8,18.7,18.6,18.4,17.8,18.1,17.1,18.5,13.2,16.3,14.1,15.2,14.5,13.5,14.6,15.3,13.4,15.4,13.7,16.1,13.7,14.6,14.6,15.7,13.5,15.2,14.5,15.1,14.3,14.5,14.5,15.8,13.1,15.1,14.3,15,14.3,15.3,15.3,14.2,14.5,17,14.8,16.3,13.7,17.3,13.6,15.7,13.7,16,13.7,15,15.9,13.9,13.9,15.9,13.3,15.8,14.2,14.1,14.4,15,14.4,15.4,13.9,15,14.5,15.3,13.8,14.9,13.9,15.7,14.2,16.8,14.4,16.2,14.2,15,15,15.6,15.6,14.8,15,16,14.2,16.3,13.8,16.4,14.5,15.6,14.6,15.9,13.8,17.3,14.4,14.2,14,17,15,17.1,14.5,16.1,14.7,15.7,15.8,14.6,14.4,16.5,15,17,15.5,15,13.8,16.1,14.7,15.8,14,15.1,15.2,15.9,15.2,16.3,14.1,16,15.7,16.2,13.7,"NA",14.3,15.7,14.8,16.1,17.9,19.5,19.2,18.7,19.8,17.8,18.2,18.2,18.9,19.9,17.8,20.3,17.3,18.1,17.1,19.6,20,17.8,18.6,18.2,17.3,17.5,16.6,19.4,17.9,19,18.4,19,17.8,20,16.6,20.8,16.7,18.8,18.6,16.8,18.3,20.7,16.6,19.9,19.5,17.5,19.1,17,17.9,18.5,17.9,19.6,18.7,17.3,16.4,19,17.3,19.7,17.3,18.8,16.6,19.9,18.8,19.4,19.5,16.5,17,19.8,18.1,18.2,19,18.7],"flipper_length_mm":[181,186,195,"NA",193,190,181,195,193,190,186,180,182,191,198,185,195,197,184,194,174,180,189,185,180,187,183,187,172,180,178,178,188,184,195,196,190,180,181,184,182,195,186,196,185,190,182,179,190,191,186,188,190,200,187,191,186,193,181,194,185,195,185,192,184,192,195,188,190,198,190,190,196,197,190,195,191,184,187,195,189,196,187,193,191,194,190,189,189,190,202,205,185,186,187,208,190,196,178,192,192,203,183,190,193,184,199,190,181,197,198,191,193,197,191,196,188,199,189,189,187,198,176,202,186,199,191,195,191,210,190,197,193,199,187,190,191,200,185,193,193,187,188,190,192,185,190,184,195,193,187,201,211,230,210,218,215,210,211,219,209,215,214,216,214,213,210,217,210,221,209,222,218,215,213,215,215,215,216,215,210,220,222,209,207,230,220,220,213,219,208,208,208,225,210,216,222,217,210,225,213,215,210,220,210,225,217,220,208,220,208,224,208,221,214,231,219,230,214,229,220,223,216,221,221,217,216,230,209,220,215,223,212,221,212,224,212,228,218,218,212,230,218,228,212,224,214,226,216,222,203,225,219,228,215,228,216,215,210,219,208,209,216,229,213,230,217,230,217,222,214,"NA",215,222,212,213,192,196,193,188,197,198,178,197,195,198,193,194,185,201,190,201,197,181,190,195,181,191,187,193,195,197,200,200,191,205,187,201,187,203,195,199,195,210,192,205,210,187,196,196,196,201,190,212,187,198,199,201,193,203,187,197,191,203,202,194,206,189,195,207,202,193,210,198],"body_mass_g":[3750,3800,3250,"NA",3450,3650,3625,4675,3475,4250,3300,3700,3200,3800,4400,3700,3450,4500,3325,4200,3400,3600,3800,3950,3800,3800,3550,3200,3150,3950,3250,3900,3300,3900,3325,4150,3950,3550,3300,4650,3150,3900,3100,4400,3000,4600,3425,2975,3450,4150,3500,4300,3450,4050,2900,3700,3550,3800,2850,3750,3150,4400,3600,4050,2850,3950,3350,4100,3050,4450,3600,3900,3550,4150,3700,4250,3700,3900,3550,4000,3200,4700,3800,4200,3350,3550,3800,3500,3950,3600,3550,4300,3400,4450,3300,4300,3700,4350,2900,4100,3725,4725,3075,4250,2925,3550,3750,3900,3175,4775,3825,4600,3200,4275,3900,4075,2900,3775,3350,3325,3150,3500,3450,3875,3050,4000,3275,4300,3050,4000,3325,3500,3500,4475,3425,3900,3175,3975,3400,4250,3400,3475,3050,3725,3000,3650,4250,3475,3450,3750,3700,4000,4500,5700,4450,5700,5400,4550,4800,5200,4400,5150,4650,5550,4650,5850,4200,5850,4150,6300,4800,5350,5700,5000,4400,5050,5000,5100,4100,5650,4600,5550,5250,4700,5050,6050,5150,5400,4950,5250,4350,5350,3950,5700,4300,4750,5550,4900,4200,5400,5100,5300,4850,5300,4400,5000,4900,5050,4300,5000,4450,5550,4200,5300,4400,5650,4700,5700,4650,5800,4700,5550,4750,5000,5100,5200,4700,5800,4600,6000,4750,5950,4625,5450,4725,5350,4750,5600,4600,5300,4875,5550,4950,5400,4750,5650,4850,5200,4925,4875,4625,5250,4850,5600,4975,5500,4725,5500,4700,5500,4575,5500,5000,5950,4650,5500,4375,5850,4875,6000,4925,"NA",4850,5750,5200,5400,3500,3900,3650,3525,3725,3950,3250,3750,4150,3700,3800,3775,3700,4050,3575,4050,3300,3700,3450,4400,3600,3400,2900,3800,3300,4150,3400,3800,3700,4550,3200,4300,3350,4100,3600,3900,3850,4800,2700,4500,3950,3650,3550,3500,3675,4450,3400,4300,3250,3675,3325,3950,3600,4050,3350,3450,3250,4050,3800,3525,3950,3650,3650,4000,3400,3775,4100,3775],"sex":["male","female","female",null,"female","male","female","male",null,null,null,null,"female","male","male","female","female","male","female","male","female","male","female","male","male","female","male","female","female","male","female","male","female","male","female","male","male","female","female","male","female","male","female","male","female","male","male",null,"female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","male","female","male","female","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","male","female","female","male","female","male","female","male","female","male","male","female","female","male","female","male","female","male","female","male","female","male","female","male","female","male","male","female","female","male","female","male",null,"male","female","male","male","female","female","male","female","male","female","male","female","male","female","male","female","male","male","female","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male",null,"male","female","male","female","male","male","female","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","male","female","female","male","female","male","female","male",null,"male","female","male","female","male","female","male","female","male","female","male",null,"male","female",null,"female","male","female","male","female","male","male","female","male","female","female","male","female","male","female","male","female","male","female","male","male","female","female","male","female","male","female","male","female","male","female","male","female","male","female","male","female","male","male","female","female","male","female","male","male","female","male","female","female","male","female","male","male","female","female","male","female","male","female","male","female","male","male","female","male","female","female","male","female","male","male","female"],"year":[2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009]},"columns":[{"id":"species","name":"species","type":"factor"},{"id":"island","name":"island","type":"factor"},{"id":"bill_length_mm","name":"bill_length_mm","type":"numeric"},{"id":"bill_depth_mm","name":"bill_depth_mm","type":"numeric"},{"id":"flipper_length_mm","name":"flipper_length_mm","type":"numeric"},{"id":"body_mass_g","name":"body_mass_g","type":"numeric"},{"id":"sex","name":"sex","type":"factor"},{"id":"year","name":"year","type":"numeric"}],"defaultPageSize":5,"dataKey":"11790aed9ef42782f25c128b3443ce46"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 
 ---
 
@@ -1273,357 +1280,357 @@ FROM penguins
 
 ```sql
 SELECT upper(island) AS island,
-  bill_length_mm * bill_depth_mm AS bill_area_mm
+  bill_length_mm * bill_depth_mm AS bill_area_mm2
 FROM penguins
 ```
 
 
 ```
-##        island bill_area_mm
-## 1   TORGERSEN       731.17
-## 2   TORGERSEN       687.30
-## 3   TORGERSEN       725.40
-## 4   TORGERSEN           NA
-## 5   TORGERSEN       708.31
-## 6   TORGERSEN       809.58
-## 7   TORGERSEN       692.42
-## 8   TORGERSEN       768.32
-## 9   TORGERSEN       617.21
-## 10  TORGERSEN       848.40
-## 11  TORGERSEN       646.38
-## 12  TORGERSEN       653.94
-## 13  TORGERSEN       723.36
-## 14  TORGERSEN       818.32
-## 15  TORGERSEN       730.06
-## 16  TORGERSEN       651.48
-## 17  TORGERSEN       735.30
-## 18  TORGERSEN       879.75
-## 19  TORGERSEN       632.96
-## 20  TORGERSEN       989.00
-## 21     BISCOE       691.74
-## 22     BISCOE       704.99
-## 23     BISCOE       689.28
-## 24     BISCOE       691.42
-## 25     BISCOE       667.36
-## 26     BISCOE       667.17
-## 27     BISCOE       755.16
-## 28     BISCOE       724.95
-## 29     BISCOE       704.94
-## 30     BISCOE       765.45
-## 31      DREAM       659.65
-## 32      DREAM       673.32
-## 33      DREAM       703.10
-## 34      DREAM       773.01
-## 35      DREAM       618.80
-## 36      DREAM       827.12
-## 37      DREAM       776.00
-## 38      DREAM       780.70
-## 39      DREAM       725.68
-## 40      DREAM       760.18
-## 41      DREAM       657.00
-## 42      DREAM       750.72
-## 43      DREAM       666.00
-## 44      DREAM       868.77
-## 45      DREAM       625.30
-## 46      DREAM       744.48
-## 47      DREAM       780.90
-## 48      DREAM       708.75
-## 49      DREAM       644.40
-## 50      DREAM       896.76
-## 51     BISCOE       700.92
-## 52     BISCOE       757.89
-## 53     BISCOE       626.50
-## 54     BISCOE       819.00
-## 55     BISCOE       624.45
-## 56     BISCOE       770.04
-## 57     BISCOE       682.50
-## 58     BISCOE       763.28
-## 59     BISCOE       605.90
-## 60     BISCOE       718.16
-## 61     BISCOE       603.33
-## 62     BISCOE       871.43
-## 63     BISCOE       639.20
-## 64     BISCOE       748.02
-## 65     BISCOE       622.44
-## 66     BISCOE       748.80
-## 67     BISCOE       575.10
-## 68     BISCOE       785.01
-## 69  TORGERSEN       595.94
-## 70  TORGERSEN       810.92
-## 71  TORGERSEN       636.50
-## 72  TORGERSEN       730.48
-## 73  TORGERSEN       681.12
-## 74  TORGERSEN       865.62
-## 75  TORGERSEN       621.25
-## 76  TORGERSEN       791.80
-## 77  TORGERSEN       687.12
-## 78  TORGERSEN       721.68
-## 79  TORGERSEN       582.82
-## 80  TORGERSEN       804.11
-## 81  TORGERSEN       595.12
-## 82  TORGERSEN       755.04
-## 83  TORGERSEN       689.96
-## 84  TORGERSEN       680.94
-## 85      DREAM       663.94
-## 86      DREAM       838.39
-## 87      DREAM       707.85
-## 88      DREAM       686.34
-## 89      DREAM       735.36
-## 90      DREAM       731.32
-## 91      DREAM       642.60
-## 92      DREAM       743.91
-## 93      DREAM       581.40
-## 94      DREAM       716.76
-## 95      DREAM       626.26
-## 96      DREAM       771.12
-## 97      DREAM       708.66
-## 98      DREAM       745.55
-## 99      DREAM       532.91
-## 100     DREAM       799.20
-## 101    BISCOE       626.50
-## 102    BISCOE       820.00
-## 103    BISCOE       603.20
-## 104    BISCOE       756.00
-## 105    BISCOE       704.94
-## 106    BISCOE       750.33
-## 107    BISCOE       663.92
-## 108    BISCOE       764.00
-## 109    BISCOE       647.70
-## 110    BISCOE       820.80
-## 111    BISCOE       628.65
-## 112    BISCOE       925.68
-## 113    BISCOE       702.69
-## 114    BISCOE       822.90
-## 115    BISCOE       819.72
-## 116    BISCOE       781.41
-## 117 TORGERSEN       656.20
-## 118 TORGERSEN       764.65
-## 119 TORGERSEN       606.90
-## 120 TORGERSEN       764.46
-## 121 TORGERSEN       622.64
-## 122 TORGERSEN       746.46
-## 123 TORGERSEN       683.40
-## 124 TORGERSEN       765.90
-## 125 TORGERSEN       559.68
-## 126 TORGERSEN       771.40
-## 127 TORGERSEN       682.88
-## 128 TORGERSEN       759.45
-## 129 TORGERSEN       666.90
-## 130 TORGERSEN       793.80
-## 131 TORGERSEN       689.15
-## 132 TORGERSEN       827.52
-## 133     DREAM       680.80
-## 134     DREAM       693.75
-## 135     DREAM       670.56
-## 136     DREAM       719.25
-## 137     DREAM       623.00
-## 138     DREAM       808.02
-## 139     DREAM       610.50
-## 140     DREAM       710.63
-## 141     DREAM       687.42
-## 142     DREAM       698.32
-## 143     DREAM       497.55
-## 144     DREAM       691.90
-## 145     DREAM       626.64
-## 146     DREAM       729.30
-## 147     DREAM       729.12
-## 148     DREAM       673.44
-## 149     DREAM       640.80
-## 150     DREAM       684.18
-## 151     DREAM       615.60
-## 152     DREAM       767.75
-## 153    BISCOE       608.52
-## 154    BISCOE       815.00
-## 155    BISCOE       686.67
-## 156    BISCOE       760.00
-## 157    BISCOE       690.20
-## 158    BISCOE       627.75
-## 159    BISCOE       662.84
-## 160    BISCOE       714.51
-## 161    BISCOE       580.22
-## 162    BISCOE       720.72
-## 163    BISCOE       560.33
-## 164    BISCOE       788.90
-## 165    BISCOE       623.35
-## 166    BISCOE       706.64
-## 167    BISCOE       668.68
-## 168    BISCOE       774.01
-## 169    BISCOE       567.00
-## 170    BISCOE       747.84
-## 171    BISCOE       669.90
-## 172    BISCOE       735.37
-## 173    BISCOE       717.86
-## 174    BISCOE       653.95
-## 175    BISCOE       674.25
-## 176    BISCOE       731.54
-## 177    BISCOE       561.99
-## 178    BISCOE       696.11
-## 179    BISCOE       636.35
-## 180    BISCOE       717.00
-## 181    BISCOE       689.26
-## 182    BISCOE       765.00
-## 183    BISCOE       723.69
-## 184    BISCOE       607.76
-## 185    BISCOE       653.95
-## 186    BISCOE      1013.20
-## 187    BISCOE       726.68
-## 188    BISCOE       788.92
-## 189    BISCOE       583.62
-## 190    BISCOE       768.12
-## 191    BISCOE       598.40
-## 192    BISCOE       764.59
-## 193    BISCOE       584.99
-## 194    BISCOE       793.60
-## 195    BISCOE       620.61
-## 196    BISCOE       744.00
-## 197    BISCOE       802.95
-## 198    BISCOE       606.04
-## 199    BISCOE       632.45
-## 200    BISCOE       802.95
-## 201    BISCOE       597.17
-## 202    BISCOE       714.16
-## 203    BISCOE       661.72
-## 204    BISCOE       683.85
-## 205    BISCOE       649.44
-## 206    BISCOE       751.50
-## 207    BISCOE       669.60
-## 208    BISCOE       693.00
-## 209    BISCOE       608.82
-## 210    BISCOE       682.50
-## 211    BISCOE       626.40
-## 212    BISCOE       771.12
-## 213    BISCOE       625.14
-## 214    BISCOE       688.38
-## 215    BISCOE       635.23
-## 216    BISCOE       852.51
-## 217    BISCOE       650.36
-## 218    BISCOE       836.64
-## 219    BISCOE       665.28
-## 220    BISCOE       801.90
-## 221    BISCOE       617.70
-## 222    BISCOE       760.50
-## 223    BISCOE       715.50
-## 224    BISCOE       723.84
-## 225    BISCOE       751.92
-## 226    BISCOE       688.20
-## 227    BISCOE       696.00
-## 228    BISCOE       777.60
-## 229    BISCOE       674.50
-## 230    BISCOE       832.93
-## 231    BISCOE       623.76
-## 232    BISCOE       741.28
-## 233    BISCOE       711.95
-## 234    BISCOE       819.00
-## 235    BISCOE       692.04
-## 236    BISCOE       795.00
-## 237    BISCOE       619.62
-## 238    BISCOE       878.84
-## 239    BISCOE       624.96
-## 240    BISCOE       728.46
-## 241    BISCOE       665.00
-## 242    BISCOE       885.70
-## 243    BISCOE       712.50
-## 244    BISCOE       892.62
-## 245    BISCOE       659.75
-## 246    BISCOE       796.95
-## 247    BISCOE       654.15
-## 248    BISCOE       797.56
-## 249    BISCOE       780.52
-## 250    BISCOE       684.74
-## 251    BISCOE       696.96
-## 252    BISCOE       843.15
-## 253    BISCOE       727.50
-## 254    BISCOE       950.30
-## 255    BISCOE       731.60
-## 256    BISCOE       736.50
-## 257    BISCOE       652.74
-## 258    BISCOE       753.48
-## 259    BISCOE       612.99
-## 260    BISCOE       843.72
-## 261    BISCOE       606.20
-## 262    BISCOE       726.31
-## 263    BISCOE       767.60
-## 264    BISCOE       791.82
-## 265    BISCOE       661.20
-## 266    BISCOE       839.45
-## 267    BISCOE       651.42
-## 268    BISCOE       881.60
-## 269    BISCOE       698.65
-## 270    BISCOE       790.56
-## 271    BISCOE       646.64
-## 272    BISCOE           NA
-## 273    BISCOE       669.24
-## 274    BISCOE       791.28
-## 275    BISCOE       668.96
-## 276    BISCOE       803.39
-## 277     DREAM       832.35
-## 278     DREAM       975.00
-## 279     DREAM       984.96
-## 280     DREAM       848.98
-## 281     DREAM      1043.46
-## 282     DREAM       804.56
-## 283     DREAM       839.02
-## 284     DREAM       933.66
-## 285     DREAM       869.40
-## 286     DREAM      1020.87
-## 287     DREAM       829.48
-## 288     DREAM      1049.51
-## 289     DREAM       813.10
-## 290     DREAM       941.20
-## 291     DREAM       784.89
-## 292     DREAM       989.80
-## 293     DREAM      1006.00
-## 294     DREAM      1032.40
-## 295     DREAM       863.04
-## 296     DREAM       895.44
-## 297     DREAM       733.52
-## 298     DREAM       848.75
-## 299     DREAM       717.12
-## 300     DREAM       981.64
-## 301     DREAM       835.93
-## 302     DREAM       988.00
-## 303     DREAM       929.20
-## 304     DREAM       940.50
-## 305     DREAM       825.92
-## 306     DREAM      1056.00
-## 307     DREAM       678.94
-## 308     DREAM      1127.36
-## 309     DREAM       709.75
-## 310     DREAM       958.80
-## 311     DREAM       924.42
-## 312     DREAM       798.00
-## 313     DREAM       871.08
-## 314     DREAM      1076.40
-## 315     DREAM       778.54
-## 316     DREAM      1064.65
-## 317     DREAM       955.50
-## 318     DREAM       808.50
-## 319     DREAM       972.19
-## 320     DREAM       773.50
-## 321     DREAM       911.11
-## 322     DREAM       939.80
-## 323     DREAM       896.79
-## 324     DREAM       960.40
-## 325     DREAM       963.05
-## 326     DREAM       861.54
-## 327     DREAM       788.84
-## 328     DREAM       976.60
-## 329     DREAM       790.61
-## 330     DREAM       998.79
-## 331     DREAM       735.25
-## 332     DREAM       981.36
-## 333     DREAM       750.32
-## 334     DREAM       981.07
-## 335     DREAM       943.76
-## 336     DREAM       884.64
-## 337     DREAM      1012.05
-## 338     DREAM       772.20
-## 339     DREAM       776.90
-## 340     DREAM      1104.84
-## 341     DREAM       787.35
-## 342     DREAM       902.72
-## 343     DREAM       965.20
-## 344     DREAM       938.74
+##        island bill_area_mm2
+## 1   TORGERSEN        731.17
+## 2   TORGERSEN        687.30
+## 3   TORGERSEN        725.40
+## 4   TORGERSEN            NA
+## 5   TORGERSEN        708.31
+## 6   TORGERSEN        809.58
+## 7   TORGERSEN        692.42
+## 8   TORGERSEN        768.32
+## 9   TORGERSEN        617.21
+## 10  TORGERSEN        848.40
+## 11  TORGERSEN        646.38
+## 12  TORGERSEN        653.94
+## 13  TORGERSEN        723.36
+## 14  TORGERSEN        818.32
+## 15  TORGERSEN        730.06
+## 16  TORGERSEN        651.48
+## 17  TORGERSEN        735.30
+## 18  TORGERSEN        879.75
+## 19  TORGERSEN        632.96
+## 20  TORGERSEN        989.00
+## 21     BISCOE        691.74
+## 22     BISCOE        704.99
+## 23     BISCOE        689.28
+## 24     BISCOE        691.42
+## 25     BISCOE        667.36
+## 26     BISCOE        667.17
+## 27     BISCOE        755.16
+## 28     BISCOE        724.95
+## 29     BISCOE        704.94
+## 30     BISCOE        765.45
+## 31      DREAM        659.65
+## 32      DREAM        673.32
+## 33      DREAM        703.10
+## 34      DREAM        773.01
+## 35      DREAM        618.80
+## 36      DREAM        827.12
+## 37      DREAM        776.00
+## 38      DREAM        780.70
+## 39      DREAM        725.68
+## 40      DREAM        760.18
+## 41      DREAM        657.00
+## 42      DREAM        750.72
+## 43      DREAM        666.00
+## 44      DREAM        868.77
+## 45      DREAM        625.30
+## 46      DREAM        744.48
+## 47      DREAM        780.90
+## 48      DREAM        708.75
+## 49      DREAM        644.40
+## 50      DREAM        896.76
+## 51     BISCOE        700.92
+## 52     BISCOE        757.89
+## 53     BISCOE        626.50
+## 54     BISCOE        819.00
+## 55     BISCOE        624.45
+## 56     BISCOE        770.04
+## 57     BISCOE        682.50
+## 58     BISCOE        763.28
+## 59     BISCOE        605.90
+## 60     BISCOE        718.16
+## 61     BISCOE        603.33
+## 62     BISCOE        871.43
+## 63     BISCOE        639.20
+## 64     BISCOE        748.02
+## 65     BISCOE        622.44
+## 66     BISCOE        748.80
+## 67     BISCOE        575.10
+## 68     BISCOE        785.01
+## 69  TORGERSEN        595.94
+## 70  TORGERSEN        810.92
+## 71  TORGERSEN        636.50
+## 72  TORGERSEN        730.48
+## 73  TORGERSEN        681.12
+## 74  TORGERSEN        865.62
+## 75  TORGERSEN        621.25
+## 76  TORGERSEN        791.80
+## 77  TORGERSEN        687.12
+## 78  TORGERSEN        721.68
+## 79  TORGERSEN        582.82
+## 80  TORGERSEN        804.11
+## 81  TORGERSEN        595.12
+## 82  TORGERSEN        755.04
+## 83  TORGERSEN        689.96
+## 84  TORGERSEN        680.94
+## 85      DREAM        663.94
+## 86      DREAM        838.39
+## 87      DREAM        707.85
+## 88      DREAM        686.34
+## 89      DREAM        735.36
+## 90      DREAM        731.32
+## 91      DREAM        642.60
+## 92      DREAM        743.91
+## 93      DREAM        581.40
+## 94      DREAM        716.76
+## 95      DREAM        626.26
+## 96      DREAM        771.12
+## 97      DREAM        708.66
+## 98      DREAM        745.55
+## 99      DREAM        532.91
+## 100     DREAM        799.20
+## 101    BISCOE        626.50
+## 102    BISCOE        820.00
+## 103    BISCOE        603.20
+## 104    BISCOE        756.00
+## 105    BISCOE        704.94
+## 106    BISCOE        750.33
+## 107    BISCOE        663.92
+## 108    BISCOE        764.00
+## 109    BISCOE        647.70
+## 110    BISCOE        820.80
+## 111    BISCOE        628.65
+## 112    BISCOE        925.68
+## 113    BISCOE        702.69
+## 114    BISCOE        822.90
+## 115    BISCOE        819.72
+## 116    BISCOE        781.41
+## 117 TORGERSEN        656.20
+## 118 TORGERSEN        764.65
+## 119 TORGERSEN        606.90
+## 120 TORGERSEN        764.46
+## 121 TORGERSEN        622.64
+## 122 TORGERSEN        746.46
+## 123 TORGERSEN        683.40
+## 124 TORGERSEN        765.90
+## 125 TORGERSEN        559.68
+## 126 TORGERSEN        771.40
+## 127 TORGERSEN        682.88
+## 128 TORGERSEN        759.45
+## 129 TORGERSEN        666.90
+## 130 TORGERSEN        793.80
+## 131 TORGERSEN        689.15
+## 132 TORGERSEN        827.52
+## 133     DREAM        680.80
+## 134     DREAM        693.75
+## 135     DREAM        670.56
+## 136     DREAM        719.25
+## 137     DREAM        623.00
+## 138     DREAM        808.02
+## 139     DREAM        610.50
+## 140     DREAM        710.63
+## 141     DREAM        687.42
+## 142     DREAM        698.32
+## 143     DREAM        497.55
+## 144     DREAM        691.90
+## 145     DREAM        626.64
+## 146     DREAM        729.30
+## 147     DREAM        729.12
+## 148     DREAM        673.44
+## 149     DREAM        640.80
+## 150     DREAM        684.18
+## 151     DREAM        615.60
+## 152     DREAM        767.75
+## 153    BISCOE        608.52
+## 154    BISCOE        815.00
+## 155    BISCOE        686.67
+## 156    BISCOE        760.00
+## 157    BISCOE        690.20
+## 158    BISCOE        627.75
+## 159    BISCOE        662.84
+## 160    BISCOE        714.51
+## 161    BISCOE        580.22
+## 162    BISCOE        720.72
+## 163    BISCOE        560.33
+## 164    BISCOE        788.90
+## 165    BISCOE        623.35
+## 166    BISCOE        706.64
+## 167    BISCOE        668.68
+## 168    BISCOE        774.01
+## 169    BISCOE        567.00
+## 170    BISCOE        747.84
+## 171    BISCOE        669.90
+## 172    BISCOE        735.37
+## 173    BISCOE        717.86
+## 174    BISCOE        653.95
+## 175    BISCOE        674.25
+## 176    BISCOE        731.54
+## 177    BISCOE        561.99
+## 178    BISCOE        696.11
+## 179    BISCOE        636.35
+## 180    BISCOE        717.00
+## 181    BISCOE        689.26
+## 182    BISCOE        765.00
+## 183    BISCOE        723.69
+## 184    BISCOE        607.76
+## 185    BISCOE        653.95
+## 186    BISCOE       1013.20
+## 187    BISCOE        726.68
+## 188    BISCOE        788.92
+## 189    BISCOE        583.62
+## 190    BISCOE        768.12
+## 191    BISCOE        598.40
+## 192    BISCOE        764.59
+## 193    BISCOE        584.99
+## 194    BISCOE        793.60
+## 195    BISCOE        620.61
+## 196    BISCOE        744.00
+## 197    BISCOE        802.95
+## 198    BISCOE        606.04
+## 199    BISCOE        632.45
+## 200    BISCOE        802.95
+## 201    BISCOE        597.17
+## 202    BISCOE        714.16
+## 203    BISCOE        661.72
+## 204    BISCOE        683.85
+## 205    BISCOE        649.44
+## 206    BISCOE        751.50
+## 207    BISCOE        669.60
+## 208    BISCOE        693.00
+## 209    BISCOE        608.82
+## 210    BISCOE        682.50
+## 211    BISCOE        626.40
+## 212    BISCOE        771.12
+## 213    BISCOE        625.14
+## 214    BISCOE        688.38
+## 215    BISCOE        635.23
+## 216    BISCOE        852.51
+## 217    BISCOE        650.36
+## 218    BISCOE        836.64
+## 219    BISCOE        665.28
+## 220    BISCOE        801.90
+## 221    BISCOE        617.70
+## 222    BISCOE        760.50
+## 223    BISCOE        715.50
+## 224    BISCOE        723.84
+## 225    BISCOE        751.92
+## 226    BISCOE        688.20
+## 227    BISCOE        696.00
+## 228    BISCOE        777.60
+## 229    BISCOE        674.50
+## 230    BISCOE        832.93
+## 231    BISCOE        623.76
+## 232    BISCOE        741.28
+## 233    BISCOE        711.95
+## 234    BISCOE        819.00
+## 235    BISCOE        692.04
+## 236    BISCOE        795.00
+## 237    BISCOE        619.62
+## 238    BISCOE        878.84
+## 239    BISCOE        624.96
+## 240    BISCOE        728.46
+## 241    BISCOE        665.00
+## 242    BISCOE        885.70
+## 243    BISCOE        712.50
+## 244    BISCOE        892.62
+## 245    BISCOE        659.75
+## 246    BISCOE        796.95
+## 247    BISCOE        654.15
+## 248    BISCOE        797.56
+## 249    BISCOE        780.52
+## 250    BISCOE        684.74
+## 251    BISCOE        696.96
+## 252    BISCOE        843.15
+## 253    BISCOE        727.50
+## 254    BISCOE        950.30
+## 255    BISCOE        731.60
+## 256    BISCOE        736.50
+## 257    BISCOE        652.74
+## 258    BISCOE        753.48
+## 259    BISCOE        612.99
+## 260    BISCOE        843.72
+## 261    BISCOE        606.20
+## 262    BISCOE        726.31
+## 263    BISCOE        767.60
+## 264    BISCOE        791.82
+## 265    BISCOE        661.20
+## 266    BISCOE        839.45
+## 267    BISCOE        651.42
+## 268    BISCOE        881.60
+## 269    BISCOE        698.65
+## 270    BISCOE        790.56
+## 271    BISCOE        646.64
+## 272    BISCOE            NA
+## 273    BISCOE        669.24
+## 274    BISCOE        791.28
+## 275    BISCOE        668.96
+## 276    BISCOE        803.39
+## 277     DREAM        832.35
+## 278     DREAM        975.00
+## 279     DREAM        984.96
+## 280     DREAM        848.98
+## 281     DREAM       1043.46
+## 282     DREAM        804.56
+## 283     DREAM        839.02
+## 284     DREAM        933.66
+## 285     DREAM        869.40
+## 286     DREAM       1020.87
+## 287     DREAM        829.48
+## 288     DREAM       1049.51
+## 289     DREAM        813.10
+## 290     DREAM        941.20
+## 291     DREAM        784.89
+## 292     DREAM        989.80
+## 293     DREAM       1006.00
+## 294     DREAM       1032.40
+## 295     DREAM        863.04
+## 296     DREAM        895.44
+## 297     DREAM        733.52
+## 298     DREAM        848.75
+## 299     DREAM        717.12
+## 300     DREAM        981.64
+## 301     DREAM        835.93
+## 302     DREAM        988.00
+## 303     DREAM        929.20
+## 304     DREAM        940.50
+## 305     DREAM        825.92
+## 306     DREAM       1056.00
+## 307     DREAM        678.94
+## 308     DREAM       1127.36
+## 309     DREAM        709.75
+## 310     DREAM        958.80
+## 311     DREAM        924.42
+## 312     DREAM        798.00
+## 313     DREAM        871.08
+## 314     DREAM       1076.40
+## 315     DREAM        778.54
+## 316     DREAM       1064.65
+## 317     DREAM        955.50
+## 318     DREAM        808.50
+## 319     DREAM        972.19
+## 320     DREAM        773.50
+## 321     DREAM        911.11
+## 322     DREAM        939.80
+## 323     DREAM        896.79
+## 324     DREAM        960.40
+## 325     DREAM        963.05
+## 326     DREAM        861.54
+## 327     DREAM        788.84
+## 328     DREAM        976.60
+## 329     DREAM        790.61
+## 330     DREAM        998.79
+## 331     DREAM        735.25
+## 332     DREAM        981.36
+## 333     DREAM        750.32
+## 334     DREAM        981.07
+## 335     DREAM        943.76
+## 336     DREAM        884.64
+## 337     DREAM       1012.05
+## 338     DREAM        772.20
+## 339     DREAM        776.90
+## 340     DREAM       1104.84
+## 341     DREAM        787.35
+## 342     DREAM        902.72
+## 343     DREAM        965.20
+## 344     DREAM        938.74
 ```
 
 ---
@@ -4324,7 +4331,7 @@ We now can illustrate the joins
 
 ## SQL **INNER join** 
 
-&lt;img src="https://www.w3schools.com/sql/img_innerjoin.gif" width="15    %"&gt;
+&lt;img src="https://www.w3schools.com/sql/img_innerjoin.gif" width="50%"&gt;
 
 - `chs_individual` has 1100 rows
 - `chs_regional` has 10 rows
@@ -4347,7 +4354,7 @@ nrow(ans)
 
 ## SQL **LEFT join** 
 
-&lt;img src="https://www.w3schools.com/sql/img_leftjoin.gif" width="15%"&gt;
+&lt;img src="https://www.w3schools.com/sql/img_leftjoin.gif" width="50%"&gt;
 
 - `chs_individual` has 1100 rows
 - `chs_regional` has 10 rows
@@ -4369,7 +4376,7 @@ nrow(ans)
 
 ## SQL **RIGHT join** 
 
-&lt;img src="https://www.w3schools.com/sql/img_rightjoin.gif" width="15%"&gt;
+&lt;img src="https://www.w3schools.com/sql/img_rightjoin.gif" width="50%"&gt;
 
 - `chs_individual` has 1100 rows
 - `chs_regional` has 10 rows
@@ -4391,7 +4398,7 @@ nrow(ans)
 
 ## SQL **FULL join** 
 
-&lt;img src="https://www.w3schools.com/sql/img_fulljoin.gif" width="15%"&gt;
+&lt;img src="https://www.w3schools.com/sql/img_fulljoin.gif" width="50%"&gt;
 
 - `chs_individual` has 1100 rows
 - `chs_regional` has 10 rows
@@ -4402,15 +4409,16 @@ ans &lt;- dbGetQuery(con,
   "SELECT *
   FROM individual AS a FULL JOIN regional AS b 
   ON a.townname = b.townname")
+nrow(ans)
 ```
 
-You would get an error: "RIGHT and FULL OUTER JOINS are not currently supported Execution halted
+You would get an error: "RIGHT and FULL OUTER JOINS are not currently supported Execution halted"
 
 ---
 
 ## SQL **FULL join** (cont.)
 
-&lt;img src="https://www.w3schools.com/sql/img_fulljoin.gif" width="15%"&gt;
+&lt;img src="https://www.w3schools.com/sql/img_fulljoin.gif" width="50%"&gt;
 
 - `chs_individual` has 1100 rows
 - `chs_regional` has 10 rows
@@ -4445,7 +4453,7 @@ Step 1: Let's break things
 ```r
 chs_individual2 &lt;- subset(
   chs_individual, !(townname %in% chs_regional$townname)
-  )
+)
 
 unique(chs_individual2$townname)
 ```
@@ -4504,8 +4512,55 @@ nrow(ans)
 dbDisconnect(con)
 ```
 
+---
+
+What happens when we have multiple matching records in both tables?
 
 
+```r
+con &lt;- dbConnect(SQLite(), ":memory:")
+dbWriteTable(con, "regional_dpl", rbind(chs_regional, chs_regional))
+
+nrow(rbind(chs_regional, chs_regional))
+```
+
+```
+## [1] 20
+```
+
+```r
+ans &lt;- dbGetQuery(con,
+  "SELECT * FROM regional_dpl AS a LEFT JOIN regional_dpl AS b 
+    ON a.townname = b.townname
+  UNION
+  SELECT * FROM regional_dpl AS a LEFT JOIN regional_dpl AS b 
+    ON a.townname = b.townname
+  ")
+nrow(ans)
+```
+
+```
+## [1] 10
+```
+
+---
+
+
+```r
+ans &lt;- dbGetQuery(con,
+  "SELECT * FROM regional_dpl AS a INNER JOIN regional_dpl AS b 
+    ON a.townname = b.townname
+  ")
+nrow(ans)
+```
+
+```
+## [1] 40
+```
+
+```r
+dbDisconnect(con)
+```
 
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
@@ -4556,6 +4611,19 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
 (function() {
   "use strict"
   // Replace <script> tags in slides area to make them executable
