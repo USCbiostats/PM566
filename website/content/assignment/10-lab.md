@@ -39,7 +39,7 @@ dbWriteTable(con, "payment", payment)
 dbListTables(con)
 ```
 
-TIP: Use can use the following QUERY to see the structure of a table
+TIP: You can use the following QUERY to see the structure of a table
 
 
 ```sql
@@ -52,7 +52,7 @@ https://www.w3schools.com/sql/
 
 # Exercise 1
 
-Retrive the actor ID, first name and last name for all actors using the `actor` table. Sort by last name and then by first name.
+Edit the code below to retrieve the actor ID, first name and last name for all actors using the `actor` table. Sort by last name and then by first name (note that the code chunk below is set up to run SQL code rather than R code).
 
 
 ```sql
@@ -63,7 +63,7 @@ ORDER by
 
 # Exercise 2
 
-Retrive the actor ID, first name, and last name for actors whose last name equals 'WILLIAMS' or 'DAVIS'.
+Retrieve the actor ID, first name, and last name for actors whose last name equals 'WILLIAMS' or 'DAVIS'.
 
 
 ```sql
@@ -74,7 +74,7 @@ WHERE ___ IN ('WILLIAMS', 'DAVIS')
 
 # Exercise 3
 
-Write a query against the `rental` table that returns the IDs of the customers who rented a film on July 5, 2005 (use the rental.rental_date column, and you can use the date() function to ignore the time component). Include a single row for each distinct customer ID. 
+Write a query against the `rental` table that returns the IDs of the customers who rented a film on July 5, 2005 (use the rental.rental_date column, and you can use the `date()` function to ignore the time component). Include a single row for each distinct customer ID. 
 
 
 ```sql
@@ -86,7 +86,7 @@ WHERE date(___) = '2005-07-05'
 
 ## Exercise 4.1
 
-Construct a query that retrives all rows from the `payment` table where the amount is either 1.99, 7.99, 9.99.
+Construct a query that retrieves all rows from the `payment` table where the amount is either 1.99, 7.99, 9.99.
 
 
 ```sql
@@ -97,7 +97,7 @@ WHERE ___ IN (1.99, 7.99, 9.99)
 
 ## Exercise 4.2
 
-Construct a query that retrives all rows from the `payment` table where the amount is greater then 5
+Construct a query that retrieves all rows from the `payment` table where the amount is greater then 5.
 
 
 ```sql
@@ -108,7 +108,7 @@ WHERE
 
 ## Exercise 4.2
 
-Construct a query that retrives all rows from the `payment` table where the amount is greater then 5 and less then 8
+Construct a query that retrieves all rows from the `payment` table where the amount is greater then 5 and less then 8.
 
 
 ```sql
@@ -118,7 +118,7 @@ WHERE ___ AND ___
 ```
 # Exercise 5
 
-Retrive all the payment IDs and their amount from the customers whose last name is 'DAVIS'.
+Retrieve all the payment IDs and their amounts from the customers whose last name is 'DAVIS'.
 
 
 ```sql
@@ -133,7 +133,7 @@ AND
 
 ## Exercise 6.1
 
-Use `COUNT(*)` to count the number of rows in `rental`
+Use `COUNT(*)` to count the number of rows in `rental`.
 
 
 ```sql
@@ -142,7 +142,7 @@ Use `COUNT(*)` to count the number of rows in `rental`
 
 ## Exercise 6.2
 
-Use `COUNT(*)` and `GROUP BY` to count the number of rentals for each `customer_id`
+Use `COUNT(*)` and `GROUP BY` to count the number of rentals for each `customer_id`.
 
 
 ```sql
@@ -150,7 +150,7 @@ Use `COUNT(*)` and `GROUP BY` to count the number of rentals for each `customer_
 ```
 ## Exercise 6.3
 
-Repeat the previous query and sort by the count in descending order
+Repeat the previous query and sort by the count in descending order.
 
 
 ```sql
@@ -177,7 +177,7 @@ The following query calculates a number of summary statistics for the payment ta
 
 ## Exercise 7.1
 
-Modify the above query to do those calculations for each `customer_id`
+Modify the above query to do those calculations for each `customer_id`.
 
 
 ```sql
@@ -185,7 +185,7 @@ Modify the above query to do those calculations for each `customer_id`
 ```
 ## Exercise 7.2
 
-Modify the above query to only keep the `customer_id`s that have more then 5 payments
+Modify the above query to only keep the `customer_id`s that have more then 5 payments.
 
 
 ```sql

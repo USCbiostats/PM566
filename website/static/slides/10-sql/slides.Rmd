@@ -1,7 +1,7 @@
 ---
 title: "SQL"
 subtitle: "PM566 - Week 11"
-author: "Emil Hvitfeldt<br>(presented by George G Vega Yon)"
+author: "Emil Hvitfeldt<br>(presented by Kelly Street)"
 date: ""
 output:
   xaringan::moon_reader:
@@ -86,7 +86,7 @@ These slides were originally developed by Emil Hvitfeldt and modified by George 
 
 - See what relational databases are
 - How to query a relational database with SQL
-- How SQL have similaties with dplyr
+- Similarities between SQL and dplyr
 
 ---
 
@@ -174,7 +174,7 @@ Each table in a relational database contains information that uniquely identifie
 
 some columns contain shared information across tables.
 
-These columns are called *foreign keys* and they serve the purpose of connection the rows in different tables together
+These columns are called *foreign keys* and they serve the purpose of connecting the rows in different tables together
 
 ---
 
@@ -182,9 +182,9 @@ These columns are called *foreign keys* and they serve the purpose of connection
 
 - **Entity** Something of interest to the users
 - **Column** An individual peice of data stored in a table
-- **Row** A set of columns thatt together completely describe an entity or some action on an entity. Also called a **record**
+- **Row** A set of columns that together completely describe an entity or some action on an entity. Also called a **record**
 - **Table** A set of rows
-- **Result key** Another name for a nonpersistent table, generally the result of a SQL query
+- **Result key** Another name for a non-persistent table, generally the result of a SQL query
 - **Primary key** One or more columns that can be used as a unique identifier for each row in a table
 - **Foreign key** One or more columns that can be used together to identify a single row in another table
 
@@ -233,7 +233,7 @@ All examples shown with SQLite
 # SQL query clauses
 
 - **SELECT** Determines which columns to include the query's result set
-- **FROM** Identifies the tables from which to retrive daat and how the tables should be joined
+- **FROM** Identifies the tables from which to retrieve data and how the tables should be joined
 - **WHERE** Filters out unwanted data
 - **GROUP BY** Used to group rows together by common column values
 - **HAVING** Filters out unwanted groups
@@ -279,7 +279,7 @@ x2
 
 ```{sql, connection=con, output.var="x3"}
 SELECT upper(island) AS island,
-  bill_length_mm * bill_depth_mm AS bill_area_mm
+  bill_length_mm * bill_depth_mm AS bill_area_mm2
 FROM penguins
 ```
 
@@ -601,7 +601,7 @@ We now can illustrate the joins
 
 ## SQL **INNER join** 
 
-<img src="https://www.w3schools.com/sql/img_innerjoin.gif" width="15    %">
+<img src="https://www.w3schools.com/sql/img_innerjoin.gif" width="50%">
 
 - `chs_individual` has `r nrow(chs_individual)` rows
 - `chs_regional` has `r nrow(chs_regional)` rows
@@ -619,7 +619,7 @@ nrow(ans)
 
 ## SQL **LEFT join** 
 
-<img src="https://www.w3schools.com/sql/img_leftjoin.gif" width="15%">
+<img src="https://www.w3schools.com/sql/img_leftjoin.gif" width="50%">
 
 - `chs_individual` has `r nrow(chs_individual)` rows
 - `chs_regional` has `r nrow(chs_regional)` rows
@@ -636,7 +636,7 @@ nrow(ans)
 
 ## SQL **RIGHT join** 
 
-<img src="https://www.w3schools.com/sql/img_rightjoin.gif" width="15%">
+<img src="https://www.w3schools.com/sql/img_rightjoin.gif" width="50%">
 
 - `chs_individual` has `r nrow(chs_individual)` rows
 - `chs_regional` has `r nrow(chs_regional)` rows
@@ -653,7 +653,7 @@ nrow(ans)
 
 ## SQL **FULL join** 
 
-<img src="https://www.w3schools.com/sql/img_fulljoin.gif" width="15%">
+<img src="https://www.w3schools.com/sql/img_fulljoin.gif" width="50%">
 
 - `chs_individual` has `r nrow(chs_individual)` rows
 - `chs_regional` has `r nrow(chs_regional)` rows
@@ -663,15 +663,16 @@ ans <- dbGetQuery(con,
   "SELECT *
   FROM individual AS a FULL JOIN regional AS b 
   ON a.townname = b.townname")
+nrow(ans)
 ```
 
-You would get an error: "RIGHT and FULL OUTER JOINS are not currently supported Execution halted
+You would get an error: "RIGHT and FULL OUTER JOINS are not currently supported Execution halted"
 
 ---
 
 ## SQL **FULL join** (cont.)
 
-<img src="https://www.w3schools.com/sql/img_fulljoin.gif" width="15%">
+<img src="https://www.w3schools.com/sql/img_fulljoin.gif" width="50%">
 
 - `chs_individual` has `r nrow(chs_individual)` rows
 - `chs_regional` has `r nrow(chs_regional)` rows
@@ -697,11 +698,10 @@ Step 1: Let's break things
 ```{r}
 chs_individual2 <- subset(
   chs_individual, !(townname %in% chs_regional$townname)
-  )
+)
 
 unique(chs_individual2$townname)
 chs_regional$townname
-
 ```
 
 ---
@@ -740,7 +740,7 @@ dbDisconnect(con)
 What happens when we have multiple matching records in both tables?
 
 ```{r, warning=FALSE}
-
+con <- dbConnect(SQLite(), ":memory:")
 dbWriteTable(con, "regional_dpl", rbind(chs_regional, chs_regional))
 
 nrow(rbind(chs_regional, chs_regional))
