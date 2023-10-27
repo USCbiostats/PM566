@@ -601,7 +601,7 @@ We now can illustrate the joins
 
 ## SQL **INNER join** 
 
-<img src="https://www.w3schools.com/sql/img_innerjoin.gif" width="50%">
+<img src="https://www.w3schools.com/sql/img_innerjoin.gif" width="15%">
 
 - `chs_individual` has `r nrow(chs_individual)` rows
 - `chs_regional` has `r nrow(chs_regional)` rows
@@ -619,7 +619,7 @@ nrow(ans)
 
 ## SQL **LEFT join** 
 
-<img src="https://www.w3schools.com/sql/img_leftjoin.gif" width="50%">
+<img src="https://www.w3schools.com/sql/img_leftjoin.gif" width="15%">
 
 - `chs_individual` has `r nrow(chs_individual)` rows
 - `chs_regional` has `r nrow(chs_regional)` rows
@@ -636,7 +636,7 @@ nrow(ans)
 
 ## SQL **RIGHT join** 
 
-<img src="https://www.w3schools.com/sql/img_rightjoin.gif" width="50%">
+<img src="https://www.w3schools.com/sql/img_rightjoin.gif" width="15%">
 
 - `chs_individual` has `r nrow(chs_individual)` rows
 - `chs_regional` has `r nrow(chs_regional)` rows
@@ -653,7 +653,7 @@ nrow(ans)
 
 ## SQL **FULL join** 
 
-<img src="https://www.w3schools.com/sql/img_fulljoin.gif" width="50%">
+<img src="https://www.w3schools.com/sql/img_fulljoin.gif" width="15%">
 
 - `chs_individual` has `r nrow(chs_individual)` rows
 - `chs_regional` has `r nrow(chs_regional)` rows
@@ -672,7 +672,7 @@ You would get an error: "RIGHT and FULL OUTER JOINS are not currently supported 
 
 ## SQL **FULL join** (cont.)
 
-<img src="https://www.w3schools.com/sql/img_fulljoin.gif" width="50%">
+<img src="https://www.w3schools.com/sql/img_fulljoin.gif" width="15%">
 
 - `chs_individual` has `r nrow(chs_individual)` rows
 - `chs_regional` has `r nrow(chs_regional)` rows
