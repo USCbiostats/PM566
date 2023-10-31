@@ -161,7 +161,7 @@ Repeat the previous query but use `HAVING` to only keep the groups with 40 or mo
 
 # Exercise 7
 
-The following query calculates a number of summary statistics for the payment table using `MAX`, `MIN`, `AVG` and `SUM`
+Write a query that calculates a number of summary statistics for the payment table using `MAX`, `MIN`, `AVG` and `SUM`
 
 ```{sql, connection=con}
 
