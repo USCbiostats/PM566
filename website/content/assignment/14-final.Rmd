@@ -70,7 +70,7 @@ See the checklist below for additional details about the website requirements:
     project, like title, brief description, etc.</span>
 
 5.  <span dir="ltr">The `README.md` file should provide a link to the website, e.g.
-    https://<USERNAME>.github.io/pm566-project.</span>
+    https://USERNAME.github.io/pm566-project.</span>
 
 6.  <span dir="ltr">Have a `data` folder with either the dataset or
     instructions about how to acquire it. You should provide the
