@@ -4,8 +4,6 @@ output: tufte::tufte_html
 date: 2023-11-17
 ---
 
-# Final Project
-
 Due date: Friday December 8th, 2023
 
 **Learning Objective**: To apply the skills learned in
