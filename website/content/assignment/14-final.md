@@ -6,9 +6,7 @@ date: 2023-11-17
 
 # Final Project
 
-- Presentation (5 minutes): Friday December 1st, 2023
-
-- Written report (single spaced, 6-8 pages where 3-4 pages are tables and figures): Friday December 8th, 2023.
+Due date: Friday December 8th, 2023
 
 **Learning Objective**: To apply the skills learned in
 PM 566 by analyzing and interpreting a dataset of your choice.
@@ -17,15 +15,14 @@ PM 566 by analyzing and interpreting a dataset of your choice.
 portfolio of data science projects that will become seminal for your job hunt.
 
 Using the dataset from your midterm, make sure you have
-formulated a clear and concise question to answer. You will apply the
-skills learned throughout the semester to answer this question.
+formulated a clear and concise question to answer. You will apply the skills learned throughout the semester to answer this question.
 
-**Deliverables**: 1) A 5-minute presentation where you
-walk us through your website; 2) A written report with embedded tables
-and figures that is submitted as a PDF to a final project-specific
-GitHub repository *and* as a downloadable link on your website.
-Please see the checklist below for additional
-details.
+## Deliverables
+- Written report (single spaced, 6-8 pages where 3-4 pages are tables and figures)
+- Website (summarize your analysis, include interactive figures, provide a link to download the full written report)
+
+### Written report
+The actual analysis should be included in the PDF report. The PDF report can refer to interactive visualizations included in the website, but otherwise all figures and tables should be included in the PDF.
 
 The report should have the following sections (elaborate
 from what was written in the midterm):
@@ -38,11 +35,11 @@ tables and figures from your analysis, make separate subsections as needed),
 and a brief **Conclusion and Summary** where
 you describe your findings.
 
-In your report, please do not include code (so make sure
-`echo = FALSE`), unformatted output, or dataset summaries (e.g. output
-from head(), str(), etc.)
+In your report, please do not include any code (so make sure
+`echo = FALSE`), unformatted output, or dataset summaries (e.g. output from head(), str(), etc.)
 
-## Checklist for Final Project
+### Website Checklist
+See the checklist below for additional details about the website requirements:
 
 1.  <span dir="ltr">**Create a website** (HTML document and all the
     required files, including figures). It should feature:</span>
@@ -62,34 +59,22 @@ from head(), str(), etc.)
         extra pages to the website. We will only evaluate the homepage
         of the website.</span>
         
-        The actual analysis should be included in the PDF
-        report. **The PDF report can refer to visualizations included in the
-        website**.
 2.  <span dir="ltr">**Upload everything**, source code, website files,
     and PDF report, to the GitHub repository.</span>
 
 3.  <span dir="ltr">Make sure that the **website**, which is to be
     **hosted in GitHub pages**, actually **works**, i.e., figures and
     interactive visualizations are properly rendered when visiting the
-    website..</span>
+    website.</span>
 
-4.  <span dir="ltr">**Have a README.md file** in the upper level of
+4.  <span dir="ltr">Have a `README.md` file in the upper level of
     the repository. This file provides general information about the
     project, like title, brief description, etc.</span>
 
-5.  <span dir="ltr">The **README.md file links to the website**, e.g.
-    https://username.github.io/pm566-project, .</span>
+5.  <span dir="ltr">The `README.md` file should provide a link to the website, e.g.
+    https://<USERNAME>.github.io/pm566-project.</span>
 
-6.  <span dir="ltr">Have a **“data” folder** with either the data or
+6.  <span dir="ltr">Have a `data` folder with either the dataset or
     instructions about how to acquire it. You should provide the
-    instructions in a README.md within that folder.</span>
-
-7.  <span dir="ltr">**(optional)** Your document is **fully
-    reproducible**, meaning you don’t have paths to files not shared
-    in the repository. For example, if you are loading a dataset with
-    “fread,” it should be something like
-    “fread(“https://data.com/dataset.csv”),” so you are directly
-    using data online, or “fread(“data/dataset.csv”),” so the data
-    needed has been shared on GitHub and is contained in the path
-    “data/dataset.csv.”</span>
+    instructions in a `README.md` file within that folder.</span>
 
