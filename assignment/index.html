@@ -502,10 +502,10 @@ Interactive Visualization I and II   Using your midterm/final project data, crea
       <h2><a href="/PM566/assignment/14-final/" >Final Project</a></h2>
       <div class="article-style">
         
-          Final Project   Presentation (5 minutes): Friday December 1st, 2023
-  Written report (single spaced, 6-8 pages where 3-4 pages are tables and figures): Friday December 8th, 2023.
-  Learning Objective: To apply the skills learned in PM 566 by analyzing and interpreting a dataset of your choice.
+          Final Project Due date: Friday December 8th, 2023
+Learning Objective: To apply the skills learned in PM 566 by analyzing and interpreting a dataset of your choice.
 Narrative: Through this project you will launch a portfolio of data science projects that will become seminal for your job hunt.
+Using the dataset from your midterm, make sure you have formulated a clear and concise question to answer. You will apply the skills learned throughout the semester to answer this question.
         
       </div>
     </div>
@@ -573,9 +573,9 @@ Learning Goals  Download, read, and get familiar with an external dataset. Step 
       <div class="article-style">
         
           Due Date This assignment is due by midnight Pacific Time, November 17th, 2023.
-The learning objectives are to conduct data scraping and perform text mining.
-HPC Problem 1: Make things run faster Rewrite the following R functions to make them faster. It is OK (and recommended) to take a look at Stackoverflow and Google
-# Total row sums fun1 &lt;- function(mat) { n &lt;- nrow(mat) ans &lt;- double(n) for (i in 1:n) { ans[i] &lt;- sum(mat[i, ]) } ans } fun1alt &lt;- function(mat) { # YOUR CODE HERE } # Cumulative sum by row fun2 &lt;- function(mat) { n &lt;- nrow(mat) k &lt;- ncol(mat) ans &lt;- mat for (i in 1:n) { for (j in 2:k) { ans[i,j] &lt;- mat[i, j] + ans[i, j - 1] } } ans } fun2alt &lt;- function(mat) { # YOUR CODE HERE } # Use the data with this code set.
+The learning objectives are to write faster code for computational task requiring a loop and to implement some queries and basic data wrangling in SQL.
+HPC Make things run faster Rewrite the following R functions to make them faster. It is OK (and recommended) to take a look at StackOverflow and Google
+# Total row sums fun1 &lt;- function(mat) { n &lt;- nrow(mat) ans &lt;- double(n) for (i in 1:n) { ans[i] &lt;- sum(mat[i, ]) } ans } fun1alt &lt;- function(mat) { # YOUR CODE HERE } # Cumulative sum by row fun2 &lt;- function(mat) { n &lt;- nrow(mat) k &lt;- ncol(mat) ans &lt;- mat for (i in 1:n) { for (j in 2:k) { ans[i,j] &lt;- mat[i, j] + ans[i, j - 1] } } ans } fun2alt &lt;- function(mat) { # YOUR CODE HERE }  Question 1 Using the dataset generated below (dat), check that the output of both of your new functions matches the output of the original functions.
         
       </div>
     </div>
