@@ -15,6 +15,9 @@ To upload materials, take a look at [this guide](adding-materials.md).
 
 # Previous iterations
 
+The contents of the Fall 2023 version of the class can be found
+[here](https://github.com/USCbiostats/PM566/tree/fall2023).
+
 The contents of the Fall 2022 version of the class can be found
 [here](https://github.com/USCbiostats/PM566/tree/fall2022).
 
