@@ -56,18 +56,18 @@ collection of knowledge about
 
 ---
 
-![](img/data-science-drew-conway.jpg){fig-align="center"}
+![](https://wenbinfei.github.io/images/Data-Science-VD.jpg){fig-align="center"}
 
 ---
 
 - Data science is an exciting discipline that allows you to turn raw data into understanding, insight, and knowledge.
 
-![](img/data-science.png){fig-align="center"}
+![](https://miro.medium.com/v2/resize:fit:1034/1*BsYkSrXgHeaT5f7jvo7JMw.png){fig-align="center"}
 
 
 ---
 
-<img src="img/demand.png" style="width:800px;">
+![](https://www.datasciencecentral.com/wp-content/uploads/2021/10/8562938082.png){fig-align="center"}
 
 (Also see [here](https://www.amstat.org/asa/News/New-Report-Highlights-Growing-Demand-for-Data-Science-Analytics-Talent.aspx), 
 and [here](https://www.ibm.com/downloads/cas/3RL3VXGA),
@@ -159,7 +159,7 @@ We won't have to use the command line too much in this class, but understanding 
 
 At USC, the Center for Advanced Research Computing (CARC) provides students and faculty with high-performance computing capabilities. The interface for working on CARC is entirely text based, meaning it operates via a command line.
 
-![](https://www.carc.usc.edu/images/CARC-cyberinfrastructure.png){fig-align="center"}
+![](https://www.carc.usc.edu/images/CARC-cyberinfrastructure-md.webp){fig-align="center"}
 
 [https://www.carc.usc.edu/](https://www.carc.usc.edu/)
 
@@ -186,19 +186,19 @@ Over 16,000 packages added to CRAN
 
 ---
 
-![](img/moderndive-r-vs-rstudio.png){fig-align="center"}
+![](moderndive-r-vs-rstudio.png){fig-align="center"}
 
 ---
 
 ## R in the terminal
 
-![](img/r-command-line.png){fig-align="center"}
+![](r-command-line.png){fig-align="center"}
 
 ---
 
 ## R + RStudio
 
-![](img/rstudio-now.png){fig-align="center"}
+![](rstudio-now.png){fig-align="center"}
 
 ---
 
@@ -209,13 +209,13 @@ Following break we will run Lab 1
 
 # Dataset
 
-![](img/datasaurus1.png)
+![](datasaurus1.png)
 
 ---
 
 # Dataset
 
-![](img/datasaurus2.png)
+![](datasaurus2.png)
 
 # First Lab
 
