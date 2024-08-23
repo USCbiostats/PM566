@@ -246,28 +246,21 @@ that will be featured in the class.&lt;/p&gt;
       <link>https://uscbiostats.github.io/PM566/class/01-class/</link>
       <pubDate>Fri, 25 Aug 2023 00:00:00 +0000</pubDate>
       <guid>https://uscbiostats.github.io/PM566/class/01-class/</guid>
-      <description>
-&lt;!-- BLOGDOWN-HEAD --&gt;
-&lt;script src=&#34;https://uscbiostats.github.io/PM566/PM566/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
-&lt;!-- /BLOGDOWN-HEAD --&gt;
-
-
-&lt;div id=&#34;lab-exercise&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Lab Exercise&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://uscbiostats.github.io/PM566/PM566/assignment/01-lab&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://github.com/USCbiostats/PM566/blob/master/website/static/labs/lab-01/pm566-01-lab.zip&#34;&gt;Download&lt;/a&gt; (click the “download” icon on the right, near the “Raw” button, then unzip the file)&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;slides&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Slides&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://uscbiostats.github.io/PM566/PM566/slides/01-welcome/week1.html&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;links&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Links&lt;/h2&gt;
+      <description>&lt;h2 id=&#34;lab-exercise&#34;&gt;Lab Exercise&lt;/h2&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://uscbiostats.github.io/PM566/PM566/assignment/01-lab&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://github.com/USCbiostats/PM566/blob/master/website/static/labs/lab-01/pm566-01-lab.zip&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Download&lt;/a&gt; (click the “download” icon on the right, near the “Raw” button, then unzip the file)&lt;/p&gt;
+&lt;h2 id=&#34;slides&#34;&gt;Slides&lt;/h2&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://uscbiostats.github.io/PM566/PM566/slides/01-welcome/week1.html&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;links&#34;&gt;Links&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.r-project.org/&#34;&gt;The R Project for Statistical Computing&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.rstudio.com&#34;&gt;R Studio&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://www.r-project.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;The R Project for Statistical Computing&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://www.rstudio.com&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;R Studio&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;/div&gt;
 </description>
     </item>
     
