@@ -22,7 +22,7 @@ editor_options:
 
 ## Lab Exercise
 
-[link](/PM566/assignment/01-lab.html)
+[link](/PM566/assignment/01-lab)
 
 [Download](https://github.com/USCbiostats/PM566/blob/master/website/static/labs/lab-01/pm566-01-lab.zip) (click the “download” icon on the right, near the “Raw” button, then unzip the file)
 
