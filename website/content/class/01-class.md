@@ -28,7 +28,7 @@ editor_options:
 
 ## Slides
 
-[link](/PM566/slides/01-welcome/week1.html)
+[link](/PM566/slides/01-welcome/slides.html)
 
 ## Links
 

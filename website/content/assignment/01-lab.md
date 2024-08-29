@@ -1,5 +1,5 @@
 ---
-title: "Lab 1 - Hello R!"
+title: "Lab 01 - Hello R!"
 output: tufte::tufte_html
 link-citations: true
 ---
@@ -35,8 +35,27 @@ Go to the [CRAN](https://cran.r-project.org/) and download R, make sure you get 
 
 If you have R installed run the following code
 
-```{r}
+
+``` r
 R.version
+```
+
+```
+##                _                           
+## platform       x86_64-apple-darwin20       
+## arch           x86_64                      
+## os             darwin20                    
+## system         x86_64, darwin20            
+## status                                     
+## major          4                           
+## minor          3.3                         
+## year           2024                        
+## month          02                          
+## day            29                          
+## svn rev        86002                       
+## language       R                           
+## version.string R version 4.3.3 (2024-02-29)
+## nickname       Angel Food Cake
 ```
 
 This should tell you what version of R you are currently using. If your R version is lower then 4.3.0, I would strongly recommend updating. In general, it is a good idea to keep your R version up to date, unless you have a project right now that depends on a specific version of R.
@@ -50,7 +69,9 @@ We recommend using RStudio as your IDE if you don't already have it installed. Y
 
 RStudio is comprised of four panes.
 
-![](rstudio-anatomy.png)
+![](/PM566/assignment-img/rstudio-anatomy.png)
+
+
 
 - On the bottom left is the Console, this is where you can write code that will be evaluated. Try typing `2 + 2` here and hit enter, what do you get?
 
@@ -93,13 +114,15 @@ R is an open-source language with a vibrant community of users and developers. D
 
 You can load this package with the following command:
 
-```{r message=FALSE}
+
+``` r
 library(datasauRus)
 ```
 
 If you haven't installed it yet and R complains, then you can install the package by running the following command (note that R package names are case-sensitive)"
 
-```{r, eval = FALSE}
+
+``` r
 install.packages("datasauRus")
 ```
 
@@ -134,7 +157,8 @@ To find out more about the dataset, type the following in your Console: `?datasa
 
 Let's take a look at what these datasets are. To start, we can make a *frequency table* of the dataset variable:
 
-```{r, eval=FALSE}
+
+``` r
 table(datasaurus_dozen$dataset)
 ```
 Here, we used the `$` operator to access a specific column (variable) of the dataset. Then we used the `table` function to summarize that variable. `table` is great for quickly summarizing categorical variables, but it's not very useful for summarizing continuous variables, where most unique values are only present once. For continuous variables, try the `summary` function.
@@ -153,7 +177,8 @@ We're going to start by subsetting our data down to just the `dino` dataset.
 
 ### Subsetting
 
-```{r}
+
+``` r
 dino_data <- datasaurus_dozen[datasaurus_dozen$dataset == 'dino', ]
 ```
 
@@ -169,7 +194,8 @@ In R (as in Python and many other programming languages), we can check whether o
 
 Next, we need to visualize these data. We will use the `plot` function for this, which is R's most basic plotting function. If you provide the `plot` function with two numeric vectors, it will plot them in a scatter plot. Let's see what happens when we plot the `x` and `y` variables from our `dino_data` object:
 
-```{r eval=FALSE}
+
+``` r
 plot(dino_data$x, dino_data$y)
 # ggplot(data = dino_data, mapping = aes(x = x, y = y)) +
 #   geom_point()
@@ -179,11 +205,12 @@ plot(dino_data$x, dino_data$y)
 
 We will talk a lot more about the philosophy of data visualization, how to choose the right plot type, and constructing visualizations in layers in the coming weeks. But for now, you can follow along with the code that is provided.
 
-For the second part of these exercises, we need to calculate a summary statistic: the correlation coefficient. The correlation coefficient, often referred to as $r$ in statistics, measures the linear association between two variables. You will see that some of the pairs of variables we plot do not have a linear relationship between them. This is exactly why we want to visualize first: visualize to assess the form of the relationship, and calculate $r$ only if relevant. In this case, calculating a correlation coefficient really doesn't make sense since the relationship between `x` and `y` is definitely not linear -- it's dinosaurial!
+For the second part of these exercises, we need to calculate a summary statistic: the correlation coefficient. The correlation coefficient, often referred to as `\(r\)` in statistics, measures the linear association between two variables. You will see that some of the pairs of variables we plot do not have a linear relationship between them. This is exactly why we want to visualize first: visualize to assess the form of the relationship, and calculate `\(r\)` only if relevant. In this case, calculating a correlation coefficient really doesn't make sense since the relationship between `x` and `y` is definitely not linear -- it's dinosaurial!
 
 But, for illustrative purposes, let's calculate correlation coefficient between `x` and `y`. Like `plot`, the `cor` function takes two numeric variables and calculates their correlation coefficient:
 
-```{r, eval=FALSE}
+
+``` r
 cor(dino_data$x, dino_data$y)
 # dino_data |>
 #   summarize(r = cor(x, y))
@@ -205,7 +232,8 @@ Now let's plot all 13 datasets at once. In order to do this we will make use of 
 
 Then we use a `for` loop to perform a set of actions over every `unique` value of the `dataset` variable. This creates a new object, called `name`, that takes on each of those unique values, but it only exists within the context (interior) of the loop. Then we subset and plot the data, as we have before.
 
-```{r all-viz, eval=FALSE}
+
+``` r
 layout(matrix(1:16, nrow=4, ncol=4))
 for(name in unique(datasaurus_dozen$dataset)){
   subset <- datasaurus_dozen[datasaurus_dozen$dataset == name, ]
@@ -214,7 +242,8 @@ for(name in unique(datasaurus_dozen$dataset)){
 layout(1)
 ```
 
-```{r ggall-viz, eval=FALSE}
+
+``` r
 # ggplot(datasaurus_dozen, aes(x = x, y = y, color = dataset))+
 #   geom_point()+
 #   facet_wrap(~ dataset, ncol = 3) +
@@ -230,14 +259,16 @@ The second call to `layout` will reset the plotting window, so that the next plo
 
 Finally, we want to calculate the correlation between the `x` and `y` variables for all 13 datasets. Like before, we will use a loop, but this time, since we want to return a specific value every time through the loop, we will use the `sapply` function. `sapply` is useful way to apply a function to every element of a vector. In this case, we provide the vector of `unique` dataset names (like before) and then our own custom `function`. This function subsets the data as before, and then `return`s the correlation coefficient as the output of the function.
 
-```{r all-r, eval=FALSE}
+
+``` r
 sapply(unique(datasaurus_dozen$dataset), function(name){
     subset <- datasaurus_dozen[datasaurus_dozen$dataset == name, ]
     return(cor(subset$x, subset$y))
 })
 ```
 
-```{r ggall-r, eval=FALSE}
+
+``` r
 # datasaurus_dozen |>
 #   group_by(dataset) |>
 #   summarize(r = cor(x, y))
