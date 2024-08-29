@@ -26,7 +26,7 @@ editor_options:
 
 ## Slides
 
-[link](/PM566/slides/04-visualization/slides.html)
+[link](/PM566/slides/04-visualization/week4.html)
 
 ## Links
 
