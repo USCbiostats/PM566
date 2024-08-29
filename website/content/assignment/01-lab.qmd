@@ -1,5 +1,6 @@
 ---
 title: "Lab 1 - Hello R!"
+output: tufte::tufte_html
 link-citations: true
 ---
 
