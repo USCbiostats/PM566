@@ -26,7 +26,7 @@ editor_options:
 
 ## Slides
 
-[link](/PM566/slides/02-version-control/slides.html)
+[link](/PM566/slides/02-version-control/week2.html)
 
 ## Links
 
