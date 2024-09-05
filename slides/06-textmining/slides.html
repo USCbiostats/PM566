@@ -3,8 +3,8 @@
   <head>
     <title>Text Mining</title>
     <meta charset="utf-8" />
-    <meta name="author" content="Emil Hvitfeldt" />
-    <script src="libs/header-attrs-2.8/header-attrs.js"></script>
+    <meta name="author" content="Emil Hvitfeldt and Kelly Street" />
+    <script src="libs/header-attrs-2.28/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="theme.css" type="text/css" />
   </head>
@@ -12,9 +12,15 @@
     <textarea id="source">
 class: center, middle, title-slide
 
+.title[
 # Text Mining
+]
+.subtitle[
 ## PM566 - Week 6
-### Emil Hvitfeldt
+]
+.author[
+### Emil Hvitfeldt and Kelly Street
+]
 
 ---
 
@@ -64,7 +70,7 @@ Works seemlessly with ggplot2, dplyr and tidyr.
 Download the alice dataset from https://USCBiostats.github.io/PM566/slides/06-textmining/alice.rds (or from [here](alice.rds))
 
 
-```r
+``` r
 library(tidyverse)
 alice &lt;- readRDS("alice.rds")
 alice
@@ -84,7 +90,7 @@ alice
 ##  8 "conversations in it, “and what is the use of a book,” …       1 CHAPTER I.  
 ##  9 "“without pictures or conversations?”"                         1 CHAPTER I.  
 ## 10 ""                                                             1 CHAPTER I.  
-## # … with 3,341 more rows
+## # ℹ 3,341 more rows
 ```
 
 ---
@@ -111,9 +117,9 @@ In English:
 # Turning the data into a tidy format
 
 
-```r
+``` r
 library(tidytext)
-alice %&gt;%
+alice |&gt;
   unnest_tokens(token, text)
 ```
 
@@ -131,7 +137,7 @@ alice %&gt;%
 ##  8       1 CHAPTER I.   was      
 ##  9       1 CHAPTER I.   beginning
 ## 10       1 CHAPTER I.   to       
-## # … with 26,677 more rows
+## # ℹ 26,677 more rows
 ```
 
 ---
@@ -146,9 +152,9 @@ Now that we have words as the observation unit we can use the **dplyr** toolbox.
 
 .pull-left[
 
-```r
+``` r
 library(dplyr)
-alice %&gt;%
+alice |&gt;
   unnest_tokens(token, text)
 ```
 ]
@@ -169,7 +175,7 @@ alice %&gt;%
 ##  8       1 CHAPTER I.   was      
 ##  9       1 CHAPTER I.   beginning
 ## 10       1 CHAPTER I.   to       
-## # … with 26,677 more rows
+## # ℹ 26,677 more rows
 ```
 ]
 
@@ -179,10 +185,10 @@ alice %&gt;%
 
 .pull-left[
 
-```r
+``` r
 library(dplyr)
-alice %&gt;%
-  unnest_tokens(token, text) %&gt;%
+alice |&gt;
+  unnest_tokens(token, text) |&gt;
   count(token)
 ```
 ]
@@ -203,7 +209,7 @@ alice %&gt;%
 ##  8 _beg_        1
 ##  9 _began_      1
 ## 10 _best_       2
-## # … with 2,730 more rows
+## # ℹ 2,730 more rows
 ```
 ]
 
@@ -213,10 +219,10 @@ alice %&gt;%
 
 .pull-left[
 
-```r
+``` r
 library(dplyr)
-alice %&gt;%
-  unnest_tokens(token, text) %&gt;%
+alice |&gt;
+  unnest_tokens(token, text) |&gt;
   count(token, sort = TRUE)
 ```
 ]
@@ -237,7 +243,7 @@ alice %&gt;%
 ##  8 said    460
 ##  9 i       393
 ## 10 alice   386
-## # … with 2,730 more rows
+## # ℹ 2,730 more rows
 ```
 ]
 
@@ -247,10 +253,10 @@ alice %&gt;%
 
 .pull-left[
 
-```r
+``` r
 library(dplyr)
-alice %&gt;%
-  unnest_tokens(token, text) %&gt;%
+alice |&gt;
+  unnest_tokens(token, text) |&gt;
   count(chapter, token)
 ```
 ]
@@ -271,7 +277,7 @@ alice %&gt;%
 ##  8       1 _took            1
 ##  9       1 _very_           4
 ## 10       1 _was_            1
-## # … with 7,539 more rows
+## # ℹ 7,539 more rows
 ```
 ]
 
@@ -281,12 +287,12 @@ alice %&gt;%
 
 .pull-left[
 
-```r
+``` r
 library(dplyr)
-alice %&gt;%
-  unnest_tokens(token, text) %&gt;%
-  group_by(chapter) %&gt;%
-  count(token) %&gt;%
+alice |&gt;
+  unnest_tokens(token, text) |&gt;
+  group_by(chapter) |&gt;
+  count(token) |&gt;
   top_n(10, n)
 ```
 ]
@@ -308,7 +314,7 @@ alice %&gt;%
 ##  8       1 the      92
 ##  9       1 to       75
 ## 10       1 was      52
-## # … with 112 more rows
+## # ℹ 112 more rows
 ```
 ]
 
@@ -318,13 +324,13 @@ alice %&gt;%
 
 .pull-left[
 
-```r
+``` r
 library(dplyr)
 library(ggplot2)
-alice %&gt;%
-  unnest_tokens(token, text) %&gt;%
-  count(token) %&gt;%
-  top_n(10, n) %&gt;%
+alice |&gt;
+  unnest_tokens(token, text) |&gt;
+  count(token) |&gt;
+  top_n(10, n) |&gt;
   ggplot(aes(n, token)) +
   geom_col()
 ```
@@ -340,14 +346,14 @@ alice %&gt;%
 
 .pull-left[
 
-```r
+``` r
 library(dplyr)
 library(ggplot2)
 library(forcats)
-alice %&gt;%
-  unnest_tokens(token, text) %&gt;%
-  count(token) %&gt;%
-  top_n(10, n) %&gt;%
+alice |&gt;
+  unnest_tokens(token, text) |&gt;
+  count(token) |&gt;
+  top_n(10, n) |&gt;
   ggplot(aes(n, fct_reorder(token, n))) +
   geom_col()
 ```
@@ -374,7 +380,7 @@ For more information about differences in stop words and when to remove them rea
 tidytext comes with a data.frame of stop words
 
 
-```r
+``` r
 stop_words
 ```
 
@@ -392,7 +398,7 @@ stop_words
 ##  8 across      SMART  
 ##  9 actually    SMART  
 ## 10 after       SMART  
-## # … with 1,139 more rows
+## # ℹ 1,139 more rows
 ```
 
 ---
@@ -528,10 +534,10 @@ We can use an `anti_join()` to remove the tokens that also appear in the `stop_w
 
 .pull-left[
 
-```r
-alice %&gt;%
-  unnest_tokens(token, text) %&gt;%
-  anti_join(stop_words, by = c("token" = "word")) %&gt;%
+``` r
+alice |&gt;
+  unnest_tokens(token, text) |&gt;
+  anti_join(stop_words, by = c("token" = "word")) |&gt;
   count(token, sort = TRUE)
 ```
 ]
@@ -552,7 +558,7 @@ alice %&gt;%
 ##  8 mock       56
 ##  9 turtle     56
 ## 10 gryphon    55
-## # … with 2,304 more rows
+## # ℹ 2,304 more rows
 ```
 ]
 
@@ -563,10 +569,10 @@ alice %&gt;%
 
 .pull-left[
 
-```r
-alice %&gt;%
-  unnest_tokens(word, text) %&gt;%
-  anti_join(stop_words, by = c("word")) %&gt;%
+``` r
+alice |&gt;
+  unnest_tokens(word, text) |&gt;
+  anti_join(stop_words, by = c("word")) |&gt;
   count(word, sort = TRUE)
 ```
 ]
@@ -587,7 +593,7 @@ alice %&gt;%
 ##  8 mock       56
 ##  9 turtle     56
 ## 10 gryphon    55
-## # … with 2,304 more rows
+## # ℹ 2,304 more rows
 ```
 ]
 
@@ -598,12 +604,12 @@ alice %&gt;%
 
 .pull-left[
 
-```r
-alice %&gt;%
-  unnest_tokens(word, text) %&gt;%
-  anti_join(stop_words, by = c("word")) %&gt;%
-  count(word, sort = TRUE) %&gt;%
-  top_n(10, n) %&gt;%
+``` r
+alice |&gt;
+  unnest_tokens(word, text) |&gt;
+  anti_join(stop_words, by = c("word")) |&gt;
+  count(word, sort = TRUE) |&gt;
+  top_n(10, n) |&gt;
   ggplot(aes(n, fct_reorder(word, n))) +
   geom_col()
 ```
@@ -632,8 +638,8 @@ alice %&gt;%
 We can extract bigrams using `unnest_ngrams()` with `n = 2`
 
 
-```r
-alice %&gt;%
+``` r
+alice |&gt;
   unnest_ngrams(ngram, text, n = 2)
 ```
 
@@ -651,7 +657,7 @@ alice %&gt;%
 ##  8       1 CHAPTER I.   was beginning
 ##  9       1 CHAPTER I.   beginning to 
 ## 10       1 CHAPTER I.   to get       
-## # … with 25,160 more rows
+## # ℹ 25,160 more rows
 ```
 
 ---
@@ -661,9 +667,9 @@ alice %&gt;%
 Tallying up the bi-grams still shows a lot of stop words but it able to pick up retationhips with patients
 
 
-```r
-alice %&gt;%
-  unnest_ngrams(ngram, text, n = 2) %&gt;%
+``` r
+alice |&gt;
+  unnest_ngrams(ngram, text, n = 2) |&gt;
   count(ngram, sort = TRUE)
 ```
 
@@ -681,7 +687,7 @@ alice %&gt;%
 ##  8 it was        72
 ##  9 to the        68
 ## 10 the queen     60
-## # … with 13,414 more rows
+## # ℹ 13,414 more rows
 ```
 
 ---
@@ -689,10 +695,10 @@ alice %&gt;%
 # Which words appears together?
 
 
-```r
-alice %&gt;%
-  unnest_ngrams(ngram, text, n = 2) %&gt;%
-  separate(ngram, into = c("word1", "word2"), sep = " ") %&gt;%
+``` r
+alice |&gt;
+  unnest_ngrams(ngram, text, n = 2) |&gt;
+  separate(ngram, into = c("word1", "word2"), sep = " ") |&gt;
   select(word1, word2)
 ```
 
@@ -710,17 +716,17 @@ alice %&gt;%
 ##  8 was       beginning
 ##  9 beginning to       
 ## 10 to        get      
-## # … with 25,160 more rows
+## # ℹ 25,160 more rows
 ```
 
 ---
 
 
-```r
-alice %&gt;%
-  unnest_ngrams(ngram, text, n = 2) %&gt;%
-  separate(ngram, into = c("word1", "word2"), sep = " ") %&gt;%
-  select(word1, word2) %&gt;%
+``` r
+alice |&gt;
+  unnest_ngrams(ngram, text, n = 2) |&gt;
+  separate(ngram, into = c("word1", "word2"), sep = " ") |&gt;
+  select(word1, word2) |&gt;
   filter(word1 == "alice")
 ```
 
@@ -738,18 +744,18 @@ alice %&gt;%
 ##  8 alice had    
 ##  9 alice soon   
 ## 10 alice began  
-## # … with 326 more rows
+## # ℹ 326 more rows
 ```
 
 ---
 
 
-```r
-alice %&gt;%
-  unnest_ngrams(ngram, text, n = 2) %&gt;%
-  separate(ngram, into = c("word1", "word2"), sep = " ") %&gt;%
-  select(word1, word2) %&gt;%
-  filter(word1 == "alice") %&gt;%
+``` r
+alice |&gt;
+  unnest_ngrams(ngram, text, n = 2) |&gt;
+  separate(ngram, into = c("word1", "word2"), sep = " ") |&gt;
+  select(word1, word2) |&gt;
+  filter(word1 == "alice") |&gt;
   count(word2, sort = TRUE)
 ```
 
@@ -767,18 +773,18 @@ alice %&gt;%
 ##  8 did         9
 ##  9 in          9
 ## 10 to          9
-## # … with 123 more rows
+## # ℹ 123 more rows
 ```
 
 ---
 
 
-```r
-alice %&gt;%
-  unnest_ngrams(ngram, text, n = 2) %&gt;%
-  separate(ngram, into = c("word1", "word2"), sep = " ") %&gt;%
-  select(word1, word2) %&gt;%
-  filter(word2 == "alice") %&gt;%
+``` r
+alice |&gt;
+  unnest_ngrams(ngram, text, n = 2) |&gt;
+  separate(ngram, into = c("word1", "word2"), sep = " ") |&gt;
+  select(word1, word2) |&gt;
+  filter(word2 == "alice") |&gt;
   count(word1, sort = TRUE)
 ```
 
@@ -796,7 +802,7 @@ alice %&gt;%
 ##  8 so            6
 ##  9 that          5
 ## 10 exclaimed     3
-## # … with 96 more rows
+## # ℹ 96 more rows
 ```
 
 ---
@@ -817,8 +823,8 @@ TF gives weight to terms that appear a lot, IDF gives weight to terms that appea
 
 .pull-left[
 
-```r
-alice %&gt;%
+``` r
+alice |&gt;
   unnest_tokens(text, text)
 ```
 ]
@@ -839,7 +845,7 @@ alice %&gt;%
 ##  8 was             1 CHAPTER I.  
 ##  9 beginning       1 CHAPTER I.  
 ## 10 to              1 CHAPTER I.  
-## # … with 26,677 more rows
+## # ℹ 26,677 more rows
 ```
 ]
 
@@ -849,9 +855,9 @@ alice %&gt;%
 
 .pull-left[
 
-```r
-alice %&gt;%
-  unnest_tokens(text, text) %&gt;%
+``` r
+alice |&gt;
+  unnest_tokens(text, text) |&gt;
   count(text, chapter)
 ```
 ]
@@ -872,7 +878,7 @@ alice %&gt;%
 ##  8 _are_          9     1
 ##  9 _at            9     1
 ## 10 _before       12     1
-## # … with 7,539 more rows
+## # ℹ 7,539 more rows
 ```
 ]
 
@@ -882,10 +888,10 @@ alice %&gt;%
 
 .pull-left[
 
-```r
-alice %&gt;%
-  unnest_tokens(text, text) %&gt;%
-  count(text, chapter) %&gt;%
+``` r
+alice |&gt;
+  unnest_tokens(text, text) |&gt;
+  count(text, chapter) |&gt;
   bind_tf_idf(text, chapter, n)
 ```
 ]
@@ -906,7 +912,7 @@ alice %&gt;%
 ##  8 _are_          9     1 0.000435  1.10 0.000478
 ##  9 _at            9     1 0.000435  2.48 0.00108 
 ## 10 _before       12     1 0.000468  2.48 0.00116 
-## # … with 7,539 more rows
+## # ℹ 7,539 more rows
 ```
 ]
 
@@ -916,11 +922,11 @@ alice %&gt;%
 
 .pull-left[
 
-```r
-alice %&gt;%
-  unnest_tokens(text, text) %&gt;%
-  count(text, chapter) %&gt;%
-  bind_tf_idf(text, chapter, n) %&gt;%
+``` r
+alice |&gt;
+  unnest_tokens(text, text) |&gt;
+  count(text, chapter) |&gt;
+  bind_tf_idf(text, chapter, n) |&gt;
   arrange(desc(tf_idf))
 ```
 ]
@@ -941,9 +947,298 @@ alice %&gt;%
 ##  8 dance            10    13 0.00632  2.48 0.0157
 ##  9 mock              9    26 0.0113   1.39 0.0157
 ## 10 hatter           11    21 0.0110   1.39 0.0153
-## # … with 7,539 more rows
+## # ℹ 7,539 more rows
 ```
 ]
+
+---
+
+# Sentiment Analysis
+
+Also known as "opinion mining," sentiment analysis is a way in which we can use computers to attempt to understand the feelings conveyed by a piece of text. This generally relies on a large, human-compiled database of words with known associations such as "positive" and "negative" or specific feelings like "joy", "surprise", "disgust", etc.
+
+---
+
+# Sentiment Analysis
+
+![](https://www.tidytextmining.com/images/tmwr_0201.png)
+
+
+---
+
+# Sentiment Lexicons
+
+The `tidytext` and `textdata` packages provide access to three different databases of words and their associated sentiments (known as "sentiment lexicons"). Obviously, none of these can be perfect, as there is no "correct" way to quantify feelings, but they all attempt to capture different elements of how a text makes you feel.
+
+The readily available lexicons are:
+ - `afinn` from [Finn Årup Nielsen](http://www2.imm.dtu.dk/pubdb/views/publication_details.php?id=6010)
+ - `bing` from [Bing Liu and collaborators](https://www.cs.uic.edu/~liub/FBS/sentiment-analysis.html)
+ - `nrc` from [Saif Mohammad and Peter Turney](https://saifmohammad.com/WebPages/NRC-Emotion-Lexicon.htm)
+
+---
+
+# Sentiment Lexicons - `bing`
+
+The `bing` lexicon contains a large list of words and a binary association, either "positive" or "negative":
+
+
+``` r
+get_sentiments('bing')
+```
+
+```
+## # A tibble: 6,786 × 2
+##    word        sentiment
+##    &lt;chr&gt;       &lt;chr&gt;    
+##  1 2-faces     negative 
+##  2 abnormal    negative 
+##  3 abolish     negative 
+##  4 abominable  negative 
+##  5 abominably  negative 
+##  6 abominate   negative 
+##  7 abomination negative 
+##  8 abort       negative 
+##  9 aborted     negative 
+## 10 aborts      negative 
+## # ℹ 6,776 more rows
+```
+
+---
+
+# Sentiment Lexicons - `afinn`
+
+The `afinn` lexicon goes slightly further, assigning words a value between -5 and 5 that represents their positivity or negativity.
+
+
+``` r
+get_sentiments('afinn')
+```
+
+```
+## # A tibble: 2,477 × 2
+##    word       value
+##    &lt;chr&gt;      &lt;dbl&gt;
+##  1 abandon       -2
+##  2 abandoned     -2
+##  3 abandons      -2
+##  4 abducted      -2
+##  5 abduction     -2
+##  6 abductions    -2
+##  7 abhor         -3
+##  8 abhorred      -3
+##  9 abhorrent     -3
+## 10 abhors        -3
+## # ℹ 2,467 more rows
+```
+
+---
+
+# Sentiment Lexicons - `nrc`
+
+The `nrc` lexicon takes a different approach and assigns each word an associated sentiment. Some words appear more than once because they have multiple associations:
+
+
+``` r
+get_sentiments('nrc')
+```
+
+```
+## # A tibble: 13,872 × 2
+##    word        sentiment
+##    &lt;chr&gt;       &lt;chr&gt;    
+##  1 abacus      trust    
+##  2 abandon     fear     
+##  3 abandon     negative 
+##  4 abandon     sadness  
+##  5 abandoned   anger    
+##  6 abandoned   fear     
+##  7 abandoned   negative 
+##  8 abandoned   sadness  
+##  9 abandonment anger    
+## 10 abandonment fear     
+## # ℹ 13,862 more rows
+```
+
+---
+
+# Sentiment Analysis
+
+We can use one of these databases to analyze _Alice's Adventures in Wonderland_ by breaking the text down into words and combining the result with a lexicon. Let's use `bing` to assign "positive" and "negative" labels to as many words as possible in the book. (Note that this time the variable created by `unnest_tokens` is called `word`, to match the column name in `bing`).
+
+
+``` r
+alice |&gt;
+  unnest_tokens(word, text) |&gt;
+  inner_join(get_sentiments("bing"))
+```
+
+```
+## Joining with `by = join_by(word)`
+```
+
+```
+## # A tibble: 1,409 × 4
+##    chapter chapter_name word        sentiment
+##      &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;       &lt;chr&gt;    
+##  1       1 CHAPTER I.   tired       negative 
+##  2       1 CHAPTER I.   well        positive 
+##  3       1 CHAPTER I.   hot         positive 
+##  4       1 CHAPTER I.   stupid      negative 
+##  5       1 CHAPTER I.   pleasure    positive 
+##  6       1 CHAPTER I.   worth       positive 
+##  7       1 CHAPTER I.   trouble     negative 
+##  8       1 CHAPTER I.   remarkable  positive 
+##  9       1 CHAPTER I.   burning     negative 
+## 10       1 CHAPTER I.   fortunately positive 
+## # ℹ 1,399 more rows
+```
+
+---
+
+# Sentiment Analysis
+
+We can now group and summarize this new dataset the same as any other. For example, let's look at the sentiment by chapter. We'll do this by counting the number of "positive" words and subtracting the number of "negative" words:
+
+
+``` r
+diff_by_chap &lt;- alice |&gt;
+  unnest_tokens(word, text) |&gt;
+  inner_join(get_sentiments("bing")) |&gt; 
+  group_by(chapter) |&gt; 
+  summarise(sentiment = sum(sentiment == "positive") - sum(sentiment == "negative"))
+```
+
+```
+## Joining with `by = join_by(word)`
+```
+
+
+---
+
+# Sentiment Analysis
+
+
+``` r
+barplot(diff_by_chap$sentiment, names.arg = diff_by_chap$chapter)
+```
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-32-1.png" width="700px" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Sentiment Analysis
+
+Alternatively, we could use the `afinn` lexicon and quantify the "sentiment" of each chapter by the average of all words with numeric associations:
+
+
+``` r
+avg_by_chap &lt;- alice |&gt;
+  unnest_tokens(word, text) |&gt;
+  inner_join(get_sentiments("afinn")) |&gt; 
+  group_by(chapter) |&gt; 
+  summarise(sentiment = mean(value))
+```
+
+```
+## Joining with `by = join_by(word)`
+```
+
+---
+
+# Sentiment Analysis
+
+
+``` r
+barplot(avg_by_chap$sentiment, names.arg = avg_by_chap$chapter)
+```
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-34-1.png" width="700px" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Sentiment Analysis
+
+Similarly, we can find the most frequent sentiment association in the `nrc` lexicon for each chapter. Unfortunately, for all chapters, the most frequent sentiment association ends up being the rather bland "positive" or "negative":
+
+
+``` r
+alice |&gt;
+  unnest_tokens(word, text) |&gt;
+  inner_join(get_sentiments("nrc")) |&gt; 
+  group_by(chapter) |&gt; 
+  summarise(sentiment = names(which.max(table(sentiment))))
+```
+
+```
+## Joining with `by = join_by(word)`
+```
+
+```
+## # A tibble: 12 × 2
+##    chapter sentiment
+##      &lt;int&gt; &lt;chr&gt;    
+##  1       1 positive 
+##  2       2 positive 
+##  3       3 positive 
+##  4       4 positive 
+##  5       5 positive 
+##  6       6 negative 
+##  7       7 positive 
+##  8       8 positive 
+##  9       9 positive 
+## 10      10 positive 
+## 11      11 positive 
+## 12      12 positive
+```
+
+---
+
+# Sentiment Analysis
+
+We'll try to spice things up by removing "positive" and "negative" from the `nrc` lexicon:
+
+
+``` r
+nrc_fun &lt;- get_sentiments("nrc")
+nrc_fun &lt;- nrc_fun[!nrc_fun$sentiment %in% c("positive","negative"), ]
+```
+
+---
+
+# Sentiment Analysis
+
+Now we see a lot of "anticipation":
+
+
+``` r
+alice |&gt;
+  unnest_tokens(word, text) |&gt;
+  inner_join(nrc_fun) |&gt; 
+  group_by(chapter) |&gt; 
+  summarise(sentiment = names(which.max(table(sentiment))))
+```
+
+```
+## Joining with `by = join_by(word)`
+```
+
+```
+## # A tibble: 12 × 2
+##    chapter sentiment   
+##      &lt;int&gt; &lt;chr&gt;       
+##  1       1 anticipation
+##  2       2 anticipation
+##  3       3 sadness     
+##  4       4 anticipation
+##  5       5 trust       
+##  6       6 anticipation
+##  7       7 anticipation
+##  8       8 anticipation
+##  9       9 trust       
+## 10      10 joy         
+## 11      11 anticipation
+## 12      12 trust
+```
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
@@ -993,6 +1288,19 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
 (function() {
   "use strict"
   // Replace <script> tags in slides area to make them executable
