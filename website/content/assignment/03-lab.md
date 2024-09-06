@@ -31,11 +31,9 @@ As you do this, think about what questions you would like to ask regarding this 
 
 We will work with the meteorological data presented in lecture. Recall the dataset consists of weather station readings in the continental US.
 
-**The objectives of the lab are to find the weather station with the highest elevation and look at patterns in the time series of its wind speed and temperature.**
+### **The objectives of the lab are to find the weather station with the highest elevation and look at patterns in the time series of its wind speed and temperature.**
 
-# Steps
-
-### 1. Read in the data
+# 1. Read in the data
 
 First download and then read in with `data.table::fread()`. This is slightly faster than some of the more common functions, such as `read.table`, but it produces a different type of object, which is why we need to convert it into a `data.frame` after reading it in.
 
@@ -51,17 +49,17 @@ met <- data.table::fread(file.path("~", "Downloads", "met_all.gz"))
 met <- as.data.frame(met)
 ```
 
-### 2. Check the dimensions, headers, footers.
+# 2. Check the dimensions, headers, footers.
 
-**How many columns, rows are there? Some useful functions for this are `dim`, `head`, and `tail`**
+### **How many columns, rows are there? Some useful functions for this are `dim`, `head`, and `tail`.**
 
-### 3. Take a look at the variables.
+# 3. Take a look at the variables.
 
-**Show the type (class) of each variable (hint: try the `str` function).**
+### **Show the type (class) of each variable (hint: try the `str` function).**
 
-**What are the names of the key variables related to our question of interest?**
+### **What are the names of the key variables related to our question of interest?**
 
-### 4. Take a closer look at the key variables.
+# 4. Take a closer look at the key variables.
 
 ``` r
 table(met$year)
@@ -128,7 +126,7 @@ summary(met$elev)
     ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
     ##     -13     101     252     413     400    4113     710
 
-**At what elevation is the highest weather station?**
+### **At what elevation is the highest weather station?**
 
 We also have the issue of the minimum temperature being -40C, which seems implausible, so we should remove those observations.
 
@@ -170,9 +168,9 @@ There are still some suspiciously low values for temperature (-17.2C), but we wi
 
 We should also check the wind speed variable for any abnormalities.
 
-**How many missing values are there in the `wind.sp` variable?**
+### **How many missing values are there in the `wind.sp` variable?**
 
-### 5. Check the data against an external data source.
+# 5. Check the data against an external data source.
 
 We should check the suspicious temperature value (where is it located?) and validate that the range of elevations make sense (-13m to 4113m).
 
@@ -180,11 +178,11 @@ Google is your friend here.
 
 Fix any problems that arise in your checks.
 
-**Where was the location for the coldest temperature readings (-17.2C)? Do these seem reasonable in context?**
+### **Where was the location for the coldest temperature readings (-17.2C)? Do these seem reasonable in context?**
 
-**Does the range of values for elevation make sense? Why or why not?**
+### **Does the range of values for elevation make sense? Why or why not?**
 
-### 6. Calculate summary statistics
+# 6. Calculate summary statistics
 
 Remember to keep the initial question in mind. We want to pick out the weather station with maximum elevation and examine its wind speed and temperature.
 
@@ -288,11 +286,11 @@ cor(elev$temp, elev$day, use="complete")
 
 The `use="complete"` argument is another thing we added to avoid compounding `NA`s.
 
-### 7. Exploratory graphs
+# 7. Exploratory graphs
 
 We should look at the distributions of all of the key variables to make sure there are no remaining issues with the data.
 
-**Use the `hist` function to make histograms of the elevation, temperature, and wind speed variables for the whole dataset**
+### **Use the `hist` function to make histograms of the elevation, temperature, and wind speed variables for the whole dataset**
 
 One thing we should consider for later analyses is to log transform wind speed and elevation as they are very skewed.
 
@@ -365,17 +363,21 @@ head(elev)
 
 With the date-time variable we can plot the time series of temperature and wind speed.
 
-**Use the `plot` function to make line graphs of temperature vs. date and wind speed vs. date**
+### **Use the `plot` function to make line graphs of temperature vs. date and wind speed vs. date**
 
-**Summarize any trends that you see in these time series plots.**
+### **Summarize any trends that you see in these time series plots.**
 
-### 8. Ask questions
+# 8. Ask questions
 
-By now, you might have some specific questions about how the data was gathered and what some of the different variables and values mean. Alternatively, maybe you have an idea for how some of the variable should be related and you want to explore that relationship. In a real-world analysis, these questions could potentially be answered by a collaborator, who may have been part of the team that collected the data. What questions do you have about the data?
+By now, you might have some specific questions about how the data was gathered and what some of the different variables and values mean. Alternatively, maybe you have an idea for how some of the variable should be related and you want to explore that relationship. In a real-world analysis, these questions could potentially be answered by a collaborator, who may have been part of the team that collected the data.
+
+### What questions do you have about the data?
 
 If you haven’t already, now would be a good time to look at the accompanying [data dictionary](https://github.com/USCbiostats/data-science-data/blob/master/02_met/met-datadictionary.pdf) for this dataset and see if it can answer any of your questions. If you have questions about the nature of the dataset and how it was gathered, this might be able to help.
 
-For questions about variables in the dataset or relationships between them, try making some more exploratory plots. Do you see the patterns you would expect? There are many different types of summaries and visualization strategies that we have not discussed, but which could provide interesting perspectives on the data.
+### For questions about variables in the dataset or relationships between them, try making some more exploratory plots. Do you see the patterns you would expect?
+
+There are many different types of summaries and visualization strategies that we have not discussed, but which could provide interesting perspectives on the data.
 
 Some other useful plotting functions include:
 - `pairs` for making all pairwise scatter plots in a dataset with \>2 dimensions.
