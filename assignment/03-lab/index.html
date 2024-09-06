@@ -547,8 +547,9 @@ Lab Description We will work with the meteorological data presented in lecture."
   <div class="article-container">
 
     <div class="article-style">
-      <script src="/PM566/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
-<script src="/PM566/rmarkdown-libs/jquery/jquery.min.js"></script>
+      <link href="/PM566/rmarkdown-libs/htmltools-fill/fill.css" rel="stylesheet" />
+<script src="/PM566/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
+<script src="/PM566/rmarkdown-libs/jquery/jquery-3.6.0.min.js"></script>
 <link href="/PM566/rmarkdown-libs/leaflet/leaflet.css" rel="stylesheet" />
 <script src="/PM566/rmarkdown-libs/leaflet/leaflet.js"></script>
 <link href="/PM566/rmarkdown-libs/leafletfix/leafletfix.css" rel="stylesheet" />
@@ -556,7 +557,7 @@ Lab Description We will work with the meteorological data presented in lecture."
 <script src="/PM566/rmarkdown-libs/Proj4Leaflet/proj4leaflet.js"></script>
 <link href="/PM566/rmarkdown-libs/rstudio_leaflet/rstudio_leaflet.css" rel="stylesheet" />
 <script src="/PM566/rmarkdown-libs/leaflet-binding/leaflet.js"></script>
-<script src="/PM566/rmarkdown-libs/leaflet-providers/leaflet-providers_1.9.0.js"></script>
+<script src="/PM566/rmarkdown-libs/leaflet-providers/leaflet-providers_2.0.0.js"></script>
 <script src="/PM566/rmarkdown-libs/leaflet-providers-plugin/leaflet-providers-plugin.js"></script>
 <h1 id="learning-goals">Learning Goals</h1>
 <ul>
@@ -567,10 +568,10 @@ Lab Description We will work with the meteorological data presented in lecture."
 <p>As you do this, think about what questions you would like to ask regarding this data. What would you ask a collaborator who was more familiar with it?</p>
 <h1 id="lab-description">Lab Description</h1>
 <p>We will work with the meteorological data presented in lecture. Recall the dataset consists of weather station readings in the continental US.</p>
-<p><strong>The objective of the lab is to find the weather station with the highest elevation and look at patterns in the time series of its wind speed and temperature.</strong></p>
+<p><strong>The objectives of the lab are to find the weather station with the highest elevation and look at patterns in the time series of its wind speed and temperature.</strong></p>
 <h1 id="steps">Steps</h1>
 <h3 id="1-read-in-the-data">1. Read in the data</h3>
-<p>First download and then read in with data.table:fread()</p>
+<p>First download and then read in with <code>data.table::fread()</code>. This is slightly faster than some of the more common functions, such as <code>read.table</code>, but it produces a different type of object, which is why we need to convert it into a <code>data.frame</code> after reading it in.</p>
 <pre><code class="language-r">download.file(
   &quot;https://raw.githubusercontent.com/USCbiostats/data-science-data/master/02_met/met_all.gz&quot;,
   destfile = file.path(&quot;~&quot;, &quot;Downloads&quot;, &quot;met_all.gz&quot;),
@@ -579,111 +580,13 @@ Lab Description We will work with the meteorological data presented in lecture."
 )
 
 met &lt;- data.table::fread(file.path(&quot;~&quot;, &quot;Downloads&quot;, &quot;met_all.gz&quot;))
+met &lt;- as.data.frame(met)
 </code></pre>
-<h3 id="2-check-the-dimensions-headers-footers-how-many-columns-rows-are-there">2. Check the dimensions, headers, footers. How many columns, rows are there?</h3>
-<pre><code class="language-r">dim(met)
-</code></pre>
-<pre><code>## [1] 2377343      30
-</code></pre>
-<pre><code class="language-r">head(met)
-</code></pre>
-<pre><code>##    USAFID  WBAN year month day hour min  lat      lon elev wind.dir wind.dir.qc
-## 1: 690150 93121 2019     8   1    0  56 34.3 -116.166  696      220           5
-## 2: 690150 93121 2019     8   1    1  56 34.3 -116.166  696      230           5
-## 3: 690150 93121 2019     8   1    2  56 34.3 -116.166  696      230           5
-## 4: 690150 93121 2019     8   1    3  56 34.3 -116.166  696      210           5
-## 5: 690150 93121 2019     8   1    4  56 34.3 -116.166  696      120           5
-## 6: 690150 93121 2019     8   1    5  56 34.3 -116.166  696       NA           9
-##    wind.type.code wind.sp wind.sp.qc ceiling.ht ceiling.ht.qc ceiling.ht.method
-## 1:              N     5.7          5      22000             5                 9
-## 2:              N     8.2          5      22000             5                 9
-## 3:              N     6.7          5      22000             5                 9
-## 4:              N     5.1          5      22000             5                 9
-## 5:              N     2.1          5      22000             5                 9
-## 6:              C     0.0          5      22000             5                 9
-##    sky.cond vis.dist vis.dist.qc vis.var vis.var.qc temp temp.qc dew.point
-## 1:        N    16093           5       N          5 37.2       5      10.6
-## 2:        N    16093           5       N          5 35.6       5      10.6
-## 3:        N    16093           5       N          5 34.4       5       7.2
-## 4:        N    16093           5       N          5 33.3       5       5.0
-## 5:        N    16093           5       N          5 32.8       5       5.0
-## 6:        N    16093           5       N          5 31.1       5       5.6
-##    dew.point.qc atm.press atm.press.qc       rh
-## 1:            5    1009.9            5 19.88127
-## 2:            5    1010.3            5 21.76098
-## 3:            5    1010.6            5 18.48212
-## 4:            5    1011.6            5 16.88862
-## 5:            5    1012.7            5 17.38410
-## 6:            5    1012.7            5 20.01540
-</code></pre>
-<pre><code class="language-r">tail(met)
-</code></pre>
-<pre><code>##    USAFID  WBAN year month day hour min    lat      lon elev wind.dir
-## 1: 726813 94195 2019     8  31   18  56 43.650 -116.633  741       NA
-## 2: 726813 94195 2019     8  31   19  56 43.650 -116.633  741       70
-## 3: 726813 94195 2019     8  31   20  56 43.650 -116.633  741       NA
-## 4: 726813 94195 2019     8  31   21  56 43.650 -116.633  741       10
-## 5: 726813 94195 2019     8  31   22  56 43.642 -116.636  741       10
-## 6: 726813 94195 2019     8  31   23  56 43.642 -116.636  741       40
-##    wind.dir.qc wind.type.code wind.sp wind.sp.qc ceiling.ht ceiling.ht.qc
-## 1:           9              C     0.0          5      22000             5
-## 2:           5              N     2.1          5      22000             5
-## 3:           9              C     0.0          5      22000             5
-## 4:           5              N     2.6          5      22000             5
-## 5:           1              N     2.1          1      22000             1
-## 6:           1              N     2.1          1      22000             1
-##    ceiling.ht.method sky.cond vis.dist vis.dist.qc vis.var vis.var.qc temp
-## 1:                 9        N    16093           5       N          5 30.0
-## 2:                 9        N    16093           5       N          5 32.2
-## 3:                 9        N    16093           5       N          5 33.3
-## 4:                 9        N    14484           5       N          5 35.0
-## 5:                 9        N    16093           1       9          9 34.4
-## 6:                 9        N    16093           1       9          9 34.4
-##    temp.qc dew.point dew.point.qc atm.press atm.press.qc       rh
-## 1:       5      11.7            5    1013.6            5 32.32509
-## 2:       5      12.2            5    1012.8            5 29.40686
-## 3:       5      12.2            5    1011.6            5 27.60422
-## 4:       5       9.4            5    1010.8            5 20.76325
-## 5:       1       9.4            1    1010.1            1 21.48631
-## 6:       1       9.4            1    1009.6            1 21.48631
-</code></pre>
-<p>There are 2,377,343 rows and 30 columns in the met dataset.</p>
+<h3 id="2-check-the-dimensions-headers-footers">2. Check the dimensions, headers, footers.</h3>
+<p><strong>How many columns, rows are there? Some useful functions for this are <code>dim</code>, <code>head</code>, and <code>tail</code></strong></p>
 <h3 id="3-take-a-look-at-the-variables">3. Take a look at the variables.</h3>
-<pre><code class="language-r">str(met)
-</code></pre>
-<pre><code>## Classes 'data.table' and 'data.frame':	2377343 obs. of  30 variables:
-##  $ USAFID           : int  690150 690150 690150 690150 690150 690150 690150 690150 690150 690150 ...
-##  $ WBAN             : int  93121 93121 93121 93121 93121 93121 93121 93121 93121 93121 ...
-##  $ year             : int  2019 2019 2019 2019 2019 2019 2019 2019 2019 2019 ...
-##  $ month            : int  8 8 8 8 8 8 8 8 8 8 ...
-##  $ day              : int  1 1 1 1 1 1 1 1 1 1 ...
-##  $ hour             : int  0 1 2 3 4 5 6 7 8 9 ...
-##  $ min              : int  56 56 56 56 56 56 56 56 56 56 ...
-##  $ lat              : num  34.3 34.3 34.3 34.3 34.3 34.3 34.3 34.3 34.3 34.3 ...
-##  $ lon              : num  -116 -116 -116 -116 -116 ...
-##  $ elev             : int  696 696 696 696 696 696 696 696 696 696 ...
-##  $ wind.dir         : int  220 230 230 210 120 NA 320 10 320 350 ...
-##  $ wind.dir.qc      : chr  &quot;5&quot; &quot;5&quot; &quot;5&quot; &quot;5&quot; ...
-##  $ wind.type.code   : chr  &quot;N&quot; &quot;N&quot; &quot;N&quot; &quot;N&quot; ...
-##  $ wind.sp          : num  5.7 8.2 6.7 5.1 2.1 0 1.5 2.1 2.6 1.5 ...
-##  $ wind.sp.qc       : chr  &quot;5&quot; &quot;5&quot; &quot;5&quot; &quot;5&quot; ...
-##  $ ceiling.ht       : int  22000 22000 22000 22000 22000 22000 22000 22000 22000 22000 ...
-##  $ ceiling.ht.qc    : int  5 5 5 5 5 5 5 5 5 5 ...
-##  $ ceiling.ht.method: chr  &quot;9&quot; &quot;9&quot; &quot;9&quot; &quot;9&quot; ...
-##  $ sky.cond         : chr  &quot;N&quot; &quot;N&quot; &quot;N&quot; &quot;N&quot; ...
-##  $ vis.dist         : int  16093 16093 16093 16093 16093 16093 16093 16093 16093 16093 ...
-##  $ vis.dist.qc      : chr  &quot;5&quot; &quot;5&quot; &quot;5&quot; &quot;5&quot; ...
-##  $ vis.var          : chr  &quot;N&quot; &quot;N&quot; &quot;N&quot; &quot;N&quot; ...
-##  $ vis.var.qc       : chr  &quot;5&quot; &quot;5&quot; &quot;5&quot; &quot;5&quot; ...
-##  $ temp             : num  37.2 35.6 34.4 33.3 32.8 31.1 29.4 28.9 27.2 26.7 ...
-##  $ temp.qc          : chr  &quot;5&quot; &quot;5&quot; &quot;5&quot; &quot;5&quot; ...
-##  $ dew.point        : num  10.6 10.6 7.2 5 5 5.6 6.1 6.7 7.8 7.8 ...
-##  $ dew.point.qc     : chr  &quot;5&quot; &quot;5&quot; &quot;5&quot; &quot;5&quot; ...
-##  $ atm.press        : num  1010 1010 1011 1012 1013 ...
-##  $ atm.press.qc     : int  5 5 5 5 5 5 5 5 5 5 ...
-##  $ rh               : num  19.9 21.8 18.5 16.9 17.4 ...
-##  - attr(*, &quot;.internal.selfref&quot;)=&lt;externalptr&gt;
-</code></pre>
+<p><strong>Show the type (class) of each variable (hint: try the <code>str</code> function).</strong></p>
+<p><strong>What are the names of the key variables related to our question of interest?</strong></p>
 <h3 id="4-take-a-closer-look-at-the-key-variables">4. Take a closer look at the key variables.</h3>
 <pre><code class="language-r">table(met$year)
 </code></pre>
@@ -726,97 +629,62 @@ met &lt;- data.table::fread(file.path(&quot;~&quot;, &quot;Downloads&quot;, &quo
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
 ##    0.00    0.00    2.10    2.46    3.60   36.00   79693
 </code></pre>
-<p>It looks like the elevation variable has observations with 9999.0, which is probably an indicator for missing. We should take a deeper look at the data dictionary to confirm. The wind speed variable is ok but there are a lot of missing data.</p>
+<p>It looks like the elevation variable has observations with 9999.0, which is probably an indicator for missing. We should take a deeper look at the 
+<a href="https://github.com/USCbiostats/data-science-data/blob/master/02_met/met-datadictionary.pdf" target="_blank" rel="noopener">data dictionary</a> to confirm. The wind speed variable is OK but there is a lot of missing data.</p>
 <p>After checking the data we should make the appropriate modifications. Replace elevations with 9999 as <code>NA</code>.</p>
-<pre><code class="language-r">met[met$elev==9999.0] &lt;- NA
+<pre><code class="language-r">met[met$elev==9999.0, ] &lt;- NA
 summary(met$elev)
 </code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
 ##     -13     101     252     413     400    4113     710
 </code></pre>
-<p>At what elevation is the highest weather station?</p>
-<ul>
-<li>The weather station with highest elevation is 4113 meters. This is after replacing 9999.0 values with the appropriate code for “missing”, which is “NA”.</li>
-</ul>
-<p>We also have the issue of the minimum temperature being -40C, so we should remove those observations.</p>
-<pre><code class="language-r">met &lt;- met[temp&gt;-40]
-met2 &lt;- met[order(temp)]
-head(met2)
+<p><strong>At what elevation is the highest weather station?</strong></p>
+<p>We also have the issue of the minimum temperature being -40C, which seems implausible, so we should remove those observations.</p>
+<pre><code class="language-r">met &lt;- met[met$temp &gt; -40, ]
+head(met[order(met$temp), ])
 </code></pre>
-<pre><code>##    USAFID WBAN year month day hour min    lat    lon elev wind.dir wind.dir.qc
-## 1: 722817 3068 2019     8   1    0  56 38.767 -104.3 1838      190           5
-## 2: 722817 3068 2019     8   1    1  56 38.767 -104.3 1838      180           5
-## 3: 722817 3068 2019     8   3   11  56 38.767 -104.3 1838       NA           9
-## 4: 722817 3068 2019     8   3   12  56 38.767 -104.3 1838       NA           9
-## 5: 722817 3068 2019     8   6   21  56 38.767 -104.3 1838      280           5
-## 6: 722817 3068 2019     8   6   22  56 38.767 -104.3 1838      240           5
-##    wind.type.code wind.sp wind.sp.qc ceiling.ht ceiling.ht.qc ceiling.ht.method
-## 1:              N     7.2          5         NA             9                 9
-## 2:              N     7.7          5         NA             9                 9
-## 3:              C     0.0          5         NA             9                 9
-## 4:              C     0.0          5         NA             9                 9
-## 5:              N     2.6          5         NA             9                 9
-## 6:              N     7.7          5         NA             9                 9
-##    sky.cond vis.dist vis.dist.qc vis.var vis.var.qc  temp temp.qc dew.point
-## 1:        N       NA           9       N          5 -17.2       5        NA
-## 2:        N       NA           9       N          5 -17.2       5        NA
-## 3:        N       NA           9       N          5 -17.2       5        NA
-## 4:        N       NA           9       N          5 -17.2       5        NA
-## 5:        N       NA           9       N          5 -17.2       5        NA
-## 6:        N       NA           9       N          5 -17.2       5        NA
-##    dew.point.qc atm.press atm.press.qc rh
-## 1:            9        NA            9 NA
-## 2:            9        NA            9 NA
-## 3:            9        NA            9 NA
-## 4:            9        NA            9 NA
-## 5:            9        NA            9 NA
-## 6:            9        NA            9 NA
+<pre><code>##         USAFID WBAN year month day hour min    lat    lon elev wind.dir
+## 1203053 722817 3068 2019     8   1    0  56 38.767 -104.3 1838      190
+## 1203055 722817 3068 2019     8   1    1  56 38.767 -104.3 1838      180
+## 1203128 722817 3068 2019     8   3   11  56 38.767 -104.3 1838       NA
+## 1203129 722817 3068 2019     8   3   12  56 38.767 -104.3 1838       NA
+## 1203222 722817 3068 2019     8   6   21  56 38.767 -104.3 1838      280
+## 1203225 722817 3068 2019     8   6   22  56 38.767 -104.3 1838      240
+##         wind.dir.qc wind.type.code wind.sp wind.sp.qc ceiling.ht ceiling.ht.qc
+## 1203053           5              N     7.2          5         NA             9
+## 1203055           5              N     7.7          5         NA             9
+## 1203128           9              C     0.0          5         NA             9
+## 1203129           9              C     0.0          5         NA             9
+## 1203222           5              N     2.6          5         NA             9
+## 1203225           5              N     7.7          5         NA             9
+##         ceiling.ht.method sky.cond vis.dist vis.dist.qc vis.var vis.var.qc
+## 1203053                 9        N       NA           9       N          5
+## 1203055                 9        N       NA           9       N          5
+## 1203128                 9        N       NA           9       N          5
+## 1203129                 9        N       NA           9       N          5
+## 1203222                 9        N       NA           9       N          5
+## 1203225                 9        N       NA           9       N          5
+##          temp temp.qc dew.point dew.point.qc atm.press atm.press.qc rh
+## 1203053 -17.2       5        NA            9        NA            9 NA
+## 1203055 -17.2       5        NA            9        NA            9 NA
+## 1203128 -17.2       5        NA            9        NA            9 NA
+## 1203129 -17.2       5        NA            9        NA            9 NA
+## 1203222 -17.2       5        NA            9        NA            9 NA
+## 1203225 -17.2       5        NA            9        NA            9 NA
 </code></pre>
-<p>We again notice that there is a -17.2C temperature reading that seems suspicious.</p>
+<p>There are still some suspiciously low values for temperature (-17.2C), but we will deal with those later.</p>
+<p>We should also check the wind speed variable for any abnormalities.</p>
+<p><strong>How many missing values are there in the <code>wind.sp</code> variable?</strong></p>
 <h3 id="5-check-the-data-against-an-external-data-source">5. Check the data against an external data source.</h3>
-<p>We should check the suspicious temperature value (where is it located?) and validate that the range of elevations make sense (-13 m to 4113 m).</p>
+<p>We should check the suspicious temperature value (where is it located?) and validate that the range of elevations make sense (-13m to 4113m).</p>
 <p>Google is your friend here.</p>
 <p>Fix any problems that arise in your checks.</p>
-<pre><code class="language-r">met &lt;- met[temp&gt;-15]
-met2 &lt;- met[order(temp)]
-head(met2)
-</code></pre>
-<pre><code>##    USAFID  WBAN year month day hour min    lat      lon elev wind.dir
-## 1: 726764 94163 2019     8  27   11  50 44.683 -111.116 2025       NA
-## 2: 726764 94163 2019     8  27   12  10 44.683 -111.116 2025       NA
-## 3: 726764 94163 2019     8  27   12  30 44.683 -111.116 2025       NA
-## 4: 726764 94163 2019     8  27   12  50 44.683 -111.116 2025       NA
-## 5: 720411   137 2019     8  18   12  35 36.422 -105.290 2554       NA
-## 6: 726764 94163 2019     8  26   12  30 44.683 -111.116 2025       NA
-##    wind.dir.qc wind.type.code wind.sp wind.sp.qc ceiling.ht ceiling.ht.qc
-## 1:           9              C       0          5      22000             5
-## 2:           9              C       0          5      22000             5
-## 3:           9              C       0          5      22000             5
-## 4:           9              C       0          5      22000             5
-## 5:           9              C       0          5      22000             5
-## 6:           9              C       0          5      22000             5
-##    ceiling.ht.method sky.cond vis.dist vis.dist.qc vis.var vis.var.qc temp
-## 1:                 9        N    16093           5       N          5 -3.0
-## 2:                 9        N    16093           5       N          5 -3.0
-## 3:                 9        N    16093           5       N          5 -3.0
-## 4:                 9        N    16093           5       N          5 -3.0
-## 5:                 9        N    16093           5       N          5 -2.4
-## 6:                 9        N    16093           5       N          5 -2.0
-##    temp.qc dew.point dew.point.qc atm.press atm.press.qc       rh
-## 1:       C      -5.0            C        NA            9 86.26537
-## 2:       5      -4.0            5        NA            9 92.91083
-## 3:       5      -4.0            5        NA            9 92.91083
-## 4:       C      -4.0            C        NA            9 92.91083
-## 5:       5      -3.7            5        NA            9 90.91475
-## 6:       5      -3.0            5        NA            9 92.96690
-</code></pre>
-<ul>
-<li>Summarize that we removed temperatures colder than -15C. The new dataset has minimum temp -3C which is reasonable.</li>
-</ul>
+<p><strong>Where was the location for the coldest temperature readings (-17.2C)? Do these seem reasonable in context?</strong></p>
+<p><strong>Does the range of values for elevation make sense? Why or why not?</strong></p>
 <h3 id="6-calculate-summary-statistics">6. Calculate summary statistics</h3>
-<p>Remember to keep the initial question in mind. We want to pick out the weather station with maximum elevation and examine its windspeed and temperature.</p>
+<p>Remember to keep the initial question in mind. We want to pick out the weather station with maximum elevation and examine its wind speed and temperature.</p>
 <p>Some ideas: select the weather station with maximum elevation; look at the correlation between temperature and wind speed; look at the correlation between temperature and wind speed with hour and day of the month.</p>
-<pre><code class="language-r">elev &lt;- met[elev==max(elev), ]
+<pre><code class="language-r">elev &lt;- met[which(met$elev == max(met$elev, na.rm = TRUE)), ]
 summary(elev)
 </code></pre>
 <pre><code>##      USAFID            WBAN          year          month        day      
@@ -876,6 +744,8 @@ summary(elev)
 ##                     Max.   : NA    Max.   :9     Max.   :70.01  
 ##                     NA's   :2117
 </code></pre>
+<p>Note that to find the maximum elevation, we had to add <code>na.rm = TRUE</code>, because the elevation variable contains missing values. This is an example of how missing values can quickly propagate throughout an analysis (as the “maximum” of <code>1</code>, <code>2</code>, and <code>NA</code> is <code>NA</code>, because it cannot be defined).</p>
+<p>Also note that we used the <code>which</code> function to tell us which elements of the logical comparison are <code>TRUE</code>. We did this because some of them were <code>NA</code>, which can lead to issues when subsetting by a logical variable.</p>
 <pre><code class="language-r">cor(elev$temp, elev$wind.sp, use=&quot;complete&quot;)
 </code></pre>
 <pre><code>## [1] -0.09373843
@@ -896,24 +766,17 @@ summary(elev)
 </code></pre>
 <pre><code>## [1] -0.003857766
 </code></pre>
+<p>The <code>use=&quot;complete&quot;</code> argument is another thing we added to avoid compounding <code>NA</code>s.</p>
 <h3 id="7-exploratory-graphs">7. Exploratory graphs</h3>
 <p>We should look at the distributions of all of the key variables to make sure there are no remaining issues with the data.</p>
-<pre><code class="language-r">hist(met$elev, breaks=100)
-</code></pre>
-<p><img src="/PM566/assignment/03-lab_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
-<pre><code class="language-r">hist(met$temp)
-</code></pre>
-<p><img src="/PM566/assignment/03-lab_files/figure-html/unnamed-chunk-10-2.png" width="672" /></p>
-<pre><code class="language-r">hist(met$wind.sp)
-</code></pre>
-<p><img src="/PM566/assignment/03-lab_files/figure-html/unnamed-chunk-10-3.png" width="672" />
-One thing we should consider for later analyses is to log transform wind speed and elevation as the are very skewed.</p>
+<p><strong>Use the <code>hist</code> function to make histograms of the elevation, temperature, and wind speed variables for the whole dataset</strong></p>
+<p>One thing we should consider for later analyses is to log transform wind speed and elevation as they are very skewed.</p>
 <p>Look at where the weather station with highest elevation is located.</p>
 <pre><code class="language-r">leaflet(elev) %&gt;%
   addProviderTiles('OpenStreetMap') %&gt;% 
   addCircles(lat=~lat,lng=~lon, opacity=1, fillOpacity=1, radius=100)
 </code></pre>
-<div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-1" style="width:672px;height:480px;"></div>
+<div class="leaflet html-widget html-fill-item" id="htmlwidget-1" style="width:672px;height:480px;"></div>
 <script type="application/json" data-for="htmlwidget-1">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["OpenStreetMap",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addCircles","args":[[39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8,39.8],[-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766,-105.766],100,null,null,{"interactive":true,"className":"","stroke":true,"color":"#03F","weight":5,"opacity":1,"fill":true,"fillColor":"#03F","fillOpacity":1},null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null,null]}],"limits":{"lat":[39.8,39.8],"lng":[-105.766,-105.766]}},"evals":[],"jsHooks":[]}</script>
 <p>Look at the time series of temperature and wind speed at this location. For this we will need to create a date-time variable for the x-axis.</p>
 <pre><code class="language-r">library(lubridate)
@@ -927,46 +790,48 @@ summary(elev$date)
 ##                    3rd Qu.                       Max. 
 ## &quot;2019-08-24 11:00:00.0000&quot; &quot;2019-08-31 22:00:00.0000&quot;
 </code></pre>
-<pre><code class="language-r">elev &lt;- elev[order(date)]
+<pre><code class="language-r">elev &lt;- elev[order(elev$date), ]
 head(elev)
 </code></pre>
-<pre><code>##    USAFID WBAN year month day hour min  lat      lon elev wind.dir wind.dir.qc
-## 1: 720385  419 2019     8   1    0  36 39.8 -105.766 4113      170           5
-## 2: 720385  419 2019     8   1    0  54 39.8 -105.766 4113      100           5
-## 3: 720385  419 2019     8   1    1  12 39.8 -105.766 4113       90           5
-## 4: 720385  419 2019     8   1    1  35 39.8 -105.766 4113      110           5
-## 5: 720385  419 2019     8   1    1  53 39.8 -105.766 4113      120           5
-## 6: 720385  419 2019     8   1    2  12 39.8 -105.766 4113      120           5
-##    wind.type.code wind.sp wind.sp.qc ceiling.ht ceiling.ht.qc ceiling.ht.method
-## 1:              N     8.8          5       1372             5                 M
-## 2:              N     2.6          5       1372             5                 M
-## 3:              N     3.1          5       1981             5                 M
-## 4:              N     4.1          5       2134             5                 M
-## 5:              N     4.6          5       2134             5                 M
-## 6:              N     6.2          5      22000             5                 9
-##    sky.cond vis.dist vis.dist.qc vis.var vis.var.qc temp temp.qc dew.point
-## 1:        N       NA           9       N          5    9       5         1
-## 2:        N       NA           9       N          5    9       5         1
-## 3:        N       NA           9       N          5    9       5         2
-## 4:        N       NA           9       N          5    9       5         2
-## 5:        N       NA           9       N          5    9       5         2
-## 6:        N       NA           9       N          5    9       5         2
-##    dew.point.qc atm.press atm.press.qc       rh                date
-## 1:            5        NA            9 57.61039 2019-08-01 00:00:00
-## 2:            5        NA            9 57.61039 2019-08-01 00:00:00
-## 3:            5        NA            9 61.85243 2019-08-01 01:00:00
-## 4:            5        NA            9 61.85243 2019-08-01 01:00:00
-## 5:            5        NA            9 61.85243 2019-08-01 01:00:00
-## 6:            5        NA            9 61.85243 2019-08-01 02:00:00
+<pre><code>##        USAFID WBAN year month day hour min  lat      lon elev wind.dir
+## 221697 720385  419 2019     8   1    0  36 39.8 -105.766 4113      170
+## 221698 720385  419 2019     8   1    0  54 39.8 -105.766 4113      100
+## 221699 720385  419 2019     8   1    1  12 39.8 -105.766 4113       90
+## 221700 720385  419 2019     8   1    1  35 39.8 -105.766 4113      110
+## 221701 720385  419 2019     8   1    1  53 39.8 -105.766 4113      120
+## 221702 720385  419 2019     8   1    2  12 39.8 -105.766 4113      120
+##        wind.dir.qc wind.type.code wind.sp wind.sp.qc ceiling.ht ceiling.ht.qc
+## 221697           5              N     8.8          5       1372             5
+## 221698           5              N     2.6          5       1372             5
+## 221699           5              N     3.1          5       1981             5
+## 221700           5              N     4.1          5       2134             5
+## 221701           5              N     4.6          5       2134             5
+## 221702           5              N     6.2          5      22000             5
+##        ceiling.ht.method sky.cond vis.dist vis.dist.qc vis.var vis.var.qc temp
+## 221697                 M        N       NA           9       N          5    9
+## 221698                 M        N       NA           9       N          5    9
+## 221699                 M        N       NA           9       N          5    9
+## 221700                 M        N       NA           9       N          5    9
+## 221701                 M        N       NA           9       N          5    9
+## 221702                 9        N       NA           9       N          5    9
+##        temp.qc dew.point dew.point.qc atm.press atm.press.qc       rh
+## 221697       5         1            5        NA            9 57.61039
+## 221698       5         1            5        NA            9 57.61039
+## 221699       5         2            5        NA            9 61.85243
+## 221700       5         2            5        NA            9 61.85243
+## 221701       5         2            5        NA            9 61.85243
+## 221702       5         2            5        NA            9 61.85243
+##                       date
+## 221697 2019-08-01 00:00:00
+## 221698 2019-08-01 00:00:00
+## 221699 2019-08-01 01:00:00
+## 221700 2019-08-01 01:00:00
+## 221701 2019-08-01 01:00:00
+## 221702 2019-08-01 02:00:00
 </code></pre>
 <p>With the date-time variable we can plot the time series of temperature and wind speed.</p>
-<pre><code class="language-r">plot(elev$date, elev$temp, type='l')
-</code></pre>
-<p><img src="/PM566/assignment/03-lab_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
-<pre><code class="language-r">plot(elev$date, elev$wind.sp, type='l')
-</code></pre>
-<p><img src="/PM566/assignment/03-lab_files/figure-html/unnamed-chunk-13-2.png" width="672" />
-Summarize any trends that you see in these time series plots.</p>
+<p><strong>Use the <code>plot</code> function to make line graphs of temperature vs. date and wind speed vs. date</strong></p>
+<p><strong>Summarize any trends that you see in these time series plots.</strong></p>
 <h3 id="8-ask-questions">8. Ask questions</h3>
 <p>By now, you might have some specific questions about how the data was gathered and what some of the different variables and values mean. Alternatively, maybe you have an idea for how some of the variable should be related and you want to explore that relationship. In a real-world analysis, these questions could potentially be answered by a collaborator, who may have been part of the team that collected the data. What questions do you have about the data?</p>
 <p>If you haven’t already, now would be a good time to look at the accompanying 
