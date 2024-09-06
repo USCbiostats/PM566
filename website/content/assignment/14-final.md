@@ -1,10 +1,10 @@
 ---
 title: "Final Project"
 output: tufte::tufte_html
-date: 2023-11-17
+date: 2024-11-22
 ---
 
-Due date: Friday December 8th, 2023
+Due date: Friday December 6th, 2024, by midnight Pacific Time.
 
 **Learning Objective**: To apply the skills learned in
 PM 566 by analyzing and interpreting a dataset of your choice.

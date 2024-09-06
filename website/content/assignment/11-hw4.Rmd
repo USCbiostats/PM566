@@ -1,12 +1,12 @@
 ---
 title: "Assignment 04 - HPC and SQL"
 output: tufte::tufte_html
-date: 2022-11-17
+date: 2024-11-08
 ---
 
 ## Due Date
 
-This assignment is due by midnight Pacific Time, November 17th, 2023.
+This assignment is due by midnight Pacific Time, November 22nd, 2024.
 
 The learning objectives are to write faster code for computational task requiring a loop and to implement some queries and basic data wrangling in SQL.
 
