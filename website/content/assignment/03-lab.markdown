@@ -29,13 +29,13 @@ As you do this, think about what questions you would like to ask regarding this 
 
 We will work with the meteorological data presented in lecture. Recall the dataset consists of weather station readings in the continental US.
 
-**The objective of the lab is to find the weather station with the highest elevation and look at patterns in the time series of its wind speed and temperature.**
+**The objectives of the lab are to find the weather station with the highest elevation and look at patterns in the time series of its wind speed and temperature.**
 
 # Steps
 
 ### 1. Read in the data
 
-First download and then read in with data.table:fread()
+First download and then read in with `data.table::fread()`. This is slightly faster than some of the more common functions, such as `read.table`, but it produces a different type of object, which is why we need to convert it into a `data.frame` after reading it in.
 
 ``` r
 download.file(
@@ -46,130 +46,18 @@ download.file(
 )
 
 met <- data.table::fread(file.path("~", "Downloads", "met_all.gz"))
+met <- as.data.frame(met)
 ```
 
-### 2. Check the dimensions, headers, footers. How many columns, rows are there?
+### 2. Check the dimensions, headers, footers.
 
-``` r
-dim(met)
-```
-
-    ## [1] 2377343      30
-
-``` r
-head(met)
-```
-
-    ##    USAFID  WBAN  year month   day  hour   min   lat      lon  elev wind.dir
-    ##     <int> <int> <int> <int> <int> <int> <int> <num>    <num> <int>    <int>
-    ## 1: 690150 93121  2019     8     1     0    56  34.3 -116.166   696      220
-    ## 2: 690150 93121  2019     8     1     1    56  34.3 -116.166   696      230
-    ## 3: 690150 93121  2019     8     1     2    56  34.3 -116.166   696      230
-    ## 4: 690150 93121  2019     8     1     3    56  34.3 -116.166   696      210
-    ## 5: 690150 93121  2019     8     1     4    56  34.3 -116.166   696      120
-    ## 6: 690150 93121  2019     8     1     5    56  34.3 -116.166   696       NA
-    ##    wind.dir.qc wind.type.code wind.sp wind.sp.qc ceiling.ht ceiling.ht.qc
-    ##         <char>         <char>   <num>     <char>      <int>         <int>
-    ## 1:           5              N     5.7          5      22000             5
-    ## 2:           5              N     8.2          5      22000             5
-    ## 3:           5              N     6.7          5      22000             5
-    ## 4:           5              N     5.1          5      22000             5
-    ## 5:           5              N     2.1          5      22000             5
-    ## 6:           9              C     0.0          5      22000             5
-    ##    ceiling.ht.method sky.cond vis.dist vis.dist.qc vis.var vis.var.qc  temp
-    ##               <char>   <char>    <int>      <char>  <char>     <char> <num>
-    ## 1:                 9        N    16093           5       N          5  37.2
-    ## 2:                 9        N    16093           5       N          5  35.6
-    ## 3:                 9        N    16093           5       N          5  34.4
-    ## 4:                 9        N    16093           5       N          5  33.3
-    ## 5:                 9        N    16093           5       N          5  32.8
-    ## 6:                 9        N    16093           5       N          5  31.1
-    ##    temp.qc dew.point dew.point.qc atm.press atm.press.qc       rh
-    ##     <char>     <num>       <char>     <num>        <int>    <num>
-    ## 1:       5      10.6            5    1009.9            5 19.88127
-    ## 2:       5      10.6            5    1010.3            5 21.76098
-    ## 3:       5       7.2            5    1010.6            5 18.48212
-    ## 4:       5       5.0            5    1011.6            5 16.88862
-    ## 5:       5       5.0            5    1012.7            5 17.38410
-    ## 6:       5       5.6            5    1012.7            5 20.01540
-
-``` r
-tail(met)
-```
-
-    ##    USAFID  WBAN  year month   day  hour   min    lat      lon  elev wind.dir
-    ##     <int> <int> <int> <int> <int> <int> <int>  <num>    <num> <int>    <int>
-    ## 1: 726813 94195  2019     8    31    18    56 43.650 -116.633   741       NA
-    ## 2: 726813 94195  2019     8    31    19    56 43.650 -116.633   741       70
-    ## 3: 726813 94195  2019     8    31    20    56 43.650 -116.633   741       NA
-    ## 4: 726813 94195  2019     8    31    21    56 43.650 -116.633   741       10
-    ## 5: 726813 94195  2019     8    31    22    56 43.642 -116.636   741       10
-    ## 6: 726813 94195  2019     8    31    23    56 43.642 -116.636   741       40
-    ##    wind.dir.qc wind.type.code wind.sp wind.sp.qc ceiling.ht ceiling.ht.qc
-    ##         <char>         <char>   <num>     <char>      <int>         <int>
-    ## 1:           9              C     0.0          5      22000             5
-    ## 2:           5              N     2.1          5      22000             5
-    ## 3:           9              C     0.0          5      22000             5
-    ## 4:           5              N     2.6          5      22000             5
-    ## 5:           1              N     2.1          1      22000             1
-    ## 6:           1              N     2.1          1      22000             1
-    ##    ceiling.ht.method sky.cond vis.dist vis.dist.qc vis.var vis.var.qc  temp
-    ##               <char>   <char>    <int>      <char>  <char>     <char> <num>
-    ## 1:                 9        N    16093           5       N          5  30.0
-    ## 2:                 9        N    16093           5       N          5  32.2
-    ## 3:                 9        N    16093           5       N          5  33.3
-    ## 4:                 9        N    14484           5       N          5  35.0
-    ## 5:                 9        N    16093           1       9          9  34.4
-    ## 6:                 9        N    16093           1       9          9  34.4
-    ##    temp.qc dew.point dew.point.qc atm.press atm.press.qc       rh
-    ##     <char>     <num>       <char>     <num>        <int>    <num>
-    ## 1:       5      11.7            5    1013.6            5 32.32509
-    ## 2:       5      12.2            5    1012.8            5 29.40686
-    ## 3:       5      12.2            5    1011.6            5 27.60422
-    ## 4:       5       9.4            5    1010.8            5 20.76325
-    ## 5:       1       9.4            1    1010.1            1 21.48631
-    ## 6:       1       9.4            1    1009.6            1 21.48631
-
-There are 2,377,343 rows and 30 columns in the met dataset.
+**How many columns, rows are there? Some useful functions for this are `dim`, `head`, and `tail`**
 
 ### 3. Take a look at the variables.
 
-``` r
-str(met)
-```
+**Show the type (class) of each variable (hint: try the `str` function).**
 
-    ## Classes 'data.table' and 'data.frame':	2377343 obs. of  30 variables:
-    ##  $ USAFID           : int  690150 690150 690150 690150 690150 690150 690150 690150 690150 690150 ...
-    ##  $ WBAN             : int  93121 93121 93121 93121 93121 93121 93121 93121 93121 93121 ...
-    ##  $ year             : int  2019 2019 2019 2019 2019 2019 2019 2019 2019 2019 ...
-    ##  $ month            : int  8 8 8 8 8 8 8 8 8 8 ...
-    ##  $ day              : int  1 1 1 1 1 1 1 1 1 1 ...
-    ##  $ hour             : int  0 1 2 3 4 5 6 7 8 9 ...
-    ##  $ min              : int  56 56 56 56 56 56 56 56 56 56 ...
-    ##  $ lat              : num  34.3 34.3 34.3 34.3 34.3 34.3 34.3 34.3 34.3 34.3 ...
-    ##  $ lon              : num  -116 -116 -116 -116 -116 ...
-    ##  $ elev             : int  696 696 696 696 696 696 696 696 696 696 ...
-    ##  $ wind.dir         : int  220 230 230 210 120 NA 320 10 320 350 ...
-    ##  $ wind.dir.qc      : chr  "5" "5" "5" "5" ...
-    ##  $ wind.type.code   : chr  "N" "N" "N" "N" ...
-    ##  $ wind.sp          : num  5.7 8.2 6.7 5.1 2.1 0 1.5 2.1 2.6 1.5 ...
-    ##  $ wind.sp.qc       : chr  "5" "5" "5" "5" ...
-    ##  $ ceiling.ht       : int  22000 22000 22000 22000 22000 22000 22000 22000 22000 22000 ...
-    ##  $ ceiling.ht.qc    : int  5 5 5 5 5 5 5 5 5 5 ...
-    ##  $ ceiling.ht.method: chr  "9" "9" "9" "9" ...
-    ##  $ sky.cond         : chr  "N" "N" "N" "N" ...
-    ##  $ vis.dist         : int  16093 16093 16093 16093 16093 16093 16093 16093 16093 16093 ...
-    ##  $ vis.dist.qc      : chr  "5" "5" "5" "5" ...
-    ##  $ vis.var          : chr  "N" "N" "N" "N" ...
-    ##  $ vis.var.qc       : chr  "5" "5" "5" "5" ...
-    ##  $ temp             : num  37.2 35.6 34.4 33.3 32.8 31.1 29.4 28.9 27.2 26.7 ...
-    ##  $ temp.qc          : chr  "5" "5" "5" "5" ...
-    ##  $ dew.point        : num  10.6 10.6 7.2 5 5 5.6 6.1 6.7 7.8 7.8 ...
-    ##  $ dew.point.qc     : chr  "5" "5" "5" "5" ...
-    ##  $ atm.press        : num  1010 1010 1011 1012 1013 ...
-    ##  $ atm.press.qc     : int  5 5 5 5 5 5 5 5 5 5 ...
-    ##  $ rh               : num  19.9 21.8 18.5 16.9 17.4 ...
-    ##  - attr(*, ".internal.selfref")=<externalptr>
+**What are the names of the key variables related to our question of interest?**
 
 ### 4. Take a closer look at the key variables.
 
@@ -226,122 +114,82 @@ summary(met$wind.sp)
     ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
     ##    0.00    0.00    2.10    2.46    3.60   36.00   79693
 
-It looks like the elevation variable has observations with 9999.0, which is probably an indicator for missing. We should take a deeper look at the data dictionary to confirm. The wind speed variable is ok but there are a lot of missing data.
+It looks like the elevation variable has observations with 9999.0, which is probably an indicator for missing. We should take a deeper look at the [data dictionary](https://github.com/USCbiostats/data-science-data/blob/master/02_met/met-datadictionary.pdf) to confirm. The wind speed variable is OK but there is a lot of missing data.
 
 After checking the data we should make the appropriate modifications. Replace elevations with 9999 as `NA`.
 
 ``` r
-met[met$elev==9999.0] <- NA
+met[met$elev==9999.0, ] <- NA
 summary(met$elev)
 ```
 
     ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
     ##     -13     101     252     413     400    4113     710
 
-At what elevation is the highest weather station?
+**At what elevation is the highest weather station?**
 
-- The weather station with highest elevation is 4113 meters. This is after replacing 9999.0 values with the appropriate code for “missing”, which is “NA”.
-
-We also have the issue of the minimum temperature being -40C, so we should remove those observations.
+We also have the issue of the minimum temperature being -40C, which seems implausible, so we should remove those observations.
 
 ``` r
-met <- met[temp>-40]
-met2 <- met[order(temp)]
-head(met2)
+met <- met[met$temp > -40, ]
+head(met[order(met$temp), ])
 ```
 
-    ##    USAFID  WBAN  year month   day  hour   min    lat    lon  elev wind.dir
-    ##     <int> <int> <int> <int> <int> <int> <int>  <num>  <num> <int>    <int>
-    ## 1: 722817  3068  2019     8     1     0    56 38.767 -104.3  1838      190
-    ## 2: 722817  3068  2019     8     1     1    56 38.767 -104.3  1838      180
-    ## 3: 722817  3068  2019     8     3    11    56 38.767 -104.3  1838       NA
-    ## 4: 722817  3068  2019     8     3    12    56 38.767 -104.3  1838       NA
-    ## 5: 722817  3068  2019     8     6    21    56 38.767 -104.3  1838      280
-    ## 6: 722817  3068  2019     8     6    22    56 38.767 -104.3  1838      240
-    ##    wind.dir.qc wind.type.code wind.sp wind.sp.qc ceiling.ht ceiling.ht.qc
-    ##         <char>         <char>   <num>     <char>      <int>         <int>
-    ## 1:           5              N     7.2          5         NA             9
-    ## 2:           5              N     7.7          5         NA             9
-    ## 3:           9              C     0.0          5         NA             9
-    ## 4:           9              C     0.0          5         NA             9
-    ## 5:           5              N     2.6          5         NA             9
-    ## 6:           5              N     7.7          5         NA             9
-    ##    ceiling.ht.method sky.cond vis.dist vis.dist.qc vis.var vis.var.qc  temp
-    ##               <char>   <char>    <int>      <char>  <char>     <char> <num>
-    ## 1:                 9        N       NA           9       N          5 -17.2
-    ## 2:                 9        N       NA           9       N          5 -17.2
-    ## 3:                 9        N       NA           9       N          5 -17.2
-    ## 4:                 9        N       NA           9       N          5 -17.2
-    ## 5:                 9        N       NA           9       N          5 -17.2
-    ## 6:                 9        N       NA           9       N          5 -17.2
-    ##    temp.qc dew.point dew.point.qc atm.press atm.press.qc    rh
-    ##     <char>     <num>       <char>     <num>        <int> <num>
-    ## 1:       5        NA            9        NA            9    NA
-    ## 2:       5        NA            9        NA            9    NA
-    ## 3:       5        NA            9        NA            9    NA
-    ## 4:       5        NA            9        NA            9    NA
-    ## 5:       5        NA            9        NA            9    NA
-    ## 6:       5        NA            9        NA            9    NA
+    ##         USAFID WBAN year month day hour min    lat    lon elev wind.dir
+    ## 1203053 722817 3068 2019     8   1    0  56 38.767 -104.3 1838      190
+    ## 1203055 722817 3068 2019     8   1    1  56 38.767 -104.3 1838      180
+    ## 1203128 722817 3068 2019     8   3   11  56 38.767 -104.3 1838       NA
+    ## 1203129 722817 3068 2019     8   3   12  56 38.767 -104.3 1838       NA
+    ## 1203222 722817 3068 2019     8   6   21  56 38.767 -104.3 1838      280
+    ## 1203225 722817 3068 2019     8   6   22  56 38.767 -104.3 1838      240
+    ##         wind.dir.qc wind.type.code wind.sp wind.sp.qc ceiling.ht ceiling.ht.qc
+    ## 1203053           5              N     7.2          5         NA             9
+    ## 1203055           5              N     7.7          5         NA             9
+    ## 1203128           9              C     0.0          5         NA             9
+    ## 1203129           9              C     0.0          5         NA             9
+    ## 1203222           5              N     2.6          5         NA             9
+    ## 1203225           5              N     7.7          5         NA             9
+    ##         ceiling.ht.method sky.cond vis.dist vis.dist.qc vis.var vis.var.qc
+    ## 1203053                 9        N       NA           9       N          5
+    ## 1203055                 9        N       NA           9       N          5
+    ## 1203128                 9        N       NA           9       N          5
+    ## 1203129                 9        N       NA           9       N          5
+    ## 1203222                 9        N       NA           9       N          5
+    ## 1203225                 9        N       NA           9       N          5
+    ##          temp temp.qc dew.point dew.point.qc atm.press atm.press.qc rh
+    ## 1203053 -17.2       5        NA            9        NA            9 NA
+    ## 1203055 -17.2       5        NA            9        NA            9 NA
+    ## 1203128 -17.2       5        NA            9        NA            9 NA
+    ## 1203129 -17.2       5        NA            9        NA            9 NA
+    ## 1203222 -17.2       5        NA            9        NA            9 NA
+    ## 1203225 -17.2       5        NA            9        NA            9 NA
 
-We again notice that there is a -17.2C temperature reading that seems suspicious.
+There are still some suspiciously low values for temperature (-17.2C), but we will deal with those later.
+
+We should also check the wind speed variable for any abnormalities.
+
+**How many missing values are there in the `wind.sp` variable?**
 
 ### 5. Check the data against an external data source.
 
-We should check the suspicious temperature value (where is it located?) and validate that the range of elevations make sense (-13 m to 4113 m).
+We should check the suspicious temperature value (where is it located?) and validate that the range of elevations make sense (-13m to 4113m).
 
 Google is your friend here.
 
 Fix any problems that arise in your checks.
 
-``` r
-met <- met[temp>-15]
-met2 <- met[order(temp)]
-head(met2)
-```
+**Where was the location for the coldest temperature readings (-17.2C)? Do these seem reasonable in context?**
 
-    ##    USAFID  WBAN  year month   day  hour   min    lat      lon  elev wind.dir
-    ##     <int> <int> <int> <int> <int> <int> <int>  <num>    <num> <int>    <int>
-    ## 1: 726764 94163  2019     8    27    11    50 44.683 -111.116  2025       NA
-    ## 2: 726764 94163  2019     8    27    12    10 44.683 -111.116  2025       NA
-    ## 3: 726764 94163  2019     8    27    12    30 44.683 -111.116  2025       NA
-    ## 4: 726764 94163  2019     8    27    12    50 44.683 -111.116  2025       NA
-    ## 5: 720411   137  2019     8    18    12    35 36.422 -105.290  2554       NA
-    ## 6: 726764 94163  2019     8    26    12    30 44.683 -111.116  2025       NA
-    ##    wind.dir.qc wind.type.code wind.sp wind.sp.qc ceiling.ht ceiling.ht.qc
-    ##         <char>         <char>   <num>     <char>      <int>         <int>
-    ## 1:           9              C       0          5      22000             5
-    ## 2:           9              C       0          5      22000             5
-    ## 3:           9              C       0          5      22000             5
-    ## 4:           9              C       0          5      22000             5
-    ## 5:           9              C       0          5      22000             5
-    ## 6:           9              C       0          5      22000             5
-    ##    ceiling.ht.method sky.cond vis.dist vis.dist.qc vis.var vis.var.qc  temp
-    ##               <char>   <char>    <int>      <char>  <char>     <char> <num>
-    ## 1:                 9        N    16093           5       N          5  -3.0
-    ## 2:                 9        N    16093           5       N          5  -3.0
-    ## 3:                 9        N    16093           5       N          5  -3.0
-    ## 4:                 9        N    16093           5       N          5  -3.0
-    ## 5:                 9        N    16093           5       N          5  -2.4
-    ## 6:                 9        N    16093           5       N          5  -2.0
-    ##    temp.qc dew.point dew.point.qc atm.press atm.press.qc       rh
-    ##     <char>     <num>       <char>     <num>        <int>    <num>
-    ## 1:       C      -5.0            C        NA            9 86.26537
-    ## 2:       5      -4.0            5        NA            9 92.91083
-    ## 3:       5      -4.0            5        NA            9 92.91083
-    ## 4:       C      -4.0            C        NA            9 92.91083
-    ## 5:       5      -3.7            5        NA            9 90.91475
-    ## 6:       5      -3.0            5        NA            9 92.96690
-
-- Summarize that we removed temperatures colder than -15C. The new dataset has minimum temp -3C which is reasonable.
+**Does the range of values for elevation make sense? Why or why not?**
 
 ### 6. Calculate summary statistics
 
-Remember to keep the initial question in mind. We want to pick out the weather station with maximum elevation and examine its windspeed and temperature.
+Remember to keep the initial question in mind. We want to pick out the weather station with maximum elevation and examine its wind speed and temperature.
 
 Some ideas: select the weather station with maximum elevation; look at the correlation between temperature and wind speed; look at the correlation between temperature and wind speed with hour and day of the month.
 
 ``` r
-elev <- met[elev==max(elev), ]
+elev <- met[which(met$elev == max(met$elev, na.rm = TRUE)), ]
 summary(elev)
 ```
 
@@ -402,6 +250,10 @@ summary(elev)
     ##                     Max.   : NA    Max.   :9     Max.   :70.01  
     ##                     NA's   :2117
 
+Note that to find the maximum elevation, we had to add `na.rm = TRUE`, because the elevation variable contains missing values. This is an example of how missing values can quickly propagate throughout an analysis (as the “maximum” of `1`, `2`, and `NA` is `NA`, because it cannot be defined).
+
+Also note that we used the `which` function to tell us which elements of the logical comparison are `TRUE`. We did this because some of them were `NA`, which can lead to issues when subsetting by a logical variable.
+
 ``` r
 cor(elev$temp, elev$wind.sp, use="complete")
 ```
@@ -432,29 +284,15 @@ cor(elev$temp, elev$day, use="complete")
 
     ## [1] -0.003857766
 
+The `use="complete"` argument is another thing we added to avoid compounding `NA`s.
+
 ### 7. Exploratory graphs
 
 We should look at the distributions of all of the key variables to make sure there are no remaining issues with the data.
 
-``` r
-hist(met$elev, breaks=100)
-```
+**Use the `hist` function to make histograms of the elevation, temperature, and wind speed variables for the whole dataset**
 
-<img src="/PM566/assignment/03-lab_files/figure-html/unnamed-chunk-10-1.png" width="672" />
-
-``` r
-hist(met$temp)
-```
-
-<img src="/PM566/assignment/03-lab_files/figure-html/unnamed-chunk-10-2.png" width="672" />
-
-``` r
-hist(met$wind.sp)
-```
-
-<img src="/PM566/assignment/03-lab_files/figure-html/unnamed-chunk-10-3.png" width="672" />
-
-One thing we should consider for later analyses is to log transform wind speed and elevation as the are very skewed.
+One thing we should consider for later analyses is to log transform wind speed and elevation as they are very skewed.
 
 Look at where the weather station with highest elevation is located.
 
@@ -483,66 +321,51 @@ summary(elev$date)
     ## "2019-08-24 11:00:00.0000" "2019-08-31 22:00:00.0000"
 
 ``` r
-elev <- elev[order(date)]
+elev <- elev[order(elev$date), ]
 head(elev)
 ```
 
-    ##    USAFID  WBAN  year month   day  hour   min   lat      lon  elev wind.dir
-    ##     <int> <int> <int> <int> <int> <int> <int> <num>    <num> <int>    <int>
-    ## 1: 720385   419  2019     8     1     0    36  39.8 -105.766  4113      170
-    ## 2: 720385   419  2019     8     1     0    54  39.8 -105.766  4113      100
-    ## 3: 720385   419  2019     8     1     1    12  39.8 -105.766  4113       90
-    ## 4: 720385   419  2019     8     1     1    35  39.8 -105.766  4113      110
-    ## 5: 720385   419  2019     8     1     1    53  39.8 -105.766  4113      120
-    ## 6: 720385   419  2019     8     1     2    12  39.8 -105.766  4113      120
-    ##    wind.dir.qc wind.type.code wind.sp wind.sp.qc ceiling.ht ceiling.ht.qc
-    ##         <char>         <char>   <num>     <char>      <int>         <int>
-    ## 1:           5              N     8.8          5       1372             5
-    ## 2:           5              N     2.6          5       1372             5
-    ## 3:           5              N     3.1          5       1981             5
-    ## 4:           5              N     4.1          5       2134             5
-    ## 5:           5              N     4.6          5       2134             5
-    ## 6:           5              N     6.2          5      22000             5
-    ##    ceiling.ht.method sky.cond vis.dist vis.dist.qc vis.var vis.var.qc  temp
-    ##               <char>   <char>    <int>      <char>  <char>     <char> <num>
-    ## 1:                 M        N       NA           9       N          5     9
-    ## 2:                 M        N       NA           9       N          5     9
-    ## 3:                 M        N       NA           9       N          5     9
-    ## 4:                 M        N       NA           9       N          5     9
-    ## 5:                 M        N       NA           9       N          5     9
-    ## 6:                 9        N       NA           9       N          5     9
-    ##    temp.qc dew.point dew.point.qc atm.press atm.press.qc       rh
-    ##     <char>     <num>       <char>     <num>        <int>    <num>
-    ## 1:       5         1            5        NA            9 57.61039
-    ## 2:       5         1            5        NA            9 57.61039
-    ## 3:       5         2            5        NA            9 61.85243
-    ## 4:       5         2            5        NA            9 61.85243
-    ## 5:       5         2            5        NA            9 61.85243
-    ## 6:       5         2            5        NA            9 61.85243
-    ##                   date
-    ##                 <POSc>
-    ## 1: 2019-08-01 00:00:00
-    ## 2: 2019-08-01 00:00:00
-    ## 3: 2019-08-01 01:00:00
-    ## 4: 2019-08-01 01:00:00
-    ## 5: 2019-08-01 01:00:00
-    ## 6: 2019-08-01 02:00:00
+    ##        USAFID WBAN year month day hour min  lat      lon elev wind.dir
+    ## 221697 720385  419 2019     8   1    0  36 39.8 -105.766 4113      170
+    ## 221698 720385  419 2019     8   1    0  54 39.8 -105.766 4113      100
+    ## 221699 720385  419 2019     8   1    1  12 39.8 -105.766 4113       90
+    ## 221700 720385  419 2019     8   1    1  35 39.8 -105.766 4113      110
+    ## 221701 720385  419 2019     8   1    1  53 39.8 -105.766 4113      120
+    ## 221702 720385  419 2019     8   1    2  12 39.8 -105.766 4113      120
+    ##        wind.dir.qc wind.type.code wind.sp wind.sp.qc ceiling.ht ceiling.ht.qc
+    ## 221697           5              N     8.8          5       1372             5
+    ## 221698           5              N     2.6          5       1372             5
+    ## 221699           5              N     3.1          5       1981             5
+    ## 221700           5              N     4.1          5       2134             5
+    ## 221701           5              N     4.6          5       2134             5
+    ## 221702           5              N     6.2          5      22000             5
+    ##        ceiling.ht.method sky.cond vis.dist vis.dist.qc vis.var vis.var.qc temp
+    ## 221697                 M        N       NA           9       N          5    9
+    ## 221698                 M        N       NA           9       N          5    9
+    ## 221699                 M        N       NA           9       N          5    9
+    ## 221700                 M        N       NA           9       N          5    9
+    ## 221701                 M        N       NA           9       N          5    9
+    ## 221702                 9        N       NA           9       N          5    9
+    ##        temp.qc dew.point dew.point.qc atm.press atm.press.qc       rh
+    ## 221697       5         1            5        NA            9 57.61039
+    ## 221698       5         1            5        NA            9 57.61039
+    ## 221699       5         2            5        NA            9 61.85243
+    ## 221700       5         2            5        NA            9 61.85243
+    ## 221701       5         2            5        NA            9 61.85243
+    ## 221702       5         2            5        NA            9 61.85243
+    ##                       date
+    ## 221697 2019-08-01 00:00:00
+    ## 221698 2019-08-01 00:00:00
+    ## 221699 2019-08-01 01:00:00
+    ## 221700 2019-08-01 01:00:00
+    ## 221701 2019-08-01 01:00:00
+    ## 221702 2019-08-01 02:00:00
 
 With the date-time variable we can plot the time series of temperature and wind speed.
 
-``` r
-plot(elev$date, elev$temp, type='l')
-```
+**Use the `plot` function to make line graphs of temperature vs. date and wind speed vs. date**
 
-<img src="/PM566/assignment/03-lab_files/figure-html/unnamed-chunk-13-1.png" width="672" />
-
-``` r
-plot(elev$date, elev$wind.sp, type='l')
-```
-
-<img src="/PM566/assignment/03-lab_files/figure-html/unnamed-chunk-13-2.png" width="672" />
-
-Summarize any trends that you see in these time series plots.
+**Summarize any trends that you see in these time series plots.**
 
 ### 8. Ask questions
 
