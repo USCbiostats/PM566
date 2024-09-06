@@ -5,6 +5,9 @@ main:
   - name: Schedule
     url: schedule/
     weight: 2
-  - name: Reference
+  - name: References
     url: reference/
     weight: 3
+  - name: GitHub
+    url: https://github.com/USCbiostats/PM566
+    weight: 4
