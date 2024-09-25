@@ -7,7 +7,7 @@ date: 2024-09-13
 
 # Due Date
 
-This assignment is due by midnight Pacific Time, September 27th, 2024.
+This assignment is due by 11:59pm Pacific Time, September 27th, 2024.
 
 # Learning Goals
 - Download, read, and get familiar with an external dataset. 

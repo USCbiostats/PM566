@@ -7,7 +7,7 @@ date: 2024-10-25
 
 ## Due Date
 
-This assignment is due by midnight Pacific Time, November 8th, 2024. 
+This assignment is due by 11:59pm Pacific Time, November 8th, 2024. 
 
 ## Text Mining
 

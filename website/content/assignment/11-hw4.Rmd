@@ -6,7 +6,7 @@ date: 2024-11-08
 
 ## Due Date
 
-This assignment is due by midnight Pacific Time, November 22nd, 2024.
+This assignment is due by 11:59pm Pacific Time, November 22nd, 2024.
 
 The learning objectives are to write faster code for computational task requiring a loop and to implement some queries and basic data wrangling in SQL.
 
