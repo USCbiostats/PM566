@@ -37,7 +37,7 @@ Your assignment should be completed in Quarto or R Markdown.
 
     - state
     - county
-    - site in Los Angeles
+    - sites in Los Angeles
     
     
 
