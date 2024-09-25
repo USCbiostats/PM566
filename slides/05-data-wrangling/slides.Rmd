@@ -1,7 +1,7 @@
 ---
 title: "Week 5: Data Wrangling"
 subtitle: "PM 566: Introduction to Health Data Science"
-author: "George G. Vega Yon"
+author: "George G. Vega Yon and Kelly Streets"
 # output:
   # slidy_presentation:
   #   slide_level: 1
@@ -52,6 +52,12 @@ Throughout the session we will see examples using:
 - [**pydatatable**](https://github.com/h2oai/datatable)
 
 All with the [MET](https://github.com/USCbiostats/data-science-data/) dataset.
+
+---
+
+## Disclaimer
+
+There's a lot of extraneous information in these slides! While the `data.table` package and Python both have a lot of useful functionality, we strongly recommend sticking to the base R and `tidyverse` tools presented here. Slides covering material outside this scope will be marked with an asterisk (`*`); you should be extremely cautious about using code from those slides!
 
 ---
 
@@ -127,11 +133,12 @@ In R
 # Reading the data
 dat <- fread(tmp)
 head(dat)
+dat <- as.data.frame(dat)
 ```
 
 In Python
 
-```{python reading-py, eval = TRUE, echo = TRUE, results='hide'}
+```{python reading-py, eval = FALSE, echo = TRUE, results='hide'}
 import datatable as dt
 dat = dt.fread("met.gz")
 dat.head(5)
@@ -141,7 +148,7 @@ Before we continue, let's learn a bit more on `data.table` and `dtplyr`
 
 ---
 
-## `data.table` and `dtplyr`: Data Table's Syntax
+## * `data.table` and `dtplyr`: Data Table's Syntax
 
 - As you have seen in previous lectures, in `data.table` all happens within the
 square brackets. Here is common way to imagine DT:
@@ -155,7 +162,7 @@ square brackets. Here is common way to imagine DT:
   
 ---
 
-## `data.table` and `dtplyr`: Data Table's Syntax
+## * `data.table` and `dtplyr`: Data Table's Syntax
 
 Operations applied in **j** are evaluated *within* the data, meaning that
 names work as symbols, e.g.,
@@ -186,7 +193,7 @@ USArrests_dt[, plot(Murder, UrbanPop)]
 
 ---
 
-## `data.table` and `dtplyr`: Lazy table
+## * `data.table` and `dtplyr`: Lazy table
 
 - The `dtplyr` package provides a way to translate `dplyr` verbs to `data.table` syntax.
 
@@ -196,9 +203,9 @@ USArrests_dt[, plot(Murder, UrbanPop)]
 
 ---
 
-## `data.table` and `dtplyr`: Lazy table (cont.)
+## * `data.table` and `dtplyr`: Lazy table (cont.)
 
-```{r lazy-dt}
+```{r lazy-dt, eval=FALSE}
 # Creating a lazy table object
 dat_ldt <- lazy_dt(dat, immutable = FALSE)
 
@@ -215,11 +222,11 @@ Question: What is the `immutable = FALSE` option used for?
 
 ---
 
-## Selecting columns
+## * Selecting columns
 
 How can we select the columns `USAFID`, `lat`, and `lon`, using `data.table`:
 
-```{r select1-dt, eval = slides_eval}
+```{r select1-dt, eval = FALSE}
 dat[, list(USAFID, lat, lon)]
 # dat[, .(USAFID, lat, lon)]       # Alternative 1
 # dat[, c("USAFID", "lat", "lon")] # Alternative 2
@@ -231,19 +238,25 @@ What happens if instead of `list()` you used `c()`?
 
 ## Selecting columns (cont. 1)
 
+Using base R:
+
+```{r select1-base, eval = slides_eval}
+dat[, c('USAFID', 'lat', 'lon')]
+```
+
 Using the **dplyr::select** verb:
 
 ```{r select1-tv, eval = slides_eval}
-dat_ldt %>% select(USAFID, lat, lon)
+dat |> select(USAFID, lat, lon)
 ```
 
 ---
 
-## Selecting columns (cont. 2)
+## * Selecting columns (cont. 2)
 
 In the case of `pydatatable`
 
-```{python select1-py, eval = slides_eval}
+```{python select1-py, eval = FALSE}
 dat[:,["USAFID", "lat", "lon"]]
 ```
 
@@ -252,16 +265,11 @@ What happens if instead of `["USAFID", "lat", "lon"]` you used `{"USAFID", "lat"
 ---
 
 For the rest of the session we will be using these variables:
-USAFID, WBAN, year, month, day, hour, min, lat, lon, elev, wind.sp, temp, and atm.press.
+`USAFID`, `WBAN`, `year`, `month`, `day`, `hour`, `min`, `lat`, `lon`, `elev`, `wind.sp`, `temp`, and `atm.press`.
 
 ```{r actual-selection}
 # Data.table
-dat <- dat[,
-  .(USAFID, WBAN, year, month, day, hour, min, lat, lon, elev,
-    wind.sp, temp, atm.press)]
-
-# Need to redo the lazy table
-dat_ldt <- lazy_dt(dat)
+dat <- dat |> select(USAFID, WBAN, year, month, day, hour, min, lat, lon, elev, wind.sp, temp, atm.press)
 ```
 
 ---
@@ -274,20 +282,20 @@ dat_ldt <- lazy_dt(dat)
 
 - Fundamental **logical** operators:
   
-  ```{r operators, echo = FALSE}
-  test <- expand.grid(c(TRUE, FALSE),c(TRUE, FALSE))
-  ans <- data.frame(
-    x = ifelse(test[,1], "true", "false"),
-    y = ifelse(test[,2], "true", "false"),
-    `Negate<br>!x`       = ifelse(!test[,1] , "true", "false"),
-    `And<br>x & y`       = ifelse(test[,1] & test[,2], "true", "false"),
-    `Or<br>x | y`        = ifelse(test[,1] | test[,2], "true", "false"),
-    `Xor<br>xor(x, y)`       = ifelse(xor(test[,1], test[,2]), "true", "false"),
-    check.names     = FALSE
-  )
-  
-  knitr::kable(ans, row.names = FALSE, align = "c")
-  ```
+```{r operators, echo = FALSE}
+test <- expand.grid(c(TRUE, FALSE),c(TRUE, FALSE))
+ans <- data.frame(
+  x = ifelse(test[,1], "true", "false"),
+  y = ifelse(test[,2], "true", "false"),
+  `Negate<br>!x`       = ifelse(!test[,1] , "true", "false"),
+  `And<br>x & y`       = ifelse(test[,1] & test[,2], "true", "false"),
+  `Or<br>x | y`        = ifelse(test[,1] | test[,2], "true", "false"),
+  `Xor<br>xor(x, y)`       = ifelse(xor(test[,1], test[,2]), "true", "false"),
+  check.names     = FALSE
+)
+
+knitr::kable(ans, row.names = FALSE, align = "c")
+```
 
 - Fundamental **relational** operators, in R: `<`, `>`, `<=`, `>=`, `==`, `!=`.
 
@@ -344,9 +352,9 @@ cbind(
 
 ---
 
-Or in python
+## * Or in python
 
-```{python xor-py}
+```{python xor-py, eval=FALSE}
 # Loading the libraries
 import numpy as np
 import pandas as pa
@@ -366,9 +374,9 @@ pa.DataFrame(ans)
 
 ---
 
-Or in python (bis)
+## * Or in python (bis)
 
-```{python xor-py-bis}
+```{python xor-py-bis, eval=FALSE}
 def myxor(x,y):
     return np.logical_or(
         np.logical_and(x, np.logical_not(y)),
@@ -385,7 +393,7 @@ We will now see applications using the `met` dataset
 
 ## Filtering (subsetting) the data
 
-Need to select records according to some criteria. For example:
+Say we need to select records according to some criteria. For example:
 
 - First day of the month, and
 - Above latitude 40, and
@@ -401,11 +409,23 @@ Respectively.
 
 ---
 
+## * data.table
+
 In R with `data.table`:
 
-```{r filter1-dt1, eval = slides_eval}
-dat[(day == 1) & (lat > 40) & ((elev < 500) | (elev > 1000))] %>%
+```{r filter1-dt1, eval = FALSE}
+dat[(day == 1) & (lat > 40) & ((elev < 500) | (elev > 1000))] |>
   nrow()
+```
+
+---
+
+In base R:
+
+```{r filter1-base, eval = slides_eval}
+dat[dat$day == 1 &
+      dat$lat > 40 &
+      (dat$elev < 500) | (dat$elev > 1000), ]
 ```
 
 ---
@@ -413,9 +433,9 @@ dat[(day == 1) & (lat > 40) & ((elev < 500) | (elev > 1000))] %>%
 In R with **dplyr::filter()**:
 
 ```{r filter1-tv, eval = slides_eval}
-dat_ldt %>%
-  filter(day == 1, lat > 40, (elev < 500) | (elev > 1000)) %>%
-  collect() %>% # Notice this line!
+dat |>
+  filter(day == 1, lat > 40, (elev < 500) | (elev > 1000)) |>
+  collect() |> # Notice this line!
   nrow() 
 ```
 
@@ -423,13 +443,13 @@ dat_ldt %>%
 
 In Python
 
-```{python filter1-py-load, eval = slides_eval}
+```{python filter1-py-load, eval = FALSE}
 import datatable as dt
 dat = dt.fread("met.gz")
 ```
 
 
-```{python filter1-py, eval = slides_eval}
+```{python filter1-py, eval = FALSE}
 dat[(dt.f.day == 1) & (dt.f.lat > 40) & ((dt.f.elev < 500) | (dt.f.elev > 1000)), :].nrows
 # dat[dt.f.day == 1,:][dt.f.lat > 40,:][(dt.f.elev < 500) | (dt.f.elev > 1000),:].nrows
 ```
@@ -446,10 +466,9 @@ that allows accessing column names in a datatable's `Frame`.
 
 1. How many records have a temperature within 18 and 25?
 
-2. Some records have missings. Count how many records have `temp` as `NA`?
+2. Some records have missing values. Count how many records have `temp` as `NA`.
 
-3. Following the previous question, plot a sample of 1,000 of `(lat, lon)` of the
-   stations with temp as NA and those with data.
+3. Following the previous question, plot a sample of 1,000 pairs of `(lat, lon)` coordinates for (a) the stations with `temp` as `NA` and (b) those with data.
 
 ---
 
@@ -457,26 +476,29 @@ that allows accessing column names in a datatable's `Frame`.
 
 ```{r echo=FALSE, eval = TRUE, cache = TRUE}
 # Question 1
-message("Question 1: ", nrow(dat[(temp < 25) & (temp > 18)]))
+message("Question 1: ", nrow(dat[dat$temp < 25 & dat$temp > 18, ]))
 # dat[temp %between% c(18, 25), .N] 
 
-# dat_ldt %>% filter(between(temp, 18, 25)) %>% collect() %>% nrow()
+# dat |> filter(between(temp, 18, 25)) |> collect() |> nrow()
 
 # Question 2
-message("Question 2: ", dat[is.na(temp), .N])
+message("Question 2: ", nrow(dat[is.na(dat$temp), ]))
+# more succinct: sum(is.na(dat$temp))
 
 # Question 3
 set.seed(123)
 message("Question 3")
 
 # Drawing a sample
-idx <- dat[, list(x = sample.int(.N, 2000, replace = FALSE)), by = is.na(temp)]$x
+idx1 <- sample(which(is.na(dat$temp)), 1000)
+idx2 <- sample(which(!is.na(dat$temp)), 1000)
 
 # Visualizing the data
+# make a map of the US, as we did last class
 ggplot(map_data("state"), aes(x = long, y = lat)) +
   geom_map(aes(map_id = region), map = map_data("state"), col = "lightgrey", fill = "gray") +
   geom_jitter(
-    data    = dat[idx],
+    data    = dat[c(idx1, idx2), ],
     mapping = aes(x = lon, y = lat, col = is.na(temp)),
     inherit.aes = FALSE, alpha = .5, cex = 2
     )
@@ -555,13 +577,9 @@ describing each column data type/format.
 If we wanted to create two variables, `elev^2` and the scaled version of `wind.sp` by it's
 standard error, we could do the following
 
-With `data.table`
-
 ```{r eval=slides_eval}
-dat[, elev2         := elev^2]
-dat[, windsp_scaled := wind.sp/sd(wind.sp, na.rm = TRUE)]
-# Alternatively:
-# dat[, c("elev2", "windsp_scaled") := .(elev^2, wind.sp/sd(wind.sp,na.rm=TRUE)) ]
+dat$elev2 <- dat$elev^2
+dat$windsp_scaled <- dat$wind.sp / sd(dat$wind.sp, na.rm = TRUE)
 ```
 
 ---
@@ -571,25 +589,35 @@ dat[, windsp_scaled := wind.sp/sd(wind.sp, na.rm = TRUE)]
 With the verb **dplyr::mutate()**:
 
 ```{r eval=slides_eval}
-dat[, c("elev2", "windsp_scaled") := NULL] # This to delete these variables
-dat_ldt %>%
+dat |>
   mutate(
     elev2         = elev ^ 2,
-    windsp_scaled = wind.sp/sd(wind.sp,na.rm=TRUE)
-  ) %>% collect()
+    windsp_scaled = wind.sp / sd(wind.sp,na.rm=TRUE)
+  ) |> collect()
 ```
-
-Notice that, since `dat_ldt` is a pointer, the variables are now in `dat`.
 
 ---
 
 ## Variable creation (cont. 2)
 
-Imagine that we needed to generate all those calculations (scale by sd) on many more variables.
-We could then use the **.SD** symbol:
+Imagine that we needed to scale multiple variables by their SD and didn't want to copy-paste this code several times. Here's how we could do it automatically for a given list of variable names:
 
-```{r var-new-dt2}
+```{r var-new-base}
 # Listing the names
+names  <- c("wind.sp", "temp", "atm.press")
+
+for(var in names){
+  dat[,paste0(var,'_scaled')] <- dat[,var] / sd(dat[,var], na.rm = TRUE)
+}
+```
+
+Why can't we use `dat$var` inside the loop?
+
+---
+
+## * Or with data.table
+
+```{r var-new-dt, eval=FALSE}
 in_names  <- c("wind.sp", "temp", "atm.press")
 out_names <- paste0(in_names, "_scaled")
 dat[,
@@ -610,21 +638,89 @@ Key things to notice here: **c(out_names)**, **.SD**, and **.SDCols**.
 In the case of dplyr, we could use the following
 
 ```{r var-new-tv2}
-as_tibble(dat_ldt) %>%
+names  <- c("wind.sp", "temp", "atm.press")
+dat |>
   mutate(
     across(
-      all_of(in_names),
+      all_of(names),
       function(x) x/sd(x, na.rm = TRUE),
       .names = "{col}_scaled2"
       )
-  ) %>%
+  ) |>
   # Just to print the last columns
-  select(ends_with("_scaled2")) %>%
+  select(ends_with("_scaled2")) |>
   head(n = 4)
 ```
 
-Key thing here: This approach has no direct translation to `data.table`, which
-is why we used **as_tibble()**.
+---
+
+## Complex variable creation
+
+Don't forget about loops! `for` loops and `sapply` may be slow on a dataset of this size, but they can be quite handy for creating variables that rely on complicated relationships between variables. Consider this a "brute force" approach. Vectorized methods will *always* be faster, but these can be easier to conceptualize and, in rare cases, may be the only option.
+
+Let's demonstrate this by creating a weird variable: `wind.temp`. This will take on 4 possible values, based on the temperature and wind speed: cool & still, cool & windy, warm & still, or warm & windy. We will split each variable based on their median value.
+
+---
+
+## Complex variable creation (cont 1)
+
+Here's how we would do that with the `sapply` function:
+
+```{r new-var-sapply}
+wind.temp <- sapply(1:nrow(dat), function(i){
+  if(is.na(dat$temp[i]) | is.na(dat$wind.sp[i])){
+    return(NA)
+  }
+  if(dat$temp[i] <= median(dat$temp, na.rm=TRUE)){
+    if(dat$wind.sp[i] <= median(dat$wind.sp, na.rm=TRUE)){
+      return('cool & still')
+    }else{
+      return('cool & windy')
+    }
+  }else{
+    if(dat$wind.sp[i] <= median(dat$wind.sp, na.rm=TRUE)){
+      return('warm & still')
+    }else{
+      return('warm & windy')
+    }
+  }
+})
+head(wind.temp)
+```
+Check: what would we need to change to add this variable to our dataset?
+
+---
+
+## Complex variable creation (cont 2)
+
+Here's the code for doing that with a `for` loop:
+
+```{r new-var-for-loop, eval=FALSE}
+# initialize a variable of all missing values
+wind.temp <- rep(NA, nrow(dat))
+# fill in the values
+for(i in 1:nrow(dat)){
+  if(is.na(dat$temp[i]) | is.na(dat$wind.sp[i])){
+    return(NA)
+  }else{
+    if(dat$temp[i] <= median(dat$temp, na.rm=TRUE)){
+      if(dat$wind.sp[i] <= median(dat$wind.sp, na.rm=TRUE)){
+        wind.temp[i] <- 'cool & still'
+      }else{
+        wind.temp[i] <- 'cool & windy'
+      }
+    }else{
+      if(dat$wind.sp[i] <= median(dat$wind.sp, na.rm=TRUE)){
+        wind.temp[i] <- 'warm & still'
+      }else{
+        wind.temp[i] <- 'warm & windy'
+      }
+    }
+  }
+}
+```
+
+Check: why do we need to include `na.rm=TRUE` when calculating the medians?
 
 ---
 
@@ -643,23 +739,22 @@ is why we used **as_tibble()**.
 
 ```{r stations-data, cache = TRUE, warning=FALSE}
 stations <- fread("ftp://ftp.ncdc.noaa.gov/pub/data/noaa/isd-history.csv")
-stations[, USAF := as.integer(USAF)]
+stations <- as.data.frame(stations)
+stations$USAF <- as.integer(stations$USAF)
 
 # Dealing with NAs and 999999
-stations[, USAF   := fifelse(USAF == 999999, NA_integer_, USAF)]
-stations[, CTRY   := fifelse(CTRY == "", NA_character_, CTRY)]
-stations[, STATE  := fifelse(STATE == "", NA_character_, STATE)]
+stations$USAF[stations$USAF == 999999] <- NA
+stations$CTRY[stations$CTRY == ""] <- NA
+stations$STATE[stations$STATE == ""] <- NA
 
-# Selecting the three relevant columns, and keeping unique records
-stations <- unique(stations[, list(USAF, CTRY, STATE)])
+# Selecting the three relevant columns, and keep unique records
+stations <- unique(stations[, c('USAF', 'CTRY', 'STATE')])
 
 # Dropping NAs
-stations <- stations[!is.na(USAF)]
+stations <- stations[!is.na(stations$USAF), ]
 
 head(stations, n = 4)
 ```
-
-Notice the function `fifelse()`. Now, let's try to merge the data!
 
 ---
 
@@ -676,15 +771,14 @@ merge(
   # Which obs to keep?
   all.x = TRUE,      
   all.y = FALSE
-  ) %>% nrow()
+  ) |> nrow()
 ```
 
 This is more rows! The original dataset, `dat`, has `r nrow(dat)`. This means
 that the `stations` dataset has duplicated IDs. We can fix this:
 
 ```{r drop-dpl, results='hide'}
-stations[, n := 1:.N, by = .(USAF)]
-stations <- stations[n == 1,][, n := NULL]
+stations <- stations[!duplicated(stations$USAF), ]
 ```
 
 ---
@@ -706,112 +800,99 @@ dat <- merge(
   all.y = FALSE
   )
 
-head(dat[, list(USAFID, WBAN, STATE)], n = 4)
+head(dat[, c('USAFID', 'WBAN', 'STATE')], n = 4)
 ```
 
 What happens when you change the options `all.x` and `all.y`?
 
 ```{r merging-all-x-y, include = FALSE}
-merge(x = dat, y = stations, by.x = "USAFID", by.y = "USAF",all.x = TRUE, all.y = FALSE) %>% nrow()
-merge(x = dat, y = stations, by.x = "USAFID", by.y = "USAF",all.x = TRUE, all.y = TRUE) %>% nrow()
-merge(x = dat, y = stations, by.x = "USAFID", by.y = "USAF",all.x = FALSE, all.y = TRUE) %>% nrow()
-merge(x = dat, y = stations, by.x = "USAFID", by.y = "USAF",all.x = FALSE, all.y = FALSE) %>% nrow()
+merge(x = dat, y = stations, by.x = "USAFID", by.y = "USAF",all.x = TRUE, all.y = FALSE) |> nrow()
+merge(x = dat, y = stations, by.x = "USAFID", by.y = "USAF",all.x = TRUE, all.y = TRUE) |> nrow()
+merge(x = dat, y = stations, by.x = "USAFID", by.y = "USAF",all.x = FALSE, all.y = TRUE) |> nrow()
+merge(x = dat, y = stations, by.x = "USAFID", by.y = "USAF",all.x = FALSE, all.y = FALSE) |> nrow()
 ```
 
 ---
 
-## Aggregating data: Adding groupped variables
+## * Aggregating data: Adding grouped variables
 
 - Many times we need to either impute some data, or generate variables by strata.
 
 - If we, for example, wanted to impute missing temperature with the daily state
   average, we could use **by** together with the **data.table::fcoalesce()** function:
   
-  ```{r group-dt1, eval = TRUE}
-  dat[, temp_imp := fcoalesce(temp, mean(temp, na.rm = TRUE)),
-    by = .(STATE, year, month, day)]
-  ```
-
-- In the case of dplyr, we can do the following using **dplyr::group_by** together
-  with **dplyr::coalesce()**:
-  
-  ```{r group-tv1, eval = TRUE, results='hide'}
-  # We need to create the lazy table again, since we replaced it in the merge
-  dat_ldt <- lazy_dt(dat, immutable = FALSE)
-  
-  dat_ldt %>%
-    group_by(STATE, year, month, day) %>%
-    mutate(
-      temp_imp2 = coalesce(temp, mean(temp, na.rm = TRUE))
-      ) %>% collect()
-  ```
-
----
-
-## Aggregating data: Adding groupped variables (cont.)
-
-Let's see how it looks like
-
-```{r plot-groupped, eval = FALSE}
-# Preparing for ggplot2
-plotdata <-dat[USAFID == 720172][order(year, month, day)]
-plotdata <- rbind(
-  plotdata[, .(temp = temp, type = "raw")],
-  plotdata[USAFID == 720172][, .(temp = temp_imp, type = "filled")]
-)
-
-# Generating an 'x' variable for time
-plotdata[, id := 1:.N, by = type]
-
-plotdata %>%
-  ggplot(aes(x = id, y = temp, col = type, lty = type)) +
-  geom_line()
+```{r group-dt1, eval = FALSE}
+dat[, temp_imp := fcoalesce(temp, mean(temp, na.rm = TRUE)),
+  by = .(STATE, year, month, day)]
 ```
 
 ---
 
-```{r echo = FALSE}
-# Preparing for ggplot2
-plotdata <-dat[USAFID == 720172][order(year, month, day)]
-plotdata <- rbind(
-  plotdata[, .(temp = temp, type = "raw")],
-  plotdata[USAFID == 720172][, .(temp = temp_imp, type = "filled")]
-)
+## Aggregating data: Adding grouped variables
 
-# Generating an 'x' variable for time
-plotdata[, id := 1:.N, by = type]
+- In the case of dplyr, we can do the following using **dplyr::group_by()** together with **dplyr::coalesce()**:
+  
+```{r group-tv1, eval = TRUE, results='hide'}
+dat <- dat |>
+  group_by(STATE, year, month, day) |>
+  mutate(
+    temp_imp = coalesce(temp, mean(temp, na.rm = TRUE))
+    ) |> collect()
+```
 
-plotdata %>%
-  ggplot(aes(x = id, y = temp, col = type, lty = type)) +
-  geom_line()
+---
+
+## Aggregating data: Adding grouped variables (cont.)
+
+Let's see how it looks:
+
+```{r plot-grouped}
+# Preparing for plotting
+# select single station, sort by date
+plotdata <- dat[dat$USAFID == 720172, ]
+plotdata <- plotdata[order(plotdata$year, plotdata$month, plotdata$day, plotdata$hour, plotdata$min), ]
+# Generate an 'x' variable for time
+plotdata$id <- 1:nrow(plotdata)
+
+
+plot(plotdata$id, plotdata$temp, pch=16)
+lines(plotdata$id, plotdata$temp_imp, col=2)
+```
+
+---
+
+```{r plot-grouped-gg, echo = FALSE}
+plotdata |>
+  ggplot(aes(x = id)) +
+  geom_point(aes(y = temp)) +
+  geom_line(aes(y = temp_imp, colour = 'red'))
 ```
 
 
 ---
-## Aggregating data: Summary table
+## * Aggregating data: Summary table
 
 - Using `by` also allow us creating summaries of our data.
 
-- For example, if we wanted to compute the average temperature, wind-speed, and
-  atmospheric preassure by state, we could do the following
+- For example, if we wanted to compute the average temperature, wind-speed, and atmospheric pressure by state, we could do the following
   
-  ```{r by-state-dt}
-  dat[, .(
-    temp_avg      = mean(temp, na.rm=TRUE),
-    wind.sp_avg   = mean(wind.sp, na.rm=TRUE),
-    atm.press_avg = mean(atm.press, na.rm = TRUE)
-    ),
-    by = STATE
-    ][order(STATE)] %>% head(n = 4)
-  ```
+```{r by-state-dt, eval=FALSE}
+dat[, .(
+  temp_avg      = mean(temp, na.rm=TRUE),
+  wind.sp_avg   = mean(wind.sp, na.rm=TRUE),
+  atm.press_avg = mean(atm.press, na.rm = TRUE)
+  ),
+  by = STATE
+  ][order(STATE)] |> head(n = 4)
+```
   
 ---
 
-## Aggregating data: Summary table (cont. 1)
+## * Aggregating data: Summary table (cont. 1)
 
 When dealing with too many variables, we can use the `.SD` special symbol in `data.table`:
 
-```{r group-dt2, eval = TRUE}
+```{r group-dt2, eval = FALSE}
 # Listing the names
 in_names  <- c("wind.sp", "temp", "atm.press")
 out_names <- paste0(in_names, "_avg")
@@ -819,7 +900,7 @@ out_names <- paste0(in_names, "_avg")
 dat[,
   setNames(lapply(.SD, mean, na.rm = TRUE), out_names),
   .SDcols = in_names, keyby   = STATE
-  ] %>% head(n = 4)
+  ] |> head(n = 4)
 ```
 
 Notice the **keyby** option here: "Group by STATE and order by STATE".
@@ -830,20 +911,23 @@ Notice the **keyby** option here: "Group by STATE and order by STATE".
 
 - Using **dplyr** verbs  
   
-  ```{r by-state-tv}
-  dat_ldt %>% group_by(STATE) %>%
-    summarise(
-      temp_avg      = mean(temp, na.rm=TRUE),
-      wind.sp_avg   = mean(wind.sp, na.rm=TRUE),
-      atm.press_avg = mean(atm.press, na.rm = TRUE)
-    ) %>% arrange(STATE) %>% head(n = 4)
-  ```
+```{r by-state-tv}
+dat |> 
+  group_by(STATE) |>
+  summarise(
+    temp_avg      = mean(temp, na.rm=TRUE),
+    wind.sp_avg   = mean(wind.sp, na.rm=TRUE),
+    atm.press_avg = mean(atm.press, na.rm = TRUE)
+  ) |> 
+  arrange(STATE) |> 
+  head(n = 4)
+```
   
-  Notice the `arrange()` function.
+Notice the `arrange()` function.
 
 ---
 
-## Other data.table goodies
+## * Other data.table goodies
 
 - `shift()` Fast lead/lag for vectors and lists.
 
