@@ -3,9 +3,8 @@
   <head>
     <title>Week 5: Data Wrangling</title>
     <meta charset="utf-8" />
-    <meta name="author" content="George G. Vega Yon and Kelly Streets" />
-    <meta name="date" content="2021-09-23" />
-    <script src="libs/header-attrs-2.27/header-attrs.js"></script>
+    <meta name="author" content="George G. Vega Yon and Kelly Street" />
+    <script src="libs/header-attrs-2.28/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="theme.css" type="text/css" />
   </head>
@@ -20,10 +19,7 @@ class: center, middle, title-slide
 ## PM 566: Introduction to Health Data Science
 ]
 .author[
-### George G. Vega Yon and Kelly Streets
-]
-.date[
-### 2021-09-23
+### George G. Vega Yon and Kelly Street
 ]
 
 ---
@@ -64,7 +60,7 @@ All with the [MET](https://github.com/USCbiostats/data-science-data/) dataset.
 
 ## Disclaimer
 
-There's a lot of extraneous information in these slides! While the `data.table` package and Python both have a lot of useful functionality, we strongly recommend sticking to the base R and `tidyverse` tools presented here. Slides covering material outside this scope will be marked with an asterisk (`*`).
+There's a lot of extraneous information in these slides! While the `data.table` package and Python both have a lot of useful functionality, we strongly recommend sticking to the base R and `tidyverse` tools presented here. Slides covering material outside this scope will be marked with an asterisk (`*`); you should be extremely cautious about using code from those slides!
 
 ---
 
@@ -66992,8 +66988,11 @@ For the rest of the session we will be using these variables:
 
 
 ``` r
-# Data.table
-dat &lt;- dat |&gt; select(USAFID, WBAN, year, month, day, hour, min, lat, lon, elev, wind.sp, temp, atm.press)
+# select only the relevant variables
+dat &lt;- dat |&gt; 
+  select(USAFID, WBAN, year, month, day, 
+         hour, min, lat, lon, elev, 
+         wind.sp, temp, atm.press)
 ```
 
 ---
@@ -96113,6 +96112,108 @@ dat |&gt;
 ## 3        3.120059     5.677247          248.9613
 ## 4        2.374970     5.495707          249.2077
 ```
+
+---
+
+## Complex variable creation
+
+Don't forget about loops! `for` loops and `sapply` may be slow on a dataset of this size, but they can be quite handy for creating variables that rely on complicated relationships between variables. Consider this a "brute force" approach. Vectorized methods will *always* be faster, but these can be easier to conceptualize and, in rare cases, may be the only option.
+
+Consider the problem creating a weird variable: `wind.temp`. This will take on 4 possible values, based on the temperature and wind speed: cool &amp; still, cool &amp; windy, warm &amp; still, or warm &amp; windy. We will split each variable based on their median value. Note that this code is too slow to actually run on this large dataset.
+
+---
+
+## Complex variable creation (cont 1)
+
+Here's how we would do that with the `sapply` function (and a custom, unnamed function):
+
+
+``` r
+# create the new variable one entry at a time
+wind.temp &lt;- sapply(1:nrow(dat), function(i){
+  if(is.na(dat$temp[i]) | is.na(dat$wind.sp[i])){
+    return(NA)
+  }
+  if(dat$temp[i] &lt;= median(dat$temp, na.rm=TRUE)){
+    if(dat$wind.sp[i] &lt;= median(dat$wind.sp, na.rm=TRUE)){
+      return('cool &amp; still')
+    }else{
+      return('cool &amp; windy')
+    }
+  }else{
+    if(dat$wind.sp[i] &lt;= median(dat$wind.sp, na.rm=TRUE)){
+      return('warm &amp; still')
+    }else{
+      return('warm &amp; windy')
+    }
+  }
+})
+```
+
+Check: what would we need to change to add this variable to our dataset?
+
+---
+
+## Complex variable creation (cont 2)
+
+Here's the code for doing that with a `for` loop:
+
+
+``` r
+# initialize a variable of all missing values
+wind.temp &lt;- rep(NA, nrow(dat))
+# fill in the values one at a time
+for(i in 1:nrow(dat)){
+  if(is.na(dat$temp[i]) | is.na(dat$wind.sp[i])){
+    return(NA)
+  }else{
+    if(dat$temp[i] &lt;= median(dat$temp, na.rm=TRUE)){
+      if(dat$wind.sp[i] &lt;= median(dat$wind.sp, na.rm=TRUE)){
+        wind.temp[i] &lt;- 'cool &amp; still'
+      }else{
+        wind.temp[i] &lt;- 'cool &amp; windy'
+      }
+    }else{
+      if(dat$wind.sp[i] &lt;= median(dat$wind.sp, na.rm=TRUE)){
+        wind.temp[i] &lt;- 'warm &amp; still'
+      }else{
+        wind.temp[i] &lt;- 'warm &amp; windy'
+      }
+    }
+  }
+}
+```
+
+Check: why do we need to include `na.rm=TRUE` when calculating the medians?
+
+---
+
+## Complex variable creation (cont 3)
+
+Here's a simple vectorized approach that will actually run on a large dataset. This works for our current case, but it's still a brute force approach, because we had to specifically assign every possible value of our new variable. You can imagine that as the number of possible values increases, this code will get increasingly cumbersome. 
+
+
+``` r
+# initialize a variable of all missing values
+wind.temp &lt;- rep(NA, nrow(dat))
+# assign every possible value by subsetting
+wind.temp[dat$temp &lt;= median(dat$temp, na.rm=TRUE) &amp; 
+            dat$wind.sp &lt;= median(dat$wind.sp, na.rm=TRUE)] &lt;- 'cool &amp; still'
+wind.temp[dat$temp &lt;= median(dat$temp, na.rm=TRUE) &amp; 
+            dat$wind.sp &gt; median(dat$wind.sp, na.rm=TRUE)] &lt;- 'cool &amp; windy'
+wind.temp[dat$temp &gt; median(dat$temp, na.rm=TRUE) &amp; 
+            dat$wind.sp &lt;= median(dat$wind.sp, na.rm=TRUE)] &lt;- 'warm &amp; still'
+wind.temp[dat$temp &gt; median(dat$temp, na.rm=TRUE) &amp; 
+            dat$wind.sp &gt; median(dat$wind.sp, na.rm=TRUE)] &lt;- 'warm &amp; windy'
+
+head(wind.temp)
+```
+
+```
+## [1] "warm &amp; windy" "warm &amp; windy" "warm &amp; windy" "warm &amp; windy" "warm &amp; still"
+## [6] "warm &amp; still"
+```
+
 
 ---
 
