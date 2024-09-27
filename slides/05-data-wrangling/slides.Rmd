@@ -764,7 +764,7 @@ head(wind.temp)
 ## Merging data (cont. 1)
 
 ```{r stations-data, cache = TRUE, warning=FALSE}
-stations <- fread("ftp://ftp.ncdc.noaa.gov/pub/data/noaa/isd-history.csv")
+stations <- fread("https://noaa-isd-pds.s3.amazonaws.com/isd-history.csv")
 stations <- as.data.frame(stations)
 stations$USAF <- as.integer(stations$USAF)
 

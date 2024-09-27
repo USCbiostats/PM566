@@ -4,7 +4,7 @@
     <title>Week 5: Data Wrangling</title>
     <meta charset="utf-8" />
     <meta name="author" content="George G. Vega Yon and Kelly Street" />
-    <script src="libs/header-attrs-2.28/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.27/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="theme.css" type="text/css" />
   </head>
@@ -96232,7 +96232,7 @@ head(wind.temp)
 
 
 ``` r
-stations &lt;- fread("ftp://ftp.ncdc.noaa.gov/pub/data/noaa/isd-history.csv")
+stations &lt;- fread("https://noaa-isd-pds.s3.amazonaws.com/isd-history.csv")
 stations &lt;- as.data.frame(stations)
 stations$USAF &lt;- as.integer(stations$USAF)
 

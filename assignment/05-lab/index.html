@@ -632,7 +632,7 @@ system(&quot;git push -u origin master&quot;)
 </li>
 </ol>
 <pre><code class="language-r"># Download the data
-stations &lt;- fread(&quot;ftp://ftp.ncdc.noaa.gov/pub/data/noaa/isd-history.csv&quot;)
+stations &lt;- fread(&quot;https://noaa-isd-pds.s3.amazonaws.com/isd-history.csv&quot;)
 stations[, USAF := as.integer(USAF)]
 
 # Dealing with NAs and 999999
