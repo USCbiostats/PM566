@@ -4,7 +4,7 @@ output: tufte::tufte_html
 date: 2024-11-22
 ---
 
-Due date: Friday December 6th, 2024, by midnight Pacific Time.
+Due date: Friday December 6th, 2024, by 11:59pm Pacific Time.
 
 **Learning Objective**: To apply the skills learned in
 PM 566 by analyzing and interpreting a dataset of your choice.

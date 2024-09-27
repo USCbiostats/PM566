@@ -6,7 +6,7 @@ date: 2024-10-11
 
 
 
-Due **Sunday, October 27th, 2024** by midnight Pacific Time.
+Due **Sunday, October 27th, 2024** by 11:59pm Pacific Time.
 
 **Learning Objective**: To apply the skills learned in PM 566 (through Week 6) by analyzing and interpreting a dataset of your choice.
 

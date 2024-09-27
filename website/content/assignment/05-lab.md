@@ -88,9 +88,9 @@ Once you are done setting up the project, you can now start working with the MET
 2. Load the met data from https://raw.githubusercontent.com/USCbiostats/data-science-data/master/02_met/met_all.gz, and also the station data. For the later, you can use the code we used during lecture to pre-process the stations data:
 
 
-```r
+``` r
 # Download the data
-stations <- fread("ftp://ftp.ncdc.noaa.gov/pub/data/noaa/isd-history.csv")
+stations <- fread("https://noaa-isd-pds.s3.amazonaws.com/isd-history.csv")
 stations[, USAF := as.integer(USAF)]
 
 # Dealing with NAs and 999999

@@ -89,7 +89,7 @@ Once you are done setting up the project, you can now start working with the MET
 
 ```{r stations-data, eval = FALSE}
 # Download the data
-stations <- fread("ftp://ftp.ncdc.noaa.gov/pub/data/noaa/isd-history.csv")
+stations <- fread("https://noaa-isd-pds.s3.amazonaws.com/isd-history.csv")
 stations[, USAF := as.integer(USAF)]
 
 # Dealing with NAs and 999999
