@@ -569,7 +569,7 @@ If you don&rsquo;t already have <code>tidytext</code> then you can install with<
 <pre><code class="language-r">library(readr)
 library(dplyr)
 mt_samples &lt;- read_csv(&quot;https://raw.githubusercontent.com/USCbiostats/data-science-data/master/00_mtsamples/mtsamples.csv&quot;)
-mt_samples &lt;- mt_samples %&gt;%
+mt_samples &lt;- mt_samples |&gt;
   select(description, medical_specialty, transcription)
 
 head(mt_samples)
