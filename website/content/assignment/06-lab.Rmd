@@ -34,7 +34,7 @@ Loading in reference transcription samples from https://www.mtsamples.com/
 library(readr)
 library(dplyr)
 mt_samples <- read_csv("https://raw.githubusercontent.com/USCbiostats/data-science-data/master/00_mtsamples/mtsamples.csv")
-mt_samples <- mt_samples %>%
+mt_samples <- mt_samples |>
   select(description, medical_specialty, transcription)
 
 head(mt_samples)

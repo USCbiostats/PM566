@@ -4,7 +4,7 @@ output: html_document
 ---
 
 
-```r
+``` r
 knitr::opts_chunk$set(eval = FALSE, include  = TRUE)
 ```
 
@@ -24,7 +24,7 @@ You should load in `dplyr`, (or `data.table` if you want to work that way), `ggp
 If you don't already have `tidytext` then you can install with
 
 
-```r
+``` r
 install.packages("tidytext")
 ```
 
@@ -33,11 +33,11 @@ install.packages("tidytext")
 Loading in reference transcription samples from https://www.mtsamples.com/
 
 
-```r
+``` r
 library(readr)
 library(dplyr)
 mt_samples <- read_csv("https://raw.githubusercontent.com/USCbiostats/data-science-data/master/00_mtsamples/mtsamples.csv")
-mt_samples <- mt_samples %>%
+mt_samples <- mt_samples |>
   select(description, medical_specialty, transcription)
 
 head(mt_samples)
@@ -50,7 +50,7 @@ head(mt_samples)
 We can use `count()` from `dplyr` to figure out how many different catagories do we have? Are these catagories related? overlapping? evenly distributed?
 
 
-```r
+``` r
 mt_samples %>%
   count(___, sort = TRUE)
 ```
