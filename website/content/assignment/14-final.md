@@ -20,21 +20,18 @@ formulated a clear and concise question to answer. You will apply the skills lea
 - Website (summarize your analysis, include interactive figures, provide a link to download the full written report)
 
 ### Written report
-The actual analysis should be included in the PDF report. The PDF report can refer to interactive visualizations included in the website, but otherwise all figures and tables should be included in the PDF.
+The actual analysis should be included in the PDF report. For the analysis, we will expect to see a cleaner report than for the midterm, with more sophisticated analysis. Regardless of how well you did on the midterm, we want to see improvements, either by fixing your mistakes or adding more data or questions to your analysis.
 
-The report should have the following sections (elaborate
-from what was written in the midterm):
-**Introduction** (provide background on your
-dataset and formulated question), **Methods**
-(include how and where the data were acquired, how you cleaned and
-wrangled the data, what tools you used for data exploration),
-**Results** (provide final, publication ready
-tables and figures from your analysis, make separate subsections as needed),
-and a brief **Conclusion and Summary** where
-you describe your findings.
+The PDF report can make references to interactive visualizations included in the website, but otherwise all figures and tables should be included in the PDF.
+
+The report should have the following sections:
+ - **Introduction**: provide background on your dataset and formulated question)
+ - **Methods**: include how and where the data were acquired, how you cleaned and wrangled the data, what tools you used for data exploration
+  - **Results**: provide final, publication-ready tables and figures from your analysis, make separate subsections as needed
+ - **Conclusion and Summary**: a brief recap where you describe your findings.
 
 In your report, please do not include any code (so make sure
-`echo = FALSE`), unformatted output, or dataset summaries (e.g. output from head(), str(), etc.)
+`echo = FALSE`), unformatted output, or partial datasets (e.g. output from `head()`, `str()`, etc.)
 
 ### Website Checklist
 See the checklist below for additional details about the website requirements:
@@ -63,16 +60,9 @@ See the checklist below for additional details about the website requirements:
 3.  <span dir="ltr">Make sure that the **website**, which is to be
     **hosted in GitHub pages**, actually **works**, i.e., figures and
     interactive visualizations are properly rendered when visiting the
-    website.</span>
+    website (Hint: double check the URL! Make sure you aren't looking at your local version).</span>
 
-4.  <span dir="ltr">Have a `README.md` file in the upper level of
-    the repository. This file provides general information about the
-    project, like title, brief description, etc.</span>
-
-5.  <span dir="ltr">The `README.md` file should provide a link to the website, e.g.
-    https://USERNAME.github.io/pm566-project.</span>
-
-6.  <span dir="ltr">Have a `data` folder with either the dataset or
-    instructions about how to acquire it. You should provide the
-    instructions in a `README.md` file within that folder.</span>
+4.  <span dir="ltr">Have a `data` folder with either the dataset or
+    instructions about how to acquire it. If necessary, you should provide the
+    instructions for acquiring the data in a `README` file within that folder.</span>
 
