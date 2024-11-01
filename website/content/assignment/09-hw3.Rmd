@@ -2,7 +2,7 @@
 title: "Assignment 03 - Text Mining"
 output: tufte::tufte_html
 link-citations: yes
-date: 2024-10-25
+date: 2024-10-23
 ---
 
 ## Due Date
@@ -16,3 +16,9 @@ A new dataset has been added to the data science data repository <https://github
 1.  Tokenize the abstracts and count the number of each token. Do you see anything interesting? Does removing stop words change what tokens appear as the most frequent? What are the 5 most common tokens for each search term after removing stopwords?
 2.  Tokenize the abstracts into bigrams. Find the 10 most common bigrams and visualize them with ggplot2.
 3.  Calculate the TF-IDF value for each word-search term combination (here you want the search term to be the "document"). What are the 5 tokens from each search term with the highest TF-IDF value? How are the results different from the answers you got in question 1?
+
+## Sentiment Analysis
+
+1.  Perform a sentiment analysis using the NRC lexicon. What is the most common sentiment for each search term? What if you remove `"positive"` and `"negative"` from the list?
+2.  Now perform a sentiment analysis using the AFINN lexicon to get an average positivity score for each abstract (hint: you may want to create a variable that indexes, or counts, the abstracts). Create a visualization that shows these scores grouped by search term. Are any search terms noticeably different from the others?
+
