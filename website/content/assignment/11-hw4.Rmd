@@ -13,7 +13,7 @@ The learning objectives are to write faster code for computational task requirin
 ## HPC
 
 ### Make things run faster
-Rewrite the following R functions to make them faster. It is OK (and recommended) to take a look at StackOverflow and Google
+Rewrite the following R functions to make them faster. It is OK (and recommended) to take a look at StackOverflow and Google.
 
 ```{r, eval = FALSE}
 # Total row sums
@@ -49,13 +49,17 @@ fun2alt <- function(mat) {
 ```
 
 ### Question 1
-Using the dataset generated below (`dat`), check that the output of both of your new functions matches the output of the original functions. Then use `microbenchmark` to check that your version is actually faster.
+Using the dataset generated below (`dat`), check that both of your new functions produce the same outputs as the corresponding original functions.
 
 ```{r, eval = FALSE}
 # Use the data with this code
 set.seed(2315)
 dat <- matrix(rnorm(200 * 100), nrow = 200)
+```
 
+Then use `microbenchmark` to check that your version is actually faster. How much faster is it?
+
+```{r, eval = FALSE}
 # Test for the first
 microbenchmark::microbenchmark(
   fun1(dat),
