@@ -1,7 +1,7 @@
 
-# Course Material for PM566 (Fall 2023)
+# Course Materials for PM 566
 
-The PM566 course website is
+The PM 566 course website is
 [here](https://USCbiostats.github.io/PM566). We will be using
 this website to share all course material including lecture slides,
 labs, and assignments.
@@ -11,18 +11,14 @@ Our class meets at 9 AM every Friday.
 
 # For instructors
 
-To upload materials, take a look at [this guide](adding-materials.md).
+Repo overview:
 
-# Previous iterations
-
-The contents of the Fall 2023 version of the class can be found
-[here](https://github.com/USCbiostats/PM566/tree/fall2023).
-
-The contents of the Fall 2022 version of the class can be found
-[here](https://github.com/USCbiostats/PM566/tree/fall2022).
-
-The contents of the Fall 2021 version of the class can be found
-[here](https://github.com/USCbiostats/PM566/tree/fall2021).
-
-The contents of the Fall 2020 version of the class can be found
-[here](https://github.com/USCbiostats/PM566/tree/fall2020).
+ - `data` contains datasets used in lecture slides.
+ - `docs` is where the website is built (via `quarto render`), you shouldn't need to manually change anything here.
+ - `assignments` contains homework assignments.
+ - `labs` contains weekly labs.
+ - `slides` contains weekly lecture slides.
+ 
+ Every year, you'll at least want to update the Home page (`index.qmd`), go over the Schedule page (`schedule.qmd`), and update the [PM566-whoami](https://github.com/USCbiostats/PM566-whoami) repo ahead of Week 2.
+ 
+ 

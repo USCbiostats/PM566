@@ -1,0 +1,596 @@
+---
+title: "Week 6: Text Mining"
+subtitle: "PM 566: Introduction to Health Data Science"
+author: "Emil Hvitfeldt, George G. Vega Yon, Kelly Street"
+format:
+  revealjs:
+    theme: default
+    fig-width: 7
+    fig-align: center
+engine: knitr
+---
+
+```{r include=FALSE}
+library(knitr)
+hook_output <- knit_hooks$get("output")
+knit_hooks$set(output = function(x, options) {
+  lines <- options$output.lines
+  if (is.null(lines)) {
+    return(hook_output(x, options))  # pass to default hook
+  }
+  x <- unlist(strsplit(x, "\n"))
+  more <- "..."
+  if (length(lines) == 1) {        # first n lines
+    if (length(x) > lines) {
+      # truncate the output, but add ....
+      x <- c(head(x, lines), more)
+    }
+  } else {
+    x <- c(more, x[lines], more)
+  }
+  # paste these lines together
+  x <- paste(c(x, ""), collapse = "\n")
+  hook_output(x, options)
+})
+knit_hooks$set(output = function(x, options) {
+  # this hook is used only when the linewidth option is not NULL
+  if (!is.null(n <- options$linewidth)) {
+    x = knitr:::split_lines(x)
+    # any lines wider than n should be wrapped
+    if (any(nchar(x) > n)) x = strwrap(x, width = n)
+    x = paste(x, collapse = '\n')
+  }
+  hook_output(x, options)
+})
+
+opts_chunk$set(
+  echo = TRUE,
+  fig.width = 7, 
+  fig.align = 'center',
+  fig.asp = 0.618, # 1 / phi
+  out.width = "700px")
+```
+
+```{css, echo = FALSE}
+.orange {color: #EF8633}
+```
+
+## Acknowledgment
+
+These slides were originally developed by Emil Hvitfeldt and modified by George G. Vega Yon and Kelly Street.
+
+---
+
+# Plan for the week
+
+- We will try to turn text into numbers
+- Then use tidy principals to explore those numbers
+
+---
+
+![](img/tidytext.png)
+
+---
+
+# Why tidytext?
+
+Works seemlessly with ggplot2, dplyr and tidyr.
+
+**Alternatives:**
+
+**R**: quanteda, tm, koRpus
+
+**Python**: nltk, Spacy, gensim
+
+---
+
+## Alice's Adventures in Wonderland
+
+Download the `alice` dataset from [https://USCBiostats.github.io/PM566/slides/06-textmining/alice.rds](https://USCBiostats.github.io/PM566/slides/06-textmining/alice.rds) (or from [here](alice.rds))
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+alice <- readRDS("../data/alice.rds")
+alice
+```
+
+---
+
+# Tokenizing
+
+Turning text into smaller units
+
+
+
+In English:
+
+- split by spaces
+- more advanced algorithms
+
+---
+
+# Spacy tokenizer
+
+![](img/spacy.png)
+
+---
+
+## Turning the data into a tidy format
+
+```{r}
+library(tidytext)
+alice |>
+  unnest_tokens(token, text)
+```
+
+---
+
+# Words as a unit
+
+Now that we have words as the observation unit we can use the **dplyr** toolbox.
+
+---
+
+## Using `dplyr` verbs
+
+```{r dplyr1}
+library(dplyr)
+alice |>
+  unnest_tokens(token, text)
+```
+
+---
+
+## Using `dplyr` verbs
+
+```{r dplyr2}
+library(dplyr)
+alice |>
+  unnest_tokens(token, text) |>
+  count(token)
+```
+
+---
+
+## Using `dplyr` verbs
+
+```{r dplyr3}
+library(dplyr)
+alice |>
+  unnest_tokens(token, text) |>
+  count(token, sort = TRUE)
+```
+
+---
+
+## Using `dplyr` verbs
+
+```{r dplyr4}
+library(dplyr)
+alice |>
+  unnest_tokens(token, text) |>
+  count(chapter, token)
+```
+
+---
+
+## Using `dplyr` verbs
+
+```{r dplyr5}
+library(dplyr)
+alice |>
+  unnest_tokens(token, text) |>
+  group_by(chapter) |>
+  count(token) |>
+  top_n(10, n)
+```
+
+---
+
+## `dplyr` verbs and `ggplot2`{.smaller}
+
+```{r dplyr6}
+library(dplyr)
+library(ggplot2)
+alice |>
+  unnest_tokens(token, text) |>
+  count(token) |>
+  top_n(10, n) |>
+  ggplot(aes(n, token)) +
+  geom_col()
+```
+
+---
+
+## `dplyr` verbs and `ggplot2`{.smaller}
+
+```{r dplyr7}
+library(dplyr)
+library(ggplot2)
+library(forcats)
+alice |>
+  unnest_tokens(token, text) |>
+  count(token) |>
+  top_n(10, n) |>
+  ggplot(aes(n, fct_reorder(token, n))) +
+  geom_col()
+```
+
+---
+
+# Stop words
+
+A lot of the words don't tell us very much. Words such as "the", "and", "at" and "for" appear a lot in English text but doesn't add much to the context.
+
+Words such as these are called **stop words**
+
+For more information about differences in stop words and when to remove them read this chapter: [https://smltar.com/stopwords](https://smltar.com/stopwords)
+
+---
+
+## Stop words in tidytext
+
+`tidytext` comes with a built-in `data.frame` of stop words
+
+```{r}
+stop_words
+```
+
+---
+
+## Stop word lexicons
+
+```{r}
+table(stop_words$lexicon)
+```
+
+---
+
+## `snowball` stopwords
+
+```{r stopwordsSnowball}
+stop_words |>
+  filter(lexicon == "snowball") |>
+  pull(word)
+```
+
+---
+
+## Duplicated stopwords
+
+```{r duplicatedStopwords}
+sort(table(stop_words$word), decreasing = TRUE)
+```
+
+---
+
+## Removing stopwords
+
+We can use an `anti_join()` to remove the tokens that also appear in the `stop_words` `data.frame`
+
+```{r stopwords2}
+alice |>
+  unnest_tokens(token, text) |>
+  anti_join(stop_words, by = c("token" = "word")) |>
+  count(token, sort = TRUE)
+```
+
+---
+
+## Anti-join with same variable name
+
+```{r stopwords3}
+alice |>
+  unnest_tokens(word, text) |>
+  anti_join(stop_words, by = c("word")) |>
+  count(word, sort = TRUE)
+```
+
+---
+
+## Stop words removed
+
+```{r stopwords4}
+alice |>
+  unnest_tokens(word, text) |>
+  anti_join(stop_words, by = c("word")) |>
+  count(word, sort = TRUE) |>
+  top_n(10, n) |>
+  ggplot(aes(n, fct_reorder(word, n))) +
+  geom_col()
+```
+
+---
+
+## Which words appear together?
+
+**ngrams** are sets of `n` consecutive words and we can count these to see which words appear together most frequently.
+
+
+
+- ngrams with n = 1 are called "unigrams": "which", "words", "appear", "together"
+- ngrams with n = 2 are called "bigrams": "which words", "words appear", "appear together"
+- ngrams with n = 3 are called "trigrams": "which words appear", "words appear together"
+
+---
+
+## Which words appear together?
+
+We can extract bigrams using `unnest_ngrams()` with `n = 2`
+
+```{r}
+alice |>
+  unnest_ngrams(ngram, text, n = 2)
+```
+
+---
+
+## Which words appear together?
+
+Tallying up the bigrams still shows a lot of stop words, but it is able to pick up some common phrases:
+
+```{r}
+alice |>
+  unnest_ngrams(ngram, text, n = 2) |>
+  count(ngram, sort = TRUE)
+```
+
+---
+
+## Which words appear together?
+
+```{r}
+alice |>
+  unnest_ngrams(ngram, text, n = 2) |>
+  separate(ngram, into = c("word1", "word2"), sep = " ") |>
+  select(word1, word2)
+```
+
+---
+
+```{r}
+alice |>
+  unnest_ngrams(ngram, text, n = 2) |>
+  separate(ngram, into = c("word1", "word2"), sep = " ") |>
+  select(word1, word2) |>
+  filter(word1 == "alice")
+```
+
+---
+
+What about when the first word is "alice"?
+
+```{r}
+alice |>
+  unnest_ngrams(ngram, text, n = 2) |>
+  separate(ngram, into = c("word1", "word2"), sep = " ") |>
+  select(word1, word2) |>
+  filter(word1 == "alice") |>
+  count(word2, sort = TRUE)
+```
+
+---
+
+What about when the second word is "alice"?
+
+```{r}
+alice |>
+  unnest_ngrams(ngram, text, n = 2) |>
+  separate(ngram, into = c("word1", "word2"), sep = " ") |>
+  select(word1, word2) |>
+  filter(word2 == "alice") |>
+  count(word1, sort = TRUE)
+```
+
+---
+
+# TF-IDF
+
+**TF**: Term frequency  
+**IDF**: Inverse document frequency
+
+
+**TF-IDF**: product of TF and IDF
+
+TF gives weight to terms that appear a lot, IDF gives weight to terms that appears in a few documents
+
+---
+
+# TF-IDF with `tidytext`
+
+```{r tfidf1}
+alice |>
+  unnest_tokens(text, text)
+```
+
+---
+
+# TF-IDF with `tidytext`
+
+```{r tfidf2}
+alice |>
+  unnest_tokens(text, text) |>
+  count(text, chapter)
+```
+
+---
+
+# TF-IDF with `tidytext`
+
+```{r tfidf3}
+alice |>
+  unnest_tokens(text, text) |>
+  count(text, chapter) |>
+  bind_tf_idf(text, chapter, n)
+```
+
+---
+
+# TF-IDF with `tidytext`
+
+```{r tfidf4}
+alice |>
+  unnest_tokens(text, text) |>
+  count(text, chapter) |>
+  bind_tf_idf(text, chapter, n) |>
+  arrange(desc(tf_idf))
+```
+
+---
+
+# Sentiment Analysis
+
+Also known as "opinion mining," sentiment analysis is a way in which we can use computers to attempt to understand the feelings conveyed by a piece of text. This generally relies on a large, human-compiled database of words with known associations such as "positive" and "negative" or specific feelings like "joy", "surprise", "disgust", etc.
+
+---
+
+# Sentiment Analysis
+
+![](https://www.tidytextmining.com/images/tmwr_0201.png)
+
+
+---
+
+## Sentiment Lexicons
+
+The `tidytext` and `textdata` packages provide access to three different databases of words and their associated sentiments (known as "sentiment lexicons"). Obviously, none of these can be perfect, as there is no "correct" way to quantify feelings, but they all attempt to capture different elements of how a text makes you feel.
+
+The readily available lexicons are:
+
+ - `afinn` from [Finn Årup Nielsen](http://www2.imm.dtu.dk/pubdb/views/publication_details.php?id=6010)
+ - `bing` from [Bing Liu and collaborators](https://www.cs.uic.edu/~liub/FBS/sentiment-analysis.html)
+ - `nrc` from [Saif Mohammad and Peter Turney](https://saifmohammad.com/WebPages/NRC-Emotion-Lexicon.htm)
+
+---
+
+## Sentiment Lexicons - `bing`
+
+The `bing` lexicon contains a large list of words and a binary association, either "positive" or "negative":
+
+```{r}
+library(textdata)
+get_sentiments('bing')
+```
+
+---
+
+## Sentiment Lexicons - `afinn`
+
+The `afinn` lexicon goes slightly further, assigning words a value between -5 and 5 that represents their positivity or negativity.
+
+```{r}
+get_sentiments('afinn')
+```
+
+---
+
+## Sentiment Lexicons - `nrc`
+
+The `nrc` lexicon takes a different approach and assigns each word an associated sentiment. Some words appear more than once because they have multiple associations:
+
+```{r}
+get_sentiments('nrc')
+```
+
+---
+
+## Sentiment Analysis{.smaller}
+
+We can use one of these databases to analyze _Alice's Adventures in Wonderland_ by breaking the text down into words and combining the result with a lexicon. Let's use `bing` to assign "positive" and "negative" labels to as many words as possible in the book. (Note that this time the variable created by `unnest_tokens` is called `word`, to match the column name in `bing`).
+
+```{r}
+alice |>
+  unnest_tokens(word, text) |>
+  inner_join(get_sentiments("bing"))
+```
+
+---
+
+## Sentiment Analysis
+
+We can now group and summarize this new dataset the same as any other. For example, let's look at the sentiment by chapter. We'll do this by counting the number of "positive" words and subtracting the number of "negative" words:
+
+```{r}
+diff_by_chap <- alice |>
+  unnest_tokens(word, text) |>
+  inner_join(get_sentiments("bing")) |> 
+  group_by(chapter) |> 
+  summarise(sentiment = sum(sentiment == "positive") - sum(sentiment == "negative"))
+```
+
+---
+
+## Sentiment Analysis
+
+```{r}
+diff_by_chap
+```
+
+---
+
+## Sentiment Analysis
+
+```{r}
+barplot(diff_by_chap$sentiment, names.arg = diff_by_chap$chapter)
+```
+
+---
+
+## Sentiment Analysis
+
+Alternatively, we could use the `afinn` lexicon and quantify the "sentiment" of each chapter by the average of all words with numeric associations:
+
+```{r}
+avg_by_chap <- alice |>
+  unnest_tokens(word, text) |>
+  inner_join(get_sentiments("afinn")) |> 
+  group_by(chapter) |> 
+  summarise(sentiment = mean(value))
+```
+
+---
+
+## Sentiment Analysis
+
+```{r}
+barplot(avg_by_chap$sentiment, names.arg = avg_by_chap$chapter)
+```
+
+---
+
+## Sentiment Analysis{.smaller}
+
+Similarly, we can find the most frequent sentiment association in the `nrc` lexicon for each chapter. Unfortunately, for all chapters, the most frequent sentiment association ends up being the rather bland "positive" or "negative":
+
+```{r, warning=FALSE}
+alice |>
+  unnest_tokens(word, text) |>
+  inner_join(get_sentiments("nrc")) |> 
+  group_by(chapter) |> 
+  summarise(sentiment = names(which.max(table(sentiment))))
+```
+
+---
+
+## Sentiment Analysis
+
+We'll try to spice things up by removing "positive" and "negative" from the `nrc` lexicon:
+
+```{r, warning=FALSE}
+nrc_fun <- get_sentiments("nrc")
+nrc_fun <- nrc_fun[!nrc_fun$sentiment %in% c("positive","negative"), ]
+```
+
+---
+
+## Sentiment Analysis
+
+Now we see a lot of "anticipation":
+
+```{r, warning=FALSE}
+alice |>
+  unnest_tokens(word, text) |>
+  inner_join(nrc_fun) |> 
+  group_by(chapter) |> 
+  summarise(sentiment = names(which.max(table(sentiment))))
+```

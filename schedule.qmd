@@ -1,0 +1,22 @@
+---
+title: "Schedule"
+---
+
+| Week | Date | Topic | Slides | Lab | Assignment |
+|:--:|:---:|:-----------------------|:--:|:--:|:--:|
+| 1 | 8/29 | Introduction to Data Science and R | [Slides](slides/week01.qmd) | [Lab](labs/lab1.qmd) |  |
+| 2 | 9/5 | Version Control & Reproducible Research | [Slides](slides/week02.qmd) | [Lab](labs/lab2.qmd) |  |
+| 3 | 9/12 | Exploratory data analysis | [Slides](slides/week03.qmd) | [Lab](labs/lab3.qmd) | [HW1](assignments/hw1.qmd) |
+| 4 | 9/19 | Data visualization	 | [Slides](slides/week04.qmd) | [Lab](labs/lab4.qmd) |  |
+| 5 | 9/26 | Data Cleaning and Wrangling	 | [Slides](slides/week05.qmd) | [Lab](labs/lab5.qmd) | HW2 |
+| 6 | 10/3 | Text Mining & Sentiment Analysis	 | [Slides](slides/week06.qmd) | Lab |  |
+|   | 10/10 | NO CLASS - FALL RECESS	 |  |  | Midterm |
+| 7 | 10/17 | Scraping, APIs, and Regular Expressions	 | [Slides](slides/week07.qmd) | Lab |  |
+| 8 | 10/24 | High Performance Computing, Cloud Computing	 | Slides | Lab | HW3 |
+| 9 | 10/31 | SQL and Managing Big Data	 | Slides | Lab |  |
+| 10 | 11/7 | Interactive Visualization & Effective Data Communication I	 | Slides | Lab | HW4 |
+| 11 | 11/14 | Interactive Visualization & Effective Data Communication II	 | Slides | Lab |  |
+| 12 | 11/21 | Nonparametric Statistics	 | Slides |  | Final |
+|    | 11/28 | NO CLASS - THANKSGIVING	 |  |  |  |
+| 13 | 12/5 | Final Project Workshop	 |  |  |  |
+

@@ -1,0 +1,32 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "PM 566"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - syllabus.qmd
+      - schedule.qmd
+      - references.qmd
+  page-footer: 
+    left:
+      University of Southern California <br>
+      Department of Population and Public Health Sciences
+    right:
+      LICENSE <br>
+      View the source at GitHub.
+      
+format:
+  html:
+    theme:
+      light: flatly
+      dark: darkly
+    respect-user-color-scheme: true
+    css: styles.css
+    toc: true
+
+
+

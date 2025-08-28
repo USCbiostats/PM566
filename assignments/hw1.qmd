@@ -1,0 +1,64 @@
+---
+title: "Assignment 1 - Exploratory Data Analysis"
+link-citations: true
+---
+
+# Due Date
+
+This assignment is due by 11:59pm Pacific Time on Friday, September 26th, 2025.
+
+# Learning Goals
+
+- Download, read, and get familiar with an external dataset. 
+- Step through the EDA "checklist" presented in class
+- Practice making exploratory plots
+
+
+# Assignment Description
+
+We will work with air pollution data from the U.S. Environmental Protection Agency (EPA). The EPA has a national monitoring network of air pollution sites that The primary question you will answer is whether daily concentrations of PM$_{2.5}$ (particulate matter air pollution with aerodynamic diameter less than 2.5 $\mu$m) have decreased in California over the last 20 years (from 2002 to 2022).
+
+A primer on particulate matter air pollution can be found [here](https://www.epa.gov/pm-pollution/particulate-matter-pm-basics).
+
+Your assignment should be completed in Quarto or R Markdown and all code should be included.
+
+# Steps
+
+1. (30 points) Given the formulated question from the assignment description, you will now
+conduct EDA Checklist items 1-5. First, download 2002 and 2022 data for all
+sites in California from the [EPA Air Quality Data
+website](https://www.epa.gov/outdoor-air-quality-data/download-daily-data), then
+read the data into R. For each of the two datasets, check the dimensions,
+headers, footers, variable names and variable types. Check the distribution of
+the key variable we are analyzing (PM$_{2.5}$). Write up a summary of all of
+your findings.
+
+2. (10 points) Combine the two years of data into one data frame. Use the `Date` variable to
+create a new column for year, which will serve as an identifier. Change the
+names of the key variables so that they are easier to refer to in your code.
+
+3. (20 points) Create a basic map (or maps) in `leaflet` showing the locations of the
+monitoring sites, using different colors for each year. Summarize the spatial
+distribution of the sites. How does this distribution change from 2002 to 2022?
+
+4. (10 points) Check for any data issues such as missing or implausible values of PM$_{2.5}$
+in the combined dataset. Calculate the proportion of missing/implausible values
+for each year and report any temporal patterns you see in these observations.
+
+5. (30 points) Explore the main question of interest at three different levels of spatial
+resolution. Create exploratory plots (e.g. boxplots, histograms, line plots,
+violin plots) and summary statistics that best suit each level of data. Be sure
+to write up explanations of what you observe in these data.
+
+ - Level 1: State. Examine the primary question for the entire state.
+ - Level 2: County. Examine the primary question for every county in California.
+ - Level 3: City. Restrict the data to sites in Los Angeles county and examine the primary question for every site.
+
+Reminder: after you upload your final rendered document to GitHub, you should download it to make sure
+that it looks right! If you haven't included `embed-resources: true` in the YAML
+header, none of your figures will show up!
+
+---
+
+This homework has been adapted from the [case study](https://bookdown.org/rdpeng/exdata/data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html) in Roger Peng's [Exploratory Data Analysis with R](https://bookdown.org/rdpeng/exdata/)
+

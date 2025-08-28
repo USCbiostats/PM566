@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.554">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>PM 566 - Lab 1 - Hello R!</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">PM 566</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../syllabus.html"> 
+<span class="menu-text">Syllabus</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../schedule.html"> 
+<span class="menu-text">Schedule</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../references.html"> 
+<span class="menu-text">References</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#learning-goals" id="toc-learning-goals" class="nav-link active" data-scroll-target="#learning-goals">Learning goals</a></li>
+  <li><a href="#terminology" id="toc-terminology" class="nav-link" data-scroll-target="#terminology">Terminology</a></li>
+  <li><a href="#starting-slow" id="toc-starting-slow" class="nav-link" data-scroll-target="#starting-slow">Starting slow</a></li>
+  <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started">Getting started</a>
+  <ul class="collapse">
+  <li><a href="#download-r" id="toc-download-r" class="nav-link" data-scroll-target="#download-r">Download R</a>
+  <ul class="collapse">
+  <li><a href="#if-you-dont-have-r-installed." id="toc-if-you-dont-have-r-installed." class="nav-link" data-scroll-target="#if-you-dont-have-r-installed.">If you don’t have R installed.</a></li>
+  <li><a href="#if-you-have-r-installed" id="toc-if-you-have-r-installed" class="nav-link" data-scroll-target="#if-you-have-r-installed">If you have R installed</a></li>
+  </ul></li>
+  <li><a href="#download-rstudio" id="toc-download-rstudio" class="nav-link" data-scroll-target="#download-rstudio">Download RStudio</a></li>
+  </ul></li>
+  <li><a href="#hello-rstudio" id="toc-hello-rstudio" class="nav-link" data-scroll-target="#hello-rstudio">Hello RStudio!</a>
+  <ul class="collapse">
+  <li><a href="#start-a-new-project" id="toc-start-a-new-project" class="nav-link" data-scroll-target="#start-a-new-project">Start a new Project</a></li>
+  <li><a href="#create-a-quarto-document" id="toc-create-a-quarto-document" class="nav-link" data-scroll-target="#create-a-quarto-document">Create a Quarto document</a></li>
+  </ul></li>
+  <li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages">Packages</a></li>
+  <li><a href="#warm-up" id="toc-warm-up" class="nav-link" data-scroll-target="#warm-up">Warm up</a>
+  <ul class="collapse">
+  <li><a href="#yaml" id="toc-yaml" class="nav-link" data-scroll-target="#yaml">YAML</a></li>
+  </ul></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a>
+  <ul class="collapse">
+  <li><a href="#question-1" id="toc-question-1" class="nav-link" data-scroll-target="#question-1">Question 1</a></li>
+  </ul></li>
+  <li><a href="#data-visualization-and-summary" id="toc-data-visualization-and-summary" class="nav-link" data-scroll-target="#data-visualization-and-summary">Data visualization and summary</a>
+  <ul class="collapse">
+  <li><a href="#question-2" id="toc-question-2" class="nav-link" data-scroll-target="#question-2">Question 2</a>
+  <ul class="collapse">
+  <li><a href="#subsetting" id="toc-subsetting" class="nav-link" data-scroll-target="#subsetting">Subsetting</a></li>
+  <li><a href="#plotting" id="toc-plotting" class="nav-link" data-scroll-target="#plotting">Plotting</a></li>
+  </ul></li>
+  <li><a href="#question-3" id="toc-question-3" class="nav-link" data-scroll-target="#question-3">Question 3</a></li>
+  <li><a href="#question-4" id="toc-question-4" class="nav-link" data-scroll-target="#question-4">Question 4</a></li>
+  <li><a href="#question-5" id="toc-question-5" class="nav-link" data-scroll-target="#question-5">Question 5</a></li>
+  <li><a href="#question-6" id="toc-question-6" class="nav-link" data-scroll-target="#question-6">Question 6</a></li>
+  </ul></li>
+  <li><a href="#submitting-your-lab" id="toc-submitting-your-lab" class="nav-link" data-scroll-target="#submitting-your-lab">Submitting your lab</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Lab 1 - Hello R!</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="learning-goals" class="level1">
+<h1>Learning goals</h1>
+<ul>
+<li>Get acquainted with R and RStudio, which we will be using throughout the course to analyze data.</li>
+<li>Appreciate the value of visualization in exploring the relationship between variables.</li>
+<li>Start using R for building plots and calculating summary statistics.</li>
+</ul>
+<p>Note: This lab contains a lot of material to help you get familiar with R and RStudio, but the only materials you need to submit are your responses to the six questions at the end of the lab (in the form of an HTML or PDF file).</p>
+</section>
+<section id="terminology" class="level1">
+<h1>Terminology</h1>
+<p>We’ve already thrown around a few new terms, so let’s define them before we proceed.</p>
+<ul>
+<li><strong>R</strong>: Name of the programming language we will be using throughout the course.</li>
+<li><strong>RStudio</strong>: An integrated development environment for R. In other words, a convenient interface for writing and running R code.</li>
+</ul>
+<p>I like to think of R as the engine of the car, and RStudio is the dashboard.</p>
+</section>
+<section id="starting-slow" class="level1">
+<h1>Starting slow</h1>
+<p>As the labs progress, you are encouraged to explore beyond what the labs dictate; a willingness to experiment will make you a much better programmer. Before we get to that stage, however, you need to build some basic fluency in R. Today we begin with the fundamental building blocks of R and RStudio: the interface, reading in data, and basic commands.</p>
+</section>
+<section id="getting-started" class="level1">
+<h1>Getting started</h1>
+<section id="download-r" class="level2">
+<h2 class="anchored" data-anchor-id="download-r">Download R</h2>
+<section id="if-you-dont-have-r-installed." class="level3">
+<h3 class="anchored" data-anchor-id="if-you-dont-have-r-installed.">If you don’t have R installed.</h3>
+<p>Go to the <a href="https://cran.r-project.org/">CRAN</a> and download R, make sure you get the version that matches your operating system.</p>
+</section>
+<section id="if-you-have-r-installed" class="level3">
+<h3 class="anchored" data-anchor-id="if-you-have-r-installed">If you have R installed</h3>
+<p>If you have R installed run the following code</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>R.version</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>               _                           
+platform       aarch64-apple-darwin20      
+arch           aarch64                     
+os             darwin20                    
+system         aarch64, darwin20           
+status                                     
+major          4                           
+minor          5.0                         
+year           2025                        
+month          04                          
+day            11                          
+svn rev        88135                       
+language       R                           
+version.string R version 4.5.0 (2025-04-11)
+nickname       How About a Twenty-Six      </code></pre>
+</div>
+</div>
+<p>This should tell you what version of R you are currently using. If your R version is lower then 4.3.0, I would strongly recommend updating. In general, it is a good idea to keep your R version up to date, unless you have a project right now that depends on a specific version of R.</p>
+</section>
+</section>
+<section id="download-rstudio" class="level2">
+<h2 class="anchored" data-anchor-id="download-rstudio">Download RStudio</h2>
+<p>We recommend using RStudio as your IDE if you don’t already have it installed. You can go to the <a href="https://posit.co/download/rstudio-desktop/">RStudio</a> website to download and install the software. Once it is installed, open RStudio and use it to complete the rest of this lab.</p>
+</section>
+</section>
+<section id="hello-rstudio" class="level1">
+<h1>Hello RStudio!</h1>
+<p>RStudio is comprised of four panes.</p>
+<p><img src="rstudio-anatomy.png" class="img-fluid"></p>
+<ul>
+<li><p>On the bottom left is the Console, this is where you can write code that will be evaluated. Try typing <code>2 + 2</code> here and hit enter, what do you get?</p></li>
+<li><p>On the bottom right is the Files pane, as well as other panes that will come handy as we start our analysis.</p></li>
+<li><p>If you click on a file, it will open in the editor, on the top left pane.</p></li>
+<li><p>Finally, the top right pane shows your Environment. If you define a variable it would show up there. Try typing <code>x &lt;- 2</code> in the Console and hit enter, what do you get in the Environment pane?</p></li>
+</ul>
+<section id="start-a-new-project" class="level2">
+<h2 class="anchored" data-anchor-id="start-a-new-project">Start a new Project</h2>
+<p>RStudio Projects are a great way to stay organized and keep all of your work on a particular topic in one place. Project files keep track of things like the R objects you are using and which files you have open, so that you can quickly jump in and out of different work environments.</p>
+<p>We’re going to start a new Project called <code>PM566labs</code>. If you want to keep all of your materials for this class in one place, you may want to open Finder (MacOS) or File Explorer (Windows) and create a new folder (directory) for this class.</p>
+<p>In the top right of the RStudio window, you should see a drop-down menu that says “Project: (None)”. Click on this and then “New Project…”, which will open up a dialogue box. If you had already created a <code>PM566labs</code> directory, you could choose the “Existing Directory” option to associate this Project with that directory. Since we haven’t done that, we’ll use the “New Directory” option, then select the generic Project type, “New Project”. Give your new directory the name <code>PM566labs</code> and use the “Browse” button to choose where you want to save it on your computer, then click “Create Project”. Now in the top right, you should see “PM566labs” next to the R Project logo.</p>
+</section>
+<section id="create-a-quarto-document" class="level2">
+<h2 class="anchored" data-anchor-id="create-a-quarto-document">Create a Quarto document</h2>
+<p>We will use Quarto documents a lot in this course because they are fully reproducible and allow us to seamlessly integrate code and text. We expect you to use Quarto for all homework assignments and (almost) all labs.</p>
+<p>In the top left, you will see a “New File” icon (a white “plus” sign in a green circle over a blank document) that leads to a drop-down menu. Click on this and then select “Quarto document…”, which will open up a dialogue box. You can leave most of the settings on their defaults for now, just give your document a title (like “Lab 1”) and an author (yourself) and click “Create”. RStudio may ask you if you would like to install a package that is required, and if so, click “Install”.</p>
+<p>This will open the default Quarto document, which already contains some example content. Read through it, then remove this content. Please do not hand in assignments that contain the default content, as I have seen it plenty of times! Set up new sections in your document titled “Question 1” through “Question 6”. This document will serve as the template for your responses to this lab. Under each section title, add an R code chunk via “Insert…”, “Executable Cell”, “R”. Alternatively, you can switch to the “Source” editor (in the top left of the Editor pane) and add an R chunk by typing the following:</p>
+<p><code>```{r}</code></p>
+<p><code>```</code></p>
+<p>This will create an R code chunk and any code you add inside of it will be executed when you Render the document.</p>
+<p>Save your Quarto markdown (<code>qmd</code>) file as <code>lab-01.qmd</code> and see what happens when you click “Render”.</p>
+</section>
+</section>
+<section id="packages" class="level1">
+<h1>Packages</h1>
+<p>R is an open-source language with a vibrant community of users and developers. Developers can contribute new functionality to R via packages. In this lab we will work with the <code>datasauRus</code> package, which contains a fun example dataset.</p>
+<p>You can load this package with the following command:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(datasauRus)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If you haven’t installed it yet and R complains, then you can install the package by running the following command (note that R package names are case-sensitive)”</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"datasauRus"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We encourage you to work interactively on this lab (and future assignments) by running code directly in your Console pane. Try breaking down complex or unfamiliar lines of code into smaller, executable pieces to get a sense for how the code works. You may also want to open a new tab in the Editor windown that is just an R Script, where you can play around with pieces of code before adding them to the final product that is your Quarto document.</p>
+<p>However, you should note that Quarto documents are Rendered in their own unique environment, separate from your interactive session. So while you should run <code>library(datasauRus)</code> in your Console, you will also need to include it inside an R code chunk if you want your Quarto document to use this package. Similarly, if you create a variable called <code>var</code> while running code in the Console, Quarto won’t have acess to it, so you will need to re-create that variable inside a code chunk.</p>
+</section>
+<section id="warm-up" class="level1">
+<h1>Warm up</h1>
+<p>Before we introduce the data, let’s warm up with some simple exercises.</p>
+<section id="yaml" class="level2">
+<h2 class="anchored" data-anchor-id="yaml">YAML</h2>
+<p>The top portion of your Quarto file (between the three dashed lines) is called YAML. It stands for “YAML Ain’t Markup Language”. It is a human-friendly data serialization standard for all programming languages. All you need to know is that this area is called the YAML (we will refer to it as such) and that it contains meta information about your document.</p>
+<p>Open the Quarto (<code>qmd</code>) file in your project, make sure the author name is your name. You can add additional lines to the YAML section to control more aspects of your document. For example, you can set the output to be a PDF or HTML document by adding either <code>format: pdf</code> or <code>format: html</code>.</p>
+<p>Regardless of what output format you choose, add another line to the YAML header that reads <code>embed-resources: true</code>. This tells Quarto that you want to produce a “stand-alone” document that contains all images directly in the document. If you don’t do this, Quarto will often create a separate directory (called <code>&lt;document&gt;_files</code>) that contains these images and your output will depend on this outside directory.</p>
+<p>When you’re done, click “Render” to compile the document.</p>
+</section>
+</section>
+<section id="data" class="level1">
+<h1>Data</h1>
+<p>The data frame we will be working with today is called <code>datasaurus_dozen</code> and it’s in the <code>datasauRus</code> package. Actually, this single data frame contains 13 datasets, designed to show us why data visualization is important and how summary statistics alone can be misleading. The different datasets are marked by the <code>dataset</code> variable. The data is contained in an object called a <code>data.frame</code>. Type <code>datasaurus_dozen</code> into the R Console and hit Return to see a printout of the dataset. Alternatively, you can use <code>View(datasaurus_dozen)</code> to open a new tab with the full dataset (but be careful! This command will not work in a Quarto document, because they are not interactive).</p>
+<p>To find out more about the dataset, type the following in your Console: <code>?datasaurus_dozen</code>. A question mark before the name of an object will always bring up its help file. Similar to <code>View</code>, this command must be run in the Console.</p>
+<section id="question-1" class="level2">
+<h2 class="anchored" data-anchor-id="question-1">Question 1</h2>
+<ol type="1">
+<li>Based on the help file, how many rows and how many columns does the <code>datasaurus_dozen</code> file have? What are the variables included in the data frame? Add your responses to your lab report, with relevant code in the associated R code chunk, and free-form text outside of the code chunk.</li>
+</ol>
+<p>Let’s take a look at what these datasets are. To start, we can make a <em>frequency table</em> of the dataset variable:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(datasaurus_dozen<span class="sc">$</span>dataset)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Here, we used the <code>$</code> operator to access a specific column (variable) of the dataset. Then we used the <code>table</code> function to summarize that variable. <code>table</code> is great for quickly summarizing categorical variables, but it’s not very useful for summarizing continuous variables, where most unique values are only present once. For continuous variables, try the <code>summary</code> function.</p>
+<p>The original Datasaurus (<code>dino</code>) was created by Alberto Cairo in <a href="http://www.thefunctionalart.com/2016/08/download-datasaurus-never-trust-summary.html">this great blog post</a>. The other Dozen were generated using simulated annealing and the process is described in the paper <em>Same Stats, Different Graphs: Generating Datasets with Varied Appearance and Identical Statistics</em> through Simulated Annealing by Justin Matejka and George Fitzmaurice. In the paper, the authors simulate a variety of datasets with the same summary statistics as the Datasaurus, but with very different distributions.</p>
+</section>
+</section>
+<section id="data-visualization-and-summary" class="level1">
+<h1>Data visualization and summary</h1>
+<section id="question-2" class="level2">
+<h2 class="anchored" data-anchor-id="question-2">Question 2</h2>
+<ol start="2" type="1">
+<li>Plot <code>y</code> vs.&nbsp;<code>x</code> for the <code>dino</code> dataset. Then, calculate the correlation coefficient between <code>x</code> and <code>y</code> for just this dataset.</li>
+</ol>
+<p>Below is the code you will need to complete this exercise. Basically, the answer is already given, but you need to include relevant bits in your Quarto document and successfully Render it and view the results.</p>
+<p>We’re going to start by subsetting our data down to just the <code>dino</code> dataset.</p>
+<section id="subsetting" class="level3">
+<h3 class="anchored" data-anchor-id="subsetting">Subsetting</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>dino_data <span class="ot">&lt;-</span> datasaurus_dozen[datasaurus_dozen<span class="sc">$</span>dataset <span class="sc">==</span> <span class="st">'dino'</span>, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>There is a lot going on here, so let’s slow down and unpack it a bit.</p>
+<p>The first thing to note is the assignment operator: <code>&lt;-</code>. This special symbol is used to create a new object or assign a new value to an existing one. In this case, we’re creating a new object called <code>dino_data</code>.</p>
+<p>The second important feature is the set of square brackets: <code>[]</code>. When these come immediately after the name of an object, they are used for subsetting that object, or taking a smaller piece of it. In this case, we want to subset the <code>datasaurus_dozen</code> object. Since this is a two-dimensional <code>data.frame</code>, we can subset it by either rows or columns, or both. The comma (<code>,</code>) separates our row subset from our column subset. In this case, we only want to subset by row and keep all the columns, so there is nothing after the comma.</p>
+<p>In R (as in Python and many other programming languages), we can check whether or not two values are equal by using the <code>==</code> operator. Here, we again use the <code>$</code> to access the <code>dataset</code> variable and we check if it is equal to the value <code>'dino'</code>. If it is, this comparison will return <code>TRUE</code> and we will keep that row. If it isn’t, this comparison will return <code>FALSE</code> and we will not keep that row.</p>
+</section>
+<section id="plotting" class="level3">
+<h3 class="anchored" data-anchor-id="plotting">Plotting</h3>
+<p>Next, we need to visualize these data. We will use the <code>plot</code> function for this, which is R’s most basic plotting function. If you provide the <code>plot</code> function with two numeric vectors, it will plot them in a scatter plot. Let’s see what happens when we plot the <code>x</code> and <code>y</code> variables from our <code>dino_data</code> object:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dino_data<span class="sc">$</span>x, dino_data<span class="sc">$</span>y)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ggplot(data = dino_data, mapping = aes(x = x, y = y)) +</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   geom_point()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>(I’ve also included code for producing similar plots using the <code>ggplot</code> function from the <code>ggplot2</code> package. This is another widely-used plotting function that includes some more aesthetically pleasing defaults, but requires more complicated syntax)</p>
+<p>We will talk a lot more about the philosophy of data visualization, how to choose the right plot type, and constructing visualizations in layers in the coming weeks. But for now, you can follow along with the code that is provided.</p>
+<p>For the second part of these exercises, we need to calculate a summary statistic: the correlation coefficient. The correlation coefficient, often referred to as <span class="math inline">\(r\)</span> in statistics, measures the linear association between two variables. You will see that some of the pairs of variables we plot do not have a linear relationship between them. This is exactly why we want to visualize first: visualize to assess the form of the relationship, and calculate <span class="math inline">\(r\)</span> only if relevant. In this case, calculating a correlation coefficient really doesn’t make sense since the relationship between <code>x</code> and <code>y</code> is definitely not linear – it’s dinosaurial!</p>
+<p>But, for illustrative purposes, let’s calculate correlation coefficient between <code>x</code> and <code>y</code>. Like <code>plot</code>, the <code>cor</code> function takes two numeric variables and calculates their correlation coefficient:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(dino_data<span class="sc">$</span>x, dino_data<span class="sc">$</span>y)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># dino_data |&gt;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   summarize(r = cor(x, y))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>(I’ve also included the “tidyverse” way of calculating this value. The “tidyverse” is a collection of packages that includes <code>ggplot2</code> and is based on the concept of “tidy”, rectangular datasets. We will tend to focus on the “Base R” way of doing things, as learning the “tidyverse” coding style is almost like learning another language in addition to R)</p>
+</section>
+</section>
+<section id="question-3" class="level2">
+<h2 class="anchored" data-anchor-id="question-3">Question 3</h2>
+<ol start="3" type="1">
+<li>Now try it on your own! Plot <code>y</code> vs.&nbsp;<code>x</code> for the <code>star</code> dataset, another one of the <code>datasaurus_dozen</code>. You can (and should) re-use code we introduced above, just replace the dataset name with the desired dataset. Then, calculate the correlation coefficient between <code>x</code> and <code>y</code> for this dataset. How does this value compare to the <code>r</code> of <code>dino</code>?</li>
+</ol>
+</section>
+<section id="question-4" class="level2">
+<h2 class="anchored" data-anchor-id="question-4">Question 4</h2>
+<ol start="4" type="1">
+<li>Plot <code>y</code> vs.&nbsp;<code>x</code> for the <code>circle</code> dataset. You can (and should) reuse code we introduced above, just replace the dataset name with the desired dataset. Then, calculate the correlation coefficient between <code>x</code> and <code>y</code> for this dataset. How does this value compare to the <code>r</code> of <code>dino</code>?</li>
+</ol>
+</section>
+<section id="question-5" class="level2">
+<h2 class="anchored" data-anchor-id="question-5">Question 5</h2>
+<p>Now let’s plot all 13 datasets at once. In order to do this we will make use of the <code>layout</code> function. This function allows you to put multiple plots in the same plotting window. We will create a 4x4 matrix containing the values 1 through 16 and pass this to <code>layout</code>, which lets it know where we want each plot to go (we only have 13 datasets, so there will be a few empty spots at the end). This may be too many plots for a small viewing window, so if you get the error message <code>Error in plot.new() : figure margins too large</code>, try making your plotting window larger.</p>
+<p>Then we use a <code>for</code> loop to perform a set of actions over every <code>unique</code> value of the <code>dataset</code> variable. This creates a new object, called <code>name</code>, that takes on each of those unique values, but it only exists within the context (interior) of the loop. Then we subset and plot the data, as we have before.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">layout</span>(<span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">16</span>, <span class="at">nrow=</span><span class="dv">4</span>, <span class="at">ncol=</span><span class="dv">4</span>))</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(name <span class="cf">in</span> <span class="fu">unique</span>(datasaurus_dozen<span class="sc">$</span>dataset)){</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  subset <span class="ot">&lt;-</span> datasaurus_dozen[datasaurus_dozen<span class="sc">$</span>dataset <span class="sc">==</span> name, ]</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(subset<span class="sc">$</span>x, subset<span class="sc">$</span>y, <span class="at">main =</span> name)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="fu">layout</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ggplot(datasaurus_dozen, aes(x = x, y = y, color = dataset))+</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   geom_point()+</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   facet_wrap(~ dataset, ncol = 3) +</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   theme(legend.position = "none")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The second call to <code>layout</code> will reset the plotting window, so that the next plot will take up the entire window, rather than 1/16th of it.</p>
+<p><strong>Optional</strong>:If you really want to maximize the plotting area of this figure, you can also adjust the plotting margins via the <code>par</code> function (short for “graphical <code>par</code>ameters”). The setting for margins is called <code>mar</code> and it takes a vector of length 4, specifying the bottom, left, top, and right margins, in order (the units are lines of text). You can set each margin to a value of 2 with <code>par(mar = c(2,2,2,2))</code> and then reset to the default values with <code>par(mar = c(5,4,4,2) + 0.1)</code>.</p>
+</section>
+<section id="question-6" class="level2">
+<h2 class="anchored" data-anchor-id="question-6">Question 6</h2>
+<p>Finally, we want to calculate the correlation between the <code>x</code> and <code>y</code> variables for all 13 datasets. Like before, we will use a loop, but this time, since we want to return a specific value every time through the loop, we will use the <code>sapply</code> function. <code>sapply</code> is useful way to apply a function to every element of a vector. In this case, we provide the vector of <code>unique</code> dataset names (like before) and then our own custom <code>function</code>. This function subsets the data as before, and then <code>return</code>s the correlation coefficient as the output of the function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(<span class="fu">unique</span>(datasaurus_dozen<span class="sc">$</span>dataset), <span class="cf">function</span>(name){</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    subset <span class="ot">&lt;-</span> datasaurus_dozen[datasaurus_dozen<span class="sc">$</span>dataset <span class="sc">==</span> name, ]</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">cor</span>(subset<span class="sc">$</span>x, subset<span class="sc">$</span>y))</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># datasaurus_dozen |&gt;</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   group_by(dataset) |&gt;</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   summarize(r = cor(x, y))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You’re now done with the data analysis exercises, but we’d like you to do two more things:</p>
+<p><strong>Resize your figures:</strong></p>
+<p>Add the fields <code>fig-width</code> and <code>fig-height</code> to the YAML header of your document. These will allow you to specify the size (in inches) of any figures generated by the code chunks in your report.</p>
+<p>You can also use different figure sizes for different figures. If you are in the Visual editor mode, switch to Source mode. Notice that each R chunk starts and ends with three backticks. Click on the gear icon in the top right of a code chunk and select “Use custom figure size” in the pop-up menu. Set the height and width of the figures and hit Apply when done. Then, render your document and see how you like the new sizes. Try making the plot for Question 5 larger, until you are happy with its size. Note that changing the figure sizes added new options to these chunks: <code>fig.width</code> and <code>fig.height</code>. You can change them by defining different values directly in your Quarto document as well.</p>
+<p><strong>Change the look of your report:</strong></p>
+<p>If you have time, you can explore the different ways you can add styling to your document. Try adding a <code>theme</code> field to the YAML header and see if you can find valid names of different themes.</p>
+<p>Here is a Quarto <a href="https://rstudio.github.io/cheatsheets/quarto.pdf">cheatsheet</a> and a general <a href="https://www.markdownguide.org/cheat-sheet/">markdown cheatsheet</a> that shows some of the many cool features you can make use of in a Quarto document.</p>
+</section>
+</section>
+<section id="submitting-your-lab" class="level1">
+<h1>Submitting your lab</h1>
+<p>Since we have not covered GitHub yet, for this week (and ONLY this week) you may submit a fully rendered HTML (or PDF) version of your completed lab by emailing it to wenv@usc.edu.</p>
+<hr>
+<p>This set of lab excersizes have been adopted from <a href="https://twitter.com/minebocek">Mine Çetinkaya-Rundel</a>’s class <a href="https://github.com/ids-s1-19">Introduction to Data Science</a>.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>University of Southern California <br> Department of Population and Public Health Sciences</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>LICENSE <br> View the source at GitHub.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
