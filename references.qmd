@@ -109,7 +109,6 @@ National Center for Education Statistics: [The Nation's Report Card](https://www
 
 ### Social Networks
 
-- Twitter [Developers API](https://developer.twitter.com/) (probably broken?)
 - GitHub [Developers API](https://docs.github.com/en/rest)
 - Instagram [Developers API](https://developers.facebook.com/docs/instagram-api/)
 - LinkedIn [Developers API](https://www.linkedin.com/developers/)
