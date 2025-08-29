@@ -13,3 +13,5 @@ static/rmarkdown-libs/
 .*
 vegayon-noaa-api-token.txt
 ncbi-api-key.txt
+
+/.quarto/

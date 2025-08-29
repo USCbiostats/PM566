@@ -21,24 +21,24 @@ Kelly Street
 
 - Assistant Professor of Biostatistics
 - Department of Population and Public Health Sciences
-- Office hours: Wednesday 2pm, SSB 202V
+- Office hours: Wednesday 11am, SSB 202V
 
 ---
 
 # Brightspace + Website
 
-https://github.com/USCbiostats/PM566  
+[https://github.com/USCbiostats/PM566](https://github.com/USCbiostats/PM566)  
 Official class website
 Syllabus, reading materials, slides, labs, and assignments
 
-https://blackboard.usc.edu/  
+[https://brightspace.usc.edu](https://brightspace.usc.edu/d2l/home)
 Announcements + Grading
 
 ---
 
 # USC Software Development Help Page
 
-https://uscbiostats.github.io/software-dev-site/
+[https://uscbiostats.github.io/software-dev-site/](https://uscbiostats.github.io/software-dev-site/)
 
 collection of knowledge about 
 
@@ -182,7 +182,7 @@ Over 16,000 packages added to CRAN
 
 <img src="https://rstudio.com/wp-content/uploads/2018/10/RStudio-Logo.svg" width="400px" alt="RStudio logo">
 
-> RStudio is an integrated development environment (IDE) for R: https://www.rstudio.com/products/rstudio/
+> RStudio is an integrated development environment (IDE) for R: [https://www.rstudio.com/products/rstudio/](https://www.rstudio.com/products/rstudio/)
 
 ---
 
@@ -220,12 +220,7 @@ Following break we will run Lab 1
 # First Lab
 
 
-The lab exercises can be found at: 
+The lab exercises can be found on the Schedule page of the course website:
 
-Website -> Schedule -> <i class="fa-solid fa-chalkboard-teacher"></i> -> Lab Exercise
+[https://uscbiostats.github.io/PM566/schedule.html](https://uscbiostats.github.io/PM566/schedule.html)
 
-https://uscbiostats.github.io/PM566/labs/lab-01/01-lab.html
-
-Related Github Issue
-
-https://github.com/USCbiostats/PM566/issues/54
