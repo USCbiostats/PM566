@@ -494,17 +494,39 @@ Live Example! (inspect elements in [Google Chrome](https://developers.google.com
 
 ## Web scraping with `xml2` and the `rvest` package (cont. 2)
 
-Now that we know the path, let's use that and extract
+Now that we know the path, let's use that and extract the table:
 
-```{r get-table-covid, echo=TRUE}
+```{r get-table-covid1, echo=TRUE}
 table <- xml_find_all(covid, xpath = '/html/body/div[2]/div/div[3]/main/div[3]/div[3]/div[1]/div[4]/table')
-table <- html_table(table) # This returns a list of tables
-head(table[[1]])
+print(table) # collection of tables in XML
 ```
 
 ---
 
-## Web APIs{.smaller}
+## Web scraping with `xml2` and the `rvest` package (cont. 3)
+
+We're getting closer!
+
+```{r get-table-covid2, echo=TRUE}
+table <- html_table(table) 
+print(table) # list of tibbles
+```
+
+---
+
+## Web scraping with `xml2` and the `rvest` package (cont. 4)
+
+There it is!
+
+```{r get-table-covid3, echo=TRUE}
+table <- table[[1]]
+print(table) # hooray!
+```
+
+
+---
+
+## * Web APIs{.smaller}
 
 **What?**
 
@@ -524,7 +546,7 @@ is used to communicate with APIs.
 
 ---
 
-## Web APIs with curl
+## * Web APIs with curl
 
 <div align="center">
 <img src="https://cdn.tutsplus.com/net/authors/jeremymcpeak/http1-url-structure.png" width="700px">
@@ -534,7 +556,7 @@ Structure of a URL (source: <a href="https://code.tutsplus.com/tutorials/http-th
 
 ---
 
-## Web APIs with curl
+## * Web APIs with curl
 
 Under the hood, the `httr` (and thus `curl`) sends request somewhat like this
 
@@ -560,7 +582,7 @@ We use the `httr` R package to make life easier.
 
 ---
 
-## Web API Example 1: Gene Ontology{.smaller}
+## * Web API Example 1: Gene Ontology{.smaller}
 
 - We will make use of the [Gene Ontology API](http://api.geneontology.org/api).
 
@@ -587,7 +609,7 @@ We could have also passed the full URL directly...
 
 ---
 
-## Web API Example 1: Gene Ontology (cont. 1)
+## * Web API Example 1: Gene Ontology (cont. 1)
 
 Let's take a look at the curl call:
 
@@ -612,7 +634,7 @@ What `httr::GET()` does:
 
 ---
 
-## Web API Example 1: Gene Ontology (cont. 2){.smaller}
+## * Web API Example 1: Gene Ontology (cont. 2){.smaller}
 
 Let's take a look at the response:
 
@@ -630,7 +652,7 @@ Remember the codes:
  
 ---
 
-## Web API Example 1: Gene Ontology (cont. 3){.smaller}
+## * Web API Example 1: Gene Ontology (cont. 3){.smaller}
 
 We can extract the results using the `httr::content()` function:
 
@@ -655,7 +677,7 @@ str(dat)
 
 ---
 
-## Web API Example 1: Gene Ontology (cont. 4){.smaller}
+## * Web API Example 1: Gene Ontology (cont. 4){.smaller}
 
 The structure of the result will depend on the API. In this case, the output was a JSON file, so the content function returns a list in R. In other scenarios it could return an XML object.
 
@@ -668,7 +690,7 @@ knitr::kable(head(dat),
 
 ---
 
-## Web API Example 2: Using Tokens
+## * Web API Example 2: Using Tokens
 
 - Sometimes, APIs are not completely open, you need to register.
 
@@ -681,7 +703,7 @@ knitr::kable(head(dat),
 
 ---
 
-## Web API Example 2: Using Tokens (cont. 1)
+## * Web API Example 2: Using Tokens (cont. 1)
 
 - The way to pass the token will depend on the API service.
 
@@ -713,7 +735,7 @@ knitr::kable(head(dat),
 
 ---
 
-## Web API Example 2: Using Tokens (cont. 2){.smaller}
+## * Web API Example 2: Using Tokens (cont. 2){.smaller}
 
 Again, we can recover the data using the `content()` function:
 
@@ -744,7 +766,7 @@ ans$results[[1]]
 
 ---
 
-## Web API Example 3: HHS health recommendation{.smaller}
+## * Web API Example 3: HHS health recommendation{.smaller}
 
 Here is a last example. We will use the Department of Health and Human Services
 API for "[...] demographic-specific health recommendations" (details at [health.gov](https://health.gov/our-work/health-literacy/consumer-health-content/free-web-content/apis-developers/documentation))
@@ -768,7 +790,7 @@ health_advises <- GET(
 
 ---
 
-## Web API Example 3: HHS health recommendation (cont. 1){.smaller}
+## * Web API Example 3: HHS health recommendation (cont. 1){.smaller}
 
 Let's see the response
 
@@ -779,7 +801,7 @@ health_advises
 
 ---
 
-## Web API Example 3: HHS health recommendation (cont. 2){.smaller}
+## * Web API Example 3: HHS health recommendation (cont. 2){.smaller}
 
 ```{r health-advice-print, results='asis', echo=TRUE}
 # Extracting the content

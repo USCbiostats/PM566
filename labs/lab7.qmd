@@ -1,0 +1,153 @@
+---
+title: "Lab 7 - Web Scraping and Regular Expressions"
+link-citations: true
+toc: false
+---
+
+```{r setup, echo=FALSE}
+knitr::opts_chunk$set(include  = TRUE)
+```
+
+
+# Learning goals
+
+- Use real-time data pulled from the internet.
+- Use regular expressions to parse the information.
+- Practice your GitHub skills.
+
+# Lab description
+
+In this lab, we will be working with the [NCBI API](https://www.ncbi.nlm.nih.gov/home/develop/api/)
+to make queries and extract information using XML and regular expressions. For this lab, we will
+be using the `httr`, `xml2`, and `stringr` R packages.
+
+## Question 1: How many Sars-Cov-2 papers?
+
+We will build an automatic counter of Sars-Cov-2 papers available on PubMed.
+You will need to apply XPath as we did during the lecture to extract the number of results returned by PubMed when you search for "sars-cov-2."
+The following URL will perform this search:
+
+[https://pubmed.ncbi.nlm.nih.gov/?term=sars-cov-2](https://pubmed.ncbi.nlm.nih.gov/?term=sars-cov-2)
+
+Complete the lines of code:
+
+```{r counter-pubmed, eval=FALSE}
+# Downloading the website
+website <- xml2::read_html("[URL]")
+
+# Finding the counts
+counts <- xml2::xml_find_first(website, "[XPath]")
+
+# Turning it into text
+counts <- as.character(counts)
+
+# Extracting the data using regex
+totalcount <- stringr::str_extract(counts, "[REGEX FOR NUMBERS WITH COMMAS/DOTS]")
+
+# Removing any commas/dots so that we can convert to numeric
+totalcount <- gsub('[REGEX FOR COMMAS/DOTS]', '', totalcount)
+
+totalcount <- as.numeric(totalcount)
+print(totalcount)
+```
+
+
+## Question 2: Get article abstracts and authors
+
+That's quite a few articles, so let's narrow our focus by including "california" in our search:
+
+[https://pubmed.ncbi.nlm.nih.gov/?term=sars-cov-2%20california](https://pubmed.ncbi.nlm.nih.gov/?term=sars-cov-2%20california)
+
+In your web browser, use the slider on the left to narrow your search down to just the years 2020 and 2021.
+
+Now we will download the abstracts and author information for all of these articles.
+Under the search bar, click "Save," set the Selection to "All results," set the Format to "Abstract (text)," and click "Create file."
+This should start downloading a large-ish text file (`abstract-sars-cov-2-set.txt`)
+
+We can read this into R with the following code:
+
+```{r get-ids, eval = FALSE}
+
+```
+
+
+
+## Question 4: Distribution of universities, schools, and departments
+
+Using the function `stringr::str_extract_all()` applied on `publications_txt`, capture all the terms of the form:
+
+1.    University of ...
+2.    ... Institute of ...
+
+Write a regular expression that captures all such instances
+
+```{r univ-institute-regex, eval = FALSE}
+institution <- str_extract_all(
+  publications_txt,
+  "[YOUR REGULAR EXPRESSION HERE]"
+  ) 
+institution <- unlist(institution)
+table(institution)
+```
+
+Repeat the exercise and this time focus on schools and departments in the form of
+
+1.    School of ...
+2.    Department of ...
+
+And tabulate the results
+
+```{r school-department, eval = FALSE}
+schools_and_deps <- str_extract_all(
+  abstracts_txt,
+  "[YOUR REGULAR EXPRESSION HERE]"
+  )
+table(schools_and_deps)
+```
+
+## Question 5: Form a database
+
+We want to build a dataset which includes the title and the abstract of the
+paper. The title of all records is enclosed by the HTML tag `ArticleTitle`, and
+the abstract by `Abstract`. 
+
+Before applying the functions to extract text directly, it will help to process
+the XML a bit. We will use the `xml2::xml_children()` function to keep one element
+per ID. This way, if a paper is missing the abstract, or something else, we will be able to properly match PUBMED IDS with their corresponding records.
+
+
+```{r one-string-per-response, eval = FALSE}
+pub_char_list <- xml2::xml_children(publications)
+pub_char_list <- sapply(pub_char_list, as.character)
+```
+
+Now, extract the abstract and article title for each one of the elements of
+`pub_char_list`. You can either use `sapply()` as we just did, or simply
+take advantage of vectorization of `stringr::str_extract`
+
+```{r extracting-last-bit, eval = FALSE}
+abstracts <- str_extract(pub_char_list, "[YOUR REGULAR EXPRESSION]")
+abstracts <- str_remove_all(abstracts, "[CLEAN ALL THE HTML TAGS]")
+abstracts <- str_remove_all(abstracts, "[CLEAN ALL EXTRA WHITE SPACE AND NEW LINES]")
+```
+
+How many of these don't have an abstract? Now, the title
+
+```{r process-titles, eval = FALSE}
+titles <- str_extract(pub_char_list, "[YOUR REGULAR EXPRESSION]")
+titles <- str_remove_all(titles, "[CLEAN ALL THE HTML TAGS]")
+```
+
+Finally, put everything together into a single `data.frame` and use
+`knitr::kable` to print the results
+
+```{r build-db, eval = FALSE}
+database <- data.frame(
+  "[DATA TO CONCATENATE]"
+)
+knitr::kable(database)
+```
+
+Done! Knit the document, commit, and push.
+
+

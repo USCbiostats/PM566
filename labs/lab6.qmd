@@ -1,0 +1,109 @@
+---
+title: "Lab 6 - Text Mining"
+link-citations: true
+toc: false
+---
+
+```{r setup}
+knitr::opts_chunk$set(eval = FALSE, include  = TRUE)
+```
+
+# Learning goals
+
+- Use `unnest_tokens()` and `unnest_ngrams()` to extract tokens and n-grams from text.
+- Use dplyr and ggplot2 to analyze text data
+
+# Lab description
+
+For this lab we will be working with a new text-based dataset consisting of transcribed medical reports.
+The dataset contains transcription samples from [https://www.mtsamples.com/](https://www.mtsamples.com/).
+We have created a (somewhat) cleaned version of the data, which can be found at [https://raw.githubusercontent.com/USCbiostats/data-science-data/master/00_mtsamples/mtsamples.csv](https://raw.githubusercontent.com/USCbiostats/data-science-data/master/00_mtsamples/mtsamples.csv).
+
+
+### Setup packages
+
+You should load in `dplyr`, `ggplot2` and `tidytext`.
+If you don't already have `tidytext` then you can install with
+
+```{r, eval=FALSE}
+install.packages("tidytext")
+```
+
+### Read in Medical Transcriptions
+
+Loading in the cleaned data from the `USCbiostats/data-science-data` repository:
+
+```{r, warning=FALSE, message=FALSE}
+library(readr)
+library(dplyr)
+mt_samples <- read_csv("https://raw.githubusercontent.com/USCbiostats/data-science-data/master/00_mtsamples/mtsamples.csv")
+mt_samples <- mt_samples |>
+  select(description, medical_specialty, transcription)
+
+head(mt_samples)
+```
+
+---
+
+## Question 1: What specialties do we have?
+
+Use the `count()` function from `dplyr` to figure out how many different categories we have in the data.
+Are these categories related? Overlapping? Evenly distributed?
+
+```{r}
+mt_samples %>%
+  count(___, sort = TRUE)
+```
+
+---
+
+## Question 2
+
+- Tokenize the the words in the `transcription` column
+- Count the number of times each token appears
+- Visualize the top 20 most frequent words
+
+Explain what we see from this result.
+Does it makes sense? What insights (if any) do we get?
+
+---
+
+## Question 3
+
+- Re-do the visualization but remove stop words before making it
+- Bonus points if you remove numbers as well
+
+What do we see know that we have removed stop words?
+Does it give us a better idea of what the text is about?
+
+---
+
+# Question 4
+
+Repeat question 2, but this time tokenize into bi-grams.
+How does the result change if you look at tri-grams?
+
+---
+
+# Question 5
+
+Using the results you got from Question 4, pick a word and count the words that appear before and after it.
+
+---
+
+# Question 6 
+
+Which words are most used in each of the specialties?
+You can use `group_by()` and `top_n()` from `dplyr` to have the calculations be done within each specialty.
+Remember to remove stop words.
+What are the 5 most-used words for each specialty?
+
+# Question 7 - extra
+
+Find your own insight in the data:
+
+Ideas:
+
+- Interesting n-grams
+- See if certain words are used more in some specialties than others
+

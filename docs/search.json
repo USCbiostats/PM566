@@ -836,183 +836,183 @@
     "objectID": "slides/week07.html#regular-expressions-what-is-it",
     "href": "slides/week07.html#regular-expressions-what-is-it",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "Regular Expressions: What is it?",
-    "text": "Regular Expressions: What is it?\n\nA regular expression (shortened as regex or regexp; also referred to as rational expression) is a sequence of characters that define a search pattern. – Wikipedia"
+    "section": "",
+    "text": "A regular expression (shortened as regex or regexp; also referred to as rational expression) is a sequence of characters that define a search pattern. – Wikipedia"
   },
   {
     "objectID": "slides/week07.html#regular-expressions-why-should-you-care",
     "href": "slides/week07.html#regular-expressions-why-should-you-care",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "Regular Expressions: Why should you care?",
-    "text": "Regular Expressions: Why should you care?\nWe can use Regular Expressions for:\n\nValidating data fields, email address, numbers, etc.\nSearching text in various formats, e.g., addresses, there are many ways to write an address.\nReplace text, e.g., different spellings, Storm, Stôrm, Stórm to Storm.\nRemove text, e.g., tags from an HTML text, &lt;name&gt;George&lt;/name&gt; to George."
+    "section": "",
+    "text": "We can use Regular Expressions for:\n\nValidating data fields, email address, numbers, etc.\nSearching text in various formats, e.g., addresses, there are many ways to write an address.\nReplace text, e.g., different spellings, Storm, Stôrm, Stórm to Storm.\nRemove text, e.g., tags from an HTML text, &lt;name&gt;George&lt;/name&gt; to George."
   },
   {
     "objectID": "slides/week07.html#regex-101-metacharacters",
     "href": "slides/week07.html#regex-101-metacharacters",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "Regex 101: Metacharacters",
-    "text": "Regex 101: Metacharacters\nWhat makes regex special is metacharacters. While we can always use regex to match literals like dog, human, 1999, we only make use of all regex power when using metacharacters:\n\n. Any character except new line\n^ beginning of the text\n$ end of the text\n[expression] Match any single character in “expression”, e.g.\n\n[0123456789] Any digit\n[0-9] Any digit in the range 0-9\n[a-z] Lower-case letters\n[A-Z] Upper-case letters\n[a-zA-Z] Lower or upper case letters.\n[a-zA-Z0-9] Any alpha-numeric"
+    "section": "",
+    "text": "What makes regex special is metacharacters. While we can always use regex to match literals like dog, human, 1999, we only make use of all regex power when using metacharacters:\n\n. Any character except new line\n^ beginning of the text\n$ end of the text\n[expression] Match any single character in “expression”, e.g.\n\n[0123456789] Any digit\n[0-9] Any digit in the range 0-9\n[a-z] Lower-case letters\n[A-Z] Upper-case letters\n[a-zA-Z] Lower or upper case letters.\n[a-zA-Z0-9] Any alpha-numeric"
   },
   {
     "objectID": "slides/week07.html#regex-101-metacharacters-cont.-1",
     "href": "slides/week07.html#regex-101-metacharacters-cont.-1",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "Regex 101: Metacharacters (cont. 1)",
-    "text": "Regex 101: Metacharacters (cont. 1)\n\n[^regex] Match any except those in regex, e.g.\n\n[^0123456789] Match any except a number\n[^0-9] Match anything except in the range 0-9\n[^./ ] any except dot, slash, and space."
+    "section": "",
+    "text": "[^regex] Match any except those in regex, e.g.\n\n[^0123456789] Match any except a number\n[^0-9] Match anything except in the range 0-9\n[^./ ] any except dot, slash, and space."
   },
   {
     "objectID": "slides/week07.html#regex-101-metacharacters-cont.-2",
     "href": "slides/week07.html#regex-101-metacharacters-cont.-2",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "Regex 101: Metacharacters (cont. 2)",
-    "text": "Regex 101: Metacharacters (cont. 2)\nRanges, e.g., 0-9 or a-z, are locale- and implementation-dependent, meaning that the range of lower case letters may vary depending on the OS’s language. To solve for this problem, you could use Character classes. Some examples:\n\n[[:lower:]] lower case letters in the current locale, could be [a-z]\n[[:upper:]] upper case letters in the current locale, could be [A-Z]\n[[:alpha:]] upper and lower case letters in the current locale, could be [a-zA-Z]\n[[:digit:]] Digits: 0 1 2 3 4 5 6 7 8 9\n[[:alnum:]] Alpha numeric characters [[:alpha:]] and [[:digit:]].\n[[:punct:]] Punctuation characters: ! ” # $ % & ’ ( ) * + , - . / : ; &lt; = &gt; ? @ [ \\ ] ^ _ ` { | } ~.\n\nFor example, in the locale en_US, the word Ḧóla IS NOT fully matched by [a-zA-Z]+, but IT IS fully matched by [[:alpha:]]+."
+    "section": "",
+    "text": "Ranges, e.g., 0-9 or a-z, are locale- and implementation-dependent, meaning that the range of lower case letters may vary depending on the OS’s language. To solve for this problem, you could use Character classes. Some examples:\n\n[[:lower:]] lower case letters in the current locale, could be [a-z]\n[[:upper:]] upper case letters in the current locale, could be [A-Z]\n[[:alpha:]] upper and lower case letters in the current locale, could be [a-zA-Z]\n[[:digit:]] Digits: 0 1 2 3 4 5 6 7 8 9\n[[:alnum:]] Alpha numeric characters [[:alpha:]] and [[:digit:]].\n[[:punct:]] Punctuation characters: ! ” # $ % & ’ ( ) * + , - . / : ; &lt; = &gt; ? @ [ \\ ] ^ _ ` { | } ~.\n\nFor example, in the locale en_US, the word Ḧóla IS NOT fully matched by [a-zA-Z]+, but IT IS fully matched by [[:alpha:]]+."
   },
   {
     "objectID": "slides/week07.html#regex-101-metacharacters-cont.-3",
     "href": "slides/week07.html#regex-101-metacharacters-cont.-3",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "Regex 101: Metacharacters (cont. 3)",
-    "text": "Regex 101: Metacharacters (cont. 3)\nOther important metacharacters:\n\n\\\\s white space, equivalent to [\\\\r\\\\n\\\\t\\\\f\\\\v ]\n| or (logical or)."
+    "section": "",
+    "text": "Other important metacharacters:\n\n\\\\s white space, equivalent to [\\\\r\\\\n\\\\t\\\\f\\\\v ]\n| or (logical or)."
   },
   {
     "objectID": "slides/week07.html#regex-101-metacharacters-cont.-4",
     "href": "slides/week07.html#regex-101-metacharacters-cont.-4",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "Regex 101: Metacharacters (cont. 4)",
-    "text": "Regex 101: Metacharacters (cont. 4)\nThese usually come together with specifying how many times (repetition):\n\nregex? Zero or one match.\nregex* Zero or more matches\nregex+ One or more matches\nregex{n,} At least n matches\nregex{,m} at most m matches\nregex{n,m} Between n and m matches.\n\nWhere regex is a regular expression"
+    "section": "",
+    "text": "These usually come together with specifying how many times (repetition):\n\nregex? Zero or one match.\nregex* Zero or more matches\nregex+ One or more matches\nregex{n,} At least n matches\nregex{,m} at most m matches\nregex{n,m} Between n and m matches.\n\nWhere regex is a regular expression"
   },
   {
     "objectID": "slides/week07.html#regex-101-metacharacters-cont.-5",
     "href": "slides/week07.html#regex-101-metacharacters-cont.-5",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "Regex 101: Metacharacters (cont. 5)",
-    "text": "Regex 101: Metacharacters (cont. 5)\nThere are other operators that can be very useful,\n\n(regex) Group capture.\n(?:regex) Group operation without capture.\nA(?=B) Look ahead (match). Find expression A where expression B follows.\nA(?!B) Look ahead (don’t match). Find expression A where expression B does not follow.\n(?&lt;=B)A Look behind (match). Find expression A where expression B precedes.\n(?&lt;!B)A Look behind (don’t match). Find expression A where expression B does not precede.\n\nGroup captures can be reused with \\\\1, \\\\2, …, \\\\n, referring to the first group, second group, etc.\nMore (great) information here https://regex101.com/"
+    "section": "",
+    "text": "There are other operators that can be very useful,\n\n(regex) Group capture.\n(?:regex) Group operation without capture.\nA(?=B) Look ahead (match). Find expression A where expression B follows.\nA(?!B) Look ahead (don’t match). Find expression A where expression B does not follow.\n(?&lt;=B)A Look behind (match). Find expression A where expression B precedes.\n(?&lt;!B)A Look behind (don’t match). Find expression A where expression B does not precede.\n\nGroup captures can be reused with \\\\1, \\\\2, …, \\\\n, referring to the first group, second group, etc.\nMore (great) information here https://regex101.com/"
   },
   {
     "objectID": "slides/week07.html#regex-101-examples",
     "href": "slides/week07.html#regex-101-examples",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "Regex 101: Examples",
-    "text": "Regex 101: Examples\n\n.{5} Match any character (except line end) five times.\nn{2} Match the letter n twice.\n[0-9] Match any number once.\n[0-9]+ Match any number at least once.\n[a-zA-Z]+ Match any lower or upper case letter at least once.\n\\\\s[a-zA-Z]+\\\\s Match a space, any lower or upper case letter at least once, and a space.\n\\\\s[[:alpha:]]+\\\\s Same as before but this time with the [[:alpha:]] character class."
+    "section": "",
+    "text": ".{5} Match any character (except line end) five times.\nn{2} Match the letter n twice.\n[0-9] Match any number once.\n[0-9]+ Match any number at least once.\n[a-zA-Z]+ Match any lower or upper case letter at least once.\n\\\\s[a-zA-Z]+\\\\s Match a space, any lower or upper case letter at least once, and a space.\n\\\\s[[:alpha:]]+\\\\s Same as before but this time with the [[:alpha:]] character class."
   },
   {
     "objectID": "slides/week07.html#regex-101-examples-cont.-1",
     "href": "slides/week07.html#regex-101-examples-cont.-1",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "Regex 101: Examples (cont. 1)",
-    "text": "Regex 101: Examples (cont. 1)\nHere we are extracting the first occurrence of the following regular expressions (using stringr::str_extract()):\n\n\n\n\n\nregex\nHanna Perez [name]\nThe 年 year was 1999\nHaHa, @abc said that\nGoGo trojans #2025!\n\n\n\n\n.{5}\nHanna\nThe 年\nHaHa,\nGoGo\n\n\nn{2}\nnn\n\n\n\n\n\n[0-9]\n\n1\n\n2\n\n\n[0-9]+\n\n1999\n\n2025\n\n\n[a-zA-Z]+\nHanna\nThe\nHaHa\nGoGo\n\n\n\\\\s[a-zA-Z]+\\\\s\nPerez\nyear\nsaid\ntrojans\n\n\n\\\\s[[:alpha:]]+\\\\s\nPerez\n年\nsaid\ntrojans"
+    "section": "",
+    "text": "Here we are extracting the first occurrence of the following regular expressions (using stringr::str_extract()):\n\n\n\n\n\nregex\nHanna Perez [name]\nThe 年 year was 1999\nHaHa, @abc said that\nGoGo trojans #2025!\n\n\n\n\n.{5}\nHanna\nThe 年\nHaHa,\nGoGo\n\n\nn{2}\nnn\n\n\n\n\n\n[0-9]\n\n1\n\n2\n\n\n[0-9]+\n\n1999\n\n2025\n\n\n[a-zA-Z]+\nHanna\nThe\nHaHa\nGoGo\n\n\n\\\\s[a-zA-Z]+\\\\s\nPerez\nyear\nsaid\ntrojans\n\n\n\\\\s[[:alpha:]]+\\\\s\nPerez\n年\nsaid\ntrojans"
   },
   {
     "objectID": "slides/week07.html#regex-101-examples-cont.-3",
     "href": "slides/week07.html#regex-101-examples-cont.-3",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "Regex 101: Examples (cont. 3)",
-    "text": "Regex 101: Examples (cont. 3)\n\n[a-zA-Z]+ [a-zA-Z]+ Match two sets of letters separated by one space.\n[a-zA-Z]+\\\\s? Match one set of letters, maybe followed by a white space.\n([a-zA-Z]+)\\\\1 Match any lower or upper case letter at least once and then match the same pattern again.\n(@|#)[a-z0-9]+ Match either the @ or # symbol, followed by one or more lower case letter or number.\n(?&lt;=#|@)[a-z0-9]+ Match one or more lower case letter or number that follows either the @ or # symbol.\n\\\\[[a-z]+\\\\] Match the symbol [, at least one lower case letter, then symbol ]."
+    "section": "",
+    "text": "[a-zA-Z]+ [a-zA-Z]+ Match two sets of letters separated by one space.\n[a-zA-Z]+\\\\s? Match one set of letters, maybe followed by a white space.\n([a-zA-Z]+)\\\\1 Match any lower or upper case letter at least once and then match the same pattern again.\n(@|#)[a-z0-9]+ Match either the @ or # symbol, followed by one or more lower case letter or number.\n(?&lt;=#|@)[a-z0-9]+ Match one or more lower case letter or number that follows either the @ or # symbol.\n\\\\[[a-z]+\\\\] Match the symbol [, at least one lower case letter, then symbol ]."
   },
   {
     "objectID": "slides/week07.html#regex-101-examples-cont.-2",
     "href": "slides/week07.html#regex-101-examples-cont.-2",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "Regex 101: Examples (cont. 2)",
-    "text": "Regex 101: Examples (cont. 2)\n\n\n\nregex\nHanna Perez [name]\nThe 年 year was 1999\nHaHa, @abc said that\nGoGo trojans #2025!\n\n\n\n\n[a-zA-Z]+ [a-zA-Z]+\nHanna Perez\nyear was\nabc said\nGoGo trojans\n\n\n[a-zA-Z]+\\\\s?\nHanna\nThe\nHaHa\nGoGo\n\n\n([a-zA-Z]+)\\\\1\nnn\n\nHaHa\nGoGo\n\n\n(@|#)[a-z0-9]+\n\n\n@abc\n#2025\n\n\n(?&lt;=#|@)[a-z0-9]+\n\n\nabc\n2025"
+    "section": "",
+    "text": "regex\nHanna Perez [name]\nThe 年 year was 1999\nHaHa, @abc said that\nGoGo trojans #2025!\n\n\n\n\n[a-zA-Z]+ [a-zA-Z]+\nHanna Perez\nyear was\nabc said\nGoGo trojans\n\n\n[a-zA-Z]+\\\\s?\nHanna\nThe\nHaHa\nGoGo\n\n\n([a-zA-Z]+)\\\\1\nnn\n\nHaHa\nGoGo\n\n\n(@|#)[a-z0-9]+\n\n\n@abc\n#2025\n\n\n(?&lt;=#|@)[a-z0-9]+\n\n\nabc\n2025"
   },
   {
     "objectID": "slides/week07.html#regex-101-examples-cont.-3-1",
     "href": "slides/week07.html#regex-101-examples-cont.-3-1",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "Regex 101: Examples (cont. 3)",
-    "text": "Regex 101: Examples (cont. 3)"
+    "section": "",
+    "text": "colnames(ans) &lt;- c(\"regex\", \"Hanna Perez\\n[name]\", \"The 年 year\\nwas 1999\", \"HaHa, @abc\\nsaid that\", \"GoGo trojans\\n#2025!\")\nplot(c(0,50), c(0,8), asp=1, col='white', axes=FALSE, xlab='',ylab='')\nfor(i in 1:ncol(ans)){\n    text(10*i-5, 7, colnames(ans)[i], adj=c(.5,.5), font=2)\n}\ntext(5,1,\"\\\\\\\\[[a-z]+\\\\\\\\]\")\ntext(15,1,\"[name]\")\nabline(h=3.5)"
   },
   {
     "objectID": "slides/week07.html#regex-101-functions-in-r",
     "href": "slides/week07.html#regex-101-functions-in-r",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "Regex 101: Functions in R",
-    "text": "Regex 101: Functions in R\n\nFind in text: grepl(), stringr::str_detect().\nSimilar to which(), which elements are TRUE grep(), stringr::str_which()\nReplace the first instance: sub(), stringr::str_replace()\nReplace all instances: gsub(), stringr::str_replace_all()\nExtract text: regmatches() plus regexpr(), stringr::str_extract() and stringr::str_extract_all()."
+    "section": "",
+    "text": "Find in text: grepl(), stringr::str_detect().\nSimilar to which(), which elements are TRUE grep(), stringr::str_which()\nReplace the first instance: sub(), stringr::str_replace()\nReplace all instances: gsub(), stringr::str_replace_all()\nExtract text: regmatches() plus regexpr(), stringr::str_extract() and stringr::str_extract_all()."
   },
   {
     "objectID": "slides/week07.html#regex-101-functions-in-r-cont.-1",
     "href": "slides/week07.html#regex-101-functions-in-r-cont.-1",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "Regex 101: Functions in R (cont. 1)",
-    "text": "Regex 101: Functions in R (cont. 1)\nFor example, like in Twitter, let’s create a regex that matches usernames or hashtags with the following pattern:\n(@|#)([[:alnum:]]+)\n\n\n\n\n\n\n\n\n\n\n\nCode\n@Hanna Perez [name] #html\nThe @年 year was 1999\nHaHa, @abc said that @z\n\n\n\n\nstr_detect(text, pattern) or grepl(pattern, text)\nTRUE\nTRUE\nTRUE\n\n\nstr_extract(text, pattern) or regmatches(...)\n@Hanna\n@年\n@abc\n\n\nstr_extract_all(text, pattern)\n@Hanna, #html\n@年\n@abc, @z"
+    "section": "",
+    "text": "For example, like in Twitter, let’s create a regex that matches usernames or hashtags with the following pattern:\n(@|#)([[:alnum:]]+)\n\n\n\n\n\n\n\n\n\n\n\nCode\n@Hanna Perez [name] #html\nThe @年 year was 1999\nHaHa, @abc said that @z\n\n\n\n\nstr_detect(text, pattern) or grepl(pattern, text)\nTRUE\nTRUE\nTRUE\n\n\nstr_extract(text, pattern) or regmatches(...)\n@Hanna\n@年\n@abc\n\n\nstr_extract_all(text, pattern)\n@Hanna, #html\n@年\n@abc, @z"
   },
   {
     "objectID": "slides/week07.html#regex-101-functions-in-r-cont.-2",
     "href": "slides/week07.html#regex-101-functions-in-r-cont.-2",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "Regex 101: Functions in R (cont. 2)",
-    "text": "Regex 101: Functions in R (cont. 2)\nPattern: (@|#)([[:alnum:]]+)\n\n\n\n\n\n\n\n\n\n\n\nCode\n@Hanna Perez [name] #html\nThe @年 year was 1999\nHaHa, @abc said that @z\n\n\n\n\nstr_replace(text, pattern, \"\\\\1justinbieber\") or sub(...)\n@justinbieber Perez [name] #html\nThe @justinbieber year was 1999\nHaHa, @justinbieber said that @z\n\n\nstr_replace_all(text, pattern, \"\\\\1justinbieber\") or gsub(...)\n@justinbieber Perez [name] #justinbieber\nThe @justinbieber year was 1999\nHaHa, @justinbieber said that @justinbieber\n\n\n\n\n\nNote: It renders oddly in the table, but there is no space or line break in the group replacement, \\\\1."
+    "section": "",
+    "text": "Pattern: (@|#)([[:alnum:]]+)\n\n\n\n\n\n\n\n\n\n\n\nCode\n@Hanna Perez [name] #html\nThe @年 year was 1999\nHaHa, @abc said that @z\n\n\n\n\nstr_replace(text, pattern, \"\\\\1justinbieber\") or sub(...)\n@justinbieber Perez [name] #html\nThe @justinbieber year was 1999\nHaHa, @justinbieber said that @z\n\n\nstr_replace_all(text, pattern, \"\\\\1justinbieber\") or gsub(...)\n@justinbieber Perez [name] #justinbieber\nThe @justinbieber year was 1999\nHaHa, @justinbieber said that @justinbieber\n\n\n\n\n\nNote: It renders oddly in the table, but there is no space or line break in the group replacement, \\\\1."
   },
   {
     "objectID": "slides/week07.html#data",
     "href": "slides/week07.html#data",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "Data",
-    "text": "Data\nThis week we will continue using our text mining dataset:\n\n# Where are we getting the data from\nmts_url &lt;- \"https://github.com/USCbiostats/data-science-data/raw/master/00_mtsamples/mtsamples.csv\"\n\n# Downloading the data to a tempfile (so it is destroyed afterwards)\ntmp &lt;- tempfile(pattern = \"mtsamples\", fileext = \".csv\")\n\n# We should be downloading this, ONLY IF this was not downloaded already.\n# otherwise is just a waste of time.\nif (!file.exists(tmp)) {\n  download.file(\n    url      = mts_url,\n    destfile = tmp,\n    # method   = \"libcurl\", timeout = 1000 (you may need this option)\n  )\n}\n\n# read the file\nmtsamples &lt;- read.csv(tmp, header = TRUE, row.names = 1)"
+    "section": "",
+    "text": "This week we will continue using our text mining dataset:\n\n# Where are we getting the data from\nmts_url &lt;- \"https://github.com/USCbiostats/data-science-data/raw/master/00_mtsamples/mtsamples.csv\"\n\n# Downloading the data to a tempfile (so it is destroyed afterwards)\ntmp &lt;- tempfile(pattern = \"mtsamples\", fileext = \".csv\")\n\n# We should be downloading this, ONLY IF this was not downloaded already.\n# otherwise is just a waste of time.\nif (!file.exists(tmp)) {\n  download.file(\n    url      = mts_url,\n    destfile = tmp,\n    # method   = \"libcurl\", timeout = 1000 (you may need this option)\n  )\n}\n\n# read the file\nmtsamples &lt;- read.csv(tmp, header = TRUE, row.names = 1)"
   },
   {
     "objectID": "slides/week07.html#regex-lookup-text-tumor",
     "href": "slides/week07.html#regex-lookup-text-tumor",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "Regex Lookup Text: Tumor",
-    "text": "Regex Lookup Text: Tumor\nFor each entry, we want to know if it is tumor-related. For that we can use the following code:\n\n# How many entries contain the word tumor?\nsum(grepl(\"tumor\", mtsamples$description, ignore.case = TRUE))\n\n[1] 80\n\n# Generating a column tagging tumor\nmtsamples$tumor_related &lt;- grepl(\"tumor\", mtsamples$description, ignore.case = TRUE)\n\n# Taking a look at a few examples\nmtsamples$description[mtsamples$tumor_related == TRUE][1:3]\n\n[1] \"  Transurethral resection of a medium bladder tumor (TURBT), left lateral wall.\"                              \n[2] \" Transurethral resection of the bladder tumor (TURBT), large.\"                                                \n[3] \" Cystoscopy, transurethral resection of medium bladder tumor (4.0 cm in diameter), and direct bladder biopsy.\"\n\n\nNotice the ignore.case = TRUE. This is equivalent to transforming the text to lower case using tolower() before passing the text to the regular expression function."
+    "section": "",
+    "text": "For each entry, we want to know if it is tumor-related. For that we can use the following code:\n\n# How many entries contain the word tumor?\nsum(grepl(\"tumor\", mtsamples$description, ignore.case = TRUE))\n\n[1] 80\n\n# Generating a column tagging tumor\nmtsamples$tumor_related &lt;- grepl(\"tumor\", mtsamples$description, ignore.case = TRUE)\n\n# Taking a look at a few examples\nmtsamples$description[mtsamples$tumor_related == TRUE][1:3]\n\n[1] \"  Transurethral resection of a medium bladder tumor (TURBT), left lateral wall.\"                              \n[2] \" Transurethral resection of the bladder tumor (TURBT), large.\"                                                \n[3] \" Cystoscopy, transurethral resection of medium bladder tumor (4.0 cm in diameter), and direct bladder biopsy.\"\n\n\nNotice the ignore.case = TRUE. This is equivalent to transforming the text to lower case using tolower() before passing the text to the regular expression function."
   },
   {
     "objectID": "slides/week07.html#regex-lookup-text-pronoun-of-the-patient",
     "href": "slides/week07.html#regex-lookup-text-pronoun-of-the-patient",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "Regex Lookup text: Pronoun of the patient",
-    "text": "Regex Lookup text: Pronoun of the patient\nNow, let’s try to guess the pronoun of the patient. To do so, we could tag by using the words he, his, him, they, them, theirs, ze, hir, hirs, she, hers, her (see this article on sexist text):\n\nmtsamples$pronoun &lt;- str_extract(\n  string  = tolower(mtsamples$transcription),\n  pattern = \"he|his|him|they|them|theirs|ze|hir|hirs|she|hers|her\"\n)\n\nWhat is the problem with this approach?"
+    "section": "",
+    "text": "Now, let’s try to guess the pronoun of the patient. To do so, we could tag by using the words he, his, him, they, them, theirs, ze, hir, hirs, she, hers, her (see this article on sexist text):\n\nmtsamples$pronoun &lt;- str_extract(\n  string  = tolower(mtsamples$transcription),\n  pattern = \"he|his|him|they|them|theirs|ze|hir|hirs|she|hers|her\"\n)\n\nWhat is the problem with this approach?"
   },
   {
     "objectID": "slides/week07.html#regex-lookup-text-pronoun-of-the-patient-cont.-1",
     "href": "slides/week07.html#regex-lookup-text-pronoun-of-the-patient-cont.-1",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "Regex Lookup text: Pronoun of the patient (cont. 1)",
-    "text": "Regex Lookup text: Pronoun of the patient (cont. 1)\n\nmtsamples$transcription[1]\n\n[1] \"SUBJECTIVE:,  This 23-year-old white female presents with complaint of allergies.  She used to have allergies when she lived in Seattle but she thinks they are worse here.  In the past, she has tried Claritin, and Zyrtec.  Both worked for short time but then seemed to lose effectiveness.  She has used Allegra also.  She used that last summer and she began using it again two weeks ago.  It does not appear to be working very well.  She has used over-the-counter sprays but no prescription nasal sprays.  She does have asthma but doest not require daily medication for this and does not think it is flaring up.,MEDICATIONS: , Her only medication currently is Ortho Tri-Cyclen and the Allegra.,ALLERGIES: , She has no known medicine allergies.,OBJECTIVE:,Vitals:  Weight was 130 pounds and blood pressure 124/78.,HEENT:  Her throat was mildly erythematous without exudate.  Nasal mucosa was erythematous and swollen.  Only clear drainage was seen.  TMs were clear.,Neck:  Supple without adenopathy.,Lungs:  Clear.,ASSESSMENT:,  Allergic rhinitis.,PLAN:,1.  She will try Zyrtec instead of Allegra again.  Another option will be to use loratadine.  She does not think she has prescription coverage so that might be cheaper.,2.  Samples of Nasonex two sprays in each nostril given for three weeks.  A prescription was written as well.\"\n\nmtsamples$pronoun[1]\n\n[1] \"his\""
+    "section": "",
+    "text": "mtsamples$transcription[1]\n\n[1] \"SUBJECTIVE:,  This 23-year-old white female presents with complaint of allergies.  She used to have allergies when she lived in Seattle but she thinks they are worse here.  In the past, she has tried Claritin, and Zyrtec.  Both worked for short time but then seemed to lose effectiveness.  She has used Allegra also.  She used that last summer and she began using it again two weeks ago.  It does not appear to be working very well.  She has used over-the-counter sprays but no prescription nasal sprays.  She does have asthma but doest not require daily medication for this and does not think it is flaring up.,MEDICATIONS: , Her only medication currently is Ortho Tri-Cyclen and the Allegra.,ALLERGIES: , She has no known medicine allergies.,OBJECTIVE:,Vitals:  Weight was 130 pounds and blood pressure 124/78.,HEENT:  Her throat was mildly erythematous without exudate.  Nasal mucosa was erythematous and swollen.  Only clear drainage was seen.  TMs were clear.,Neck:  Supple without adenopathy.,Lungs:  Clear.,ASSESSMENT:,  Allergic rhinitis.,PLAN:,1.  She will try Zyrtec instead of Allegra again.  Another option will be to use loratadine.  She does not think she has prescription coverage so that might be cheaper.,2.  Samples of Nasonex two sprays in each nostril given for three weeks.  A prescription was written as well.\"\n\nmtsamples$pronoun[1]\n\n[1] \"his\""
   },
   {
     "objectID": "slides/week07.html#regex-lookup-text-pronoun-of-the-patient-cont.-1-1",
     "href": "slides/week07.html#regex-lookup-text-pronoun-of-the-patient-cont.-1-1",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "Regex Lookup text: Pronoun of the patient (cont. 1)",
-    "text": "Regex Lookup text: Pronoun of the patient (cont. 1)\nTo correct this issue, we can make our regular expression more precise:\n(?&lt;=\\W|^)(he|his|him|they|them|theirs|ze|hir|hirs|she|hers|her)(?=\\W|$)\nBit by bit this is:\n\n(?&lt;=regex) look behind for…\n\n\\W any non-alphanumeric character, this is equivalent to [^[:alnum:]], | or\n^ the beginning of text\n\nhe|his|him... any of these words\n(?=regex) followed by…\n\n\\W any non-alphanumeric character, this is equivalent to [^[:alnum:]], | or\n$ the end of the text."
+    "section": "",
+    "text": "To correct this issue, we can make our regular expression more precise:\n(?&lt;=\\W|^)(he|his|him|they|them|theirs|ze|hir|hirs|she|hers|her)(?=\\W|$)\nBit by bit this is:\n\n(?&lt;=regex) look behind for…\n\n\\W any non-alphanumeric character, this is equivalent to [^[:alnum:]], | or\n^ the beginning of text\n\nhe|his|him... any of these words\n(?=regex) followed by…\n\n\\W any non-alphanumeric character, this is equivalent to [^[:alnum:]], | or\n$ the end of the text."
   },
   {
     "objectID": "slides/week07.html#regex-lookup-text-pronoun-of-the-patient-cont.-2",
     "href": "slides/week07.html#regex-lookup-text-pronoun-of-the-patient-cont.-2",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "Regex Lookup text: Pronoun of the patient (cont. 2)",
-    "text": "Regex Lookup text: Pronoun of the patient (cont. 2)\nLet’s use this new pattern:\n\nmtsamples$pronoun &lt;- str_extract(\n  string  = tolower(mtsamples$transcription), \n  pattern = \"(?&lt;=\\\\W|^)(he|his|him|they|them|theirs|ze|hir|hirs|she|hers|her)(?=\\\\W|$)\"\n  )\nmtsamples$pronoun[1:10]\n\n [1] \"she\" \"he\"  \"he\"  NA    NA    \"she\" \"she\" NA    NA    NA"
+    "section": "",
+    "text": "Let’s use this new pattern:\n\nmtsamples$pronoun &lt;- str_extract(\n  string  = tolower(mtsamples$transcription), \n  pattern = \"(?&lt;=\\\\W|^)(he|his|him|they|them|theirs|ze|hir|hirs|she|hers|her)(?=\\\\W|$)\"\n  )\nmtsamples$pronoun[1:10]\n\n [1] \"she\" \"he\"  \"he\"  NA    NA    \"she\" \"she\" NA    NA    NA"
   },
   {
     "objectID": "slides/week07.html#regex-lookup-text-pronoun-of-the-patient-cont.-3",
     "href": "slides/week07.html#regex-lookup-text-pronoun-of-the-patient-cont.-3",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "Regex Lookup text: Pronoun of the patient (cont. 3)",
-    "text": "Regex Lookup text: Pronoun of the patient (cont. 3)\n\ntable(mtsamples$pronoun, useNA = \"always\")\n\n\n  he  her  him  his  she them they &lt;NA&gt; \n1073  554   39  524 1261   23   96 1429"
+    "section": "",
+    "text": "table(mtsamples$pronoun, useNA = \"always\")\n\n\n  he  her  him  his  she them they &lt;NA&gt; \n1073  554   39  524 1261   23   96 1429"
   },
   {
     "objectID": "slides/week07.html#regex-extract-text-type-of-cancer",
     "href": "slides/week07.html#regex-extract-text-type-of-cancer",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "Regex Extract Text: Type of Cancer",
-    "text": "Regex Extract Text: Type of Cancer\n\nImagine now that you need to see the types of cancer mentioned in the data.\nFor simplicity, let’s assume that, if specified, it is in the form of TYPE cancer, i.e. single word.\nWe are interested in the word before cancer, how can we capture this?"
+    "section": "",
+    "text": "Imagine now that you need to see the types of cancer mentioned in the data.\nFor simplicity, let’s assume that, if specified, it is in the form of TYPE cancer, i.e. single word.\nWe are interested in the word before cancer, how can we capture this?"
   },
   {
     "objectID": "slides/week07.html#regex-extract-text-type-of-cancer-cont-1.",
     "href": "slides/week07.html#regex-extract-text-type-of-cancer-cont-1.",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "Regex Extract Text: Type of Cancer (cont 1.)",
-    "text": "Regex Extract Text: Type of Cancer (cont 1.)\nWe can just try to extract the phrase \"[some word] cancer\", in particular, we could use the following regular expression:\n[[:alnum:]-_]{4,}\\s*cancer\nWhere\n\n[[:alnum:]-_]{4,} captures any alphanumeric character, including - and _. Furthermore, for this match to work there must be at least 4 characters,\n\\s* captures 0 or more white-spaces, and\ncancer captures the word cancer"
+    "section": "",
+    "text": "We can just try to extract the phrase \"[some word] cancer\", in particular, we could use the following regular expression:\n[[:alnum:]-_]{4,}\\s*cancer\nWhere\n\n[[:alnum:]-_]{4,} captures any alphanumeric character, including - and _. Furthermore, for this match to work there must be at least 4 characters,\n\\s* captures 0 or more white-spaces, and\ncancer captures the word cancer"
   },
   {
     "objectID": "slides/week07.html#regex-extract-text-type-of-cancer-cont.-2",
     "href": "slides/week07.html#regex-extract-text-type-of-cancer-cont.-2",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "Regex Extract Text: Type of Cancer (cont. 2)",
-    "text": "Regex Extract Text: Type of Cancer (cont. 2)\n\nmtsamples$cancer_type &lt;- str_extract(tolower(mtsamples$keywords), \"[[:alnum:]-_]{4,}\\\\s*cancer\")\ntable(mtsamples$cancer_type)\n\n\n       anal cancer     bladder cancer      breast cancer       colon cancer \n                 1                  8                 21                 14 \nendometrial cancer  esophageal cancer        lung cancer     ovarian cancer \n                 5                  2                 13                  1 \n  papillary cancer    prostate cancer     uterine cancer \n                 3                 17                  7"
+    "section": "",
+    "text": "mtsamples$cancer_type &lt;- str_extract(tolower(mtsamples$keywords), \"[[:alnum:]-_]{4,}\\\\s*cancer\")\ntable(mtsamples$cancer_type)\n\n\n       anal cancer     bladder cancer      breast cancer       colon cancer \n                 1                  8                 21                 14 \nendometrial cancer  esophageal cancer        lung cancer     ovarian cancer \n                 5                  2                 13                  1 \n  papillary cancer    prostate cancer     uterine cancer \n                 3                 17                  7"
   },
   {
     "objectID": "slides/week07.html#fundamentals-of-web-scraping",
@@ -1040,105 +1040,105 @@
     "href": "slides/week07.html#web-scraping-with-xml2-and-the-rvest-package-cont.-2",
     "title": "Week 7: Regular Expressions and Web Scraping",
     "section": "Web scraping with xml2 and the rvest package (cont. 2)",
-    "text": "Web scraping with xml2 and the rvest package (cont. 2)\nNow that we know the path, let’s use that and extract\n\ntable &lt;- xml_find_all(covid, xpath = '/html/body/div[2]/div/div[3]/main/div[3]/div[3]/div[1]/div[4]/table')\ntable &lt;- html_table(table) # This returns a list of tables\nhead(table[[1]])\n\n# A tibble: 6 × 4\n  Country                `Deaths / million` Deaths    Cases      \n  &lt;chr&gt;                  &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;      \n1 World[a]               892                7,099,056 778,402,651\n2 Peru                   6,603              221,060   4,532,707  \n3 Bulgaria               5,679              38,766    1,338,533  \n4 North Macedonia        5,429              9,991     352,093    \n5 Bosnia and Herzegovina 5,119              16,406    404,289    \n6 Hungary                5,072              49,124    2,238,102"
+    "text": "Web scraping with xml2 and the rvest package (cont. 2)\nNow that we know the path, let’s use that and extract the table:\n\ntable &lt;- xml_find_all(covid, xpath = '/html/body/div[2]/div/div[3]/main/div[3]/div[3]/div[1]/div[4]/table')\nprint(table) # collection of tables in XML\n\n{xml_nodeset (1)}\n[1] &lt;table class=\"wikitable sortable sort-under static-row-numbers mw-datatab ..."
   },
   {
     "objectID": "slides/week07.html#web-apis",
     "href": "slides/week07.html#web-apis",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "Web APIs",
-    "text": "Web APIs\nWhat?\n\nA Web API is an application programming interface for either a web server or a web browser. – Wikipedia\n\nSome examples include: twitter API, facebook API, Gene Ontology API\nHow?\nYou can request data, the GET method, post data, the POST method, and do many other things using the HTTP protocol.\nHow in R?\nFor this part, we will be using the httr() package, which is a wrapper of the curl() package, which in turn provides access to the curl library that is used to communicate with APIs."
+    "section": "* Web APIs",
+    "text": "* Web APIs\nWhat?\n\nA Web API is an application programming interface for either a web server or a web browser. – Wikipedia\n\nSome examples include: twitter API, facebook API, Gene Ontology API\nHow?\nYou can request data, the GET method, post data, the POST method, and do many other things using the HTTP protocol.\nHow in R?\nFor this part, we will be using the httr() package, which is a wrapper of the curl() package, which in turn provides access to the curl library that is used to communicate with APIs."
   },
   {
     "objectID": "slides/week07.html#web-apis-with-curl",
     "href": "slides/week07.html#web-apis-with-curl",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "Web APIs with curl",
-    "text": "Web APIs with curl\n\n  Structure of a URL (source: “HTTP: The Protocol Every Web Developer Must Know - Part 1”)"
+    "section": "* Web APIs with curl",
+    "text": "* Web APIs with curl\n\n  Structure of a URL (source: “HTTP: The Protocol Every Web Developer Must Know - Part 1”)"
   },
   {
     "objectID": "slides/week07.html#web-apis-with-curl-1",
     "href": "slides/week07.html#web-apis-with-curl-1",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "Web APIs with curl",
-    "text": "Web APIs with curl\nUnder the hood, the httr (and thus curl) sends request somewhat like this\ncurl -X GET https://google.com -w \"%{content_type}\\n%{http_code}\\n\"\nA get request (-X GET) to https://google.com, which also includes (-w) the following: content_type and http_code:\n&lt;HTML&gt;&lt;HEAD&gt;&lt;meta http-equiv=\"content-type\" content=\"text/html;charset=utf-8\"&gt;\n&lt;TITLE&gt;301 Moved&lt;/TITLE&gt;&lt;/HEAD&gt;&lt;BODY&gt;\n&lt;H1&gt;301 Moved&lt;/H1&gt;\nThe document has moved\n&lt;A HREF=\"https://www.google.com/\"&gt;here&lt;/A&gt;.\n&lt;/BODY&gt;&lt;/HTML&gt;\ntext/html; charset=UTF-8\n301\nWe use the httr R package to make life easier."
+    "section": "* Web APIs with curl",
+    "text": "* Web APIs with curl\nUnder the hood, the httr (and thus curl) sends request somewhat like this\ncurl -X GET https://google.com -w \"%{content_type}\\n%{http_code}\\n\"\nA get request (-X GET) to https://google.com, which also includes (-w) the following: content_type and http_code:\n&lt;HTML&gt;&lt;HEAD&gt;&lt;meta http-equiv=\"content-type\" content=\"text/html;charset=utf-8\"&gt;\n&lt;TITLE&gt;301 Moved&lt;/TITLE&gt;&lt;/HEAD&gt;&lt;BODY&gt;\n&lt;H1&gt;301 Moved&lt;/H1&gt;\nThe document has moved\n&lt;A HREF=\"https://www.google.com/\"&gt;here&lt;/A&gt;.\n&lt;/BODY&gt;&lt;/HTML&gt;\ntext/html; charset=UTF-8\n301\nWe use the httr R package to make life easier."
   },
   {
     "objectID": "slides/week07.html#web-api-example-1-gene-ontology",
     "href": "slides/week07.html#web-api-example-1-gene-ontology",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "Web API Example 1: Gene Ontology",
-    "text": "Web API Example 1: Gene Ontology\n\nWe will make use of the Gene Ontology API.\nWe want to know what genes (human or not) are involved in the function antiviral innate immune response (go term GO:0140374), looking only at those annotations that have evidence code ECO:0000006 (experimental evidence):\n\n\nlibrary(httr)\ngo_query &lt;- GET(\n  url   = \"http://api.geneontology.org/\",\n  path  = \"api/bioentity/function/GO:0140374/genes\",\n  query = list(\n    evidence          = \"ECO:0000006\",\n    relationship_type = \"involved_in\"\n  ), \n  # May need to pass this option to curl to allow to wait for at least\n  # 60 seconds before returning error.\n  config = config(\n    connecttimeout = 60\n    )\n)\n\nWe could have also passed the full URL directly…"
+    "section": "* Web API Example 1: Gene Ontology",
+    "text": "* Web API Example 1: Gene Ontology\n\nWe will make use of the Gene Ontology API.\nWe want to know what genes (human or not) are involved in the function antiviral innate immune response (go term GO:0140374), looking only at those annotations that have evidence code ECO:0000006 (experimental evidence):\n\n\nlibrary(httr)\ngo_query &lt;- GET(\n  url   = \"http://api.geneontology.org/\",\n  path  = \"api/bioentity/function/GO:0140374/genes\",\n  query = list(\n    evidence          = \"ECO:0000006\",\n    relationship_type = \"involved_in\"\n  ), \n  # May need to pass this option to curl to allow to wait for at least\n  # 60 seconds before returning error.\n  config = config(\n    connecttimeout = 60\n    )\n)\n\nWe could have also passed the full URL directly…"
   },
   {
     "objectID": "slides/week07.html#web-api-example-1-gene-ontology-cont.-1",
     "href": "slides/week07.html#web-api-example-1-gene-ontology-cont.-1",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "Web API Example 1: Gene Ontology (cont. 1)",
-    "text": "Web API Example 1: Gene Ontology (cont. 1)\nLet’s take a look at the curl call:\ncurl -X GET \"http://api.geneontology.org/api/bioentity/function/GO:0140374/genes?evidence=ECO%3A0000006&relationship_type=involved_in\" -H \"accept: application/json\"\nWhat httr::GET() does:\n&gt; go_query$request\n## &lt;request&gt;\n## GET http://api.geneontology.org/api/bioentity/function/GO:0140374/genes?evidence=ECO%3A0000006&relationship_type=involved_in\n## Output: write_memory\n## Options:\n## * useragent: libcurl/7.58.0 r-curl/4.3 httr/1.4.1\n## * connecttimeout: 60\n## * httpget: TRUE\n## Headers:\n## * Accept: application/json, text/xml, application/xml, */*"
+    "section": "* Web API Example 1: Gene Ontology (cont. 1)",
+    "text": "* Web API Example 1: Gene Ontology (cont. 1)\nLet’s take a look at the curl call:\ncurl -X GET \"http://api.geneontology.org/api/bioentity/function/GO:0140374/genes?evidence=ECO%3A0000006&relationship_type=involved_in\" -H \"accept: application/json\"\nWhat httr::GET() does:\n&gt; go_query$request\n## &lt;request&gt;\n## GET http://api.geneontology.org/api/bioentity/function/GO:0140374/genes?evidence=ECO%3A0000006&relationship_type=involved_in\n## Output: write_memory\n## Options:\n## * useragent: libcurl/7.58.0 r-curl/4.3 httr/1.4.1\n## * connecttimeout: 60\n## * httpget: TRUE\n## Headers:\n## * Accept: application/json, text/xml, application/xml, */*"
   },
   {
     "objectID": "slides/week07.html#web-api-example-1-gene-ontology-cont.-2",
     "href": "slides/week07.html#web-api-example-1-gene-ontology-cont.-2",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "Web API Example 1: Gene Ontology (cont. 2)",
-    "text": "Web API Example 1: Gene Ontology (cont. 2)\nLet’s take a look at the response:\n\ngo_query\n\nResponse [https://api.geneontology.org/api/bioentity/function/GO:0140374/genes?evidence=ECO%3A0000006&relationship_type=involved_in]\n  Date: 2025-08-29 14:55\n  Status: 200\n  Content-Type: application/json\n  Size: 116 kB\n\n\nRemember the codes:\n\n1xx: Information message\n2xx: Success\n3xx: Redirection\n4xx: Client error\n5xx: Server error"
+    "section": "* Web API Example 1: Gene Ontology (cont. 2)",
+    "text": "* Web API Example 1: Gene Ontology (cont. 2)\nLet’s take a look at the response:\n\ngo_query\n\nResponse [https://api.geneontology.org/api/bioentity/function/GO:0140374/genes?evidence=ECO%3A0000006&relationship_type=involved_in]\n  Date: 2025-08-29 19:09\n  Status: 200\n  Content-Type: application/json\n  Size: 116 kB\n\n\nRemember the codes:\n\n1xx: Information message\n2xx: Success\n3xx: Redirection\n4xx: Client error\n5xx: Server error"
   },
   {
     "objectID": "slides/week07.html#web-api-example-1-gene-ontology-cont.-3",
     "href": "slides/week07.html#web-api-example-1-gene-ontology-cont.-3",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "Web API Example 1: Gene Ontology (cont. 3)",
-    "text": "Web API Example 1: Gene Ontology (cont. 3)\nWe can extract the results using the httr::content() function:\n\ndat &lt;- content(go_query) \ndat &lt;- lapply(dat$associations, function(a) {\n  data.frame(\n    Gene        = a$subject$id,\n    taxon_id    = a$subject$taxon$id,\n    taxon_label = a$subject$taxon$label\n  )\n})\ndat &lt;- do.call(rbind, dat)\nstr(dat)\n\n'data.frame':   100 obs. of  3 variables:\n $ Gene       : chr  \"UniProtKB:H9GKP0\" \"UniProtKB:H9GSI3\" \"UniProtKB:A0A287AMJ0\" \"UniProtKB:A0A287AKR1\" ...\n $ taxon_id   : chr  \"NCBITaxon:28377\" \"NCBITaxon:28377\" \"NCBITaxon:9823\" \"NCBITaxon:9823\" ...\n $ taxon_label: chr  \"Anolis carolinensis\" \"Anolis carolinensis\" \"Sus scrofa\" \"Sus scrofa\" ..."
+    "section": "* Web API Example 1: Gene Ontology (cont. 3)",
+    "text": "* Web API Example 1: Gene Ontology (cont. 3)\nWe can extract the results using the httr::content() function:\n\ndat &lt;- content(go_query) \ndat &lt;- lapply(dat$associations, function(a) {\n  data.frame(\n    Gene        = a$subject$id,\n    taxon_id    = a$subject$taxon$id,\n    taxon_label = a$subject$taxon$label\n  )\n})\ndat &lt;- do.call(rbind, dat)\nstr(dat)\n\n'data.frame':   100 obs. of  3 variables:\n $ Gene       : chr  \"UniProtKB:H9GKP0\" \"UniProtKB:H9GSI3\" \"UniProtKB:A0A287AMJ0\" \"UniProtKB:A0A287AKR1\" ...\n $ taxon_id   : chr  \"NCBITaxon:28377\" \"NCBITaxon:28377\" \"NCBITaxon:9823\" \"NCBITaxon:9823\" ...\n $ taxon_label: chr  \"Anolis carolinensis\" \"Anolis carolinensis\" \"Sus scrofa\" \"Sus scrofa\" ..."
   },
   {
     "objectID": "slides/week07.html#web-api-example-1-gene-ontology-cont.-4",
     "href": "slides/week07.html#web-api-example-1-gene-ontology-cont.-4",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "Web API Example 1: Gene Ontology (cont. 4)",
-    "text": "Web API Example 1: Gene Ontology (cont. 4)\nThe structure of the result will depend on the API. In this case, the output was a JSON file, so the content function returns a list in R. In other scenarios it could return an XML object.\n\nknitr::kable(head(dat),\n  caption = \"Genes experimentally annotated with the function\\\n  **antiviral innate immune response** (GO:0140374)\"\n  )\n\n\nGenes experimentally annotated with the function antiviral innate immune response (GO:0140374)\n\n\nGene\ntaxon_id\ntaxon_label\n\n\n\n\nUniProtKB:H9GKP0\nNCBITaxon:28377\nAnolis carolinensis\n\n\nUniProtKB:H9GSI3\nNCBITaxon:28377\nAnolis carolinensis\n\n\nUniProtKB:A0A287AMJ0\nNCBITaxon:9823\nSus scrofa\n\n\nUniProtKB:A0A287AKR1\nNCBITaxon:9823\nSus scrofa\n\n\nUniProtKB:F7EI59\nNCBITaxon:9544\nMacaca mulatta\n\n\nUniProtKB:A0A6I8NTG1\nNCBITaxon:9258\nOrnithorhynchus anatinus"
+    "section": "* Web API Example 1: Gene Ontology (cont. 4)",
+    "text": "* Web API Example 1: Gene Ontology (cont. 4)\nThe structure of the result will depend on the API. In this case, the output was a JSON file, so the content function returns a list in R. In other scenarios it could return an XML object.\n\nknitr::kable(head(dat),\n  caption = \"Genes experimentally annotated with the function\\\n  **antiviral innate immune response** (GO:0140374)\"\n  )\n\n\nGenes experimentally annotated with the function antiviral innate immune response (GO:0140374)\n\n\nGene\ntaxon_id\ntaxon_label\n\n\n\n\nUniProtKB:H9GKP0\nNCBITaxon:28377\nAnolis carolinensis\n\n\nUniProtKB:H9GSI3\nNCBITaxon:28377\nAnolis carolinensis\n\n\nUniProtKB:A0A287AMJ0\nNCBITaxon:9823\nSus scrofa\n\n\nUniProtKB:A0A287AKR1\nNCBITaxon:9823\nSus scrofa\n\n\nUniProtKB:F7EI59\nNCBITaxon:9544\nMacaca mulatta\n\n\nUniProtKB:A0A6I8NTG1\nNCBITaxon:9258\nOrnithorhynchus anatinus"
   },
   {
     "objectID": "slides/week07.html#web-api-example-2-using-tokens",
     "href": "slides/week07.html#web-api-example-2-using-tokens",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "Web API Example 2: Using Tokens",
-    "text": "Web API Example 2: Using Tokens\n\nSometimes, APIs are not completely open, you need to register.\nThe API may require to login (user+password), or pass a token.\nIn this example, I’m using a token which I obtained here\nYou can find information about the National Centers for Environmental Information API here"
+    "section": "* Web API Example 2: Using Tokens",
+    "text": "* Web API Example 2: Using Tokens\n\nSometimes, APIs are not completely open, you need to register.\nThe API may require to login (user+password), or pass a token.\nIn this example, I’m using a token which I obtained here\nYou can find information about the National Centers for Environmental Information API here"
   },
   {
     "objectID": "slides/week07.html#web-api-example-2-using-tokens-cont.-1",
     "href": "slides/week07.html#web-api-example-2-using-tokens-cont.-1",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "Web API Example 2: Using Tokens (cont. 1)",
-    "text": "Web API Example 2: Using Tokens (cont. 1)\n\nThe way to pass the token will depend on the API service.\nSome require authentication, others need you to pass it as an argument of the query, i.e., directly in the URL.\nIn this case, we pass it on the header.\nThis is equivalent to using the following query\ncurl --header \"token: [YOUR TOKEN HERE]\" \\\n  https://www.ncdc.noaa.gov/cdo-web/api/v2/stations?limit=1000\n\nNote: This won’t run, you need to get your own token"
+    "section": "* Web API Example 2: Using Tokens (cont. 1)",
+    "text": "* Web API Example 2: Using Tokens (cont. 1)\n\nThe way to pass the token will depend on the API service.\nSome require authentication, others need you to pass it as an argument of the query, i.e., directly in the URL.\nIn this case, we pass it on the header.\n\nstations_api &lt;- GET(\n  url    = \"https://www.ncdc.noaa.gov\",\n  path   = \"cdo-web/api/v2/stations\",\n  config = add_headers(\n    token = \"[YOUR TOKEN HERE]\"\n    ),\n  query  = list(limit = 1000)\n)\n\nThis is equivalent to using the following query\ncurl --header \"token: [YOUR TOKEN HERE]\" \\\n  https://www.ncdc.noaa.gov/cdo-web/api/v2/stations?limit=1000\n\nNote: This won’t run, you need to get your own token"
   },
   {
     "objectID": "slides/week07.html#web-api-example-2-using-tokens-cont.-2",
     "href": "slides/week07.html#web-api-example-2-using-tokens-cont.-2",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "Web API Example 2: Using Tokens (cont. 2)",
-    "text": "Web API Example 2: Using Tokens (cont. 2)\nAgain, we can recover the data using the content() function:\n\nans &lt;- content(stations_api)\nans$results[[1]]\n## $elevation\n## [1] 139\n## \n## $mindate\n## [1] \"1948-01-01\"\n## \n## $maxdate\n## [1] \"2014-01-01\"\n## \n## $latitude\n## [1] 31.5702\n## \n## $name\n## [1] \"ABBEVILLE, AL US\"\n## \n## $datacoverage\n## [1] 0.8813\n## \n## $id\n## [1] \"COOP:010008\""
+    "section": "* Web API Example 2: Using Tokens (cont. 2)",
+    "text": "* Web API Example 2: Using Tokens (cont. 2)\nAgain, we can recover the data using the content() function:\n\nans &lt;- content(stations_api)\nans$results[[1]]\n## $elevation\n## [1] 139\n## \n## $mindate\n## [1] \"1948-01-01\"\n## \n## $maxdate\n## [1] \"2014-01-01\"\n## \n## $latitude\n## [1] 31.5702\n## \n## $name\n## [1] \"ABBEVILLE, AL US\"\n## \n## $datacoverage\n## [1] 0.8813\n## \n## $id\n## [1] \"COOP:010008\""
   },
   {
     "objectID": "slides/week07.html#web-api-example-3-hhs-health-recommendation",
     "href": "slides/week07.html#web-api-example-3-hhs-health-recommendation",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "Web API Example 3: HHS health recommendation",
-    "text": "Web API Example 3: HHS health recommendation\nHere is a last example. We will use the Department of Health and Human Services API for “[…] demographic-specific health recommendations” (details at health.gov)\n\nhealth_advises &lt;- GET(\n  url  = \"https://health.gov/\", \n  path = \"myhealthfinder/api/v3/myhealthfinder.json\",\n  query = list(\n    lang = \"en\",\n    age  = \"32\",\n    sex  = \"male\",\n    tobaccoUse = 0\n  ),\n  config = c(\n    add_headers(accept = \"application/json\"),\n    config(connecttimeout = 60)\n  )\n)"
+    "section": "* Web API Example 3: HHS health recommendation",
+    "text": "* Web API Example 3: HHS health recommendation\nHere is a last example. We will use the Department of Health and Human Services API for “[…] demographic-specific health recommendations” (details at health.gov)\n\nhealth_advises &lt;- GET(\n  url  = \"https://health.gov/\", \n  path = \"myhealthfinder/api/v3/myhealthfinder.json\",\n  query = list(\n    lang = \"en\",\n    age  = \"32\",\n    sex  = \"male\",\n    tobaccoUse = 0\n  ),\n  config = c(\n    add_headers(accept = \"application/json\"),\n    config(connecttimeout = 60)\n  )\n)"
   },
   {
     "objectID": "slides/week07.html#web-api-example-3-hhs-health-recommendation-cont.-1",
     "href": "slides/week07.html#web-api-example-3-hhs-health-recommendation-cont.-1",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "Web API Example 3: HHS health recommendation (cont. 1)",
-    "text": "Web API Example 3: HHS health recommendation (cont. 1)\nLet’s see the response\n\nhealth_advises\n\nResponse [https://odphp.health.gov/myhealthfinder/api/v3/myhealthfinder.json?lang=en&age=32&sex=male&tobaccoUse=0]\n  Date: 2025-08-29 14:55\n  Status: 200\n  Content-Type: application/json\n  Size: 310 kB\n{\n    \"Result\": {\n        \"Error\": \"MyHealthfinder API version 3 is no longer supported. Please...\n        \"Total\": 18,\n        \"Query\": {\n            \"ApiVersion\": \"3\",\n            \"ApiType\": \"myhealthfinder\",\n            \"TopicId\": null,\n            \"CategoryId\": null,\n            \"Keyword\": null,\n..."
+    "section": "* Web API Example 3: HHS health recommendation (cont. 1)",
+    "text": "* Web API Example 3: HHS health recommendation (cont. 1)\nLet’s see the response\n\nhealth_advises\n\nResponse [https://odphp.health.gov/myhealthfinder/api/v3/myhealthfinder.json?lang=en&age=32&sex=male&tobaccoUse=0]\n  Date: 2025-08-29 19:09\n  Status: 200\n  Content-Type: application/json\n  Size: 310 kB\n{\n    \"Result\": {\n        \"Error\": \"MyHealthfinder API version 3 is no longer supported. Please...\n        \"Total\": 18,\n        \"Query\": {\n            \"ApiVersion\": \"3\",\n            \"ApiType\": \"myhealthfinder\",\n            \"TopicId\": null,\n            \"CategoryId\": null,\n            \"Keyword\": null,\n..."
   },
   {
     "objectID": "slides/week07.html#web-api-example-3-hhs-health-recommendation-cont.-2",
     "href": "slides/week07.html#web-api-example-3-hhs-health-recommendation-cont.-2",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "Web API Example 3: HHS health recommendation (cont. 2)",
-    "text": "Web API Example 3: HHS health recommendation (cont. 2)\n# Extracting the content\nhealth_advises_ans &lt;- content(health_advises)\n\n# Getting the titles\ntxt &lt;- with(health_advises_ans$Result$Resources, c(\n  sapply(all$Resource, \"[[\", \"Title\"),\n  sapply(some$Resource, \"[[\", \"Title\"),\n  sapply(`You may also be interested in these health topics:`$Resource, \"[[\", \"Title\")\n))\ncat(txt, sep = \"; \")\nQuit Smoking; Hepatitis C Screening: Questions for the Doctor; Protect Yourself from Seasonal Flu; Talk with Your Doctor About Depression; Get Your Blood Pressure Checked; Get Tested for HIV; Get Vaccines to Protect Your Health (Adults Ages 19 to 49 Years); Drink Alcohol Only in Moderation; Talk with Your Doctor About Drug Misuse and Substance Use Disorder; Aim for a Healthy Weight; Testing for Syphilis: Questions for the Doctor; Eat Healthy; Protect Yourself from Hepatitis B; Testing for Latent Tuberculosis: Questions for the Doctor; Manage Stress; Alcohol Use: Conversation Starters; Get Active; Quitting Smoking: Conversation Starters"
+    "section": "* Web API Example 3: HHS health recommendation (cont. 2)",
+    "text": "* Web API Example 3: HHS health recommendation (cont. 2)\n# Extracting the content\nhealth_advises_ans &lt;- content(health_advises)\n\n# Getting the titles\ntxt &lt;- with(health_advises_ans$Result$Resources, c(\n  sapply(all$Resource, \"[[\", \"Title\"),\n  sapply(some$Resource, \"[[\", \"Title\"),\n  sapply(`You may also be interested in these health topics:`$Resource, \"[[\", \"Title\")\n))\ncat(txt, sep = \"; \")\nQuit Smoking; Hepatitis C Screening: Questions for the Doctor; Protect Yourself from Seasonal Flu; Talk with Your Doctor About Depression; Get Your Blood Pressure Checked; Get Tested for HIV; Get Vaccines to Protect Your Health (Adults Ages 19 to 49 Years); Drink Alcohol Only in Moderation; Talk with Your Doctor About Drug Misuse and Substance Use Disorder; Aim for a Healthy Weight; Testing for Syphilis: Questions for the Doctor; Eat Healthy; Protect Yourself from Hepatitis B; Testing for Latent Tuberculosis: Questions for the Doctor; Manage Stress; Alcohol Use: Conversation Starters; Get Active; Quitting Smoking: Conversation Starters"
   },
   {
     "objectID": "slides/week07.html#summary",
@@ -2175,5 +2175,96 @@
     "title": "References",
     "section": "Data",
     "text": "Data\nMany of these websites offer publicly available datasets that can be used for research or class projects.\n\nHealth and Biological data\n\nCDC National Center for Health Statistics\nNIH Cancer Surveillance\nWorld Health Organization WHO data\nUniProt data\nThe Gene Ontology Project\nGene Expression Omnibus Data\nUS Center for Disease Control and Prevention Data\nCalifornia Health and Human Services Open Data Portal\nCovid Data CovidTracker\nUSC Sustainability Data\nBureau of Transportation Statistics\n\n\n\nAcademic Publications and related\n\nFigshare data repository\nZenodo data repository\nHarvard Dataverse\nElsevier Developers API\n\n\n\nGovernment data\n\nUS Open Data Initiative DATA.GOV\nCensus Data Explorer and National Historical Geographic Information System (NHGIS)\nBureau of Economic Analysis\nBureau of Labor Statistics\nHousing data Zillow\nBureau of Justice Statistics National Center for Education Statistics: The Nation’s Report Card\nLos Angeles city data\nLos Angeles crime data\n\n\n\nOther data\n\nWorld Bank open data\nInter-university Consortium for Political and Social Research (ICPSR)\nFiveThirtyEight open data\nKaggle datasets\nLiterally all of Wikipedia\n\n\n\nSocial Networks\n\nGitHub Developers API\nInstagram Developers API\nLinkedIn Developers API"
+  },
+  {
+    "objectID": "labs/lab6.html",
+    "href": "labs/lab6.html",
+    "title": "Lab 6 - Text Mining",
+    "section": "",
+    "text": "knitr::opts_chunk$set(eval = FALSE, include  = TRUE)"
+  },
+  {
+    "objectID": "labs/lab6.html#question-1-what-specialties-do-we-have",
+    "href": "labs/lab6.html#question-1-what-specialties-do-we-have",
+    "title": "Lab 6 - Text Mining",
+    "section": "Question 1: What specialties do we have?",
+    "text": "Question 1: What specialties do we have?\nUse the count() function from dplyr to figure out how many different categories we have in the data. Are these categories related? Overlapping? Evenly distributed?\n\nmt_samples %&gt;%\n  count(___, sort = TRUE)"
+  },
+  {
+    "objectID": "labs/lab6.html#question-2",
+    "href": "labs/lab6.html#question-2",
+    "title": "Lab 6 - Text Mining",
+    "section": "Question 2",
+    "text": "Question 2\n\nTokenize the the words in the transcription column\nCount the number of times each token appears\nVisualize the top 20 most frequent words\n\nExplain what we see from this result. Does it makes sense? What insights (if any) do we get?"
+  },
+  {
+    "objectID": "labs/lab6.html#question-3",
+    "href": "labs/lab6.html#question-3",
+    "title": "Lab 6 - Text Mining",
+    "section": "Question 3",
+    "text": "Question 3\n\nRe-do the visualization but remove stop words before making it\nBonus points if you remove numbers as well\n\nWhat do we see know that we have removed stop words? Does it give us a better idea of what the text is about?"
+  },
+  {
+    "objectID": "labs/lab7.html",
+    "href": "labs/lab7.html",
+    "title": "Lab 7 - Web Scraping and Regular Expressions",
+    "section": "",
+    "text": "Use real-time data pulled from the internet.\nUse regular expressions to parse the information.\nPractice your GitHub skills."
+  },
+  {
+    "objectID": "labs/lab7.html#question-1-how-many-sars-cov-2-papers",
+    "href": "labs/lab7.html#question-1-how-many-sars-cov-2-papers",
+    "title": "Lab 7 - Web Scraping and Regular Expressions",
+    "section": "Question 1: How many Sars-Cov-2 papers?",
+    "text": "Question 1: How many Sars-Cov-2 papers?\nWe will build an automatic counter of Sars-Cov-2 papers available on PubMed. You will need to apply XPath as we did during the lecture to extract the number of results returned by PubMed when you search for “sars-cov-2.” The following URL will perform this search:\nhttps://pubmed.ncbi.nlm.nih.gov/?term=sars-cov-2\nComplete the lines of code:\n\n# Downloading the website\nwebsite &lt;- xml2::read_html(\"[URL]\")\n\n# Finding the counts\ncounts &lt;- xml2::xml_find_first(website, \"[XPath]\")\n\n# Turning it into text\ncounts &lt;- as.character(counts)\n\n# Extracting the data using regex\ntotalcount &lt;- stringr::str_extract(counts, \"[REGEX FOR NUMBERS WITH COMMAS/DOTS]\")\n\nprint(totalcount)"
+  },
+  {
+    "objectID": "labs/lab7.html#question-2-academic-publications-on-covid19-and-hawaii",
+    "href": "labs/lab7.html#question-2-academic-publications-on-covid19-and-hawaii",
+    "title": "Lab 7 - Web Scraping and Regular Expressions",
+    "section": "Question 2: Academic publications on COVID19 and Hawaii",
+    "text": "Question 2: Academic publications on COVID19 and Hawaii\nYou need to query the following. The parameters passed to the query are documented here.\nUse the function httr::GET() to make the following query:\n\nBaseline URL: https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi\nQuery parameters:\n\ndb: pubmed\nterm: covid19 hawaii\nretmax: 1000\n\n\n\nlibrary(httr)\nquery_ids &lt;- GET(\n  url   = \"BASELINE URL\",\n  query = list(\"QUERY PARAMETERS\")\n)\n\n# Extracting the content of the response of GET\nids &lt;- httr::content(query_ids)\n\nThe query will return an XML object, we can turn it into a character list to analyze the text directly with as.character(). Another way of processing the data could be using lists with the function xml2::as_list(). We will skip the latter for now.\nTake a look at the data, and continue with the next question."
+  },
+  {
+    "objectID": "labs/lab7.html#question-3-get-details-about-the-articles",
+    "href": "labs/lab7.html#question-3-get-details-about-the-articles",
+    "title": "Lab 7 - Web Scraping and Regular Expressions",
+    "section": "Question 3: Get details about the articles",
+    "text": "Question 3: Get details about the articles\nThe IDs are wrapped around text in the following way: &lt;Id&gt;... id number ...&lt;/Id&gt;. We can use a regular expression that extracts that information. Fill out the following lines of code:\n\n# Turn the result into a character vector\nids &lt;- as.character(ids)\n\n# Find all the ids \nids &lt;- stringr::str_extract_all(ids, \"PATTERN\")[[1]]\n\n# Remove all the leading and trailing &lt;Id&gt; &lt;/Id&gt;. Make use of \"|\"\nids &lt;- stringr::str_remove_all(ids, \"PATTERN\")\n\nWith the IDs in hand, we can now try to get the abstracts of the papers. As before, we will need to coerce the contents (results) to a list using:\n\nBaseline url: https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi\nQuery parameters:\n\ndb: pubmed\nid: A character with all the ids separated by comma, e.g., “1232131,546464,13131”\nretmax: 1000\nrettype: abstract\n\n\nPro-tip: If you want GET() to take some element literal, wrap it around I() (as you would do in a formula in R). For example, the text \"123,456\" is replaced with \"123%2C456\". If you don’t want that behavior, you would need to do the following I(\"123,456\").\n\npublications &lt;- GET(\n  url   = \"BASELINE URL HERE\",\n  query = list(\n    \"PARAMETERS OF THE QUERY\"\n    )\n)\n\n# Turning the output into character vector\npublications &lt;- httr::content(publications)\npublications_txt &lt;- as.character(publications)\n\nWith this in hand, we can now analyze the data. This is also a good time for committing and pushing your work!"
+  },
+  {
+    "objectID": "labs/lab7.html#question-4-distribution-of-universities-schools-and-departments",
+    "href": "labs/lab7.html#question-4-distribution-of-universities-schools-and-departments",
+    "title": "Lab 7 - Web Scraping and Regular Expressions",
+    "section": "Question 4: Distribution of universities, schools, and departments",
+    "text": "Question 4: Distribution of universities, schools, and departments\nUsing the function stringr::str_extract_all() applied on publications_txt, capture all the terms of the form:\n\nUniversity of …\n… Institute of …\n\nWrite a regular expression that captures all such instances\n\ninstitution &lt;- str_extract_all(\n  publications_txt,\n  \"[YOUR REGULAR EXPRESSION HERE]\"\n  ) \ninstitution &lt;- unlist(institution)\ntable(institution)\n\nRepeat the exercise and this time focus on schools and departments in the form of\n\nSchool of …\nDepartment of …\n\nAnd tabulate the results\n\nschools_and_deps &lt;- str_extract_all(\n  abstracts_txt,\n  \"[YOUR REGULAR EXPRESSION HERE]\"\n  )\ntable(schools_and_deps)"
+  },
+  {
+    "objectID": "labs/lab7.html#question-5-form-a-database",
+    "href": "labs/lab7.html#question-5-form-a-database",
+    "title": "Lab 7 - Web Scraping and Regular Expressions",
+    "section": "Question 5: Form a database",
+    "text": "Question 5: Form a database\nWe want to build a dataset which includes the title and the abstract of the paper. The title of all records is enclosed by the HTML tag ArticleTitle, and the abstract by Abstract.\nBefore applying the functions to extract text directly, it will help to process the XML a bit. We will use the xml2::xml_children() function to keep one element per ID. This way, if a paper is missing the abstract, or something else, we will be able to properly match PUBMED IDS with their corresponding records.\n\npub_char_list &lt;- xml2::xml_children(publications)\npub_char_list &lt;- sapply(pub_char_list, as.character)\n\nNow, extract the abstract and article title for each one of the elements of pub_char_list. You can either use sapply() as we just did, or simply take advantage of vectorization of stringr::str_extract\n\nabstracts &lt;- str_extract(pub_char_list, \"[YOUR REGULAR EXPRESSION]\")\nabstracts &lt;- str_remove_all(abstracts, \"[CLEAN ALL THE HTML TAGS]\")\nabstracts &lt;- str_remove_all(abstracts, \"[CLEAN ALL EXTRA WHITE SPACE AND NEW LINES]\")\n\nHow many of these don’t have an abstract? Now, the title\n\ntitles &lt;- str_extract(pub_char_list, \"[YOUR REGULAR EXPRESSION]\")\ntitles &lt;- str_remove_all(titles, \"[CLEAN ALL THE HTML TAGS]\")\n\nFinally, put everything together into a single data.frame and use knitr::kable to print the results\n\ndatabase &lt;- data.frame(\n  \"[DATA TO CONCATENATE]\"\n)\nknitr::kable(database)\n\nDone! Knit the document, commit, and push."
+  },
+  {
+    "objectID": "slides/week07.html#web-scraping-with-xml2-and-the-rvest-package-cont.-3",
+    "href": "slides/week07.html#web-scraping-with-xml2-and-the-rvest-package-cont.-3",
+    "title": "Week 7: Regular Expressions and Web Scraping",
+    "section": "Web scraping with xml2 and the rvest package (cont. 3)",
+    "text": "Web scraping with xml2 and the rvest package (cont. 3)\nWe’re getting closer!\n\ntable &lt;- html_table(table) \nprint(table) # list of tibbles\n\n[[1]]\n# A tibble: 240 × 4\n   Country                `Deaths / million` Deaths    Cases      \n   &lt;chr&gt;                  &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;      \n 1 World[a]               892                7,099,056 778,402,651\n 2 Peru                   6,603              221,060   4,532,707  \n 3 Bulgaria               5,679              38,766    1,338,533  \n 4 North Macedonia        5,429              9,991     352,093    \n 5 Bosnia and Herzegovina 5,119              16,406    404,289    \n 6 Hungary                5,072              49,124    2,238,102  \n 7 Croatia                4,807              18,784    1,357,545  \n 8 Slovenia               4,687              9,914     1,363,390  \n 9 Georgia                4,519              17,151    1,864,385  \n10 Montenegro             4,318              2,654     251,280    \n# ℹ 230 more rows"
+  },
+  {
+    "objectID": "slides/week07.html#web-scraping-with-xml2-and-the-rvest-package-cont.-4",
+    "href": "slides/week07.html#web-scraping-with-xml2-and-the-rvest-package-cont.-4",
+    "title": "Week 7: Regular Expressions and Web Scraping",
+    "section": "Web scraping with xml2 and the rvest package (cont. 4)",
+    "text": "Web scraping with xml2 and the rvest package (cont. 4)\nThere it is!\n\ntable &lt;- table[[1]]\nprint(table) # hooray!\n\n# A tibble: 240 × 4\n   Country                `Deaths / million` Deaths    Cases      \n   &lt;chr&gt;                  &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;      \n 1 World[a]               892                7,099,056 778,402,651\n 2 Peru                   6,603              221,060   4,532,707  \n 3 Bulgaria               5,679              38,766    1,338,533  \n 4 North Macedonia        5,429              9,991     352,093    \n 5 Bosnia and Herzegovina 5,119              16,406    404,289    \n 6 Hungary                5,072              49,124    2,238,102  \n 7 Croatia                4,807              18,784    1,357,545  \n 8 Slovenia               4,687              9,914     1,363,390  \n 9 Georgia                4,519              17,151    1,864,385  \n10 Montenegro             4,318              2,654     251,280    \n# ℹ 230 more rows"
+  },
+  {
+    "objectID": "slides/week07.html",
+    "href": "slides/week07.html",
+    "title": "Week 7: Regular Expressions and Web Scraping",
+    "section": "",
+    "text": "Introduction to Regular Expressions\nUnderstand the fundamentals of Web Scraping\nLearn how to use an API\n\n\n\n\n\nA regular expression (shortened as regex or regexp; also referred to as rational expression) is a sequence of characters that define a search pattern. – Wikipedia\n\n\n\n\n\n\nWe can use Regular Expressions for:\n\nValidating data fields, email address, numbers, etc.\nSearching text in various formats, e.g., addresses, there are many ways to write an address.\nReplace text, e.g., different spellings, Storm, Stôrm, Stórm to Storm.\nRemove text, e.g., tags from an HTML text, &lt;name&gt;George&lt;/name&gt; to George.\n\n\n\n\n\nWhat makes regex special is metacharacters. While we can always use regex to match literals like dog, human, 1999, we only make use of all regex power when using metacharacters:\n\n. Any character except new line\n^ beginning of the text\n$ end of the text\n[expression] Match any single character in “expression”, e.g.\n\n[0123456789] Any digit\n[0-9] Any digit in the range 0-9\n[a-z] Lower-case letters\n[A-Z] Upper-case letters\n[a-zA-Z] Lower or upper case letters.\n[a-zA-Z0-9] Any alpha-numeric\n\n\n\n\n\n\n\n[^regex] Match any except those in regex, e.g.\n\n[^0123456789] Match any except a number\n[^0-9] Match anything except in the range 0-9\n[^./ ] any except dot, slash, and space.\n\n\n\n\n\n\nRanges, e.g., 0-9 or a-z, are locale- and implementation-dependent, meaning that the range of lower case letters may vary depending on the OS’s language. To solve for this problem, you could use Character classes. Some examples:\n\n[[:lower:]] lower case letters in the current locale, could be [a-z]\n[[:upper:]] upper case letters in the current locale, could be [A-Z]\n[[:alpha:]] upper and lower case letters in the current locale, could be [a-zA-Z]\n[[:digit:]] Digits: 0 1 2 3 4 5 6 7 8 9\n[[:alnum:]] Alpha numeric characters [[:alpha:]] and [[:digit:]].\n[[:punct:]] Punctuation characters: ! ” # $ % & ’ ( ) * + , - . / : ; &lt; = &gt; ? @ [ \\ ] ^ _ ` { | } ~.\n\nFor example, in the locale en_US, the word Ḧóla IS NOT fully matched by [a-zA-Z]+, but IT IS fully matched by [[:alpha:]]+.\n\n\n\n\nOther important metacharacters:\n\n\\\\s white space, equivalent to [\\\\r\\\\n\\\\t\\\\f\\\\v ]\n| or (logical or).\n\n\n\n\n\nThese usually come together with specifying how many times (repetition):\n\nregex? Zero or one match.\nregex* Zero or more matches\nregex+ One or more matches\nregex{n,} At least n matches\nregex{,m} at most m matches\nregex{n,m} Between n and m matches.\n\nWhere regex is a regular expression\n\n\n\n\nThere are other operators that can be very useful,\n\n(regex) Group capture.\n(?:regex) Group operation without capture.\nA(?=B) Look ahead (match). Find expression A where expression B follows.\nA(?!B) Look ahead (don’t match). Find expression A where expression B does not follow.\n(?&lt;=B)A Look behind (match). Find expression A where expression B precedes.\n(?&lt;!B)A Look behind (don’t match). Find expression A where expression B does not precede.\n\nGroup captures can be reused with \\\\1, \\\\2, …, \\\\n, referring to the first group, second group, etc.\nMore (great) information here https://regex101.com/\n\n\n\n\n\n.{5} Match any character (except line end) five times.\nn{2} Match the letter n twice.\n[0-9] Match any number once.\n[0-9]+ Match any number at least once.\n[a-zA-Z]+ Match any lower or upper case letter at least once.\n\\\\s[a-zA-Z]+\\\\s Match a space, any lower or upper case letter at least once, and a space.\n\\\\s[[:alpha:]]+\\\\s Same as before but this time with the [[:alpha:]] character class.\n\n\n\n\n\nHere we are extracting the first occurrence of the following regular expressions (using stringr::str_extract()):\n\n\n\n\n\nregex\nHanna Perez [name]\nThe 年 year was 1999\nHaHa, @abc said that\nGoGo trojans #2025!\n\n\n\n\n.{5}\nHanna\nThe 年\nHaHa,\nGoGo\n\n\nn{2}\nnn\n\n\n\n\n\n[0-9]\n\n1\n\n2\n\n\n[0-9]+\n\n1999\n\n2025\n\n\n[a-zA-Z]+\nHanna\nThe\nHaHa\nGoGo\n\n\n\\\\s[a-zA-Z]+\\\\s\nPerez\nyear\nsaid\ntrojans\n\n\n\\\\s[[:alpha:]]+\\\\s\nPerez\n年\nsaid\ntrojans\n\n\n\n\n\n\n\n\n\n\n\n\n[a-zA-Z]+ [a-zA-Z]+ Match two sets of letters separated by one space.\n[a-zA-Z]+\\\\s? Match one set of letters, maybe followed by a white space.\n([a-zA-Z]+)\\\\1 Match any lower or upper case letter at least once and then match the same pattern again.\n(@|#)[a-z0-9]+ Match either the @ or # symbol, followed by one or more lower case letter or number.\n(?&lt;=#|@)[a-z0-9]+ Match one or more lower case letter or number that follows either the @ or # symbol.\n\\\\[[a-z]+\\\\] Match the symbol [, at least one lower case letter, then symbol ].\n\n\n\n\n\n\n\n\nregex\nHanna Perez [name]\nThe 年 year was 1999\nHaHa, @abc said that\nGoGo trojans #2025!\n\n\n\n\n[a-zA-Z]+ [a-zA-Z]+\nHanna Perez\nyear was\nabc said\nGoGo trojans\n\n\n[a-zA-Z]+\\\\s?\nHanna\nThe\nHaHa\nGoGo\n\n\n([a-zA-Z]+)\\\\1\nnn\n\nHaHa\nGoGo\n\n\n(@|#)[a-z0-9]+\n\n\n@abc\n#2025\n\n\n(?&lt;=#|@)[a-z0-9]+\n\n\nabc\n2025\n\n\n\n\n\n\n\n\n\n\ncolnames(ans) &lt;- c(\"regex\", \"Hanna Perez\\n[name]\", \"The 年 year\\nwas 1999\", \"HaHa, @abc\\nsaid that\", \"GoGo trojans\\n#2025!\")\nplot(c(0,50), c(0,8), asp=1, col='white', axes=FALSE, xlab='',ylab='')\nfor(i in 1:ncol(ans)){\n    text(10*i-5, 7, colnames(ans)[i], adj=c(.5,.5), font=2)\n}\ntext(5,1,\"\\\\\\\\[[a-z]+\\\\\\\\]\")\ntext(15,1,\"[name]\")\nabline(h=3.5)\n\n\n\n\n\n\n\n\n\n\n\n\n\nFind in text: grepl(), stringr::str_detect().\nSimilar to which(), which elements are TRUE grep(), stringr::str_which()\nReplace the first instance: sub(), stringr::str_replace()\nReplace all instances: gsub(), stringr::str_replace_all()\nExtract text: regmatches() plus regexpr(), stringr::str_extract() and stringr::str_extract_all().\n\n\n\n\n\n\nFor example, like in Twitter, let’s create a regex that matches usernames or hashtags with the following pattern:\n(@|#)([[:alnum:]]+)\n\n\n\n\n\n\n\n\n\n\n\nCode\n@Hanna Perez [name] #html\nThe @年 year was 1999\nHaHa, @abc said that @z\n\n\n\n\nstr_detect(text, pattern) or grepl(pattern, text)\nTRUE\nTRUE\nTRUE\n\n\nstr_extract(text, pattern) or regmatches(...)\n@Hanna\n@年\n@abc\n\n\nstr_extract_all(text, pattern)\n@Hanna, #html\n@年\n@abc, @z\n\n\n\n\n\n\n\n\n\nPattern: (@|#)([[:alnum:]]+)\n\n\n\n\n\n\n\n\n\n\n\nCode\n@Hanna Perez [name] #html\nThe @年 year was 1999\nHaHa, @abc said that @z\n\n\n\n\nstr_replace(text, pattern, \"\\\\1justinbieber\") or sub(...)\n@justinbieber Perez [name] #html\nThe @justinbieber year was 1999\nHaHa, @justinbieber said that @z\n\n\nstr_replace_all(text, pattern, \"\\\\1justinbieber\") or gsub(...)\n@justinbieber Perez [name] #justinbieber\nThe @justinbieber year was 1999\nHaHa, @justinbieber said that @justinbieber\n\n\n\n\n\nNote: It renders oddly in the table, but there is no space or line break in the group replacement, \\\\1.\n\n\n\n\nThis week we will continue using our text mining dataset:\n\n# Where are we getting the data from\nmts_url &lt;- \"https://github.com/USCbiostats/data-science-data/raw/master/00_mtsamples/mtsamples.csv\"\n\n# Downloading the data to a tempfile (so it is destroyed afterwards)\ntmp &lt;- tempfile(pattern = \"mtsamples\", fileext = \".csv\")\n\n# We should be downloading this, ONLY IF this was not downloaded already.\n# otherwise is just a waste of time.\nif (!file.exists(tmp)) {\n  download.file(\n    url      = mts_url,\n    destfile = tmp,\n    # method   = \"libcurl\", timeout = 1000 (you may need this option)\n  )\n}\n\n# read the file\nmtsamples &lt;- read.csv(tmp, header = TRUE, row.names = 1)\n\n\n\n\n\nFor each entry, we want to know if it is tumor-related. For that we can use the following code:\n\n# How many entries contain the word tumor?\nsum(grepl(\"tumor\", mtsamples$description, ignore.case = TRUE))\n\n[1] 80\n\n# Generating a column tagging tumor\nmtsamples$tumor_related &lt;- grepl(\"tumor\", mtsamples$description, ignore.case = TRUE)\n\n# Taking a look at a few examples\nmtsamples$description[mtsamples$tumor_related == TRUE][1:3]\n\n[1] \"  Transurethral resection of a medium bladder tumor (TURBT), left lateral wall.\"                              \n[2] \" Transurethral resection of the bladder tumor (TURBT), large.\"                                                \n[3] \" Cystoscopy, transurethral resection of medium bladder tumor (4.0 cm in diameter), and direct bladder biopsy.\"\n\n\nNotice the ignore.case = TRUE. This is equivalent to transforming the text to lower case using tolower() before passing the text to the regular expression function.\n\n\n\n\nNow, let’s try to guess the pronoun of the patient. To do so, we could tag by using the words he, his, him, they, them, theirs, ze, hir, hirs, she, hers, her (see this article on sexist text):\n\nmtsamples$pronoun &lt;- str_extract(\n  string  = tolower(mtsamples$transcription),\n  pattern = \"he|his|him|they|them|theirs|ze|hir|hirs|she|hers|her\"\n)\n\nWhat is the problem with this approach?\n\n\n\n\n\nmtsamples$transcription[1]\n\n[1] \"SUBJECTIVE:,  This 23-year-old white female presents with complaint of allergies.  She used to have allergies when she lived in Seattle but she thinks they are worse here.  In the past, she has tried Claritin, and Zyrtec.  Both worked for short time but then seemed to lose effectiveness.  She has used Allegra also.  She used that last summer and she began using it again two weeks ago.  It does not appear to be working very well.  She has used over-the-counter sprays but no prescription nasal sprays.  She does have asthma but doest not require daily medication for this and does not think it is flaring up.,MEDICATIONS: , Her only medication currently is Ortho Tri-Cyclen and the Allegra.,ALLERGIES: , She has no known medicine allergies.,OBJECTIVE:,Vitals:  Weight was 130 pounds and blood pressure 124/78.,HEENT:  Her throat was mildly erythematous without exudate.  Nasal mucosa was erythematous and swollen.  Only clear drainage was seen.  TMs were clear.,Neck:  Supple without adenopathy.,Lungs:  Clear.,ASSESSMENT:,  Allergic rhinitis.,PLAN:,1.  She will try Zyrtec instead of Allegra again.  Another option will be to use loratadine.  She does not think she has prescription coverage so that might be cheaper.,2.  Samples of Nasonex two sprays in each nostril given for three weeks.  A prescription was written as well.\"\n\nmtsamples$pronoun[1]\n\n[1] \"his\"\n\n\n\n\n\n\nTo correct this issue, we can make our regular expression more precise:\n(?&lt;=\\W|^)(he|his|him|they|them|theirs|ze|hir|hirs|she|hers|her)(?=\\W|$)\nBit by bit this is:\n\n(?&lt;=regex) look behind for…\n\n\\W any non-alphanumeric character, this is equivalent to [^[:alnum:]], | or\n^ the beginning of text\n\nhe|his|him... any of these words\n(?=regex) followed by…\n\n\\W any non-alphanumeric character, this is equivalent to [^[:alnum:]], | or\n$ the end of the text.\n\n\n\n\n\n\nLet’s use this new pattern:\n\nmtsamples$pronoun &lt;- str_extract(\n  string  = tolower(mtsamples$transcription), \n  pattern = \"(?&lt;=\\\\W|^)(he|his|him|they|them|theirs|ze|hir|hirs|she|hers|her)(?=\\\\W|$)\"\n  )\nmtsamples$pronoun[1:10]\n\n [1] \"she\" \"he\"  \"he\"  NA    NA    \"she\" \"she\" NA    NA    NA   \n\n\n\n\n\n\n\ntable(mtsamples$pronoun, useNA = \"always\")\n\n\n  he  her  him  his  she them they &lt;NA&gt; \n1073  554   39  524 1261   23   96 1429 \n\n\n\n\n\n\n\nImagine now that you need to see the types of cancer mentioned in the data.\nFor simplicity, let’s assume that, if specified, it is in the form of TYPE cancer, i.e. single word.\nWe are interested in the word before cancer, how can we capture this?\n\n\n\n\n\nWe can just try to extract the phrase \"[some word] cancer\", in particular, we could use the following regular expression:\n[[:alnum:]-_]{4,}\\s*cancer\nWhere\n\n[[:alnum:]-_]{4,} captures any alphanumeric character, including - and _. Furthermore, for this match to work there must be at least 4 characters,\n\\s* captures 0 or more white-spaces, and\ncancer captures the word cancer\n\n\n\n\n\n\nmtsamples$cancer_type &lt;- str_extract(tolower(mtsamples$keywords), \"[[:alnum:]-_]{4,}\\\\s*cancer\")\ntable(mtsamples$cancer_type)\n\n\n       anal cancer     bladder cancer      breast cancer       colon cancer \n                 1                  8                 21                 14 \nendometrial cancer  esophageal cancer        lung cancer     ovarian cancer \n                 5                  2                 13                  1 \n  papillary cancer    prostate cancer     uterine cancer \n                 3                 17                  7"
   }
 ]
