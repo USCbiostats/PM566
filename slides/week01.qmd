@@ -27,12 +27,14 @@ Kelly Street
 
 # Brightspace + Website
 
-[https://github.com/USCbiostats/PM566](https://github.com/USCbiostats/PM566)  
-Official class website
-Syllabus, reading materials, slides, labs, and assignments
+Brightspace for announcements and grading:
 
 [https://brightspace.usc.edu](https://brightspace.usc.edu/d2l/home)
-Announcements + Grading
+
+Official class website, containing syllabus, reading materials, slides, labs, and assignments:
+
+[https://uscbiostats.github.io/PM566/](https://uscbiostats.github.io/PM566/)
+
 
 ---
 
