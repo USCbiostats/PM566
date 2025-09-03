@@ -17,17 +17,22 @@ knitr::opts_chunk$set(include  = TRUE)
 
 # Lab description
 
-In this lab, we will be working with the [NCBI API](https://www.ncbi.nlm.nih.gov/home/develop/api/)
-to make queries and extract information using XML and regular expressions. For this lab, we will
-be using the `httr`, `xml2`, and `stringr` R packages.
+In this lab, we will be working with the [NCBI
+API](https://www.ncbi.nlm.nih.gov/home/develop/api/) to make queries and extract
+information using XML and regular expressions. For this lab, we will be using
+the `httr`, `xml2`, and `stringr` R packages.
 
 ## Question 1: How many Sars-Cov-2 papers?
 
-We will build an automatic counter of Sars-Cov-2 papers available on PubMed.
-You will need to apply XPath as we did during the lecture to extract the number of results returned by PubMed when you search for "sars-cov-2."
-The following URL will perform this search:
+We will build an automatic counter of Sars-Cov-2 papers available on PubMed. You
+will need to apply XPath as we did during the lecture to extract the number of
+results returned by PubMed when you search for "sars-cov-2." 
 
+The following URL will perform the search:
 [https://pubmed.ncbi.nlm.nih.gov/?term=sars-cov-2](https://pubmed.ncbi.nlm.nih.gov/?term=sars-cov-2)
+
+And you can find the total number of results in the top left corner of the
+search results.
 
 Complete the lines of code:
 
@@ -58,96 +63,118 @@ That's quite a few articles, so let's narrow our focus by including "california"
 
 [https://pubmed.ncbi.nlm.nih.gov/?term=sars-cov-2%20california](https://pubmed.ncbi.nlm.nih.gov/?term=sars-cov-2%20california)
 
-In your web browser, use the slider on the left to narrow your search down to just the years 2020 and 2021.
+In your web browser, use the slider on the left to narrow your search down to
+just the years 2020 and 2021.
 
-Now we will download the abstracts and author information for all of these articles.
-Under the search bar, click "Save," set the Selection to "All results," set the Format to "Abstract (text)," and click "Create file."
-This should start downloading a large-ish text file (`abstract-sars-cov-2-set.txt`)
+Now we will download the abstracts and author information for all of these
+articles. Under the search bar, click "Save," set the Selection to "All
+results," set the Format to "Abstract (text)," and click "Create file." This
+should start downloading a large-ish text file (`abstract-sars-cov-2-set.txt`)
 
-We can read this into R with the following code:
+We can read this into R with the following code. We need to do some formatting
+because the abstracts are separated by two blank lines.
 
 ```{r get-ids, eval = FALSE}
-
+# read in text, each line is a separate character
+abstracts <- readLines('~/Downloads/abstract-sars-cov-2-set.txt', warn = FALSE)
+# combine all text into one character
+abstracts <- paste(abstracts, collapse = '\n')
+# split the text whenever 3 new lines occur in a row (indicating two blank lines)
+abstracts <- unlist(strsplit(abstracts, split = '\n\n\n'))
+# replace any remaining "\n" symbols with spaces
+abstracts <- gsub("\n", " ", abstracts)
+# replace multiple spaces with single space
+abstracts <- gsub(" +", " ", abstracts)
 ```
 
 
 
-## Question 4: Distribution of universities, schools, and departments
+## Question 3: Distribution of universities
 
-Using the function `stringr::str_extract_all()` applied on `publications_txt`, capture all the terms of the form:
+Look through the first couple abstracts and see how the author affiliations are formatted.
 
-1.    University of ...
-2.    ... Institute of ...
+Using the function `stringr::str_extract_all()` applied on `abstracts`, capture
+all the terms of the form:
 
-Write a regular expression that captures all such instances
+1. "... University"
+2. "University of ..."
+3. "... Institute of ..."
+
+Write a regular expression that captures all such instances.
 
 ```{r univ-institute-regex, eval = FALSE}
+library(stringr)
 institution <- str_extract_all(
-  publications_txt,
-  "[YOUR REGULAR EXPRESSION HERE]"
+  abstracts,
+  "[REGEX FOR INSTITUTIONS]"
   ) 
 institution <- unlist(institution)
 table(institution)
 ```
 
-Repeat the exercise and this time focus on schools and departments in the form of
+What are the 10 most common institutions? Discuss how you could you improve these results.
 
-1.    School of ...
-2.    Department of ...
 
-And tabulate the results
+## Question 4: Make a tidy dataset
 
-```{r school-department, eval = FALSE}
-schools_and_deps <- str_extract_all(
-  abstracts_txt,
-  "[YOUR REGULAR EXPRESSION HERE]"
-  )
-table(schools_and_deps)
-```
-
-## Question 5: Form a database
-
-We want to build a dataset which includes the title and the abstract of the
-paper. The title of all records is enclosed by the HTML tag `ArticleTitle`, and
-the abstract by `Abstract`. 
-
-Before applying the functions to extract text directly, it will help to process
-the XML a bit. We will use the `xml2::xml_children()` function to keep one element
-per ID. This way, if a paper is missing the abstract, or something else, we will be able to properly match PUBMED IDS with their corresponding records.
-
+We want to build a dataset which includes the journal, article title, authors,
+and affiliations for each paper. In order to do this, we will go back to the
+original input, but not do all the formatting we did previously.
 
 ```{r one-string-per-response, eval = FALSE}
-pub_char_list <- xml2::xml_children(publications)
-pub_char_list <- sapply(pub_char_list, as.character)
+# read in text, each line is a separate character
+abstracts <- readLines('~/Downloads/abstract-sars-cov-2-set.txt', warn = FALSE)
+# combine all text into one character
+abstracts <- paste(abstracts, collapse = '\n')
+# split the text whenever 3 new lines occur in a row (indicating two blank lines)
+abstracts <- unlist(strsplit(abstracts, split = '\n\n\n'))
 ```
 
-Now, extract the abstract and article title for each one of the elements of
-`pub_char_list`. You can either use `sapply()` as we just did, or simply
-take advantage of vectorization of `stringr::str_extract`
+Now extract the journal title for each article. This is in the first line of
+each entry, immediately after the citation number (ie. "1."). Notice that we are
+using `str_extract` rather than `str_extract_all`, because we only want (at
+most) one result per entry.
 
 ```{r extracting-last-bit, eval = FALSE}
-abstracts <- str_extract(pub_char_list, "[YOUR REGULAR EXPRESSION]")
-abstracts <- str_remove_all(abstracts, "[CLEAN ALL THE HTML TAGS]")
-abstracts <- str_remove_all(abstracts, "[CLEAN ALL EXTRA WHITE SPACE AND NEW LINES]")
+journal <- str_extract(abstracts, "[YOUR REGULAR EXPRESSION]")
 ```
 
-How many of these don't have an abstract? Now, the title
+Now we're going to extract the title of each article. This is the second
+non-empty line in each entry, with blank lines before and after. We could do
+this with a regular expression, but instead, we'll use the `strsplit()`
+function, as we did above.
 
 ```{r process-titles, eval = FALSE}
-titles <- str_extract(pub_char_list, "[YOUR REGULAR EXPRESSION]")
-titles <- str_remove_all(titles, "[CLEAN ALL THE HTML TAGS]")
+titles <- sapply(abstracts, function(x){
+  unlist(strsplit(x, split = "\n\n"))[2]
+}, USE.NAMES = FALSE)
+```
+
+Note that each title could still contain a *single* `\n` symbol, in the case of
+a particularly long title. We could remove those as we did the first time we
+read in the data.
+
+Use the same technique to extract the list of authors and call this object
+`authors`.
+
+Now use a regular expression to extract the author affiliations section for each
+abstract. This always starts with a blank line followed by "Author information:"
+and ends with another blank line.
+
+```{r extracting-affiliations, eval = FALSE}
+affiliations <- str_extract(abstracts, "[YOUR REGULAR EXPRESSION]")
 ```
 
 Finally, put everything together into a single `data.frame` and use
-`knitr::kable` to print the results
+`knitr::kable` to print the first five results.
 
 ```{r build-db, eval = FALSE}
-database <- data.frame(
-  "[DATA TO CONCATENATE]"
+papers <- data.frame(
+  [DATA TO COMBINE]
 )
-knitr::kable(database)
+knitr::kable(papers[1:5, ])
 ```
 
-Done! Knit the document, commit, and push.
+Done! Render the document, commit, and push.
 
 

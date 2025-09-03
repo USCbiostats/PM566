@@ -16,11 +16,18 @@ This assignment is due by 11:59pm Pacific Time on Friday, September 26th, 2025.
 
 # Assignment Description
 
-We will work with air pollution data from the U.S. Environmental Protection Agency (EPA). The EPA has a national monitoring network of air pollution sites that The primary question you will answer is whether daily concentrations of PM$_{2.5}$ (particulate matter air pollution with aerodynamic diameter less than 2.5 $\mu$m) have decreased in California over the last 20 years (from 2002 to 2022).
+We will work with air pollution data from the U.S. Environmental Protection
+Agency (EPA). The EPA has a national monitoring network of air pollution sites
+that measure particulate matter (PM) concentrations. A primer on particulate
+matter air pollution can be found
+[here](https://www.epa.gov/pm-pollution/particulate-matter-pm-basics).
 
-A primer on particulate matter air pollution can be found [here](https://www.epa.gov/pm-pollution/particulate-matter-pm-basics).
+The primary question you will answer is whether daily concentrations of
+PM$_{2.5}$ (particulate matter air pollution with aerodynamic diameter less than
+2.5 $\mu$m) decreased in California over the 20 years spanning from 2002 to
+2022.
 
-Your assignment should be completed in Quarto or R Markdown and all code should be included.
+Your assignment should be completed in Quarto and all code should be included.
 
 # Steps
 
@@ -39,24 +46,25 @@ names of the key variables so that they are easier to refer to in your code.
 
 3. (20 points) Create a basic map (or maps) in `leaflet` showing the locations of the
 monitoring sites, using different colors for each year. Summarize the spatial
-distribution of the sites. How does this distribution change from 2002 to 2022?
+distribution of the sites. Does this distribution change from 2002 to 2022?
 
 4. (10 points) Check for any data issues such as missing or implausible values of PM$_{2.5}$
 in the combined dataset. Calculate the proportion of missing/implausible values
 for each year and report any temporal patterns you see in these observations.
 
-5. (30 points) Explore the main question of interest at three different levels of spatial
-resolution. Create exploratory plots (e.g. boxplots, histograms, line plots,
-violin plots) and summary statistics that best suit each level of data. Be sure
-to write up explanations of what you observe in these data.
+5. (30 points) Explore the main question of interest at three different levels
+of spatial resolution. Create data visualizations (e.g. boxplots, histograms,
+line plots, violin plots) **and** summary statistics that best suit each level
+of the analysis. Be sure to write up explanations of what you observe at each
+level.
 
  - Level 1: State. Examine the primary question for the entire state.
  - Level 2: County. Examine the primary question for every county in California.
  - Level 3: City. Restrict the data to sites in Los Angeles county and examine the primary question for every site.
 
-Reminder: after you upload your final rendered document to GitHub, you should download it to make sure
-that it looks right! If you haven't included `embed-resources: true` in the YAML
-header, none of your figures will show up!
+Reminder: after you upload your final rendered document to GitHub, you should
+download it to make sure that it looks right! If you haven't included
+`embed-resources: true` in the YAML header, none of your figures will show up!
 
 ---
 

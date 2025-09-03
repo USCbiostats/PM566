@@ -188,8 +188,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>In this lab, we will be working with the <a href="https://www.ncbi.nlm.nih.gov/home/develop/api/">NCBI API</a> to make queries and extract information using XML and regular expressions. For this lab, we will be using the <code>httr</code>, <code>xml2</code>, and <code>stringr</code> R packages.</p>
 <section id="question-1-how-many-sars-cov-2-papers" class="level2">
 <h2 class="anchored" data-anchor-id="question-1-how-many-sars-cov-2-papers">Question 1: How many Sars-Cov-2 papers?</h2>
-<p>We will build an automatic counter of Sars-Cov-2 papers available on PubMed. You will need to apply XPath as we did during the lecture to extract the number of results returned by PubMed when you search for “sars-cov-2.” The following URL will perform this search:</p>
-<p><a href="https://pubmed.ncbi.nlm.nih.gov/?term=sars-cov-2">https://pubmed.ncbi.nlm.nih.gov/?term=sars-cov-2</a></p>
+<p>We will build an automatic counter of Sars-Cov-2 papers available on PubMed. You will need to apply XPath as we did during the lecture to extract the number of results returned by PubMed when you search for “sars-cov-2.”</p>
+<p>The following URL will perform the search: <a href="https://pubmed.ncbi.nlm.nih.gov/?term=sars-cov-2">https://pubmed.ncbi.nlm.nih.gov/?term=sars-cov-2</a></p>
+<p>And you can find the total number of results in the top left corner of the search results.</p>
 <p>Complete the lines of code:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Downloading the website</span></span>
@@ -204,131 +205,89 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Extracting the data using regex</span></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>totalcount <span class="ot">&lt;-</span> stringr<span class="sc">::</span><span class="fu">str_extract</span>(counts, <span class="st">"[REGEX FOR NUMBERS WITH COMMAS/DOTS]"</span>)</span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(totalcount)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Removing any commas/dots so that we can convert to numeric</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>totalcount <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">'[REGEX FOR COMMAS/DOTS]'</span>, <span class="st">''</span>, totalcount)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>totalcount <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(totalcount)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(totalcount)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="question-2-academic-publications-on-covid19-and-hawaii" class="level2">
-<h2 class="anchored" data-anchor-id="question-2-academic-publications-on-covid19-and-hawaii">Question 2: Academic publications on COVID19 and Hawaii</h2>
-<p>You need to query the following. The parameters passed to the query are documented <a href="https://www.ncbi.nlm.nih.gov/books/NBK25499/">here</a>.</p>
-<p>Use the function <code>httr::GET()</code> to make the following query:</p>
-<ol type="1">
-<li><p>Baseline URL: https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi</p></li>
-<li><p>Query parameters:</p>
-<ul>
-<li>db: pubmed</li>
-<li>term: covid19 hawaii</li>
-<li>retmax: 1000</li>
-</ul></li>
-</ol>
+<section id="question-2-get-article-abstracts-and-authors" class="level2">
+<h2 class="anchored" data-anchor-id="question-2-get-article-abstracts-and-authors">Question 2: Get article abstracts and authors</h2>
+<p>That’s quite a few articles, so let’s narrow our focus by including “california” in our search:</p>
+<p><a href="https://pubmed.ncbi.nlm.nih.gov/?term=sars-cov-2%20california">https://pubmed.ncbi.nlm.nih.gov/?term=sars-cov-2%20california</a></p>
+<p>In your web browser, use the slider on the left to narrow your search down to just the years 2020 and 2021.</p>
+<p>Now we will download the abstracts and author information for all of these articles. Under the search bar, click “Save,” set the Selection to “All results,” set the Format to “Abstract (text),” and click “Create file.” This should start downloading a large-ish text file (<code>abstract-sars-cov-2-set.txt</code>)</p>
+<p>We can read this into R with the following code. We need to do some formatting because the abstracts are separated by two blank lines.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>query_ids <span class="ot">&lt;-</span> <span class="fu">GET</span>(</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">url   =</span> <span class="st">"BASELINE URL"</span>,</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">query =</span> <span class="fu">list</span>(<span class="st">"QUERY PARAMETERS"</span>)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Extracting the content of the response of GET</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>ids <span class="ot">&lt;-</span> httr<span class="sc">::</span><span class="fu">content</span>(query_ids)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>The query will return an XML object, we can turn it into a character list to analyze the text directly with <code>as.character()</code>. Another way of processing the data could be using lists with the function <code>xml2::as_list()</code>. We will skip the latter for now.</p>
-<p>Take a look at the data, and continue with the next question.</p>
-</section>
-<section id="question-3-get-details-about-the-articles" class="level2">
-<h2 class="anchored" data-anchor-id="question-3-get-details-about-the-articles">Question 3: Get details about the articles</h2>
-<p>The IDs are wrapped around text in the following way: <code>&lt;Id&gt;... id number ...&lt;/Id&gt;</code>. We can use a regular expression that extracts that information. Fill out the following lines of code:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Turn the result into a character vector</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>ids <span class="ot">&lt;-</span> <span class="fu">as.character</span>(ids)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Find all the ids </span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>ids <span class="ot">&lt;-</span> stringr<span class="sc">::</span><span class="fu">str_extract_all</span>(ids, <span class="st">"PATTERN"</span>)[[<span class="dv">1</span>]]</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove all the leading and trailing &lt;Id&gt; &lt;/Id&gt;. Make use of "|"</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>ids <span class="ot">&lt;-</span> stringr<span class="sc">::</span><span class="fu">str_remove_all</span>(ids, <span class="st">"PATTERN"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>With the IDs in hand, we can now try to get the abstracts of the papers. As before, we will need to coerce the contents (results) to a list using:</p>
-<ol type="1">
-<li><p>Baseline url: https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi</p></li>
-<li><p>Query parameters:</p>
-<ul>
-<li>db: pubmed</li>
-<li>id: A character with all the ids separated by comma, e.g., “1232131,546464,13131”</li>
-<li>retmax: 1000</li>
-<li>rettype: abstract</li>
-</ul></li>
-</ol>
-<p><strong>Pro-tip</strong>: If you want <code>GET()</code> to take some element literal, wrap it around <code>I()</code> (as you would do in a formula in R). For example, the text <code>"123,456"</code> is replaced with <code>"123%2C456"</code>. If you don’t want that behavior, you would need to do the following <code>I("123,456")</code>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>publications <span class="ot">&lt;-</span> <span class="fu">GET</span>(</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">url   =</span> <span class="st">"BASELINE URL HERE"</span>,</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">query =</span> <span class="fu">list</span>(</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"PARAMETERS OF THE QUERY"</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Turning the output into character vector</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>publications <span class="ot">&lt;-</span> httr<span class="sc">::</span><span class="fu">content</span>(publications)</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>publications_txt <span class="ot">&lt;-</span> <span class="fu">as.character</span>(publications)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>With this in hand, we can now analyze the data. This is also a good time for committing and pushing your work!</p>
-</section>
-<section id="question-4-distribution-of-universities-schools-and-departments" class="level2">
-<h2 class="anchored" data-anchor-id="question-4-distribution-of-universities-schools-and-departments">Question 4: Distribution of universities, schools, and departments</h2>
-<p>Using the function <code>stringr::str_extract_all()</code> applied on <code>publications_txt</code>, capture all the terms of the form:</p>
-<ol type="1">
-<li>University of …</li>
-<li>… Institute of …</li>
-</ol>
-<p>Write a regular expression that captures all such instances</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>institution <span class="ot">&lt;-</span> <span class="fu">str_extract_all</span>(</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  publications_txt,</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"[YOUR REGULAR EXPRESSION HERE]"</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  ) </span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>institution <span class="ot">&lt;-</span> <span class="fu">unlist</span>(institution)</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(institution)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Repeat the exercise and this time focus on schools and departments in the form of</p>
-<ol type="1">
-<li>School of …</li>
-<li>Department of …</li>
-</ol>
-<p>And tabulate the results</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>schools_and_deps <span class="ot">&lt;-</span> <span class="fu">str_extract_all</span>(</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  abstracts_txt,</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"[YOUR REGULAR EXPRESSION HERE]"</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(schools_and_deps)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># read in text, each line is a separate character</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>abstracts <span class="ot">&lt;-</span> <span class="fu">readLines</span>(<span class="st">'~/Downloads/abstract-sars-cov-2-set.txt'</span>, <span class="at">warn =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># combine all text into one character</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>abstracts <span class="ot">&lt;-</span> <span class="fu">paste</span>(abstracts, <span class="at">collapse =</span> <span class="st">'</span><span class="sc">\n</span><span class="st">'</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># split the text whenever 3 new lines occur in a row (indicating two blank lines)</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>abstracts <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">strsplit</span>(abstracts, <span class="at">split =</span> <span class="st">'</span><span class="sc">\n\n\n</span><span class="st">'</span>))</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># replace any remaining "\n" symbols with spaces</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>abstracts <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">"</span>, <span class="st">" "</span>, abstracts)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># replace multiple spaces with single space</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>abstracts <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">" +"</span>, <span class="st">" "</span>, abstracts)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="question-5-form-a-database" class="level2">
-<h2 class="anchored" data-anchor-id="question-5-form-a-database">Question 5: Form a database</h2>
-<p>We want to build a dataset which includes the title and the abstract of the paper. The title of all records is enclosed by the HTML tag <code>ArticleTitle</code>, and the abstract by <code>Abstract</code>.</p>
-<p>Before applying the functions to extract text directly, it will help to process the XML a bit. We will use the <code>xml2::xml_children()</code> function to keep one element per ID. This way, if a paper is missing the abstract, or something else, we will be able to properly match PUBMED IDS with their corresponding records.</p>
+<section id="question-3-distribution-of-universities" class="level2">
+<h2 class="anchored" data-anchor-id="question-3-distribution-of-universities">Question 3: Distribution of universities</h2>
+<p>Look through the first couple abstracts and see how the author affiliations are formatted.</p>
+<p>Using the function <code>stringr::str_extract_all()</code> applied on <code>abstracts</code>, capture all the terms of the form:</p>
+<ol type="1">
+<li>“… University”</li>
+<li>“University of …”</li>
+<li>“… Institute of …”</li>
+</ol>
+<p>Write a regular expression that captures all such instances.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>pub_char_list <span class="ot">&lt;-</span> xml2<span class="sc">::</span><span class="fu">xml_children</span>(publications)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>pub_char_list <span class="ot">&lt;-</span> <span class="fu">sapply</span>(pub_char_list, as.character)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>institution <span class="ot">&lt;-</span> <span class="fu">str_extract_all</span>(</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  abstracts,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"[REGEX FOR INSTITUTIONS]"</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  ) </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>institution <span class="ot">&lt;-</span> <span class="fu">unlist</span>(institution)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(institution)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Now, extract the abstract and article title for each one of the elements of <code>pub_char_list</code>. You can either use <code>sapply()</code> as we just did, or simply take advantage of vectorization of <code>stringr::str_extract</code></p>
+<p>What are the 10 most common institutions? Discuss how you could you improve these results.</p>
+</section>
+<section id="question-4-make-a-tidy-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="question-4-make-a-tidy-dataset">Question 4: Make a tidy dataset</h2>
+<p>We want to build a dataset which includes the journal, article title, authors, and affiliations for each paper. In order to do this, we will go back to the original input, but not do all the formatting we did previously.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>abstracts <span class="ot">&lt;-</span> <span class="fu">str_extract</span>(pub_char_list, <span class="st">"[YOUR REGULAR EXPRESSION]"</span>)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>abstracts <span class="ot">&lt;-</span> <span class="fu">str_remove_all</span>(abstracts, <span class="st">"[CLEAN ALL THE HTML TAGS]"</span>)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>abstracts <span class="ot">&lt;-</span> <span class="fu">str_remove_all</span>(abstracts, <span class="st">"[CLEAN ALL EXTRA WHITE SPACE AND NEW LINES]"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># read in text, each line is a separate character</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>abstracts <span class="ot">&lt;-</span> <span class="fu">readLines</span>(<span class="st">'~/Downloads/abstract-sars-cov-2-set.txt'</span>, <span class="at">warn =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># combine all text into one character</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>abstracts <span class="ot">&lt;-</span> <span class="fu">paste</span>(abstracts, <span class="at">collapse =</span> <span class="st">'</span><span class="sc">\n</span><span class="st">'</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># split the text whenever 3 new lines occur in a row (indicating two blank lines)</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>abstracts <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">strsplit</span>(abstracts, <span class="at">split =</span> <span class="st">'</span><span class="sc">\n\n\n</span><span class="st">'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>How many of these don’t have an abstract? Now, the title</p>
+<p>Now extract the journal title for each article. This is in the first line of each entry, immediately after the citation number (ie. “1.”). Notice that we are using <code>str_extract</code> rather than <code>str_extract_all</code>, because we only want (at most) one result per entry.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>titles <span class="ot">&lt;-</span> <span class="fu">str_extract</span>(pub_char_list, <span class="st">"[YOUR REGULAR EXPRESSION]"</span>)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>titles <span class="ot">&lt;-</span> <span class="fu">str_remove_all</span>(titles, <span class="st">"[CLEAN ALL THE HTML TAGS]"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>journal <span class="ot">&lt;-</span> <span class="fu">str_extract</span>(abstracts, <span class="st">"[YOUR REGULAR EXPRESSION]"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Finally, put everything together into a single <code>data.frame</code> and use <code>knitr::kable</code> to print the results</p>
+<p>Now we’re going to extract the title of each article. This is the second non-empty line in each entry, with blank lines before and after. We could do this with a regular expression, but instead, we’ll use the <code>strsplit()</code> function, as we did above.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>database <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"[DATA TO CONCATENATE]"</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(database)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>titles <span class="ot">&lt;-</span> <span class="fu">sapply</span>(abstracts, <span class="cf">function</span>(x){</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unlist</span>(<span class="fu">strsplit</span>(x, <span class="at">split =</span> <span class="st">"</span><span class="sc">\n\n</span><span class="st">"</span>))[<span class="dv">2</span>]</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>}, <span class="at">USE.NAMES =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Done! Knit the document, commit, and push.</p>
+<p>Note that each title could still contain a <em>single</em> <code>\n</code> symbol, in the case of a particularly long title. We could remove those as we did the first time we read in the data.</p>
+<p>Use the same technique to extract the list of authors and call this object <code>authors</code>.</p>
+<p>Now use a regular expression to extract the author affiliations section for each abstract. This always starts with a blank line followed by “Author information:” and ends with another blank line.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>affiliations <span class="ot">&lt;-</span> <span class="fu">str_extract</span>(abstracts, <span class="st">"[YOUR REGULAR EXPRESSION]"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Finally, put everything together into a single <code>data.frame</code> and use <code>knitr::kable</code> to print the first five results.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>papers <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  [DATA TO COMBINE]</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(papers[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, ])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Done! Render the document, commit, and push.</p>
 
 
 </section>

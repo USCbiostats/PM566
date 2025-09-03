@@ -1,0 +1,46 @@
+---
+title: "Midterm Project"
+link-citations: true
+toc: false
+---
+
+Due **Sunday, October 26th, 2024** by 11:59pm Pacific Time.
+
+**Learning Objective**:
+To apply the skills learned in PM 566 (through Week 6) by analyzing and
+interpreting a dataset of your choice.
+
+**Narrative**:
+As we have discussed in class, the practice of data science requires both
+quantitative skills and qualitative knowledge of the domain from which the data
+was collected. The first step in any data analysis is to have a dataset for
+which you have formulated an interesting question. If you do not have a dataset
+to work with, you may choose one from our [list of
+suggestions](../references.qmd#data). With your dataset, formulate a clear and
+concise question to answer and conduct data wrangling, exploratory data
+analysis, and data visualization to explore/answer this question.
+
+**Deliverable**:
+A *written report* generated in Quarto (HTML or PDF) with embedded tables and
+figures that is submitted to a project-specific GitHub repository that you
+create. The report should have the following sections: 
+
+ - Introduction - provide background on your dataset and formulated question
+ - Data Preparation - how and where the data were acquired, how you cleaned and 
+ wrangled the data
+ - Exploratory Analysis - dataset characteristics, variables included, 
+ distribution of key variables
+ - Preliminary Results - analysis of the primary research question and any 
+ subsequent follow-up questions, including summary statistics in tabular form 
+ and publication-quality figures (look at the `kable()` function from `knitr` 
+ for making nice tables)
+ - a brief Conclusion - summary of what you found in the data
+
+In your report, please do not include any unformatted text output (e.g. output
+from `head()`, `str()`, `print()`, etc.). You should summarize these aspects of
+your data within the text, figures, and/or tables.
+
+Note that you cannot use the same dataset on both the Midterm and Final. So if
+you came into this class with a dataset that you wanted to analyze, you may want
+to save that for later.
+

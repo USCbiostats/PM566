@@ -19,6 +19,10 @@ Repo overview:
  - `labs` contains weekly labs.
  - `slides` contains weekly lecture slides.
  
- Every year, you'll at least want to update the Home page (`index.qmd`), go over the Schedule page (`schedule.qmd`), and update the [PM566-whoami](https://github.com/USCbiostats/PM566-whoami) repo ahead of Week 2.
+Yearly checklist:
+ - Update Home page (`index.qmd`)
+ - Update Schedule page (`schedule.qmd`)
+ - Update HW, Midterm, and Final due dates
+ - Update the [PM566-whoami](https://github.com/USCbiostats/PM566-whoami) repo before Week 2
  
  

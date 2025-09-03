@@ -195,18 +195,18 @@ window.Quarto = {
 </section>
 <section id="assignment-description" class="level1">
 <h1>Assignment Description</h1>
-<p>We will work with air pollution data from the U.S. Environmental Protection Agency (EPA). The EPA has a national monitoring network of air pollution sites that The primary question you will answer is whether daily concentrations of PM<span class="math inline">\(_{2.5}\)</span> (particulate matter air pollution with aerodynamic diameter less than 2.5 <span class="math inline">\(\mu\)</span>m) have decreased in California over the last 20 years (from 2002 to 2022).</p>
-<p>A primer on particulate matter air pollution can be found <a href="https://www.epa.gov/pm-pollution/particulate-matter-pm-basics">here</a>.</p>
-<p>Your assignment should be completed in Quarto or R Markdown and all code should be included.</p>
+<p>We will work with air pollution data from the U.S. Environmental Protection Agency (EPA). The EPA has a national monitoring network of air pollution sites that measure particulate matter (PM) concentrations. A primer on particulate matter air pollution can be found <a href="https://www.epa.gov/pm-pollution/particulate-matter-pm-basics">here</a>.</p>
+<p>The primary question you will answer is whether daily concentrations of PM<span class="math inline">\(_{2.5}\)</span> (particulate matter air pollution with aerodynamic diameter less than 2.5 <span class="math inline">\(\mu\)</span>m) decreased in California over the 20 years spanning from 2002 to 2022.</p>
+<p>Your assignment should be completed in Quarto and all code should be included.</p>
 </section>
 <section id="steps" class="level1">
 <h1>Steps</h1>
 <ol type="1">
 <li><p>(30 points) Given the formulated question from the assignment description, you will now conduct EDA Checklist items 1-5. First, download 2002 and 2022 data for all sites in California from the <a href="https://www.epa.gov/outdoor-air-quality-data/download-daily-data">EPA Air Quality Data website</a>, then read the data into R. For each of the two datasets, check the dimensions, headers, footers, variable names and variable types. Check the distribution of the key variable we are analyzing (PM<span class="math inline">\(_{2.5}\)</span>). Write up a summary of all of your findings.</p></li>
 <li><p>(10 points) Combine the two years of data into one data frame. Use the <code>Date</code> variable to create a new column for year, which will serve as an identifier. Change the names of the key variables so that they are easier to refer to in your code.</p></li>
-<li><p>(20 points) Create a basic map (or maps) in <code>leaflet</code> showing the locations of the monitoring sites, using different colors for each year. Summarize the spatial distribution of the sites. How does this distribution change from 2002 to 2022?</p></li>
+<li><p>(20 points) Create a basic map (or maps) in <code>leaflet</code> showing the locations of the monitoring sites, using different colors for each year. Summarize the spatial distribution of the sites. Does this distribution change from 2002 to 2022?</p></li>
 <li><p>(10 points) Check for any data issues such as missing or implausible values of PM<span class="math inline">\(_{2.5}\)</span> in the combined dataset. Calculate the proportion of missing/implausible values for each year and report any temporal patterns you see in these observations.</p></li>
-<li><p>(30 points) Explore the main question of interest at three different levels of spatial resolution. Create exploratory plots (e.g.&nbsp;boxplots, histograms, line plots, violin plots) and summary statistics that best suit each level of data. Be sure to write up explanations of what you observe in these data.</p></li>
+<li><p>(30 points) Explore the main question of interest at three different levels of spatial resolution. Create data visualizations (e.g.&nbsp;boxplots, histograms, line plots, violin plots) <strong>and</strong> summary statistics that best suit each level of the analysis. Be sure to write up explanations of what you observe at each level.</p></li>
 </ol>
 <ul>
 <li>Level 1: State. Examine the primary question for the entire state.</li>
