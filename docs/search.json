@@ -4,7 +4,7 @@
     "href": "schedule.html",
     "title": "Schedule",
     "section": "",
-    "text": "Week\nDate\nTopic\nSlides\nLab\nAssignment\n\n\n\n\n1\n8/29\nIntroduction to Data Science and R\nSlides\nLab\n\n\n\n2\n9/5\nVersion Control & Reproducible Research\nSlides\nLab\n\n\n\n3\n9/12\nExploratory data analysis\nSlides\nLab\nHW1\n\n\n4\n9/19\nData visualization\nSlides\nLab\n\n\n\n5\n9/26\nData Cleaning and Wrangling\nSlides\nLab\nHW2\n\n\n6\n10/3\nText Mining & Sentiment Analysis\nSlides\nLab\n\n\n\n\n10/10\nNO CLASS - FALL RECESS\n\n\nMidterm\n\n\n7\n10/17\nScraping, APIs, and Regular Expressions\nSlides\nLab\n\n\n\n8\n10/24\nHigh Performance Computing, Cloud Computing\nSlides\nLab\nHW3\n\n\n9\n10/31\nSQL and Managing Big Data\nSlides\nLab\n\n\n\n10\n11/7\nInteractive Visualization & Effective Data Communication I\nSlides\nLab\nHW4\n\n\n11\n11/14\nInteractive Visualization & Effective Data Communication II\nSlides\nLab\n\n\n\n12\n11/21\nNonparametric Statistics\nSlides\n\nFinal\n\n\n\n11/28\nNO CLASS - THANKSGIVING\n\n\n\n\n\n13\n12/5\nFinal Project Workshop"
+    "text": "Week\nDate\nTopic\nSlides\nLab\nAssignment\n\n\n\n\n1\n8/29\nIntroduction to Data Science and R\nSlides\nLab\n\n\n\n2\n9/5\nVersion Control & Reproducible Research\nSlides\nLab\n\n\n\n3\n9/12\nExploratory data analysis\nSlides\nLab\nHW1\n\n\n4\n9/19\nData visualization\nSlides\nLab\n\n\n\n5\n9/26\nData Cleaning and Wrangling\nSlides\nLab\nHW2\n\n\n6\n10/3\nText Mining & Sentiment Analysis\nSlides\nLab\n\n\n\n\n10/10\nNO CLASS - FALL RECESS\n\n\nMidterm\n\n\n7\n10/17\nScraping, APIs, and Regular Expressions\nSlides\nLab\n\n\n\n8\n10/24\nEfficiency and High Performance Computing\nSlides\nLab\nHW3\n\n\n9\n10/31\nSQL and Managing Big Data\nSlides\nLab\n\n\n\n10\n11/7\nInteractive Visualization & Effective Data Communication I\nSlides\nLab\nHW4\n\n\n11\n11/14\nInteractive Visualization & Effective Data Communication II\nSlides\nLab\n\n\n\n12\n11/21\nNonparametric Statistics\nSlides\n\nFinal\n\n\n\n11/28\nNO CLASS - THANKSGIVING\n\n\n\n\n\n13\n12/5\nFinal Project Workshop"
   },
   {
     "objectID": "syllabus.html",
@@ -816,7 +816,7 @@
     "href": "slides/week04.html#maps-with-leaflet",
     "title": "Week 4: Data Visualization",
     "section": "Maps with leaflet",
-    "text": "Maps with leaflet\nLet’s create a map of monthly average temperatures at each of the weather stations and color the points by a temperature gradient. We need to create a color palette and we can add a legend.\n\nlibrary(leaflet)\nmet_avg2 &lt;- summarize(met,\n                      temp =     mean(temp, na.rm = TRUE),\n                      lat =      mean(lat, na.rm = TRUE),\n                      lon =      mean(lon, na.rm = TRUE),\n                      .by = c(USAFID))\nmet_avg2 &lt;- met_avg2[!is.na(met_avg2$temp), ]\n\n# Generating a color palette\ntemp.pal &lt;- colorNumeric(c('darkgreen','goldenrod','brown'), domain=met_avg2$temp)\n\ntemp.pal(20)\n\n[1] \"#B69A19\"\n\ntemp.pal\n\nfunction (x) \n{\n    if (length(x) == 0 || all(is.na(x))) {\n        return(pf(x))\n    }\n    if (is.null(rng)) \n        rng &lt;- range(x, na.rm = TRUE)\n    rescaled &lt;- scales::rescale(x, from = rng)\n    if (any(rescaled &lt; 0 | rescaled &gt; 1, na.rm = TRUE)) \n        warning(\"Some values were outside the color scale and will be treated as NA\")\n    if (reverse) {\n        rescaled &lt;- 1 - rescaled\n    }\n    pf(rescaled)\n}\n&lt;bytecode: 0x16d367c48&gt;\n&lt;environment: 0x16d366668&gt;\nattr(,\"colorType\")\n[1] \"numeric\"\nattr(,\"colorArgs\")\nattr(,\"colorArgs\")$na.color\n[1] \"#808080\""
+    "text": "Maps with leaflet\nLet’s create a map of monthly average temperatures at each of the weather stations and color the points by a temperature gradient. We need to create a color palette and we can add a legend.\n\nlibrary(leaflet)\nmet_avg2 &lt;- summarize(met,\n                      temp =     mean(temp, na.rm = TRUE),\n                      lat =      mean(lat, na.rm = TRUE),\n                      lon =      mean(lon, na.rm = TRUE),\n                      .by = c(USAFID))\nmet_avg2 &lt;- met_avg2[!is.na(met_avg2$temp), ]\n\n# Generating a color palette\ntemp.pal &lt;- colorNumeric(c('darkgreen','goldenrod','brown'), domain=met_avg2$temp)\n\ntemp.pal(20)\n\n[1] \"#B69A19\"\n\ntemp.pal\n\nfunction (x) \n{\n    if (length(x) == 0 || all(is.na(x))) {\n        return(pf(x))\n    }\n    if (is.null(rng)) \n        rng &lt;- range(x, na.rm = TRUE)\n    rescaled &lt;- scales::rescale(x, from = rng)\n    if (any(rescaled &lt; 0 | rescaled &gt; 1, na.rm = TRUE)) \n        warning(\"Some values were outside the color scale and will be treated as NA\")\n    if (reverse) {\n        rescaled &lt;- 1 - rescaled\n    }\n    pf(rescaled)\n}\n&lt;bytecode: 0x341b49708&gt;\n&lt;environment: 0x341b4c038&gt;\nattr(,\"colorType\")\n[1] \"numeric\"\nattr(,\"colorArgs\")\nattr(,\"colorArgs\")$na.color\n[1] \"#808080\""
   },
   {
     "objectID": "slides/week04.html#maps-with-leaflet-1",
@@ -836,183 +836,183 @@
     "objectID": "slides/week07.html#regular-expressions-what-is-it",
     "href": "slides/week07.html#regular-expressions-what-is-it",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "",
-    "text": "A regular expression (shortened as regex or regexp; also referred to as rational expression) is a sequence of characters that define a search pattern. – Wikipedia"
+    "section": "Regular Expressions: What is it?",
+    "text": "Regular Expressions: What is it?\n\nA regular expression (shortened as regex or regexp; also referred to as rational expression) is a sequence of characters that define a search pattern. – Wikipedia"
   },
   {
     "objectID": "slides/week07.html#regular-expressions-why-should-you-care",
     "href": "slides/week07.html#regular-expressions-why-should-you-care",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "",
-    "text": "We can use Regular Expressions for:\n\nValidating data fields, email address, numbers, etc.\nSearching text in various formats, e.g., addresses, there are many ways to write an address.\nReplace text, e.g., different spellings, Storm, Stôrm, Stórm to Storm.\nRemove text, e.g., tags from an HTML text, &lt;name&gt;George&lt;/name&gt; to George."
+    "section": "Regular Expressions: Why should you care?",
+    "text": "Regular Expressions: Why should you care?\nWe can use Regular Expressions for:\n\nValidating data fields, email address, numbers, etc.\nSearching text in various formats, e.g., addresses, there are many ways to write an address.\nReplace text, e.g., different spellings, Storm, Stôrm, Stórm to Storm.\nRemove text, e.g., tags from an HTML text, &lt;name&gt;George&lt;/name&gt; to George."
   },
   {
     "objectID": "slides/week07.html#regex-101-metacharacters",
     "href": "slides/week07.html#regex-101-metacharacters",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "",
-    "text": "What makes regex special is metacharacters. While we can always use regex to match literals like dog, human, 1999, we only make use of all regex power when using metacharacters:\n\n. Any character except new line\n^ beginning of the text\n$ end of the text\n[expression] Match any single character in “expression”, e.g.\n\n[0123456789] Any digit\n[0-9] Any digit in the range 0-9\n[a-z] Lower-case letters\n[A-Z] Upper-case letters\n[a-zA-Z] Lower or upper case letters.\n[a-zA-Z0-9] Any alpha-numeric"
+    "section": "Regex 101: Metacharacters",
+    "text": "Regex 101: Metacharacters\nWhat makes regex special is metacharacters. While we can always use regex to match literals like dog, human, 1999, we only make use of all regex power when using metacharacters:\n\n. Any character except new line\n^ beginning of the text\n$ end of the text\n[expression] Match any single character in “expression”, e.g.\n\n[0123456789] Any digit\n[0-9] Any digit in the range 0-9\n[a-z] Lower-case letters\n[A-Z] Upper-case letters\n[a-zA-Z] Lower or upper case letters.\n[a-zA-Z0-9] Any alpha-numeric"
   },
   {
     "objectID": "slides/week07.html#regex-101-metacharacters-cont.-1",
     "href": "slides/week07.html#regex-101-metacharacters-cont.-1",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "",
-    "text": "[^regex] Match any except those in regex, e.g.\n\n[^0123456789] Match any except a number\n[^0-9] Match anything except in the range 0-9\n[^./ ] any except dot, slash, and space."
+    "section": "Regex 101: Metacharacters (cont. 1)",
+    "text": "Regex 101: Metacharacters (cont. 1)\n\n[^regex] Match any except those in regex, e.g.\n\n[^0123456789] Match any except a number\n[^0-9] Match anything except in the range 0-9\n[^./ ] any except dot, slash, and space."
   },
   {
     "objectID": "slides/week07.html#regex-101-metacharacters-cont.-2",
     "href": "slides/week07.html#regex-101-metacharacters-cont.-2",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "",
-    "text": "Ranges, e.g., 0-9 or a-z, are locale- and implementation-dependent, meaning that the range of lower case letters may vary depending on the OS’s language. To solve for this problem, you could use Character classes. Some examples:\n\n[[:lower:]] lower case letters in the current locale, could be [a-z]\n[[:upper:]] upper case letters in the current locale, could be [A-Z]\n[[:alpha:]] upper and lower case letters in the current locale, could be [a-zA-Z]\n[[:digit:]] Digits: 0 1 2 3 4 5 6 7 8 9\n[[:alnum:]] Alpha numeric characters [[:alpha:]] and [[:digit:]].\n[[:punct:]] Punctuation characters: ! ” # $ % & ’ ( ) * + , - . / : ; &lt; = &gt; ? @ [ \\ ] ^ _ ` { | } ~.\n\nFor example, in the locale en_US, the word Ḧóla IS NOT fully matched by [a-zA-Z]+, but IT IS fully matched by [[:alpha:]]+."
+    "section": "Regex 101: Metacharacters (cont. 2)",
+    "text": "Regex 101: Metacharacters (cont. 2)\nRanges, e.g., 0-9 or a-z, are locale- and implementation-dependent, meaning that the range of lower case letters may vary depending on the OS’s language. To solve for this problem, you could use Character classes. Some examples:\n\n[[:lower:]] lower case letters in the current locale, could be [a-z]\n[[:upper:]] upper case letters in the current locale, could be [A-Z]\n[[:alpha:]] upper and lower case letters in the current locale, could be [a-zA-Z]\n[[:digit:]] Digits: 0 1 2 3 4 5 6 7 8 9\n[[:alnum:]] Alpha numeric characters [[:alpha:]] and [[:digit:]].\n[[:punct:]] Punctuation characters: ! ” # $ % & ’ ( ) * + , - . / : ; &lt; = &gt; ? @ [ \\ ] ^ _ ` { | } ~.\n\nFor example, in the locale en_US, the word Ḧóla IS NOT fully matched by [a-zA-Z]+, but IT IS fully matched by [[:alpha:]]+."
   },
   {
     "objectID": "slides/week07.html#regex-101-metacharacters-cont.-3",
     "href": "slides/week07.html#regex-101-metacharacters-cont.-3",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "",
-    "text": "Other important metacharacters:\n\n\\\\s white space, equivalent to [\\\\r\\\\n\\\\t\\\\f\\\\v ]\n| or (logical or)."
+    "section": "Regex 101: Metacharacters (cont. 3)",
+    "text": "Regex 101: Metacharacters (cont. 3)\nOther important metacharacters:\n\n\\\\s white space, equivalent to [\\\\r\\\\n\\\\t\\\\f\\\\v ]\n| or (logical or)."
   },
   {
     "objectID": "slides/week07.html#regex-101-metacharacters-cont.-4",
     "href": "slides/week07.html#regex-101-metacharacters-cont.-4",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "",
-    "text": "These usually come together with specifying how many times (repetition):\n\nregex? Zero or one match.\nregex* Zero or more matches\nregex+ One or more matches\nregex{n,} At least n matches\nregex{,m} at most m matches\nregex{n,m} Between n and m matches.\n\nWhere regex is a regular expression"
+    "section": "Regex 101: Metacharacters (cont. 4)",
+    "text": "Regex 101: Metacharacters (cont. 4)\nThese usually come together with specifying how many times (repetition):\n\nregex? Zero or one match.\nregex* Zero or more matches\nregex+ One or more matches\nregex{n,} At least n matches\nregex{,m} at most m matches\nregex{n,m} Between n and m matches.\n\nWhere regex is a regular expression"
   },
   {
     "objectID": "slides/week07.html#regex-101-metacharacters-cont.-5",
     "href": "slides/week07.html#regex-101-metacharacters-cont.-5",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "",
-    "text": "There are other operators that can be very useful,\n\n(regex) Group capture.\n(?:regex) Group operation without capture.\nA(?=B) Look ahead (match). Find expression A where expression B follows.\nA(?!B) Look ahead (don’t match). Find expression A where expression B does not follow.\n(?&lt;=B)A Look behind (match). Find expression A where expression B precedes.\n(?&lt;!B)A Look behind (don’t match). Find expression A where expression B does not precede.\n\nGroup captures can be reused with \\\\1, \\\\2, …, \\\\n, referring to the first group, second group, etc.\nMore (great) information here https://regex101.com/"
+    "section": "Regex 101: Metacharacters (cont. 5)",
+    "text": "Regex 101: Metacharacters (cont. 5)\nThere are other operators that can be very useful,\n\n(regex) Group capture.\n(?:regex) Group operation without capture.\nA(?=B) Look ahead (match). Find expression A where expression B follows.\nA(?!B) Look ahead (don’t match). Find expression A where expression B does not follow.\n(?&lt;=B)A Look behind (match). Find expression A where expression B precedes.\n(?&lt;!B)A Look behind (don’t match). Find expression A where expression B does not precede.\n\nGroup captures can be reused with \\\\1, \\\\2, …, \\\\n, referring to the first group, second group, etc.\nMore (great) information here https://regex101.com/"
   },
   {
     "objectID": "slides/week07.html#regex-101-examples",
     "href": "slides/week07.html#regex-101-examples",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "",
-    "text": ".{5} Match any character (except line end) five times.\nn{2} Match the letter n twice.\n[0-9] Match any number once.\n[0-9]+ Match any number at least once.\n[a-zA-Z]+ Match any lower or upper case letter at least once.\n\\\\s[a-zA-Z]+\\\\s Match a space, any lower or upper case letter at least once, and a space.\n\\\\s[[:alpha:]]+\\\\s Same as before but this time with the [[:alpha:]] character class."
+    "section": "Regex 101: Examples",
+    "text": "Regex 101: Examples\n\n.{5} Match any character (except line end) five times.\nn{2} Match the letter n twice.\n[0-9] Match any number once.\n[0-9]+ Match any number at least once.\n[a-zA-Z]+ Match any lower or upper case letter at least once.\n\\\\s[a-zA-Z]+\\\\s Match a space, any lower or upper case letter at least once, and a space.\n\\\\s[[:alpha:]]+\\\\s Same as before but this time with the [[:alpha:]] character class."
   },
   {
     "objectID": "slides/week07.html#regex-101-examples-cont.-1",
     "href": "slides/week07.html#regex-101-examples-cont.-1",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "",
-    "text": "Here we are extracting the first occurrence of the following regular expressions (using stringr::str_extract()):\n\n\n\n\n\nregex\nHanna Perez [name]\nThe 年 year was 1999\nHaHa, @abc said that\nGoGo trojans #2025!\n\n\n\n\n.{5}\nHanna\nThe 年\nHaHa,\nGoGo\n\n\nn{2}\nnn\n\n\n\n\n\n[0-9]\n\n1\n\n2\n\n\n[0-9]+\n\n1999\n\n2025\n\n\n[a-zA-Z]+\nHanna\nThe\nHaHa\nGoGo\n\n\n\\\\s[a-zA-Z]+\\\\s\nPerez\nyear\nsaid\ntrojans\n\n\n\\\\s[[:alpha:]]+\\\\s\nPerez\n年\nsaid\ntrojans"
+    "section": "Regex 101: Examples (cont. 1)",
+    "text": "Regex 101: Examples (cont. 1)\nHere we are extracting the first occurrence of the following regular expressions (using stringr::str_extract()):\n\n\n\n\n\n\nregex\nHanna Perez [name]\nThe 年 year was 1999\nHaHa, @abc said that\nGoGo trojans #2025!\n\n\n\n\n.{5}\nHanna\nThe 年\nHaHa,\nGoGo\n\n\nn{2}\nnn\n\n\n\n\n\n[0-9]\n\n1\n\n2\n\n\n[0-9]+\n\n1999\n\n2025\n\n\n[a-zA-Z]+\nHanna\nThe\nHaHa\nGoGo\n\n\n\\\\s[a-zA-Z]+\\\\s\nPerez\nyear\nsaid\ntrojans\n\n\n\\\\s[[:alpha:]]+\\\\s\nPerez\n年\nsaid\ntrojans"
   },
   {
     "objectID": "slides/week07.html#regex-101-examples-cont.-3",
     "href": "slides/week07.html#regex-101-examples-cont.-3",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "",
-    "text": "[a-zA-Z]+ [a-zA-Z]+ Match two sets of letters separated by one space.\n[a-zA-Z]+\\\\s? Match one set of letters, maybe followed by a white space.\n([a-zA-Z]+)\\\\1 Match any lower or upper case letter at least once and then match the same pattern again.\n(@|#)[a-z0-9]+ Match either the @ or # symbol, followed by one or more lower case letter or number.\n(?&lt;=#|@)[a-z0-9]+ Match one or more lower case letter or number that follows either the @ or # symbol.\n\\\\[[a-z]+\\\\] Match the symbol [, at least one lower case letter, then symbol ]."
+    "section": "Regex 101: Examples (cont. 3)",
+    "text": "Regex 101: Examples (cont. 3)\n\n[a-zA-Z]+ [a-zA-Z]+ Match two sets of letters separated by one space.\n[a-zA-Z]+\\\\s? Match one set of letters, maybe followed by a white space.\n([a-zA-Z]+)\\\\1 Match any lower or upper case letter at least once and then match the same pattern again.\n(@|#)[a-z0-9]+ Match either the @ or # symbol, followed by one or more lower case letter or number.\n(?&lt;=#|@)[a-z0-9]+ Match one or more lower case letter or number that follows either the @ or # symbol.\n\\\\[[a-z]+\\\\] Match the symbol [, at least one lower case letter, then symbol ]."
   },
   {
     "objectID": "slides/week07.html#regex-101-examples-cont.-2",
     "href": "slides/week07.html#regex-101-examples-cont.-2",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "",
-    "text": "regex\nHanna Perez [name]\nThe 年 year was 1999\nHaHa, @abc said that\nGoGo trojans #2025!\n\n\n\n\n[a-zA-Z]+ [a-zA-Z]+\nHanna Perez\nyear was\nabc said\nGoGo trojans\n\n\n[a-zA-Z]+\\\\s?\nHanna\nThe\nHaHa\nGoGo\n\n\n([a-zA-Z]+)\\\\1\nnn\n\nHaHa\nGoGo\n\n\n(@|#)[a-z0-9]+\n\n\n@abc\n#2025\n\n\n(?&lt;=#|@)[a-z0-9]+\n\n\nabc\n2025"
+    "section": "Regex 101: Examples (cont. 2)",
+    "text": "Regex 101: Examples (cont. 2)\n\n\n\n\nregex\nHanna Perez [name]\nThe 年 year was 1999\nHaHa, @abc said that\nGoGo trojans #2025!\n\n\n\n\n[a-zA-Z]+ [a-zA-Z]+\nHanna Perez\nyear was\nabc said\nGoGo trojans\n\n\n[a-zA-Z]+\\\\s?\nHanna\nThe\nHaHa\nGoGo\n\n\n([a-zA-Z]+)\\\\1\nnn\n\nHaHa\nGoGo\n\n\n(@|#)[a-z0-9]+\n\n\n@abc\n#2025\n\n\n(?&lt;=#|@)[a-z0-9]+\n\n\nabc\n2025"
   },
   {
     "objectID": "slides/week07.html#regex-101-examples-cont.-3-1",
     "href": "slides/week07.html#regex-101-examples-cont.-3-1",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "",
-    "text": "colnames(ans) &lt;- c(\"regex\", \"Hanna Perez\\n[name]\", \"The 年 year\\nwas 1999\", \"HaHa, @abc\\nsaid that\", \"GoGo trojans\\n#2025!\")\nplot(c(0,50), c(0,8), asp=1, col='white', axes=FALSE, xlab='',ylab='')\nfor(i in 1:ncol(ans)){\n    text(10*i-5, 7, colnames(ans)[i], adj=c(.5,.5), font=2)\n}\ntext(5,1,\"\\\\\\\\[[a-z]+\\\\\\\\]\")\ntext(15,1,\"[name]\")\nabline(h=3.5)"
+    "section": "Regex 101: Examples (cont. 3)",
+    "text": "Regex 101: Examples (cont. 3)"
   },
   {
     "objectID": "slides/week07.html#regex-101-functions-in-r",
     "href": "slides/week07.html#regex-101-functions-in-r",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "",
-    "text": "Find in text: grepl(), stringr::str_detect().\nSimilar to which(), which elements are TRUE grep(), stringr::str_which()\nReplace the first instance: sub(), stringr::str_replace()\nReplace all instances: gsub(), stringr::str_replace_all()\nExtract text: regmatches() plus regexpr(), stringr::str_extract() and stringr::str_extract_all()."
+    "section": "Regex 101: Functions in R",
+    "text": "Regex 101: Functions in R\n\nFind in text: grepl(), stringr::str_detect().\nSimilar to which(), which elements are TRUE grep(), stringr::str_which()\nReplace the first instance: sub(), stringr::str_replace()\nReplace all instances: gsub(), stringr::str_replace_all()\nExtract text: regmatches() plus regexpr(), stringr::str_extract() and stringr::str_extract_all()."
   },
   {
     "objectID": "slides/week07.html#regex-101-functions-in-r-cont.-1",
     "href": "slides/week07.html#regex-101-functions-in-r-cont.-1",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "",
-    "text": "For example, like in Twitter, let’s create a regex that matches usernames or hashtags with the following pattern:\n(@|#)([[:alnum:]]+)\n\n\n\n\n\n\n\n\n\n\n\nCode\n@Hanna Perez [name] #html\nThe @年 year was 1999\nHaHa, @abc said that @z\n\n\n\n\nstr_detect(text, pattern) or grepl(pattern, text)\nTRUE\nTRUE\nTRUE\n\n\nstr_extract(text, pattern) or regmatches(...)\n@Hanna\n@年\n@abc\n\n\nstr_extract_all(text, pattern)\n@Hanna, #html\n@年\n@abc, @z"
+    "section": "Regex 101: Functions in R (cont. 1)",
+    "text": "Regex 101: Functions in R (cont. 1)\nFor example, like in Twitter, let’s create a regex that matches usernames or hashtags with the following pattern:\n(@|#)([[:alnum:]]+)\n\n\n\n\n\n\n\n\n\n\n\nCode\n@Hanna Perez [name] #html\nThe @年 year was 1999\nHaHa, @abc said that @z\n\n\n\n\nstr_detect(text, pattern) or grepl(pattern, text)\nTRUE\nTRUE\nTRUE\n\n\nstr_extract(text, pattern) or regmatches(...)\n@Hanna\n@年\n@abc\n\n\nstr_extract_all(text, pattern)\n@Hanna, #html\n@年\n@abc, @z"
   },
   {
     "objectID": "slides/week07.html#regex-101-functions-in-r-cont.-2",
     "href": "slides/week07.html#regex-101-functions-in-r-cont.-2",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "",
-    "text": "Pattern: (@|#)([[:alnum:]]+)\n\n\n\n\n\n\n\n\n\n\n\nCode\n@Hanna Perez [name] #html\nThe @年 year was 1999\nHaHa, @abc said that @z\n\n\n\n\nstr_replace(text, pattern, \"\\\\1justinbieber\") or sub(...)\n@justinbieber Perez [name] #html\nThe @justinbieber year was 1999\nHaHa, @justinbieber said that @z\n\n\nstr_replace_all(text, pattern, \"\\\\1justinbieber\") or gsub(...)\n@justinbieber Perez [name] #justinbieber\nThe @justinbieber year was 1999\nHaHa, @justinbieber said that @justinbieber\n\n\n\n\n\nNote: It renders oddly in the table, but there is no space or line break in the group replacement, \\\\1."
+    "section": "Regex 101: Functions in R (cont. 2)",
+    "text": "Regex 101: Functions in R (cont. 2)\nPattern: (@|#)([[:alnum:]]+)\n\n\n\n\n\n\n\n\n\n\n\nCode\n@Hanna Perez [name] #html\nThe @年 year was 1999\nHaHa, @abc said that @z\n\n\n\n\nstr_replace(text, pattern, \"\\\\1justinbieber\") or sub(...)\n@justinbieber Perez [name] #html\nThe @justinbieber year was 1999\nHaHa, @justinbieber said that @z\n\n\nstr_replace_all(text, pattern, \"\\\\1justinbieber\") or gsub(...)\n@justinbieber Perez [name] #justinbieber\nThe @justinbieber year was 1999\nHaHa, @justinbieber said that @justinbieber\n\n\n\n\n\nNote: It renders oddly in the table, but there is no space or line break in the group replacement, \\\\1."
   },
   {
     "objectID": "slides/week07.html#data",
     "href": "slides/week07.html#data",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "",
-    "text": "This week we will continue using our text mining dataset:\n\n# Where are we getting the data from\nmts_url &lt;- \"https://github.com/USCbiostats/data-science-data/raw/master/00_mtsamples/mtsamples.csv\"\n\n# Downloading the data to a tempfile (so it is destroyed afterwards)\ntmp &lt;- tempfile(pattern = \"mtsamples\", fileext = \".csv\")\n\n# We should be downloading this, ONLY IF this was not downloaded already.\n# otherwise is just a waste of time.\nif (!file.exists(tmp)) {\n  download.file(\n    url      = mts_url,\n    destfile = tmp,\n    # method   = \"libcurl\", timeout = 1000 (you may need this option)\n  )\n}\n\n# read the file\nmtsamples &lt;- read.csv(tmp, header = TRUE, row.names = 1)"
+    "section": "Data",
+    "text": "Data\nThis week we will continue using our text mining dataset:\n\n# Where are we getting the data from\nmts_url &lt;- \"https://github.com/USCbiostats/data-science-data/raw/master/00_mtsamples/mtsamples.csv\"\n\n# Downloading the data to a tempfile (so it is destroyed afterwards)\ntmp &lt;- tempfile(pattern = \"mtsamples\", fileext = \".csv\")\n\n# We should be downloading this, ONLY IF this was not downloaded already.\n# otherwise is just a waste of time.\nif (!file.exists(tmp)) {\n  download.file(\n    url      = mts_url,\n    destfile = tmp,\n    # method   = \"libcurl\", timeout = 1000 (you may need this option)\n  )\n}\n\n# read the file\nmtsamples &lt;- read.csv(tmp, header = TRUE, row.names = 1)"
   },
   {
     "objectID": "slides/week07.html#regex-lookup-text-tumor",
     "href": "slides/week07.html#regex-lookup-text-tumor",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "",
-    "text": "For each entry, we want to know if it is tumor-related. For that we can use the following code:\n\n# How many entries contain the word tumor?\nsum(grepl(\"tumor\", mtsamples$description, ignore.case = TRUE))\n\n[1] 80\n\n# Generating a column tagging tumor\nmtsamples$tumor_related &lt;- grepl(\"tumor\", mtsamples$description, ignore.case = TRUE)\n\n# Taking a look at a few examples\nmtsamples$description[mtsamples$tumor_related == TRUE][1:3]\n\n[1] \"  Transurethral resection of a medium bladder tumor (TURBT), left lateral wall.\"                              \n[2] \" Transurethral resection of the bladder tumor (TURBT), large.\"                                                \n[3] \" Cystoscopy, transurethral resection of medium bladder tumor (4.0 cm in diameter), and direct bladder biopsy.\"\n\n\nNotice the ignore.case = TRUE. This is equivalent to transforming the text to lower case using tolower() before passing the text to the regular expression function."
+    "section": "Regex Lookup Text: Tumor",
+    "text": "Regex Lookup Text: Tumor\nFor each entry, we want to know if it is tumor-related. For that we can use the following code:\n\n# How many entries contain the word tumor?\nsum(grepl(\"tumor\", mtsamples$description, ignore.case = TRUE))\n\n[1] 80\n\n# Generating a column tagging tumor\nmtsamples$tumor_related &lt;- grepl(\"tumor\", mtsamples$description, ignore.case = TRUE)\n\n# Taking a look at a few examples\nmtsamples$description[mtsamples$tumor_related == TRUE][1:3]\n\n[1] \"  Transurethral resection of a medium bladder tumor (TURBT), left lateral wall.\"                              \n[2] \" Transurethral resection of the bladder tumor (TURBT), large.\"                                                \n[3] \" Cystoscopy, transurethral resection of medium bladder tumor (4.0 cm in diameter), and direct bladder biopsy.\"\n\n\nNotice the ignore.case = TRUE. This is equivalent to transforming the text to lower case using tolower() before passing the text to the regular expression function."
   },
   {
     "objectID": "slides/week07.html#regex-lookup-text-pronoun-of-the-patient",
     "href": "slides/week07.html#regex-lookup-text-pronoun-of-the-patient",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "",
-    "text": "Now, let’s try to guess the pronoun of the patient. To do so, we could tag by using the words he, his, him, they, them, theirs, ze, hir, hirs, she, hers, her (see this article on sexist text):\n\nmtsamples$pronoun &lt;- str_extract(\n  string  = tolower(mtsamples$transcription),\n  pattern = \"he|his|him|they|them|theirs|ze|hir|hirs|she|hers|her\"\n)\n\nWhat is the problem with this approach?"
+    "section": "Regex Lookup text: Pronoun of the patient",
+    "text": "Regex Lookup text: Pronoun of the patient\nNow, let’s try to guess the pronoun of the patient. To do so, we could tag by using the words he, his, him, they, them, theirs, ze, hir, hirs, she, hers, her (see this article on sexist text):\n\nmtsamples$pronoun &lt;- str_extract(\n  string  = tolower(mtsamples$transcription),\n  pattern = \"he|his|him|they|them|theirs|ze|hir|hirs|she|hers|her\"\n)\n\nWhat is the problem with this approach?"
   },
   {
     "objectID": "slides/week07.html#regex-lookup-text-pronoun-of-the-patient-cont.-1",
     "href": "slides/week07.html#regex-lookup-text-pronoun-of-the-patient-cont.-1",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "",
-    "text": "mtsamples$transcription[1]\n\n[1] \"SUBJECTIVE:,  This 23-year-old white female presents with complaint of allergies.  She used to have allergies when she lived in Seattle but she thinks they are worse here.  In the past, she has tried Claritin, and Zyrtec.  Both worked for short time but then seemed to lose effectiveness.  She has used Allegra also.  She used that last summer and she began using it again two weeks ago.  It does not appear to be working very well.  She has used over-the-counter sprays but no prescription nasal sprays.  She does have asthma but doest not require daily medication for this and does not think it is flaring up.,MEDICATIONS: , Her only medication currently is Ortho Tri-Cyclen and the Allegra.,ALLERGIES: , She has no known medicine allergies.,OBJECTIVE:,Vitals:  Weight was 130 pounds and blood pressure 124/78.,HEENT:  Her throat was mildly erythematous without exudate.  Nasal mucosa was erythematous and swollen.  Only clear drainage was seen.  TMs were clear.,Neck:  Supple without adenopathy.,Lungs:  Clear.,ASSESSMENT:,  Allergic rhinitis.,PLAN:,1.  She will try Zyrtec instead of Allegra again.  Another option will be to use loratadine.  She does not think she has prescription coverage so that might be cheaper.,2.  Samples of Nasonex two sprays in each nostril given for three weeks.  A prescription was written as well.\"\n\nmtsamples$pronoun[1]\n\n[1] \"his\""
+    "section": "Regex Lookup text: Pronoun of the patient (cont. 1)",
+    "text": "Regex Lookup text: Pronoun of the patient (cont. 1)\n\nmtsamples$transcription[1]\n\n[1] \"SUBJECTIVE:,  This 23-year-old white female presents with complaint of allergies.  She used to have allergies when she lived in Seattle but she thinks they are worse here.  In the past, she has tried Claritin, and Zyrtec.  Both worked for short time but then seemed to lose effectiveness.  She has used Allegra also.  She used that last summer and she began using it again two weeks ago.  It does not appear to be working very well.  She has used over-the-counter sprays but no prescription nasal sprays.  She does have asthma but doest not require daily medication for this and does not think it is flaring up.,MEDICATIONS: , Her only medication currently is Ortho Tri-Cyclen and the Allegra.,ALLERGIES: , She has no known medicine allergies.,OBJECTIVE:,Vitals:  Weight was 130 pounds and blood pressure 124/78.,HEENT:  Her throat was mildly erythematous without exudate.  Nasal mucosa was erythematous and swollen.  Only clear drainage was seen.  TMs were clear.,Neck:  Supple without adenopathy.,Lungs:  Clear.,ASSESSMENT:,  Allergic rhinitis.,PLAN:,1.  She will try Zyrtec instead of Allegra again.  Another option will be to use loratadine.  She does not think she has prescription coverage so that might be cheaper.,2.  Samples of Nasonex two sprays in each nostril given for three weeks.  A prescription was written as well.\"\n\nmtsamples$pronoun[1]\n\n[1] \"his\""
   },
   {
     "objectID": "slides/week07.html#regex-lookup-text-pronoun-of-the-patient-cont.-1-1",
     "href": "slides/week07.html#regex-lookup-text-pronoun-of-the-patient-cont.-1-1",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "",
-    "text": "To correct this issue, we can make our regular expression more precise:\n(?&lt;=\\W|^)(he|his|him|they|them|theirs|ze|hir|hirs|she|hers|her)(?=\\W|$)\nBit by bit this is:\n\n(?&lt;=regex) look behind for…\n\n\\W any non-alphanumeric character, this is equivalent to [^[:alnum:]], | or\n^ the beginning of text\n\nhe|his|him... any of these words\n(?=regex) followed by…\n\n\\W any non-alphanumeric character, this is equivalent to [^[:alnum:]], | or\n$ the end of the text."
+    "section": "Regex Lookup text: Pronoun of the patient (cont. 1)",
+    "text": "Regex Lookup text: Pronoun of the patient (cont. 1)\nTo correct this issue, we can make our regular expression more precise:\n(?&lt;=\\W|^)(he|his|him|they|them|theirs|ze|hir|hirs|she|hers|her)(?=\\W|$)\nBit by bit this is:\n\n(?&lt;=regex) look behind for…\n\n\\W any non-alphanumeric character, this is equivalent to [^[:alnum:]], | or\n^ the beginning of text\n\nhe|his|him... any of these words\n(?=regex) followed by…\n\n\\W any non-alphanumeric character, this is equivalent to [^[:alnum:]], | or\n$ the end of the text."
   },
   {
     "objectID": "slides/week07.html#regex-lookup-text-pronoun-of-the-patient-cont.-2",
     "href": "slides/week07.html#regex-lookup-text-pronoun-of-the-patient-cont.-2",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "",
-    "text": "Let’s use this new pattern:\n\nmtsamples$pronoun &lt;- str_extract(\n  string  = tolower(mtsamples$transcription), \n  pattern = \"(?&lt;=\\\\W|^)(he|his|him|they|them|theirs|ze|hir|hirs|she|hers|her)(?=\\\\W|$)\"\n  )\nmtsamples$pronoun[1:10]\n\n [1] \"she\" \"he\"  \"he\"  NA    NA    \"she\" \"she\" NA    NA    NA"
+    "section": "Regex Lookup text: Pronoun of the patient (cont. 2)",
+    "text": "Regex Lookup text: Pronoun of the patient (cont. 2)\nLet’s use this new pattern:\n\nmtsamples$pronoun &lt;- str_extract(\n  string  = tolower(mtsamples$transcription), \n  pattern = \"(?&lt;=\\\\W|^)(he|his|him|they|them|theirs|ze|hir|hirs|she|hers|her)(?=\\\\W|$)\"\n  )\nmtsamples$pronoun[1:10]\n\n [1] \"she\" \"he\"  \"he\"  NA    NA    \"she\" \"she\" NA    NA    NA"
   },
   {
     "objectID": "slides/week07.html#regex-lookup-text-pronoun-of-the-patient-cont.-3",
     "href": "slides/week07.html#regex-lookup-text-pronoun-of-the-patient-cont.-3",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "",
-    "text": "table(mtsamples$pronoun, useNA = \"always\")\n\n\n  he  her  him  his  she them they &lt;NA&gt; \n1073  554   39  524 1261   23   96 1429"
+    "section": "Regex Lookup text: Pronoun of the patient (cont. 3)",
+    "text": "Regex Lookup text: Pronoun of the patient (cont. 3)\n\ntable(mtsamples$pronoun, useNA = \"always\")\n\n\n  he  her  him  his  she them they &lt;NA&gt; \n1073  554   39  524 1261   23   96 1429"
   },
   {
     "objectID": "slides/week07.html#regex-extract-text-type-of-cancer",
     "href": "slides/week07.html#regex-extract-text-type-of-cancer",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "",
-    "text": "Imagine now that you need to see the types of cancer mentioned in the data.\nFor simplicity, let’s assume that, if specified, it is in the form of TYPE cancer, i.e. single word.\nWe are interested in the word before cancer, how can we capture this?"
+    "section": "Regex Extract Text: Type of Cancer",
+    "text": "Regex Extract Text: Type of Cancer\n\nImagine now that you need to see the types of cancer mentioned in the data.\nFor simplicity, let’s assume that, if specified, it is in the form of TYPE cancer, i.e. single word.\nWe are interested in the word before cancer, how can we capture this?"
   },
   {
     "objectID": "slides/week07.html#regex-extract-text-type-of-cancer-cont-1.",
     "href": "slides/week07.html#regex-extract-text-type-of-cancer-cont-1.",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "",
-    "text": "We can just try to extract the phrase \"[some word] cancer\", in particular, we could use the following regular expression:\n[[:alnum:]-_]{4,}\\s*cancer\nWhere\n\n[[:alnum:]-_]{4,} captures any alphanumeric character, including - and _. Furthermore, for this match to work there must be at least 4 characters,\n\\s* captures 0 or more white-spaces, and\ncancer captures the word cancer"
+    "section": "Regex Extract Text: Type of Cancer (cont 1.)",
+    "text": "Regex Extract Text: Type of Cancer (cont 1.)\nWe can just try to extract the phrase \"[some word] cancer\", in particular, we could use the following regular expression:\n[[:alnum:]-_]{4,}\\s*cancer\nWhere\n\n[[:alnum:]-_]{4,} captures any alphanumeric character, including - and _. Furthermore, for this match to work there must be at least 4 characters,\n\\s* captures 0 or more white-spaces, and\ncancer captures the word cancer"
   },
   {
     "objectID": "slides/week07.html#regex-extract-text-type-of-cancer-cont.-2",
     "href": "slides/week07.html#regex-extract-text-type-of-cancer-cont.-2",
     "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "",
-    "text": "mtsamples$cancer_type &lt;- str_extract(tolower(mtsamples$keywords), \"[[:alnum:]-_]{4,}\\\\s*cancer\")\ntable(mtsamples$cancer_type)\n\n\n       anal cancer     bladder cancer      breast cancer       colon cancer \n                 1                  8                 21                 14 \nendometrial cancer  esophageal cancer        lung cancer     ovarian cancer \n                 5                  2                 13                  1 \n  papillary cancer    prostate cancer     uterine cancer \n                 3                 17                  7"
+    "section": "Regex Extract Text: Type of Cancer (cont. 2)",
+    "text": "Regex Extract Text: Type of Cancer (cont. 2)\n\nmtsamples$cancer_type &lt;- str_extract(tolower(mtsamples$keywords), \"[[:alnum:]-_]{4,}\\\\s*cancer\")\ntable(mtsamples$cancer_type)\n\n\n       anal cancer     bladder cancer      breast cancer       colon cancer \n                 1                  8                 21                 14 \nendometrial cancer  esophageal cancer        lung cancer     ovarian cancer \n                 5                  2                 13                  1 \n  papillary cancer    prostate cancer     uterine cancer \n                 3                 17                  7"
   },
   {
     "objectID": "slides/week07.html#fundamentals-of-web-scraping",
@@ -1041,6 +1041,20 @@
     "title": "Week 7: Regular Expressions and Web Scraping",
     "section": "Web scraping with xml2 and the rvest package (cont. 2)",
     "text": "Web scraping with xml2 and the rvest package (cont. 2)\nNow that we know the path, let’s use that and extract the table:\n\ntable &lt;- xml_find_all(covid, xpath = '/html/body/div[2]/div/div[3]/main/div[3]/div[3]/div[1]/div[4]/table')\nprint(table) # collection of tables in XML\n\n{xml_nodeset (1)}\n[1] &lt;table class=\"wikitable sortable sort-under static-row-numbers mw-datatab ..."
+  },
+  {
+    "objectID": "slides/week07.html#web-scraping-with-xml2-and-the-rvest-package-cont.-3",
+    "href": "slides/week07.html#web-scraping-with-xml2-and-the-rvest-package-cont.-3",
+    "title": "Week 7: Regular Expressions and Web Scraping",
+    "section": "Web scraping with xml2 and the rvest package (cont. 3)",
+    "text": "Web scraping with xml2 and the rvest package (cont. 3)\nWe’re getting closer!\n\ntable &lt;- html_table(table) \nprint(table) # list of tibbles\n\n[[1]]\n# A tibble: 240 × 4\n   Country                `Deaths / million` Deaths    Cases      \n   &lt;chr&gt;                  &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;      \n 1 World[a]               892                7,099,056 778,402,651\n 2 Peru                   6,603              221,060   4,532,707  \n 3 Bulgaria               5,679              38,766    1,338,533  \n 4 North Macedonia        5,429              9,991     352,093    \n 5 Bosnia and Herzegovina 5,119              16,406    404,289    \n 6 Hungary                5,072              49,124    2,238,102  \n 7 Croatia                4,807              18,784    1,357,545  \n 8 Slovenia               4,687              9,914     1,363,390  \n 9 Georgia                4,519              17,151    1,864,385  \n10 Montenegro             4,318              2,654     251,280    \n# ℹ 230 more rows"
+  },
+  {
+    "objectID": "slides/week07.html#web-scraping-with-xml2-and-the-rvest-package-cont.-4",
+    "href": "slides/week07.html#web-scraping-with-xml2-and-the-rvest-package-cont.-4",
+    "title": "Week 7: Regular Expressions and Web Scraping",
+    "section": "Web scraping with xml2 and the rvest package (cont. 4)",
+    "text": "Web scraping with xml2 and the rvest package (cont. 4)\nThere it is!\n\ntable &lt;- table[[1]]\nprint(table) # hooray!\n\n# A tibble: 240 × 4\n   Country                `Deaths / million` Deaths    Cases      \n   &lt;chr&gt;                  &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;      \n 1 World[a]               892                7,099,056 778,402,651\n 2 Peru                   6,603              221,060   4,532,707  \n 3 Bulgaria               5,679              38,766    1,338,533  \n 4 North Macedonia        5,429              9,991     352,093    \n 5 Bosnia and Herzegovina 5,119              16,406    404,289    \n 6 Hungary                5,072              49,124    2,238,102  \n 7 Croatia                4,807              18,784    1,357,545  \n 8 Slovenia               4,687              9,914     1,363,390  \n 9 Georgia                4,519              17,151    1,864,385  \n10 Montenegro             4,318              2,654     251,280    \n# ℹ 230 more rows"
   },
   {
     "objectID": "slides/week07.html#web-apis",
@@ -1082,7 +1096,7 @@
     "href": "slides/week07.html#web-api-example-1-gene-ontology-cont.-2",
     "title": "Week 7: Regular Expressions and Web Scraping",
     "section": "* Web API Example 1: Gene Ontology (cont. 2)",
-    "text": "* Web API Example 1: Gene Ontology (cont. 2)\nLet’s take a look at the response:\n\ngo_query\n\nResponse [https://api.geneontology.org/api/bioentity/function/GO:0140374/genes?evidence=ECO%3A0000006&relationship_type=involved_in]\n  Date: 2025-08-29 19:09\n  Status: 200\n  Content-Type: application/json\n  Size: 116 kB\n\n\nRemember the codes:\n\n1xx: Information message\n2xx: Success\n3xx: Redirection\n4xx: Client error\n5xx: Server error"
+    "text": "* Web API Example 1: Gene Ontology (cont. 2)\nLet’s take a look at the response:\n\ngo_query\n\nResponse [https://api.geneontology.org/api/bioentity/function/GO:0140374/genes?evidence=ECO%3A0000006&relationship_type=involved_in]\n  Date: 2025-08-28 23:29\n  Status: 200\n  Content-Type: application/json\n  Size: 116 kB\n\n\nRemember the codes:\n\n1xx: Information message\n2xx: Success\n3xx: Redirection\n4xx: Client error\n5xx: Server error"
   },
   {
     "objectID": "slides/week07.html#web-api-example-1-gene-ontology-cont.-3",
@@ -1110,7 +1124,7 @@
     "href": "slides/week07.html#web-api-example-2-using-tokens-cont.-1",
     "title": "Week 7: Regular Expressions and Web Scraping",
     "section": "* Web API Example 2: Using Tokens (cont. 1)",
-    "text": "* Web API Example 2: Using Tokens (cont. 1)\n\nThe way to pass the token will depend on the API service.\nSome require authentication, others need you to pass it as an argument of the query, i.e., directly in the URL.\nIn this case, we pass it on the header.\n\nstations_api &lt;- GET(\n  url    = \"https://www.ncdc.noaa.gov\",\n  path   = \"cdo-web/api/v2/stations\",\n  config = add_headers(\n    token = \"[YOUR TOKEN HERE]\"\n    ),\n  query  = list(limit = 1000)\n)\n\nThis is equivalent to using the following query\ncurl --header \"token: [YOUR TOKEN HERE]\" \\\n  https://www.ncdc.noaa.gov/cdo-web/api/v2/stations?limit=1000\n\nNote: This won’t run, you need to get your own token"
+    "text": "* Web API Example 2: Using Tokens (cont. 1)\n\nThe way to pass the token will depend on the API service.\nSome require authentication, others need you to pass it as an argument of the query, i.e., directly in the URL.\nIn this case, we pass it on the header.\nThis is equivalent to using the following query\ncurl --header \"token: [YOUR TOKEN HERE]\" \\\n  https://www.ncdc.noaa.gov/cdo-web/api/v2/stations?limit=1000\n\nNote: This won’t run, you need to get your own token"
   },
   {
     "objectID": "slides/week07.html#web-api-example-2-using-tokens-cont.-2",
@@ -1131,7 +1145,7 @@
     "href": "slides/week07.html#web-api-example-3-hhs-health-recommendation-cont.-1",
     "title": "Week 7: Regular Expressions and Web Scraping",
     "section": "* Web API Example 3: HHS health recommendation (cont. 1)",
-    "text": "* Web API Example 3: HHS health recommendation (cont. 1)\nLet’s see the response\n\nhealth_advises\n\nResponse [https://odphp.health.gov/myhealthfinder/api/v3/myhealthfinder.json?lang=en&age=32&sex=male&tobaccoUse=0]\n  Date: 2025-08-29 19:09\n  Status: 200\n  Content-Type: application/json\n  Size: 310 kB\n{\n    \"Result\": {\n        \"Error\": \"MyHealthfinder API version 3 is no longer supported. Please...\n        \"Total\": 18,\n        \"Query\": {\n            \"ApiVersion\": \"3\",\n            \"ApiType\": \"myhealthfinder\",\n            \"TopicId\": null,\n            \"CategoryId\": null,\n            \"Keyword\": null,\n..."
+    "text": "* Web API Example 3: HHS health recommendation (cont. 1)\nLet’s see the response\n\nhealth_advises\n\nResponse [https://odphp.health.gov/myhealthfinder/api/v3/myhealthfinder.json?lang=en&age=32&sex=male&tobaccoUse=0]\n  Date: 2025-08-28 23:29\n  Status: 200\n  Content-Type: application/json\n  Size: 310 kB\n{\n    \"Result\": {\n        \"Error\": \"MyHealthfinder API version 3 is no longer supported. Please...\n        \"Total\": 18,\n        \"Query\": {\n            \"ApiVersion\": \"3\",\n            \"ApiType\": \"myhealthfinder\",\n            \"TopicId\": null,\n            \"CategoryId\": null,\n            \"Keyword\": null,\n..."
   },
   {
     "objectID": "slides/week07.html#web-api-example-3-hhs-health-recommendation-cont.-2",
@@ -1169,32 +1183,375 @@
     "text": "Regular Expressions: Email validation\nThis is the official regex for email validation implemented by RCF 5322\n(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\n\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?\n:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:(2(5[\n0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0\n-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\\nx7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])\nSee the corresponding post in StackOverflow"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "PM 566",
+    "objectID": "slides/week08.html#efficiency-loops",
+    "href": "slides/week08.html#efficiency-loops",
+    "title": "Week 8: Efficiency and High Performance Computing",
+    "section": "Efficiency: Loops",
+    "text": "Efficiency: Loops\nWe’ve seen various examples of loops so far in this class.\nClassic examples that are common to most programming languages include for and while loops.\nOther types of loops are more specific to R, such as the various *apply functions (apply, sapply, lapply, etc.).\nKnowing when to use a loop and when not to is a critical concern in computational efficiency."
+  },
+  {
+    "objectID": "slides/week08.html#example-square-roots",
+    "href": "slides/week08.html#example-square-roots",
+    "title": "Week 8: Efficiency and High Performance Computing",
+    "section": "Example: Square Roots",
+    "text": "Example: Square Roots\nLet’s say we want to take the square roots of the numbers 1 to 10,000. We could achieve this in a number of different ways.\nHere, we use a for loop:\n\nforLoopRoots &lt;- function(n){\n  roots &lt;- rep(NA, n)\n  for(i in 1:n){\n    roots[i] &lt;- sqrt(i)\n  }\n  return(roots)\n}\n\nhead(forLoopRoots(10000))\n\n[1] 1.000000 1.414214 1.732051 2.000000 2.236068 2.449490"
+  },
+  {
+    "objectID": "slides/week08.html#example-square-roots-cont.-1",
+    "href": "slides/week08.html#example-square-roots-cont.-1",
+    "title": "Week 8: Efficiency and High Performance Computing",
+    "section": "Example: Square Roots (cont. 1)",
+    "text": "Example: Square Roots (cont. 1)\nHere, we’ll use sapply:\n\nSapplyRoots &lt;- function(n){\n  roots &lt;- sapply(1:n, sqrt)\n  return(roots)\n}\n\nhead(SapplyRoots(10000))\n\n[1] 1.000000 1.414214 1.732051 2.000000 2.236068 2.449490"
+  },
+  {
+    "objectID": "slides/week08.html#example-square-roots-cont.-2",
+    "href": "slides/week08.html#example-square-roots-cont.-2",
+    "title": "Week 8: Efficiency and High Performance Computing",
+    "section": "Example: Square Roots (cont. 2)",
+    "text": "Example: Square Roots (cont. 2)\nHow fast are these methods? Let’s use the microbenchmark package to find out!\n\nlibrary(microbenchmark)\nmicrobenchmark(forLoopRoots(10000), SapplyRoots(10000))\n\nUnit: microseconds\n                expr      min       lq      mean    median       uq      max\n forLoopRoots(10000)  305.081  311.641  316.3474  313.6295  318.119  451.410\n  SapplyRoots(10000) 1538.402 1574.482 1732.0266 1620.1970 1669.869 3202.469\n neval\n   100\n   100"
+  },
+  {
+    "objectID": "slides/week08.html#example-square-roots-cont.-3",
+    "href": "slides/week08.html#example-square-roots-cont.-3",
+    "title": "Week 8: Efficiency and High Performance Computing",
+    "section": "Example: Square Roots (cont. 3)",
+    "text": "Example: Square Roots (cont. 3)\nBut do we really need a loop for this job? Here, we’ll use vectorization to perform all the calculations “at once.”\n\nVectorizedRoots &lt;- function(n){\n  sqrt(1:n)\n}\n\nhead(VectorizedRoots(10000))\n\n[1] 1.000000 1.414214 1.732051 2.000000 2.236068 2.449490"
+  },
+  {
+    "objectID": "slides/week08.html#example-square-roots-cont.-4",
+    "href": "slides/week08.html#example-square-roots-cont.-4",
+    "title": "Week 8: Efficiency and High Performance Computing",
+    "section": "Example: Square Roots (cont. 4)",
+    "text": "Example: Square Roots (cont. 4)\nThat’s a lot faster!\n\nlibrary(microbenchmark)\nmicrobenchmark(forLoopRoots(10000), VectorizedRoots(10000))\n\nUnit: microseconds\n                   expr     min       lq      mean   median      uq     max\n    forLoopRoots(10000) 311.846 322.8135 330.93724 325.7450 330.993 574.287\n VectorizedRoots(10000)  12.218  20.6025  30.06776  21.2175  22.591 814.916\n neval\n   100\n   100\n\n\nAnytime that you can use vectorized computation, you should! It will (almost) always save you a lot of computation time!"
+  },
+  {
+    "objectID": "slides/week08.html#use-pre-made-functions",
+    "href": "slides/week08.html#use-pre-made-functions",
+    "title": "Week 8: Efficiency and High Performance Computing",
+    "section": "Use pre-made functions",
+    "text": "Use pre-made functions\nLet’s say there’s a relatively simple operation you want to perform. You know how to write the code for it, but you’re pretty sure there’s also a built-in function that performs the same task. Which should you use?\nGenerally speaking, you should aim to write as little code as possible. Built-in functions (especially in the base package) are highly optimized and likely to run much faster than manual implementations."
+  },
+  {
+    "objectID": "slides/week08.html#example-repeated-elements",
+    "href": "slides/week08.html#example-repeated-elements",
+    "title": "Week 8: Efficiency and High Performance Computing",
+    "section": "Example: Repeated elements",
+    "text": "Example: Repeated elements\nLet’s say we have a long vector and we want to find all of the repeated elements.\n\nset.seed(1)\nvec &lt;- sample(letters, 100, replace = TRUE)\nvec\n\n  [1] \"y\" \"d\" \"g\" \"a\" \"b\" \"w\" \"k\" \"n\" \"r\" \"s\" \"a\" \"u\" \"u\" \"j\" \"v\" \"n\" \"j\" \"g\"\n [19] \"i\" \"o\" \"u\" \"e\" \"i\" \"y\" \"n\" \"e\" \"e\" \"b\" \"j\" \"y\" \"l\" \"o\" \"a\" \"t\" \"c\" \"f\"\n [37] \"j\" \"j\" \"f\" \"o\" \"t\" \"t\" \"z\" \"l\" \"y\" \"w\" \"f\" \"y\" \"h\" \"l\" \"y\" \"w\" \"x\" \"f\"\n [55] \"z\" \"g\" \"s\" \"j\" \"f\" \"x\" \"n\" \"b\" \"m\" \"r\" \"v\" \"n\" \"f\" \"a\" \"s\" \"s\" \"h\" \"f\"\n [73] \"w\" \"l\" \"f\" \"h\" \"g\" \"k\" \"q\" \"d\" \"m\" \"h\" \"y\" \"p\" \"y\" \"w\" \"n\" \"t\" \"g\" \"m\"\n [91] \"v\" \"l\" \"p\" \"a\" \"m\" \"u\" \"f\" \"q\" \"i\" \"g\""
+  },
+  {
+    "objectID": "slides/week08.html#example-repeated-elements-cont.-1",
+    "href": "slides/week08.html#example-repeated-elements-cont.-1",
+    "title": "Week 8: Efficiency and High Performance Computing",
+    "section": "Example: Repeated elements (cont. 1)",
+    "text": "Example: Repeated elements (cont. 1)\nWe can achieve this with two nested loops:\n\nmethod1 &lt;- function(x){\n  # first element cannot be a duplicate\n  out &lt;- sapply(2:length(x), function(i){\n    matches &lt;- sapply(1:(i-1), function(i2){\n      x[i2] == x[i]\n    })\n    return(any(matches))\n  })\n  out &lt;- c(FALSE, out)\n  return(out)\n}\n\nvec[1:11]\n\n [1] \"y\" \"d\" \"g\" \"a\" \"b\" \"w\" \"k\" \"n\" \"r\" \"s\" \"a\"\n\nmethod1(vec)[1:11]\n\n [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE"
+  },
+  {
+    "objectID": "slides/week08.html#example-repeated-elements-cont.-2",
+    "href": "slides/week08.html#example-repeated-elements-cont.-2",
+    "title": "Week 8: Efficiency and High Performance Computing",
+    "section": "Example: Repeated elements (cont. 2)",
+    "text": "Example: Repeated elements (cont. 2)\nOr slightly faster with a loop and vectorized comparison:\n\nmethod2 &lt;- function(x){\n  # first element cannot be a duplicate\n  out &lt;- sapply(2:length(x), function(i){\n    return(any(x[1:(i-1)] == x[i]))\n  })\n  out &lt;- c(FALSE, out)\n  return(out)\n}\n\nmethod2(vec)[1:11]\n\n [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE\n\nmicrobenchmark(method1(vec), method2(vec))\n\nUnit: microseconds\n         expr      min        lq      mean   median        uq      max neval\n method1(vec) 3111.777 3231.7020 3519.5700 3281.066 3421.5525 6075.093   100\n method2(vec)  117.547  122.0365  166.9081  127.059  135.0745 2487.265   100"
+  },
+  {
+    "objectID": "slides/week08.html#example-repeated-elements-cont.-3",
+    "href": "slides/week08.html#example-repeated-elements-cont.-3",
+    "title": "Week 8: Efficiency and High Performance Computing",
+    "section": "Example: Repeated elements (cont. 3)",
+    "text": "Example: Repeated elements (cont. 3)\nBut the real speed-up comes when we use the base function duplicated:\n\nmethod3 &lt;- function(x){\n  duplicated(x)\n}\n\nmethod3(vec)[1:11]\n\n [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE\n\nmicrobenchmark(method2(vec), method3(vec))\n\nUnit: microseconds\n         expr     min       lq      mean  median      uq     max neval\n method2(vec) 116.071 123.0000 128.90359 125.173 131.159 177.571   100\n method3(vec)   2.050   2.3165   7.69857   2.460   2.583 510.163   100"
+  },
+  {
+    "objectID": "slides/week08.html#what-is-hpc",
+    "href": "slides/week08.html#what-is-hpc",
+    "title": "Week 8: Efficiency and High Performance Computing",
+    "section": "What is HPC?",
+    "text": "What is HPC?\nHigh Performance Computing (HPC) can relate to any of the following:\n\nParallel computing, i.e. using multiple resources (could be threads, cores, nodes, etc.) simultaneously to complete a task.\nBig data working with large datasets (in/out-of-memory).\n\nWe will mostly focus on parallel computing."
+  },
+  {
+    "objectID": "slides/week08.html#serial-computation",
+    "href": "slides/week08.html#serial-computation",
+    "title": "Week 8: Efficiency and High Performance Computing",
+    "section": "Serial computation",
+    "text": "Serial computation\n\n\n\n\nHere we are using a single core. The function is applied one element at a time, leaving the other 3 cores without usage."
+  },
+  {
+    "objectID": "slides/week08.html#parallel-computation",
+    "href": "slides/week08.html#parallel-computation",
+    "title": "Week 8: Efficiency and High Performance Computing",
+    "section": "Parallel computation",
+    "text": "Parallel computation\n\n\n\n\nIn this more intelligent way of computation, we are taking full advantage of our computer by using all 4 cores at the same time. This will reduce computation time which, in the case of complicated/long calculations, can be an important speed gain."
+  },
+  {
+    "objectID": "slides/week08.html#parallel-computing-hardware",
+    "href": "slides/week08.html#parallel-computing-hardware",
+    "title": "Week 8: Efficiency and High Performance Computing",
+    "section": "Parallel computing: Hardware",
+    "text": "Parallel computing: Hardware\nWhen it comes to parallel computing, there are several ways (levels) in which we can speed up our analysis. From the bottom up:\n\nThread level SIMD instructions: Most modern processors support some level of what is called vectorization, this is, applying a single (same) instruction to streams of data. For example: adding vector A and B.\nHyper-Threading Technology (HTT): Intel’s hyper-threading generates a virtual partition of a single core (processor) which, while not equivalent to having multiple physical threads, does speed things up.\nMulti-core processor: Most modern CPUs (Central Processing Unit) have two or more physical cores. A typical laptop computer has about 8 cores.\nGeneral-Purpose Computing on Graphics Processing Unit (GP-GPU): While modern CPUs have multiple cores, GPUs can hold thousands of cores. Designed for image processing, there’s an increasing use of GPUs as an alternative to CPUs for scientific computing."
+  },
+  {
+    "objectID": "slides/week08.html#parallel-computing-hardware-cont.",
+    "href": "slides/week08.html#parallel-computing-hardware-cont.",
+    "title": "Week 8: Efficiency and High Performance Computing",
+    "section": "Parallel computing: Hardware (cont.)",
+    "text": "Parallel computing: Hardware (cont.)\n\nHigh-Performance Computing Cluster (HPC): A collection of computing nodes that are interconnected using a fast Ethernet network.\nGrid Computing: A collection of loosely interconnected machines that may or may not be in the same physical place, for example: HTCondor clusters."
+  },
+  {
+    "objectID": "slides/week08.html#parallel-computing-cpu-components",
+    "href": "slides/week08.html#parallel-computing-cpu-components",
+    "title": "Week 8: Efficiency and High Performance Computing",
+    "section": "Parallel computing: CPU components",
+    "text": "Parallel computing: CPU components\n\n\n\n\nTaxonomy of CPUs (Downloaded from https://slurm.schedmd.com/mc_support.html)"
+  },
+  {
+    "objectID": "slides/week08.html#parallel-computing-in-r",
+    "href": "slides/week08.html#parallel-computing-in-r",
+    "title": "Week 8: Efficiency and High Performance Computing",
+    "section": "Parallel computing in R",
+    "text": "Parallel computing in R\nWhile there are several alternatives (just take a look at the High-Performance Computing Task View), we’ll focus on the following R-packages for explicit parallelism\nSome examples:\n\nparallel: R package that provides ‘[s]upport for parallel computation, including random-number generation’.\n\n\nforeach: R package for ‘general iteration over elements’ in parallel fashion.\n\n\nfuture: ‘[A] lightweight and unified Future API for sequential and parallel processing of R expression via futures.’ (won’t cover here)\n\nImplicit parallelism, on the other hand, are out-of-the-box tools that allow the programmer not to worry about parallelization, e.g. such as gpuR for Matrix manipulation using GPU, tensorflow"
+  },
+  {
+    "objectID": "slides/week08.html#the-parallel-package",
+    "href": "slides/week08.html#the-parallel-package",
+    "title": "Week 8: Efficiency and High Performance Computing",
+    "section": "The parallel package",
+    "text": "The parallel package\n\nBased on the snow and multicore R Packages.\nExplicit parallelism.\nSimple yet powerful idea: Parallel computing as multiple R sessions.\nClusters can be made of both local and remote sessions\nMultiple types of cluster: PSOCK, Fork, MPI, etc."
+  },
+  {
+    "objectID": "slides/week08.html#parallel-workflow",
+    "href": "slides/week08.html#parallel-workflow",
+    "title": "Week 8: Efficiency and High Performance Computing",
+    "section": "Parallel workflow",
+    "text": "Parallel workflow\n(Usually) We do the following:\n\nCreate a PSOCK/FORK (or other) cluster using makePSOCKCluster/makeForkCluster (or simply makeCluster)\nCopy/prepare each R session (if you are using a PSOCK cluster):\n\nCopy objects with clusterExport\nSet a seed with clusterSetRNGStream\n\nDo your call:\n\nPass expressions with clusterEvalQ\nRun a parallelized loop with parApply, parLapply, etc.\n\nStop the cluster with clusterStop"
+  },
+  {
+    "objectID": "slides/week08.html#ex-1-hello-world",
+    "href": "slides/week08.html#ex-1-hello-world",
+    "title": "Week 8: Efficiency and High Performance Computing",
+    "section": "Ex 1: Hello world!",
+    "text": "Ex 1: Hello world!\n\n# 1. CREATING A CLUSTER\nlibrary(parallel)\ncl &lt;- makeCluster(4)    \nx  &lt;- 20\n\n# 2. PREPARING THE CLUSTER\nclusterSetRNGStream(cl, 123) # Equivalent to `set.seed(123)` (not necessary for this example)\nclusterExport(cl, \"x\")\n\n# 3. DO YOUR CALL\nclusterEvalQ(cl, {\n  paste0(\"Hello from process #\", Sys.getpid(), \". I see x and it is equal to \", x)\n})\n\n[[1]]\n[1] \"Hello from process #85411. I see x and it is equal to 20\"\n\n[[2]]\n[1] \"Hello from process #85410. I see x and it is equal to 20\"\n\n[[3]]\n[1] \"Hello from process #85412. I see x and it is equal to 20\"\n\n[[4]]\n[1] \"Hello from process #85409. I see x and it is equal to 20\"\n\n# 4. STOP THE CLUSTER\nstopCluster(cl)"
+  },
+  {
+    "objectID": "slides/week08.html#ex-1-hello-world-redux",
+    "href": "slides/week08.html#ex-1-hello-world-redux",
+    "title": "Week 8: Efficiency and High Performance Computing",
+    "section": "Ex 1: Hello world! (redux)",
+    "text": "Ex 1: Hello world! (redux)\nMulti-core versions of the *apply functions are simpler, but may not work on Windows machines.\n\n# 1. SETUP\nlibrary(parallel)\nx  &lt;- 20\n\n# 2. DO YOUR CALL\nmclapply(1:4, function(i){\n    paste0(\"Hello from process #\", Sys.getpid(), \". I see x and it is equal to \", x)\n}, mc.cores = 4)\n\n[[1]]\n[1] \"Hello from process #85488. I see x and it is equal to 20\"\n\n[[2]]\n[1] \"Hello from process #85489. I see x and it is equal to 20\"\n\n[[3]]\n[1] \"Hello from process #85490. I see x and it is equal to 20\"\n\n[[4]]\n[1] \"Hello from process #85491. I see x and it is equal to 20\""
+  },
+  {
+    "objectID": "slides/week08.html#ex-2-parallel-regressions",
+    "href": "slides/week08.html#ex-2-parallel-regressions",
+    "title": "Week 8: Efficiency and High Performance Computing",
+    "section": "Ex 2: Parallel regressions",
+    "text": "Ex 2: Parallel regressions\nProblem: Run multiple regressions on a very wide dataset. We need to fit the following model:\n\\[\ny = X_i\\beta_i + \\varepsilon,\\quad \\varepsilon\\sim N(0, \\sigma^2_i),\\quad\\forall i\n\\]\n\n\n[1] 500 999\n\n\n         x001        x002       x003       x004      x005\n1  0.61827227  1.72847041 -1.4810695 -0.2471871 1.4776281\n2  0.96777456 -0.19358426 -0.8176465  0.6356714 0.7292221\n3 -0.04303734 -0.06692844  0.9048826 -1.9277964 2.2947675\n4  0.84237608 -1.13685605 -1.8559158  0.4687967 0.9881953\n5 -1.91921443  1.83865873  0.5937039 -0.1410556 0.6507415\n6  0.59146153  0.81743419  0.3348553 -1.8771819 0.8181764\n\n\n num [1:500] -0.8188 -0.5438 1.0209 0.0467 -0.4501 ..."
+  },
+  {
+    "objectID": "slides/week08.html#ex-2-parallel-regressions-cont.-1",
+    "href": "slides/week08.html#ex-2-parallel-regressions-cont.-1",
+    "title": "Week 8: Efficiency and High Performance Computing",
+    "section": "Ex 2: Parallel regressions (cont. 1)",
+    "text": "Ex 2: Parallel regressions (cont. 1)\nSerial solution: Use apply (basic loop) to solve it\n\n#\n#\n#\n#\nans &lt;- apply(\n  X = X,\n  MARGIN = 2,\n  FUN = function(x) coef(lm(y ~ x))\n)\n\nans[,1:5]\n\n                   x001        x002        x003        x004        x005\n(Intercept) -0.03449819 -0.03339681 -0.03728140 -0.03644192 -0.03717344\nx           -0.06082548  0.02748265 -0.01327855 -0.08012361 -0.04067826"
+  },
+  {
+    "objectID": "slides/week08.html#ex-2-parallel-regressions-cont.-2",
+    "href": "slides/week08.html#ex-2-parallel-regressions-cont.-2",
+    "title": "Week 8: Efficiency and High Performance Computing",
+    "section": "Ex 2: Parallel regressions (cont. 2)",
+    "text": "Ex 2: Parallel regressions (cont. 2)\nParallel solution: Use parApply\n\nlibrary(parallel)\ncl &lt;- makeCluster(4L)\nclusterExport(cl, \"y\")\nans &lt;- parApply(\n  cl = cl,\n  X = X,\n  MARGIN = 2,\n  FUN = function(x) coef(lm(y ~ x))\n)\n \nans[,1:5]\n\n                   x001        x002        x003        x004        x005\n(Intercept) -0.03449819 -0.03339681 -0.03728140 -0.03644192 -0.03717344\nx           -0.06082548  0.02748265 -0.01327855 -0.08012361 -0.04067826"
+  },
+  {
+    "objectID": "slides/week08.html#ex-2-parallel-regressions-cont.-3",
+    "href": "slides/week08.html#ex-2-parallel-regressions-cont.-3",
+    "title": "Week 8: Efficiency and High Performance Computing",
+    "section": "Ex 2: Parallel regressions (cont. 3)",
+    "text": "Ex 2: Parallel regressions (cont. 3)\nAre we going any faster?\n\nmicrobenchmark::microbenchmark(\n  parallel = parApply(\n    cl = cl,\n    X = X, MARGIN = 2,\n    FUN = function(x) coef(lm(y ~ x))\n  ),\n  serial = apply(\n    X = X, MARGIN = 2,\n    FUN = function(x) coef(lm(y ~ x))\n  ), unit=\"relative\"\n)\n\nUnit: relative\n     expr      min       lq     mean  median       uq      max neval\n parallel 1.000000 1.000000 1.000000 1.00000 1.000000 1.000000   100\n   serial 2.643877 2.621755 2.450457 2.59481 2.372613 1.940924   100"
+  },
+  {
+    "objectID": "slides/week08.html#extended-example-sars-cov2-simulation",
+    "href": "slides/week08.html#extended-example-sars-cov2-simulation",
+    "title": "Week 8: Efficiency and High Performance Computing",
+    "section": "Extended Example: SARS-CoV2 simulation",
+    "text": "Extended Example: SARS-CoV2 simulation\nAn altered version of Conway’s game of life\n\nPeople live on a grid, each individual having 8 neighbors.\nA healthy individual (A) interacting with a sick neighbor (B) has the following probabilities of contracting the disease:\n\n100% if neither wears a mask.\n50% if only A wears a mask.\n20% if only B wears a mask.\n5% if both wear masks.\n\nInfected individuals may die with probability 10%.\n\nWe want to illustrate the importance of wearing face masks. We are going to simulate a system with 2,500 (50 x 50) individuals, 1,000 times so we can analyze: (a) contagion curve, (b) death curve.\nMore models like this: The SIRD model (Susceptible-Infected-Recovered-Deceased)"
+  },
+  {
+    "objectID": "slides/week08.html#conways-game-of-masks",
+    "href": "slides/week08.html#conways-game-of-masks",
+    "title": "Week 8: Efficiency and High Performance Computing",
+    "section": "Conway’s Game of Masks",
+    "text": "Conway’s Game of Masks\nDownload the program here.\n\n# source(\"~/Downloads/sars-cov2.R\", echo=FALSE)\nsource(\"img/sars-cov2.R\", echo = FALSE)\n\n# Looking at some constants\nprobs_sick # Sick individual's probabilities\n\n deceased  infected recovered \n      0.1       0.4       0.5 \n\nprobs_susc # Probabilities of i getting the disease \n\n               j doesn't wear j wears\ni doesn't wear            0.9    0.20\ni wears                   0.5    0.05"
+  },
+  {
+    "objectID": "slides/week08.html#first-look-what-does-the-simulation-look-like",
+    "href": "slides/week08.html#first-look-what-does-the-simulation-look-like",
+    "title": "Week 8: Efficiency and High Performance Computing",
+    "section": "First look: What does the simulation look like?",
+    "text": "First look: What does the simulation look like?\n\n\n   susceptible infected recovered deceased\n0         1440      160         0        0\n1         1265      234        85       16\n2         1064      307       190       39\n3          876      321       334       69\n4          717      287       499       97\n15         430        1       990      179\n16         429        2       990      179\n17         429        0       992      179\n18         429        0       992      179\n19         429        0       992      179"
+  },
+  {
+    "objectID": "slides/week08.html#first-look-what-does-the-simulation-look-like-contd",
+    "href": "slides/week08.html#first-look-what-does-the-simulation-look-like-contd",
+    "title": "Week 8: Efficiency and High Performance Computing",
+    "section": "First look: What does the simulation look like? (contd’)",
+    "text": "First look: What does the simulation look like? (contd’)\n\n# Location of who wears the facemask. This step is only for plotting\nwears &lt;- which(one$wears, arr.ind = TRUE) - 1\nwears &lt;- wears/(one$nr) * (1 + 1/one$nr)\n\n# Initializing the animation\nfig   &lt;- magick::image_device(600, 600, res = 96/2, pointsize = 24)\nfor (i in 1:one$current_step) {\n  \n  # Plot\n  image(\n    one$temporal[,,i], col=c(\"gray\", \"tomato\", \"steelblue\",\"black\"),\n    main = paste(\"Time\", i - 1L, \"of\", one$nsteps),\n    zlim = c(1,4)\n    )\n  points(wears, col=\"white\", pch=20, cex=1.5)\n  legend(\n    \"topright\",\n    col = c(\"gray\", \"tomato\", \"steelblue\",\"black\", \"black\"),\n    legend = c(names(codes), \"wears a mask\"),\n    pch = c(rep(15, 4), 21)\n  )\n}\n\n# Finalizing plot and writing the animation\ndev.off()\nanimation &lt;- magick::image_animate(fig, fps = 2)\nmagick::image_write(animation, \"covid1.gif\")"
+  },
+  {
+    "objectID": "slides/week08.html#speed-things-up-timing-under-the-serial-implementation",
+    "href": "slides/week08.html#speed-things-up-timing-under-the-serial-implementation",
+    "title": "Week 8: Efficiency and High Performance Computing",
+    "section": "Speed things up: Timing under the serial implementation",
+    "text": "Speed things up: Timing under the serial implementation\nWe will use the function system.time to measure how much time it takes to complete 20 simulations in serial versus parallel fashion using 4 cores."
+  },
+  {
+    "objectID": "slides/week08.html#speed-things-up-parallel-a-forking-cluster",
+    "href": "slides/week08.html#speed-things-up-parallel-a-forking-cluster",
+    "title": "Week 8: Efficiency and High Performance Computing",
+    "section": "Speed things up: Parallel a Forking Cluster",
+    "text": "Speed things up: Parallel a Forking Cluster\nAlternative 1: If you are using Unix-like system (Ubuntu, OSX, etc.), you can take advantage of process forking, and thus, parallel’s mclapply function:"
+  },
+  {
+    "objectID": "slides/week08.html#speed-things-up-parallel-with-a-socket-cluster",
+    "href": "slides/week08.html#speed-things-up-parallel-with-a-socket-cluster",
+    "title": "Week 8: Efficiency and High Performance Computing",
+    "section": "Speed things up: Parallel with a Socket Cluster",
+    "text": "Speed things up: Parallel with a Socket Cluster\nAlternative 2: Regardless of the operating system, we can use a Socket cluster, which is simply a group of fresh R sessions that listen to the parent/main/mother session.\n# Step 2: Prepare the cluster\n# We could either export all the needed variables\nparallel::clusterExport(\n  cl,\n  c(\"calc_stats\", \"codes\", \"dat\", \"get_neighbors\", \"init\", \"probs_sick\",\n    \"probs_susc\", \"simulate_covid\", \"update_status\", \"update_status_all\"\n    )\n  )\nOr simply run the simulation script in the other sessions:\n\n# Step 2 (alt): Prepare the cluster\nparallel::clusterEvalQ(cl, source(\"img/sars-cov2.R\"))\nparallel::clusterSetRNGStream(cl, 123) # Make sure it is reproducible!"
+  },
+  {
+    "objectID": "slides/week08.html#speed-things-up-parallel-with-a-socket-cluster-contd",
+    "href": "slides/week08.html#speed-things-up-parallel-with-a-socket-cluster-contd",
+    "title": "Week 8: Efficiency and High Performance Computing",
+    "section": "Speed things up: Parallel with a Socket Cluster (cont’d)",
+    "text": "Speed things up: Parallel with a Socket Cluster (cont’d)"
+  },
+  {
+    "objectID": "slides/week08.html#cloud-computing-a.k.a.-on-demand-computing",
+    "href": "slides/week08.html#cloud-computing-a.k.a.-on-demand-computing",
+    "title": "Week 8: Efficiency and High Performance Computing",
+    "section": "Cloud Computing (a.k.a. on-demand computing)",
+    "text": "Cloud Computing (a.k.a. on-demand computing)\nHPC clusters, super-computers, etc. need not be bought… you can rent:\n\nAmazon Web Services (AWS)\nGoogle Cloud Computing\nMicrosoft Azure\n\nThese services provide more than just computing (storage, data analysis, etc.). But for computing and storage, there are other free resources, e.g.:\n\nThe Extreme Science and Engineering Discovery Environment (XSEDE)"
+  },
+  {
+    "objectID": "slides/week08.html#there-are-many-ways-to-run-r-in-the-cloud",
+    "href": "slides/week08.html#there-are-many-ways-to-run-r-in-the-cloud",
+    "title": "Week 8: Efficiency and High Performance Computing",
+    "section": "There are many ways to run R in the cloud",
+    "text": "There are many ways to run R in the cloud\nAt USC:\n\nCenter for Advanced Research Computing (CARC). USC users can request hundreds of cores (literally).\n\nRunning R in:\n\nGoogle Cloud: https://cloud.google.com/solutions/running-r-at-scale\nAmazon Web Services: https://aws.amazon.com/blogs/big-data/running-r-on-aws/\nMicrosoft Azure: https://docs.microsoft.com/en-us/azure/architecture/data-guide/technology-choices/r-developers-guide"
+  },
+  {
+    "objectID": "slides/week08.html#submitting-jobs",
+    "href": "slides/week08.html#submitting-jobs",
+    "title": "Week 8: Efficiency and High Performance Computing",
+    "section": "Submitting jobs",
+    "text": "Submitting jobs\n\nA key feature of cloud services: interact via command line.\nYou will need to be familiar with Rscript and R CMD BATCH.\nWhich is better? It depends on the application."
+  },
+  {
+    "objectID": "slides/week08.html#submitting-jobs-examples",
+    "href": "slides/week08.html#submitting-jobs-examples",
+    "title": "Week 8: Efficiency and High Performance Computing",
+    "section": "Submitting jobs (examples)",
+    "text": "Submitting jobs (examples)\nImagine we have the following R script (download here):\nlibrary(data.table)\nset.seed(1231)\ndat &lt;- data.table(y = rnorm(1e3), x = sample.int(5, 1e3, TRUE))\ndat[,mean(y), by = x]\nR CMD BATCH\nThis will run a non-interactive R session and put all the output (stdout and stderr) to the file dummy.Rout.\nR CMD BATCH --vanilla dummy.R dummy.Rout &\nRscript\nThis will also execute R in the background, with the difference that the output dummy.Rout will not capture stderr (messages, warnings and errors from R).\nRscript --vanilla dummy.R &gt; dummy.Rout &\nThe & at the end makes sure the job is submitted and does not wait for it to end."
+  },
+  {
+    "objectID": "slides/week08.html#rscript",
+    "href": "slides/week08.html#rscript",
+    "title": "Week 8: Efficiency and High Performance Computing",
+    "section": "Rscript",
+    "text": "Rscript\nThe R script can be executed as a program directly, if you specify where the Rscript program lives.\nThe following example works on Unix. This is an R script named since_born.R (download here)\n#!/usr/bin/Rscript\nargs &lt;- tail(commandArgs(), 0)\nmessage(Sys.Date() - as.Date(args), \" days since you were born.\")\nThis R script can be executed in various ways…"
+  },
+  {
+    "objectID": "slides/week08.html#rscript-as-a-program",
+    "href": "slides/week08.html#rscript-as-a-program",
+    "title": "Week 8: Efficiency and High Performance Computing",
+    "section": "Rscript as a program",
+    "text": "Rscript as a program\nFor this we would need to change it to an executable. In unix you can use the chmod command: chmod +x since_born.R. This allows us to do the following:"
+  },
+  {
+    "objectID": "slides/week08.html#rscript-in-a-bash-script-most-common",
+    "href": "slides/week08.html#rscript-in-a-bash-script-most-common",
+    "title": "Week 8: Efficiency and High Performance Computing",
+    "section": "Rscript in a bash script (most common)",
+    "text": "Rscript in a bash script (most common)\nIn the case of running jobs on a cluster or something similar, we usually need to have a bash script. In our case, we have a file named since_born_bash.sh that calls Rscript (download here)\n#!/bin/bash\nRscript since_born.R 1988-03-02\nWhich we would execute like this:\n\n\nFatal error: cannot open file 'since_born.R': No such file or directory"
+  },
+  {
+    "objectID": "slides/week08.html#session-info",
+    "href": "slides/week08.html#session-info",
+    "title": "Week 8: Efficiency and High Performance Computing",
+    "section": "Session info",
+    "text": "Session info\n\n\nR version 4.5.0 (2025-04-11)\nPlatform: aarch64-apple-darwin20\nRunning under: macOS Sequoia 15.6.1\n\nMatrix products: default\nBLAS:   /Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/lib/libRblas.0.dylib \nLAPACK: /Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.1\n\nlocale:\n[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n\ntime zone: America/Los_Angeles\ntzcode source: internal\n\nattached base packages:\n[1] parallel  stats     graphics  grDevices utils     datasets  methods  \n[8] base     \n\nother attached packages:\n[1] microbenchmark_1.5.0 scales_1.4.0         RColorBrewer_1.1-3  \n\nloaded via a namespace (and not attached):\n [1] digest_0.6.37     R6_2.6.1          fastmap_1.2.0     xfun_0.52        \n [5] farver_2.1.2      glue_1.8.0        knitr_1.50        htmltools_0.5.8.1\n [9] rmarkdown_2.29    lifecycle_1.0.4   cli_3.6.5         compiler_4.5.0   \n[13] rstudioapi_0.17.1 tools_4.5.0       evaluate_1.0.4    yaml_2.3.10      \n[17] jsonlite_2.0.0    rlang_1.1.6"
+  },
+  {
+    "objectID": "slides/week08.html#bonus-rcpp-r-c",
+    "href": "slides/week08.html#bonus-rcpp-r-c",
+    "title": "Week 8: Efficiency and High Performance Computing",
+    "section": "(Bonus) Rcpp: R & C++",
+    "text": "(Bonus) Rcpp: R & C++\nThe Fibonacci series\n\n\\[\nFib(n) = \\left\\{\\begin{array}{ll}\nn & \\mbox{if }n \\leq 1 \\\\\nFib(n-1) + Fib(n - 2) & \\mbox{otherwise}\n\\end{array}\\right.\n\\]"
+  },
+  {
+    "objectID": "slides/week08.html#rcpp-hello-world-v1",
+    "href": "slides/week08.html#rcpp-hello-world-v1",
+    "title": "Week 8: Efficiency and High Performance Computing",
+    "section": "Rcpp: Hello world! v1",
+    "text": "Rcpp: Hello world! v1\nThe following C++ file, called fib.cpp\nCan be compiled within R using Rcpp::sourceCpp(\"fib.cpp\"). This exports the function back into R:\n\n\n[1] 1 1 2 3 5"
+  },
+  {
+    "objectID": "slides/week08.html#rcpp-hello-world-v2-with-function-overloading",
+    "href": "slides/week08.html#rcpp-hello-world-v2-with-function-overloading",
+    "title": "Week 8: Efficiency and High Performance Computing",
+    "section": "Rcpp: Hello world! v2 (with function overloading)",
+    "text": "Rcpp: Hello world! v2 (with function overloading)\nRcpp data types are mapped directly to R data types, e.g. vectors of integers in R can be used as IntegerVector in Rcpp.\nBack in R\n\n\n[1] 1 1 2 3 5"
+  },
+  {
+    "objectID": "slides/week08.html#rcpparmadillo-and-openmp",
+    "href": "slides/week08.html#rcpparmadillo-and-openmp",
+    "title": "Week 8: Efficiency and High Performance Computing",
+    "section": "RcppArmadillo and OpenMP",
+    "text": "RcppArmadillo and OpenMP\n\nFriendlier than RcppParallel… at least for ‘I-use-Rcpp-but-don’t-actually-know-much-about-C++’ users (like myself!).\nMust run only ‘Thread-safe’ calls, so calling R within parallel blocks can cause problems (almost all the time).\nUse arma objects, e.g. arma::mat, arma::vec, etc. Or, if you are used to them std::vector objects as these are thread safe.\nPseudo-Random Number Generation is not very straight forward… But C++11 has a nice set of functions that can be used together with OpenMP\nNeed to think about how processors work, cache memory, etc. Otherwise you could get into trouble… if your code is slower when run in parallel, then you probably are facing false sharing\nIf R crashes… try running R with a debugger (see Section 4.3 in Writing R extensions):\n~$ R --debugger=valgrind"
+  },
+  {
+    "objectID": "slides/week08.html#rcpparmadillo-and-openmp-workflow",
+    "href": "slides/week08.html#rcpparmadillo-and-openmp-workflow",
+    "title": "Week 8: Efficiency and High Performance Computing",
+    "section": "RcppArmadillo and OpenMP workflow",
+    "text": "RcppArmadillo and OpenMP workflow\n\nAdd the following to your C++ source code to use OpenMP, and tell Rcpp that you need to include that in the compiler:\n#include &lt;omp.h&gt;\n// [[Rcpp::plugins(openmp)]]\nTell the compiler that you’ll be running a block in parallel with openmp\n#pragma omp [directives] [options]\n{\n  ...your neat parallel code...\n}\nYou’ll need to specify how OMP should handle the data:\n\nshared: Default, all threads access the same copy.\nprivate: Each thread has its own copy (although not initialized).\nfirstprivate Each thread has its own copy initialized.\nlastprivate Each thread has its own copy. The last value is the one stored in the main program.\n\nSetting default(none) is a good practice.\nCompile!"
+  },
+  {
+    "objectID": "slides/week08.html#ex-3-rcpparmadillo-openmp",
+    "href": "slides/week08.html#ex-3-rcpparmadillo-openmp",
+    "title": "Week 8: Efficiency and High Performance Computing",
+    "section": "Ex 3: RcppArmadillo + OpenMP",
+    "text": "Ex 3: RcppArmadillo + OpenMP\nComputing the distance matrix (see ?dist)\n\n#include &lt;Rcpp.h&gt;\n#include &lt;omp.h&gt;\n#include &lt;RcppArmadillo.h&gt;\n// [[Rcpp::depends(RcppArmadillo)]]\n// [[Rcpp::plugins(openmp)]]\nusing namespace Rcpp;\n\n// [[Rcpp::export]]\narma::mat dist_par(const arma::mat & X, int cores = 1) {\n  \n  // Some constants and the result\n  int N = (int) X.n_rows; int K = (int) X.n_cols;\n  arma::mat D(N,N,arma::fill::zeros);\n  \n  omp_set_num_threads(cores); // Setting the cores\n  \n#pragma omp parallel for shared(D, N, K, X) default(none)\n  for (int i=0; i&lt;N; ++i)\n    for (int j=0; j&lt;i; ++j) {\n      for (int k=0; k&lt;K; k++) \n        D.at(i,j) += pow(X.at(i,k) - X.at(j,k), 2.0);\n      \n      // Computing square root\n      D.at(i,j) = sqrt(D.at(i,j)); D.at(j,i) = D.at(i,j);\n    }\n      \n  // My nice distance matrix\n  return D;\n}"
+  },
+  {
+    "objectID": "slides/week08.html#resources",
+    "href": "slides/week08.html#resources",
+    "title": "Week 8: Efficiency and High Performance Computing",
+    "section": "Resources",
+    "text": "Resources\n\nPackage parallel\nUsing the iterators package\nUsing the foreach package\n32 OpenMP traps for C++ developers\nThe OpenMP API specification for parallel programming\n‘openmp’ tag in Rcpp gallery\nOpenMP tutorials and articles\n\nFor more, checkout the CRAN Task View on HPC"
+  },
+  {
+    "objectID": "slides/week08.html#simulating-pi",
+    "href": "slides/week08.html#simulating-pi",
+    "title": "Week 8: Efficiency and High Performance Computing",
+    "section": "Simulating \\(\\pi\\)",
+    "text": "Simulating \\(\\pi\\)\n\nWe know that \\(\\pi = \\frac{A}{r^2}\\). We approximate it by randomly adding points \\(x\\) to a square of size 2 centered at the origin.\nSo, we approximate \\(\\pi\\) as \\(\\Pr\\{\\|x\\| \\leq 1\\}\\times 2^2\\)"
+  },
+  {
+    "objectID": "slides/week08.html#bonus-overview-of-hpc",
+    "href": "slides/week08.html#bonus-overview-of-hpc",
+    "title": "Week 8: Efficiency and High Performance Computing",
+    "section": "(Bonus) Overview of HPC",
+    "text": "(Bonus) Overview of HPC\nUsing Flynn’s classical taxonomy, we can classify parallel computing according to the following two dimensions:\n\nType of instruction: Single vs Multiple\nData stream: Single vs Multiple\n\n\n   \n\nMichael Flynn’s Taxonomy (wiki)"
+  },
+  {
+    "objectID": "slides/week08.html#bonus-parallel-computing-software",
+    "href": "slides/week08.html#bonus-parallel-computing-software",
+    "title": "Week 8: Efficiency and High Performance Computing",
+    "section": "(Bonus) Parallel computing: Software",
+    "text": "(Bonus) Parallel computing: Software\nImplicit parallelization:\n\ntensorflow: Machine learning framework\npqR: Branched version of R.\nMicrosoft R: Microsoft’s R private version (based on Revolution Analytics’ R version).\ndata.table (R package): Data wrangling using multiple cores.\ncaret (R package): A meta package, has various implementations using parallel computing.\n\nExplicit parallelization (DIY):\n\nCUDA (C/C++ library): Programming with GP-GPUs.\nOpen MP (C/C++ library): Multi-core programming (CPUs).\nOpen MPI (C/C++ library): Large scale programming with multi-node systems.\nThreading Building Blocks (C/C++ library): Intel’s parallel computing library.\nKokkos (C++ library): A hardware-agnostic programming framework for HPC applications.\nparallel (R package): R’s built-in parallel computing package\nfuture (R package): Framework for parallelzing R.\nRcppParallel (R C++ API wrapper): Header and templates for building Rcpp+multi-threaded programs.\njulia (programming language): High-performing, has a framework for parallel computing as well."
+  },
+  {
+    "objectID": "assignments/midterm.html",
+    "href": "assignments/midterm.html",
+    "title": "Midterm Project",
     "section": "",
-    "text": "Term: Fall 2025\nTime: Friday 9am - 12:55pm\nLocation: SSB 114\nCourse GitHub: https://github.com/USCbiostats/PM566"
-  },
-  {
-    "objectID": "index.html#introduction-to-health-data-science",
-    "href": "index.html#introduction-to-health-data-science",
-    "title": "PM 566",
-    "section": "",
-    "text": "Term: Fall 2025\nTime: Friday 9am - 12:55pm\nLocation: SSB 114\nCourse GitHub: https://github.com/USCbiostats/PM566"
-  },
-  {
-    "objectID": "index.html#instructor",
-    "href": "index.html#instructor",
-    "title": "PM 566",
-    "section": "Instructor",
-    "text": "Instructor\nKelly Street\n\nEmail: kelly.street@usc.edu\nOffice: Soto (SSB) 202V\nOffice Hours: Wednesday 11am - 12pm"
-  },
-  {
-    "objectID": "index.html#teaching-assistant",
-    "href": "index.html#teaching-assistant",
-    "title": "PM 566",
-    "section": "Teaching Assistant",
-    "text": "Teaching Assistant\nXuduo Victor Wen\n\nEmail: wenv@usc.edu"
+    "text": "Due Sunday, October 26th, 2024 by 11:59pm Pacific Time.\nLearning Objective: To apply the skills learned in PM 566 (through Week 6) by analyzing and interpreting a dataset of your choice.\nNarrative: As we have discussed in class, the practice of data science requires both quantitative skills and qualitative knowledge of the domain from which the data was collected. The first step in any data analysis is to have a dataset for which you have formulated an interesting question. If you do not have a dataset to work with, you may choose one from our list of suggestions. With your dataset, formulate a clear and concise question to answer and conduct data wrangling, exploratory data analysis, and data visualization to explore/answer this question.\nDeliverable: A written report generated in Quarto (HTML or PDF) with embedded tables and figures that is submitted to a project-specific GitHub repository that you create. The report should have the following sections:\n\nIntroduction - provide background on your dataset and formulated question\nData Preparation - how and where the data were acquired, how you cleaned and wrangled the data\nExploratory Analysis - dataset characteristics, variables included, distribution of key variables\nPreliminary Results - analysis of the primary research question and any subsequent follow-up questions, including summary statistics in tabular form and publication-quality figures (look at the kable() function from knitr for making nice tables)\na brief Conclusion - summary of what you found in the data\n\nIn your report, please do not include any unformatted text output (e.g. output from head(), str(), print(), etc.). You should summarize these aspects of your data within the text, figures, and/or tables.\nNote that you cannot use the same dataset on both the Midterm and Final. So if you came into this class with a dataset that you wanted to analyze, you may want to save that for later."
   },
   {
     "objectID": "assignments/hw1.html",
@@ -1244,6 +1601,34 @@
     "title": "Lab 5 - Data Wrangling",
     "section": "Question 4: Means of means",
     "text": "Question 4: Means of means\nCompute each state’s average temperature and use that to classify them according to the following criteria:\n\nlow: temp &lt; 20\nMid: temp &gt;= 20 and temp &lt; 25\nHigh: temp &gt;= 25\n\nNow generate a large summary table with states/observations split into the three categories listed above. For each group, compute the following:\n\nNumber of states\nNumber of entries (records)\nNumber of NA entries\nNumber of stations\nMean temperature\nMean wind-speed\nMean atmospheric pressure"
+  },
+  {
+    "objectID": "labs/lab6.html",
+    "href": "labs/lab6.html",
+    "title": "Lab 6 - Text Mining",
+    "section": "",
+    "text": "knitr::opts_chunk$set(eval = FALSE, include  = TRUE)"
+  },
+  {
+    "objectID": "labs/lab6.html#question-1-what-specialties-do-we-have",
+    "href": "labs/lab6.html#question-1-what-specialties-do-we-have",
+    "title": "Lab 6 - Text Mining",
+    "section": "Question 1: What specialties do we have?",
+    "text": "Question 1: What specialties do we have?\nUse the count() function from dplyr to figure out how many different categories we have in the data. Are these categories related? Overlapping? Evenly distributed?\n\nmt_samples %&gt;%\n  count(___, sort = TRUE)"
+  },
+  {
+    "objectID": "labs/lab6.html#question-2",
+    "href": "labs/lab6.html#question-2",
+    "title": "Lab 6 - Text Mining",
+    "section": "Question 2",
+    "text": "Question 2\n\nTokenize the the words in the transcription column\nCount the number of times each token appears\nVisualize the top 20 most frequent words\n\nExplain what we see from this result. Does it makes sense? What insights (if any) do we get?"
+  },
+  {
+    "objectID": "labs/lab6.html#question-3",
+    "href": "labs/lab6.html#question-3",
+    "title": "Lab 6 - Text Mining",
+    "section": "Question 3",
+    "text": "Question 3\n\nRe-do the visualization but remove stop words before making it\nBonus points if you remove numbers as well\n\nWhat do we see know that we have removed stop words? Does it give us a better idea of what the text is about?"
   },
   {
     "objectID": "labs/lab3.html",
@@ -1379,6 +1764,41 @@
     "text": "Footnotes\n\n\nTeam-members could be working on the same file but editing different lines of code. If this is the case, after pull/push, git will integrate the changes without conflicts.↩︎\nFor more details, take a look at the Forking Projects article in GitHub guides.↩︎\nMore info about how to deal with conflicts in this very neat post on stackoverflow.com How to resolve merge conflicts in Git. GitHub also has a way to solve conflicts in PRs, but this is only available to the admins of target repo. More info here,↩︎"
   },
   {
+    "objectID": "labs/lab7.html",
+    "href": "labs/lab7.html",
+    "title": "Lab 7 - Web Scraping and Regular Expressions",
+    "section": "",
+    "text": "Use real-time data pulled from the internet.\nUse regular expressions to parse the information.\nPractice your GitHub skills."
+  },
+  {
+    "objectID": "labs/lab7.html#question-1-how-many-sars-cov-2-papers",
+    "href": "labs/lab7.html#question-1-how-many-sars-cov-2-papers",
+    "title": "Lab 7 - Web Scraping and Regular Expressions",
+    "section": "Question 1: How many Sars-Cov-2 papers?",
+    "text": "Question 1: How many Sars-Cov-2 papers?\nWe will build an automatic counter of Sars-Cov-2 papers available on PubMed. You will need to apply XPath as we did during the lecture to extract the number of results returned by PubMed when you search for “sars-cov-2.”\nThe following URL will perform the search: https://pubmed.ncbi.nlm.nih.gov/?term=sars-cov-2\nAnd you can find the total number of results in the top left corner of the search results.\nComplete the lines of code:\n\n# Downloading the website\nwebsite &lt;- xml2::read_html(\"[URL]\")\n\n# Finding the counts\ncounts &lt;- xml2::xml_find_first(website, \"[XPath]\")\n\n# Turning it into text\ncounts &lt;- as.character(counts)\n\n# Extracting the data using regex\ntotalcount &lt;- stringr::str_extract(counts, \"[REGEX FOR NUMBERS WITH COMMAS/DOTS]\")\n\n# Removing any commas/dots so that we can convert to numeric\ntotalcount &lt;- gsub('[REGEX FOR COMMAS/DOTS]', '', totalcount)\n\ntotalcount &lt;- as.numeric(totalcount)\nprint(totalcount)"
+  },
+  {
+    "objectID": "labs/lab7.html#question-2-get-article-abstracts-and-authors",
+    "href": "labs/lab7.html#question-2-get-article-abstracts-and-authors",
+    "title": "Lab 7 - Web Scraping and Regular Expressions",
+    "section": "Question 2: Get article abstracts and authors",
+    "text": "Question 2: Get article abstracts and authors\nThat’s quite a few articles, so let’s narrow our focus by including “california” in our search:\nhttps://pubmed.ncbi.nlm.nih.gov/?term=sars-cov-2%20california\nIn your web browser, use the slider on the left to narrow your search down to just the years 2020 and 2021.\nNow we will download the abstracts and author information for all of these articles. Under the search bar, click “Save,” set the Selection to “All results,” set the Format to “Abstract (text),” and click “Create file.” This should start downloading a large-ish text file (abstract-sars-cov-2-set.txt)\nWe can read this into R with the following code. We need to do some formatting because the abstracts are separated by two blank lines.\n\n# read in text, each line is a separate character\nabstracts &lt;- readLines('~/Downloads/abstract-sars-cov-2-set.txt', warn = FALSE)\n# combine all text into one character\nabstracts &lt;- paste(abstracts, collapse = '\\n')\n# split the text whenever 3 new lines occur in a row (indicating two blank lines)\nabstracts &lt;- unlist(strsplit(abstracts, split = '\\n\\n\\n'))\n# replace any remaining \"\\n\" symbols with spaces\nabstracts &lt;- gsub(\"\\n\", \" \", abstracts)\n# replace multiple spaces with single space\nabstracts &lt;- gsub(\" +\", \" \", abstracts)"
+  },
+  {
+    "objectID": "labs/lab7.html#question-3-distribution-of-universities",
+    "href": "labs/lab7.html#question-3-distribution-of-universities",
+    "title": "Lab 7 - Web Scraping and Regular Expressions",
+    "section": "Question 3: Distribution of universities",
+    "text": "Question 3: Distribution of universities\nLook through the first couple abstracts and see how the author affiliations are formatted.\nUsing the function stringr::str_extract_all() applied on abstracts, capture all the terms of the form:\n\n“… University”\n“University of …”\n“… Institute of …”\n\nWrite a regular expression that captures all such instances.\n\nlibrary(stringr)\ninstitution &lt;- str_extract_all(\n  abstracts,\n  \"[REGEX FOR INSTITUTIONS]\"\n  ) \ninstitution &lt;- unlist(institution)\ntable(institution)\n\nWhat are the 10 most common institutions? Discuss how you could you improve these results."
+  },
+  {
+    "objectID": "labs/lab7.html#question-4-make-a-tidy-dataset",
+    "href": "labs/lab7.html#question-4-make-a-tidy-dataset",
+    "title": "Lab 7 - Web Scraping and Regular Expressions",
+    "section": "Question 4: Make a tidy dataset",
+    "text": "Question 4: Make a tidy dataset\nWe want to build a dataset which includes the journal, article title, authors, and affiliations for each paper. In order to do this, we will go back to the original input, but not do all the formatting we did previously.\n\n# read in text, each line is a separate character\nabstracts &lt;- readLines('~/Downloads/abstract-sars-cov-2-set.txt', warn = FALSE)\n# combine all text into one character\nabstracts &lt;- paste(abstracts, collapse = '\\n')\n# split the text whenever 3 new lines occur in a row (indicating two blank lines)\nabstracts &lt;- unlist(strsplit(abstracts, split = '\\n\\n\\n'))\n\nNow extract the journal title for each article. This is in the first line of each entry, immediately after the citation number (ie. “1.”). Notice that we are using str_extract rather than str_extract_all, because we only want (at most) one result per entry.\n\njournal &lt;- str_extract(abstracts, \"[YOUR REGULAR EXPRESSION]\")\n\nNow we’re going to extract the title of each article. This is the second non-empty line in each entry, with blank lines before and after. We could do this with a regular expression, but instead, we’ll use the strsplit() function, as we did above.\n\ntitles &lt;- sapply(abstracts, function(x){\n  unlist(strsplit(x, split = \"\\n\\n\"))[2]\n}, USE.NAMES = FALSE)\n\nNote that each title could still contain a single \\n symbol, in the case of a particularly long title. We could remove those as we did the first time we read in the data.\nUse the same technique to extract the list of authors and call this object authors.\nNow use a regular expression to extract the author affiliations section for each abstract. This always starts with a blank line followed by “Author information:” and ends with another blank line.\n\naffiliations &lt;- str_extract(abstracts, \"[YOUR REGULAR EXPRESSION]\")\n\nFinally, put everything together into a single data.frame and use knitr::kable to print the first five results.\n\npapers &lt;- data.frame(\n  [DATA TO COMBINE]\n)\nknitr::kable(papers[1:5, ])\n\nDone! Render the document, commit, and push."
+  },
+  {
     "objectID": "labs/lab4.html",
     "href": "labs/lab4.html",
     "title": "Lab 4 - Data Visualization",
@@ -1398,6 +1818,34 @@
     "title": "Assignment 2 - Data Wrangling, EDA, and Visualization",
     "section": "",
     "text": "This assignment is due by 11:59pm Pacific Time on Friday, October 10th, 2024."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "PM 566",
+    "section": "",
+    "text": "Term: Fall 2025\nTime: Friday 9am - 12:55pm\nLocation: SSB 114\nCourse GitHub: https://github.com/USCbiostats/PM566"
+  },
+  {
+    "objectID": "index.html#introduction-to-health-data-science",
+    "href": "index.html#introduction-to-health-data-science",
+    "title": "PM 566",
+    "section": "",
+    "text": "Term: Fall 2025\nTime: Friday 9am - 12:55pm\nLocation: SSB 114\nCourse GitHub: https://github.com/USCbiostats/PM566"
+  },
+  {
+    "objectID": "index.html#instructor",
+    "href": "index.html#instructor",
+    "title": "PM 566",
+    "section": "Instructor",
+    "text": "Instructor\nKelly Street\n\nEmail: kelly.street@usc.edu\nOffice: Soto (SSB) 202V\nOffice Hours: Wednesday 11am - 12pm"
+  },
+  {
+    "objectID": "index.html#teaching-assistant",
+    "href": "index.html#teaching-assistant",
+    "title": "PM 566",
+    "section": "Teaching Assistant",
+    "text": "Teaching Assistant\nXuduo Victor Wen\n\nEmail: wenv@usc.edu"
   },
   {
     "objectID": "slides/week06.html#acknowledgment",
@@ -1985,7 +2433,7 @@
     "href": "slides/week02.html#what-is-version-control",
     "title": "Version control and reproducible research",
     "section": "What is version control?",
-    "text": "What is version control?\n\n\n\n\n[I]s the management of changes to documents […] Changes are usually identified by a number or letter code, termed the “revision number”, “revision level”, or simply “revision”. For example, an initial set of files is “revision 1”. When the first change is made, the resulting set is “revision 2”, and so on. Each revision is associated with a timestamp and the person making the change. Revisions can be compared, restored, and with some types of files, merged. – Wikipedia"
+    "text": "What is version control?\n\n\n\n\n\n[I]s the management of changes to documents […] Changes are usually identified by a number or letter code, termed the “revision number”, “revision level”, or simply “revision”. For example, an initial set of files is “revision 1”. When the first change is made, the resulting set is “revision 2”, and so on. Each revision is associated with a timestamp and the person making the change. Revisions can be compared, restored, and with some types of files, merged. – Wikipedia"
   },
   {
     "objectID": "slides/week02.html#why-do-we-care",
@@ -2175,488 +2623,5 @@
     "title": "References",
     "section": "Data",
     "text": "Data\nMany of these websites offer publicly available datasets that can be used for research or class projects.\n\nHealth and Biological data\n\nCDC National Center for Health Statistics\nNIH Cancer Surveillance\nWorld Health Organization WHO data\nUniProt data\nThe Gene Ontology Project\nGene Expression Omnibus Data\nUS Center for Disease Control and Prevention Data\nCalifornia Health and Human Services Open Data Portal\nCovid Data CovidTracker\nUSC Sustainability Data\nBureau of Transportation Statistics\n\n\n\nAcademic Publications and related\n\nFigshare data repository\nZenodo data repository\nHarvard Dataverse\nElsevier Developers API\n\n\n\nGovernment data\n\nUS Open Data Initiative DATA.GOV\nCensus Data Explorer and National Historical Geographic Information System (NHGIS)\nBureau of Economic Analysis\nBureau of Labor Statistics\nHousing data Zillow\nBureau of Justice Statistics National Center for Education Statistics: The Nation’s Report Card\nLos Angeles city data\nLos Angeles crime data\n\n\n\nOther data\n\nWorld Bank open data\nInter-university Consortium for Political and Social Research (ICPSR)\nFiveThirtyEight open data\nKaggle datasets\nLiterally all of Wikipedia\n\n\n\nSocial Networks\n\nGitHub Developers API\nInstagram Developers API\nLinkedIn Developers API"
-  },
-  {
-    "objectID": "labs/lab6.html",
-    "href": "labs/lab6.html",
-    "title": "Lab 6 - Text Mining",
-    "section": "",
-    "text": "knitr::opts_chunk$set(eval = FALSE, include  = TRUE)"
-  },
-  {
-    "objectID": "labs/lab6.html#question-1-what-specialties-do-we-have",
-    "href": "labs/lab6.html#question-1-what-specialties-do-we-have",
-    "title": "Lab 6 - Text Mining",
-    "section": "Question 1: What specialties do we have?",
-    "text": "Question 1: What specialties do we have?\nUse the count() function from dplyr to figure out how many different categories we have in the data. Are these categories related? Overlapping? Evenly distributed?\n\nmt_samples %&gt;%\n  count(___, sort = TRUE)"
-  },
-  {
-    "objectID": "labs/lab6.html#question-2",
-    "href": "labs/lab6.html#question-2",
-    "title": "Lab 6 - Text Mining",
-    "section": "Question 2",
-    "text": "Question 2\n\nTokenize the the words in the transcription column\nCount the number of times each token appears\nVisualize the top 20 most frequent words\n\nExplain what we see from this result. Does it makes sense? What insights (if any) do we get?"
-  },
-  {
-    "objectID": "labs/lab6.html#question-3",
-    "href": "labs/lab6.html#question-3",
-    "title": "Lab 6 - Text Mining",
-    "section": "Question 3",
-    "text": "Question 3\n\nRe-do the visualization but remove stop words before making it\nBonus points if you remove numbers as well\n\nWhat do we see know that we have removed stop words? Does it give us a better idea of what the text is about?"
-  },
-  {
-    "objectID": "labs/lab7.html",
-    "href": "labs/lab7.html",
-    "title": "Lab 7 - Web Scraping and Regular Expressions",
-    "section": "",
-    "text": "Use real-time data pulled from the internet.\nUse regular expressions to parse the information.\nPractice your GitHub skills."
-  },
-  {
-    "objectID": "labs/lab7.html#question-1-how-many-sars-cov-2-papers",
-    "href": "labs/lab7.html#question-1-how-many-sars-cov-2-papers",
-    "title": "Lab 7 - Web Scraping and Regular Expressions",
-    "section": "Question 1: How many Sars-Cov-2 papers?",
-    "text": "Question 1: How many Sars-Cov-2 papers?\nWe will build an automatic counter of Sars-Cov-2 papers available on PubMed. You will need to apply XPath as we did during the lecture to extract the number of results returned by PubMed when you search for “sars-cov-2.”\nThe following URL will perform the search: https://pubmed.ncbi.nlm.nih.gov/?term=sars-cov-2\nAnd you can find the total number of results in the top left corner of the search results.\nComplete the lines of code:\n\n# Downloading the website\nwebsite &lt;- xml2::read_html(\"[URL]\")\n\n# Finding the counts\ncounts &lt;- xml2::xml_find_first(website, \"[XPath]\")\n\n# Turning it into text\ncounts &lt;- as.character(counts)\n\n# Extracting the data using regex\ntotalcount &lt;- stringr::str_extract(counts, \"[REGEX FOR NUMBERS WITH COMMAS/DOTS]\")\n\n# Removing any commas/dots so that we can convert to numeric\ntotalcount &lt;- gsub('[REGEX FOR COMMAS/DOTS]', '', totalcount)\n\ntotalcount &lt;- as.numeric(totalcount)\nprint(totalcount)"
-  },
-  {
-    "objectID": "labs/lab7.html#question-2-academic-publications-on-covid19-and-hawaii",
-    "href": "labs/lab7.html#question-2-academic-publications-on-covid19-and-hawaii",
-    "title": "Lab 7 - Web Scraping and Regular Expressions",
-    "section": "Question 2: Academic publications on COVID19 and Hawaii",
-    "text": "Question 2: Academic publications on COVID19 and Hawaii\nYou need to query the following. The parameters passed to the query are documented here.\nUse the function httr::GET() to make the following query:\n\nBaseline URL: https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi\nQuery parameters:\n\ndb: pubmed\nterm: covid19 hawaii\nretmax: 1000\n\n\n\nlibrary(httr)\nquery_ids &lt;- GET(\n  url   = \"BASELINE URL\",\n  query = list(\"QUERY PARAMETERS\")\n)\n\n# Extracting the content of the response of GET\nids &lt;- httr::content(query_ids)\n\nThe query will return an XML object, we can turn it into a character list to analyze the text directly with as.character(). Another way of processing the data could be using lists with the function xml2::as_list(). We will skip the latter for now.\nTake a look at the data, and continue with the next question."
-  },
-  {
-    "objectID": "labs/lab7.html#question-3-get-details-about-the-articles",
-    "href": "labs/lab7.html#question-3-get-details-about-the-articles",
-    "title": "Lab 7 - Web Scraping and Regular Expressions",
-    "section": "Question 3: Get details about the articles",
-    "text": "Question 3: Get details about the articles\nThe IDs are wrapped around text in the following way: &lt;Id&gt;... id number ...&lt;/Id&gt;. We can use a regular expression that extracts that information. Fill out the following lines of code:\n\n# Turn the result into a character vector\nids &lt;- as.character(ids)\n\n# Find all the ids \nids &lt;- stringr::str_extract_all(ids, \"PATTERN\")[[1]]\n\n# Remove all the leading and trailing &lt;Id&gt; &lt;/Id&gt;. Make use of \"|\"\nids &lt;- stringr::str_remove_all(ids, \"PATTERN\")\n\nWith the IDs in hand, we can now try to get the abstracts of the papers. As before, we will need to coerce the contents (results) to a list using:\n\nBaseline url: https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi\nQuery parameters:\n\ndb: pubmed\nid: A character with all the ids separated by comma, e.g., “1232131,546464,13131”\nretmax: 1000\nrettype: abstract\n\n\nPro-tip: If you want GET() to take some element literal, wrap it around I() (as you would do in a formula in R). For example, the text \"123,456\" is replaced with \"123%2C456\". If you don’t want that behavior, you would need to do the following I(\"123,456\").\n\npublications &lt;- GET(\n  url   = \"BASELINE URL HERE\",\n  query = list(\n    \"PARAMETERS OF THE QUERY\"\n    )\n)\n\n# Turning the output into character vector\npublications &lt;- httr::content(publications)\npublications_txt &lt;- as.character(publications)\n\nWith this in hand, we can now analyze the data. This is also a good time for committing and pushing your work!"
-  },
-  {
-    "objectID": "labs/lab7.html#question-4-distribution-of-universities-schools-and-departments",
-    "href": "labs/lab7.html#question-4-distribution-of-universities-schools-and-departments",
-    "title": "Lab 7 - Web Scraping and Regular Expressions",
-    "section": "Question 4: Distribution of universities, schools, and departments",
-    "text": "Question 4: Distribution of universities, schools, and departments\nUsing the function stringr::str_extract_all() applied on abstracts, capture all the terms of the form:\n\n“University of …”\n“… University”\n“… Institute of …”\n\nWrite a regular expression that captures all such instances.\n\ninstitution &lt;- str_extract_all(\n  abstracts,\n  \"[YOUR REGULAR EXPRESSION HERE]\"\n  ) \ninstitution &lt;- unlist(institution)\ntable(institution)\n\nRepeat the exercise and this time focus on schools and departments in the form of\n\nSchool of …\nDepartment of …\n\nAnd tabulate the results\n\nschools_and_deps &lt;- str_extract_all(\n  abstracts_txt,\n  \"[YOUR REGULAR EXPRESSION HERE]\"\n  )\ntable(schools_and_deps)"
-  },
-  {
-    "objectID": "labs/lab7.html#question-5-form-a-database",
-    "href": "labs/lab7.html#question-5-form-a-database",
-    "title": "Lab 7 - Web Scraping and Regular Expressions",
-    "section": "Question 5: Form a database",
-    "text": "Question 5: Form a database\nWe want to build a dataset which includes the title and the abstract of the paper. The title of all records is enclosed by the HTML tag ArticleTitle, and the abstract by Abstract.\nBefore applying the functions to extract text directly, it will help to process the XML a bit. We will use the xml2::xml_children() function to keep one element per ID. This way, if a paper is missing the abstract, or something else, we will be able to properly match PUBMED IDS with their corresponding records.\n\npub_char_list &lt;- xml2::xml_children(publications)\npub_char_list &lt;- sapply(pub_char_list, as.character)\n\nNow, extract the abstract and article title for each one of the elements of pub_char_list. You can either use sapply() as we just did, or simply take advantage of vectorization of stringr::str_extract\n\nabstracts &lt;- str_extract(pub_char_list, \"[YOUR REGULAR EXPRESSION]\")\nabstracts &lt;- str_remove_all(abstracts, \"[CLEAN ALL THE HTML TAGS]\")\nabstracts &lt;- str_remove_all(abstracts, \"[CLEAN ALL EXTRA WHITE SPACE AND NEW LINES]\")\n\nHow many of these don’t have an abstract? Now, the title\n\ntitles &lt;- str_extract(pub_char_list, \"[YOUR REGULAR EXPRESSION]\")\ntitles &lt;- str_remove_all(titles, \"[CLEAN ALL THE HTML TAGS]\")\n\nFinally, put everything together into a single data.frame and use knitr::kable to print the results\n\ndatabase &lt;- data.frame(\n  \"[DATA TO CONCATENATE]\"\n)\nknitr::kable(database)\n\nDone! Knit the document, commit, and push."
-  },
-  {
-    "objectID": "slides/week07.html#web-scraping-with-xml2-and-the-rvest-package-cont.-3",
-    "href": "slides/week07.html#web-scraping-with-xml2-and-the-rvest-package-cont.-3",
-    "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "Web scraping with xml2 and the rvest package (cont. 3)",
-    "text": "Web scraping with xml2 and the rvest package (cont. 3)\nWe’re getting closer!\n\ntable &lt;- html_table(table) \nprint(table) # list of tibbles\n\n[[1]]\n# A tibble: 240 × 4\n   Country                `Deaths / million` Deaths    Cases      \n   &lt;chr&gt;                  &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;      \n 1 World[a]               892                7,099,056 778,402,651\n 2 Peru                   6,603              221,060   4,532,707  \n 3 Bulgaria               5,679              38,766    1,338,533  \n 4 North Macedonia        5,429              9,991     352,093    \n 5 Bosnia and Herzegovina 5,119              16,406    404,289    \n 6 Hungary                5,072              49,124    2,238,102  \n 7 Croatia                4,807              18,784    1,357,545  \n 8 Slovenia               4,687              9,914     1,363,390  \n 9 Georgia                4,519              17,151    1,864,385  \n10 Montenegro             4,318              2,654     251,280    \n# ℹ 230 more rows"
-  },
-  {
-    "objectID": "slides/week07.html#web-scraping-with-xml2-and-the-rvest-package-cont.-4",
-    "href": "slides/week07.html#web-scraping-with-xml2-and-the-rvest-package-cont.-4",
-    "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "Web scraping with xml2 and the rvest package (cont. 4)",
-    "text": "Web scraping with xml2 and the rvest package (cont. 4)\nThere it is!\n\ntable &lt;- table[[1]]\nprint(table) # hooray!\n\n# A tibble: 240 × 4\n   Country                `Deaths / million` Deaths    Cases      \n   &lt;chr&gt;                  &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;      \n 1 World[a]               892                7,099,056 778,402,651\n 2 Peru                   6,603              221,060   4,532,707  \n 3 Bulgaria               5,679              38,766    1,338,533  \n 4 North Macedonia        5,429              9,991     352,093    \n 5 Bosnia and Herzegovina 5,119              16,406    404,289    \n 6 Hungary                5,072              49,124    2,238,102  \n 7 Croatia                4,807              18,784    1,357,545  \n 8 Slovenia               4,687              9,914     1,363,390  \n 9 Georgia                4,519              17,151    1,864,385  \n10 Montenegro             4,318              2,654     251,280    \n# ℹ 230 more rows"
-  },
-  {
-    "objectID": "slides/week07.html",
-    "href": "slides/week07.html",
-    "title": "Week 7: Regular Expressions and Web Scraping",
-    "section": "",
-    "text": "Introduction to Regular Expressions\nUnderstand the fundamentals of Web Scraping\nLearn how to use an API\n\n\n\n\n\nA regular expression (shortened as regex or regexp; also referred to as rational expression) is a sequence of characters that define a search pattern. – Wikipedia\n\n\n\n\n\n\nWe can use Regular Expressions for:\n\nValidating data fields, email address, numbers, etc.\nSearching text in various formats, e.g., addresses, there are many ways to write an address.\nReplace text, e.g., different spellings, Storm, Stôrm, Stórm to Storm.\nRemove text, e.g., tags from an HTML text, &lt;name&gt;George&lt;/name&gt; to George.\n\n\n\n\n\nWhat makes regex special is metacharacters. While we can always use regex to match literals like dog, human, 1999, we only make use of all regex power when using metacharacters:\n\n. Any character except new line\n^ beginning of the text\n$ end of the text\n[expression] Match any single character in “expression”, e.g.\n\n[0123456789] Any digit\n[0-9] Any digit in the range 0-9\n[a-z] Lower-case letters\n[A-Z] Upper-case letters\n[a-zA-Z] Lower or upper case letters.\n[a-zA-Z0-9] Any alpha-numeric\n\n\n\n\n\n\n\n[^regex] Match any except those in regex, e.g.\n\n[^0123456789] Match any except a number\n[^0-9] Match anything except in the range 0-9\n[^./ ] any except dot, slash, and space.\n\n\n\n\n\n\nRanges, e.g., 0-9 or a-z, are locale- and implementation-dependent, meaning that the range of lower case letters may vary depending on the OS’s language. To solve for this problem, you could use Character classes. Some examples:\n\n[[:lower:]] lower case letters in the current locale, could be [a-z]\n[[:upper:]] upper case letters in the current locale, could be [A-Z]\n[[:alpha:]] upper and lower case letters in the current locale, could be [a-zA-Z]\n[[:digit:]] Digits: 0 1 2 3 4 5 6 7 8 9\n[[:alnum:]] Alpha numeric characters [[:alpha:]] and [[:digit:]].\n[[:punct:]] Punctuation characters: ! ” # $ % & ’ ( ) * + , - . / : ; &lt; = &gt; ? @ [ \\ ] ^ _ ` { | } ~.\n\nFor example, in the locale en_US, the word Ḧóla IS NOT fully matched by [a-zA-Z]+, but IT IS fully matched by [[:alpha:]]+.\n\n\n\n\nOther important metacharacters:\n\n\\\\s white space, equivalent to [\\\\r\\\\n\\\\t\\\\f\\\\v ]\n| or (logical or).\n\n\n\n\n\nThese usually come together with specifying how many times (repetition):\n\nregex? Zero or one match.\nregex* Zero or more matches\nregex+ One or more matches\nregex{n,} At least n matches\nregex{,m} at most m matches\nregex{n,m} Between n and m matches.\n\nWhere regex is a regular expression\n\n\n\n\nThere are other operators that can be very useful,\n\n(regex) Group capture.\n(?:regex) Group operation without capture.\nA(?=B) Look ahead (match). Find expression A where expression B follows.\nA(?!B) Look ahead (don’t match). Find expression A where expression B does not follow.\n(?&lt;=B)A Look behind (match). Find expression A where expression B precedes.\n(?&lt;!B)A Look behind (don’t match). Find expression A where expression B does not precede.\n\nGroup captures can be reused with \\\\1, \\\\2, …, \\\\n, referring to the first group, second group, etc.\nMore (great) information here https://regex101.com/\n\n\n\n\n\n.{5} Match any character (except line end) five times.\nn{2} Match the letter n twice.\n[0-9] Match any number once.\n[0-9]+ Match any number at least once.\n[a-zA-Z]+ Match any lower or upper case letter at least once.\n\\\\s[a-zA-Z]+\\\\s Match a space, any lower or upper case letter at least once, and a space.\n\\\\s[[:alpha:]]+\\\\s Same as before but this time with the [[:alpha:]] character class.\n\n\n\n\n\nHere we are extracting the first occurrence of the following regular expressions (using stringr::str_extract()):\n\n\n\n\n\nregex\nHanna Perez [name]\nThe 年 year was 1999\nHaHa, @abc said that\nGoGo trojans #2025!\n\n\n\n\n.{5}\nHanna\nThe 年\nHaHa,\nGoGo\n\n\nn{2}\nnn\n\n\n\n\n\n[0-9]\n\n1\n\n2\n\n\n[0-9]+\n\n1999\n\n2025\n\n\n[a-zA-Z]+\nHanna\nThe\nHaHa\nGoGo\n\n\n\\\\s[a-zA-Z]+\\\\s\nPerez\nyear\nsaid\ntrojans\n\n\n\\\\s[[:alpha:]]+\\\\s\nPerez\n年\nsaid\ntrojans\n\n\n\n\n\n\n\n\n\n\n\n\n[a-zA-Z]+ [a-zA-Z]+ Match two sets of letters separated by one space.\n[a-zA-Z]+\\\\s? Match one set of letters, maybe followed by a white space.\n([a-zA-Z]+)\\\\1 Match any lower or upper case letter at least once and then match the same pattern again.\n(@|#)[a-z0-9]+ Match either the @ or # symbol, followed by one or more lower case letter or number.\n(?&lt;=#|@)[a-z0-9]+ Match one or more lower case letter or number that follows either the @ or # symbol.\n\\\\[[a-z]+\\\\] Match the symbol [, at least one lower case letter, then symbol ].\n\n\n\n\n\n\n\n\nregex\nHanna Perez [name]\nThe 年 year was 1999\nHaHa, @abc said that\nGoGo trojans #2025!\n\n\n\n\n[a-zA-Z]+ [a-zA-Z]+\nHanna Perez\nyear was\nabc said\nGoGo trojans\n\n\n[a-zA-Z]+\\\\s?\nHanna\nThe\nHaHa\nGoGo\n\n\n([a-zA-Z]+)\\\\1\nnn\n\nHaHa\nGoGo\n\n\n(@|#)[a-z0-9]+\n\n\n@abc\n#2025\n\n\n(?&lt;=#|@)[a-z0-9]+\n\n\nabc\n2025\n\n\n\n\n\n\n\n\n\n\ncolnames(ans) &lt;- c(\"regex\", \"Hanna Perez\\n[name]\", \"The 年 year\\nwas 1999\", \"HaHa, @abc\\nsaid that\", \"GoGo trojans\\n#2025!\")\nplot(c(0,50), c(0,8), asp=1, col='white', axes=FALSE, xlab='',ylab='')\nfor(i in 1:ncol(ans)){\n    text(10*i-5, 7, colnames(ans)[i], adj=c(.5,.5), font=2)\n}\ntext(5,1,\"\\\\\\\\[[a-z]+\\\\\\\\]\")\ntext(15,1,\"[name]\")\nabline(h=3.5)\n\n\n\n\n\n\n\n\n\n\n\n\n\nFind in text: grepl(), stringr::str_detect().\nSimilar to which(), which elements are TRUE grep(), stringr::str_which()\nReplace the first instance: sub(), stringr::str_replace()\nReplace all instances: gsub(), stringr::str_replace_all()\nExtract text: regmatches() plus regexpr(), stringr::str_extract() and stringr::str_extract_all().\n\n\n\n\n\n\nFor example, like in Twitter, let’s create a regex that matches usernames or hashtags with the following pattern:\n(@|#)([[:alnum:]]+)\n\n\n\n\n\n\n\n\n\n\n\nCode\n@Hanna Perez [name] #html\nThe @年 year was 1999\nHaHa, @abc said that @z\n\n\n\n\nstr_detect(text, pattern) or grepl(pattern, text)\nTRUE\nTRUE\nTRUE\n\n\nstr_extract(text, pattern) or regmatches(...)\n@Hanna\n@年\n@abc\n\n\nstr_extract_all(text, pattern)\n@Hanna, #html\n@年\n@abc, @z\n\n\n\n\n\n\n\n\n\nPattern: (@|#)([[:alnum:]]+)\n\n\n\n\n\n\n\n\n\n\n\nCode\n@Hanna Perez [name] #html\nThe @年 year was 1999\nHaHa, @abc said that @z\n\n\n\n\nstr_replace(text, pattern, \"\\\\1justinbieber\") or sub(...)\n@justinbieber Perez [name] #html\nThe @justinbieber year was 1999\nHaHa, @justinbieber said that @z\n\n\nstr_replace_all(text, pattern, \"\\\\1justinbieber\") or gsub(...)\n@justinbieber Perez [name] #justinbieber\nThe @justinbieber year was 1999\nHaHa, @justinbieber said that @justinbieber\n\n\n\n\n\nNote: It renders oddly in the table, but there is no space or line break in the group replacement, \\\\1.\n\n\n\n\nThis week we will continue using our text mining dataset:\n\n# Where are we getting the data from\nmts_url &lt;- \"https://github.com/USCbiostats/data-science-data/raw/master/00_mtsamples/mtsamples.csv\"\n\n# Downloading the data to a tempfile (so it is destroyed afterwards)\ntmp &lt;- tempfile(pattern = \"mtsamples\", fileext = \".csv\")\n\n# We should be downloading this, ONLY IF this was not downloaded already.\n# otherwise is just a waste of time.\nif (!file.exists(tmp)) {\n  download.file(\n    url      = mts_url,\n    destfile = tmp,\n    # method   = \"libcurl\", timeout = 1000 (you may need this option)\n  )\n}\n\n# read the file\nmtsamples &lt;- read.csv(tmp, header = TRUE, row.names = 1)\n\n\n\n\n\nFor each entry, we want to know if it is tumor-related. For that we can use the following code:\n\n# How many entries contain the word tumor?\nsum(grepl(\"tumor\", mtsamples$description, ignore.case = TRUE))\n\n[1] 80\n\n# Generating a column tagging tumor\nmtsamples$tumor_related &lt;- grepl(\"tumor\", mtsamples$description, ignore.case = TRUE)\n\n# Taking a look at a few examples\nmtsamples$description[mtsamples$tumor_related == TRUE][1:3]\n\n[1] \"  Transurethral resection of a medium bladder tumor (TURBT), left lateral wall.\"                              \n[2] \" Transurethral resection of the bladder tumor (TURBT), large.\"                                                \n[3] \" Cystoscopy, transurethral resection of medium bladder tumor (4.0 cm in diameter), and direct bladder biopsy.\"\n\n\nNotice the ignore.case = TRUE. This is equivalent to transforming the text to lower case using tolower() before passing the text to the regular expression function.\n\n\n\n\nNow, let’s try to guess the pronoun of the patient. To do so, we could tag by using the words he, his, him, they, them, theirs, ze, hir, hirs, she, hers, her (see this article on sexist text):\n\nmtsamples$pronoun &lt;- str_extract(\n  string  = tolower(mtsamples$transcription),\n  pattern = \"he|his|him|they|them|theirs|ze|hir|hirs|she|hers|her\"\n)\n\nWhat is the problem with this approach?\n\n\n\n\n\nmtsamples$transcription[1]\n\n[1] \"SUBJECTIVE:,  This 23-year-old white female presents with complaint of allergies.  She used to have allergies when she lived in Seattle but she thinks they are worse here.  In the past, she has tried Claritin, and Zyrtec.  Both worked for short time but then seemed to lose effectiveness.  She has used Allegra also.  She used that last summer and she began using it again two weeks ago.  It does not appear to be working very well.  She has used over-the-counter sprays but no prescription nasal sprays.  She does have asthma but doest not require daily medication for this and does not think it is flaring up.,MEDICATIONS: , Her only medication currently is Ortho Tri-Cyclen and the Allegra.,ALLERGIES: , She has no known medicine allergies.,OBJECTIVE:,Vitals:  Weight was 130 pounds and blood pressure 124/78.,HEENT:  Her throat was mildly erythematous without exudate.  Nasal mucosa was erythematous and swollen.  Only clear drainage was seen.  TMs were clear.,Neck:  Supple without adenopathy.,Lungs:  Clear.,ASSESSMENT:,  Allergic rhinitis.,PLAN:,1.  She will try Zyrtec instead of Allegra again.  Another option will be to use loratadine.  She does not think she has prescription coverage so that might be cheaper.,2.  Samples of Nasonex two sprays in each nostril given for three weeks.  A prescription was written as well.\"\n\nmtsamples$pronoun[1]\n\n[1] \"his\"\n\n\n\n\n\n\nTo correct this issue, we can make our regular expression more precise:\n(?&lt;=\\W|^)(he|his|him|they|them|theirs|ze|hir|hirs|she|hers|her)(?=\\W|$)\nBit by bit this is:\n\n(?&lt;=regex) look behind for…\n\n\\W any non-alphanumeric character, this is equivalent to [^[:alnum:]], | or\n^ the beginning of text\n\nhe|his|him... any of these words\n(?=regex) followed by…\n\n\\W any non-alphanumeric character, this is equivalent to [^[:alnum:]], | or\n$ the end of the text.\n\n\n\n\n\n\nLet’s use this new pattern:\n\nmtsamples$pronoun &lt;- str_extract(\n  string  = tolower(mtsamples$transcription), \n  pattern = \"(?&lt;=\\\\W|^)(he|his|him|they|them|theirs|ze|hir|hirs|she|hers|her)(?=\\\\W|$)\"\n  )\nmtsamples$pronoun[1:10]\n\n [1] \"she\" \"he\"  \"he\"  NA    NA    \"she\" \"she\" NA    NA    NA   \n\n\n\n\n\n\n\ntable(mtsamples$pronoun, useNA = \"always\")\n\n\n  he  her  him  his  she them they &lt;NA&gt; \n1073  554   39  524 1261   23   96 1429 \n\n\n\n\n\n\n\nImagine now that you need to see the types of cancer mentioned in the data.\nFor simplicity, let’s assume that, if specified, it is in the form of TYPE cancer, i.e. single word.\nWe are interested in the word before cancer, how can we capture this?\n\n\n\n\n\nWe can just try to extract the phrase \"[some word] cancer\", in particular, we could use the following regular expression:\n[[:alnum:]-_]{4,}\\s*cancer\nWhere\n\n[[:alnum:]-_]{4,} captures any alphanumeric character, including - and _. Furthermore, for this match to work there must be at least 4 characters,\n\\s* captures 0 or more white-spaces, and\ncancer captures the word cancer\n\n\n\n\n\n\nmtsamples$cancer_type &lt;- str_extract(tolower(mtsamples$keywords), \"[[:alnum:]-_]{4,}\\\\s*cancer\")\ntable(mtsamples$cancer_type)\n\n\n       anal cancer     bladder cancer      breast cancer       colon cancer \n                 1                  8                 21                 14 \nendometrial cancer  esophageal cancer        lung cancer     ovarian cancer \n                 5                  2                 13                  1 \n  papillary cancer    prostate cancer     uterine cancer \n                 3                 17                  7"
-  },
-  {
-    "objectID": "labs/lab7.html#question-2-get-article-abstracts-and-authors",
-    "href": "labs/lab7.html#question-2-get-article-abstracts-and-authors",
-    "title": "Lab 7 - Web Scraping and Regular Expressions",
-    "section": "Question 2: Get article abstracts and authors",
-    "text": "Question 2: Get article abstracts and authors\nThat’s quite a few articles, so let’s narrow our focus by including “california” in our search:\nhttps://pubmed.ncbi.nlm.nih.gov/?term=sars-cov-2%20california\nIn your web browser, use the slider on the left to narrow your search down to just the years 2020 and 2021.\nNow we will download the abstracts and author information for all of these articles. Under the search bar, click “Save,” set the Selection to “All results,” set the Format to “Abstract (text),” and click “Create file.” This should start downloading a large-ish text file (abstract-sars-cov-2-set.txt)\nWe can read this into R with the following code. We need to do some formatting because the abstracts are separated by two blank lines.\n\n# read in text, each line is a separate character\nabstracts &lt;- readLines('~/Downloads/abstract-sars-cov-2-set.txt', warn = FALSE)\n# combine all text into one character\nabstracts &lt;- paste(abstracts, collapse = '\\n')\n# split the text whenever 3 new lines occur in a row (indicating two blank lines)\nabstracts &lt;- unlist(strsplit(abstracts, split = '\\n\\n\\n'))\n# replace any remaining \"\\n\" symbols with spaces\nabstracts &lt;- gsub(\"\\n\", \" \", abstracts)\n# replace multiple spaces with single space\nabstracts &lt;- gsub(\" +\", \" \", abstracts)"
-  },
-  {
-    "objectID": "labs/lab7.html#question-4-distribution-of-universities",
-    "href": "labs/lab7.html#question-4-distribution-of-universities",
-    "title": "Lab 7 - Web Scraping and Regular Expressions",
-    "section": "Question 4: Distribution of universities",
-    "text": "Question 4: Distribution of universities\nLook through the first couple abstracts and see how the author affiliations are formatted.\nUsing the function stringr::str_extract_all() applied on abstracts, capture all the terms of the form:\n\n“… University”\n“University of …”\n“… Institute of …”\n\nWrite a regular expression that captures all such instances.\n\nlibrary(stringr)\ninstitution &lt;- str_extract_all(\n  abstracts,\n  \"[REGEX FOR INSTITUTIONS]\"\n  ) \ninstitution &lt;- unlist(institution)\ntable(institution)\n\nWhat are the 10 most common institutions? Discuss how you could you improve these results.\nTo examine what types of faculty studied Covid, repeat the previous exercise, but this time focus on schools and departments in the form of:\n\n“School of …”\n“Department of …”\n\nAnd tabulate the results.\n\nschools_and_deps &lt;- str_extract_all(\n  abstracts_txt,\n  \"[REGEX FOR SCHOOLS AND DEPARTMENTS]\"\n  )\ntable(schools_and_deps)"
-  },
-  {
-    "objectID": "labs/lab7.html#question-5-form-a-dataset",
-    "href": "labs/lab7.html#question-5-form-a-dataset",
-    "title": "Lab 7 - Web Scraping and Regular Expressions",
-    "section": "Question 5: Form a dataset",
-    "text": "Question 5: Form a dataset\nWe want to build a dataset which includes the journal, article title, authors, and affiliations for each paper. In order to do this, we will go back to the original input, but not do all the formatting we did previously.\n\n# read in text, each line is a separate character\nabstracts &lt;- readLines('~/Downloads/abstract-sars-cov-2-set.txt', warn = FALSE)\n# combine all text into one character\nabstracts &lt;- paste(abstracts, collapse = '\\n')\n# split the text whenever 3 new lines occur in a row (indicating two blank lines)\nabstracts &lt;- unlist(strsplit(abstracts, split = '\\n\\n\\n'))\n\nNow extract the journal title for each article. This is in the first line of each entry, immediately after the citation number (ie. “1.”). Notice that we are using str_extract rather than str_extract_all, because we only want (at most) one result per entry.\n\njournal &lt;- str_extract(abstracts, \"[YOUR REGULAR EXPRESSION]\")\n\nNow we’re going to extract the title of each article. This is the second non-empty line in each entry, with blank lines before and after. We could do this with a regular expression, but instead, we’ll use the strsplit() function, as we did above.\n\ntitles &lt;- sapply(abstracts, function(x){\n  unlist(strsplit(x, split = \"\\n\\n\"))[2]\n}, USE.NAMES = FALSE)\n\nNote that each title could still contain a single \\n symbol, in the case of a particularly long title. We could remove those as we did the first time we read in the data.\nUse the same technique to extract the list of authors and call this object authors.\nNow use a regular expression to extract the author affiliations section for each abstract. This always starts with a blank line followed by “Author information:” and ends with another blank line.\n\naffiliations &lt;- str_extract(abstracts, \"[YOUR REGULAR EXPRESSION]\")\n\nFinally, put everything together into a single data.frame and use knitr::kable to print the first five results.\n\ndata &lt;- data.frame(\n  [DATA TO COMBINE]\n)\nknitr::kable(data[1:5, ])\n\nDone! Render the document, commit, and push."
-  },
-  {
-    "objectID": "labs/lab7.html#question-3-distribution-of-universities",
-    "href": "labs/lab7.html#question-3-distribution-of-universities",
-    "title": "Lab 7 - Web Scraping and Regular Expressions",
-    "section": "Question 3: Distribution of universities",
-    "text": "Question 3: Distribution of universities\nLook through the first couple abstracts and see how the author affiliations are formatted.\nUsing the function stringr::str_extract_all() applied on abstracts, capture all the terms of the form:\n\n“… University”\n“University of …”\n“… Institute of …”\n\nWrite a regular expression that captures all such instances.\n\nlibrary(stringr)\ninstitution &lt;- str_extract_all(\n  abstracts,\n  \"[REGEX FOR INSTITUTIONS]\"\n  ) \ninstitution &lt;- unlist(institution)\ntable(institution)\n\nWhat are the 10 most common institutions? Discuss how you could you improve these results."
-  },
-  {
-    "objectID": "labs/lab7.html#question-4-make-a-tidy-dataset",
-    "href": "labs/lab7.html#question-4-make-a-tidy-dataset",
-    "title": "Lab 7 - Web Scraping and Regular Expressions",
-    "section": "Question 4: Make a tidy dataset",
-    "text": "Question 4: Make a tidy dataset\nWe want to build a dataset which includes the journal, article title, authors, and affiliations for each paper. In order to do this, we will go back to the original input, but not do all the formatting we did previously.\n\n# read in text, each line is a separate character\nabstracts &lt;- readLines('~/Downloads/abstract-sars-cov-2-set.txt', warn = FALSE)\n# combine all text into one character\nabstracts &lt;- paste(abstracts, collapse = '\\n')\n# split the text whenever 3 new lines occur in a row (indicating two blank lines)\nabstracts &lt;- unlist(strsplit(abstracts, split = '\\n\\n\\n'))\n\nNow extract the journal title for each article. This is in the first line of each entry, immediately after the citation number (ie. “1.”). Notice that we are using str_extract rather than str_extract_all, because we only want (at most) one result per entry.\n\njournal &lt;- str_extract(abstracts, \"[YOUR REGULAR EXPRESSION]\")\n\nNow we’re going to extract the title of each article. This is the second non-empty line in each entry, with blank lines before and after. We could do this with a regular expression, but instead, we’ll use the strsplit() function, as we did above.\n\ntitles &lt;- sapply(abstracts, function(x){\n  unlist(strsplit(x, split = \"\\n\\n\"))[2]\n}, USE.NAMES = FALSE)\n\nNote that each title could still contain a single \\n symbol, in the case of a particularly long title. We could remove those as we did the first time we read in the data.\nUse the same technique to extract the list of authors and call this object authors.\nNow use a regular expression to extract the author affiliations section for each abstract. This always starts with a blank line followed by “Author information:” and ends with another blank line.\n\naffiliations &lt;- str_extract(abstracts, \"[YOUR REGULAR EXPRESSION]\")\n\nFinally, put everything together into a single data.frame and use knitr::kable to print the first five results.\n\npapers &lt;- data.frame(\n  [DATA TO COMBINE]\n)\nknitr::kable(papers[1:5, ])\n\nDone! Render the document, commit, and push."
-  },
-  {
-    "objectID": "assignments/midterm.html",
-    "href": "assignments/midterm.html",
-    "title": "Midterm Project",
-    "section": "",
-    "text": "Due Sunday, October 26th, 2024 by 11:59pm Pacific Time.\nLearning Objective: To apply the skills learned in PM 566 (through Week 6) by analyzing and interpreting a dataset of your choice.\nNarrative: As we have discussed in class, the practice of data science requires both quantitative skills and qualitative knowledge of the domain from which the data was collected. The first step in any data analysis is to have a dataset for which you have formulated an interesting question. If you do not have a dataset to work with, you may choose one from our list of suggestions. With your dataset, formulate a clear and concise question to answer and conduct data wrangling, exploratory data analysis, and data visualization to explore/answer this question.\nDeliverable: A written report generated in Quarto (HTML or PDF) with embedded tables and figures that is submitted to a project-specific GitHub repository that you create. The report should have the following sections:\n\nIntroduction - provide background on your dataset and formulated question\nData Preparation - how and where the data were acquired, how you cleaned and wrangled the data\nExploratory Analysis - dataset characteristics, variables included, distribution of key variables\nPreliminary Results - analysis of the primary research question and any subsequent follow-up questions, including summary statistics in tabular form and publication-quality figures (look at the kable() function from knitr for making nice tables)\na brief Conclusion - summary of what you found in the data\n\nIn your report, please do not include any unformatted text output (e.g. output from head(), str(), print(), etc.). You should summarize these aspects of your data within the text, figures, and/or tables.\nNote that you cannot use the same dataset on both the Midterm and Final. So if you came into this class with a dataset that you wanted to analyze, you may want to save that for later."
-  },
-  {
-    "objectID": "slides/week08.html#what-is-hpc",
-    "href": "slides/week08.html#what-is-hpc",
-    "title": "Week 8: Efficiency, High Performance Computing, and Cloud Computing",
-    "section": "What is HPC",
-    "text": "What is HPC\nHigh Performance Computing (HPC) can relate to any of the following:\n\nParallel computing, i.e. using multiple resources (could be threads, cores, nodes, etc.) simultaneously to complete a task.\nBig data working with large datasets (in/out-of-memory).\n\nWe will mostly focus on parallel computing."
-  },
-  {
-    "objectID": "slides/week08.html#serial-computation",
-    "href": "slides/week08.html#serial-computation",
-    "title": "Week 8: Efficiency, High Performance Computing, and Cloud Computing",
-    "section": "Serial computation",
-    "text": "Serial computation\n\n\n\n\nHere we are using a single core. The function is applied one element at a time, leaving the other 3 cores without usage."
-  },
-  {
-    "objectID": "slides/week08.html#parallel-computation",
-    "href": "slides/week08.html#parallel-computation",
-    "title": "Week 8: Efficiency, High Performance Computing, and Cloud Computing",
-    "section": "Parallel computation",
-    "text": "Parallel computation\n\n\n\n\nIn this more intelligent way of computation, we are taking full advantage of our computer by using all 4 cores at the same time. This will reduce computation time which, in the case of complicated/long calculations, can be an important speed gain."
-  },
-  {
-    "objectID": "slides/week08.html#parallel-computing-hardware",
-    "href": "slides/week08.html#parallel-computing-hardware",
-    "title": "Week 8: Efficiency, High Performance Computing, and Cloud Computing",
-    "section": "Parallel computing: Hardware",
-    "text": "Parallel computing: Hardware\nWhen it comes to parallel computing, there are several ways (levels) in which we can speed up our analysis. From the bottom up:\n\nThread level SIMD instructions: Most modern processors support some level of what is called vectorization, this is, applying a single (same) instruction to streams of data. For example: adding vector A and B.\nHyper-Threading Technology (HTT): Intel’s hyper-threading generates a virtual partition of a single core (processor) which, while not equivalent to having multiple physical threads, does speed things up.\nMulti-core processor: Most modern CPUs (Central Processing Unit) have two or more physical cores. A typical laptop computer has about 8 cores.\nGeneral-Purpose Computing on Graphics Processing Unit (GP-GPU): While modern CPUs have multiple cores, GPUs can hold thousands of cores. Designed for image processing, there’s an increasing use of GPUs as an alternative to CPUs for scientific computing."
-  },
-  {
-    "objectID": "slides/week08.html#parallel-computing-cpu-components",
-    "href": "slides/week08.html#parallel-computing-cpu-components",
-    "title": "Week 8: Efficiency, High Performance Computing, and Cloud Computing",
-    "section": "Parallel computing: CPU components",
-    "text": "Parallel computing: CPU components\n\n\n\n\nTaxonomy of CPUs (Downloaded from https://slurm.schedmd.com/mc_support.html)"
-  },
-  {
-    "objectID": "slides/week08.html#parallel-computing-in-r",
-    "href": "slides/week08.html#parallel-computing-in-r",
-    "title": "Week 8: Efficiency, High Performance Computing, and Cloud Computing",
-    "section": "Parallel computing in R",
-    "text": "Parallel computing in R\nWhile there are several alternatives (just take a look at the High-Performance Computing Task View), we’ll focus on the following R-packages for explicit parallelism\nSome examples:\n\nparallel: R package that provides ‘[s]upport for parallel computation, including random-number generation’.\n\n\nforeach: R package for ‘general iteration over elements’ in parallel fashion.\n\n\nfuture: ‘[A] lightweight and unified Future API for sequential and parallel processing of R expression via futures.’ (won’t cover here)\n\nImplicit parallelism, on the other hand, are out-of-the-box tools that allow the programmer not to worry about parallelization, e.g. such as gpuR for Matrix manipulation using GPU, tensorflow"
-  },
-  {
-    "objectID": "slides/week08.html#the-parallel-package",
-    "href": "slides/week08.html#the-parallel-package",
-    "title": "Week 8: Efficiency, High Performance Computing, and Cloud Computing",
-    "section": "The parallel package",
-    "text": "The parallel package\n\nBased on the snow and multicore R Packages.\nExplicit parallelism.\nSimple yet powerful idea: Parallel computing as multiple R sessions.\nClusters can be made of both local and remote sessions\nMultiple types of cluster: PSOCK, Fork, MPI, etc."
-  },
-  {
-    "objectID": "slides/week08.html#ex-1-hello-world",
-    "href": "slides/week08.html#ex-1-hello-world",
-    "title": "Week 8: Efficiency, High Performance Computing, and Cloud Computing",
-    "section": "Ex 1: Hello world!",
-    "text": "Ex 1: Hello world!\n\n# 1. CREATING A CLUSTER\nlibrary(parallel)\ncl &lt;- makeCluster(4)    \nx  &lt;- 20\n\n# 2. PREPARING THE CLUSTER\nclusterSetRNGStream(cl, 123) # Equivalent to `set.seed(123)` (not necessary for this example)\nclusterExport(cl, \"x\")\n\n# 3. DO YOUR CALL\nclusterEvalQ(cl, {\n  paste0(\"Hello from process #\", Sys.getpid(), \". I see x and it is equal to \", x)\n})\n\n[[1]]\n[1] \"Hello from process #85411. I see x and it is equal to 20\"\n\n[[2]]\n[1] \"Hello from process #85410. I see x and it is equal to 20\"\n\n[[3]]\n[1] \"Hello from process #85412. I see x and it is equal to 20\"\n\n[[4]]\n[1] \"Hello from process #85409. I see x and it is equal to 20\"\n\n# 4. STOP THE CLUSTER\nstopCluster(cl)"
-  },
-  {
-    "objectID": "slides/week08.html#ex-1-hello-world-redux",
-    "href": "slides/week08.html#ex-1-hello-world-redux",
-    "title": "Week 8: Efficiency, High Performance Computing, and Cloud Computing",
-    "section": "Ex 1: Hello world! (redux)",
-    "text": "Ex 1: Hello world! (redux)\nMulti-core versions of the *apply functions are simpler, but may not work on Windows machines.\n\n# 1. SETUP\nlibrary(parallel)\nx  &lt;- 20\n\n# 2. DO YOUR CALL\nmclapply(1:4, function(i){\n    paste0(\"Hello from process #\", Sys.getpid(), \". I see x and it is equal to \", x)\n}, mc.cores = 4)\n\n[[1]]\n[1] \"Hello from process #85488. I see x and it is equal to 20\"\n\n[[2]]\n[1] \"Hello from process #85489. I see x and it is equal to 20\"\n\n[[3]]\n[1] \"Hello from process #85490. I see x and it is equal to 20\"\n\n[[4]]\n[1] \"Hello from process #85491. I see x and it is equal to 20\""
-  },
-  {
-    "objectID": "slides/week08.html#ex-2-parallel-regressions",
-    "href": "slides/week08.html#ex-2-parallel-regressions",
-    "title": "Week 8: Efficiency, High Performance Computing, and Cloud Computing",
-    "section": "Ex 2: Parallel regressions",
-    "text": "Ex 2: Parallel regressions\nProblem: Run multiple regressions on a very wide dataset. We need to fit the following model:\n\\[\ny = X_i\\beta_i + \\varepsilon,\\quad \\varepsilon\\sim N(0, \\sigma^2_i),\\quad\\forall i\n\\]\n\n\n[1] 500 999\n\n\n         x001        x002       x003       x004      x005\n1  0.61827227  1.72847041 -1.4810695 -0.2471871 1.4776281\n2  0.96777456 -0.19358426 -0.8176465  0.6356714 0.7292221\n3 -0.04303734 -0.06692844  0.9048826 -1.9277964 2.2947675\n4  0.84237608 -1.13685605 -1.8559158  0.4687967 0.9881953\n5 -1.91921443  1.83865873  0.5937039 -0.1410556 0.6507415\n6  0.59146153  0.81743419  0.3348553 -1.8771819 0.8181764\n\n\n num [1:500] -0.8188 -0.5438 1.0209 0.0467 -0.4501 ..."
-  },
-  {
-    "objectID": "slides/week08.html#ex-2-parallel-regressions-contd-1",
-    "href": "slides/week08.html#ex-2-parallel-regressions-contd-1",
-    "title": "Week 8: Efficiency, High Performance Computing, and Cloud Computing",
-    "section": "Ex 2: Parallel regressions (cont’d 1)",
-    "text": "Ex 2: Parallel regressions (cont’d 1)\nSerial solution: Use apply (basic loop) to solve it\n\n\n                   x001        x002        x003        x004        x005\n(Intercept) -0.03449819 -0.03339681 -0.03728140 -0.03644192 -0.03717344\nx           -0.06082548  0.02748265 -0.01327855 -0.08012361 -0.04067826"
-  },
-  {
-    "objectID": "slides/week08.html#ex-2-parallel-regressions-contd-2",
-    "href": "slides/week08.html#ex-2-parallel-regressions-contd-2",
-    "title": "Week 8: Efficiency, High Performance Computing, and Cloud Computing",
-    "section": "Ex 2: Parallel regressions (cont’d 2)",
-    "text": "Ex 2: Parallel regressions (cont’d 2)\nParallel solution: Use parApply\n\n\n                   x001        x002        x003        x004        x005\n(Intercept) -0.03449819 -0.03339681 -0.03728140 -0.03644192 -0.03717344\nx           -0.06082548  0.02748265 -0.01327855 -0.08012361 -0.04067826"
-  },
-  {
-    "objectID": "slides/week08.html#ex-2-parallel-regressions-contd-3",
-    "href": "slides/week08.html#ex-2-parallel-regressions-contd-3",
-    "title": "Week 8: Efficiency, High Performance Computing, and Cloud Computing",
-    "section": "Ex 2: Parallel regressions (cont’d 3)",
-    "text": "Ex 2: Parallel regressions (cont’d 3)\nAre we going any faster?\n\n\nUnit: relative\n     expr      min      lq     mean   median       uq      max neval\n parallel 1.000000 1.00000 1.000000 1.000000 1.000000 1.000000   100\n   serial 2.656545 2.60764 2.475233 2.580249 2.420304 1.781718   100"
-  },
-  {
-    "objectID": "slides/week08.html#extended-example-sars-cov2-simulation",
-    "href": "slides/week08.html#extended-example-sars-cov2-simulation",
-    "title": "Week 8: Efficiency, High Performance Computing, and Cloud Computing",
-    "section": "Extended Example: SARS-CoV2 simulation",
-    "text": "Extended Example: SARS-CoV2 simulation\nAn altered version of Conway’s game of life\n\nPeople live on a grid, each individual having 8 neighbors.\nA healthy individual (A) interacting with a sick neighbor (B) has the following probabilities of contracting the disease:\n\n100% if neither wears a mask.\n50% if only A wears a mask.\n20% if only B wears a mask.\n5% if both wear masks.\n\nInfected individuals may die with probability 10%.\n\nWe want to illustrate the importance of wearing face masks. We are going to simulate a system with 2,500 (50 x 50) individuals, 1,000 times so we can analyze: (a) contagion curve, (b) death curve.\nMore models like this: The SIRD model (Susceptible-Infected-Recovered-Deceased)"
-  },
-  {
-    "objectID": "slides/week08.html#conways-game-of-masks",
-    "href": "slides/week08.html#conways-game-of-masks",
-    "title": "Week 8: Efficiency, High Performance Computing, and Cloud Computing",
-    "section": "Conway’s Game of Masks",
-    "text": "Conway’s Game of Masks\nDownload the program here.\n\n# source(\"~/Downloads/sars-cov2.R\", echo=FALSE)\nsource(\"img/sars-cov2.R\", echo = FALSE)\n\n# Looking at some constants\nprobs_sick # Sick individual's probabilities\n\n deceased  infected recovered \n      0.1       0.4       0.5 \n\nprobs_susc # Probabilities of i getting the disease \n\n               j doesn't wear j wears\ni doesn't wear            0.9    0.20\ni wears                   0.5    0.05"
-  },
-  {
-    "objectID": "slides/week08.html#first-look-what-does-the-simulation-look-like",
-    "href": "slides/week08.html#first-look-what-does-the-simulation-look-like",
-    "title": "Week 8: Efficiency, High Performance Computing, and Cloud Computing",
-    "section": "First look: What does the simulation look like?",
-    "text": "First look: What does the simulation look like?\n\n\n   susceptible infected recovered deceased\n0         1440      160         0        0\n1         1265      234        85       16\n2         1064      307       190       39\n3          876      321       334       69\n4          717      287       499       97\n15         430        1       990      179\n16         429        2       990      179\n17         429        0       992      179\n18         429        0       992      179\n19         429        0       992      179"
-  },
-  {
-    "objectID": "slides/week08.html#first-look-what-does-the-simulation-look-like-contd",
-    "href": "slides/week08.html#first-look-what-does-the-simulation-look-like-contd",
-    "title": "Week 8: Efficiency, High Performance Computing, and Cloud Computing",
-    "section": "First look: What does the simulation look like? (contd’)",
-    "text": "First look: What does the simulation look like? (contd’)\n\n# Location of who wears the facemask. This step is only for plotting\nwears &lt;- which(one$wears, arr.ind = TRUE) - 1\nwears &lt;- wears/(one$nr) * (1 + 1/one$nr)\n\n# Initializing the animation\nfig   &lt;- magick::image_device(600, 600, res = 96/2, pointsize = 24)\nfor (i in 1:one$current_step) {\n  \n  # Plot\n  image(\n    one$temporal[,,i], col=c(\"gray\", \"tomato\", \"steelblue\",\"black\"),\n    main = paste(\"Time\", i - 1L, \"of\", one$nsteps),\n    zlim = c(1,4)\n    )\n  points(wears, col=\"white\", pch=20, cex=1.5)\n  legend(\n    \"topright\",\n    col = c(\"gray\", \"tomato\", \"steelblue\",\"black\", \"black\"),\n    legend = c(names(codes), \"wears a mask\"),\n    pch = c(rep(15, 4), 21)\n  )\n}\n\n# Finalizing plot and writing the animation\ndev.off()\nanimation &lt;- magick::image_animate(fig, fps = 2)\nmagick::image_write(animation, \"covid1.gif\")"
-  },
-  {
-    "objectID": "slides/week08.html#speed-things-up-timing-under-the-serial-implementation",
-    "href": "slides/week08.html#speed-things-up-timing-under-the-serial-implementation",
-    "title": "Week 8: Efficiency, High Performance Computing, and Cloud Computing",
-    "section": "Speed things up: Timing under the serial implementation",
-    "text": "Speed things up: Timing under the serial implementation\nWe will use the function system.time to measure how much time it takes to complete 20 simulations in serial versus parallel fashion using 4 cores."
-  },
-  {
-    "objectID": "slides/week08.html#speed-things-up-parallel-a-forking-cluster",
-    "href": "slides/week08.html#speed-things-up-parallel-a-forking-cluster",
-    "title": "Week 8: Efficiency, High Performance Computing, and Cloud Computing",
-    "section": "Speed things up: Parallel a Forking Cluster",
-    "text": "Speed things up: Parallel a Forking Cluster\nAlternative 1: If you are using Unix-like system (Ubuntu, OSX, etc.), you can take advantage of process forking, and thus, parallel’s mclapply function:"
-  },
-  {
-    "objectID": "slides/week08.html#speed-things-up-parallel-with-a-socket-cluster",
-    "href": "slides/week08.html#speed-things-up-parallel-with-a-socket-cluster",
-    "title": "Week 8: Efficiency, High Performance Computing, and Cloud Computing",
-    "section": "Speed things up: Parallel with a Socket Cluster",
-    "text": "Speed things up: Parallel with a Socket Cluster\nAlternative 2: Regardless of the operating system, we can use a Socket cluster, which is simply a group of fresh R sessions that listen to the parent/main/mother session.\n# Step 2: Prepare the cluster\n# We could either export all the needed variables\nparallel::clusterExport(\n  cl,\n  c(\"calc_stats\", \"codes\", \"dat\", \"get_neighbors\", \"init\", \"probs_sick\",\n    \"probs_susc\", \"simulate_covid\", \"update_status\", \"update_status_all\"\n    )\n  )\nOr simply run the simulation script in the other sessions:\n\n# Step 2 (alt): Prepare the cluster\nparallel::clusterEvalQ(cl, source(\"img/sars-cov2.R\"))\nparallel::clusterSetRNGStream(cl, 123) # Make sure it is reproducible!"
-  },
-  {
-    "objectID": "slides/week08.html#speed-things-up-parallel-with-a-socket-cluster-contd",
-    "href": "slides/week08.html#speed-things-up-parallel-with-a-socket-cluster-contd",
-    "title": "Week 8: Efficiency, High Performance Computing, and Cloud Computing",
-    "section": "Speed things up: Parallel with a Socket Cluster (cont’d)",
-    "text": "Speed things up: Parallel with a Socket Cluster (cont’d)"
-  },
-  {
-    "objectID": "slides/week08.html#cloud-computing-a.k.a.-on-demand-computing",
-    "href": "slides/week08.html#cloud-computing-a.k.a.-on-demand-computing",
-    "title": "Week 8: Efficiency, High Performance Computing, and Cloud Computing",
-    "section": "Cloud Computing (a.k.a. on-demand computing)",
-    "text": "Cloud Computing (a.k.a. on-demand computing)\nHPC clusters, super-computers, etc. need not be bought… you can rent:\n\nAmazon Web Services (AWS)\nGoogle Cloud Computing\nMicrosoft Azure\n\nThese services provide more than just computing (storage, data analysis, etc.). But for computing and storage, there are other free resources, e.g.:\n\nThe Extreme Science and Engineering Discovery Environment (XSEDE)"
-  },
-  {
-    "objectID": "slides/week08.html#there-are-many-ways-to-run-r-in-the-cloud",
-    "href": "slides/week08.html#there-are-many-ways-to-run-r-in-the-cloud",
-    "title": "Week 8: Efficiency, High Performance Computing, and Cloud Computing",
-    "section": "There are many ways to run R in the cloud",
-    "text": "There are many ways to run R in the cloud\nAt USC:\n\nCenter for Advanced Research Computing (CARC). USC users can request hundreds of cores (literally).\n\nRunning R in:\n\nGoogle Cloud: https://cloud.google.com/solutions/running-r-at-scale\nAmazon Web Services: https://aws.amazon.com/blogs/big-data/running-r-on-aws/\nMicrosoft Azure: https://docs.microsoft.com/en-us/azure/architecture/data-guide/technology-choices/r-developers-guide"
-  },
-  {
-    "objectID": "slides/week08.html#submitting-jobs",
-    "href": "slides/week08.html#submitting-jobs",
-    "title": "Week 8: Efficiency, High Performance Computing, and Cloud Computing",
-    "section": "Submitting jobs",
-    "text": "Submitting jobs\n\nA key feature of cloud services: interact via command line.\nYou will need to be familiar with Rscript and R CMD BATCH.\nWhich is better? It depends on the application."
-  },
-  {
-    "objectID": "slides/week08.html#submitting-jobs-examples",
-    "href": "slides/week08.html#submitting-jobs-examples",
-    "title": "Week 8: Efficiency, High Performance Computing, and Cloud Computing",
-    "section": "Submitting jobs (examples)",
-    "text": "Submitting jobs (examples)\nImagine we have the following R script (download here):\nlibrary(data.table)\nset.seed(1231)\ndat &lt;- data.table(y = rnorm(1e3), x = sample.int(5, 1e3, TRUE))\ndat[,mean(y), by = x]\nR CMD BATCH\nThis will run a non-interactive R session and put all the output (stdout and stderr) to the file dummy.Rout.\nR CMD BATCH --vanilla dummy.R dummy.Rout &\nRscript\nThis will also execute R in the background, with the difference that the output dummy.Rout will not capture stderr (messages, warnings and errors from R).\nRscript --vanilla dummy.R &gt; dummy.Rout &\nThe & at the end makes sure the job is submitted and does not wait for it to end."
-  },
-  {
-    "objectID": "slides/week08.html#rscript",
-    "href": "slides/week08.html#rscript",
-    "title": "Week 8: Efficiency, High Performance Computing, and Cloud Computing",
-    "section": "Rscript",
-    "text": "Rscript\nThe R script can be executed as a program directly, if you specify where the Rscript program lives.\nThe following example works on Unix. This is an R script named since_born.R (download here)\n#!/usr/bin/Rscript\nargs &lt;- tail(commandArgs(), 0)\nmessage(Sys.Date() - as.Date(args), \" days since you were born.\")\nThis R script can be executed in various ways…"
-  },
-  {
-    "objectID": "slides/week08.html#rscript-as-a-program",
-    "href": "slides/week08.html#rscript-as-a-program",
-    "title": "Week 8: Efficiency, High Performance Computing, and Cloud Computing",
-    "section": "Rscript as a program",
-    "text": "Rscript as a program\nFor this we would need to change it to an executable. In unix you can use the chmod command: chmod +x since_born.R. This allows us to do the following:"
-  },
-  {
-    "objectID": "slides/week08.html#rscript-in-a-bash-script-most-common",
-    "href": "slides/week08.html#rscript-in-a-bash-script-most-common",
-    "title": "Week 8: Efficiency, High Performance Computing, and Cloud Computing",
-    "section": "Rscript in a bash script (most common)",
-    "text": "Rscript in a bash script (most common)\nIn the case of running jobs on a cluster or something similar, we usually need to have a bash script. In our case, we have a file named since_born_bash.sh that calls Rscript (download here)\n#!/bin/bash\nRscript since_born.R 1988-03-02\nWhich we would execute like this:\n\n\nFatal error: cannot open file 'since_born.R': No such file or directory"
-  },
-  {
-    "objectID": "slides/week08.html#session-info",
-    "href": "slides/week08.html#session-info",
-    "title": "Week 8: Efficiency, High Performance Computing, and Cloud Computing",
-    "section": "Session info",
-    "text": "Session info\n\n\nR version 4.5.0 (2025-04-11)\nPlatform: aarch64-apple-darwin20\nRunning under: macOS Sequoia 15.6.1\n\nMatrix products: default\nBLAS:   /Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/lib/libRblas.0.dylib \nLAPACK: /Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.1\n\nlocale:\n[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n\ntime zone: America/Los_Angeles\ntzcode source: internal\n\nattached base packages:\n[1] parallel  stats     graphics  grDevices utils     datasets  methods  \n[8] base     \n\nother attached packages:\n[1] microbenchmark_1.5.0 scales_1.4.0         RColorBrewer_1.1-3  \n\nloaded via a namespace (and not attached):\n [1] digest_0.6.37     R6_2.6.1          codetools_0.2-20  fastmap_1.2.0    \n [5] xfun_0.52         farver_2.1.2      glue_1.8.0        knitr_1.50       \n [9] htmltools_0.5.8.1 rmarkdown_2.29    lifecycle_1.0.4   cli_3.6.5        \n[13] compiler_4.5.0    rstudioapi_0.17.1 tools_4.5.0       evaluate_1.0.4   \n[17] yaml_2.3.10       jsonlite_2.0.0    rlang_1.1.6"
-  },
-  {
-    "objectID": "slides/week08.html#bonus-rcpp-r-c",
-    "href": "slides/week08.html#bonus-rcpp-r-c",
-    "title": "Week 8: Efficiency, High Performance Computing, and Cloud Computing",
-    "section": "(Bonus) Rcpp: R & C++",
-    "text": "(Bonus) Rcpp: R & C++\nThe Fibonacci series\n\n\\[\nFib(n) = \\left\\{\\begin{array}{ll}\nn & \\mbox{if }n \\leq 1 \\\\\nFib(n-1) + Fib(n - 2) & \\mbox{otherwise}\n\\end{array}\\right.\n\\]"
-  },
-  {
-    "objectID": "slides/week08.html#rcpp-hello-world-v1",
-    "href": "slides/week08.html#rcpp-hello-world-v1",
-    "title": "Week 8: Efficiency, High Performance Computing, and Cloud Computing",
-    "section": "Rcpp: Hello world! v1",
-    "text": "Rcpp: Hello world! v1\nThe following C++ file, called fib.cpp\nCan be compiled within R using Rcpp::sourceCpp(\"fib.cpp\"). This exports the function back into R:\n\n\n[1] 1 1 2 3 5"
-  },
-  {
-    "objectID": "slides/week08.html#rcpp-hello-world-v2-with-function-overloading",
-    "href": "slides/week08.html#rcpp-hello-world-v2-with-function-overloading",
-    "title": "Week 8: Efficiency, High Performance Computing, and Cloud Computing",
-    "section": "Rcpp: Hello world! v2 (with function overloading)",
-    "text": "Rcpp: Hello world! v2 (with function overloading)\nRcpp data types are mapped directly to R data types, e.g. vectors of integers in R can be used as IntegerVector in Rcpp.\nBack in R\n\n\n[1] 1 1 2 3 5"
-  },
-  {
-    "objectID": "slides/week08.html#rcpparmadillo-and-openmp",
-    "href": "slides/week08.html#rcpparmadillo-and-openmp",
-    "title": "Week 8: Efficiency, High Performance Computing, and Cloud Computing",
-    "section": "RcppArmadillo and OpenMP",
-    "text": "RcppArmadillo and OpenMP\n\nFriendlier than RcppParallel… at least for ‘I-use-Rcpp-but-don’t-actually-know-much-about-C++’ users (like myself!).\nMust run only ‘Thread-safe’ calls, so calling R within parallel blocks can cause problems (almost all the time).\nUse arma objects, e.g. arma::mat, arma::vec, etc. Or, if you are used to them std::vector objects as these are thread safe.\nPseudo-Random Number Generation is not very straight forward… But C++11 has a nice set of functions that can be used together with OpenMP\nNeed to think about how processors work, cache memory, etc. Otherwise you could get into trouble… if your code is slower when run in parallel, then you probably are facing false sharing\nIf R crashes… try running R with a debugger (see Section 4.3 in Writing R extensions):\n~$ R --debugger=valgrind"
-  },
-  {
-    "objectID": "slides/week08.html#rcpparmadillo-and-openmp-workflow",
-    "href": "slides/week08.html#rcpparmadillo-and-openmp-workflow",
-    "title": "Week 8: Efficiency, High Performance Computing, and Cloud Computing",
-    "section": "RcppArmadillo and OpenMP workflow",
-    "text": "RcppArmadillo and OpenMP workflow\n\nAdd the following to your C++ source code to use OpenMP, and tell Rcpp that you need to include that in the compiler:\n#include &lt;omp.h&gt;\n// [[Rcpp::plugins(openmp)]]\nTell the compiler that you’ll be running a block in parallel with openmp\n#pragma omp [directives] [options]\n{\n  ...your neat parallel code...\n}\nYou’ll need to specify how OMP should handle the data:\n\nshared: Default, all threads access the same copy.\nprivate: Each thread has its own copy (although not initialized).\nfirstprivate Each thread has its own copy initialized.\nlastprivate Each thread has its own copy. The last value is the one stored in the main program.\n\nSetting default(none) is a good practice.\nCompile!"
-  },
-  {
-    "objectID": "slides/week08.html#ex-3-rcpparmadillo-openmp",
-    "href": "slides/week08.html#ex-3-rcpparmadillo-openmp",
-    "title": "Week 8: Efficiency, High Performance Computing, and Cloud Computing",
-    "section": "Ex 3: RcppArmadillo + OpenMP",
-    "text": "Ex 3: RcppArmadillo + OpenMP\nComputing the distance matrix (see ?dist)\n\n#include &lt;Rcpp.h&gt;\n#include &lt;omp.h&gt;\n#include &lt;RcppArmadillo.h&gt;\n// [[Rcpp::depends(RcppArmadillo)]]\n// [[Rcpp::plugins(openmp)]]\nusing namespace Rcpp;\n\n// [[Rcpp::export]]\narma::mat dist_par(const arma::mat & X, int cores = 1) {\n  \n  // Some constants and the result\n  int N = (int) X.n_rows; int K = (int) X.n_cols;\n  arma::mat D(N,N,arma::fill::zeros);\n  \n  omp_set_num_threads(cores); // Setting the cores\n  \n#pragma omp parallel for shared(D, N, K, X) default(none)\n  for (int i=0; i&lt;N; ++i)\n    for (int j=0; j&lt;i; ++j) {\n      for (int k=0; k&lt;K; k++) \n        D.at(i,j) += pow(X.at(i,k) - X.at(j,k), 2.0);\n      \n      // Computing square root\n      D.at(i,j) = sqrt(D.at(i,j)); D.at(j,i) = D.at(i,j);\n    }\n      \n  // My nice distance matrix\n  return D;\n}"
-  },
-  {
-    "objectID": "slides/week08.html#resources",
-    "href": "slides/week08.html#resources",
-    "title": "Week 8: Efficiency, High Performance Computing, and Cloud Computing",
-    "section": "Resources",
-    "text": "Resources\n\nPackage parallel\nUsing the iterators package\nUsing the foreach package\n32 OpenMP traps for C++ developers\nThe OpenMP API specification for parallel programming\n‘openmp’ tag in Rcpp gallery\nOpenMP tutorials and articles\n\nFor more, checkout the CRAN Task View on HPC"
-  },
-  {
-    "objectID": "slides/week08.html#simulating-pi",
-    "href": "slides/week08.html#simulating-pi",
-    "title": "Week 8: Efficiency, High Performance Computing, and Cloud Computing",
-    "section": "Simulating \\(\\pi\\)",
-    "text": "Simulating \\(\\pi\\)\n\nWe know that \\(\\pi = \\frac{A}{r^2}\\). We approximate it by randomly adding points \\(x\\) to a square of size 2 centered at the origin.\nSo, we approximate \\(\\pi\\) as \\(\\Pr\\{\\|x\\| \\leq 1\\}\\times 2^2\\)"
-  },
-  {
-    "objectID": "slides/week08.html#bonus-overview-of-hpc",
-    "href": "slides/week08.html#bonus-overview-of-hpc",
-    "title": "Week 8: Efficiency, High Performance Computing, and Cloud Computing",
-    "section": "(Bonus) Overview of HPC",
-    "text": "(Bonus) Overview of HPC\nUsing Flynn’s classical taxonomy, we can classify parallel computing according to the following two dimensions:\n\nType of instruction: Single vs Multiple\nData stream: Single vs Multiple\n\n\n   \n\nMichael Flynn’s Taxonomy (wiki)"
-  },
-  {
-    "objectID": "slides/week08.html#bonus-parallel-computing-software",
-    "href": "slides/week08.html#bonus-parallel-computing-software",
-    "title": "Week 8: Efficiency, High Performance Computing, and Cloud Computing",
-    "section": "(Bonus) Parallel computing: Software",
-    "text": "(Bonus) Parallel computing: Software\nImplicit parallelization:\n\ntensorflow: Machine learning framework\npqR: Branched version of R.\nMicrosoft R: Microsoft’s R private version (based on Revolution Analytics’ R version).\ndata.table (R package): Data wrangling using multiple cores.\ncaret (R package): A meta package, has various implementations using parallel computing.\n\nExplicit parallelization (DIY):\n\nCUDA (C/C++ library): Programming with GP-GPUs.\nOpen MP (C/C++ library): Multi-core programming (CPUs).\nOpen MPI (C/C++ library): Large scale programming with multi-node systems.\nThreading Building Blocks (C/C++ library): Intel’s parallel computing library.\nKokkos (C++ library): A hardware-agnostic programming framework for HPC applications.\nparallel (R package): R’s built-in parallel computing package\nfuture (R package): Framework for parallelzing R.\nRcppParallel (R C++ API wrapper): Header and templates for building Rcpp+multi-threaded programs.\njulia (programming language): High-performing, has a framework for parallel computing as well."
-  },
-  {
-    "objectID": "slides/week08.html#parallel-computing-hardware-cont.",
-    "href": "slides/week08.html#parallel-computing-hardware-cont.",
-    "title": "Week 8: Efficiency, High Performance Computing, and Cloud Computing",
-    "section": "Parallel computing: Hardware (cont.)",
-    "text": "Parallel computing: Hardware (cont.)\n\nHigh-Performance Computing Cluster (HPC): A collection of computing nodes that are interconnected using a fast Ethernet network.\nGrid Computing: A collection of loosely interconnected machines that may or may not be in the same physical place, for example: HTCondor clusters."
-  },
-  {
-    "objectID": "slides/week08.html#parallel-workflow",
-    "href": "slides/week08.html#parallel-workflow",
-    "title": "Week 8: Efficiency, High Performance Computing, and Cloud Computing",
-    "section": "Parallel workflow",
-    "text": "Parallel workflow\n(Usually) We do the following:\n\nCreate a PSOCK/FORK (or other) cluster using makePSOCKCluster/makeForkCluster (or simply makeCluster)\nCopy/prepare each R session (if you are using a PSOCK cluster):\n\nCopy objects with clusterExport\nSet a seed with clusterSetRNGStream\n\nDo your call:\n\nPass expressions with clusterEvalQ\nRun a parallelized loop with parApply, parLapply, etc.\n\nStop the cluster with clusterStop"
-  },
-  {
-    "objectID": "slides/week08.html#ex-2-parallel-regressions-cont.-1",
-    "href": "slides/week08.html#ex-2-parallel-regressions-cont.-1",
-    "title": "Week 8: Efficiency, High Performance Computing, and Cloud Computing",
-    "section": "Ex 2: Parallel regressions (cont. 1)",
-    "text": "Ex 2: Parallel regressions (cont. 1)\nSerial solution: Use apply (basic loop) to solve it\n\n#\n#\n#\n#\nans &lt;- apply(\n  X = X,\n  MARGIN = 2,\n  FUN = function(x) coef(lm(y ~ x))\n)\n\nans[,1:5]\n\n                   x001        x002        x003        x004        x005\n(Intercept) -0.03449819 -0.03339681 -0.03728140 -0.03644192 -0.03717344\nx           -0.06082548  0.02748265 -0.01327855 -0.08012361 -0.04067826"
-  },
-  {
-    "objectID": "slides/week08.html#ex-2-parallel-regressions-cont.-2",
-    "href": "slides/week08.html#ex-2-parallel-regressions-cont.-2",
-    "title": "Week 8: Efficiency, High Performance Computing, and Cloud Computing",
-    "section": "Ex 2: Parallel regressions (cont. 2)",
-    "text": "Ex 2: Parallel regressions (cont. 2)\nParallel solution: Use parApply\n\nlibrary(parallel)\ncl &lt;- makeCluster(4L)\nclusterExport(cl, \"y\")\nans &lt;- parApply(\n  cl = cl,\n  X = X,\n  MARGIN = 2,\n  FUN = function(x) coef(lm(y ~ x))\n)\n \nans[,1:5]\n\n                   x001        x002        x003        x004        x005\n(Intercept) -0.03449819 -0.03339681 -0.03728140 -0.03644192 -0.03717344\nx           -0.06082548  0.02748265 -0.01327855 -0.08012361 -0.04067826"
-  },
-  {
-    "objectID": "slides/week08.html#ex-2-parallel-regressions-cont.-3",
-    "href": "slides/week08.html#ex-2-parallel-regressions-cont.-3",
-    "title": "Week 8: Efficiency, High Performance Computing, and Cloud Computing",
-    "section": "Ex 2: Parallel regressions (cont. 3)",
-    "text": "Ex 2: Parallel regressions (cont. 3)\nAre we going any faster?\n\nmicrobenchmark::microbenchmark(\n  parallel = parApply(\n    cl = cl,\n    X = X, MARGIN = 2,\n    FUN = function(x) coef(lm(y ~ x))\n  ),\n  serial = apply(\n    X = X, MARGIN = 2,\n    FUN = function(x) coef(lm(y ~ x))\n  ), unit=\"relative\"\n)\n\nUnit: relative\n     expr      min       lq     mean  median       uq      max neval\n parallel 1.000000 1.000000 1.000000 1.00000 1.000000 1.000000   100\n   serial 2.643877 2.621755 2.450457 2.59481 2.372613 1.940924   100"
-  },
-  {
-    "objectID": "slides/week08.html#efficiency-loops",
-    "href": "slides/week08.html#efficiency-loops",
-    "title": "Week 8: Efficiency, High Performance Computing, and Cloud Computing",
-    "section": "Efficiency: Loops",
-    "text": "Efficiency: Loops\nWe’ve seen various examples of loops so far in this class.\nClassic examples that are common to most programming languages include for and while loops.\nOther types of loops are more specific to R, such as the various *apply functions (apply, sapply, lapply, etc.).\nKnowing when to use a loop and when not to is a critical concern in computational efficiency."
-  },
-  {
-    "objectID": "slides/week08.html#example-square-roots",
-    "href": "slides/week08.html#example-square-roots",
-    "title": "Week 8: Efficiency, High Performance Computing, and Cloud Computing",
-    "section": "Example: Square Roots",
-    "text": "Example: Square Roots\nLet’s say we want to take the square roots of the numbers 1 to 10,000. We could achieve this in a number of different ways.\nHere, we use a for loop:\n\nforLoopRoots &lt;- function(n){\n  roots &lt;- rep(NA, n)\n  for(i in 1:n){\n    roots[i] &lt;- sqrt(i)\n  }\n  return(roots)\n}\n\nhead(forLoopRoots(10000))\n\n[1] 1.000000 1.414214 1.732051 2.000000 2.236068 2.449490"
-  },
-  {
-    "objectID": "slides/week08.html#example-square-roots-cont.-1",
-    "href": "slides/week08.html#example-square-roots-cont.-1",
-    "title": "Week 8: Efficiency, High Performance Computing, and Cloud Computing",
-    "section": "Example: Square Roots (cont. 1)",
-    "text": "Example: Square Roots (cont. 1)\nHere, we’ll use sapply:\n\nSapplyRoots &lt;- function(n){\n  roots &lt;- sapply(1:n, sqrt)\n  return(roots)\n}\n\nhead(SapplyRoots(10000))\n\n[1] 1.000000 1.414214 1.732051 2.000000 2.236068 2.449490"
-  },
-  {
-    "objectID": "slides/week08.html#example-square-roots-cont.-2",
-    "href": "slides/week08.html#example-square-roots-cont.-2",
-    "title": "Week 8: Efficiency, High Performance Computing, and Cloud Computing",
-    "section": "Example: Square Roots (cont. 2)",
-    "text": "Example: Square Roots (cont. 2)\nHow fast are these methods? Let’s use the microbenchmark package to find out!\n\nlibrary(microbenchmark)\nmicrobenchmark(forLoopRoots(10000), SapplyRoots(10000))\n\nUnit: microseconds\n                expr      min       lq      mean    median       uq      max\n forLoopRoots(10000)  305.081  311.641  316.3474  313.6295  318.119  451.410\n  SapplyRoots(10000) 1538.402 1574.482 1732.0266 1620.1970 1669.869 3202.469\n neval\n   100\n   100"
-  },
-  {
-    "objectID": "slides/week08.html#example-square-roots-cont.-3",
-    "href": "slides/week08.html#example-square-roots-cont.-3",
-    "title": "Week 8: Efficiency, High Performance Computing, and Cloud Computing",
-    "section": "Example: Square Roots (cont. 3)",
-    "text": "Example: Square Roots (cont. 3)\nBut do we really need a loop for this job? Here, we’ll use vectorization to perform all the calculations “at once.”\n\nVectorizedRoots &lt;- function(n){\n  sqrt(1:n)\n}\n\nhead(VectorizedRoots(10000))\n\n[1] 1.000000 1.414214 1.732051 2.000000 2.236068 2.449490"
-  },
-  {
-    "objectID": "slides/week08.html#example-square-roots-cont.-4",
-    "href": "slides/week08.html#example-square-roots-cont.-4",
-    "title": "Week 8: Efficiency, High Performance Computing, and Cloud Computing",
-    "section": "Example: Square Roots (cont. 4)",
-    "text": "Example: Square Roots (cont. 4)\n\nlibrary(microbenchmark)\nmicrobenchmark(forLoopRoots(10000), VectorizedRoots(10000))\n\nUnit: microseconds\n                   expr     min      lq     mean  median       uq     max neval\n    forLoopRoots(10000) 321.973 324.597 331.6982 326.893 330.4395 493.189   100\n VectorizedRoots(10000)  12.054  20.951  28.7615  22.304  24.7845 615.656   100"
   }
 ]

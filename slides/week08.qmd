@@ -1,5 +1,5 @@
 ---
-title: "Week 8: Efficiency, High Performance Computing, and Cloud Computing"
+title: "Week 8: Efficiency and High Performance Computing"
 subtitle: "PM 566: Introduction to Health Data Science"
 author: "George G. Vega Yon and Kelly Street"
 format:
@@ -107,7 +107,7 @@ head(VectorizedRoots(10000))
 
 That's a lot faster!
 
-```{r, echo=TRUE, cache=TRUE}
+```{r, echo=TRUE}
 library(microbenchmark)
 microbenchmark(forLoopRoots(10000), VectorizedRoots(10000))
 ```
@@ -120,14 +120,78 @@ Anytime that you can use vectorized computation, you should! It will (almost) al
 
 Let's say there's a relatively simple operation you want to perform. You know how to write the code for it, but you're pretty sure there's also a built-in function that performs the same task. Which should you use?
 
-Generally speaking, you should aim to write as little code as possible. Built-in functions (especially in the `base` package) are highly optimized and likely to run much faster than manual implementations.
+**Generally speaking, you should aim to write as little code as possible. Built-in functions (especially in the `base` package) are highly optimized and likely to run much faster than manual implementations.**
 
 ---
 
-## Example: `duplicated`
+## Example: Repeated elements
 
+Let's say we have a long vector and we want to find all of the repeated elements. 
 
+```{r, echo=TRUE}
+set.seed(1)
+vec <- sample(letters, 100, replace = TRUE)
+vec
+```
+---
 
+## Example: Repeated elements (cont. 1)
+
+We can achieve this with two nested loops:
+
+```{r, echo=TRUE}
+method1 <- function(x){
+  # first element cannot be a duplicate
+  out <- sapply(2:length(x), function(i){
+    matches <- sapply(1:(i-1), function(i2){
+      x[i2] == x[i]
+    })
+    return(any(matches))
+  })
+  out <- c(FALSE, out)
+  return(out)
+}
+
+vec[1:11]
+method1(vec)[1:11]
+```
+
+---
+
+## Example: Repeated elements (cont. 2)
+
+Or slightly faster with a loop and vectorized comparison:
+
+```{r, echo=TRUE}
+method2 <- function(x){
+  # first element cannot be a duplicate
+  out <- sapply(2:length(x), function(i){
+    return(any(x[1:(i-1)] == x[i]))
+  })
+  out <- c(FALSE, out)
+  return(out)
+}
+
+method2(vec)[1:11]
+
+microbenchmark(method1(vec), method2(vec))
+```
+
+---
+
+## Example: Repeated elements (cont. 3)
+
+But the real speed-up comes when we use the base function `duplicated`:
+
+```{r, echo=TRUE}
+method3 <- function(x){
+  duplicated(x)
+}
+
+method3(vec)[1:11]
+
+microbenchmark(method2(vec), method3(vec))
+```
 
 ---
 
@@ -135,7 +199,7 @@ Generally speaking, you should aim to write as little code as possible. Built-in
 
 ---
 
-## What is HPC
+## What is HPC?
 
 High Performance Computing (HPC) can relate to any of the following:
 

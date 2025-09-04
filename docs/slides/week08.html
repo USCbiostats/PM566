@@ -11,7 +11,7 @@
   <meta name="generator" content="quarto-1.4.554">
 
   <meta name="author" content="George G. Vega Yon and Kelly Street">
-  <title>PM 566 - Week 8: Efficiency, High Performance Computing, and Cloud Computing</title>
+  <title>PM 566 - Week 8: Efficiency and High Performance Computing</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -391,7 +391,7 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Week 8: Efficiency, High Performance Computing, and Cloud Computing</h1>
+  <h1 class="title">Week 8: Efficiency and High Performance Computing</h1>
   <p class="subtitle">PM 566: Introduction to Health Data Science</p>
 
 <div class="quarto-title-authors">
@@ -501,14 +501,114 @@ code.r,code.cpp{
 </section>
 <section id="example-square-roots-cont.-4" class="slide level2">
 <h2>Example: Square Roots (cont. 4)</h2>
+<p>That’s a lot faster!</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a><span class="fu">library</span>(microbenchmark)</span>
 <span id="cb9-2"><a></a><span class="fu">microbenchmark</span>(<span class="fu">forLoopRoots</span>(<span class="dv">10000</span>), <span class="fu">VectorizedRoots</span>(<span class="dv">10000</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Unit: microseconds
-                   expr     min      lq     mean  median       uq     max neval
-    forLoopRoots(10000) 321.973 324.597 331.6982 326.893 330.4395 493.189   100
- VectorizedRoots(10000)  12.054  20.951  28.7615  22.304  24.7845 615.656   100</code></pre>
+                   expr     min       lq      mean   median      uq     max
+    forLoopRoots(10000) 311.846 322.8135 330.93724 325.7450 330.993 574.287
+ VectorizedRoots(10000)  12.218  20.6025  30.06776  21.2175  22.591 814.916
+ neval
+   100
+   100</code></pre>
+</div>
+</div>
+<p>Anytime that you can use vectorized computation, you should! It will (almost) always save you a lot of computation time!</p>
+</section>
+<section id="use-pre-made-functions" class="slide level2">
+<h2>Use pre-made functions</h2>
+<p>Let’s say there’s a relatively simple operation you want to perform. You know how to write the code for it, but you’re pretty sure there’s also a built-in function that performs the same task. Which should you use?</p>
+<p><strong>Generally speaking, you should aim to write as little code as possible. Built-in functions (especially in the <code>base</code> package) are highly optimized and likely to run much faster than manual implementations.</strong></p>
+</section>
+<section id="example-repeated-elements" class="slide level2">
+<h2>Example: Repeated elements</h2>
+<p>Let’s say we have a long vector and we want to find all of the repeated elements.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb11-2"><a></a>vec <span class="ot">&lt;-</span> <span class="fu">sample</span>(letters, <span class="dv">100</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb11-3"><a></a>vec</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  [1] "y" "d" "g" "a" "b" "w" "k" "n" "r" "s" "a" "u" "u" "j" "v" "n" "j" "g"
+ [19] "i" "o" "u" "e" "i" "y" "n" "e" "e" "b" "j" "y" "l" "o" "a" "t" "c" "f"
+ [37] "j" "j" "f" "o" "t" "t" "z" "l" "y" "w" "f" "y" "h" "l" "y" "w" "x" "f"
+ [55] "z" "g" "s" "j" "f" "x" "n" "b" "m" "r" "v" "n" "f" "a" "s" "s" "h" "f"
+ [73] "w" "l" "f" "h" "g" "k" "q" "d" "m" "h" "y" "p" "y" "w" "n" "t" "g" "m"
+ [91] "v" "l" "p" "a" "m" "u" "f" "q" "i" "g"</code></pre>
+</div>
+</div>
+</section>
+<section id="example-repeated-elements-cont.-1" class="slide level2">
+<h2>Example: Repeated elements (cont. 1)</h2>
+<p>We can achieve this with two nested loops:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a>method1 <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb13-2"><a></a>  <span class="co"># first element cannot be a duplicate</span></span>
+<span id="cb13-3"><a></a>  out <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">2</span><span class="sc">:</span><span class="fu">length</span>(x), <span class="cf">function</span>(i){</span>
+<span id="cb13-4"><a></a>    matches <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span>(i<span class="dv">-1</span>), <span class="cf">function</span>(i2){</span>
+<span id="cb13-5"><a></a>      x[i2] <span class="sc">==</span> x[i]</span>
+<span id="cb13-6"><a></a>    })</span>
+<span id="cb13-7"><a></a>    <span class="fu">return</span>(<span class="fu">any</span>(matches))</span>
+<span id="cb13-8"><a></a>  })</span>
+<span id="cb13-9"><a></a>  out <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">FALSE</span>, out)</span>
+<span id="cb13-10"><a></a>  <span class="fu">return</span>(out)</span>
+<span id="cb13-11"><a></a>}</span>
+<span id="cb13-12"><a></a></span>
+<span id="cb13-13"><a></a>vec[<span class="dv">1</span><span class="sc">:</span><span class="dv">11</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "y" "d" "g" "a" "b" "w" "k" "n" "r" "s" "a"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a><span class="fu">method1</span>(vec)[<span class="dv">1</span><span class="sc">:</span><span class="dv">11</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE</code></pre>
+</div>
+</div>
+</section>
+<section id="example-repeated-elements-cont.-2" class="slide level2">
+<h2>Example: Repeated elements (cont. 2)</h2>
+<p>Or slightly faster with a loop and vectorized comparison:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a>method2 <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb17-2"><a></a>  <span class="co"># first element cannot be a duplicate</span></span>
+<span id="cb17-3"><a></a>  out <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">2</span><span class="sc">:</span><span class="fu">length</span>(x), <span class="cf">function</span>(i){</span>
+<span id="cb17-4"><a></a>    <span class="fu">return</span>(<span class="fu">any</span>(x[<span class="dv">1</span><span class="sc">:</span>(i<span class="dv">-1</span>)] <span class="sc">==</span> x[i]))</span>
+<span id="cb17-5"><a></a>  })</span>
+<span id="cb17-6"><a></a>  out <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">FALSE</span>, out)</span>
+<span id="cb17-7"><a></a>  <span class="fu">return</span>(out)</span>
+<span id="cb17-8"><a></a>}</span>
+<span id="cb17-9"><a></a></span>
+<span id="cb17-10"><a></a><span class="fu">method2</span>(vec)[<span class="dv">1</span><span class="sc">:</span><span class="dv">11</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a><span class="fu">microbenchmark</span>(<span class="fu">method1</span>(vec), <span class="fu">method2</span>(vec))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Unit: microseconds
+         expr      min        lq      mean   median        uq      max neval
+ method1(vec) 3111.777 3231.7020 3519.5700 3281.066 3421.5525 6075.093   100
+ method2(vec)  117.547  122.0365  166.9081  127.059  135.0745 2487.265   100</code></pre>
+</div>
+</div>
+</section>
+<section id="example-repeated-elements-cont.-3" class="slide level2">
+<h2>Example: Repeated elements (cont. 3)</h2>
+<p>But the real speed-up comes when we use the base function <code>duplicated</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a>method3 <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb21-2"><a></a>  <span class="fu">duplicated</span>(x)</span>
+<span id="cb21-3"><a></a>}</span>
+<span id="cb21-4"><a></a></span>
+<span id="cb21-5"><a></a><span class="fu">method3</span>(vec)[<span class="dv">1</span><span class="sc">:</span><span class="dv">11</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a><span class="fu">microbenchmark</span>(<span class="fu">method2</span>(vec), <span class="fu">method3</span>(vec))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Unit: microseconds
+         expr     min       lq      mean  median      uq     max neval
+ method2(vec) 116.071 123.0000 128.90359 125.173 131.159 177.571   100
+ method3(vec)   2.050   2.3165   7.69857   2.460   2.583 510.163   100</code></pre>
 </div>
 </div>
 </section>
@@ -521,7 +621,7 @@ code.r,code.cpp{
 
 </section>
 <section id="what-is-hpc" class="slide level2">
-<h2>What is HPC</h2>
+<h2>What is HPC?</h2>
 <p>High Performance Computing (HPC) can relate to any of the following:</p>
 <ul>
 <li><p><strong>Parallel computing</strong>, i.e.&nbsp;using multiple resources (could be threads, cores, nodes, etc.) simultaneously to complete a task.</p></li>
@@ -649,19 +749,19 @@ Ask yourself these questions before jumping into HPC!
 <section id="ex-1-hello-world" class="slide level2 smaller">
 <h2>Ex 1: Hello world!</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="co"># 1. CREATING A CLUSTER</span></span>
-<span id="cb11-2"><a></a><span class="fu">library</span>(parallel)</span>
-<span id="cb11-3"><a></a>cl <span class="ot">&lt;-</span> <span class="fu">makeCluster</span>(<span class="dv">4</span>)    </span>
-<span id="cb11-4"><a></a>x  <span class="ot">&lt;-</span> <span class="dv">20</span></span>
-<span id="cb11-5"><a></a></span>
-<span id="cb11-6"><a></a><span class="co"># 2. PREPARING THE CLUSTER</span></span>
-<span id="cb11-7"><a></a><span class="fu">clusterSetRNGStream</span>(cl, <span class="dv">123</span>) <span class="co"># Equivalent to `set.seed(123)` (not necessary for this example)</span></span>
-<span id="cb11-8"><a></a><span class="fu">clusterExport</span>(cl, <span class="st">"x"</span>)</span>
-<span id="cb11-9"><a></a></span>
-<span id="cb11-10"><a></a><span class="co"># 3. DO YOUR CALL</span></span>
-<span id="cb11-11"><a></a><span class="fu">clusterEvalQ</span>(cl, {</span>
-<span id="cb11-12"><a></a>  <span class="fu">paste0</span>(<span class="st">"Hello from process #"</span>, <span class="fu">Sys.getpid</span>(), <span class="st">". I see x and it is equal to "</span>, x)</span>
-<span id="cb11-13"><a></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a></a><span class="co"># 1. CREATING A CLUSTER</span></span>
+<span id="cb25-2"><a></a><span class="fu">library</span>(parallel)</span>
+<span id="cb25-3"><a></a>cl <span class="ot">&lt;-</span> <span class="fu">makeCluster</span>(<span class="dv">4</span>)    </span>
+<span id="cb25-4"><a></a>x  <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb25-5"><a></a></span>
+<span id="cb25-6"><a></a><span class="co"># 2. PREPARING THE CLUSTER</span></span>
+<span id="cb25-7"><a></a><span class="fu">clusterSetRNGStream</span>(cl, <span class="dv">123</span>) <span class="co"># Equivalent to `set.seed(123)` (not necessary for this example)</span></span>
+<span id="cb25-8"><a></a><span class="fu">clusterExport</span>(cl, <span class="st">"x"</span>)</span>
+<span id="cb25-9"><a></a></span>
+<span id="cb25-10"><a></a><span class="co"># 3. DO YOUR CALL</span></span>
+<span id="cb25-11"><a></a><span class="fu">clusterEvalQ</span>(cl, {</span>
+<span id="cb25-12"><a></a>  <span class="fu">paste0</span>(<span class="st">"Hello from process #"</span>, <span class="fu">Sys.getpid</span>(), <span class="st">". I see x and it is equal to "</span>, x)</span>
+<span id="cb25-13"><a></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]
 [1] "Hello from process #85411. I see x and it is equal to 20"
@@ -675,22 +775,22 @@ Ask yourself these questions before jumping into HPC!
 [[4]]
 [1] "Hello from process #85409. I see x and it is equal to 20"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a><span class="co"># 4. STOP THE CLUSTER</span></span>
-<span id="cb13-2"><a></a><span class="fu">stopCluster</span>(cl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a></a><span class="co"># 4. STOP THE CLUSTER</span></span>
+<span id="cb27-2"><a></a><span class="fu">stopCluster</span>(cl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="ex-1-hello-world-redux" class="slide level2 smaller">
 <h2>Ex 1: Hello world! (redux)</h2>
 <p>Multi-core versions of the <code>*apply</code> functions are simpler, but may not work on Windows machines.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a><span class="co"># 1. SETUP</span></span>
-<span id="cb14-2"><a></a><span class="fu">library</span>(parallel)</span>
-<span id="cb14-3"><a></a>x  <span class="ot">&lt;-</span> <span class="dv">20</span></span>
-<span id="cb14-4"><a></a></span>
-<span id="cb14-5"><a></a><span class="co"># 2. DO YOUR CALL</span></span>
-<span id="cb14-6"><a></a><span class="fu">mclapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="cf">function</span>(i){</span>
-<span id="cb14-7"><a></a>    <span class="fu">paste0</span>(<span class="st">"Hello from process #"</span>, <span class="fu">Sys.getpid</span>(), <span class="st">". I see x and it is equal to "</span>, x)</span>
-<span id="cb14-8"><a></a>}, <span class="at">mc.cores =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a></a><span class="co"># 1. SETUP</span></span>
+<span id="cb28-2"><a></a><span class="fu">library</span>(parallel)</span>
+<span id="cb28-3"><a></a>x  <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb28-4"><a></a></span>
+<span id="cb28-5"><a></a><span class="co"># 2. DO YOUR CALL</span></span>
+<span id="cb28-6"><a></a><span class="fu">mclapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="cf">function</span>(i){</span>
+<span id="cb28-7"><a></a>    <span class="fu">paste0</span>(<span class="st">"Hello from process #"</span>, <span class="fu">Sys.getpid</span>(), <span class="st">". I see x and it is equal to "</span>, x)</span>
+<span id="cb28-8"><a></a>}, <span class="at">mc.cores =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]
 [1] "Hello from process #85488. I see x and it is equal to 20"
@@ -734,17 +834,17 @@ y = X_i\beta_i + \varepsilon,\quad \varepsilon\sim N(0, \sigma^2_i),\quad\forall
 <h2>Ex 2: Parallel regressions (cont. 1)</h2>
 <p><strong>Serial solution</strong>: Use <code>apply</code> (basic loop) to solve it</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a><span class="co">#</span></span>
-<span id="cb19-2"><a></a><span class="co">#</span></span>
-<span id="cb19-3"><a></a><span class="co">#</span></span>
-<span id="cb19-4"><a></a><span class="co">#</span></span>
-<span id="cb19-5"><a></a>ans <span class="ot">&lt;-</span> <span class="fu">apply</span>(</span>
-<span id="cb19-6"><a></a>  <span class="at">X =</span> X,</span>
-<span id="cb19-7"><a></a>  <span class="at">MARGIN =</span> <span class="dv">2</span>,</span>
-<span id="cb19-8"><a></a>  <span class="at">FUN =</span> <span class="cf">function</span>(x) <span class="fu">coef</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x))</span>
-<span id="cb19-9"><a></a>)</span>
-<span id="cb19-10"><a></a></span>
-<span id="cb19-11"><a></a>ans[,<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a></a><span class="co">#</span></span>
+<span id="cb33-2"><a></a><span class="co">#</span></span>
+<span id="cb33-3"><a></a><span class="co">#</span></span>
+<span id="cb33-4"><a></a><span class="co">#</span></span>
+<span id="cb33-5"><a></a>ans <span class="ot">&lt;-</span> <span class="fu">apply</span>(</span>
+<span id="cb33-6"><a></a>  <span class="at">X =</span> X,</span>
+<span id="cb33-7"><a></a>  <span class="at">MARGIN =</span> <span class="dv">2</span>,</span>
+<span id="cb33-8"><a></a>  <span class="at">FUN =</span> <span class="cf">function</span>(x) <span class="fu">coef</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x))</span>
+<span id="cb33-9"><a></a>)</span>
+<span id="cb33-10"><a></a></span>
+<span id="cb33-11"><a></a>ans[,<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                   x001        x002        x003        x004        x005
 (Intercept) -0.03449819 -0.03339681 -0.03728140 -0.03644192 -0.03717344
@@ -756,17 +856,17 @@ x           -0.06082548  0.02748265 -0.01327855 -0.08012361 -0.04067826</code></
 <h2>Ex 2: Parallel regressions (cont. 2)</h2>
 <p><strong>Parallel solution</strong>: Use <code>parApply</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a><span class="fu">library</span>(parallel)</span>
-<span id="cb21-2"><a></a>cl <span class="ot">&lt;-</span> <span class="fu">makeCluster</span>(<span class="dv">4</span>L)</span>
-<span id="cb21-3"><a></a><span class="fu">clusterExport</span>(cl, <span class="st">"y"</span>)</span>
-<span id="cb21-4"><a></a>ans <span class="ot">&lt;-</span> <span class="fu">parApply</span>(</span>
-<span id="cb21-5"><a></a>  <span class="at">cl =</span> cl,</span>
-<span id="cb21-6"><a></a>  <span class="at">X =</span> X,</span>
-<span id="cb21-7"><a></a>  <span class="at">MARGIN =</span> <span class="dv">2</span>,</span>
-<span id="cb21-8"><a></a>  <span class="at">FUN =</span> <span class="cf">function</span>(x) <span class="fu">coef</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x))</span>
-<span id="cb21-9"><a></a>)</span>
-<span id="cb21-10"><a></a> </span>
-<span id="cb21-11"><a></a>ans[,<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a></a><span class="fu">library</span>(parallel)</span>
+<span id="cb35-2"><a></a>cl <span class="ot">&lt;-</span> <span class="fu">makeCluster</span>(<span class="dv">4</span>L)</span>
+<span id="cb35-3"><a></a><span class="fu">clusterExport</span>(cl, <span class="st">"y"</span>)</span>
+<span id="cb35-4"><a></a>ans <span class="ot">&lt;-</span> <span class="fu">parApply</span>(</span>
+<span id="cb35-5"><a></a>  <span class="at">cl =</span> cl,</span>
+<span id="cb35-6"><a></a>  <span class="at">X =</span> X,</span>
+<span id="cb35-7"><a></a>  <span class="at">MARGIN =</span> <span class="dv">2</span>,</span>
+<span id="cb35-8"><a></a>  <span class="at">FUN =</span> <span class="cf">function</span>(x) <span class="fu">coef</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x))</span>
+<span id="cb35-9"><a></a>)</span>
+<span id="cb35-10"><a></a> </span>
+<span id="cb35-11"><a></a>ans[,<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                   x001        x002        x003        x004        x005
 (Intercept) -0.03449819 -0.03339681 -0.03728140 -0.03644192 -0.03717344
@@ -778,17 +878,17 @@ x           -0.06082548  0.02748265 -0.01327855 -0.08012361 -0.04067826</code></
 <h2>Ex 2: Parallel regressions (cont. 3)</h2>
 <p>Are we going any faster?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a>microbenchmark<span class="sc">::</span><span class="fu">microbenchmark</span>(</span>
-<span id="cb23-2"><a></a>  <span class="at">parallel =</span> <span class="fu">parApply</span>(</span>
-<span id="cb23-3"><a></a>    <span class="at">cl =</span> cl,</span>
-<span id="cb23-4"><a></a>    <span class="at">X =</span> X, <span class="at">MARGIN =</span> <span class="dv">2</span>,</span>
-<span id="cb23-5"><a></a>    <span class="at">FUN =</span> <span class="cf">function</span>(x) <span class="fu">coef</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x))</span>
-<span id="cb23-6"><a></a>  ),</span>
-<span id="cb23-7"><a></a>  <span class="at">serial =</span> <span class="fu">apply</span>(</span>
-<span id="cb23-8"><a></a>    <span class="at">X =</span> X, <span class="at">MARGIN =</span> <span class="dv">2</span>,</span>
-<span id="cb23-9"><a></a>    <span class="at">FUN =</span> <span class="cf">function</span>(x) <span class="fu">coef</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x))</span>
-<span id="cb23-10"><a></a>  ), <span class="at">unit=</span><span class="st">"relative"</span></span>
-<span id="cb23-11"><a></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a></a>microbenchmark<span class="sc">::</span><span class="fu">microbenchmark</span>(</span>
+<span id="cb37-2"><a></a>  <span class="at">parallel =</span> <span class="fu">parApply</span>(</span>
+<span id="cb37-3"><a></a>    <span class="at">cl =</span> cl,</span>
+<span id="cb37-4"><a></a>    <span class="at">X =</span> X, <span class="at">MARGIN =</span> <span class="dv">2</span>,</span>
+<span id="cb37-5"><a></a>    <span class="at">FUN =</span> <span class="cf">function</span>(x) <span class="fu">coef</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x))</span>
+<span id="cb37-6"><a></a>  ),</span>
+<span id="cb37-7"><a></a>  <span class="at">serial =</span> <span class="fu">apply</span>(</span>
+<span id="cb37-8"><a></a>    <span class="at">X =</span> X, <span class="at">MARGIN =</span> <span class="dv">2</span>,</span>
+<span id="cb37-9"><a></a>    <span class="at">FUN =</span> <span class="cf">function</span>(x) <span class="fu">coef</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x))</span>
+<span id="cb37-10"><a></a>  ), <span class="at">unit=</span><span class="st">"relative"</span></span>
+<span id="cb37-11"><a></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Unit: relative
      expr      min       lq     mean  median       uq      max neval
@@ -826,16 +926,16 @@ x           -0.06082548  0.02748265 -0.01327855 -0.08012361 -0.04067826</code></
 <h2>Conway’s Game of Masks</h2>
 <p>Download the program <a href="sars-cov2.R">here</a>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a></a><span class="co"># source("~/Downloads/sars-cov2.R", echo=FALSE)</span></span>
-<span id="cb25-2"><a></a><span class="fu">source</span>(<span class="st">"img/sars-cov2.R"</span>, <span class="at">echo =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb25-3"><a></a></span>
-<span id="cb25-4"><a></a><span class="co"># Looking at some constants</span></span>
-<span id="cb25-5"><a></a>probs_sick <span class="co"># Sick individual's probabilities</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a></a><span class="co"># source("~/Downloads/sars-cov2.R", echo=FALSE)</span></span>
+<span id="cb39-2"><a></a><span class="fu">source</span>(<span class="st">"img/sars-cov2.R"</span>, <span class="at">echo =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb39-3"><a></a></span>
+<span id="cb39-4"><a></a><span class="co"># Looking at some constants</span></span>
+<span id="cb39-5"><a></a>probs_sick <span class="co"># Sick individual's probabilities</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> deceased  infected recovered 
       0.1       0.4       0.5 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a></a>probs_susc <span class="co"># Probabilities of i getting the disease </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a></a>probs_susc <span class="co"># Probabilities of i getting the disease </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>               j doesn't wear j wears
 i doesn't wear            0.9    0.20
@@ -864,33 +964,33 @@ i wears                   0.5    0.05</code></pre>
 <section id="first-look-what-does-the-simulation-look-like-contd" class="slide level2">
 <h2>First look: What does the simulation look like? (contd’)</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a></a><span class="co"># Location of who wears the facemask. This step is only for plotting</span></span>
-<span id="cb30-2"><a></a>wears <span class="ot">&lt;-</span> <span class="fu">which</span>(one<span class="sc">$</span>wears, <span class="at">arr.ind =</span> <span class="cn">TRUE</span>) <span class="sc">-</span> <span class="dv">1</span></span>
-<span id="cb30-3"><a></a>wears <span class="ot">&lt;-</span> wears<span class="sc">/</span>(one<span class="sc">$</span>nr) <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span><span class="sc">/</span>one<span class="sc">$</span>nr)</span>
-<span id="cb30-4"><a></a></span>
-<span id="cb30-5"><a></a><span class="co"># Initializing the animation</span></span>
-<span id="cb30-6"><a></a>fig   <span class="ot">&lt;-</span> magick<span class="sc">::</span><span class="fu">image_device</span>(<span class="dv">600</span>, <span class="dv">600</span>, <span class="at">res =</span> <span class="dv">96</span><span class="sc">/</span><span class="dv">2</span>, <span class="at">pointsize =</span> <span class="dv">24</span>)</span>
-<span id="cb30-7"><a></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>one<span class="sc">$</span>current_step) {</span>
-<span id="cb30-8"><a></a>  </span>
-<span id="cb30-9"><a></a>  <span class="co"># Plot</span></span>
-<span id="cb30-10"><a></a>  <span class="fu">image</span>(</span>
-<span id="cb30-11"><a></a>    one<span class="sc">$</span>temporal[,,i], <span class="at">col=</span><span class="fu">c</span>(<span class="st">"gray"</span>, <span class="st">"tomato"</span>, <span class="st">"steelblue"</span>,<span class="st">"black"</span>),</span>
-<span id="cb30-12"><a></a>    <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">"Time"</span>, i <span class="sc">-</span> <span class="dv">1</span>L, <span class="st">"of"</span>, one<span class="sc">$</span>nsteps),</span>
-<span id="cb30-13"><a></a>    <span class="at">zlim =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">4</span>)</span>
-<span id="cb30-14"><a></a>    )</span>
-<span id="cb30-15"><a></a>  <span class="fu">points</span>(wears, <span class="at">col=</span><span class="st">"white"</span>, <span class="at">pch=</span><span class="dv">20</span>, <span class="at">cex=</span><span class="fl">1.5</span>)</span>
-<span id="cb30-16"><a></a>  <span class="fu">legend</span>(</span>
-<span id="cb30-17"><a></a>    <span class="st">"topright"</span>,</span>
-<span id="cb30-18"><a></a>    <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"gray"</span>, <span class="st">"tomato"</span>, <span class="st">"steelblue"</span>,<span class="st">"black"</span>, <span class="st">"black"</span>),</span>
-<span id="cb30-19"><a></a>    <span class="at">legend =</span> <span class="fu">c</span>(<span class="fu">names</span>(codes), <span class="st">"wears a mask"</span>),</span>
-<span id="cb30-20"><a></a>    <span class="at">pch =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">15</span>, <span class="dv">4</span>), <span class="dv">21</span>)</span>
-<span id="cb30-21"><a></a>  )</span>
-<span id="cb30-22"><a></a>}</span>
-<span id="cb30-23"><a></a></span>
-<span id="cb30-24"><a></a><span class="co"># Finalizing plot and writing the animation</span></span>
-<span id="cb30-25"><a></a><span class="fu">dev.off</span>()</span>
-<span id="cb30-26"><a></a>animation <span class="ot">&lt;-</span> magick<span class="sc">::</span><span class="fu">image_animate</span>(fig, <span class="at">fps =</span> <span class="dv">2</span>)</span>
-<span id="cb30-27"><a></a>magick<span class="sc">::</span><span class="fu">image_write</span>(animation, <span class="st">"covid1.gif"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a></a><span class="co"># Location of who wears the facemask. This step is only for plotting</span></span>
+<span id="cb44-2"><a></a>wears <span class="ot">&lt;-</span> <span class="fu">which</span>(one<span class="sc">$</span>wears, <span class="at">arr.ind =</span> <span class="cn">TRUE</span>) <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb44-3"><a></a>wears <span class="ot">&lt;-</span> wears<span class="sc">/</span>(one<span class="sc">$</span>nr) <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span><span class="sc">/</span>one<span class="sc">$</span>nr)</span>
+<span id="cb44-4"><a></a></span>
+<span id="cb44-5"><a></a><span class="co"># Initializing the animation</span></span>
+<span id="cb44-6"><a></a>fig   <span class="ot">&lt;-</span> magick<span class="sc">::</span><span class="fu">image_device</span>(<span class="dv">600</span>, <span class="dv">600</span>, <span class="at">res =</span> <span class="dv">96</span><span class="sc">/</span><span class="dv">2</span>, <span class="at">pointsize =</span> <span class="dv">24</span>)</span>
+<span id="cb44-7"><a></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>one<span class="sc">$</span>current_step) {</span>
+<span id="cb44-8"><a></a>  </span>
+<span id="cb44-9"><a></a>  <span class="co"># Plot</span></span>
+<span id="cb44-10"><a></a>  <span class="fu">image</span>(</span>
+<span id="cb44-11"><a></a>    one<span class="sc">$</span>temporal[,,i], <span class="at">col=</span><span class="fu">c</span>(<span class="st">"gray"</span>, <span class="st">"tomato"</span>, <span class="st">"steelblue"</span>,<span class="st">"black"</span>),</span>
+<span id="cb44-12"><a></a>    <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">"Time"</span>, i <span class="sc">-</span> <span class="dv">1</span>L, <span class="st">"of"</span>, one<span class="sc">$</span>nsteps),</span>
+<span id="cb44-13"><a></a>    <span class="at">zlim =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">4</span>)</span>
+<span id="cb44-14"><a></a>    )</span>
+<span id="cb44-15"><a></a>  <span class="fu">points</span>(wears, <span class="at">col=</span><span class="st">"white"</span>, <span class="at">pch=</span><span class="dv">20</span>, <span class="at">cex=</span><span class="fl">1.5</span>)</span>
+<span id="cb44-16"><a></a>  <span class="fu">legend</span>(</span>
+<span id="cb44-17"><a></a>    <span class="st">"topright"</span>,</span>
+<span id="cb44-18"><a></a>    <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"gray"</span>, <span class="st">"tomato"</span>, <span class="st">"steelblue"</span>,<span class="st">"black"</span>, <span class="st">"black"</span>),</span>
+<span id="cb44-19"><a></a>    <span class="at">legend =</span> <span class="fu">c</span>(<span class="fu">names</span>(codes), <span class="st">"wears a mask"</span>),</span>
+<span id="cb44-20"><a></a>    <span class="at">pch =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">15</span>, <span class="dv">4</span>), <span class="dv">21</span>)</span>
+<span id="cb44-21"><a></a>  )</span>
+<span id="cb44-22"><a></a>}</span>
+<span id="cb44-23"><a></a></span>
+<span id="cb44-24"><a></a><span class="co"># Finalizing plot and writing the animation</span></span>
+<span id="cb44-25"><a></a><span class="fu">dev.off</span>()</span>
+<span id="cb44-26"><a></a>animation <span class="ot">&lt;-</span> magick<span class="sc">::</span><span class="fu">image_animate</span>(fig, <span class="at">fps =</span> <span class="dv">2</span>)</span>
+<span id="cb44-27"><a></a>magick<span class="sc">::</span><span class="fu">image_write</span>(animation, <span class="st">"covid1.gif"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section class="slide level2">
@@ -917,30 +1017,30 @@ i wears                   0.5    0.05</code></pre>
 <section id="speed-things-up-parallel-with-a-socket-cluster" class="slide level2">
 <h2>Speed things up: Parallel with a Socket Cluster</h2>
 <p>Alternative 2: Regardless of the operating system, we can use a Socket cluster, which is simply a group of fresh R sessions that listen to the parent/main/mother session.</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a></a><span class="co"># Step 2: Prepare the cluster</span></span>
-<span id="cb31-2"><a></a><span class="co"># We could either export all the needed variables</span></span>
-<span id="cb31-3"><a></a>parallel<span class="sc">::</span><span class="fu">clusterExport</span>(</span>
-<span id="cb31-4"><a></a>  cl,</span>
-<span id="cb31-5"><a></a>  <span class="fu">c</span>(<span class="st">"calc_stats"</span>, <span class="st">"codes"</span>, <span class="st">"dat"</span>, <span class="st">"get_neighbors"</span>, <span class="st">"init"</span>, <span class="st">"probs_sick"</span>,</span>
-<span id="cb31-6"><a></a>    <span class="st">"probs_susc"</span>, <span class="st">"simulate_covid"</span>, <span class="st">"update_status"</span>, <span class="st">"update_status_all"</span></span>
-<span id="cb31-7"><a></a>    )</span>
-<span id="cb31-8"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a></a><span class="co"># Step 2: Prepare the cluster</span></span>
+<span id="cb45-2"><a></a><span class="co"># We could either export all the needed variables</span></span>
+<span id="cb45-3"><a></a>parallel<span class="sc">::</span><span class="fu">clusterExport</span>(</span>
+<span id="cb45-4"><a></a>  cl,</span>
+<span id="cb45-5"><a></a>  <span class="fu">c</span>(<span class="st">"calc_stats"</span>, <span class="st">"codes"</span>, <span class="st">"dat"</span>, <span class="st">"get_neighbors"</span>, <span class="st">"init"</span>, <span class="st">"probs_sick"</span>,</span>
+<span id="cb45-6"><a></a>    <span class="st">"probs_susc"</span>, <span class="st">"simulate_covid"</span>, <span class="st">"update_status"</span>, <span class="st">"update_status_all"</span></span>
+<span id="cb45-7"><a></a>    )</span>
+<span id="cb45-8"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Or simply run the simulation script in the other sessions:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a></a><span class="co"># Step 2 (alt): Prepare the cluster</span></span>
-<span id="cb32-2"><a></a>parallel<span class="sc">::</span><span class="fu">clusterEvalQ</span>(cl, <span class="fu">source</span>(<span class="st">"img/sars-cov2.R"</span>))</span>
-<span id="cb32-3"><a></a>parallel<span class="sc">::</span><span class="fu">clusterSetRNGStream</span>(cl, <span class="dv">123</span>) <span class="co"># Make sure it is reproducible!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a></a><span class="co"># Step 2 (alt): Prepare the cluster</span></span>
+<span id="cb46-2"><a></a>parallel<span class="sc">::</span><span class="fu">clusterEvalQ</span>(cl, <span class="fu">source</span>(<span class="st">"img/sars-cov2.R"</span>))</span>
+<span id="cb46-3"><a></a>parallel<span class="sc">::</span><span class="fu">clusterSetRNGStream</span>(cl, <span class="dv">123</span>) <span class="co"># Make sure it is reproducible!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section class="slide level2">
 
 <p>Bonus: Checking what are the processes running on the system</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a></a>(pids <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb33-2"><a></a>  <span class="at">master    =</span> <span class="fu">Sys.getpid</span>(),</span>
-<span id="cb33-3"><a></a>  <span class="at">offspring =</span> <span class="fu">unlist</span>(parallel<span class="sc">::</span><span class="fu">clusterEvalQ</span>(cl, <span class="fu">Sys.getpid</span>()))</span>
-<span id="cb33-4"><a></a>  ))</span>
-<span id="cb33-5"><a></a><span class="co">#      master offspring1 offspring2 </span></span>
-<span id="cb33-6"><a></a><span class="co">#     14810      15998      16012 </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a></a>(pids <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb47-2"><a></a>  <span class="at">master    =</span> <span class="fu">Sys.getpid</span>(),</span>
+<span id="cb47-3"><a></a>  <span class="at">offspring =</span> <span class="fu">unlist</span>(parallel<span class="sc">::</span><span class="fu">clusterEvalQ</span>(cl, <span class="fu">Sys.getpid</span>()))</span>
+<span id="cb47-4"><a></a>  ))</span>
+<span id="cb47-5"><a></a><span class="co">#      master offspring1 offspring2 </span></span>
+<span id="cb47-6"><a></a><span class="co">#     14810      15998      16012 </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="speed-things-up-parallel-with-a-socket-cluster-contd" class="slide level2">
 <h2>Speed things up: Parallel with a Socket Cluster (cont’d)</h2>
@@ -1012,10 +1112,10 @@ i wears                   0.5    0.05</code></pre>
 <section id="submitting-jobs-examples" class="slide level2">
 <h2>Submitting jobs (examples)</h2>
 <p>Imagine we have the following R script (download <a href="dummy.R">here</a>):</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a></a><span class="fu">library</span>(data.table)</span>
-<span id="cb37-2"><a></a><span class="fu">set.seed</span>(<span class="dv">1231</span>)</span>
-<span id="cb37-3"><a></a>dat <span class="ot">&lt;-</span> <span class="fu">data.table</span>(<span class="at">y =</span> <span class="fu">rnorm</span>(<span class="fl">1e3</span>), <span class="at">x =</span> <span class="fu">sample.int</span>(<span class="dv">5</span>, <span class="fl">1e3</span>, <span class="cn">TRUE</span>))</span>
-<span id="cb37-4"><a></a>dat[,<span class="fu">mean</span>(y), by <span class="ot">=</span> x]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a></a><span class="fu">library</span>(data.table)</span>
+<span id="cb51-2"><a></a><span class="fu">set.seed</span>(<span class="dv">1231</span>)</span>
+<span id="cb51-3"><a></a>dat <span class="ot">&lt;-</span> <span class="fu">data.table</span>(<span class="at">y =</span> <span class="fu">rnorm</span>(<span class="fl">1e3</span>), <span class="at">x =</span> <span class="fu">sample.int</span>(<span class="dv">5</span>, <span class="fl">1e3</span>, <span class="cn">TRUE</span>))</span>
+<span id="cb51-4"><a></a>dat[,<span class="fu">mean</span>(y), by <span class="ot">=</span> x]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>R CMD BATCH</strong></p>
 <p>This will run a non-interactive R session and put all the output (<a href="https://wikipedia.org/wiki/stdout">stdout</a> and <a href="https://wikipedia.org/wiki/stderr">stderr</a>) to the file <code>dummy.Rout</code>.</p>
 <pre><code>R CMD BATCH --vanilla dummy.R dummy.Rout &amp;</code></pre>
@@ -1028,9 +1128,9 @@ i wears                   0.5    0.05</code></pre>
 <h2>Rscript</h2>
 <p>The R script can be executed as a program directly, if you specify where the <code>Rscript</code> program lives.</p>
 <p>The following example works on Unix. This is an R script named <code>since_born.R</code> (download <a href="img/since_born.R">here</a>)</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb40-1"><a></a><span class="co">#!/usr/bin/Rscript</span></span>
-<span id="cb40-2"><a></a><span class="ex">args</span> <span class="op">&lt;</span>- tail<span class="er">(</span><span class="fu">commandArgs()</span><span class="ex">,</span> 0<span class="kw">)</span></span>
-<span id="cb40-3"><a></a><span class="ex">message</span><span class="er">(</span><span class="fu">Sys.Date()</span> <span class="ex">-</span> as.Date<span class="er">(</span><span class="ex">args</span><span class="kw">)</span><span class="ex">,</span> <span class="st">" days since you were born."</span><span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb54-1"><a></a><span class="co">#!/usr/bin/Rscript</span></span>
+<span id="cb54-2"><a></a><span class="ex">args</span> <span class="op">&lt;</span>- tail<span class="er">(</span><span class="fu">commandArgs()</span><span class="ex">,</span> 0<span class="kw">)</span></span>
+<span id="cb54-3"><a></a><span class="ex">message</span><span class="er">(</span><span class="fu">Sys.Date()</span> <span class="ex">-</span> as.Date<span class="er">(</span><span class="ex">args</span><span class="kw">)</span><span class="ex">,</span> <span class="st">" days since you were born."</span><span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This R script can be executed in various ways…</p>
 </section>
 <section id="rscript-as-a-program" class="slide level2">
@@ -1040,8 +1140,8 @@ i wears                   0.5    0.05</code></pre>
 <section id="rscript-in-a-bash-script-most-common" class="slide level2">
 <h2>Rscript in a bash script (most common)</h2>
 <p>In the case of running jobs on a cluster or something similar, we usually need to have a bash script. In our case, we have a file named <code>since_born_bash.sh</code> that calls <code>Rscript</code> (download <a href="since_born_bash.sh">here</a>)</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb41-1"><a></a><span class="co">#!/bin/bash</span></span>
-<span id="cb41-2"><a></a><span class="ex">Rscript</span> since_born.R 1988-03-02</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb55-1"><a></a><span class="co">#!/bin/bash</span></span>
+<span id="cb55-2"><a></a><span class="ex">Rscript</span> since_born.R 1988-03-02</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Which we would execute like this:</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -1095,11 +1195,11 @@ other attached packages:
 [1] microbenchmark_1.5.0 scales_1.4.0         RColorBrewer_1.1-3  
 
 loaded via a namespace (and not attached):
- [1] digest_0.6.37     R6_2.6.1          codetools_0.2-20  fastmap_1.2.0    
- [5] xfun_0.52         farver_2.1.2      glue_1.8.0        knitr_1.50       
- [9] htmltools_0.5.8.1 rmarkdown_2.29    lifecycle_1.0.4   cli_3.6.5        
-[13] compiler_4.5.0    rstudioapi_0.17.1 tools_4.5.0       evaluate_1.0.4   
-[17] yaml_2.3.10       jsonlite_2.0.0    rlang_1.1.6      </code></pre>
+ [1] digest_0.6.37     R6_2.6.1          fastmap_1.2.0     xfun_0.52        
+ [5] farver_2.1.2      glue_1.8.0        knitr_1.50        htmltools_0.5.8.1
+ [9] rmarkdown_2.29    lifecycle_1.0.4   cli_3.6.5         compiler_4.5.0   
+[13] rstudioapi_0.17.1 tools_4.5.0       evaluate_1.0.4    yaml_2.3.10      
+[17] jsonlite_2.0.0    rlang_1.1.6      </code></pre>
 </div>
 </div>
 </section>
@@ -1143,20 +1243,20 @@ Fib(n-1) + Fib(n - 2) &amp; \mbox{otherwise}
 <li><p>Pseudo-Random Number Generation is not very straight forward… But C++11 has a <a href="http://en.cppreference.com/w/cpp/numeric/random">nice set of functions</a> that can be used together with OpenMP</p></li>
 <li><p>Need to think about how processors work, cache memory, etc. Otherwise you could get into trouble… if your code is slower when run in parallel, then you probably are facing <a href="https://software.intel.com/en-us/articles/avoiding-and-identifying-false-sharing-among-threads">false sharing</a></p></li>
 <li><p>If R crashes… try running R with a debugger (see <a href="https://cran.r-project.org/doc/manuals/r-release/R-exts.html#Checking-memory-access">Section 4.3 in Writing R extensions</a>):</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode numberSource shell number-lines code-with-copy"><code class="sourceCode"><span id="cb46-1"><a></a>~$ R --debugger=valgrind</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<div class="sourceCode" id="cb60"><pre class="sourceCode numberSource shell number-lines code-with-copy"><code class="sourceCode"><span id="cb60-1"><a></a>~$ R --debugger=valgrind</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
 </ul>
 </section>
 <section id="rcpparmadillo-and-openmp-workflow" class="slide level2">
 <h2>RcppArmadillo and OpenMP workflow</h2>
 <ol type="1">
 <li><p>Add the following to your C++ source code to use OpenMP, and tell Rcpp that you need to include that in the compiler:</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb47-1"><a></a><span class="pp">#include </span><span class="im">&lt;omp.h&gt;</span></span>
-<span id="cb47-2"><a></a><span class="co">// [[Rcpp::plugins(openmp)]]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<div class="sourceCode" id="cb61"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb61-1"><a></a><span class="pp">#include </span><span class="im">&lt;omp.h&gt;</span></span>
+<span id="cb61-2"><a></a><span class="co">// [[Rcpp::plugins(openmp)]]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
 <li><p>Tell the compiler that you’ll be running a block in parallel with openmp</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb48-1"><a></a><span class="pp">#pragma omp [directives] [options]</span></span>
-<span id="cb48-2"><a></a><span class="op">{</span></span>
-<span id="cb48-3"><a></a>  <span class="op">...</span>your neat parallel code<span class="op">...</span></span>
-<span id="cb48-4"><a></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb62-1"><a></a><span class="pp">#pragma omp [directives] [options]</span></span>
+<span id="cb62-2"><a></a><span class="op">{</span></span>
+<span id="cb62-3"><a></a>  <span class="op">...</span>your neat parallel code<span class="op">...</span></span>
+<span id="cb62-4"><a></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>You’ll need to specify how OMP should handle the data:</p>
 <ul>
 <li><code>shared</code>: Default, all threads access the same copy.</li>
@@ -1172,53 +1272,53 @@ Fib(n-1) + Fib(n - 2) &amp; \mbox{otherwise}
 <h2>Ex 3: RcppArmadillo + OpenMP</h2>
 <p>Computing the distance matrix (see <code>?dist</code>)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb49-1"><a></a><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></span>
-<span id="cb49-2"><a></a><span class="pp">#include </span><span class="im">&lt;omp.h&gt;</span></span>
-<span id="cb49-3"><a></a><span class="pp">#include </span><span class="im">&lt;RcppArmadillo.h&gt;</span></span>
-<span id="cb49-4"><a></a><span class="co">// [[Rcpp::depends(RcppArmadillo)]]</span></span>
-<span id="cb49-5"><a></a><span class="co">// [[Rcpp::plugins(openmp)]]</span></span>
-<span id="cb49-6"><a></a><span class="kw">using</span> <span class="kw">namespace</span> Rcpp<span class="op">;</span></span>
-<span id="cb49-7"><a></a></span>
-<span id="cb49-8"><a></a><span class="co">// [[Rcpp::export]]</span></span>
-<span id="cb49-9"><a></a>arma<span class="op">::</span>mat dist_par<span class="op">(</span><span class="at">const</span> arma<span class="op">::</span>mat <span class="op">&amp;</span> X<span class="op">,</span> <span class="dt">int</span> cores <span class="op">=</span> <span class="dv">1</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb49-10"><a></a>  </span>
-<span id="cb49-11"><a></a>  <span class="co">// Some constants and the result</span></span>
-<span id="cb49-12"><a></a>  <span class="dt">int</span> N <span class="op">=</span> <span class="op">(</span><span class="dt">int</span><span class="op">)</span> X<span class="op">.</span>n_rows<span class="op">;</span> <span class="dt">int</span> K <span class="op">=</span> <span class="op">(</span><span class="dt">int</span><span class="op">)</span> X<span class="op">.</span>n_cols<span class="op">;</span></span>
-<span id="cb49-13"><a></a>  arma<span class="op">::</span>mat D<span class="op">(</span>N<span class="op">,</span>N<span class="op">,</span>arma<span class="op">::</span>fill<span class="op">::</span>zeros<span class="op">);</span></span>
-<span id="cb49-14"><a></a>  </span>
-<span id="cb49-15"><a></a>  omp_set_num_threads<span class="op">(</span>cores<span class="op">);</span> <span class="co">// Setting the cores</span></span>
-<span id="cb49-16"><a></a>  </span>
-<span id="cb49-17"><a></a><span class="pp">#pragma omp parallel for shared(D, N, K, X) default(none)</span></span>
-<span id="cb49-18"><a></a>  <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i<span class="op">=</span><span class="dv">0</span><span class="op">;</span> i<span class="op">&lt;</span>N<span class="op">;</span> <span class="op">++</span>i<span class="op">)</span></span>
-<span id="cb49-19"><a></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> j<span class="op">=</span><span class="dv">0</span><span class="op">;</span> j<span class="op">&lt;</span>i<span class="op">;</span> <span class="op">++</span>j<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb49-20"><a></a>      <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> k<span class="op">=</span><span class="dv">0</span><span class="op">;</span> k<span class="op">&lt;</span>K<span class="op">;</span> k<span class="op">++)</span> </span>
-<span id="cb49-21"><a></a>        D<span class="op">.</span>at<span class="op">(</span>i<span class="op">,</span>j<span class="op">)</span> <span class="op">+=</span> pow<span class="op">(</span>X<span class="op">.</span>at<span class="op">(</span>i<span class="op">,</span>k<span class="op">)</span> <span class="op">-</span> X<span class="op">.</span>at<span class="op">(</span>j<span class="op">,</span>k<span class="op">),</span> <span class="fl">2.0</span><span class="op">);</span></span>
-<span id="cb49-22"><a></a>      </span>
-<span id="cb49-23"><a></a>      <span class="co">// Computing square root</span></span>
-<span id="cb49-24"><a></a>      D<span class="op">.</span>at<span class="op">(</span>i<span class="op">,</span>j<span class="op">)</span> <span class="op">=</span> sqrt<span class="op">(</span>D<span class="op">.</span>at<span class="op">(</span>i<span class="op">,</span>j<span class="op">));</span> D<span class="op">.</span>at<span class="op">(</span>j<span class="op">,</span>i<span class="op">)</span> <span class="op">=</span> D<span class="op">.</span>at<span class="op">(</span>i<span class="op">,</span>j<span class="op">);</span></span>
-<span id="cb49-25"><a></a>    <span class="op">}</span></span>
-<span id="cb49-26"><a></a>      </span>
-<span id="cb49-27"><a></a>  <span class="co">// My nice distance matrix</span></span>
-<span id="cb49-28"><a></a>  <span class="cf">return</span> D<span class="op">;</span></span>
-<span id="cb49-29"><a></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb63-1"><a></a><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></span>
+<span id="cb63-2"><a></a><span class="pp">#include </span><span class="im">&lt;omp.h&gt;</span></span>
+<span id="cb63-3"><a></a><span class="pp">#include </span><span class="im">&lt;RcppArmadillo.h&gt;</span></span>
+<span id="cb63-4"><a></a><span class="co">// [[Rcpp::depends(RcppArmadillo)]]</span></span>
+<span id="cb63-5"><a></a><span class="co">// [[Rcpp::plugins(openmp)]]</span></span>
+<span id="cb63-6"><a></a><span class="kw">using</span> <span class="kw">namespace</span> Rcpp<span class="op">;</span></span>
+<span id="cb63-7"><a></a></span>
+<span id="cb63-8"><a></a><span class="co">// [[Rcpp::export]]</span></span>
+<span id="cb63-9"><a></a>arma<span class="op">::</span>mat dist_par<span class="op">(</span><span class="at">const</span> arma<span class="op">::</span>mat <span class="op">&amp;</span> X<span class="op">,</span> <span class="dt">int</span> cores <span class="op">=</span> <span class="dv">1</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb63-10"><a></a>  </span>
+<span id="cb63-11"><a></a>  <span class="co">// Some constants and the result</span></span>
+<span id="cb63-12"><a></a>  <span class="dt">int</span> N <span class="op">=</span> <span class="op">(</span><span class="dt">int</span><span class="op">)</span> X<span class="op">.</span>n_rows<span class="op">;</span> <span class="dt">int</span> K <span class="op">=</span> <span class="op">(</span><span class="dt">int</span><span class="op">)</span> X<span class="op">.</span>n_cols<span class="op">;</span></span>
+<span id="cb63-13"><a></a>  arma<span class="op">::</span>mat D<span class="op">(</span>N<span class="op">,</span>N<span class="op">,</span>arma<span class="op">::</span>fill<span class="op">::</span>zeros<span class="op">);</span></span>
+<span id="cb63-14"><a></a>  </span>
+<span id="cb63-15"><a></a>  omp_set_num_threads<span class="op">(</span>cores<span class="op">);</span> <span class="co">// Setting the cores</span></span>
+<span id="cb63-16"><a></a>  </span>
+<span id="cb63-17"><a></a><span class="pp">#pragma omp parallel for shared(D, N, K, X) default(none)</span></span>
+<span id="cb63-18"><a></a>  <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i<span class="op">=</span><span class="dv">0</span><span class="op">;</span> i<span class="op">&lt;</span>N<span class="op">;</span> <span class="op">++</span>i<span class="op">)</span></span>
+<span id="cb63-19"><a></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> j<span class="op">=</span><span class="dv">0</span><span class="op">;</span> j<span class="op">&lt;</span>i<span class="op">;</span> <span class="op">++</span>j<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb63-20"><a></a>      <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> k<span class="op">=</span><span class="dv">0</span><span class="op">;</span> k<span class="op">&lt;</span>K<span class="op">;</span> k<span class="op">++)</span> </span>
+<span id="cb63-21"><a></a>        D<span class="op">.</span>at<span class="op">(</span>i<span class="op">,</span>j<span class="op">)</span> <span class="op">+=</span> pow<span class="op">(</span>X<span class="op">.</span>at<span class="op">(</span>i<span class="op">,</span>k<span class="op">)</span> <span class="op">-</span> X<span class="op">.</span>at<span class="op">(</span>j<span class="op">,</span>k<span class="op">),</span> <span class="fl">2.0</span><span class="op">);</span></span>
+<span id="cb63-22"><a></a>      </span>
+<span id="cb63-23"><a></a>      <span class="co">// Computing square root</span></span>
+<span id="cb63-24"><a></a>      D<span class="op">.</span>at<span class="op">(</span>i<span class="op">,</span>j<span class="op">)</span> <span class="op">=</span> sqrt<span class="op">(</span>D<span class="op">.</span>at<span class="op">(</span>i<span class="op">,</span>j<span class="op">));</span> D<span class="op">.</span>at<span class="op">(</span>j<span class="op">,</span>i<span class="op">)</span> <span class="op">=</span> D<span class="op">.</span>at<span class="op">(</span>i<span class="op">,</span>j<span class="op">);</span></span>
+<span id="cb63-25"><a></a>    <span class="op">}</span></span>
+<span id="cb63-26"><a></a>      </span>
+<span id="cb63-27"><a></a>  <span class="co">// My nice distance matrix</span></span>
+<span id="cb63-28"><a></a>  <span class="cf">return</span> D<span class="op">;</span></span>
+<span id="cb63-29"><a></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section class="slide level2">
 
 <div class="cell">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a></a><span class="fu">set.seed</span>(<span class="dv">1231</span>)</span>
-<span id="cb50-2"><a></a>K <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
-<span id="cb50-3"><a></a>n <span class="ot">&lt;-</span> <span class="dv">500</span></span>
-<span id="cb50-4"><a></a>x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(n<span class="sc">*</span>K), <span class="at">ncol=</span>K)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a></a><span class="fu">set.seed</span>(<span class="dv">1231</span>)</span>
+<span id="cb64-2"><a></a>K <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb64-3"><a></a>n <span class="ot">&lt;-</span> <span class="dv">500</span></span>
+<span id="cb64-4"><a></a>x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(n<span class="sc">*</span>K), <span class="at">ncol=</span>K)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a></a><span class="co"># Benchmarking!</span></span>
-<span id="cb51-2"><a></a>microbenchmark<span class="sc">::</span><span class="fu">microbenchmark</span>(</span>
-<span id="cb51-3"><a></a>  <span class="fu">dist</span>(x),                 <span class="co"># stats::dist</span></span>
-<span id="cb51-4"><a></a>  <span class="fu">dist_par</span>(x, <span class="at">cores =</span> <span class="dv">1</span>),  <span class="co"># 1 core</span></span>
-<span id="cb51-5"><a></a>  <span class="fu">dist_par</span>(x, <span class="at">cores =</span> <span class="dv">2</span>),  <span class="co"># 2 cores</span></span>
-<span id="cb51-6"><a></a>  <span class="at">times =</span> <span class="dv">10</span>, <span class="at">unit=</span><span class="st">"relative"</span></span>
-<span id="cb51-7"><a></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a></a><span class="co"># Benchmarking!</span></span>
+<span id="cb65-2"><a></a>microbenchmark<span class="sc">::</span><span class="fu">microbenchmark</span>(</span>
+<span id="cb65-3"><a></a>  <span class="fu">dist</span>(x),                 <span class="co"># stats::dist</span></span>
+<span id="cb65-4"><a></a>  <span class="fu">dist_par</span>(x, <span class="at">cores =</span> <span class="dv">1</span>),  <span class="co"># 1 core</span></span>
+<span id="cb65-5"><a></a>  <span class="fu">dist_par</span>(x, <span class="at">cores =</span> <span class="dv">2</span>),  <span class="co"># 2 cores</span></span>
+<span id="cb65-6"><a></a>  <span class="at">times =</span> <span class="dv">10</span>, <span class="at">unit=</span><span class="st">"relative"</span></span>
+<span id="cb65-7"><a></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="resources" class="slide level2">
@@ -1244,7 +1344,7 @@ Fib(n-1) + Fib(n - 2) &amp; \mbox{otherwise}
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="week08_files/figure-revealjs/unnamed-chunk-10-1.jpeg" width="300" height="300"></p>
+<p><img data-src="week08_files/figure-revealjs/unnamed-chunk-14-1.jpeg" width="300" height="300"></p>
 </figure>
 </div>
 </div>
@@ -1254,40 +1354,40 @@ Fib(n-1) + Fib(n - 2) &amp; \mbox{otherwise}
 
 <p>The R code to do this</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a></a>pisim <span class="ot">&lt;-</span> <span class="cf">function</span>(i, nsim) {  <span class="co"># Notice we don't use the -i-</span></span>
-<span id="cb52-2"><a></a>  <span class="co"># Random points</span></span>
-<span id="cb52-3"><a></a>  ans  <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">runif</span>(nsim<span class="sc">*</span><span class="dv">2</span>), <span class="at">ncol=</span><span class="dv">2</span>)</span>
-<span id="cb52-4"><a></a>  </span>
-<span id="cb52-5"><a></a>  <span class="co"># Distance to the origin</span></span>
-<span id="cb52-6"><a></a>  ans  <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">rowSums</span>(ans<span class="sc">^</span><span class="dv">2</span>))</span>
-<span id="cb52-7"><a></a>  </span>
-<span id="cb52-8"><a></a>  <span class="co"># Estimated pi</span></span>
-<span id="cb52-9"><a></a>  (<span class="fu">sum</span>(ans <span class="sc">&lt;=</span> <span class="dv">1</span>)<span class="sc">*</span><span class="dv">4</span>)<span class="sc">/</span>nsim</span>
-<span id="cb52-10"><a></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a></a>pisim <span class="ot">&lt;-</span> <span class="cf">function</span>(i, nsim) {  <span class="co"># Notice we don't use the -i-</span></span>
+<span id="cb66-2"><a></a>  <span class="co"># Random points</span></span>
+<span id="cb66-3"><a></a>  ans  <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">runif</span>(nsim<span class="sc">*</span><span class="dv">2</span>), <span class="at">ncol=</span><span class="dv">2</span>)</span>
+<span id="cb66-4"><a></a>  </span>
+<span id="cb66-5"><a></a>  <span class="co"># Distance to the origin</span></span>
+<span id="cb66-6"><a></a>  ans  <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">rowSums</span>(ans<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb66-7"><a></a>  </span>
+<span id="cb66-8"><a></a>  <span class="co"># Estimated pi</span></span>
+<span id="cb66-9"><a></a>  (<span class="fu">sum</span>(ans <span class="sc">&lt;=</span> <span class="dv">1</span>)<span class="sc">*</span><span class="dv">4</span>)<span class="sc">/</span>nsim</span>
+<span id="cb66-10"><a></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section class="slide level2">
 
 <div class="cell">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a></a><span class="fu">library</span>(parallel)</span>
-<span id="cb53-2"><a></a><span class="co"># Setup</span></span>
-<span id="cb53-3"><a></a>cl <span class="ot">&lt;-</span> <span class="fu">makeCluster</span>(<span class="dv">4</span>L)</span>
-<span id="cb53-4"><a></a><span class="fu">clusterSetRNGStream</span>(cl, <span class="dv">123</span>)</span>
-<span id="cb53-5"><a></a></span>
-<span id="cb53-6"><a></a><span class="co"># Number of simulations we want each time to run</span></span>
-<span id="cb53-7"><a></a>nsim <span class="ot">&lt;-</span> <span class="fl">1e5</span></span>
-<span id="cb53-8"><a></a></span>
-<span id="cb53-9"><a></a><span class="co"># We need to make -nsim- and -pisim- available to the</span></span>
-<span id="cb53-10"><a></a><span class="co"># cluster</span></span>
-<span id="cb53-11"><a></a><span class="fu">clusterExport</span>(cl, <span class="fu">c</span>(<span class="st">"nsim"</span>, <span class="st">"pisim"</span>))</span>
-<span id="cb53-12"><a></a></span>
-<span id="cb53-13"><a></a><span class="co"># Benchmarking: parSapply and sapply will run this simulation</span></span>
-<span id="cb53-14"><a></a><span class="co"># a hundred times each, so at the end we have 1e5*100 points</span></span>
-<span id="cb53-15"><a></a><span class="co"># to approximate pi</span></span>
-<span id="cb53-16"><a></a>microbenchmark<span class="sc">::</span><span class="fu">microbenchmark</span>(</span>
-<span id="cb53-17"><a></a>  <span class="at">parallel =</span> <span class="fu">parSapply</span>(cl, <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, pisim, <span class="at">nsim=</span>nsim),</span>
-<span id="cb53-18"><a></a>  <span class="at">serial   =</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, pisim, <span class="at">nsim=</span>nsim), <span class="at">times =</span> <span class="dv">1</span>, <span class="at">unit=</span><span class="st">"relative"</span></span>
-<span id="cb53-19"><a></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a></a><span class="fu">library</span>(parallel)</span>
+<span id="cb67-2"><a></a><span class="co"># Setup</span></span>
+<span id="cb67-3"><a></a>cl <span class="ot">&lt;-</span> <span class="fu">makeCluster</span>(<span class="dv">4</span>L)</span>
+<span id="cb67-4"><a></a><span class="fu">clusterSetRNGStream</span>(cl, <span class="dv">123</span>)</span>
+<span id="cb67-5"><a></a></span>
+<span id="cb67-6"><a></a><span class="co"># Number of simulations we want each time to run</span></span>
+<span id="cb67-7"><a></a>nsim <span class="ot">&lt;-</span> <span class="fl">1e5</span></span>
+<span id="cb67-8"><a></a></span>
+<span id="cb67-9"><a></a><span class="co"># We need to make -nsim- and -pisim- available to the</span></span>
+<span id="cb67-10"><a></a><span class="co"># cluster</span></span>
+<span id="cb67-11"><a></a><span class="fu">clusterExport</span>(cl, <span class="fu">c</span>(<span class="st">"nsim"</span>, <span class="st">"pisim"</span>))</span>
+<span id="cb67-12"><a></a></span>
+<span id="cb67-13"><a></a><span class="co"># Benchmarking: parSapply and sapply will run this simulation</span></span>
+<span id="cb67-14"><a></a><span class="co"># a hundred times each, so at the end we have 1e5*100 points</span></span>
+<span id="cb67-15"><a></a><span class="co"># to approximate pi</span></span>
+<span id="cb67-16"><a></a>microbenchmark<span class="sc">::</span><span class="fu">microbenchmark</span>(</span>
+<span id="cb67-17"><a></a>  <span class="at">parallel =</span> <span class="fu">parSapply</span>(cl, <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, pisim, <span class="at">nsim=</span>nsim),</span>
+<span id="cb67-18"><a></a>  <span class="at">serial   =</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, pisim, <span class="at">nsim=</span>nsim), <span class="at">times =</span> <span class="dv">1</span>, <span class="at">unit=</span><span class="st">"relative"</span></span>
+<span id="cb67-19"><a></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Unit: relative
      expr      min       lq     mean   median       uq      max neval
