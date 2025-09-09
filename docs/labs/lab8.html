@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Lab 4 - Data Visualization – PM 566</title>
+<title>Lab 8 - Efficiency and Parallelization – PM 566</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -158,7 +158,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Lab 4 - Data Visualization</h1>
+<h1 class="title">Lab 8 - Efficiency and Parallelization</h1>
 </div>
 
 
@@ -176,110 +176,120 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <section id="learning-goals" class="level1">
-<h1>Learning Goals</h1>
+<h1>Learning goals</h1>
+<p>In this lab, you are expected to learn/put in practice the following skills:</p>
 <ul>
-<li>Read in and prepare the meteorological dataset</li>
-<li>Create several graphs with different <code>geoms()</code> in <code>ggplot2</code></li>
-<li>Create a facet graph</li>
-<li>Customize your plots</li>
-<li>Create a more detailed map using <code>leaflet()</code></li>
+<li>Evaluate whether a problem can be parallelized or not.</li>
+<li>Practice with the <code>parallel</code> package.</li>
 </ul>
-</section>
-<section id="lab-description" class="level1">
-<h1>Lab Description</h1>
-<p>We will again work with the meteorological data presented in lecture.</p>
-<p><strong>The objective of the lab is to examine the association between weekly average dew point and wind speed in four regions of the US and by elevation.</strong></p>
-<p>Per <a href="https://en.wikipedia.org/wiki/Dew_point">Wikipedia</a>: “The dew point of a given body of air is the temperature to which it must be cooled to become saturated with water vapor. This temperature depends on the pressure and water content of the air.”</p>
-<p>Again, feel free to supplement your knowledge of this dataset by checking out the <a href="https://github.com/USCbiostats/data-science-data/blob/master/02_met/met-datadictionary.pdf">data dictionary</a>.</p>
-</section>
-<section id="steps" class="level1">
-<h1>Steps</h1>
-<section id="read-in-the-data" class="level3">
-<h3 class="anchored" data-anchor-id="read-in-the-data">1. Read in the data</h3>
-<p>First download and then read in with <code>data.table::fread()</code></p>
+<section id="problem-1-vectorization" class="level2">
+<h2 class="anchored" data-anchor-id="problem-1-vectorization">Problem 1: Vectorization</h2>
+<p>The following functions can be written to be more efficient without using parallelization. Write a faster version of each function and show that (1) the outputs are the same as the slow version, and (2) your version is faster.</p>
+<ol type="1">
+<li>This function generates an <code>n x k</code> dataset with all its entries drawn from a Poission distribution with mean <code>lambda</code>.</li>
+</ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">file.exists</span>(<span class="st">"met_all.gz"</span>))</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">download.file</span>(</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">url =</span> <span class="st">"https://raw.githubusercontent.com/USCbiostats/data-science-data/master/02_met/met_all.gz"</span>,</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">destfile =</span> <span class="st">"met_all.gz"</span>,</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">method   =</span> <span class="st">"libcurl"</span>,</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">timeout  =</span> <span class="dv">60</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>met <span class="ot">&lt;-</span> data.table<span class="sc">::</span><span class="fu">fread</span>(<span class="st">"met_all.gz"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>fun1 <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">k =</span> <span class="dv">4</span>, <span class="at">lambda =</span> <span class="dv">4</span>) {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n){</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> <span class="fu">rbind</span>(x, <span class="fu">rpois</span>(k, lambda))    </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(x)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>fun1alt <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">k =</span> <span class="dv">4</span>, <span class="at">lambda =</span> <span class="dv">4</span>) {</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># YOUR CODE HERE</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>Show that <code>fun1alt</code> generates a matrix with the same dimensions as <code>fun1</code> and that the values inside the two matrices follow similar distributions. Then check the speed of the two functions with the following code:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Benchmarking</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>microbenchmark<span class="sc">::</span><span class="fu">microbenchmark</span>(</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fun1</span>(),</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fun1alt</span>()</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="2" type="1">
+<li>This function finds the maximum value of each column of a matrix.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data Generating Process (10 x 10,000 matrix)</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="fl">1e4</span>), <span class="at">nrow=</span><span class="dv">10</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Find each column's max value</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>fun2 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">apply</span>(x, <span class="dv">2</span>, max)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>fun2alt <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># YOUR CODE HERE</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Show that both functions return the same output for a given input matrix, <code>x</code>. Then check the speed of the two functions, as you did above.</p>
 </section>
-<section id="prepare-the-data" class="level3">
-<h3 class="anchored" data-anchor-id="prepare-the-data">2. Prepare the data</h3>
-<ul>
-<li>Remove temperatures less than -17C</li>
-<li>Make sure there is no missing data in the key variables coded as 9999, 999, etc.</li>
-<li>Generate a date variable using the functions <code>as.Date()</code> (hint: You will need the following to create a date <code>paste(year, month, day, sep = "-")</code>).</li>
-<li>Using the <code>data.table::week</code> function, keep the observations of the first week of the month.</li>
-<li>Compute the mean by station of the variables <code>temp</code>, <code>rh</code>, <code>wind.sp</code>, <code>vis.dist</code>, <code>dew.point</code>, <code>lat</code>, <code>lon</code>, and <code>elev</code>.</li>
-<li>Create a region variable for NW, SW, NE, SE based on lon = -98.00 and lat = 39.71 degrees</li>
-<li>Create a categorical variable for elevation as in the lecture slides</li>
-</ul>
-</section>
-<section id="use-geom_violin-to-examine-the-wind-speed-and-dew-point-by-region" class="level3">
-<h3 class="anchored" data-anchor-id="use-geom_violin-to-examine-the-wind-speed-and-dew-point-by-region">3. Use <code>geom_violin</code> to examine the wind speed and dew point by region</h3>
-<p>You saw how to use <code>geom_boxplot</code> in class. Try using <code>geom_violin</code> instead (take a look at the help). (hint: you will need to set the <code>x</code> aesthetic to 1)</p>
-<ul>
-<li>Use facets</li>
-<li>Make sure to deal with <code>NA</code>s</li>
-<li>Describe what you observe in the graph</li>
-</ul>
-</section>
-<section id="use-geom_jitter-with-stat_smooth-to-examine-the-association-between-dew-point-and-wind-speed-by-region" class="level3">
-<h3 class="anchored" data-anchor-id="use-geom_jitter-with-stat_smooth-to-examine-the-association-between-dew-point-and-wind-speed-by-region">4. Use <code>geom_jitter</code> with <code>stat_smooth</code> to examine the association between dew point and wind speed by region</h3>
-<ul>
-<li>Color points by region</li>
-<li>Make sure to deal with <code>NA</code>s</li>
-<li>Fit a linear regression line by region</li>
-<li>Describe what you observe in the graph</li>
-</ul>
-</section>
-<section id="use-geom_bar-to-create-barplots-of-the-weather-stations-by-elevation-category-colored-by-region" class="level3">
-<h3 class="anchored" data-anchor-id="use-geom_bar-to-create-barplots-of-the-weather-stations-by-elevation-category-colored-by-region">5. Use <code>geom_bar</code> to create barplots of the weather stations by elevation category colored by region</h3>
-<ul>
-<li>Bars by elevation category using <code>position="dodge"</code></li>
-<li>Change colors from the default. Color by region using <code>scale_fill_brewer</code> see <a href="http://rstudio-pubs-static.s3.amazonaws.com/5312_98fc1aba2d5740dd849a5ab797cc2c8d.html">this</a></li>
-<li>Create nice labels on the axes and add a title</li>
-<li>Describe what you observe in the graph</li>
-<li>Make sure to deal with <code>NA</code> values</li>
-</ul>
-</section>
-<section id="use-stat_summary-to-examine-mean-dew-point-and-wind-speed-by-region-with-standard-deviation-error-bars" class="level3">
-<h3 class="anchored" data-anchor-id="use-stat_summary-to-examine-mean-dew-point-and-wind-speed-by-region-with-standard-deviation-error-bars">6. Use <code>stat_summary</code> to examine mean dew point and wind speed by region with standard deviation error bars</h3>
-<ul>
-<li>Make sure to remove <code>NA</code>s</li>
-<li>Use <code>fun.data="mean_sdl"</code> in <code>stat_summary</code></li>
-<li>Add another layer of <code>stats_summary</code> but change the geom to <code>"errorbar"</code> (see the help).</li>
-<li>Describe the graph and what you observe</li>
-</ul>
-<ul>
-<li>Dew point is…</li>
-<li>Wind speed is…</li>
-</ul>
-</section>
-<section id="make-a-map-showing-the-spatial-trend-in-relative-humidity-in-the-us" class="level3">
-<h3 class="anchored" data-anchor-id="make-a-map-showing-the-spatial-trend-in-relative-humidity-in-the-us">7. Make a map showing the spatial trend in relative humidity in the US</h3>
-<ul>
-<li>Make sure to remove <code>NA</code>s</li>
-<li>Use <code>leaflet()</code></li>
-<li>Make a color palette with custom colors</li>
-<li>Use <code>addMarkers</code> to include the top 10 places in relative humidity (hint: this will be useful <code>rank(-rh) &lt;= 10</code>)</li>
-<li>Add a legend</li>
-</ul>
-<ul>
-<li>Describe the trend in RH across the US</li>
-</ul>
-</section>
-<section id="use-a-ggplot-extension" class="level3">
-<h3 class="anchored" data-anchor-id="use-a-ggplot-extension">8. Use a ggplot extension</h3>
-<ul>
-<li>Pick an extension (except cowplot) from <a href="https://exts.ggplot2.tidyverse.org/gallery/">here</a> and make a plot of your choice using the met data (or met_avg)</li>
-<li>You might want to try examples that come with the extension first (e.g.&nbsp;ggtech, gganimate, ggforce)</li>
-</ul>
+<section id="problem-3-parallelization" class="level2">
+<h2 class="anchored" data-anchor-id="problem-3-parallelization">Problem 3: Parallelization</h2>
+<p>We will now turn our attention to the statistical concept of <a href="https://en.wikipedia.org/wiki/Bootstrapping_(statistics)">bootstrapping</a>. Among its many uses, non-parametric bootstrapping allows us to obtain confidence intervals for parameter estimates without relying on parametric assumptions. Don’t worry if these concepts are unfamiliar, we only care about the computation methods in this lab, not the statistics.</p>
+<p>The main assumption is that we can approximate the results of many repeated experiments by resampling observations from our original dataset, which reflects the population.</p>
+<ol type="1">
+<li>This function implements a serial version of the bootstrap. Edit this function to parallelize the <code>lapply</code> loop, using whichever method you prefer. Rather than specifying the number of cores to use, use the number given by the <code>ncpus</code> argument, so that we can test it with different numbers of cores later.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>my_boot <span class="ot">&lt;-</span> <span class="cf">function</span>(dat, stat, R, <span class="at">ncpus =</span> <span class="dv">1</span>L) {</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Getting the random indices</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(dat)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  idx <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">sample.int</span>(n, n<span class="sc">*</span>R, <span class="cn">TRUE</span>), <span class="at">nrow=</span>n, <span class="at">ncol=</span>R)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># THIS FUNCTION NEEDS TO BE PARALELLIZED</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># EDIT THIS CODE:</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  ans <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="fu">seq_len</span>(R), <span class="cf">function</span>(i) {</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stat</span>(dat[idx[,i], , <span class="at">drop=</span><span class="cn">FALSE</span>])</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Converting the list into a matrix</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  ans <span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind, ans)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(ans)</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="2" type="1">
+<li>Once you have a version of the <code>my_boot()</code> function that runs on multiple cores, check that it provides accurate results by comparing it to a parametric model:</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Bootstrap of an OLS</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>my_stat <span class="ot">&lt;-</span> <span class="cf">function</span>(d) <span class="fu">coef</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data=</span>d))</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># DATA SIM</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">500</span>; R <span class="ot">&lt;-</span> <span class="fl">1e4</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">rnorm</span>(n)); y <span class="ot">&lt;-</span> x<span class="sc">*</span><span class="dv">5</span> <span class="sc">+</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Checking if we get something similar as lm</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>ans0 <span class="ot">&lt;-</span> <span class="fu">confint</span>(<span class="fu">lm</span>(y<span class="sc">~</span>x))</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>ans1 <span class="ot">&lt;-</span> <span class="fu">my_boot</span>(<span class="at">dat =</span> <span class="fu">data.frame</span>(x, y), my_stat, <span class="at">R =</span> R, <span class="at">ncpus =</span> <span class="dv">2</span>L)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co"># You should get something like this</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(<span class="fu">apply</span>(ans1, <span class="dv">2</span>, quantile, <span class="fu">c</span>(.<span class="dv">025</span>,.<span class="dv">975</span>)))</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="do">##                   2.5%      97.5%</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept) -0.1372435 0.05074397</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="do">## x            4.8680977 5.04539763</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>ans0</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="do">##                  2.5 %     97.5 %</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept) -0.1379033 0.04797344</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="do">## x            4.8650100 5.04883353</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="3" type="1">
+<li>Check whether your version actually goes faster when it’s run on multiple cores (since this might take a little while to run, we’ll use <code>system.time</code> and just run each version once, rather than <code>microbenchmark</code>, which would run each version 100 times, by default):</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(<span class="fu">my_boot</span>(<span class="at">dat =</span> <span class="fu">data.frame</span>(x, y), my_stat, <span class="at">R =</span> <span class="dv">4000</span>, <span class="at">ncpus =</span> <span class="dv">1</span>L))</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(<span class="fu">my_boot</span>(<span class="at">dat =</span> <span class="fu">data.frame</span>(x, y), my_stat, <span class="at">R =</span> <span class="dv">4000</span>, <span class="at">ncpus =</span> <span class="dv">2</span>L))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 
 
 </section>
