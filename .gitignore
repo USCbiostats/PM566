@@ -8,6 +8,7 @@ public/
 .DS_Store
 static/**/*.zip
 *_cache/
+*_files/
 static/rmarkdown-libs/
 .httr-oauth
 .*
