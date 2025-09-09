@@ -6,7 +6,7 @@ toc: false
 
 ## Due Date
 
-This assignment is due by 11:59pm Pacific Time on Friday, October 10th, 2024.
+This assignment is due by 11:59pm Pacific Time on Friday, October 10th, 2025.
 
 # Learning Goals
 

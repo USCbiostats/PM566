@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Assignment 2 - Data Wrangling, EDA, and Visualization – PM 566</title>
+<title>Assignment 3 - Text Mining – PM 566</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -124,7 +124,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Assignment 2 - Data Wrangling, EDA, and Visualization</h1>
+<h1 class="title">Assignment 3 - Text Mining</h1>
 </div>
 
 
@@ -143,49 +143,23 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="due-date" class="level2">
 <h2 class="anchored" data-anchor-id="due-date">Due Date</h2>
-<p>This assignment is due by 11:59pm Pacific Time on Friday, October 10th, 2025.</p>
+<p>This assignment is due by 11:59pm Pacific Time on Friday, November 7th, 2025.</p>
 </section>
-<section id="learning-goals" class="level1">
-<h1>Learning Goals</h1>
-<ul>
-<li>Practice getting familiar with an external dataset</li>
-<li>Reinforce good EDA practices</li>
-<li>Combine related datasets to answer questions</li>
-<li>Select appropriate data visualizations</li>
-</ul>
-</section>
-<section id="dataset-description" class="level1">
-<h1>Dataset Description</h1>
-<p>For this assignment, we will be analyzing data from the <code>nycflights13</code> package, which provides information on all flights that left one of New York City’s three main airports in 2013. You can access this data by installing and loading the package, which provides five data frames: <code>airlines</code>, <code>airports</code>, <code>flights</code>, <code>planes</code>, and <code>weather</code>. These will not automatically populate in your Environment tab in RStudio, but if you want to see them there, you can assign each dataset to a variable of the same name (eg. <code>airlines &lt;- airlines</code>).</p>
-<p>The main data frame is <code>flights</code>, which contains information about every flight out of NYC. The 4 other data frames contain additional information, much of which would be highly redundant to include in the <code>flights</code> dataset (for example, information about JFK airport, or the full name of each airline rather than just the abbreviation).</p>
-<p>The relationships between the data frames are summarized in the figure below:</p>
-<p><img src="https://r4ds.hadley.nz/diagrams/relational.png" class="img-fluid"></p>
-</section>
-<section id="questions" class="level1">
-<h1>Questions</h1>
+<section id="text-mining" class="level2">
+<h2 class="anchored" data-anchor-id="text-mining">Text Mining</h2>
+<p>A new dataset has been added to the data science data repository <a href="https://github.com/USCbiostats/data-science-data/tree/master/03_pubmed" class="uri">https://github.com/USCbiostats/data-science-data/tree/master/03_pubmed</a>. The dataset contains 3,241 abstracts from articles collected via 5 PubMed searches. The search terms are listed in the second column, <code>term</code> and these will serve as the “documents.” Your job is to analyze these abstracts to find interesting insights.</p>
 <ol type="1">
-<li><p>(7 points) Find the top 10 most popular destinations in the <code>flights</code> data. How many flights went to each?</p></li>
-<li><p>(10 points) Create two new categorical variables in <code>flights</code> based on the departure time (<code>dep_time</code>), and arrival time (<code>arr_time</code>). These new variables should have four categories: “early morning” for 12am to 6am, “morning” for 6am to 12pm, “afternoon” for 12pm to 6pm, and “evening” for 6pm to 12am. Show barplots of both of these new variables. What percentage of flights were “red eye” flights? We’ll define these as flights that depart in “afternoon” or “evening” and arrive in “early morning” or “morning.”</p></li>
-<li><p>(7 points) Where there any planes that flew for multiple airlines? If so, how many were there and which airlines did they fly for?</p></li>
-<li><p>(7 points) In the figure above, there is a missing relationship between <code>weather</code> and <code>airports</code>. What is the relationship and how should it appear in the diagram?</p></li>
+<li>Tokenize the abstracts and count the number of each token. Do you see anything interesting? Does removing stop words change what tokens appear as the most frequent? What are the 5 most common tokens for each search term after removing stop words?</li>
+<li>Tokenize the abstracts into bigrams. Find the 10 most common bigrams and visualize them.</li>
+<li>Calculate the TF-IDF value for each word-search term combination (here you want the search term to be the “document”). What are the 5 tokens from each search term with the highest TF-IDF value? How are the results different from the answers you got in Question 1?</li>
 </ol>
-<p>For the rest of this assignment, the primary question you should keep in mind is this:</p>
-<blockquote class="blockquote">
-<p>Which weather phenomena have the most impact on flight delays?</p>
-</blockquote>
-<p>Don’t try to answer it now, but use this question to guide your exploratory data analysis.</p>
-<ol start="5" type="1">
-<li>(7 points) In order to address our primary question, we want to prepare a tidy dataset (a single data frame). This will consist of information from the <code>flights</code> and <code>weather</code> data. The <code>year</code>, <code>month</code>, <code>day</code>, <code>hour</code>, and <code>origin</code> variables from <code>weather</code> provide <em>almost</em> enough information to give each observation a unique value. Create a new variable in the weather dataset by pasting together those 5 variables, then determine how many duplicated values there are and explain why.</li>
+</section>
+<section id="sentiment-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="sentiment-analysis">Sentiment Analysis</h2>
+<ol type="1">
+<li>Perform a sentiment analysis using the NRC lexicon. What is the most common sentiment for each search term? What if you remove <code>"positive"</code> and <code>"negative"</code> from the list?</li>
+<li>Now perform a sentiment analysis using the AFINN lexicon to get an average positivity score for each abstract (hint: you may want to create a variable that indexes, or counts, the abstracts). Create a visualization that shows these scores grouped by search term. Are any search terms noticeably different from the others?</li>
 </ol>
-<p>Now merge the <code>flights</code> data and the <code>weather</code> data so that each flight contains information about the weather at its <strong>departure airport</strong> at the time it was <strong>scheduled</strong> to take off. You’ll want to use the variables <code>time_hour</code> and <code>origin</code> in order to do this.</p>
-<ol start="6" type="1">
-<li><p>(20 points) On this merged dataset, perform steps 2-5 of the EDA checklist presented in class. Remember the context provided by our primary question above.</p></li>
-<li><p>(15 points) Calculate the average departure delay for each <strong>day</strong> (Hint: think about which variables you need in order to do this!). Which day had the worst average length of delay for departures? Now calculate the averages by <strong>day</strong> and <strong>origin</strong>. Which airport had the worst single day for delays and when was it? Now calculate the averages by <strong>hour</strong> and <strong>origin</strong>. Which airport had the worst single hour for delays (and when was it)?</p></li>
-<li><p>(7 points) Compute the average delay by destination, then add that information to the <code>airports</code> data frame. Make a map showing the spatial distribution of delays (you can make it however you like, but we recommend using either <code>ggplot</code> or <code>leaflet</code>). Use the color of the points to display the average delay for each airport.</p></li>
-<li><p>(20 points) Finally, create as many plots and summary statistics as needed to answer the primary question above.</p></li>
-</ol>
-<hr>
-<p>This homework has been adapted from the exercises presented in <a href="https://r4ds.hadley.nz/joins.html">Chapter 19</a> of <a href="https://r4ds.hadley.nz/">R for Data Science (2e)</a> by Wickham, Çentinkaya-Rundel, and Grolemund.</p>
 
 
 </section>
