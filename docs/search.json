@@ -816,7 +816,7 @@
     "href": "slides/week04.html#maps-with-leaflet",
     "title": "Week 4: Data Visualization",
     "section": "Maps with leaflet",
-    "text": "Maps with leaflet\nLet’s create a map of monthly average temperatures at each of the weather stations and color the points by a temperature gradient. We need to create a color palette and we can add a legend.\n\nlibrary(leaflet)\nmet_avg2 &lt;- summarize(met,\n                      temp =     mean(temp, na.rm = TRUE),\n                      lat =      mean(lat, na.rm = TRUE),\n                      lon =      mean(lon, na.rm = TRUE),\n                      .by = c(USAFID))\nmet_avg2 &lt;- met_avg2[!is.na(met_avg2$temp), ]\n\n# Generating a color palette\ntemp.pal &lt;- colorNumeric(c('darkgreen','goldenrod','brown'), domain=met_avg2$temp)\n\ntemp.pal(20)\n\n[1] \"#B69A19\"\n\ntemp.pal\n\nfunction (x) \n{\n    if (length(x) == 0 || all(is.na(x))) {\n        return(pf(x))\n    }\n    if (is.null(rng)) \n        rng &lt;- range(x, na.rm = TRUE)\n    rescaled &lt;- scales::rescale(x, from = rng)\n    if (any(rescaled &lt; 0 | rescaled &gt; 1, na.rm = TRUE)) \n        warning(\"Some values were outside the color scale and will be treated as NA\")\n    if (reverse) {\n        rescaled &lt;- 1 - rescaled\n    }\n    pf(rescaled)\n}\n&lt;bytecode: 0x33f9becf8&gt;\n&lt;environment: 0x33f9c3628&gt;\nattr(,\"colorType\")\n[1] \"numeric\"\nattr(,\"colorArgs\")\nattr(,\"colorArgs\")$na.color\n[1] \"#808080\""
+    "text": "Maps with leaflet\nLet’s create a map of monthly average temperatures at each of the weather stations and color the points by a temperature gradient. We need to create a color palette and we can add a legend.\n\nlibrary(leaflet)\nmet_avg2 &lt;- summarize(met,\n                      temp =     mean(temp, na.rm = TRUE),\n                      lat =      mean(lat, na.rm = TRUE),\n                      lon =      mean(lon, na.rm = TRUE),\n                      .by = c(USAFID))\nmet_avg2 &lt;- met_avg2[!is.na(met_avg2$temp), ]\n\n# Generating a color palette\ntemp.pal &lt;- colorNumeric(c('darkgreen','goldenrod','brown'), domain=met_avg2$temp)\n\ntemp.pal(20)\n\n[1] \"#B69A19\"\n\ntemp.pal\n\nfunction (x) \n{\n    if (length(x) == 0 || all(is.na(x))) {\n        return(pf(x))\n    }\n    if (is.null(rng)) \n        rng &lt;- range(x, na.rm = TRUE)\n    rescaled &lt;- scales::rescale(x, from = rng)\n    if (any(rescaled &lt; 0 | rescaled &gt; 1, na.rm = TRUE)) \n        warning(\"Some values were outside the color scale and will be treated as NA\")\n    if (reverse) {\n        rescaled &lt;- 1 - rescaled\n    }\n    pf(rescaled)\n}\n&lt;bytecode: 0x14fa3f2a8&gt;\n&lt;environment: 0x14fa11bd8&gt;\nattr(,\"colorType\")\n[1] \"numeric\"\nattr(,\"colorArgs\")\nattr(,\"colorArgs\")$na.color\n[1] \"#808080\""
   },
   {
     "objectID": "slides/week04.html#maps-with-leaflet-1",
@@ -1222,7 +1222,7 @@
     "href": "slides/week08.html#example-square-roots-cont.-4",
     "title": "Week 8: Efficiency and High Performance Computing",
     "section": "Example: Square Roots (cont. 4)",
-    "text": "Example: Square Roots (cont. 4)\nThat’s a lot faster!\n\nlibrary(microbenchmark)\nmicrobenchmark(forLoopRoots(10000), VectorizedRoots(10000))\n\nUnit: microseconds\n                   expr     min     lq      mean  median       uq     max neval\n    forLoopRoots(10000) 209.305 216.89 224.73863 219.473 225.2745 443.948   100\n VectorizedRoots(10000)   9.184  15.99  26.22196  16.810  17.9785 778.713   100\n\n\nAnytime that you can use vectorized computation, you should! It will (almost) always save you a lot of computation time!"
+    "text": "Example: Square Roots (cont. 4)\nThat’s a lot faster!\n\nlibrary(microbenchmark)\nmicrobenchmark(forLoopRoots(10000), VectorizedRoots(10000))\n\nUnit: microseconds\n                   expr     min       lq      mean   median       uq     max\n    forLoopRoots(10000) 188.313 191.8595 205.54858 203.2165 211.8265 340.341\n VectorizedRoots(10000)   8.036  14.3090  20.37167  14.8010  15.6620 503.234\n neval\n   100\n   100\n\n\nAnytime that you can use vectorized computation, you should! It will (almost) always save you a lot of computation time!"
   },
   {
     "objectID": "slides/week08.html#use-pre-made-functions",
@@ -1250,14 +1250,14 @@
     "href": "slides/week08.html#example-repeated-elements-cont.-2",
     "title": "Week 8: Efficiency and High Performance Computing",
     "section": "Example: Repeated elements (cont. 2)",
-    "text": "Example: Repeated elements (cont. 2)\nOr slightly faster with a loop and vectorized comparison:\n\nmethod2 &lt;- function(x){\n  # first element cannot be a duplicate\n  out &lt;- sapply(2:length(x), function(i){\n    return(any(x[1:(i-1)] == x[i]))\n  })\n  out &lt;- c(FALSE, out)\n  return(out)\n}\n\nmethod2(vec)[1:11]\n\n [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE\n\nmicrobenchmark(method1(vec), method2(vec))\n\nUnit: microseconds\n         expr      min       lq      mean   median       uq      max neval\n method1(vec) 2131.672 2274.475 2513.0651 2428.901 2555.919 4653.377   100\n method2(vec)   75.686   81.549  117.8516   88.355   97.006 1854.512   100"
+    "text": "Example: Repeated elements (cont. 2)\nOr slightly faster with a loop and vectorized comparison:\n\nmethod2 &lt;- function(x){\n  # first element cannot be a duplicate\n  out &lt;- sapply(2:length(x), function(i){\n    return(any(x[1:(i-1)] == x[i]))\n  })\n  out &lt;- c(FALSE, out)\n  return(out)\n}\n\nmethod2(vec)[1:11]\n\n [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE\n\nmicrobenchmark(method1(vec), method2(vec))\n\nUnit: microseconds\n         expr      min        lq      mean   median        uq      max neval\n method1(vec) 2046.679 2152.0900 2330.1743 2205.082 2308.0335 4164.165   100\n method2(vec)   73.021   78.5355  108.9657   81.877   87.4735 1590.718   100"
   },
   {
     "objectID": "slides/week08.html#example-repeated-elements-cont.-3",
     "href": "slides/week08.html#example-repeated-elements-cont.-3",
     "title": "Week 8: Efficiency and High Performance Computing",
     "section": "Example: Repeated elements (cont. 3)",
-    "text": "Example: Repeated elements (cont. 3)\nBut the real speed-up comes when we use the base function duplicated:\n\nmethod3 &lt;- function(x){\n  duplicated(x)\n}\n\nmethod3(vec)[1:11]\n\n [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE\n\nmicrobenchmark(method2(vec), method3(vec))\n\nUnit: microseconds\n         expr    min      lq     mean  median      uq     max neval\n method2(vec) 77.695 82.7585 89.65634 90.2615 93.3570 131.323   100\n method3(vec)  1.394  1.6810  6.38083  1.8450  1.9885 446.531   100"
+    "text": "Example: Repeated elements (cont. 3)\nBut the real speed-up comes when we use the base function duplicated:\n\nmethod3 &lt;- function(x){\n  duplicated(x)\n}\n\nmethod3(vec)[1:11]\n\n [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE\n\nmicrobenchmark(method2(vec), method3(vec))\n\nUnit: microseconds\n         expr    min      lq     mean median     uq     max neval\n method2(vec) 76.998 80.6675 84.63015 82.328 85.608 113.693   100\n method3(vec)  1.353  1.5785  5.76050  1.722  1.927 397.864   100"
   },
   {
     "objectID": "slides/week08.html#what-is-hpc",
@@ -2181,7 +2181,42 @@
     "href": "slides/week09.html#sql-joins-with-chs-data",
     "title": "SQL",
     "section": "SQL Joins with CHS Data",
-    "text": "SQL Joins with CHS Data\nWe first start by loading the datasets from https://github.com/USCBiostats/data-science-data\n\n# Download\nchs_regional   &lt;- read.csv(\"https://github.com/USCbiostats/data-science-data/raw/master/01_chs/chs_regional.csv\")\nchs_individual &lt;- read.csv(\"https://github.com/USCbiostats/data-science-data/raw/master/01_chs/chs_individual.csv\")\n\n# Dropping some regions\nchs_regional   &lt;- subset(chs_regional, !townname %in% c(\"Alpine\", \"Lompoc\"))\nchs_individual &lt;- subset(chs_individual, townname != \"Lancaster\")"
+    "text": "SQL Joins with CHS Data\nWe first start by loading the datasets from https://github.com/USCBiostats/data-science-data\n\n# Download\nchs_regional   &lt;- read.csv(\"https://github.com/USCbiostats/data-science-data/raw/master/01_chs/chs_regional.csv\")\nchs_individual &lt;- read.csv(\"https://github.com/USCbiostats/data-science-data/raw/master/01_chs/chs_individual.csv\")\n\n# Dropping some regions\nchs_regional   &lt;- subset(chs_regional, !townname %in% c(\"Alpine\", \"Lompoc\"))\nchs_individual &lt;- subset(chs_individual, townname != \"Lancaster\")\n\nAnd we drop a few observations from both datasets so that they only have partially overlapping town information."
+  },
+  {
+    "objectID": "slides/week09.html#data-intro-regional",
+    "href": "slides/week09.html#data-intro-regional",
+    "title": "SQL",
+    "section": "Data Intro: Regional",
+    "text": "Data Intro: Regional\n\nhead(chs_regional)\n\n       townname pm25_mass pm25_so4 pm25_no3 pm25_nh4 pm25_oc pm25_ec pm25_om\n2 Lake Elsinore     12.35     1.90     2.98     1.36    3.64    0.62    4.36\n3  Lake Gregory      7.66     1.07     2.07     0.91    2.46    0.40    2.96\n4     Lancaster      8.50     0.91     1.87     0.78    4.43    0.55    5.32\n6    Long Beach     19.12     3.23     6.22     2.57    5.21    1.36    6.25\n7     Mira Loma     29.97     2.69    12.20     4.25   11.83    1.25   14.20\n8     Riverside     22.39     2.43     8.66     3.14    5.27    0.94    6.32\n  pm10_oc pm10_ec pm10_tc formic acetic  hcl hno3 o3_max o3106 o3_24   no2\n2    4.66    0.63    5.29   1.18   3.56 0.46 2.63  66.70 54.42 32.23 17.03\n3    3.16    0.41    3.57   0.66   2.36 0.28 2.28  84.44 67.01 57.76  7.62\n4    5.68    0.56    8.61   0.88   2.88 0.22 1.80  54.81 43.88 32.86 15.77\n6    6.68    1.39    8.07   1.57   2.94 0.73 2.67  39.44 28.22 18.22 33.11\n7   15.16    1.28   16.44   1.90   5.14 0.46 3.33  70.65 55.81 26.81 19.62\n8    6.75    0.96    7.72   1.72   3.92 0.47 3.43  77.90 62.04 31.50 19.95\n   pm10 no_24hr pm2_5_fr iacid oacid total_acids       lon      lat\n2 34.25    7.07    14.53  3.09  4.74        7.37 -117.3273 33.66808\n3 20.05      NA     9.01  2.56  3.02        5.30 -117.2752 34.24290\n4 25.04   12.68       NA  2.02  3.76        5.56 -118.1542 34.68678\n6 38.41   36.76    22.23  3.40  4.51        7.18 -118.1937 33.77005\n7 70.39   26.90    31.55  3.79  7.04       10.37 -117.5159 33.98454\n8 41.55   15.48    27.99  3.90  5.64        9.07 -117.3755 33.98060\n\ndim(chs_regional)\n\n[1] 10 27"
+  },
+  {
+    "objectID": "slides/week09.html#data-intro-regional-cont.",
+    "href": "slides/week09.html#data-intro-regional-cont.",
+    "title": "SQL",
+    "section": "Data Intro: Regional (cont.)",
+    "text": "Data Intro: Regional (cont.)\n\nunique(chs_regional$townname)\n\n [1] \"Lake Elsinore\" \"Lake Gregory\"  \"Lancaster\"     \"Long Beach\"   \n [5] \"Mira Loma\"     \"Riverside\"     \"San Dimas\"     \"Atascadero\"   \n [9] \"Santa Maria\"   \"Upland\""
+  },
+  {
+    "objectID": "slides/week09.html#data-intro-individual",
+    "href": "slides/week09.html#data-intro-individual",
+    "title": "SQL",
+    "section": "Data Intro: Individual",
+    "text": "Data Intro: Individual\n\nhead(chs_individual)\n\n   sid  townname male race hispanic    agepft height weight      bmi asthma\n91 176 San Dimas    0    W        0  9.954825    140     69 16.00186      0\n92 178 San Dimas    1    A        0  9.744011    138     78 18.61717      1\n93 179 San Dimas    1    M        1 10.496920    143     93 20.67227      0\n94 181 San Dimas    1    M        0 10.275154    143    119 26.45162      1\n95 183 San Dimas    0    W        1  9.804244    141     79 18.06201      1\n96 184 San Dimas    0    O        1 11.008898    144     72 15.78283      0\n   active_asthma father_asthma mother_asthma wheeze hayfever allergy\n91             0             0             1      0       NA       0\n92             1             1             0      1        1       0\n93             0             0             0      0        0       0\n94             1             0             1      1        1       1\n95             1             0             0      1        0       1\n96             0             0             0      0        0       0\n   educ_parent smoke pets gasstove      fev      fvc      mmef\n91           5     0    1        1 2130.232 2377.698 2411.0302\n92           4     1    1        0 1658.054 2075.839  869.7987\n93           3     0    1        1 2187.198 2566.509 2310.3511\n94           3     0    1        1 2206.000 2501.000 2659.0000\n95           3     0    1        1 2178.331 2598.037 2267.0012\n96           3     0    1        0 2250.000 2418.000 3300.0000\n\ndim(chs_individual)\n\n[1] 1100   23"
+  },
+  {
+    "objectID": "slides/week09.html#data-intro-individual-cont.",
+    "href": "slides/week09.html#data-intro-individual-cont.",
+    "title": "SQL",
+    "section": "Data Intro: Individual (cont.)",
+    "text": "Data Intro: Individual (cont.)\n\nunique(chs_individual$townname)\n\n [1] \"San Dimas\"     \"Atascadero\"    \"Riverside\"     \"Mira Loma\"    \n [5] \"Alpine\"        \"Lake Elsinore\" \"Lake Gregory\"  \"Long Beach\"   \n [9] \"Santa Maria\"   \"Upland\"        \"Lompoc\""
+  },
+  {
+    "objectID": "slides/week09.html#set-up-sql-database",
+    "href": "slides/week09.html#set-up-sql-database",
+    "title": "SQL",
+    "section": "Set up SQL database",
+    "text": "Set up SQL database\n\n# Set up the dataset\ncon &lt;- dbConnect(SQLite(), \":memory:\")\ndbWriteTable(con, \"regional\", chs_regional)\ndbWriteTable(con, \"individual\", chs_individual)\n\nWe now can illustrate the joins."
   },
   {
     "objectID": "slides/week09.html#sql-inner-join",
@@ -2209,14 +2244,14 @@
     "href": "slides/week09.html#sql-full-join",
     "title": "SQL",
     "section": "SQL FULL join",
-    "text": "SQL FULL join\n\n\nchs_individual has 1100 rows\nchs_regional has 10 rows\n\n\nans &lt;- dbGetQuery(con,\n  \"SELECT *\n  FROM individual AS a FULL JOIN regional AS b \n  ON a.townname = b.townname\")\nnrow(ans)\n\nYou would get an error: “RIGHT and FULL OUTER JOINS are not currently supported Execution halted”"
+    "text": "SQL FULL join\n\n\nchs_individual has 1100 rows\nchs_regional has 10 rows\n\n\nans &lt;- dbGetQuery(con,\n  \"SELECT *\n  FROM individual AS a FULL JOIN regional AS b \n  ON a.townname = b.townname\")\nnrow(ans)\n\n[1] 1101"
   },
   {
-    "objectID": "slides/week09.html#sql-full-join-cont.",
-    "href": "slides/week09.html#sql-full-join-cont.",
+    "objectID": "slides/week09.html#disconnect-database",
+    "href": "slides/week09.html#disconnect-database",
     "title": "SQL",
-    "section": "SQL FULL join (cont.)",
-    "text": "SQL FULL join (cont.)\n\n\nchs_individual has 1100 rows\nchs_regional has 10 rows\n\n\nans &lt;- dbGetQuery(con,\n  \"SELECT * FROM individual AS a LEFT JOIN regional AS b \n    ON a.townname = b.townname\n  UNION\n  SELECT * FROM regional AS a LEFT JOIN individual AS b \n    ON a.townname = b.townname\n  \")\nnrow(ans)\n\n[1] 2001\n\ndbDisconnect(con)"
+    "section": "Disconnect database",
+    "text": "Disconnect database\n\ndbDisconnect(con)"
   },
   {
     "objectID": "slides/week09.html#what-happens-when-there-are-no-records-matching",
@@ -2224,6 +2259,20 @@
     "title": "SQL",
     "section": "What happens when there are no records matching",
     "text": "What happens when there are no records matching\nStep 1: Let’s break things\n\nchs_individual2 &lt;- subset(\n  chs_individual, !(townname %in% chs_regional$townname)\n)\n\nunique(chs_individual2$townname)\n\n[1] \"Alpine\" \"Lompoc\"\n\nchs_regional$townname\n\n [1] \"Lake Elsinore\" \"Lake Gregory\"  \"Lancaster\"     \"Long Beach\"   \n [5] \"Mira Loma\"     \"Riverside\"     \"San Dimas\"     \"Atascadero\"   \n [9] \"Santa Maria\"   \"Upland\""
+  },
+  {
+    "objectID": "slides/week09.html#joins-with-duplicates",
+    "href": "slides/week09.html#joins-with-duplicates",
+    "title": "SQL",
+    "section": "Joins with duplicates",
+    "text": "Joins with duplicates\n\nans &lt;- dbGetQuery(con,\n  \"SELECT *\n  FROM regional_dpl AS a FULL JOIN regional_dpl AS b \n  ON a.townname = b.townname\")\nnrow(ans)\n\n[1] 40\n\n\n\nans &lt;- dbGetQuery(con,\n  \"SELECT * FROM regional_dpl AS a INNER JOIN regional_dpl AS b \n    ON a.townname = b.townname\n  \")\nnrow(ans)\n\n[1] 40"
+  },
+  {
+    "objectID": "slides/week09.html#distinct-entries",
+    "href": "slides/week09.html#distinct-entries",
+    "title": "SQL",
+    "section": "Distinct entries",
+    "text": "Distinct entries\n\nans &lt;- dbGetQuery(con,\n  \"SELECT DISTINCT * FROM regional_dpl AS a INNER JOIN regional_dpl AS b \n    ON a.townname = b.townname\n  \")\nnrow(ans)\n\n[1] 10\n\ndbDisconnect(con)"
   },
   {
     "objectID": "slides/week06.html#acknowledgment",

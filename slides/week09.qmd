@@ -566,7 +566,49 @@ chs_regional   <- subset(chs_regional, !townname %in% c("Alpine", "Lompoc"))
 chs_individual <- subset(chs_individual, townname != "Lancaster")
 ```
 
+And we drop a few observations from both datasets so that they only have
+partially overlapping town information.
+
 ---
+
+## Data Intro: Regional{.smaller}
+
+```{r, echo=TRUE}
+head(chs_regional)
+dim(chs_regional)
+```
+
+---
+
+## Data Intro: Regional (cont.){.smaller}
+
+```{r, echo=TRUE}
+unique(chs_regional$townname)
+```
+
+
+---
+
+## Data Intro: Individual{.smaller}
+
+```{r, echo=TRUE}
+head(chs_individual)
+dim(chs_individual)
+```
+
+
+---
+
+## Data Intro: Individual (cont.){.smaller}
+
+```{r, echo=TRUE}
+unique(chs_individual$townname)
+```
+
+
+---
+
+## Set up SQL database
 
 ```{r}
 # Set up the dataset
@@ -638,7 +680,7 @@ nrow(ans)
 - `chs_individual` has `r nrow(chs_individual)` rows
 - `chs_regional` has `r nrow(chs_regional)` rows
 
-```{r, eval = FALSE}
+```{r}
 ans <- dbGetQuery(con,
   "SELECT *
   FROM individual AS a FULL JOIN regional AS b 
@@ -646,26 +688,12 @@ ans <- dbGetQuery(con,
 nrow(ans)
 ```
 
-You would get an error: "RIGHT and FULL OUTER JOINS are not currently supported Execution halted"
 
 ---
 
-## SQL **FULL join** (cont.)
-
-<img src="https://www.w3schools.com/sql/img_fulljoin.gif" width="15%">
-
-- `chs_individual` has `r nrow(chs_individual)` rows
-- `chs_regional` has `r nrow(chs_regional)` rows
+## Disconnect database
 
 ```{r, warning=FALSE}
-ans <- dbGetQuery(con,
-  "SELECT * FROM individual AS a LEFT JOIN regional AS b 
-    ON a.townname = b.townname
-  UNION
-  SELECT * FROM regional AS a LEFT JOIN individual AS b 
-    ON a.townname = b.townname
-  ")
-nrow(ans)
 dbDisconnect(con)
 ```
 
@@ -698,19 +726,18 @@ What happens now?
 
 ---
 
-Re-running the full join, 
+Re-running the full join:
+
+<img src="https://www.w3schools.com/sql/img_fulljoin.gif" width="15%">
 
 - `chs_individual` has `r nrow(chs_individual2)` rows
 - `chs_regional` has `r nrow(chs_regional)` rows
 
 ```{r, warning=FALSE}
 ans <- dbGetQuery(con,
-  "SELECT * FROM individual AS a LEFT JOIN regional AS b 
-    ON a.townname = b.townname
-  UNION
-  SELECT * FROM regional AS a LEFT JOIN individual AS b 
-    ON a.townname = b.townname
-  ")
+  "SELECT *
+  FROM individual AS a FULL JOIN regional AS b 
+  ON a.townname = b.townname")
 nrow(ans)
 dbDisconnect(con)
 ```
@@ -724,18 +751,21 @@ con <- dbConnect(SQLite(), ":memory:")
 dbWriteTable(con, "regional_dpl", rbind(chs_regional, chs_regional))
 
 nrow(rbind(chs_regional, chs_regional))
+```
 
+
+---
+
+## Joins with duplicates
+
+```{r}
 ans <- dbGetQuery(con,
-  "SELECT * FROM regional_dpl AS a LEFT JOIN regional_dpl AS b 
-    ON a.townname = b.townname
-  UNION
-  SELECT * FROM regional_dpl AS a LEFT JOIN regional_dpl AS b 
-    ON a.townname = b.townname
-  ")
+  "SELECT *
+  FROM regional_dpl AS a FULL JOIN regional_dpl AS b 
+  ON a.townname = b.townname")
 nrow(ans)
 ```
 
----
 
 ```{r}
 ans <- dbGetQuery(con,
@@ -743,7 +773,18 @@ ans <- dbGetQuery(con,
     ON a.townname = b.townname
   ")
 nrow(ans)
-dbDisconnect(con)
+```
 
+---
+
+## Distinct entries
+
+```{r}
+ans <- dbGetQuery(con,
+  "SELECT DISTINCT * FROM regional_dpl AS a INNER JOIN regional_dpl AS b 
+    ON a.townname = b.townname
+  ")
+nrow(ans)
+dbDisconnect(con)
 ```
 

@@ -4407,14 +4407,103 @@ Emil Hvitfeldt, George G. Vega Yon, Kelly Street
 <span id="cb45-6"><a></a>chs_regional   <span class="ot">&lt;-</span> <span class="fu">subset</span>(chs_regional, <span class="sc">!</span>townname <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Alpine"</span>, <span class="st">"Lompoc"</span>))</span>
 <span id="cb45-7"><a></a>chs_individual <span class="ot">&lt;-</span> <span class="fu">subset</span>(chs_individual, townname <span class="sc">!=</span> <span class="st">"Lancaster"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>And we drop a few observations from both datasets so that they only have partially overlapping town information.</p>
 </section>
-<section class="slide level2">
-
+<section id="data-intro-regional" class="slide level2 smaller">
+<h2>Data Intro: Regional</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a></a><span class="co"># Set up the dataset</span></span>
-<span id="cb46-2"><a></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(<span class="fu">SQLite</span>(), <span class="st">":memory:"</span>)</span>
-<span id="cb46-3"><a></a><span class="fu">dbWriteTable</span>(con, <span class="st">"regional"</span>, chs_regional)</span>
-<span id="cb46-4"><a></a><span class="fu">dbWriteTable</span>(con, <span class="st">"individual"</span>, chs_individual)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a></a><span class="fu">head</span>(chs_regional)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       townname pm25_mass pm25_so4 pm25_no3 pm25_nh4 pm25_oc pm25_ec pm25_om
+2 Lake Elsinore     12.35     1.90     2.98     1.36    3.64    0.62    4.36
+3  Lake Gregory      7.66     1.07     2.07     0.91    2.46    0.40    2.96
+4     Lancaster      8.50     0.91     1.87     0.78    4.43    0.55    5.32
+6    Long Beach     19.12     3.23     6.22     2.57    5.21    1.36    6.25
+7     Mira Loma     29.97     2.69    12.20     4.25   11.83    1.25   14.20
+8     Riverside     22.39     2.43     8.66     3.14    5.27    0.94    6.32
+  pm10_oc pm10_ec pm10_tc formic acetic  hcl hno3 o3_max o3106 o3_24   no2
+2    4.66    0.63    5.29   1.18   3.56 0.46 2.63  66.70 54.42 32.23 17.03
+3    3.16    0.41    3.57   0.66   2.36 0.28 2.28  84.44 67.01 57.76  7.62
+4    5.68    0.56    8.61   0.88   2.88 0.22 1.80  54.81 43.88 32.86 15.77
+6    6.68    1.39    8.07   1.57   2.94 0.73 2.67  39.44 28.22 18.22 33.11
+7   15.16    1.28   16.44   1.90   5.14 0.46 3.33  70.65 55.81 26.81 19.62
+8    6.75    0.96    7.72   1.72   3.92 0.47 3.43  77.90 62.04 31.50 19.95
+   pm10 no_24hr pm2_5_fr iacid oacid total_acids       lon      lat
+2 34.25    7.07    14.53  3.09  4.74        7.37 -117.3273 33.66808
+3 20.05      NA     9.01  2.56  3.02        5.30 -117.2752 34.24290
+4 25.04   12.68       NA  2.02  3.76        5.56 -118.1542 34.68678
+6 38.41   36.76    22.23  3.40  4.51        7.18 -118.1937 33.77005
+7 70.39   26.90    31.55  3.79  7.04       10.37 -117.5159 33.98454
+8 41.55   15.48    27.99  3.90  5.64        9.07 -117.3755 33.98060</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a></a><span class="fu">dim</span>(chs_regional)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 10 27</code></pre>
+</div>
+</div>
+</section>
+<section id="data-intro-regional-cont." class="slide level2 smaller">
+<h2>Data Intro: Regional (cont.)</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a></a><span class="fu">unique</span>(chs_regional<span class="sc">$</span>townname)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "Lake Elsinore" "Lake Gregory"  "Lancaster"     "Long Beach"   
+ [5] "Mira Loma"     "Riverside"     "San Dimas"     "Atascadero"   
+ [9] "Santa Maria"   "Upland"       </code></pre>
+</div>
+</div>
+</section>
+<section id="data-intro-individual" class="slide level2 smaller">
+<h2>Data Intro: Individual</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a></a><span class="fu">head</span>(chs_individual)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   sid  townname male race hispanic    agepft height weight      bmi asthma
+91 176 San Dimas    0    W        0  9.954825    140     69 16.00186      0
+92 178 San Dimas    1    A        0  9.744011    138     78 18.61717      1
+93 179 San Dimas    1    M        1 10.496920    143     93 20.67227      0
+94 181 San Dimas    1    M        0 10.275154    143    119 26.45162      1
+95 183 San Dimas    0    W        1  9.804244    141     79 18.06201      1
+96 184 San Dimas    0    O        1 11.008898    144     72 15.78283      0
+   active_asthma father_asthma mother_asthma wheeze hayfever allergy
+91             0             0             1      0       NA       0
+92             1             1             0      1        1       0
+93             0             0             0      0        0       0
+94             1             0             1      1        1       1
+95             1             0             0      1        0       1
+96             0             0             0      0        0       0
+   educ_parent smoke pets gasstove      fev      fvc      mmef
+91           5     0    1        1 2130.232 2377.698 2411.0302
+92           4     1    1        0 1658.054 2075.839  869.7987
+93           3     0    1        1 2187.198 2566.509 2310.3511
+94           3     0    1        1 2206.000 2501.000 2659.0000
+95           3     0    1        1 2178.331 2598.037 2267.0012
+96           3     0    1        0 2250.000 2418.000 3300.0000</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a></a><span class="fu">dim</span>(chs_individual)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1100   23</code></pre>
+</div>
+</div>
+</section>
+<section id="data-intro-individual-cont." class="slide level2 smaller">
+<h2>Data Intro: Individual (cont.)</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a></a><span class="fu">unique</span>(chs_individual<span class="sc">$</span>townname)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "San Dimas"     "Atascadero"    "Riverside"     "Mira Loma"    
+ [5] "Alpine"        "Lake Elsinore" "Lake Gregory"  "Long Beach"   
+ [9] "Santa Maria"   "Upland"        "Lompoc"       </code></pre>
+</div>
+</div>
+</section>
+<section id="set-up-sql-database" class="slide level2">
+<h2>Set up SQL database</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a></a><span class="co"># Set up the dataset</span></span>
+<span id="cb58-2"><a></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(<span class="fu">SQLite</span>(), <span class="st">":memory:"</span>)</span>
+<span id="cb58-3"><a></a><span class="fu">dbWriteTable</span>(con, <span class="st">"regional"</span>, chs_regional)</span>
+<span id="cb58-4"><a></a><span class="fu">dbWriteTable</span>(con, <span class="st">"individual"</span>, chs_individual)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We now can illustrate the joins.</p>
 </section>
@@ -4426,12 +4515,12 @@ Emil Hvitfeldt, George G. Vega Yon, Kelly Street
 <li><code>chs_regional</code> has 10 rows</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a></a>ans <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(con,</span>
-<span id="cb47-2"><a></a>  <span class="st">"SELECT *</span></span>
-<span id="cb47-3"><a></a><span class="st">  FROM regional AS a INNER JOIN individual AS b </span></span>
-<span id="cb47-4"><a></a><span class="st">  ON a.townname = b.townname</span></span>
-<span id="cb47-5"><a></a><span class="st">  "</span>)</span>
-<span id="cb47-6"><a></a><span class="fu">nrow</span>(ans)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a></a>ans <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(con,</span>
+<span id="cb59-2"><a></a>  <span class="st">"SELECT *</span></span>
+<span id="cb59-3"><a></a><span class="st">  FROM regional AS a INNER JOIN individual AS b </span></span>
+<span id="cb59-4"><a></a><span class="st">  ON a.townname = b.townname</span></span>
+<span id="cb59-5"><a></a><span class="st">  "</span>)</span>
+<span id="cb59-6"><a></a><span class="fu">nrow</span>(ans)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 900</code></pre>
 </div>
@@ -4445,11 +4534,11 @@ Emil Hvitfeldt, George G. Vega Yon, Kelly Street
 <li><code>chs_regional</code> has 10 rows</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a></a>ans <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(con,</span>
-<span id="cb49-2"><a></a>  <span class="st">"SELECT *</span></span>
-<span id="cb49-3"><a></a><span class="st">  FROM regional AS a LEFT JOIN individual AS b </span></span>
-<span id="cb49-4"><a></a><span class="st">  ON a.townname = b.townname"</span>)</span>
-<span id="cb49-5"><a></a><span class="fu">nrow</span>(ans)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a></a>ans <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(con,</span>
+<span id="cb61-2"><a></a>  <span class="st">"SELECT *</span></span>
+<span id="cb61-3"><a></a><span class="st">  FROM regional AS a LEFT JOIN individual AS b </span></span>
+<span id="cb61-4"><a></a><span class="st">  ON a.townname = b.townname"</span>)</span>
+<span id="cb61-5"><a></a><span class="fu">nrow</span>(ans)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 901</code></pre>
 </div>
@@ -4463,11 +4552,11 @@ Emil Hvitfeldt, George G. Vega Yon, Kelly Street
 <li><code>chs_regional</code> has 10 rows</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a></a>ans <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(con,</span>
-<span id="cb51-2"><a></a>  <span class="st">"SELECT * /* RIGHT joins are not supported by SQLite*/</span></span>
-<span id="cb51-3"><a></a><span class="st">  FROM individual AS a LEFT JOIN regional AS b </span></span>
-<span id="cb51-4"><a></a><span class="st">  ON a.townname = b.townname"</span>)</span>
-<span id="cb51-5"><a></a><span class="fu">nrow</span>(ans)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a></a>ans <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(con,</span>
+<span id="cb63-2"><a></a>  <span class="st">"SELECT * /* RIGHT joins are not supported by SQLite*/</span></span>
+<span id="cb63-3"><a></a><span class="st">  FROM individual AS a LEFT JOIN regional AS b </span></span>
+<span id="cb63-4"><a></a><span class="st">  ON a.townname = b.townname"</span>)</span>
+<span id="cb63-5"><a></a><span class="fu">nrow</span>(ans)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1100</code></pre>
 </div>
@@ -4481,49 +4570,35 @@ Emil Hvitfeldt, George G. Vega Yon, Kelly Street
 <li><code>chs_regional</code> has 10 rows</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a></a>ans <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(con,</span>
-<span id="cb53-2"><a></a>  <span class="st">"SELECT *</span></span>
-<span id="cb53-3"><a></a><span class="st">  FROM individual AS a FULL JOIN regional AS b </span></span>
-<span id="cb53-4"><a></a><span class="st">  ON a.townname = b.townname"</span>)</span>
-<span id="cb53-5"><a></a><span class="fu">nrow</span>(ans)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>You would get an error: “RIGHT and FULL OUTER JOINS are not currently supported Execution halted”</p>
-</section>
-<section id="sql-full-join-cont." class="slide level2">
-<h2>SQL <strong>FULL join</strong> (cont.)</h2>
-
-<img src="https://www.w3schools.com/sql/img_fulljoin.gif" width="15%" class="r-stretch"><ul>
-<li><code>chs_individual</code> has 1100 rows</li>
-<li><code>chs_regional</code> has 10 rows</li>
-</ul>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a></a>ans <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(con,</span>
-<span id="cb54-2"><a></a>  <span class="st">"SELECT * FROM individual AS a LEFT JOIN regional AS b </span></span>
-<span id="cb54-3"><a></a><span class="st">    ON a.townname = b.townname</span></span>
-<span id="cb54-4"><a></a><span class="st">  UNION</span></span>
-<span id="cb54-5"><a></a><span class="st">  SELECT * FROM regional AS a LEFT JOIN individual AS b </span></span>
-<span id="cb54-6"><a></a><span class="st">    ON a.townname = b.townname</span></span>
-<span id="cb54-7"><a></a><span class="st">  "</span>)</span>
-<span id="cb54-8"><a></a><span class="fu">nrow</span>(ans)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a></a>ans <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(con,</span>
+<span id="cb65-2"><a></a>  <span class="st">"SELECT *</span></span>
+<span id="cb65-3"><a></a><span class="st">  FROM individual AS a FULL JOIN regional AS b </span></span>
+<span id="cb65-4"><a></a><span class="st">  ON a.townname = b.townname"</span>)</span>
+<span id="cb65-5"><a></a><span class="fu">nrow</span>(ans)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 2001</code></pre>
+<pre><code>[1] 1101</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a></a><span class="fu">dbDisconnect</span>(con)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="disconnect-database" class="slide level2">
+<h2>Disconnect database</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a></a><span class="fu">dbDisconnect</span>(con)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="what-happens-when-there-are-no-records-matching" class="slide level2">
 <h2>What happens when there are no records matching</h2>
 <p>Step 1: Let’s break things</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a></a>chs_individual2 <span class="ot">&lt;-</span> <span class="fu">subset</span>(</span>
-<span id="cb57-2"><a></a>  chs_individual, <span class="sc">!</span>(townname <span class="sc">%in%</span> chs_regional<span class="sc">$</span>townname)</span>
-<span id="cb57-3"><a></a>)</span>
-<span id="cb57-4"><a></a></span>
-<span id="cb57-5"><a></a><span class="fu">unique</span>(chs_individual2<span class="sc">$</span>townname)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a></a>chs_individual2 <span class="ot">&lt;-</span> <span class="fu">subset</span>(</span>
+<span id="cb68-2"><a></a>  chs_individual, <span class="sc">!</span>(townname <span class="sc">%in%</span> chs_regional<span class="sc">$</span>townname)</span>
+<span id="cb68-3"><a></a>)</span>
+<span id="cb68-4"><a></a></span>
+<span id="cb68-5"><a></a><span class="fu">unique</span>(chs_individual2<span class="sc">$</span>townname)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Alpine" "Lompoc"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a></a>chs_regional<span class="sc">$</span>townname</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a></a>chs_regional<span class="sc">$</span>townname</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "Lake Elsinore" "Lake Gregory"  "Lancaster"     "Long Beach"   
  [5] "Mira Loma"     "Riverside"     "San Dimas"     "Atascadero"   
@@ -4535,70 +4610,80 @@ Emil Hvitfeldt, George G. Vega Yon, Kelly Street
 
 <p>Step 2: Rebuild the Database</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(<span class="fu">SQLite</span>(), <span class="st">":memory:"</span>)</span>
-<span id="cb61-2"><a></a><span class="fu">dbWriteTable</span>(con, <span class="st">"regional"</span>, chs_regional)</span>
-<span id="cb61-3"><a></a><span class="fu">dbWriteTable</span>(con, <span class="st">"individual"</span>, chs_individual2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(<span class="fu">SQLite</span>(), <span class="st">":memory:"</span>)</span>
+<span id="cb72-2"><a></a><span class="fu">dbWriteTable</span>(con, <span class="st">"regional"</span>, chs_regional)</span>
+<span id="cb72-3"><a></a><span class="fu">dbWriteTable</span>(con, <span class="st">"individual"</span>, chs_individual2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>What happens now?</p>
 </section>
 <section class="slide level2">
 
-<p>Re-running the full join,</p>
-<ul>
+<p>Re-running the full join:</p>
+
+<img src="https://www.w3schools.com/sql/img_fulljoin.gif" width="15%" class="r-stretch"><ul>
 <li><code>chs_individual</code> has 200 rows</li>
 <li><code>chs_regional</code> has 10 rows</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a></a>ans <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(con,</span>
-<span id="cb62-2"><a></a>  <span class="st">"SELECT * FROM individual AS a LEFT JOIN regional AS b </span></span>
-<span id="cb62-3"><a></a><span class="st">    ON a.townname = b.townname</span></span>
-<span id="cb62-4"><a></a><span class="st">  UNION</span></span>
-<span id="cb62-5"><a></a><span class="st">  SELECT * FROM regional AS a LEFT JOIN individual AS b </span></span>
-<span id="cb62-6"><a></a><span class="st">    ON a.townname = b.townname</span></span>
-<span id="cb62-7"><a></a><span class="st">  "</span>)</span>
-<span id="cb62-8"><a></a><span class="fu">nrow</span>(ans)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a></a>ans <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(con,</span>
+<span id="cb73-2"><a></a>  <span class="st">"SELECT *</span></span>
+<span id="cb73-3"><a></a><span class="st">  FROM individual AS a FULL JOIN regional AS b </span></span>
+<span id="cb73-4"><a></a><span class="st">  ON a.townname = b.townname"</span>)</span>
+<span id="cb73-5"><a></a><span class="fu">nrow</span>(ans)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 210</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a></a><span class="fu">dbDisconnect</span>(con)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a></a><span class="fu">dbDisconnect</span>(con)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section class="slide level2">
 
 <p>What happens when we have multiple matching records in both tables?</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(<span class="fu">SQLite</span>(), <span class="st">":memory:"</span>)</span>
-<span id="cb65-2"><a></a><span class="fu">dbWriteTable</span>(con, <span class="st">"regional_dpl"</span>, <span class="fu">rbind</span>(chs_regional, chs_regional))</span>
-<span id="cb65-3"><a></a></span>
-<span id="cb65-4"><a></a><span class="fu">nrow</span>(<span class="fu">rbind</span>(chs_regional, chs_regional))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(<span class="fu">SQLite</span>(), <span class="st">":memory:"</span>)</span>
+<span id="cb76-2"><a></a><span class="fu">dbWriteTable</span>(con, <span class="st">"regional_dpl"</span>, <span class="fu">rbind</span>(chs_regional, chs_regional))</span>
+<span id="cb76-3"><a></a></span>
+<span id="cb76-4"><a></a><span class="fu">nrow</span>(<span class="fu">rbind</span>(chs_regional, chs_regional))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 20</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a></a>ans <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(con,</span>
-<span id="cb67-2"><a></a>  <span class="st">"SELECT * FROM regional_dpl AS a LEFT JOIN regional_dpl AS b </span></span>
-<span id="cb67-3"><a></a><span class="st">    ON a.townname = b.townname</span></span>
-<span id="cb67-4"><a></a><span class="st">  UNION</span></span>
-<span id="cb67-5"><a></a><span class="st">  SELECT * FROM regional_dpl AS a LEFT JOIN regional_dpl AS b </span></span>
-<span id="cb67-6"><a></a><span class="st">    ON a.townname = b.townname</span></span>
-<span id="cb67-7"><a></a><span class="st">  "</span>)</span>
-<span id="cb67-8"><a></a><span class="fu">nrow</span>(ans)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 10</code></pre>
-</div>
 </div>
 </section>
-<section class="slide level2">
-
+<section id="joins-with-duplicates" class="slide level2">
+<h2>Joins with duplicates</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a></a>ans <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(con,</span>
-<span id="cb69-2"><a></a>  <span class="st">"SELECT * FROM regional_dpl AS a INNER JOIN regional_dpl AS b </span></span>
-<span id="cb69-3"><a></a><span class="st">    ON a.townname = b.townname</span></span>
-<span id="cb69-4"><a></a><span class="st">  "</span>)</span>
-<span id="cb69-5"><a></a><span class="fu">nrow</span>(ans)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a></a>ans <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(con,</span>
+<span id="cb78-2"><a></a>  <span class="st">"SELECT *</span></span>
+<span id="cb78-3"><a></a><span class="st">  FROM regional_dpl AS a FULL JOIN regional_dpl AS b </span></span>
+<span id="cb78-4"><a></a><span class="st">  ON a.townname = b.townname"</span>)</span>
+<span id="cb78-5"><a></a><span class="fu">nrow</span>(ans)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 40</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a></a><span class="fu">dbDisconnect</span>(con)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a></a>ans <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(con,</span>
+<span id="cb80-2"><a></a>  <span class="st">"SELECT * FROM regional_dpl AS a INNER JOIN regional_dpl AS b </span></span>
+<span id="cb80-3"><a></a><span class="st">    ON a.townname = b.townname</span></span>
+<span id="cb80-4"><a></a><span class="st">  "</span>)</span>
+<span id="cb80-5"><a></a><span class="fu">nrow</span>(ans)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 40</code></pre>
+</div>
+</div>
+</section>
+<section id="distinct-entries" class="slide level2">
+<h2>Distinct entries</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a></a>ans <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(con,</span>
+<span id="cb82-2"><a></a>  <span class="st">"SELECT DISTINCT * FROM regional_dpl AS a INNER JOIN regional_dpl AS b </span></span>
+<span id="cb82-3"><a></a><span class="st">    ON a.townname = b.townname</span></span>
+<span id="cb82-4"><a></a><span class="st">  "</span>)</span>
+<span id="cb82-5"><a></a><span class="fu">nrow</span>(ans)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 10</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a></a><span class="fu">dbDisconnect</span>(con)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
