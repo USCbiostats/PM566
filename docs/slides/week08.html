@@ -308,12 +308,9 @@ code.r,code.cpp{
 <span id="cb9-2"><a></a><span class="fu">microbenchmark</span>(<span class="fu">forLoopRoots</span>(<span class="dv">10000</span>), <span class="fu">VectorizedRoots</span>(<span class="dv">10000</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Unit: microseconds
-                   expr     min      lq     mean   median       uq     max
-    forLoopRoots(10000) 185.525 192.905 206.8204 201.1665 211.8060 520.331
- VectorizedRoots(10000)   8.118  14.555  23.7513  15.4160  17.2815 730.251
- neval
-   100
-   100</code></pre>
+                   expr     min     lq      mean  median       uq     max neval
+    forLoopRoots(10000) 209.305 216.89 224.73863 219.473 225.2745 443.948   100
+ VectorizedRoots(10000)   9.184  15.99  26.22196  16.810  17.9785 778.713   100</code></pre>
 </div>
 </div>
 <p>Anytime that you can use vectorized computation, you should! It will (almost) always save you a lot of computation time!</p>
@@ -386,9 +383,9 @@ code.r,code.cpp{
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a><span class="fu">microbenchmark</span>(<span class="fu">method1</span>(vec), <span class="fu">method2</span>(vec))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Unit: microseconds
-         expr      min        lq      mean    median        uq      max neval
- method1(vec) 2073.657 2190.1585 2379.5387 2223.9220 2382.9405 4584.620   100
- method2(vec)   73.431   80.6265  110.3109   83.9065   90.2615 1883.458   100</code></pre>
+         expr      min       lq      mean   median       uq      max neval
+ method1(vec) 2131.672 2274.475 2513.0651 2428.901 2555.919 4653.377   100
+ method2(vec)   75.686   81.549  117.8516   88.355   97.006 1854.512   100</code></pre>
 </div>
 </div>
 </section>
@@ -407,9 +404,9 @@ code.r,code.cpp{
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a><span class="fu">microbenchmark</span>(<span class="fu">method2</span>(vec), <span class="fu">method3</span>(vec))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Unit: microseconds
-         expr    min     lq     mean  median      uq     max neval
- method2(vec) 74.087 78.679 83.30093 80.5445 84.1115 135.669   100
- method3(vec)  1.271  1.517  5.98272  1.6810  1.8450 419.102   100</code></pre>
+         expr    min      lq     mean  median      uq     max neval
+ method2(vec) 77.695 82.7585 89.65634 90.2615 93.3570 131.323   100
+ method3(vec)  1.394  1.6810  6.38083  1.8450  1.9885 446.531   100</code></pre>
 </div>
 </div>
 </section>

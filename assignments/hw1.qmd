@@ -66,6 +66,11 @@ Reminder: after you upload your final rendered document to GitHub, you should
 download it to make sure that it looks right! If you haven't included
 `embed-resources: true` in the YAML header, none of your figures will show up!
 
+Another reminder: GitHub is not (generally) intended for sharing data, so if you
+upload the dataset to your GitHub repo, you will lose 5 points. You can avoid
+this problem by storing the data somewhere else on your local machine (outside
+of your repo), or by adding the data file to your `.gitignore` file.
+
 ---
 
 This homework has been adapted from the [case study](https://bookdown.org/rdpeng/exdata/data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html) in Roger Peng's [Exploratory Data Analysis with R](https://bookdown.org/rdpeng/exdata/)
