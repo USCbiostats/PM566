@@ -1,5 +1,6 @@
 ---
 title: "Lab 3 - Exploratory Data Analysis"
+Name: "Christian Navarro
 link-citations: true
 toc: false
 ---
@@ -42,6 +43,7 @@ met <- read.csv("~/Downloads/met_all.gz")
 ### 2. Check the dimensions, headers, footers
 
  - How many columns, rows are there?
+ 2,377,343 columns and 30 rows
 
 ```{r, eval=FALSE}
 dim(met)
@@ -72,17 +74,18 @@ It looks like the elevation variable has observations with 9999.0, which is prob
 After checking the data we should make the appropriate modifications. Replace elevations with 9999 as `NA`.
 
 ```{r, eval=FALSE}
-met[met$elev==9999.0] <- NA
+met$elev[met$elev==9999.0] <- NA
 summary(met$elev)
 ```
 
  - At what elevation is the highest weather station?
+ 4113 
 
 We also have the issue of the minimum temperature being -40C, so we should remove those observations.
 
 ```{r, eval=FALSE}
-met <- met[temp>-40]
-met2 <- met[order(temp)]
+met <- met[met$temp>-40,]
+met2 <- met[order(met$temp),]
 head(met2)
 ```
 
@@ -97,12 +100,14 @@ Google is your friend here.
 Fix any problems that arise in your checks.
 
 ```{r, eval=FALSE}
-met <- met[temp>-15]
-met2 <- met[order(temp)]
+met <- met[met$temp>-15,]
+met2 <- met[order(met$temp),]
 head(met2)
 ```
 
  - Summarize that we removed temperatures colder than -15C. The new dataset has a minimum temp of -3C, which is reasonable.
+ 
+ We removed observations with temperatures colder than -15°C, as they are likely errors or outliers. After cleaning, the new dataset has a minimum temperature of -3°C, which is within a reasonable range for this data.
 
 ### 6. Calculate summary statistics
 
@@ -111,8 +116,10 @@ Remember to keep the initial question in mind. We want to pick out the weather s
 Some ideas: select the weather station with maximum elevation; look at the correlation between temperature and wind speed; look at the correlation between temperature and wind speed with hour and day of the month.
 
 ```{r, eval=FALSE}
-elev <- met[elev==max(elev), ]
-summary(elev)
+max_elev <- max(met$elev, na.rm = TRUE)
+
+elev <- met[which(met$elev == max_elev & !is.na(met$elev)), ]
+summary(met$elev)
 ```
 
 ```{r, eval=FALSE}
@@ -151,7 +158,7 @@ Look at the time series of temperature and wind speed at this location. For this
 library(lubridate)
 elev$date <- with(elev, ymd_h(paste(year, month, day, hour, sep= ' ')))
 summary(elev$date)
-elev <- elev[order(date)]
+elev <- elev[order(elev$date),]
 head(elev)
 ```
 
@@ -164,9 +171,14 @@ plot(elev$date, elev$wind.sp, type='l')
 
  - Summarize any trends that you see in these time series plots.
 
+The temperature shows clear diurnal cycles with daily peaks and nighttime lows, while wind speed exhibits more sporadic, event-driven patterns with occasional strong gusts rather than regular daily cycles. Both variables show a gradual decreasing trend from August to September, indicating seasonal transition from summer to fall.
+
+
 ### 8. Ask questions
 
 By now, you might have some specific questions about how the data was gathered and what some of the different variables and values mean. Alternatively, maybe you have an idea for how some of the variable should be related and you want to explore that relationship. In a real-world analysis, these questions could potentially be answered by a collaborator, who may have been part of the team that collected the data. What questions do you have about the data?
+
+
 
 If you haven't already, now would be a good time to look at the accompanying [data dictionary](https://github.com/USCbiostats/data-science-data/blob/master/02_met/met-datadictionary.pdf) for this dataset and see if it can answer any of your questions. If you have questions about the nature of the dataset and how it was gathered, this might be able to help.
 
