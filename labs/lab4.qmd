@@ -12,8 +12,7 @@ ECHO <- EVAL
 
 
 ```{r setup, message=FALSE, echo = ECHO, warning=FALSE, eval = EVAL}
-#install.packages(c("data.table","leaflet"))
-library(data.table)
+#install.packages(c("leaflet"))
 library(leaflet)
 library(tidyverse)
 ```
@@ -33,16 +32,21 @@ We will again work with the meteorological data presented in lecture.
 
 **The objective of the lab is to examine the association between weekly average dew point and wind speed in four regions of the US and by elevation.**
 
-Per [Wikipedia](https://en.wikipedia.org/wiki/Dew_point): "The dew point of a given body of air is the temperature to which it must be cooled to become saturated with water vapor. This temperature depends on the pressure and water content of the air." 
+Per [Wikipedia](https://en.wikipedia.org/wiki/Dew_point): "The dew point of a
+given body of air is the temperature to which it must be cooled to become
+saturated with water vapor. This temperature depends on the pressure and water
+content of the air."
 
-Again, feel free to supplement your knowledge of this dataset by checking out the [data dictionary](https://github.com/USCbiostats/data-science-data/blob/master/02_met/met-datadictionary.pdf).
+Again, feel free to supplement your knowledge of this dataset by checking out
+the [data
+dictionary](https://github.com/USCbiostats/data-science-data/blob/master/02_met/met-datadictionary.pdf).
 
 
 # Steps
 
 ### 1. Read in the data
 
-First download and then read in with `data.table::fread()`
+First download and then read in with `read.csv()`
 
 ```{r, echo = TRUE, message=FALSE, eval = EVAL}
 if (!file.exists("met_all.gz"))
@@ -52,7 +56,7 @@ if (!file.exists("met_all.gz"))
     method   = "libcurl",
     timeout  = 60
     )
-met <- data.table::fread("met_all.gz")
+met <- read.csv("met_all.gz")
 ```
 
 ### 2. Prepare the data
@@ -60,20 +64,28 @@ met <- data.table::fread("met_all.gz")
 - Remove temperatures less than -17C
 - Make sure there is no missing data in the key variables coded as 9999, 999, etc.
 - Generate a date variable using the functions `as.Date()` (hint: You will need the following to create a date `paste(year, month, day, sep = "-")`).
-- Using the `data.table::week` function, keep the observations of the first week of the month.
+- Subset the data to keep only the observations from the first week (ie. first 7 days) of the month.
 - Compute the mean by station of the variables `temp`, `rh`, `wind.sp`, `vis.dist`, `dew.point`, `lat`,
 `lon`, and `elev`.
-- Create a region variable for NW, SW, NE, SE based on lon = -98.00 and lat = 39.71 degrees
+- Create a region variable for NW, SW, NE, SE based on `lon` = $-98.00$ and `lat` = $39.71$ degrees
 - Create a categorical variable for elevation as in the lecture slides
 
 ```{r, eval = EVAL, echo = ECHO}
-met <- met[temp > -17][elev == 9999.0, elev := NA]
-met[, week := week(as.Date(paste(year, month, day, sep = "-")))]
-met <- met[week == min(week, na.rm = TRUE)]
+met <- met[met$temp > -17, ]
+met$elev[met$elev == 9999.0] <- NA
+met$date <- as.Date(paste(met$year, met$month, met$day, sep = "-"))
+met <- met[met$day <= 7, ]
 
-met_avg <- met[,.(temp=mean(temp,na.rm=TRUE), rh=mean(rh,na.rm=TRUE), wind.sp=mean(wind.sp,na.rm=TRUE), 
-                vis.dist=mean(vis.dist,na.rm=TRUE), dew.point = mean(dew.point, na.rm=TRUE), lat=mean(lat), lon=mean(lon), 
-                elev=mean(elev,na.rm=TRUE)), by="USAFID"]
+met_avg <- summarize(met,
+                     temp = mean(temp, na.rm=TRUE), 
+                     rh = mean(rh, na.rm=TRUE),
+                     wind.sp = mean(wind.sp, na.rm=TRUE), 
+                     vis.dist = mean(vis.dist, na.rm=TRUE),
+                     dew.point = mean(dew.point, na.rm=TRUE),
+                     lat = mean(lat, na.rm=TRUE),
+                     lon = mean(lon, na.rm=TRUE),
+                     elev = mean(elev, na.rm=TRUE),
+                     .by="USAFID")
 
 met_avg$elev_cat <- ifelse(met_avg$elev> 252, "high", "low")
 
@@ -95,21 +107,21 @@ You saw how to use `geom_boxplot` in class. Try using `geom_violin` instead (tak
 - Describe what you observe in the graph
 
 ```{r, eval = EVAL, echo = ECHO}
-met_avg %>%
-  filter(!(region %in% NA)) %>%
+met_avg |>
+  filter(!(region %in% NA)) |>
 ggplot()+
   geom_violin(mapping = aes(y=wind.sp, x=1)) +
   facet_wrap(~region, nrow=2)
 
-met_avg %>%
-  filter(!(region %in% NA)) %>%
+met_avg |>
+  filter(!(region %in% NA)) |>
 ggplot()+
   geom_boxplot(mapping = aes(y=rh, fill=region)) +
   facet_wrap(~region, nrow=2)
 ```
 
 
-### 4. Use `geom_jitter` with `stat_smooth` to examine the association between dew point and wind speed by region
+### 4. Use `geom_point` with `stat_smooth` to examine the association between dew point and wind speed by region
 
 - Color points by region
 - Make sure to deal with `NA`s
@@ -117,10 +129,10 @@ ggplot()+
 - Describe what you observe in the graph
 
 ```{r, eval = EVAL, echo = ECHO}
-met_avg %>%
-filter(!(region %in% NA)) %>%
+met_avg |>
+filter(!(region %in% NA)) |>
   ggplot(mapping = aes(x=dew.point, y=rh, color=region))+
-  geom_jitter() + 
+  geom_point() + 
   stat_smooth(method=lm)
   
 ```
@@ -135,8 +147,8 @@ filter(!(region %in% NA)) %>%
 - Make sure to deal with `NA` values
 
 ```{r warning=FALSE, message=FALSE, eval = EVAL, echo = ECHO}
-met_avg %>%
-filter(!(region %in% NA)) %>%
+met_avg |>
+filter(!(region %in% NA)) |>
   ggplot()+
   geom_bar(mapping=aes(x=elev_cat,fill=region), position = "dodge")+
   scale_fill_brewer(palette = "PuOr")+
@@ -153,8 +165,8 @@ filter(!(region %in% NA)) %>%
 - Describe the graph and what you observe
 
 ```{r, eval = EVAL, echo = ECHO}
-met_avg %>%
-filter(!(region %in% NA)) %>%
+met_avg |>
+filter(!(region %in% NA)) |>
   ggplot(mapping=aes(x=region, y=dew.point)) +
   stat_summary(fun.data="mean_sdl", geom="errorbar") +
   stat_summary(fun.data="mean_sdl")
@@ -172,16 +184,16 @@ filter(!(region %in% NA)) %>%
 - Add a legend
 
 ```{r, eval = EVAL, echo = ECHO}
-met_avg2<-met_avg[!is.na(rh)]
+met_avg2 <- met_avg[!is.na(met_avg$rh), ]
 
-# Top five
-top5 <- met_avg2[rank(-rh) <= 10]
+# Top ten
+top10 <- met_avg2[rank(-met_avg2$rh) <= 10, ]
 
 rh_pal = colorNumeric(c('blue','purple','red'), domain=met_avg2$rh)
-leaflet(met_avg2) %>%
-  addProviderTiles('OpenStreetMap') %>%
-  addCircles(lat=~lat, lng=~lon, color=~rh_pal(rh), label=~paste0(round(rh,2), ' rh'), opacity=1,fillOpacity=1, radius=500) %>%
-  addMarkers(lat=~lat, lng=~lon, label=~paste0(round(rh,2), ' rh'), data = top5) %>%
+leaflet(met_avg2) |>
+  addProviderTiles('OpenStreetMap') |>
+  addCircles(lat=~lat, lng=~lon, color=~rh_pal(rh), label=~paste0(round(rh,2), ' rh'), opacity=1,fillOpacity=1, radius=500) |>
+  addMarkers(lat=~lat, lng=~lon, label=~paste0(round(rh,2), ' rh'), data = top10) |>
   addLegend('bottomleft',pal=rh_pal, values=met_avg2$rh, title="Relative Humidity", opacity=1)
 
 ```
@@ -190,6 +202,6 @@ leaflet(met_avg2) %>%
 
 ### 8. Use a ggplot extension
 
-- Pick an extension (except cowplot) from [here](https://exts.ggplot2.tidyverse.org/gallery/) and make a plot of your choice using the met data (or met_avg)
-- You might want to try examples that come with the extension first (e.g. ggtech, gganimate, ggforce)
+- Pick an extension (except `cowplot`) from [here](https://exts.ggplot2.tidyverse.org/gallery/) and make a plot of your choice using the met data (or met_avg)
+- You might want to try examples that come with the extension first (e.g. `ggtech`, `gganimate`, `ggforce`)
 
