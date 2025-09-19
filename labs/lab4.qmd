@@ -108,15 +108,15 @@ You saw how to use `geom_boxplot` in class. Try using `geom_violin` instead (tak
 
 ```{r, eval = EVAL, echo = ECHO}
 met_avg |>
-  filter(!(region %in% NA)) |>
+  filter(!is.na(wind.sp)) |>
 ggplot()+
   geom_violin(mapping = aes(y=wind.sp, x=1)) +
   facet_wrap(~region, nrow=2)
 
 met_avg |>
-  filter(!(region %in% NA)) |>
+  filter(!is.na(dew.point)) |>
 ggplot()+
-  geom_boxplot(mapping = aes(y=rh, fill=region)) +
+  geom_violin(mapping = aes(y=dew.point, x=1, fill=region)) +
   facet_wrap(~region, nrow=2)
 ```
 
@@ -130,7 +130,7 @@ ggplot()+
 
 ```{r, eval = EVAL, echo = ECHO}
 met_avg |>
-filter(!(region %in% NA)) |>
+filter(!is.na(region)) |>
   ggplot(mapping = aes(x=dew.point, y=rh, color=region))+
   geom_point() + 
   stat_smooth(method=lm)
@@ -148,7 +148,7 @@ filter(!(region %in% NA)) |>
 
 ```{r warning=FALSE, message=FALSE, eval = EVAL, echo = ECHO}
 met_avg |>
-filter(!(region %in% NA)) |>
+filter(!is.na(region)) |>
   ggplot()+
   geom_bar(mapping=aes(x=elev_cat,fill=region), position = "dodge")+
   scale_fill_brewer(palette = "PuOr")+
@@ -166,7 +166,7 @@ filter(!(region %in% NA)) |>
 
 ```{r, eval = EVAL, echo = ECHO}
 met_avg |>
-filter(!(region %in% NA)) |>
+filter(!is.na(region)) |>
   ggplot(mapping=aes(x=region, y=dew.point)) +
   stat_summary(fun.data="mean_sdl", geom="errorbar") +
   stat_summary(fun.data="mean_sdl")
