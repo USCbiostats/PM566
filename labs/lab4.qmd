@@ -24,7 +24,7 @@ library(tidyverse)
 - Create several graphs with different `geoms()` in `ggplot2`
 - Create a facet graph
 - Customize your plots
-- Create a more detailed map using `leaflet()`
+- Create a detailed map
 
 
 # Lab Description
@@ -166,9 +166,9 @@ filter(!(region %in% NA)) %>%
 ### 7. Make a map showing the spatial trend in relative humidity in the US
 
 - Make sure to remove `NA`s
-- Use `leaflet()`
+- Use `leaflet()` or `ggplot2`
 - Make a color palette with custom colors
-- Use `addMarkers` to include the top 10 places in relative humidity (hint: this will be useful `rank(-rh) <= 10`)
+- Use `addMarkers` or `geom_point` to include the top 10 places in relative humidity (hint: this will be useful `rank(-rh) <= 10`)
 - Add a legend
 
 ```{r, eval = EVAL, echo = ECHO}
