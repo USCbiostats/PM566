@@ -44,9 +44,10 @@ your findings.
 create a new column for year, which will serve as an identifier. Change the
 names of the key variables so that they are easier to refer to in your code.
 
-3. (20 points) Create a basic map (or maps) in `leaflet` showing the locations of the
-monitoring sites, using different colors for each year. Summarize the spatial
-distribution of the sites. Does this distribution change from 2002 to 2022?
+3. (20 points) Create a basic map (or maps) in either `leaflet` or `ggplot`
+showing the locations of the monitoring sites, using different colors for each
+year. Summarize the spatial distribution of the sites. Does this distribution
+change from 2002 to 2022?
 
 4. (10 points) Check for any data issues such as missing or implausible values of PM$_{2.5}$
 in the combined dataset. Calculate the proportion of missing/implausible values
