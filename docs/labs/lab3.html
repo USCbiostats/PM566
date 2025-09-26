@@ -406,7 +406,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>It looks like the elevation variable has observations with 9999.0, which is probably an indicator for missing. We should take a deeper look at the data dictionary to confirm. The wind speed variable is OK but there are a lot of missing data.</p>
 <p>After checking the data we should make the appropriate modifications. Replace elevations with 9999 as <code>NA</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>met[met<span class="sc">$</span>elev<span class="sc">==</span><span class="fl">9999.0</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>met<span class="sc">$</span>elev[met<span class="sc">$</span>elev<span class="sc">==</span><span class="fl">9999.0</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(met<span class="sc">$</span>elev)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
@@ -414,8 +414,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>We also have the issue of the minimum temperature being -40C, so we should remove those observations.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>met <span class="ot">&lt;-</span> met[temp<span class="sc">&gt;-</span><span class="dv">40</span>]</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>met2 <span class="ot">&lt;-</span> met[<span class="fu">order</span>(temp)]</span>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>met <span class="ot">&lt;-</span> met[met<span class="sc">$</span>temp <span class="sc">&gt;</span> <span class="sc">-</span><span class="dv">40</span>, ]</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>met2 <span class="ot">&lt;-</span> met[<span class="fu">order</span>(met<span class="sc">$</span>temp), ]</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(met2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We again notice that there is a -17.2C temperature reading that seems suspicious.</p>
@@ -426,8 +426,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Google is your friend here.</p>
 <p>Fix any problems that arise in your checks.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>met <span class="ot">&lt;-</span> met[temp<span class="sc">&gt;-</span><span class="dv">15</span>]</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>met2 <span class="ot">&lt;-</span> met[<span class="fu">order</span>(temp)]</span>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>met <span class="ot">&lt;-</span> met[met<span class="sc">$</span>temp <span class="sc">&gt;</span> <span class="sc">-</span><span class="dv">15</span>, ]</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>met2 <span class="ot">&lt;-</span> met[<span class="fu">order</span>(met<span class="sc">$</span>temp), ]</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(met2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
@@ -439,7 +439,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Remember to keep the initial question in mind. We want to pick out the weather station with maximum elevation and examine its windspeed and temperature.</p>
 <p>Some ideas: select the weather station with maximum elevation; look at the correlation between temperature and wind speed; look at the correlation between temperature and wind speed with hour and day of the month.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>elev <span class="ot">&lt;-</span> met[elev<span class="sc">==</span><span class="fu">max</span>(elev), ]</span>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>elev <span class="ot">&lt;-</span> met[met<span class="sc">$</span>elev <span class="sc">==</span> <span class="fu">max</span>(met<span class="sc">$</span>elev), ]</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(elev)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
@@ -470,7 +470,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>elev<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">with</span>(elev, <span class="fu">ymd_h</span>(<span class="fu">paste</span>(year, month, day, hour, <span class="at">sep=</span> <span class="st">' '</span>)))</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(elev<span class="sc">$</span>date)</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>elev <span class="ot">&lt;-</span> elev[<span class="fu">order</span>(date)]</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>elev <span class="ot">&lt;-</span> elev[<span class="fu">order</span>(elev<span class="sc">$</span>date), ]</span>
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(elev)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>With the date-time variable we can plot the time series of temperature and wind speed.</p>

@@ -72,7 +72,7 @@ It looks like the elevation variable has observations with 9999.0, which is prob
 After checking the data we should make the appropriate modifications. Replace elevations with 9999 as `NA`.
 
 ```{r, eval=FALSE}
-met[met$elev==9999.0] <- NA
+met$elev[met$elev==9999.0] <- NA
 summary(met$elev)
 ```
 
@@ -81,8 +81,8 @@ summary(met$elev)
 We also have the issue of the minimum temperature being -40C, so we should remove those observations.
 
 ```{r, eval=FALSE}
-met <- met[temp>-40]
-met2 <- met[order(temp)]
+met <- met[met$temp > -40, ]
+met2 <- met[order(met$temp), ]
 head(met2)
 ```
 
@@ -97,8 +97,8 @@ Google is your friend here.
 Fix any problems that arise in your checks.
 
 ```{r, eval=FALSE}
-met <- met[temp>-15]
-met2 <- met[order(temp)]
+met <- met[met$temp > -15, ]
+met2 <- met[order(met$temp), ]
 head(met2)
 ```
 
@@ -111,7 +111,7 @@ Remember to keep the initial question in mind. We want to pick out the weather s
 Some ideas: select the weather station with maximum elevation; look at the correlation between temperature and wind speed; look at the correlation between temperature and wind speed with hour and day of the month.
 
 ```{r, eval=FALSE}
-elev <- met[elev==max(elev), ]
+elev <- met[met$elev == max(met$elev), ]
 summary(elev)
 ```
 
@@ -151,7 +151,7 @@ Look at the time series of temperature and wind speed at this location. For this
 library(lubridate)
 elev$date <- with(elev, ymd_h(paste(year, month, day, hour, sep= ' ')))
 summary(elev$date)
-elev <- elev[order(date)]
+elev <- elev[order(elev$date), ]
 head(elev)
 ```
 

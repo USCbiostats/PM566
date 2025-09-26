@@ -591,12 +591,13 @@ dat$windsp_scaled <- dat$wind.sp / sd(dat$wind.sp, na.rm = TRUE)
 
 With the verb **dplyr::mutate()**:
 
-```{r eval=slides_eval}
+```{r eval=slides_eval, echo=TRUE}
 dat |>
   mutate(
     elev2         = elev ^ 2,
     windsp_scaled = wind.sp / sd(wind.sp,na.rm=TRUE)
-  ) |> collect()
+  ) |> collect() |> 
+  head()
 ```
 
 ---

@@ -97,7 +97,7 @@ table(met_avg$region)
 
 ```
 
-### 3. Use `geom_violin` to examine the wind speed and dew point by region
+### 3. Use `geom_violin` to examine the relative humidity and dew point by region
 
 You saw how to use `geom_boxplot` in class. Try using `geom_violin` instead (take a look at the help).
 (hint: you will need to set the `x` aesthetic to 1)
@@ -108,9 +108,9 @@ You saw how to use `geom_boxplot` in class. Try using `geom_violin` instead (tak
 
 ```{r, eval = EVAL, echo = ECHO}
 met_avg |>
-  filter(!is.na(wind.sp)) |>
+  filter(!is.na(rh)) |>
 ggplot()+
-  geom_violin(mapping = aes(y=wind.sp, x=1)) +
+  geom_violin(mapping = aes(y=rh, x=1)) +
   facet_wrap(~region, nrow=2)
 
 met_avg |>
@@ -121,7 +121,7 @@ ggplot()+
 ```
 
 
-### 4. Use `geom_point` with `stat_smooth` to examine the association between dew point and wind speed by region
+### 4. Use `geom_point` with `stat_smooth` to examine the association between dew point and relative humidity by region
 
 - Color points by region
 - Make sure to deal with `NA`s
@@ -130,11 +130,10 @@ ggplot()+
 
 ```{r, eval = EVAL, echo = ECHO}
 met_avg |>
-filter(!is.na(region)) |>
+filter(!is.na(rh) & !is.na(dew.point)) |>
   ggplot(mapping = aes(x=dew.point, y=rh, color=region))+
   geom_point() + 
   stat_smooth(method=lm)
-  
 ```
 
 
@@ -166,8 +165,14 @@ filter(!is.na(region)) |>
 
 ```{r, eval = EVAL, echo = ECHO}
 met_avg |>
-filter(!is.na(region)) |>
+filter(!is.na(dew.point)) |>
   ggplot(mapping=aes(x=region, y=dew.point)) +
+  stat_summary(fun.data="mean_sdl", geom="errorbar") +
+  stat_summary(fun.data="mean_sdl")
+
+met_avg |>
+filter(!is.na(wind.sp)) |>
+  ggplot(mapping=aes(x=region, y=wind.sp)) +
   stat_summary(fun.data="mean_sdl", geom="errorbar") +
   stat_summary(fun.data="mean_sdl")
 ```

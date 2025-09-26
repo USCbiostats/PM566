@@ -309,9 +309,9 @@ code.r,code.cpp{
 <span id="cb9-2"><a></a><span class="fu">microbenchmark</span>(<span class="fu">forLoopRoots</span>(<span class="dv">10000</span>), <span class="fu">VectorizedRoots</span>(<span class="dv">10000</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Unit: microseconds
-                   expr     min      lq      mean  median       uq     max
-    forLoopRoots(10000) 203.319 209.264 219.26431 215.578 223.0195 351.903
- VectorizedRoots(10000)  12.997  14.350  20.66318  14.842  15.6005 541.241
+                   expr     min       lq      mean   median      uq     max
+    forLoopRoots(10000) 194.340 220.2930 229.51472 227.5295 233.659 422.874
+ VectorizedRoots(10000)   7.872  15.5185  23.74351  16.2770  17.179 742.674
  neval
    100
    100</code></pre>
@@ -387,9 +387,9 @@ code.r,code.cpp{
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a><span class="fu">microbenchmark</span>(<span class="fu">method1</span>(vec), <span class="fu">method2</span>(vec))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Unit: microseconds
-         expr      min       lq      mean   median        uq      max neval
- method1(vec) 2116.174 2310.002 2503.3325 2375.684 2484.2515 4558.175   100
- method2(vec)   75.522   81.795  113.7693   86.428   91.1225 1650.742   100</code></pre>
+         expr      min       lq      mean    median       uq      max neval
+ method1(vec) 2222.733 2437.347 2652.7451 2501.8405 2616.579 4451.165   100
+ method2(vec)   76.957   87.986  122.5142   92.2705   97.375 1959.103   100</code></pre>
 </div>
 </div>
 </section>
@@ -408,9 +408,9 @@ code.r,code.cpp{
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a><span class="fu">microbenchmark</span>(<span class="fu">method2</span>(vec), <span class="fu">method3</span>(vec))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Unit: microseconds
-         expr    min     lq     mean median      uq     max neval
- method2(vec) 74.620 79.581 86.72238 85.280 91.0405 142.352   100
- method3(vec)  1.435  1.681  6.00568  1.845  2.0090 413.403   100</code></pre>
+         expr    min     lq     mean  median     uq     max neval
+ method2(vec) 77.982 90.651 94.84489 93.2955 97.662 168.059   100
+ method3(vec)  1.435  1.763  6.11105  1.9270  2.050 414.633   100</code></pre>
 </div>
 </div>
 </section>
