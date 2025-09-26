@@ -236,7 +236,9 @@ What happens if instead of `list()` you used `c()`?
 Using base R:
 
 ```{r select1-base, eval = slides_eval, echo = TRUE}
-dat[, c('USAFID', 'lat', 'lon')]
+head(
+  dat[, c('USAFID', 'lat', 'lon')]
+)
 ```
 
 ---
@@ -246,7 +248,7 @@ dat[, c('USAFID', 'lat', 'lon')]
 Using the **dplyr::select** verb:
 
 ```{r select1-tv, eval = slides_eval, echo = TRUE}
-dat |> select(USAFID, lat, lon)
+dat |> select(USAFID, lat, lon) |> head()
 ```
 
 ---
@@ -425,10 +427,16 @@ dat[(day == 1) & (lat > 40) & ((elev < 500) | (elev > 1000))] |>
 In base R:
 
 ```{r filter1-base, eval = slides_eval, echo = TRUE}
-dat[dat$day == 1 &
-      dat$lat > 40 &
-      (dat$elev < 500) | (dat$elev > 1000), ]
+tmp <- dat[dat$day == 1 &
+             dat$lat > 40 &
+             (dat$elev < 500 | dat$elev > 1000), ]
+head(tmp)
 ```
+
+```{r, eval = slides_eval, echo = TRUE}
+nrow(tmp)
+```
+
 
 ---
 
@@ -437,8 +445,7 @@ In R with **dplyr::filter()**:
 ```{r filter1-tv, eval = slides_eval, echo = TRUE}
 dat |>
   filter(day == 1, lat > 40, (elev < 500) | (elev > 1000)) |>
-  collect() |> # Notice this line!
-  nrow() 
+  head() 
 ```
 
 ---
@@ -480,7 +487,7 @@ that allows accessing column names in a datatable's `Frame`.
 # Question 1
 nrow(dat[dat$temp < 25 & dat$temp > 18, ])
 # dat[temp %between% c(18, 25), .N] 
-# dat |> filter(between(temp, 18, 25)) |> collect() |> nrow()
+# dat |> filter(between(temp, 18, 25)) |> nrow()
 
 # Question 2
 nrow(dat[is.na(dat$temp), ])
@@ -596,7 +603,7 @@ dat |>
   mutate(
     elev2         = elev ^ 2,
     windsp_scaled = wind.sp / sd(wind.sp,na.rm=TRUE)
-  ) |> collect() |> 
+  ) |>
   head()
 ```
 
@@ -865,12 +872,12 @@ dat <- dat |>
   group_by(STATE, year, month, day) |>
   mutate(
     temp_imp = coalesce(temp, mean(temp, na.rm = TRUE))
-    ) |> collect()
+    )
 ```
 
 ---
 
-## Aggregating data: Adding grouped variables (cont.)
+## Aggregating data: Adding grouped variables (cont. 1)
 
 Let's see how it looks:
 
@@ -889,12 +896,39 @@ lines(plotdata$id, plotdata$temp_imp, col=2)
 
 ---
 
+## Aggregating data: Adding grouped variables (cont. 2)
+
 ```{r plot-grouped-gg, echo = TRUE}
 plotdata |>
   ggplot(aes(x = id)) +
   geom_point(aes(y = temp)) +
   geom_line(aes(y = temp_imp, colour = 'red'))
 ```
+
+---
+
+## Aggregating data: Adding grouped variables (cont. 3)
+
+Note that when you use `group_by()`, your data **stays** grouped.
+
+```{r, echo = TRUE}
+head(dat)
+```
+
+This can cause headaches downstream if you don't remember that your data is
+grouped.
+
+---
+
+## Aggregating data: Adding grouped variables (cont. 4)
+
+You can undo the grouping with `dplyr::ungroup()`:
+
+```{r, echo = TRUE}
+dat <- ungroup(dat)
+head(dat)
+```
+
 
 
 ---
