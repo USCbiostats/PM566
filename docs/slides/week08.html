@@ -310,8 +310,8 @@ code.r,code.cpp{
 <div class="cell-output cell-output-stdout">
 <pre><code>Unit: microseconds
                    expr     min       lq      mean   median       uq     max
-    forLoopRoots(10000) 199.014 206.1480 216.28484 210.8425 221.6255 457.027
- VectorizedRoots(10000)  12.874  13.8785  20.40447  14.7600  16.0720 515.206
+    forLoopRoots(10000) 200.859 204.3850 222.17490 219.0220 230.6045 531.565
+ VectorizedRoots(10000)  11.726  14.9445  24.96326  16.4205  18.4090 774.695
  neval
    100
    100</code></pre>
@@ -387,9 +387,9 @@ code.r,code.cpp{
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a><span class="fu">microbenchmark</span>(<span class="fu">method1</span>(vec), <span class="fu">method2</span>(vec))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Unit: microseconds
-         expr      min       lq      mean    median        uq      max neval
- method1(vec) 2121.053 2230.256 2430.5165 2297.0660 2366.3150 4286.960   100
- method2(vec)   74.866   79.007  111.0444   83.0455   89.8925 1654.473   100</code></pre>
+         expr      min        lq      mean   median        uq      max neval
+ method1(vec) 2035.486 2248.1530 2451.0202 2306.537 2448.4790 4304.426   100
+ method2(vec)   73.923   79.8475  112.4708   83.845   87.1455 1929.665   100</code></pre>
 </div>
 </div>
 </section>
@@ -409,8 +409,8 @@ code.r,code.cpp{
 <div class="cell-output cell-output-stdout">
 <pre><code>Unit: microseconds
          expr    min      lq     mean median      uq     max neval
- method2(vec) 73.267 77.2645 81.02789 79.171 81.6105 122.590   100
- method3(vec)  1.394  1.5785  6.39764  1.722  1.8450 466.539   100</code></pre>
+ method2(vec) 76.506 80.0115 83.34890 81.098 83.8655 112.094   100
+ method3(vec)  1.353  1.5990  5.44439  1.722  1.8860 368.959   100</code></pre>
 </div>
 </div>
 </section>
