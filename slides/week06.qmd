@@ -86,11 +86,11 @@ Works seemlessly with ggplot2, dplyr and tidyr.
 
 ## Alice's Adventures in Wonderland
 
-Download the `alice` dataset from [https://USCBiostats.github.io/PM566/slides/06-textmining/alice.rds](https://USCBiostats.github.io/PM566/slides/06-textmining/alice.rds) (or from [here](alice.rds))
+Download the `alice` dataset from [https://github.com/USCbiostats/PM566/blob/main/data/alice.rds](https://github.com/USCbiostats/PM566/blob/main/data/alice.rds))
 
 ```{r message=FALSE, warning=FALSE}
 library(tidyverse)
-alice <- readRDS("../data/alice.rds")
+alice <- readRDS("../data/alice.rds") # "~/Downloads/alice.rds"
 alice
 ```
 
