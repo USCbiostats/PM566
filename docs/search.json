@@ -816,7 +816,7 @@
     "href": "slides/week04.html#maps-with-leaflet",
     "title": "Week 4: Data Visualization",
     "section": "Maps with leaflet",
-    "text": "Maps with leaflet\nLet’s create a map of monthly average temperatures at each of the weather stations and color the points by a temperature gradient. We need to create a color palette and we can add a legend.\n\nlibrary(leaflet)\nmet_avg2 &lt;- summarize(met,\n                      temp =     mean(temp, na.rm = TRUE),\n                      lat =      mean(lat, na.rm = TRUE),\n                      lon =      mean(lon, na.rm = TRUE),\n                      .by = c(USAFID))\nmet_avg2 &lt;- met_avg2[!is.na(met_avg2$temp), ]\n\n# Generating a color palette\ntemp.pal &lt;- colorNumeric(c('darkgreen','goldenrod','brown'), domain=met_avg2$temp)\n\ntemp.pal(20)\n\n[1] \"#B69A19\"\n\ntemp.pal\n\nfunction (x) \n{\n    if (length(x) == 0 || all(is.na(x))) {\n        return(pf(x))\n    }\n    if (is.null(rng)) \n        rng &lt;- range(x, na.rm = TRUE)\n    rescaled &lt;- scales::rescale(x, from = rng)\n    if (any(rescaled &lt; 0 | rescaled &gt; 1, na.rm = TRUE)) \n        warning(\"Some values were outside the color scale and will be treated as NA\")\n    if (reverse) {\n        rescaled &lt;- 1 - rescaled\n    }\n    pf(rescaled)\n}\n&lt;bytecode: 0x301f5c5f8&gt;\n&lt;environment: 0x301f5ef28&gt;\nattr(,\"colorType\")\n[1] \"numeric\"\nattr(,\"colorArgs\")\nattr(,\"colorArgs\")$na.color\n[1] \"#808080\""
+    "text": "Maps with leaflet\nLet’s create a map of monthly average temperatures at each of the weather stations and color the points by a temperature gradient. We need to create a color palette and we can add a legend.\n\nlibrary(leaflet)\nmet_avg2 &lt;- summarize(met,\n                      temp =     mean(temp, na.rm = TRUE),\n                      lat =      mean(lat, na.rm = TRUE),\n                      lon =      mean(lon, na.rm = TRUE),\n                      .by = c(USAFID))\nmet_avg2 &lt;- met_avg2[!is.na(met_avg2$temp), ]\n\n# Generating a color palette\ntemp.pal &lt;- colorNumeric(c('darkgreen','goldenrod','brown'), domain=met_avg2$temp)\n\ntemp.pal(20)\n\n[1] \"#B69A19\"\n\ntemp.pal\n\nfunction (x) \n{\n    if (length(x) == 0 || all(is.na(x))) {\n        return(pf(x))\n    }\n    if (is.null(rng)) \n        rng &lt;- range(x, na.rm = TRUE)\n    rescaled &lt;- scales::rescale(x, from = rng)\n    if (any(rescaled &lt; 0 | rescaled &gt; 1, na.rm = TRUE)) \n        warning(\"Some values were outside the color scale and will be treated as NA\")\n    if (reverse) {\n        rescaled &lt;- 1 - rescaled\n    }\n    pf(rescaled)\n}\n&lt;bytecode: 0x3374afbb8&gt;\n&lt;environment: 0x3374b21a0&gt;\nattr(,\"colorType\")\n[1] \"numeric\"\nattr(,\"colorArgs\")\nattr(,\"colorArgs\")$na.color\n[1] \"#808080\""
   },
   {
     "objectID": "slides/week04.html#maps-with-leaflet-1",
@@ -900,7 +900,7 @@
     "href": "slides/week07.html#regex-101-examples-cont.-1",
     "title": "Week 7: Regular Expressions and Web Scraping",
     "section": "Regex 101: Examples (cont. 1)",
-    "text": "Regex 101: Examples (cont. 1)\nHere we are extracting the first occurrence of the following regular expressions (using stringr::str_extract()):\n\n\n\n\n\nregex\nHanna Perez [name]\nThe 年 year was 1999\nHaHa, @abc said that\nGoGo trojans #2025!\n\n\n\n\n.{5}\nHanna\nThe 年\nHaHa,\nGoGo\n\n\nn{2}\nnn\n\n\n\n\n\n[0-9]\n\n1\n\n2\n\n\n[0-9]+\n\n1999\n\n2025\n\n\n[a-zA-Z]+\nHanna\nThe\nHaHa\nGoGo\n\n\n\\\\s[a-zA-Z]+\\\\s\nPerez\nyear\nsaid\ntrojans\n\n\n\\\\s[[:alpha:]]+\\\\s\nPerez\n年\nsaid\ntrojans"
+    "text": "Regex 101: Examples (cont. 1)\nHere we are extracting the first occurrence of the following regular expressions (using stringr::str_extract()):\n\n\n\n\n\n\nregex\nHanna Perez [name]\nThe 年 year was 1999\nHaHa, @abc said that\nGoGo trojans #2025!\n\n\n\n\n.{5}\nHanna\nThe 年\nHaHa,\nGoGo\n\n\nn{2}\nnn\n\n\n\n\n\n[0-9]\n\n1\n\n2\n\n\n[0-9]+\n\n1999\n\n2025\n\n\n[a-zA-Z]+\nHanna\nThe\nHaHa\nGoGo\n\n\n\\\\s[a-zA-Z]+\\\\s\nPerez\nyear\nsaid\ntrojans\n\n\n\\\\s[[:alpha:]]+\\\\s\nPerez\n年\nsaid\ntrojans"
   },
   {
     "objectID": "slides/week07.html#regex-101-examples-cont.-3",
@@ -914,7 +914,7 @@
     "href": "slides/week07.html#regex-101-examples-cont.-2",
     "title": "Week 7: Regular Expressions and Web Scraping",
     "section": "Regex 101: Examples (cont. 2)",
-    "text": "Regex 101: Examples (cont. 2)\n\n\n\nregex\nHanna Perez [name]\nThe 年 year was 1999\nHaHa, @abc said that\nGoGo trojans #2025!\n\n\n\n\n[a-zA-Z]+ [a-zA-Z]+\nHanna Perez\nyear was\nabc said\nGoGo trojans\n\n\n[a-zA-Z]+\\\\s?\nHanna\nThe\nHaHa\nGoGo\n\n\n([a-zA-Z]+)\\\\1\nnn\n\nHaHa\nGoGo\n\n\n(@|#)[a-z0-9]+\n\n\n@abc\n#2025\n\n\n(?&lt;=#|@)[a-z0-9]+\n\n\nabc\n2025"
+    "text": "Regex 101: Examples (cont. 2)\n\n\n\n\nregex\nHanna Perez [name]\nThe 年 year was 1999\nHaHa, @abc said that\nGoGo trojans #2025!\n\n\n\n\n[a-zA-Z]+ [a-zA-Z]+\nHanna Perez\nyear was\nabc said\nGoGo trojans\n\n\n[a-zA-Z]+\\\\s?\nHanna\nThe\nHaHa\nGoGo\n\n\n([a-zA-Z]+)\\\\1\nnn\n\nHaHa\nGoGo\n\n\n(@|#)[a-z0-9]+\n\n\n@abc\n#2025\n\n\n(?&lt;=#|@)[a-z0-9]+\n\n\nabc\n2025"
   },
   {
     "objectID": "slides/week07.html#regex-101-examples-cont.-3-1",
@@ -1096,7 +1096,7 @@
     "href": "slides/week07.html#web-api-example-1-gene-ontology-cont.-2",
     "title": "Week 7: Regular Expressions and Web Scraping",
     "section": "* Web API Example 1: Gene Ontology (cont. 2)",
-    "text": "* Web API Example 1: Gene Ontology (cont. 2)\nLet’s take a look at the response:\n\ngo_query\n\nResponse [https://api.geneontology.org/api/bioentity/function/GO:0140374/genes?evidence=ECO%3A0000006&relationship_type=involved_in]\n  Date: 2025-08-29 14:55\n  Status: 200\n  Content-Type: application/json\n  Size: 116 kB\n\n\nRemember the codes:\n\n1xx: Information message\n2xx: Success\n3xx: Redirection\n4xx: Client error\n5xx: Server error"
+    "text": "* Web API Example 1: Gene Ontology (cont. 2)\nLet’s take a look at the response:\n\ngo_query\n\nResponse [https://api.geneontology.org/api/bioentity/function/GO:0140374/genes?evidence=ECO%3A0000006&relationship_type=involved_in]\n  Date: 2025-08-28 23:29\n  Status: 200\n  Content-Type: application/json\n  Size: 116 kB\n\n\nRemember the codes:\n\n1xx: Information message\n2xx: Success\n3xx: Redirection\n4xx: Client error\n5xx: Server error"
   },
   {
     "objectID": "slides/week07.html#web-api-example-1-gene-ontology-cont.-3",
@@ -1145,7 +1145,7 @@
     "href": "slides/week07.html#web-api-example-3-hhs-health-recommendation-cont.-1",
     "title": "Week 7: Regular Expressions and Web Scraping",
     "section": "* Web API Example 3: HHS health recommendation (cont. 1)",
-    "text": "* Web API Example 3: HHS health recommendation (cont. 1)\nLet’s see the response\n\nhealth_advises\n\nResponse [https://odphp.health.gov/myhealthfinder/api/v3/myhealthfinder.json?lang=en&age=32&sex=male&tobaccoUse=0]\n  Date: 2025-08-29 14:55\n  Status: 200\n  Content-Type: application/json\n  Size: 310 kB\n{\n    \"Result\": {\n        \"Error\": \"MyHealthfinder API version 3 is no longer supported. Please...\n        \"Total\": 18,\n        \"Query\": {\n            \"ApiVersion\": \"3\",\n            \"ApiType\": \"myhealthfinder\",\n            \"TopicId\": null,\n            \"CategoryId\": null,\n            \"Keyword\": null,\n..."
+    "text": "* Web API Example 3: HHS health recommendation (cont. 1)\nLet’s see the response\n\nhealth_advises\n\nResponse [https://odphp.health.gov/myhealthfinder/api/v3/myhealthfinder.json?lang=en&age=32&sex=male&tobaccoUse=0]\n  Date: 2025-08-28 23:29\n  Status: 200\n  Content-Type: application/json\n  Size: 310 kB\n{\n    \"Result\": {\n        \"Error\": \"MyHealthfinder API version 3 is no longer supported. Please...\n        \"Total\": 18,\n        \"Query\": {\n            \"ApiVersion\": \"3\",\n            \"ApiType\": \"myhealthfinder\",\n            \"TopicId\": null,\n            \"CategoryId\": null,\n            \"Keyword\": null,\n..."
   },
   {
     "objectID": "slides/week07.html#web-api-example-3-hhs-health-recommendation-cont.-2",
@@ -1208,7 +1208,7 @@
     "href": "slides/week08.html#example-square-roots-cont.-2",
     "title": "Week 8: Efficiency and High Performance Computing",
     "section": "Example: Square Roots (cont. 2)",
-    "text": "Example: Square Roots (cont. 2)\nHow fast are these methods? Let’s use the microbenchmark package to find out!\n\nlibrary(microbenchmark)\nmicrobenchmark(forLoopRoots(10000), SapplyRoots(10000))\n\nUnit: microseconds\n                expr     min       lq      mean   median        uq      max\n forLoopRoots(10000) 186.386  202.007  208.8872  209.264  214.9015  235.709\n  SapplyRoots(10000) 987.731 1075.553 1190.6945 1099.600 1158.5575 4815.163\n neval\n   100\n   100"
+    "text": "Example: Square Roots (cont. 2)\nHow fast are these methods? Let’s use the microbenchmark package to find out!\n\nlibrary(microbenchmark)\nmicrobenchmark(forLoopRoots(10000), SapplyRoots(10000))\n\nUnit: microseconds\n                expr      min       lq      mean    median       uq      max\n forLoopRoots(10000)  305.081  311.641  316.3474  313.6295  318.119  451.410\n  SapplyRoots(10000) 1538.402 1574.482 1732.0266 1620.1970 1669.869 3202.469\n neval\n   100\n   100"
   },
   {
     "objectID": "slides/week08.html#example-square-roots-cont.-3",
@@ -1222,7 +1222,7 @@
     "href": "slides/week08.html#example-square-roots-cont.-4",
     "title": "Week 8: Efficiency and High Performance Computing",
     "section": "Example: Square Roots (cont. 4)",
-    "text": "Example: Square Roots (cont. 4)\nThat’s a lot faster!\n\nlibrary(microbenchmark)\nmicrobenchmark(forLoopRoots(10000), VectorizedRoots(10000))\n\nUnit: microseconds\n                   expr     min       lq      mean  median       uq     max\n    forLoopRoots(10000) 198.686 200.5105 209.16724 203.237 212.5850 338.045\n VectorizedRoots(10000)   9.143  14.2475  20.94731  15.334  16.4205 502.455\n neval\n   100\n   100\n\n\nAnytime that you can use vectorized computation, you should! It will (almost) always save you a lot of computation time!"
+    "text": "Example: Square Roots (cont. 4)\nThat’s a lot faster!\n\nlibrary(microbenchmark)\nmicrobenchmark(forLoopRoots(10000), VectorizedRoots(10000))\n\nUnit: microseconds\n                   expr     min       lq      mean   median      uq     max\n    forLoopRoots(10000) 330.911 348.7665 364.79504 357.7045 365.105 557.149\n VectorizedRoots(10000)  12.423  20.7460  31.40887  21.7505  23.452 795.072\n neval\n   100\n   100\n\n\nAnytime that you can use vectorized computation, you should! It will (almost) always save you a lot of computation time!"
   },
   {
     "objectID": "slides/week08.html#use-pre-made-functions",
@@ -1250,14 +1250,14 @@
     "href": "slides/week08.html#example-repeated-elements-cont.-2",
     "title": "Week 8: Efficiency and High Performance Computing",
     "section": "Example: Repeated elements (cont. 2)",
-    "text": "Example: Repeated elements (cont. 2)\nOr slightly faster with a loop and vectorized comparison:\n\nmethod2 &lt;- function(x){\n  # first element cannot be a duplicate\n  out &lt;- sapply(2:length(x), function(i){\n    return(any(x[1:(i-1)] == x[i]))\n  })\n  out &lt;- c(FALSE, out)\n  return(out)\n}\n\nmethod2(vec)[1:11]\n\n [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE\n\nmicrobenchmark(method1(vec), method2(vec))\n\nUnit: microseconds\n         expr      min       lq      mean   median       uq      max neval\n method1(vec) 2093.460 2270.314 2465.4059 2340.752 2433.063 4099.877   100\n method2(vec)   73.923   80.032  109.4991   82.697   85.731 1643.649   100"
+    "text": "Example: Repeated elements (cont. 2)\nOr slightly faster with a loop and vectorized comparison:\n\nmethod2 &lt;- function(x){\n  # first element cannot be a duplicate\n  out &lt;- sapply(2:length(x), function(i){\n    return(any(x[1:(i-1)] == x[i]))\n  })\n  out &lt;- c(FALSE, out)\n  return(out)\n}\n\nmethod2(vec)[1:11]\n\n [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE\n\nmicrobenchmark(method1(vec), method2(vec))\n\nUnit: microseconds\n         expr      min       lq      mean   median       uq      max neval\n method1(vec) 3312.103 3429.917 3830.8362 3558.718 3888.030 7162.085   100\n method2(vec)  119.146  126.403  180.0285  130.790  138.416 2799.480   100"
   },
   {
     "objectID": "slides/week08.html#example-repeated-elements-cont.-3",
     "href": "slides/week08.html#example-repeated-elements-cont.-3",
     "title": "Week 8: Efficiency and High Performance Computing",
     "section": "Example: Repeated elements (cont. 3)",
-    "text": "Example: Repeated elements (cont. 3)\nBut the real speed-up comes when we use the base function duplicated:\n\nmethod3 &lt;- function(x){\n  duplicated(x)\n}\n\nmethod3(vec)[1:11]\n\n [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE\n\nmicrobenchmark(method2(vec), method3(vec))\n\nUnit: microseconds\n         expr    min      lq     mean  median      uq     max neval\n method2(vec) 74.169 80.2985 85.30583 81.9795 84.8085 190.404   100\n method3(vec)  1.353  1.5785  5.73139  1.7220  1.8860 392.452   100"
+    "text": "Example: Repeated elements (cont. 3)\nBut the real speed-up comes when we use the base function duplicated:\n\nmethod3 &lt;- function(x){\n  duplicated(x)\n}\n\nmethod3(vec)[1:11]\n\n [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE\n\nmicrobenchmark(method2(vec), method3(vec))\n\nUnit: microseconds\n         expr     min       lq      mean  median      uq     max neval\n method2(vec) 118.777 124.6810 135.05728 128.576 131.897 334.970   100\n method3(vec)   2.091   2.3985   8.64034   2.583   2.788 598.108   100"
   },
   {
     "objectID": "slides/week08.html#what-is-hpc",
@@ -1306,7 +1306,7 @@
     "href": "slides/week08.html#parallel-computing-in-r",
     "title": "Week 8: Efficiency and High Performance Computing",
     "section": "Parallel computing in R",
-    "text": "Parallel computing in R\nWhile there are several alternatives (just take a look at the High-Performance Computing Task View), we’ll focus on the following R-packages for explicit parallelism\nSome examples:\n\n\n\nparallel: R package that provides ‘[s]upport for parallel computation, including random-number generation’.\n\n\n\n\n\n\nforeach: R package for ‘general iteration over elements’ in parallel fashion.\n\n\n\n\n\n\nfuture: ‘[A] lightweight and unified Future API for sequential and parallel processing of R expression via futures.’ (won’t cover here)\n\n\n\nImplicit parallelism, on the other hand, are out-of-the-box tools that allow the programmer not to worry about parallelization, e.g. such as gpuR for Matrix manipulation using GPU, tensorflow"
+    "text": "Parallel computing in R\nWhile there are several alternatives (just take a look at the High-Performance Computing Task View), we’ll focus on the following R-packages for explicit parallelism\nSome examples:\n\nparallel: R package that provides ‘[s]upport for parallel computation, including random-number generation’.\n\n\nforeach: R package for ‘general iteration over elements’ in parallel fashion.\n\n\nfuture: ‘[A] lightweight and unified Future API for sequential and parallel processing of R expression via futures.’ (won’t cover here)\n\nImplicit parallelism, on the other hand, are out-of-the-box tools that allow the programmer not to worry about parallelization, e.g. such as gpuR for Matrix manipulation using GPU, tensorflow"
   },
   {
     "objectID": "slides/week08.html#the-parallel-package",
@@ -1327,14 +1327,14 @@
     "href": "slides/week08.html#ex-1-hello-world",
     "title": "Week 8: Efficiency and High Performance Computing",
     "section": "Ex 1: Hello world!",
-    "text": "Ex 1: Hello world!\n\n# 1. CREATING A CLUSTER\nlibrary(parallel)\ncl &lt;- makeCluster(4)    \nx  &lt;- 20\n\n# 2. PREPARING THE CLUSTER\nclusterSetRNGStream(cl, 123) # Equivalent to `set.seed(123)` (not necessary for this example)\nclusterExport(cl, \"x\")\n\n# 3. DO YOUR CALL\nclusterEvalQ(cl, {\n  paste0(\"Hello from process #\", Sys.getpid(), \". I see x and it is equal to \", x)\n})\n\n[[1]]\n[1] \"Hello from process #30604. I see x and it is equal to 20\"\n\n[[2]]\n[1] \"Hello from process #30603. I see x and it is equal to 20\"\n\n[[3]]\n[1] \"Hello from process #30606. I see x and it is equal to 20\"\n\n[[4]]\n[1] \"Hello from process #30605. I see x and it is equal to 20\"\n\n# 4. STOP THE CLUSTER\nstopCluster(cl)"
+    "text": "Ex 1: Hello world!\n\n# 1. CREATING A CLUSTER\nlibrary(parallel)\ncl &lt;- makeCluster(4)    \nx  &lt;- 20\n\n# 2. PREPARING THE CLUSTER\nclusterSetRNGStream(cl, 123) # Equivalent to `set.seed(123)` (not necessary for this example)\nclusterExport(cl, \"x\")\n\n# 3. DO YOUR CALL\nclusterEvalQ(cl, {\n  paste0(\"Hello from process #\", Sys.getpid(), \". I see x and it is equal to \", x)\n})\n\n[[1]]\n[1] \"Hello from process #85411. I see x and it is equal to 20\"\n\n[[2]]\n[1] \"Hello from process #85410. I see x and it is equal to 20\"\n\n[[3]]\n[1] \"Hello from process #85412. I see x and it is equal to 20\"\n\n[[4]]\n[1] \"Hello from process #85409. I see x and it is equal to 20\"\n\n# 4. STOP THE CLUSTER\nstopCluster(cl)"
   },
   {
     "objectID": "slides/week08.html#ex-1-hello-world-redux",
     "href": "slides/week08.html#ex-1-hello-world-redux",
     "title": "Week 8: Efficiency and High Performance Computing",
     "section": "Ex 1: Hello world! (redux)",
-    "text": "Ex 1: Hello world! (redux)\nMulti-core versions of the *apply functions are simpler, but may not work on Windows machines.\n\n# 1. SETUP\nlibrary(parallel)\nx  &lt;- 20\n\n# 2. DO YOUR CALL\nmclapply(1:4, function(i){\n    paste0(\"Hello from process #\", Sys.getpid(), \". I see x and it is equal to \", x)\n}, mc.cores = 4)\n\n[[1]]\n[1] \"Hello from process #30658. I see x and it is equal to 20\"\n\n[[2]]\n[1] \"Hello from process #30659. I see x and it is equal to 20\"\n\n[[3]]\n[1] \"Hello from process #30660. I see x and it is equal to 20\"\n\n[[4]]\n[1] \"Hello from process #30661. I see x and it is equal to 20\""
+    "text": "Ex 1: Hello world! (redux)\nMulti-core versions of the *apply functions are simpler, but may not work on Windows machines.\n\n# 1. SETUP\nlibrary(parallel)\nx  &lt;- 20\n\n# 2. DO YOUR CALL\nmclapply(1:4, function(i){\n    paste0(\"Hello from process #\", Sys.getpid(), \". I see x and it is equal to \", x)\n}, mc.cores = 4)\n\n[[1]]\n[1] \"Hello from process #85488. I see x and it is equal to 20\"\n\n[[2]]\n[1] \"Hello from process #85489. I see x and it is equal to 20\"\n\n[[3]]\n[1] \"Hello from process #85490. I see x and it is equal to 20\"\n\n[[4]]\n[1] \"Hello from process #85491. I see x and it is equal to 20\""
   },
   {
     "objectID": "slides/week08.html#ex-2-parallel-regressions",
@@ -1362,7 +1362,7 @@
     "href": "slides/week08.html#ex-2-parallel-regressions-cont.-3",
     "title": "Week 8: Efficiency and High Performance Computing",
     "section": "Ex 2: Parallel regressions (cont. 3)",
-    "text": "Ex 2: Parallel regressions (cont. 3)\nAre we going any faster?\n\nmicrobenchmark::microbenchmark(\n  parallel = parApply(\n    cl = cl,\n    X = X, MARGIN = 2,\n    FUN = function(x) coef(lm(y ~ x))\n  ),\n  serial = apply(\n    X = X, MARGIN = 2,\n    FUN = function(x) coef(lm(y ~ x))\n  ), unit=\"relative\"\n)\n\nUnit: relative\n     expr      min       lq     mean   median       uq      max neval\n parallel 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000   100\n   serial 2.603318 2.623148 2.589386 2.613118 2.616343 2.258219   100"
+    "text": "Ex 2: Parallel regressions (cont. 3)\nAre we going any faster?\n\nmicrobenchmark::microbenchmark(\n  parallel = parApply(\n    cl = cl,\n    X = X, MARGIN = 2,\n    FUN = function(x) coef(lm(y ~ x))\n  ),\n  serial = apply(\n    X = X, MARGIN = 2,\n    FUN = function(x) coef(lm(y ~ x))\n  ), unit=\"relative\"\n)\n\nUnit: relative\n     expr      min       lq     mean  median       uq      max neval\n parallel 1.000000 1.000000 1.000000 1.00000 1.000000 1.000000   100\n   serial 2.643877 2.621755 2.450457 2.59481 2.372613 1.940924   100"
   },
   {
     "objectID": "slides/week08.html#extended-example-sars-cov2-simulation",
@@ -1474,7 +1474,7 @@
     "href": "slides/week08.html#session-info",
     "title": "Week 8: Efficiency and High Performance Computing",
     "section": "Session info",
-    "text": "Session info\n\n\nR version 4.5.1 (2025-06-13)\nPlatform: aarch64-apple-darwin20\nRunning under: macOS Sequoia 15.6.1\n\nMatrix products: default\nBLAS:   /Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/lib/libRblas.0.dylib \nLAPACK: /Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.1\n\nlocale:\n[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n\ntime zone: America/Los_Angeles\ntzcode source: internal\n\nattached base packages:\n[1] parallel  stats     graphics  grDevices utils     datasets  methods  \n[8] base     \n\nother attached packages:\n[1] microbenchmark_1.5.0 scales_1.4.0         RColorBrewer_1.1-3  \n\nloaded via a namespace (and not attached):\n [1] digest_0.6.37     R6_2.6.1          fastmap_1.2.0     xfun_0.52        \n [5] farver_2.1.2      glue_1.8.0        knitr_1.50        htmltools_0.5.8.1\n [9] rmarkdown_2.29    lifecycle_1.0.4   cli_3.6.5         compiler_4.5.1   \n[13] rstudioapi_0.17.1 tools_4.5.1       evaluate_1.0.4    yaml_2.3.10      \n[17] jsonlite_2.0.0    rlang_1.1.6"
+    "text": "Session info\n\n\nR version 4.5.1 (2025-06-13)\nPlatform: aarch64-apple-darwin20\nRunning under: macOS Sequoia 15.6.1\n\nMatrix products: default\nBLAS:   /Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/lib/libRblas.0.dylib \nLAPACK: /Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.1\n\nlocale:\n[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n\ntime zone: America/Los_Angeles\ntzcode source: internal\n\nattached base packages:\n[1] parallel  stats     graphics  grDevices utils     datasets  methods  \n[8] base     \n\nother attached packages:\n[1] microbenchmark_1.5.0 scales_1.4.0         RColorBrewer_1.1-3  \n\nloaded via a namespace (and not attached):\n [1] digest_0.6.37     R6_2.6.1          fastmap_1.2.0     xfun_0.53        \n [5] farver_2.1.2      glue_1.8.0        knitr_1.50        htmltools_0.5.8.1\n [9] rmarkdown_2.29    lifecycle_1.0.4   cli_3.6.5         compiler_4.5.1   \n[13] rstudioapi_0.17.1 tools_4.5.1       evaluate_1.0.5    yaml_2.3.10      \n[17] jsonlite_2.0.0    rlang_1.1.6"
   },
   {
     "objectID": "slides/week08.html#bonus-rcpp-r-c",
@@ -1607,14 +1607,14 @@
     "href": "assignments/hw2.html",
     "title": "Assignment 2 - Data Wrangling, EDA, and Visualization",
     "section": "",
-    "text": "This assignment is due by 11:59pm Pacific Time on Friday, October 10th, 2025."
+    "text": "This assignment is due by 11:59pm Pacific Time on Friday, October 10th Wednesday, October 15th, 2025."
   },
   {
     "objectID": "assignments/hw2.html#due-date",
     "href": "assignments/hw2.html#due-date",
     "title": "Assignment 2 - Data Wrangling, EDA, and Visualization",
     "section": "",
-    "text": "This assignment is due by 11:59pm Pacific Time on Friday, October 10th, 2025."
+    "text": "This assignment is due by 11:59pm Pacific Time on Friday, October 10th Wednesday, October 15th, 2025."
   },
   {
     "objectID": "labs/lab8.html",
@@ -2881,7 +2881,7 @@
     "href": "slides/week02.html#what-is-version-control",
     "title": "Version control and reproducible research",
     "section": "What is version control?",
-    "text": "What is version control?\n\n\n\n\n[I]s the management of changes to documents […] Changes are usually identified by a number or letter code, termed the “revision number”, “revision level”, or simply “revision”. For example, an initial set of files is “revision 1”. When the first change is made, the resulting set is “revision 2”, and so on. Each revision is associated with a timestamp and the person making the change. Revisions can be compared, restored, and with some types of files, merged. – Wikipedia"
+    "text": "What is version control?\n\n\n\n\n\n[I]s the management of changes to documents […] Changes are usually identified by a number or letter code, termed the “revision number”, “revision level”, or simply “revision”. For example, an initial set of files is “revision 1”. When the first change is made, the resulting set is “revision 2”, and so on. Each revision is associated with a timestamp and the person making the change. Revisions can be compared, restored, and with some types of files, merged. – Wikipedia"
   },
   {
     "objectID": "slides/week02.html#why-do-we-care",
