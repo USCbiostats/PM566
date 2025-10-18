@@ -341,7 +341,7 @@ ul.task-list li input[type="checkbox"] {
 <ol type="1">
 <li><p>(7 points) Find the top 10 most popular destinations in the <code>flights</code> data. How many flights went to each?</p></li>
 <li><p>(10 points) Create two new categorical variables in <code>flights</code> based on the departure time (<code>dep_time</code>), and arrival time (<code>arr_time</code>). These new variables should have four categories: “early morning” for 12am to 6am, “morning” for 6am to 12pm, “afternoon” for 12pm to 6pm, and “evening” for 6pm to 12am. Show barplots of both of these new variables. What percentage of flights were “red eye” flights? We’ll define these as flights that depart in “afternoon” or “evening” and arrive in “early morning” or “morning.”</p></li>
-<li><p>(7 points) Where there any planes that flew for multiple airlines? If so, how many were there and which airlines did they fly for?</p></li>
+<li><p>(7 points) Were there any planes that flew for multiple airlines? If so, how many were there and which airlines did they fly for?</p></li>
 <li><p>(7 points) In the figure above, there is a missing relationship between <code>weather</code> and <code>airports</code>. What is the relationship and how should it appear in the diagram?</p></li>
 </ol>
 <p>For the rest of this assignment, the primary question you should keep in mind is this:</p>
@@ -350,13 +350,13 @@ ul.task-list li input[type="checkbox"] {
 </blockquote>
 <p>Don’t try to answer it now, but use this question to guide your exploratory data analysis.</p>
 <ol start="5" type="1">
-<li>(7 points) In order to address our primary question, we want to prepare a tidy dataset (a single data frame). This will consist of information from the <code>flights</code> and <code>weather</code> data. The <code>year</code>, <code>month</code>, <code>day</code>, <code>hour</code>, and <code>origin</code> variables from <code>weather</code> provide <em>almost</em> enough information to give each observation a unique value. Create a new variable in the weather dataset by pasting together those 5 variables, then determine how many duplicated values there are and explain why.</li>
+<li>(7 points) In order to address our primary question, we want to prepare a tidy dataset (a single data frame). This will consist of information from the <code>flights</code> and <code>weather</code> data. The <code>year</code>, <code>month</code>, <code>day</code>, <code>hour</code>, and <code>origin</code> variables from <code>weather</code> provide <em>almost</em> enough information to give each observation a unique value. Create a new variable in the weather dataset by pasting together those 5 variables, then determine how many duplicated values there are and explain why (Hint: compare your new variable to the <code>time_hour</code> variable).</li>
 </ol>
 <p>Now merge the <code>flights</code> data and the <code>weather</code> data so that each flight contains information about the weather at its <strong>departure airport</strong> at the time it was <strong>scheduled</strong> to take off. You’ll want to use the variables <code>time_hour</code> and <code>origin</code> in order to do this.</p>
 <ol start="6" type="1">
 <li><p>(20 points) On this merged dataset, perform steps 2-5 of the EDA checklist presented in class. Remember the context provided by our primary question above.</p></li>
 <li><p>(15 points) Calculate the average departure delay for each <strong>day</strong> (Hint: think about which variables you need in order to do this!). Which day had the worst average length of delay for departures? Now calculate the averages by <strong>day</strong> and <strong>origin</strong>. Which airport had the worst single day for delays and when was it? Now calculate the averages by <strong>hour</strong> and <strong>origin</strong>. Which airport had the worst single hour for delays (and when was it)?</p></li>
-<li><p>(7 points) Compute the average delay by destination, then add that information to the <code>airports</code> data frame. Make a map showing the spatial distribution of delays (you can make it however you like, but we recommend using either <code>ggplot</code> or <code>leaflet</code>). Use the color of the points to display the average delay for each airport.</p></li>
+<li><p>(7 points) Compute the average arrival delay by destination, then add that information to the <code>airports</code> data frame. Make a map showing the spatial distribution of delays (you can make it however you like, but we recommend using either <code>ggplot</code> or <code>leaflet</code>). Use the color of the points to display the average delay for each airport.</p></li>
 <li><p>(20 points) Finally, create as many plots and summary statistics as needed to answer the primary question above.</p></li>
 </ol>
 <hr>

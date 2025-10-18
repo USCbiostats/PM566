@@ -40,7 +40,7 @@ Show barplots of both of these new variables.
 What percentage of flights were "red eye" flights?
 We'll define these as flights that depart in "afternoon" or "evening" and arrive in "early morning" or "morning."
 
-3. (7 points) Where there any planes that flew for multiple airlines? 
+3. (7 points) Were there any planes that flew for multiple airlines? 
 If so, how many were there and which airlines did they fly for?
 
 4. (7 points) In the figure above, there is a missing relationship between `weather` and `airports`.
@@ -55,7 +55,8 @@ Don't try to answer it now, but use this question to guide your exploratory data
 5. (7 points) In order to address our primary question, we want to prepare a tidy dataset (a single data frame).
 This will consist of information from the `flights` and `weather` data.
 The `year`, `month`, `day`, `hour`, and `origin` variables from `weather` provide *almost* enough information to give each observation a unique value.
-Create a new variable in the weather dataset by pasting together those 5 variables, then determine how many duplicated values there are and explain why.
+Create a new variable in the weather dataset by pasting together those 5 variables, then determine how many duplicated values there are and explain why
+(Hint: compare your new variable to the `time_hour` variable).
 
 Now merge the `flights` data and the `weather` data so that each flight contains information about the weather at its **departure airport** at the time it was **scheduled** to take off.
 You'll want to use the variables `time_hour` and `origin` in order to do this.
@@ -71,7 +72,7 @@ Which airport had the worst single day for delays and when was it?
 Now calculate the averages by **hour** and **origin**.
 Which airport had the worst single hour for delays (and when was it)?
 
-8. (7 points) Compute the average delay by destination, then add that information to the `airports` data frame.
+8. (7 points) Compute the average arrival delay by destination, then add that information to the `airports` data frame.
 Make a map showing the spatial distribution of delays (you can make it however you like, but we recommend using either `ggplot` or `leaflet`).
 Use the color of the points to display the average delay for each airport.
 
