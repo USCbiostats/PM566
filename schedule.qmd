@@ -10,7 +10,7 @@ title: "Schedule"
 | 4 | 9/19 | Data visualization	 | [Slides](slides/week04.qmd) | [Lab](labs/lab4.qmd) |  |
 | 5 | 9/26 | Data Cleaning and Wrangling	 | [Slides](slides/week05.qmd) | [Lab](labs/lab5.qmd) | [HW2](assignments/hw2.qmd) |
 | 6 | 10/3 | Text Mining & Sentiment Analysis	 | [Slides](slides/week06.qmd) | [Lab](labs/lab6.qmd) |  |
-|   | 10/10 | NO CLASS - FALL RECESS	 |  |  | Midterm |
+|   | 10/10 | NO CLASS - FALL RECESS	 |  |  | [Midterm](assignments/midterm.qmd) |
 | 7 | 10/17 | Scraping, APIs, and Regular Expressions	 | [Slides](slides/week07.qmd) | [Lab](labs/lab7.qmd) |  |
 | 8 | 10/24 | Efficiency and High Performance Computing | [Slides](slides/week08.qmd) | [Lab](labs/lab8.qmd) | HW3 |
 | 9 | 10/31 | SQL and Managing Big Data	 | [Slides](slides/week09.qmd) | Lab |  |
