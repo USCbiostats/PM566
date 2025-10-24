@@ -573,9 +573,7 @@ magick::image_write(animation, "covid1.gif")
 
 ---
 
-<video controls width="500" height="500">
-<source type="video/webm" src="fig/covid1.webm">
-</video>
+![](img/covid1.gif)
 
 ---
 
