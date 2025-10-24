@@ -348,7 +348,7 @@ And there's also a more advanced set of options
     
     b.  Run a parallelized loop with `parApply`, `parLapply`, etc.
 
-4.  Stop the cluster with `clusterStop`
+4.  Stop the cluster with `stopCluster`
 
 ---
 
@@ -482,7 +482,7 @@ stopCluster(cl)
 
 ---
 
-## Extended Example: SARS-CoV2 simulation
+## Extended Example: SARS-CoV2 simulation{.smaller}
 
 An altered version of [Conway's game of life](https://en.wikipedia.org/wiki/Conway's_Game_of_Life)
 
@@ -521,9 +521,9 @@ probs_susc # Probabilities of i getting the disease
 
 ---
 
-## First look: What does the simulation look like?
+## First look: What does the simulation look like?{.smaller}
 
-```{r first-look}
+```{r first-look, echo=TRUE}
 set.seed(7123)
 one <- simulate_covid(
     pop_size = 1600,
@@ -636,7 +636,7 @@ legend(
 
 We will use the function `system.time` to measure how much time it takes to complete 20 simulations in serial versus parallel fashion using 4 cores.
 
-```{r timing1, cache=TRUE}
+```{r timing1, cache=TRUE,echo=TRUE}
 time_serial <- system.time({
   ans_serial <- replicate(50, {
     simulate_covid(
@@ -652,11 +652,11 @@ time_serial <- system.time({
 
 ---
 
-## Speed things up: Parallel a Forking Cluster
+## Speed things up: Parallel a Forking Cluster{.smaller}
 
 Alternative 1: If you are using Unix-like system (Ubuntu, OSX, etc.), you can take advantage of process forking, and thus, parallel's `mclapply` function:
 
-```{r timing-mclapply, cache=TRUE}
+```{r timing-mclapply, cache=TRUE,echo=TRUE}
 set.seed(1231)
 time_parallel_fork <- system.time({
   ans_parallel <- parallel::mclapply(1:50, function(i) {
@@ -672,12 +672,12 @@ time_parallel_fork <- system.time({
 
 ---
 
-## Speed things up: Parallel with a Socket Cluster
+## Speed things up: Parallel with a Socket Cluster{.smaller}
 
 
 Alternative 2: Regardless of the operating system, we can use a Socket cluster, which is simply a group of fresh R sessions that listen to the parent/main/mother session.
 
-```{r}
+```{r,echo=TRUE}
 # Step 1: Make the cluster
 cl <- parallel::makePSOCKcluster(2L)
 ```
@@ -718,7 +718,7 @@ Bonus: Checking what are the processes running on the system
 
 ## Speed things up: Parallel with a Socket Cluster (cont'd)
 
-```{r timing-parlapply, cache=TRUE}
+```{r timing-parlapply, cache=TRUE,echo=TRUE}
 # Step 3: Do your call
 time_parallel_sock <- system.time({
   ans_parallel <- parallel::parLapply(cl, 1:50, function(i) {
@@ -739,15 +739,15 @@ parallel::stopCluster(cl)
 
 Using two threads/processes, you can obtain the following speedup
 
-```{r}
+```{r,echo=TRUE}
 time_serial
 ```
 
-```{r}
+```{r,echo=TRUE}
 time_parallel_sock
 ```
 
-```{r}
+```{r,echo=TRUE}
 time_parallel_fork
 ```
 
@@ -757,7 +757,7 @@ time_parallel_fork
 
 ---
 
-## Cloud Computing (a.k.a. on-demand computing)
+## Cloud Computing (a.k.a. on-demand computing){.smaller}
 
 HPC clusters, super-computers, etc. need not be bought... you can rent:
 
@@ -773,7 +773,7 @@ These services provide more than just computing (storage, data analysis, etc.). 
 
 ---
 
-## There are many ways to run R in the cloud
+## There are many ways to run R in the cloud{.smaller}
 
 At USC:
 
@@ -788,7 +788,7 @@ Running R in:
 
 ---
 
-## Submitting jobs
+## Submitting jobs{.smaller}
 
 - A key feature of cloud services: interact via command line.
 
@@ -798,7 +798,7 @@ Running R in:
 
 ---
 
-## Submitting jobs (examples)
+## Submitting jobs (examples){.smaller}
 
 Imagine we have the following R script (download [here](dummy.R)):
 
@@ -831,7 +831,7 @@ The `&` at the end makes sure the job is submitted and does not wait for it to e
 
 ---
 
-## Rscript
+## Rscript{.smaller}
 
 The R script can be executed as a program directly, if you specify where the `Rscript` program lives.
 
@@ -848,7 +848,7 @@ This R script can be executed in various ways...
 
 ---
 
-## Rscript as a program
+## Rscript as a program{.smaller}
 
 For this we would need to change it to an executable. In unix you can use the
 [chmod](https://wikipedia.org/wiki/chmod) command: `chmod +x since_born.R`. This allows us to do the following:
@@ -859,7 +859,7 @@ For this we would need to change it to an executable. In unix you can use the
 
 ---
 
-## Rscript in a bash script (most common)
+## Rscript in a bash script (most common){.smaller}
 
 In the case of running jobs on a cluster or something similar, we usually need to have a bash script. In our case, we have a file named `since_born_bash.sh` that calls `Rscript` (download [here](since_born_bash.sh))
 
@@ -876,7 +876,7 @@ sh img/since_born_bash.sh
 
 ---
 
-# Summary
+# Summary{.smaller}
 
 - Parallel computing can speed things up.
 
