@@ -17,9 +17,6 @@ library(tidyverse)
 library(ggplot2)
 # # load required packages
 if(!require(plotly)) install.packages("plotly", repos = "http://cran.us.r-project.org")
-#if(!require(here)) install.packages("here", repos = "http://cran.us.r-project.org")
-#if(!require(fs)) install.packages("fs", repos = "http://cran.us.r-project.org")
-#if(!require(widgetframe)) install.packages("widgetframe", repos = "http://cran.us.r-project.org")
 
 opts_chunk$set(
   warning = FALSE,
@@ -541,40 +538,30 @@ The `geom_smooth()` helps us to see there is not a clear correlation between cas
 You can add annotations to your interactive plot
 
 ```{r, eval=FALSE}
-p <- ggplot(cv_states_today, aes(x=deathsper100k, y=per100k, size=naive_CFR)) + geom_point() + geom_smooth()
-fig <- p |>
-  ggplotly(layerData = 2, originalData = F) |>
-  add_fun(function(fig) {
-    fig |> slice(which.max(se)) |>
-      add_segments(x = ~x, xend = ~x, y = ~ymin, yend = ~ymax) |>
-      add_annotations("Max uncertainty")
-  })
-fig <- fig |> add_fun(function(p) {
-    fig |> slice(which.min(se)) |>
-      add_segments(x = ~x, xend = ~x, y = ~ymin, yend = ~ymax) |>
-      add_annotations("Min uncertainty")
-  })
+p <- ggplot(cv_states_today, aes(x=deathsper100k, y=per100k, size=naive_CFR)) + 
+  geom_point() + 
+  geom_smooth() +
+  annotate("text", 
+           x = max(cv_states_today$deathsper100k),
+           y = max(cv_states_today$per100k),
+           label = paste('Cor =', cor(cv_states_today$deathsper100k, cv_states_today$per100k)))
+fig <- ggplotly(p)
 ```
 
 ---
 
 ## Annotations
 
-```{r, echo=FALSE, message=FALSE}
-p <- ggplot(cv_states_today, aes(x=deathsper100k, y=per100k)) + geom_point(aes(size=naive_CFR)) + geom_smooth()
-fig <- p |>
-  ggplotly(layerData = 2, originalData = F) |>
-  add_fun(function(fig){
-    fig |> slice(which.max(se)) |>
-      add_segments(x = ~x, xend = ~x, y = ~ymin, yend = ~ymax) |>
-      add_annotations("Max uncertainty")
-  })
-fig <- fig |> add_fun(function(p) {
-    fig |> slice(which.min(se)) |>
-      add_segments(x = ~x, xend = ~x, y = ~ymin, yend = ~ymax) |>
-      add_annotations("Min uncertainty")
-  })
-#fig
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+p <- ggplot(cv_states_today, aes(x=deathsper100k, y=per100k, size=naive_CFR)) + 
+  geom_point() + 
+  geom_smooth() +
+  annotate("text", 
+           x = max(cv_states_today$deathsper100k),
+           y = max(cv_states_today$per100k),
+           label = paste('Cor =', cor(cv_states_today$deathsper100k, cv_states_today$per100k)))
+fig <- ggplotly(p)
+fig
 ```
 
 ---
