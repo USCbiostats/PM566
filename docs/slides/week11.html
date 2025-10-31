@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.7.32">
+
+  <meta name="author" content="Abigail Horn, Kelly Street">
+  <title>PM 566 – Interactive Visualization 2: Building Websites</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-f563837468303362081e247dddd440d0.css">
+  <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Interactive Visualization 2: Building Websites</h1>
+  <p class="subtitle">PM 566 - Week 11</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Abigail Horn, Kelly Street 
+</div>
+</div>
+</div>
+
+</section>
+<section id="interactive-visualization-last-week" class="slide level2">
+<h2>Interactive visualization: Last week</h2>
+<ul>
+<li><p>Interactive plots (<code>plotly</code>, <code>ggplotly</code>)</p></li>
+<li><p>Interactive maps (<code>ggplotly</code>, <code>Leaflet</code>)</p></li>
+<li><p>Interactive tables (<code>DT</code>)</p></li>
+</ul>
+</section>
+<section id="interactive-visualization-this-week" class="slide level2">
+<h2>Interactive visualization: This week</h2>
+<p>We will build static websites using Quarto and GitHub Pages (like <a href="https://ksiegmund.github.io/PM566-lab12-example/">this</a> or <a href="https://kstreet13.github.io/wnbastandings/">this</a>).</p>
+<p>We will learn how to render text, code, static visuals, and interactive visuals on the website.</p>
+<p>We will then learn how to get your website to go “live” on GitHub Pages, making it available for anyone to see.</p>
+</section>
+<section id="building-websites-in-quarto-with-github-pages" class="slide level2">
+<h2>Building websites in Quarto with GitHub Pages</h2>
+<p>To understand how websites are built in Quarto, we first must understand a bit about <strong>how Quarto documents are rendered</strong> to produce HTML output.</p>
+<p>It is not essential to understand all the inner workings of this process to be able to create a website. However, it is important to understand which component is responsible for what since this will make it easier to target appropriate help files when you need them!</p>
+</section>
+<section class="slide level2">
+
+</section>
+<section>
+<section id="quarto-render" class="title-slide slide level1 center">
+<h1>Quarto Render</h1>
+
+</section>
+<section id="what-does-quarto-require-to-render-files" class="slide level2 smaller">
+<h2>What does Quarto require to render files?</h2>
+<p>Quarto combines several different processes together to create documents. In doing so it requires the use of a few essential ingredients (software and packages)<sup>1</sup>:</p>
+<ul>
+<li><p>Quarto: A markup language for creating <code>.qmd</code> files that you have used.</p></li>
+<li><p><strong>quarto</strong>: An R package for processing and converting <code>.qmd</code> files into a number of different formats.</p></li>
+<li><p><strong>knitr</strong>: An R package for transforming a mixture of R code and text in a <code>.qmd</code> file into a <code>.md</code> file by executing the code and “knitting” the results back into the document.</p></li>
+<li><p>Pandoc: A document converter. It is designed to convert plain text files from one markup language (including <code>.qmd</code> files) into many output formats. It is a command line software with no GUI. Although it’s separate from R, it comes bundled with R Studio.</p></li>
+</ul>
+<aside><ol class="aside-footnotes"><li id="fn1"><p><em>A note on formatting</em>: <strong>word</strong> indicates an R package, while <code>word</code> indicates inline code or file name/format. Software programs (e.g.&nbsp;R Markdown and Pandoc) are not given a special formatting.</p></li></ol></aside></section>
+<section id="quarto-render-1" class="slide level2 smaller">
+<h2>Quarto Render</h2>
+<p>The basic workflow structure for a Quarto document is shown below, including intermediate files that are created before the final output.</p>
+
+<img data-src="https://gabriel.quarto.pub/introduction-to-quarto/figures/quarto_workflow.png" class="r-stretch quarto-figure-center"><p class="caption">Credit: Gabriel Odom</p></section>
+<section id="quarto-render-2" class="slide level2 smaller">
+<h2>Quarto Render</h2>
+<p>The workflow in more detail is as follows:</p>
+<ol type="1">
+<li><p>The <code>.qmd</code> document is written. It is the original format of the document. It contains a combination of YAML (metadata in the header), text, and code chunks. The YAML header specifies document properties and rendering instructions (like <code>html</code> for HTML output)</p></li>
+<li><p>The <code>knit()</code> function in <strong>knitr</strong> is used to execute all code embedded within the <code>.qmd</code> file, and prepare the code output to be displayed within the output document. <strong>knitr</strong> handles the execution and translation of all code in the file. All these results are converted into the correct markup language and contained within a temporary <code>.md</code> file.</p></li>
+<li><p>The <code>.md</code> file is processed by Pandoc. It takes any parameters specified within the YAML frontmatter of the document (e.g., <code>title</code>, <code>author</code>, and <code>date</code>) to convert the document to the output format specified in the <code>output</code> parameter (in our case: <code>html</code> for HTML output)</p></li>
+</ol>
+</section>
+<section id="quarto-render-cont." class="slide level2 smaller">
+<h2>Quarto Render (cont.)</h2>
+<ol start="4" type="1">
+<li>The whole process is implemented by Quarto (the software) via the function from the built-in <strong>quarto</strong> (package): <code>quarto::quarto_render()</code></li>
+</ol>
+<p>Along the way, we add <strong>structure and style</strong>. A wide range of tools helps us in this process. For creating HTML output, some of these include <em>Cascading Style Sheets (CSS)</em> for adding style (e.g., fonts, colors, spacing) to Web documents, raw HTML code, and Pandoc templates.</p>
+</section>
+<section id="yaml-metadata" class="slide level2">
+<h2>YAML metadata</h2>
+<p>YAML = <s>Yet Another Markup Language</s> YAML Ain’t Markup Language</p>
+<p>It is a data-oriented <em>language structure</em> used as the input format for diverse software application. It is not a markup language (which includes indicators or “markup” which direct processing) but a <em>serialization</em> language. <em>Serialization</em> is the process of converting an object into a format that can be transmitted or stored, by converting the object series of bits. This series of bits is then read later to reconstruct the object.</p>
+</section>
+<section id="yaml-metadata-1" class="slide level2">
+<h2>YAML metadata</h2>
+<p>A typical YAML header looks like this, and contains basic metadata about the document and rendering instructions:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a></a><span class="pp">---</span></span>
+<span id="cb1-2"><a></a><span class="fu">title</span><span class="kw">:</span><span class="at"> My Quarto Website</span></span>
+<span id="cb1-3"><a></a><span class="fu">author</span><span class="kw">:</span><span class="at"> Abigail Horn</span></span>
+<span id="cb1-4"><a></a><span class="fu">format</span><span class="kw">:</span><span class="at"> html</span></span>
+<span id="cb1-5"><a></a><span class="pp">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="yaml-metadata-cont." class="slide level2">
+<h2>YAML metadata (cont.)</h2>
+<p>The YAML metadata affects the code, content, and the output. It is processed during many stages of the rendering process by <strong>quarto</strong>, <strong>knitr</strong>, and Pandoc:</p>
+<ul>
+<li><p>The <code>title</code> and <code>author</code> fields are processed by Pandoc to set the values of template variables</p></li>
+<li><p>The <code>format</code> field is used by <strong>quarto</strong> and Pandoc to select the rendering process.</p></li>
+</ul>
+<p>Building a website is slightly more complex than rendering a single HTML document. <strong>We will come back to specify the YAML metadata necessary for setting up a website.</strong></p>
+</section>
+<section id="summary-what-happens-when-we-render-quarto-files" class="slide level2">
+<h2>Summary: What happens when we render Quarto files?</h2>
+<p>In short: <code>quarto::quarto_render()</code> = <code>knitr::knit()</code> + Pandoc</p>
+<p>The YAML metadata in the Quarto (<code>.qmd</code>) file dictates the process and how the output is produced.</p>
+</section>
+<section class="slide level2">
+
+</section></section>
+<section>
+<section id="website-basics" class="title-slide slide level1 center">
+<h1>Website basics</h1>
+<p>The most common components of a web page are HTML, CSS, and JavaScript. HTML is relatively simple to learn, but CSS and JavaScript can be much more complicated, depending on how much you want to learn and what you want to do with them.</p>
+<p>You don’t need to know much (or any) HTML, CSS, or JavaScript to develop a website using Quarto. But these tools may become necessary if you want to tweak the appearance or performance of your website.</p>
+</section>
+<section id="html-basics" class="slide level2 smaller">
+<h2>HTML basics</h2>
+<ul>
+<li><p>HTML = Hyper Text Markup Language. HTML is a standard markup language (not programming language) that provides the primary structure of most websites.</p></li>
+<li><p>HTML defines the basic structure of a web page. HTML works on the look of the website without the interactive effects and all. HTML pages are static, which means the content cannot be changed.</p></li>
+<li><p>All elements in HTML are represented by tags. Most HTML tags appear in pairs, with an opening tag and a closing tag, and content is placed between the opening and closing tags, e.g., <code>&lt;span style="background-color: #B9BFFF"&gt;This is highlighted text&lt;/span&gt;</code> –&gt; <span style="background-color: #B9BFFF">This is highlighted text</span>.</p></li>
+<li><p>There are a few exceptions, such as the <code>&lt;img&gt;</code> tag, which can be closed by a slash / in the opening tag, e.g., <code>&lt;img src="foo.png" /&gt;</code>. You can specify attributes of an element in the opening tag using the syntax name=value (a few attributes do not require value).</p></li>
+<li><p>Basically an HTML document consists a <code>head</code> section and <code>body</code> section. You can specify the metadata and include assets like CSS files in the head section.</p></li>
+</ul>
+</section>
+<section id="helpful-html" class="slide level2">
+<h2>Helpful HTML</h2>
+<p>Font size and color: <code>&lt;font size="3" color="red"&gt;Text here!&lt;/font&gt;</code></p>
+<p>Columns: <code>&lt;div class="col2"&gt; and &lt;/div&gt;</code></p>
+<p>Centered text: <code>&lt;center&gt;**Here the text is centered. Here are good resources:**&lt;/center&gt;</code></p>
+<p>Small image right-aligned: <code>&lt;div align="right"&gt;&lt;img src="images/Rmd_cheatsheet.png" width="150px"&gt;&lt;/div&gt;</code></p>
+<p>Large image centered: <code>&lt;center&gt;&lt;img src="images/Rmd_cheatsheet.png" width="500px"&gt;&lt;/center&gt;</code></p>
+</section>
+<section id="css-basics" class="slide level2 smaller">
+<h2>CSS basics</h2>
+<p>CSS = Cascading Stylesheets (CSS). It is a markup language is used to describe the look and formatting of documents written in HTML. it is responsible for the visual style of your site, responsible for components including: - color palettes, - images, - layouts/margins - fonts</p>
+<p>as well as interactive components like</p>
+<ul>
+<li>dropdown menus</li>
+<li>buttons, and</li>
+<li>forms</li>
+</ul>
+<p>There are 3 ways to define styles:</p>
+<ul>
+<li>in-line with HTML</li>
+<li>placing a style section in your HTML document</li>
+<li>define the CSS in an external file that is then referenced as a link in your HTML (most flexible)</li>
+</ul>
+</section>
+<section id="javascript" class="slide level2 smaller">
+<h2>JavaScript</h2>
+<p>JavaScript is an advanced programming language (unlike HTML and CSS, which do not contain any programming logic) that makes web pages more interactive and dynamic. JavaScript simply adds dynamic content to websites to make them look good. JavaScript can be embedded inside HTML.</p>
+<p>An effective way to learn it is through the JavaScript console in the Developer Tools of your web browser because you can interactively type code in the console and execute it, which feels similar to executing R code in the R console (e.g., in RStudio). You may open any web page in your web browser, then open the JavaScript console, and try the code below on any web page:</p>
+<pre><code>document.body.style.background = 'orange';</code></pre>
+<p>Which should turn the background orange, unless the page has already defined background colors for certain elements.</p>
+<p>To effectively use JavaScript, you have to learn both the basic syntax of JavaScript and how to select elements on a page before you can manipulate them.</p>
+<p>To effectively use JavaScript, you have to learn both the basic syntax of JavaScript and how to select elements on a page before you can manipulate them.</p>
+</section>
+<section id="website-basics-learning-more" class="slide level2">
+<h2>Website basics: learning more</h2>
+<ul>
+<li><p>The best way to learn about what goes into web development: use “Developer Tools”, e.g.&nbsp;<code>View -&gt; Developer</code> in Google Chrome. Or right click and “inspect”.</p></li>
+<li><p>A brief intro to HTML, CSS, and JavaScript is provided in the <a href="https://bookdown.org/yihui/blogdown/website-basics.html">blogdown book</a></p></li>
+<li><p>You can also learn more at <a href="https://www.w3schools.com/">w3schools</a> or of course StackOverflow!</p></li>
+</ul>
+</section>
+<section class="slide level2">
+
+</section></section>
+<section>
+<section id="building-a-website-using-quarto" class="title-slide slide level1 center">
+<h1>Building a website using Quarto</h1>
+
+</section>
+<section id="background-static-vs.-dynamic-websites" class="slide level2 smaller">
+<h2>Background: Static vs.&nbsp;dynamic websites</h2>
+<ul>
+<li><p>A <em>dynamic site</em> relies on a server-side language to do certain computing and sends potentially different content depending on different conditions. A common language is PHP, and a typical example of a dynamic site is a web forum. For example, each user has a profile page, but typically this does not mean the server has stored a different HTML profile page for every single user. Instead, the server will fetch the user data from a database, and render the profile page dynamically.</p></li>
+<li><p>A <em>static site</em> consists of static files such as HTML, CSS, JavaScript, images, etc., and the web server sends exactly the same content to the web browser no matter who visits the web pages. There is no dynamic computing on the server when a page is requested. <em>It is just one folder of static files.</em></p></li>
+</ul>
+</section>
+<section id="creating-a-quarto-website" class="slide level2">
+<h2>Creating a Quarto website</h2>
+<p>Quarto has a built-in <em>static</em> site generator, which we will be using today. It comes with a library of CSS styles and themes (Bootstrap 5) to choose from.</p>
+<ul>
+<li>There are many other static site generators, including Hugo, Jekyll, and Hexo, etc. These provide many site themes, templates, and features, but are more complex than <strong>quarto</strong>’s built-in generator.</li>
+</ul>
+</section>
+<section id="creating-a-quarto-website-cont.-1" class="slide level2">
+<h2>Creating a Quarto website (cont. 1)</h2>
+<p><strong>quarto</strong>’s site generator is a good option if:</p>
+<ul>
+<li>You are familiar with generating single-page HTML output in Quarto</li>
+<li>You want to build a simple website with a few pages</li>
+<li>It suffices to use a flat directory of <code>.qmd</code> files</li>
+<li>You don’t require features such as forums or RSS feeds</li>
+</ul>
+</section>
+<section class="slide level2">
+
+</section></section>
+<section>
+<section id="overview" class="title-slide slide level1 center">
+<h1>Overview</h1>
+<p>There are two main steps for creating a personal website that will be hosted on GitHub:</p>
+<ul>
+<li>Create website locally</li>
+<li>Deploy website through GitHub</li>
+</ul>
+<p>If you need a guide, we strongly recommend the official Quarto documentation on website building: <a href="https://quarto.org/docs/websites/">https://quarto.org/docs/websites/</a></p>
+</section>
+<section id="overview-local-setup" class="slide level2">
+<h2>Overview: Local Setup</h2>
+<p>The easiest way to get started on a new website is to create a new project in R Studio:</p>
+<ul>
+<li>File &gt; New Project…</li>
+<li>New Directory</li>
+<li>Quarto Website</li>
+<li>Give your project/directory a name and choose its location</li>
+<li>Create a git repository</li>
+<li>Create Project</li>
+</ul>
+</section>
+<section id="overview-local-setup-cont.-1" class="slide level2 smaller">
+<h2>Overview: Local Setup (cont. 1)</h2>
+<p>When you create the new project, you’re taken to a new R environment in the project directory. The directory contains these files:</p>
+<ul>
+<li><code>_quarto.yml</code>: Website settings and elements common to all pages.</li>
+<li><code>.gitignore</code>: Files to be ignored.</li>
+<li><code>about.qmd</code>: An About page for our website.</li>
+<li><code>index.qmd</code>: The main page of our website.</li>
+<li><code>style.css</code>: Additional style options.</li>
+<li><code>&lt;name&gt;.Rproj</code>: An R Studio project file.</li>
+</ul>
+</section>
+<section id="overview-local-setup-cont.-2" class="slide level2 smaller">
+<h2>Overview: Local Setup (cont. 2)</h2>
+<p>If we hit the Render button, Quarto will build our website and automatically open the main page in a web browser.</p>
+<p>Notice that this created that additional output folder:</p>
+<ul>
+<li><code>_site</code>: The static version of your website, where HTML files (and others) are stored.</li>
+</ul>
+</section>
+<section id="website-elements-_quarto.yml" class="slide level2">
+<h2>Website elements: <code class="smaller">_quarto.yml</code></h2>
+<p>Your <code>_quarto.yml</code> should look like this:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb3-1"><a></a><span class="fu">project</span><span class="kw">:</span></span>
+<span id="cb3-2"><a></a><span class="at">  </span><span class="fu">type</span><span class="kw">:</span><span class="at"> website</span></span>
+<span id="cb3-3"><a></a></span>
+<span id="cb3-4"><a></a><span class="fu">website</span><span class="kw">:</span></span>
+<span id="cb3-5"><a></a><span class="at">  </span><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"name"</span></span>
+<span id="cb3-6"><a></a><span class="at">  </span><span class="fu">navbar</span><span class="kw">:</span></span>
+<span id="cb3-7"><a></a><span class="at">    </span><span class="fu">left</span><span class="kw">:</span></span>
+<span id="cb3-8"><a></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">href</span><span class="kw">:</span><span class="at"> index.qmd</span></span>
+<span id="cb3-9"><a></a><span class="at">        </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Home</span></span>
+<span id="cb3-10"><a></a><span class="at">      </span><span class="kw">-</span><span class="at"> about.qmd</span></span>
+<span id="cb3-11"><a></a></span>
+<span id="cb3-12"><a></a><span class="fu">format</span><span class="kw">:</span></span>
+<span id="cb3-13"><a></a><span class="at">  </span><span class="fu">html</span><span class="kw">:</span></span>
+<span id="cb3-14"><a></a><span class="at">    </span><span class="fu">theme</span><span class="kw">:</span></span>
+<span id="cb3-15"><a></a><span class="at">      </span><span class="kw">-</span><span class="at"> cosmo</span></span>
+<span id="cb3-16"><a></a><span class="at">      </span><span class="kw">-</span><span class="at"> brand</span></span>
+<span id="cb3-17"><a></a><span class="at">    </span><span class="fu">css</span><span class="kw">:</span><span class="at"> styles.css</span></span>
+<span id="cb3-18"><a></a><span class="at">    </span><span class="fu">toc</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="website-elements-_quarto.yml-cont.-1" class="slide level2 smaller">
+<h2>Website elements: <code>_quarto.yml</code> (cont. 1)</h2>
+<p>There’s one very important field we need to add, which is the <code>output-dir</code>. We’ve seen that our output directory is called <code>_site</code>, but unfortunately, GitHub Pages can only deploy from either (1) the root of your repository, or (2) a subdirectory called <code>docs</code>.</p>
+<p>Add a new line under <code>project:</code> in your <code>_quarto.yml</code> file like this:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb4-1"><a></a><span class="fu">project</span><span class="kw">:</span></span>
+<span id="cb4-2"><a></a><span class="at">  </span><span class="fu">type</span><span class="kw">:</span><span class="at"> website</span></span>
+<span id="cb4-3"><a></a><span class="at">  </span><span class="fu">output-dir</span><span class="kw">:</span><span class="at"> docs</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Once you’ve done this, you can delete the <code>_site</code> directory.</p>
+</section>
+<section id="quarto.yml-navigation-bar" class="slide level2 smaller">
+<h2><code>_quarto.yml</code>: Navigation Bar</h2>
+<p>The <code>navbar</code> element of <code>_quarto.yml</code> can be used to define a common navigation bar for your website. You can include internal and external links on the navigation bar as well as drop-down menus for sites with a large number of pages.</p>
+<p>Some things you can do with navigation bars:</p>
+<ul>
+<li>Use the <code>type</code> field to choose between the <code>dark</code> and <code>light</code> styles (every theme includes distinct colors both).</li>
+<li>Align items either to the <code>left</code> or to the <code>right</code>.</li>
+<li>Include both internal and external links.</li>
+<li>Use icons from <a href="https://icons.getbootstrap.com/">Bootstrap</a>.</li>
+</ul>
+</section>
+<section id="quarto.yml-footer" class="slide level2">
+<h2><code>_quarto.yml</code>: Footer</h2>
+<p>There are many other elements you may want to include on every page. For example, the PM 566 website contains a footer:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb5-1"><a></a><span class="at">  </span><span class="fu">page-footer</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb5-2"><a></a><span class="at">    </span><span class="fu">left</span><span class="kw">:</span></span>
+<span id="cb5-3"><a></a><span class="at">      University of Southern California &lt;br&gt;</span></span>
+<span id="cb5-4"><a></a><span class="at">      Department of Population and Public Health Sciences</span></span>
+<span id="cb5-5"><a></a><span class="at">    </span><span class="fu">right</span><span class="kw">:</span></span>
+<span id="cb5-6"><a></a><span class="at">      LICENSE &lt;br&gt;</span></span>
+<span id="cb5-7"><a></a><span class="at">      View the [source at GitHub](https://github.com/USCbiostats/PM566).</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="rendering-a-page" class="slide level2">
+<h2>Rendering a page</h2>
+<p>As you work on the individual pages of your website, you can render them using the <code>Render</code> button just as you do with conventional standalone Quarto documents.</p>
+</section>
+<section id="rendering-the-site" class="slide level2">
+<h2>Rendering the site</h2>
+<p>Note that only the active page is rebuilt when you click “Render,” so once you are happy with the results of rendering you should make sure to rebuild the entire site with <code>quarto_render()</code> in R or <code>quarto render</code> in the terminal.</p>
+<p>In other words, you need to re-build the website to integrate any new changes to one page.</p>
+</section>
+<section id="rendering-the-site-cont." class="slide level2">
+<h2>Rendering the site (cont.)</h2>
+<p>You can call the <code>quarto_render()</code> function to render every page of the site.</p>
+<p>If you do this from within the directory containing the website, the following will occur:</p>
+<ul>
+<li>All of the <code>*.qmd</code> and <code>*.md</code> files in the root website directory will be rendered into HTML.</li>
+<li>The generated HTML files and any supporting files (e.g., CSS and JavaScript) are copied into an output directory (<code>docs</code> for us, but <code>_site</code> by default).</li>
+<li>The HTML files within the <code>docs</code> directory are now ready to deploy as a standalone static website.</li>
+</ul>
+</section>
+<section class="slide level2">
+
+</section></section>
+<section>
+<section id="helpful-features" class="title-slide slide level1 center">
+<h1>Helpful features</h1>
+
+</section>
+<section id="website-themes" class="slide level2">
+<h2>Website themes</h2>
+<p>Quarto makes styling easy for you through the Bootstrap framework. Bootstrap has multiple themes we can choose from. Explore themes <a href="https://quarto.org/docs/output-formats/html-themes.html">here</a></p>
+<p>We can change the website’s theme in <code>_quarto.yml</code> or even set one theme for “dark mode” and another for “light mode.”</p>
+</section>
+<section id="r-scripts" class="slide level2">
+<h2>R scripts</h2>
+<p>If you have R code that you would like to share across multiple Quarto documents within your site, you can create an R script (e.g., <code>utils.R</code>) and source it within your <code>.qmd</code> files. For example:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a></a><span class="in">```{r}</span></span>
+<span id="cb6-2"><a></a><span class="fu">source</span>(<span class="st">"utils.R"</span>)</span>
+<span id="cb6-3"><a></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="adding-interactive-content" class="slide level2 smaller">
+<h2>Adding interactive content</h2>
+<p>Quarto includes many facilities for generation of HTML content from R objects, including:</p>
+<ul>
+<li>Conversion of standard R output types (e.g., <strong>ggplot2</strong> objects) within code chunks done automatically by <strong>knitr</strong></li>
+<li>A variety of ways to generate HTML tables, including the <code>knitr::kable()</code> function and other packages such as <strong>kableExtra</strong></li>
+<li>A large number of available HTML widgets (e.g., <strong>plotly</strong> and <strong>DT</strong> objects) that provide rich JavaScript data visualizations.</li>
+</ul>
+<p>As a result, for most Quarto websites <em>you will not need to worry about generating HTML output at all</em> (since it is created automatically).</p>
+</section>
+<section id="saving-interactive-plots-as-html-widgets" class="slide level2 smaller">
+<h2>* Saving interactive plots as HTML widgets</h2>
+<p>If you are having issues with embedding interactive plots, you can use the package <strong>widgetframe</strong> to save HTML files via an HTML <code>iframe</code>. This is convenient not only for re-using a widget in various parent documents, but also for preventing any JavaScript and CSS in the parent document from negatively impacting how the widget renders</p>
+<p>The <strong>widgetframe</strong> package automates the saving of widgetframe packages into <iframes> and has options for controling where, how, and if external dependencies are stored on the file system when using it inside a knitr/rmarkdown document. <strong>widgetframe</strong> is designed to be used in <code>.Rmd</code> documents which will eventually be knitted to an HTML or a derived format. Use the default options and embed files like this:</iframes></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a></a><span class="in">```{r}</span></span>
+<span id="cb7-2"><a></a><span class="fu">library</span>(widgetframe)</span>
+<span id="cb7-3"><a></a>test.widget <span class="ot">&lt;-</span> <span class="fu">plot_ly</span>()</span>
+<span id="cb7-4"><a></a>widgetframe<span class="sc">::</span><span class="fu">frameWidget</span>(test.widget, <span class="at">width =</span> <span class="st">'75%'</span>)</span>
+<span id="cb7-5"><a></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>widgetframe</strong> will take care of embedding the supporting HTML widget libraries in a folder together.</p>
+</section>
+<section id="adding-dynamic-content" class="slide level2">
+<h2>* Adding dynamic content</h2>
+<p>Quarto is compatible with a variety of external libraries that provide commenting systems. You can check the documentation for how to incorporate a comments section on your website: <a href="https://quarto.org/docs/output-formats/html-basics.html">https://quarto.org/docs/output-formats/html-basics.html</a></p>
+</section>
+<section id="knitr-caching" class="slide level2 smaller">
+<h2>knitr caching</h2>
+<p>If your website is time consuming to render, you may want to enable <strong>knitr</strong>’s caching during the development of the site, so that you can more rapidly preview. To enable caching for an individual chunk, just add the <code>cache = TRUE</code> chunk option:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a></a><span class="in">```{r, cache = TRUE}</span></span>
+<span id="cb8-2"><a></a>data <span class="ot">&lt;-</span> <span class="fu">longComputation</span>()</span>
+<span id="cb8-3"><a></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>To enable caching for an entire document, add <code>cache = TRUE</code> to the global chunk option defaults:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a></a><span class="in">```{r setup, include=FALSE}</span></span>
+<span id="cb9-2"><a></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">cache =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb9-3"><a></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Note that when caching is enabled for a <code>.qmd</code> document, its <code>*_files</code> directory will be copied rather than moved to the <code>_site</code> directory (since the cache requires references to generated figures in the <code>*_files</code> directory).</p>
+</section>
+<section id="how-to-help-people-find-your-site" class="slide level2 smaller">
+<h2>How to help people find your site</h2>
+<p>Helping people find your site, i.e.&nbsp;Search Engine Optimization, is the art of making a website easy for search engines like Google to understand. There are multiple books and moreover companies devoted to improving SEO. A few key points:</p>
+<ul>
+<li>The title that you select for each page and post is a very important signal to Google and other search engines telling them what that page is about.</li>
+<li>Description tags are also critical to explain what a page is about. In HTML documents, description tags are one way to provide metadata about the page. You can add a description to a page’s YAML header like:</li>
+</ul>
+<pre><code>description: "A brief description of this page that helps SEO find it!.";</code></pre>
+<ul>
+<li>URL structure matters.</li>
+</ul>
+<p>A good place to learn more is the Google <a href="http://bit.ly/google-seo-starter">Search Engine Optimization Starter Guide</a></p>
+</section>
+<section class="slide level2">
+
+</section></section>
+<section>
+<section id="deploying-your-website" class="title-slide slide level1 center">
+<h1>Deploying your website</h1>
+
+</section>
+<section id="deployment" class="slide level2 smaller">
+<h2>Deployment</h2>
+<p>At this point, your static website is basically a folder containing static files.</p>
+<ul>
+<li>All site content is copied into the <code>docs</code> directory, so deployment is simply a matter of moving that directory to the appropriate directory of a web server, and your website will be up and running shortly.</li>
+</ul>
+<p>The key question is which web server you want to use.</p>
+<ul>
+<li>We will focus on hosting websites through GitHub pages, because it’s a free, easy option and we already have some familiarity with GitHub.</li>
+</ul>
+<p>There are other free sites for website hosting, and another popular and free choice is <a href="https://www.netlify.com/">Netlify</a>.</p>
+</section>
+<section id="deploying-with-github-pages" class="slide level2">
+<h2>Deploying with GitHub Pages</h2>
+<p>The workflow for deploying to GitHub Pages is as follows:</p>
+<ol type="1">
+<li>Make a GitHub repository with a <code>docs</code> subdirectory (you can use GitHub Desktop to establish a link between your local repository and a new remote repository)</li>
+<li>Go to “Settings”</li>
+<li>Click “Pages” in the left column</li>
+<li>Under “Source,” select “Deploy from a branch”</li>
+<li>Under “Branch” select the <code>main</code> branch and specify the <code>/docs</code> folder</li>
+</ol>
+</section>
+<section id="deploying-with-github-pages-cont." class="slide level2">
+<h2>Deploying with GitHub Pages (cont.)</h2>
+<p>Once you’ve done this, it should automatically set up a new workflow in the Actions tab of your repository. This workflow creates the public version of your website, typically at <code>&lt;username&gt;.github.io/&lt;project&gt;/</code>.</p>
+<p>Now, every time you push a new update to your website, GitHub Pages will automatically update it!</p>
+</section>
+<section class="slide level2">
+
+</section></section>
+<section id="resources" class="title-slide slide level1 smaller center">
+<h1>Resources</h1>
+<p>Primary reference:</p>
+<ul>
+<li><a href="https://quarto.org/docs/websites/">Quarto website documentation</a></li>
+</ul>
+<p>Useful tutorials:</p>
+<ul>
+<li>Video series (ft. former PM 566 instructor Emil Hvitfeldt!): <a href="https://www.youtube.com/playlist?list=PLitrm9Undxcu7eExaTg9Y-JYLv9O6uxGu">Quarto Websites with Charlotte and Emil</a></li>
+<li>Step-by-step tutorial: <a href="https://www.danyavorsky.com/posts/020-quarto-websites/">Build a Quarto Website - Dan Yavorsky</a></li>
+</ul>
+<p>Interactive plots, <code>shiny</code>, and dashboards:</p>
+<ul>
+<li><a href="http://shiny.rstudio.com">The <code>Shiny</code> Website</a></li>
+<li><a href="https://quarto.org/docs/dashboards/">Quarto Dashboards</a></li>
+</ul>
+
+
+</section>
+
+
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: false,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+            const codeEl = trigger.previousElementSibling.cloneNode(true);
+            for (const childEl of codeEl.children) {
+              if (isCodeAnnotation(childEl)) {
+                childEl.remove();
+              }
+            }
+            return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

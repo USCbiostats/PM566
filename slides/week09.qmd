@@ -612,6 +612,7 @@ unique(chs_individual$townname)
 
 ```{r}
 # Set up the dataset
+library(RSQLite)
 con <- dbConnect(SQLite(), ":memory:")
 dbWriteTable(con, "regional", chs_regional)
 dbWriteTable(con, "individual", chs_individual)
