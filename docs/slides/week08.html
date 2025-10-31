@@ -309,9 +309,9 @@ code.r,code.cpp{
 <span id="cb9-2"><a></a><span class="fu">microbenchmark</span>(<span class="fu">forLoopRoots</span>(<span class="dv">10000</span>), <span class="fu">VectorizedRoots</span>(<span class="dv">10000</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Unit: microseconds
-                   expr     min      lq      mean   median      uq     max
-    forLoopRoots(10000) 200.244 207.993 217.41111 213.2820 220.293 363.875
- VectorizedRoots(10000)  12.915  14.145  20.80627  15.1905  16.318 527.301
+                   expr     min       lq      mean   median       uq     max
+    forLoopRoots(10000) 199.629 202.8065 215.30699 209.1205 219.9240 357.602
+ VectorizedRoots(10000)   9.061  13.7145  20.17364  14.4320  15.3545 485.891
  neval
    100
    100</code></pre>
@@ -387,9 +387,9 @@ code.r,code.cpp{
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a><span class="fu">microbenchmark</span>(<span class="fu">method1</span>(vec), <span class="fu">method2</span>(vec))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Unit: microseconds
-         expr      min       lq      mean   median        uq      max neval
- method1(vec) 2093.952 2226.218 2441.6148 2299.403 2445.2400 4236.694   100
- method2(vec)   75.030   78.556  101.0839   82.328   88.9495 1697.359   100</code></pre>
+         expr      min        lq      mean    median        uq      max neval
+ method1(vec) 2134.993 2236.8575 2462.8753 2310.1040 2414.4695 4152.029   100
+ method2(vec)   75.932   80.3805  115.7803   85.2185   92.5165 1862.671   100</code></pre>
 </div>
 </div>
 </section>
@@ -409,8 +409,8 @@ code.r,code.cpp{
 <div class="cell-output cell-output-stdout">
 <pre><code>Unit: microseconds
          expr    min     lq     mean median      uq     max neval
- method2(vec) 75.235 79.212 83.81835 80.360 84.9315 181.425   100
- method3(vec)  1.312  1.558  5.42799  1.681  1.7835 374.658   100</code></pre>
+ method2(vec) 75.604 79.089 83.54529 81.098 86.0385 114.431   100
+ method3(vec)  1.394  1.640  5.70720  1.763  1.8860 392.370   100</code></pre>
 </div>
 </div>
 </section>

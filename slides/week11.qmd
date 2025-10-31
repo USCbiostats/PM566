@@ -497,7 +497,7 @@ documents.
 
 ---
 
-## Rendering the site
+## Rendering the site{.smaller}
 
 Note that only the active page is rebuilt when you click "Render," so once you
 are happy with the results of rendering you should make sure to rebuild the
@@ -508,7 +508,7 @@ one page.
 
 ---
 
-## Rendering the site (cont.)
+## Rendering the site (cont.){.smaller}
 
 You can call the `quarto_render()` function to render every page of the site.
 
