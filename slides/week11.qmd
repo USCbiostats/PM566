@@ -1,5 +1,5 @@
 ---
-title: 'Interactive Visualization 2: Building Websites'
+title: 'Building a Website with Quarto and GitHub'
 subtitle: "PM 566 - Week 11"
 author: "Abigail Horn, Kelly Street"
 format:

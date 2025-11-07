@@ -4,7 +4,7 @@
     "href": "schedule.html",
     "title": "Schedule",
     "section": "",
-    "text": "Week\nDate\nTopic\nSlides\nLab\nAssignment\n\n\n\n\n1\n8/29\nIntroduction to Data Science and R\nSlides\nLab\n\n\n\n2\n9/5\nVersion Control & Reproducible Research\nSlides\nLab\n\n\n\n3\n9/12\nExploratory data analysis\nSlides\nLab\nHW1\n\n\n4\n9/19\nData visualization\nSlides\nLab\n\n\n\n5\n9/26\nData Cleaning and Wrangling\nSlides\nLab\nHW2\n\n\n6\n10/3\nText Mining & Sentiment Analysis\nSlides\nLab\n\n\n\n\n10/10\nNO CLASS - FALL RECESS\n\n\nMidterm\n\n\n7\n10/17\nScraping, APIs, and Regular Expressions\nSlides\nLab\n\n\n\n8\n10/24\nEfficiency and High Performance Computing\nSlides\nLab\nHW3\n\n\n9\n10/31\nSQL and Managing Big Data\nSlides\nLab\n\n\n\n10\n11/7\nInteractive Visualization & Effective Data Communication I\nSlides\nLab\nHW4\n\n\n11\n11/14\nInteractive Visualization & Effective Data Communication II\nSlides\n\n\n\n\n12\n11/21\nNonparametric Statistics\nSlides\n\nFinal\n\n\n\n11/28\nNO CLASS - THANKSGIVING\n\n\n\n\n\n13\n12/5\nFinal Project Workshop"
+    "text": "Week\nDate\nTopic\nSlides\nLab\nAssignment\n\n\n\n\n1\n8/29\nIntroduction to Data Science and R\nSlides\nLab\n\n\n\n2\n9/5\nVersion Control & Reproducible Research\nSlides\nLab\n\n\n\n3\n9/12\nExploratory data analysis\nSlides\nLab\nHW1\n\n\n4\n9/19\nData visualization\nSlides\nLab\n\n\n\n5\n9/26\nData Cleaning and Wrangling\nSlides\nLab\nHW2\n\n\n6\n10/3\nText Mining & Sentiment Analysis\nSlides\nLab\n\n\n\n\n10/10\nNO CLASS - FALL RECESS\n\n\nMidterm\n\n\n7\n10/17\nScraping, APIs, and Regular Expressions\nSlides\nLab\n\n\n\n8\n10/24\nEfficiency and High Performance Computing\nSlides\nLab\nHW3\n\n\n9\n10/31\nSQL and Managing Big Data\nSlides\nLab\n\n\n\n10\n11/7\nInteractive Visualization & Effective Data Communication I\nSlides\nLab\nHW4\n\n\n11\n11/14\nBuilding a Website with Quarto and GitHub\nSlides\n\n\n\n\n12\n11/21\nNonparametric Statistics\nSlides\n\nFinal\n\n\n\n11/28\nNO CLASS - THANKSGIVING\n\n\n\n\n\n13\n12/5\nFinal Project Workshop"
   },
   {
     "objectID": "syllabus.html",
@@ -1614,7 +1614,7 @@
     "href": "slides/week08.html#example-square-roots-cont.-4",
     "title": "Week 8: Efficiency and High Performance Computing",
     "section": "Example: Square Roots (cont. 4)",
-    "text": "Example: Square Roots (cont. 4)\nThat’s a lot faster!\n\nlibrary(microbenchmark)\nmicrobenchmark(forLoopRoots(10000), VectorizedRoots(10000))\n\nUnit: microseconds\n                   expr     min       lq      mean   median       uq     max\n    forLoopRoots(10000) 199.629 202.8065 215.30699 209.1205 219.9240 357.602\n VectorizedRoots(10000)   9.061  13.7145  20.17364  14.4320  15.3545 485.891\n neval\n   100\n   100\n\n\nAnytime that you can use vectorized computation, you should! It will (almost) always save you a lot of computation time!"
+    "text": "Example: Square Roots (cont. 4)\nThat’s a lot faster!\n\nlibrary(microbenchmark)\nmicrobenchmark(forLoopRoots(10000), VectorizedRoots(10000))\n\nUnit: microseconds\n                   expr     min      lq      mean   median       uq     max\n    forLoopRoots(10000) 199.588 204.508 217.35945 207.1115 224.2495 380.111\n VectorizedRoots(10000)   8.241  14.309  21.45489  14.8215  16.6665 542.348\n neval\n   100\n   100\n\n\nAnytime that you can use vectorized computation, you should! It will (almost) always save you a lot of computation time!"
   },
   {
     "objectID": "slides/week08.html#use-pre-made-functions",
@@ -1642,14 +1642,14 @@
     "href": "slides/week08.html#example-repeated-elements-cont.-2",
     "title": "Week 8: Efficiency and High Performance Computing",
     "section": "Example: Repeated elements (cont. 2)",
-    "text": "Example: Repeated elements (cont. 2)\nOr slightly faster with a loop and vectorized comparison:\n\nmethod2 &lt;- function(x){\n  # first element cannot be a duplicate\n  out &lt;- sapply(2:length(x), function(i){\n    return(any(x[1:(i-1)] == x[i]))\n  })\n  out &lt;- c(FALSE, out)\n  return(out)\n}\n\nmethod2(vec)[1:11]\n\n [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE\n\nmicrobenchmark(method1(vec), method2(vec))\n\nUnit: microseconds\n         expr      min        lq      mean    median        uq      max neval\n method1(vec) 2134.993 2236.8575 2462.8753 2310.1040 2414.4695 4152.029   100\n method2(vec)   75.932   80.3805  115.7803   85.2185   92.5165 1862.671   100"
+    "text": "Example: Repeated elements (cont. 2)\nOr slightly faster with a loop and vectorized comparison:\n\nmethod2 &lt;- function(x){\n  # first element cannot be a duplicate\n  out &lt;- sapply(2:length(x), function(i){\n    return(any(x[1:(i-1)] == x[i]))\n  })\n  out &lt;- c(FALSE, out)\n  return(out)\n}\n\nmethod2(vec)[1:11]\n\n [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE\n\nmicrobenchmark(method1(vec), method2(vec))\n\nUnit: microseconds\n         expr      min        lq     mean    median        uq      max neval\n method1(vec) 2060.414 2267.7100 2475.959 2331.5470 2505.4895 4270.314   100\n method2(vec)   73.431   78.1255  100.780   82.1025   89.6875 1720.360   100"
   },
   {
     "objectID": "slides/week08.html#example-repeated-elements-cont.-3",
     "href": "slides/week08.html#example-repeated-elements-cont.-3",
     "title": "Week 8: Efficiency and High Performance Computing",
     "section": "Example: Repeated elements (cont. 3)",
-    "text": "Example: Repeated elements (cont. 3)\nBut the real speed-up comes when we use the base function duplicated:\n\nmethod3 &lt;- function(x){\n  duplicated(x)\n}\n\nmethod3(vec)[1:11]\n\n [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE\n\nmicrobenchmark(method2(vec), method3(vec))\n\nUnit: microseconds\n         expr    min     lq     mean median      uq     max neval\n method2(vec) 75.604 79.089 83.54529 81.098 86.0385 114.431   100\n method3(vec)  1.394  1.640  5.70720  1.763  1.8860 392.370   100"
+    "text": "Example: Repeated elements (cont. 3)\nBut the real speed-up comes when we use the base function duplicated:\n\nmethod3 &lt;- function(x){\n  duplicated(x)\n}\n\nmethod3(vec)[1:11]\n\n [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE\n\nmicrobenchmark(method2(vec), method3(vec))\n\nUnit: microseconds\n         expr    min      lq     mean  median      uq     max neval\n method2(vec) 73.267 76.6495 85.30706 81.6925 90.2820 172.528   100\n method3(vec)  1.271  1.5580  6.00281  1.7630  1.9885 418.651   100"
   },
   {
     "objectID": "slides/week08.html#what-is-hpc",
@@ -2998,273 +2998,273 @@
   {
     "objectID": "slides/week11.html#interactive-visualization-last-week",
     "href": "slides/week11.html#interactive-visualization-last-week",
-    "title": "Interactive Visualization 2: Building Websites",
+    "title": "Building a Website with Quarto and GitHub",
     "section": "Interactive visualization: Last week",
     "text": "Interactive visualization: Last week\n\nInteractive plots (plotly, ggplotly)\nInteractive maps (ggplotly, Leaflet)\nInteractive tables (DT)"
   },
   {
     "objectID": "slides/week11.html#interactive-visualization-this-week",
     "href": "slides/week11.html#interactive-visualization-this-week",
-    "title": "Interactive Visualization 2: Building Websites",
+    "title": "Building a Website with Quarto and GitHub",
     "section": "Interactive visualization: This week",
     "text": "Interactive visualization: This week\nWe will build static websites using Quarto and GitHub Pages (like this or this).\nWe will learn how to render text, code, static visuals, and interactive visuals on the website.\nWe will then learn how to get your website to go “live” on GitHub Pages, making it available for anyone to see."
   },
   {
     "objectID": "slides/week11.html#building-websites-in-quarto-with-github-pages",
     "href": "slides/week11.html#building-websites-in-quarto-with-github-pages",
-    "title": "Interactive Visualization 2: Building Websites",
+    "title": "Building a Website with Quarto and GitHub",
     "section": "Building websites in Quarto with GitHub Pages",
     "text": "Building websites in Quarto with GitHub Pages\nTo understand how websites are built in Quarto, we first must understand a bit about how Quarto documents are rendered to produce HTML output.\nIt is not essential to understand all the inner workings of this process to be able to create a website. However, it is important to understand which component is responsible for what since this will make it easier to target appropriate help files when you need them!"
   },
   {
     "objectID": "slides/week11.html#what-does-quarto-require-to-render-files",
     "href": "slides/week11.html#what-does-quarto-require-to-render-files",
-    "title": "Interactive Visualization 2: Building Websites",
+    "title": "Building a Website with Quarto and GitHub",
     "section": "What does Quarto require to render files?",
     "text": "What does Quarto require to render files?\nQuarto combines several different processes together to create documents. In doing so it requires the use of a few essential ingredients (software and packages)1:\n\nQuarto: A markup language for creating .qmd files that you have used.\nquarto: An R package for processing and converting .qmd files into a number of different formats.\nknitr: An R package for transforming a mixture of R code and text in a .qmd file into a .md file by executing the code and “knitting” the results back into the document.\nPandoc: A document converter. It is designed to convert plain text files from one markup language (including .qmd files) into many output formats. It is a command line software with no GUI. Although it’s separate from R, it comes bundled with R Studio.\n\nA note on formatting: word indicates an R package, while word indicates inline code or file name/format. Software programs (e.g. R Markdown and Pandoc) are not given a special formatting."
   },
   {
     "objectID": "slides/week11.html#quarto-render-1",
     "href": "slides/week11.html#quarto-render-1",
-    "title": "Interactive Visualization 2: Building Websites",
+    "title": "Building a Website with Quarto and GitHub",
     "section": "Quarto Render",
     "text": "Quarto Render\nThe basic workflow structure for a Quarto document is shown below, including intermediate files that are created before the final output.\n\nCredit: Gabriel Odom"
   },
   {
     "objectID": "slides/week11.html#quarto-render-2",
     "href": "slides/week11.html#quarto-render-2",
-    "title": "Interactive Visualization 2: Building Websites",
+    "title": "Building a Website with Quarto and GitHub",
     "section": "Quarto Render",
     "text": "Quarto Render\nThe workflow in more detail is as follows:\n\nThe .qmd document is written. It is the original format of the document. It contains a combination of YAML (metadata in the header), text, and code chunks. The YAML header specifies document properties and rendering instructions (like html for HTML output)\nThe knit() function in knitr is used to execute all code embedded within the .qmd file, and prepare the code output to be displayed within the output document. knitr handles the execution and translation of all code in the file. All these results are converted into the correct markup language and contained within a temporary .md file.\nThe .md file is processed by Pandoc. It takes any parameters specified within the YAML frontmatter of the document (e.g., title, author, and date) to convert the document to the output format specified in the output parameter (in our case: html for HTML output)"
   },
   {
     "objectID": "slides/week11.html#quarto-render-cont.",
     "href": "slides/week11.html#quarto-render-cont.",
-    "title": "Interactive Visualization 2: Building Websites",
+    "title": "Building a Website with Quarto and GitHub",
     "section": "Quarto Render (cont.)",
     "text": "Quarto Render (cont.)\n\nThe whole process is implemented by Quarto (the software) via the function from the built-in quarto (package): quarto::quarto_render()\n\nAlong the way, we add structure and style. A wide range of tools helps us in this process. For creating HTML output, some of these include Cascading Style Sheets (CSS) for adding style (e.g., fonts, colors, spacing) to Web documents, raw HTML code, and Pandoc templates."
   },
   {
     "objectID": "slides/week11.html#yaml-metadata",
     "href": "slides/week11.html#yaml-metadata",
-    "title": "Interactive Visualization 2: Building Websites",
+    "title": "Building a Website with Quarto and GitHub",
     "section": "YAML metadata",
     "text": "YAML metadata\nYAML = Yet Another Markup Language YAML Ain’t Markup Language\nIt is a data-oriented language structure used as the input format for diverse software application. It is not a markup language (which includes indicators or “markup” which direct processing) but a serialization language. Serialization is the process of converting an object into a format that can be transmitted or stored, by converting the object series of bits. This series of bits is then read later to reconstruct the object."
   },
   {
     "objectID": "slides/week11.html#yaml-metadata-1",
     "href": "slides/week11.html#yaml-metadata-1",
-    "title": "Interactive Visualization 2: Building Websites",
+    "title": "Building a Website with Quarto and GitHub",
     "section": "YAML metadata",
     "text": "YAML metadata\nA typical YAML header looks like this, and contains basic metadata about the document and rendering instructions:\n---\ntitle: My Quarto Website\nauthor: Abigail Horn\nformat: html\n---"
   },
   {
     "objectID": "slides/week11.html#yaml-metadata-cont.",
     "href": "slides/week11.html#yaml-metadata-cont.",
-    "title": "Interactive Visualization 2: Building Websites",
+    "title": "Building a Website with Quarto and GitHub",
     "section": "YAML metadata (cont.)",
     "text": "YAML metadata (cont.)\nThe YAML metadata affects the code, content, and the output. It is processed during many stages of the rendering process by quarto, knitr, and Pandoc:\n\nThe title and author fields are processed by Pandoc to set the values of template variables\nThe format field is used by quarto and Pandoc to select the rendering process.\n\nBuilding a website is slightly more complex than rendering a single HTML document. We will come back to specify the YAML metadata necessary for setting up a website."
   },
   {
     "objectID": "slides/week11.html#summary-what-happens-when-we-render-quarto-files",
     "href": "slides/week11.html#summary-what-happens-when-we-render-quarto-files",
-    "title": "Interactive Visualization 2: Building Websites",
+    "title": "Building a Website with Quarto and GitHub",
     "section": "Summary: What happens when we render Quarto files?",
     "text": "Summary: What happens when we render Quarto files?\nIn short: quarto::quarto_render() = knitr::knit() + Pandoc\nThe YAML metadata in the Quarto (.qmd) file dictates the process and how the output is produced."
   },
   {
     "objectID": "slides/week11.html#html-basics",
     "href": "slides/week11.html#html-basics",
-    "title": "Interactive Visualization 2: Building Websites",
+    "title": "Building a Website with Quarto and GitHub",
     "section": "HTML basics",
     "text": "HTML basics\n\nHTML = Hyper Text Markup Language. HTML is a standard markup language (not programming language) that provides the primary structure of most websites.\nHTML defines the basic structure of a web page. HTML works on the look of the website without the interactive effects and all. HTML pages are static, which means the content cannot be changed.\nAll elements in HTML are represented by tags. Most HTML tags appear in pairs, with an opening tag and a closing tag, and content is placed between the opening and closing tags, e.g., &lt;span style=\"background-color: #B9BFFF\"&gt;This is highlighted text&lt;/span&gt; –&gt; This is highlighted text.\nThere are a few exceptions, such as the &lt;img&gt; tag, which can be closed by a slash / in the opening tag, e.g., &lt;img src=\"foo.png\" /&gt;. You can specify attributes of an element in the opening tag using the syntax name=value (a few attributes do not require value).\nBasically an HTML document consists a head section and body section. You can specify the metadata and include assets like CSS files in the head section."
   },
   {
     "objectID": "slides/week11.html#helpful-html",
     "href": "slides/week11.html#helpful-html",
-    "title": "Interactive Visualization 2: Building Websites",
+    "title": "Building a Website with Quarto and GitHub",
     "section": "Helpful HTML",
     "text": "Helpful HTML\nFont size and color: &lt;font size=\"3\" color=\"red\"&gt;Text here!&lt;/font&gt;\nColumns: &lt;div class=\"col2\"&gt; and &lt;/div&gt;\nCentered text: &lt;center&gt;**Here the text is centered. Here are good resources:**&lt;/center&gt;\nSmall image right-aligned: &lt;div align=\"right\"&gt;&lt;img src=\"images/Rmd_cheatsheet.png\" width=\"150px\"&gt;&lt;/div&gt;\nLarge image centered: &lt;center&gt;&lt;img src=\"images/Rmd_cheatsheet.png\" width=\"500px\"&gt;&lt;/center&gt;"
   },
   {
     "objectID": "slides/week11.html#css-basics",
     "href": "slides/week11.html#css-basics",
-    "title": "Interactive Visualization 2: Building Websites",
+    "title": "Building a Website with Quarto and GitHub",
     "section": "CSS basics",
     "text": "CSS basics\nCSS = Cascading Stylesheets (CSS). It is a markup language is used to describe the look and formatting of documents written in HTML. it is responsible for the visual style of your site, responsible for components including: - color palettes, - images, - layouts/margins - fonts\nas well as interactive components like\n\ndropdown menus\nbuttons, and\nforms\n\nThere are 3 ways to define styles:\n\nin-line with HTML\nplacing a style section in your HTML document\ndefine the CSS in an external file that is then referenced as a link in your HTML (most flexible)"
   },
   {
     "objectID": "slides/week11.html#javascript",
     "href": "slides/week11.html#javascript",
-    "title": "Interactive Visualization 2: Building Websites",
+    "title": "Building a Website with Quarto and GitHub",
     "section": "JavaScript",
     "text": "JavaScript\nJavaScript is an advanced programming language (unlike HTML and CSS, which do not contain any programming logic) that makes web pages more interactive and dynamic. JavaScript simply adds dynamic content to websites to make them look good. JavaScript can be embedded inside HTML.\nAn effective way to learn it is through the JavaScript console in the Developer Tools of your web browser because you can interactively type code in the console and execute it, which feels similar to executing R code in the R console (e.g., in RStudio). You may open any web page in your web browser, then open the JavaScript console, and try the code below on any web page:\ndocument.body.style.background = 'orange';\nWhich should turn the background orange, unless the page has already defined background colors for certain elements.\nTo effectively use JavaScript, you have to learn both the basic syntax of JavaScript and how to select elements on a page before you can manipulate them.\nTo effectively use JavaScript, you have to learn both the basic syntax of JavaScript and how to select elements on a page before you can manipulate them."
   },
   {
     "objectID": "slides/week11.html#website-basics-learning-more",
     "href": "slides/week11.html#website-basics-learning-more",
-    "title": "Interactive Visualization 2: Building Websites",
+    "title": "Building a Website with Quarto and GitHub",
     "section": "Website basics: learning more",
     "text": "Website basics: learning more\n\nThe best way to learn about what goes into web development: use “Developer Tools”, e.g. View -&gt; Developer in Google Chrome. Or right click and “inspect”.\nA brief intro to HTML, CSS, and JavaScript is provided in the blogdown book\nYou can also learn more at w3schools or of course StackOverflow!"
   },
   {
     "objectID": "slides/week11.html#background-static-vs.-dynamic-websites",
     "href": "slides/week11.html#background-static-vs.-dynamic-websites",
-    "title": "Interactive Visualization 2: Building Websites",
+    "title": "Building a Website with Quarto and GitHub",
     "section": "Background: Static vs. dynamic websites",
     "text": "Background: Static vs. dynamic websites\n\nA dynamic site relies on a server-side language to do certain computing and sends potentially different content depending on different conditions. A common language is PHP, and a typical example of a dynamic site is a web forum. For example, each user has a profile page, but typically this does not mean the server has stored a different HTML profile page for every single user. Instead, the server will fetch the user data from a database, and render the profile page dynamically.\nA static site consists of static files such as HTML, CSS, JavaScript, images, etc., and the web server sends exactly the same content to the web browser no matter who visits the web pages. There is no dynamic computing on the server when a page is requested. It is just one folder of static files."
   },
   {
     "objectID": "slides/week11.html#creating-a-quarto-website",
     "href": "slides/week11.html#creating-a-quarto-website",
-    "title": "Interactive Visualization 2: Building Websites",
+    "title": "Building a Website with Quarto and GitHub",
     "section": "Creating a Quarto website",
     "text": "Creating a Quarto website\nQuarto has a built-in static site generator, which we will be using today. It comes with a library of CSS styles and themes (Bootstrap 5) to choose from.\n\nThere are many other static site generators, including Hugo, Jekyll, and Hexo, etc. These provide many site themes, templates, and features, but are more complex than quarto’s built-in generator."
   },
   {
     "objectID": "slides/week11.html#creating-a-quarto-website-cont.-1",
     "href": "slides/week11.html#creating-a-quarto-website-cont.-1",
-    "title": "Interactive Visualization 2: Building Websites",
+    "title": "Building a Website with Quarto and GitHub",
     "section": "Creating a Quarto website (cont. 1)",
     "text": "Creating a Quarto website (cont. 1)\nquarto’s site generator is a good option if:\n\nYou are familiar with generating single-page HTML output in Quarto\nYou want to build a simple website with a few pages\nIt suffices to use a flat directory of .qmd files\nYou don’t require features such as forums or RSS feeds"
   },
   {
     "objectID": "slides/week11.html#overview-local-setup",
     "href": "slides/week11.html#overview-local-setup",
-    "title": "Interactive Visualization 2: Building Websites",
+    "title": "Building a Website with Quarto and GitHub",
     "section": "Overview: Local Setup",
     "text": "Overview: Local Setup\nThe easiest way to get started on a new website is to create a new project in R Studio:\n\nFile &gt; New Project…\nNew Directory\nQuarto Website\nGive your project/directory a name and choose its location\nCreate a git repository\nCreate Project"
   },
   {
     "objectID": "slides/week11.html#overview-local-setup-cont.-1",
     "href": "slides/week11.html#overview-local-setup-cont.-1",
-    "title": "Interactive Visualization 2: Building Websites",
+    "title": "Building a Website with Quarto and GitHub",
     "section": "Overview: Local Setup (cont. 1)",
     "text": "Overview: Local Setup (cont. 1)\nWhen you create the new project, you’re taken to a new R environment in the project directory. The directory contains these files:\n\n_quarto.yml: Website settings and elements common to all pages.\n.gitignore: Files to be ignored.\nabout.qmd: An About page for our website.\nindex.qmd: The main page of our website.\nstyle.css: Additional style options.\n&lt;name&gt;.Rproj: An R Studio project file."
   },
   {
     "objectID": "slides/week11.html#overview-local-setup-cont.-2",
     "href": "slides/week11.html#overview-local-setup-cont.-2",
-    "title": "Interactive Visualization 2: Building Websites",
+    "title": "Building a Website with Quarto and GitHub",
     "section": "Overview: Local Setup (cont. 2)",
     "text": "Overview: Local Setup (cont. 2)\nIf we hit the Render button, Quarto will build our website and automatically open the main page in a web browser.\nNotice that this created that additional output folder:\n\n_site: The static version of your website, where HTML files (and others) are stored."
   },
   {
     "objectID": "slides/week11.html#website-elements-_quarto.yml",
     "href": "slides/week11.html#website-elements-_quarto.yml",
-    "title": "Interactive Visualization 2: Building Websites",
+    "title": "Building a Website with Quarto and GitHub",
     "section": "Website elements: _quarto.yml",
     "text": "Website elements: _quarto.yml\nYour _quarto.yml should look like this:\nproject:\n  type: website\n\nwebsite:\n  title: \"name\"\n  navbar:\n    left:\n      - href: index.qmd\n        text: Home\n      - about.qmd\n\nformat:\n  html:\n    theme:\n      - cosmo\n      - brand\n    css: styles.css\n    toc: true"
   },
   {
     "objectID": "slides/week11.html#website-elements-_quarto.yml-cont.-1",
     "href": "slides/week11.html#website-elements-_quarto.yml-cont.-1",
-    "title": "Interactive Visualization 2: Building Websites",
+    "title": "Building a Website with Quarto and GitHub",
     "section": "Website elements: _quarto.yml (cont. 1)",
     "text": "Website elements: _quarto.yml (cont. 1)\nThere’s one very important field we need to add, which is the output-dir. We’ve seen that our output directory is called _site, but unfortunately, GitHub Pages can only deploy from either (1) the root of your repository, or (2) a subdirectory called docs.\nAdd a new line under project: in your _quarto.yml file like this:\nproject:\n  type: website\n  output-dir: docs\nOnce you’ve done this, you can delete the _site directory."
   },
   {
     "objectID": "slides/week11.html#quarto.yml-navigation-bar",
     "href": "slides/week11.html#quarto.yml-navigation-bar",
-    "title": "Interactive Visualization 2: Building Websites",
+    "title": "Building a Website with Quarto and GitHub",
     "section": "_quarto.yml: Navigation Bar",
     "text": "_quarto.yml: Navigation Bar\nThe navbar element of _quarto.yml can be used to define a common navigation bar for your website. You can include internal and external links on the navigation bar as well as drop-down menus for sites with a large number of pages.\nSome things you can do with navigation bars:\n\nUse the type field to choose between the dark and light styles (every theme includes distinct colors both).\nAlign items either to the left or to the right.\nInclude both internal and external links.\nUse icons from Bootstrap."
   },
   {
     "objectID": "slides/week11.html#quarto.yml-footer",
     "href": "slides/week11.html#quarto.yml-footer",
-    "title": "Interactive Visualization 2: Building Websites",
+    "title": "Building a Website with Quarto and GitHub",
     "section": "_quarto.yml: Footer",
     "text": "_quarto.yml: Footer\nThere are many other elements you may want to include on every page. For example, the PM 566 website contains a footer:\n  page-footer: \n    left:\n      University of Southern California &lt;br&gt;\n      Department of Population and Public Health Sciences\n    right:\n      LICENSE &lt;br&gt;\n      View the [source at GitHub](https://github.com/USCbiostats/PM566)."
   },
   {
     "objectID": "slides/week11.html#rendering-a-page",
     "href": "slides/week11.html#rendering-a-page",
-    "title": "Interactive Visualization 2: Building Websites",
+    "title": "Building a Website with Quarto and GitHub",
     "section": "Rendering a page",
     "text": "Rendering a page\nAs you work on the individual pages of your website, you can render them using the Render button just as you do with conventional standalone Quarto documents."
   },
   {
     "objectID": "slides/week11.html#rendering-the-site",
     "href": "slides/week11.html#rendering-the-site",
-    "title": "Interactive Visualization 2: Building Websites",
+    "title": "Building a Website with Quarto and GitHub",
     "section": "Rendering the site",
     "text": "Rendering the site\nNote that only the active page is rebuilt when you click “Render,” so once you are happy with the results of rendering you should make sure to rebuild the entire site with quarto_render() in R or quarto render in the terminal.\nIn other words, you need to re-build the website to integrate any new changes to one page."
   },
   {
     "objectID": "slides/week11.html#rendering-the-site-cont.",
     "href": "slides/week11.html#rendering-the-site-cont.",
-    "title": "Interactive Visualization 2: Building Websites",
+    "title": "Building a Website with Quarto and GitHub",
     "section": "Rendering the site (cont.)",
     "text": "Rendering the site (cont.)\nYou can call the quarto_render() function to render every page of the site.\nIf you do this from within the directory containing the website, the following will occur:\n\nAll of the *.qmd and *.md files in the root website directory will be rendered into HTML.\nThe generated HTML files and any supporting files (e.g., CSS and JavaScript) are copied into an output directory (docs for us, but _site by default).\nThe HTML files within the docs directory are now ready to deploy as a standalone static website."
   },
   {
     "objectID": "slides/week11.html#website-themes",
     "href": "slides/week11.html#website-themes",
-    "title": "Interactive Visualization 2: Building Websites",
+    "title": "Building a Website with Quarto and GitHub",
     "section": "Website themes",
     "text": "Website themes\nQuarto makes styling easy for you through the Bootstrap framework. Bootstrap has multiple themes we can choose from. Explore themes here\nWe can change the website’s theme in _quarto.yml or even set one theme for “dark mode” and another for “light mode.”"
   },
   {
     "objectID": "slides/week11.html#r-scripts",
     "href": "slides/week11.html#r-scripts",
-    "title": "Interactive Visualization 2: Building Websites",
+    "title": "Building a Website with Quarto and GitHub",
     "section": "R scripts",
     "text": "R scripts\nIf you have R code that you would like to share across multiple Quarto documents within your site, you can create an R script (e.g., utils.R) and source it within your .qmd files. For example:\n```{r}\nsource(\"utils.R\")\n```"
   },
   {
     "objectID": "slides/week11.html#adding-interactive-content",
     "href": "slides/week11.html#adding-interactive-content",
-    "title": "Interactive Visualization 2: Building Websites",
+    "title": "Building a Website with Quarto and GitHub",
     "section": "Adding interactive content",
     "text": "Adding interactive content\nQuarto includes many facilities for generation of HTML content from R objects, including:\n\nConversion of standard R output types (e.g., ggplot2 objects) within code chunks done automatically by knitr\nA variety of ways to generate HTML tables, including the knitr::kable() function and other packages such as kableExtra\nA large number of available HTML widgets (e.g., plotly and DT objects) that provide rich JavaScript data visualizations.\n\nAs a result, for most Quarto websites you will not need to worry about generating HTML output at all (since it is created automatically)."
   },
   {
     "objectID": "slides/week11.html#saving-interactive-plots-as-html-widgets",
     "href": "slides/week11.html#saving-interactive-plots-as-html-widgets",
-    "title": "Interactive Visualization 2: Building Websites",
+    "title": "Building a Website with Quarto and GitHub",
     "section": "* Saving interactive plots as HTML widgets",
     "text": "* Saving interactive plots as HTML widgets\nIf you are having issues with embedding interactive plots, you can use the package widgetframe to save HTML files via an HTML iframe. This is convenient not only for re-using a widget in various parent documents, but also for preventing any JavaScript and CSS in the parent document from negatively impacting how the widget renders\nThe widgetframe package automates the saving of widgetframe packages into  and has options for controling where, how, and if external dependencies are stored on the file system when using it inside a knitr/rmarkdown document. widgetframe is designed to be used in .Rmd documents which will eventually be knitted to an HTML or a derived format. Use the default options and embed files like this:\n```{r}\nlibrary(widgetframe)\ntest.widget &lt;- plot_ly()\nwidgetframe::frameWidget(test.widget, width = '75%')\n```\nwidgetframe will take care of embedding the supporting HTML widget libraries in a folder together."
   },
   {
     "objectID": "slides/week11.html#adding-dynamic-content",
     "href": "slides/week11.html#adding-dynamic-content",
-    "title": "Interactive Visualization 2: Building Websites",
+    "title": "Building a Website with Quarto and GitHub",
     "section": "* Adding dynamic content",
     "text": "* Adding dynamic content\nQuarto is compatible with a variety of external libraries that provide commenting systems. You can check the documentation for how to incorporate a comments section on your website: https://quarto.org/docs/output-formats/html-basics.html"
   },
   {
     "objectID": "slides/week11.html#knitr-caching",
     "href": "slides/week11.html#knitr-caching",
-    "title": "Interactive Visualization 2: Building Websites",
+    "title": "Building a Website with Quarto and GitHub",
     "section": "knitr caching",
     "text": "knitr caching\nIf your website is time consuming to render, you may want to enable knitr’s caching during the development of the site, so that you can more rapidly preview. To enable caching for an individual chunk, just add the cache = TRUE chunk option:\n```{r, cache = TRUE}\ndata &lt;- longComputation()\n```\nTo enable caching for an entire document, add cache = TRUE to the global chunk option defaults:\n```{r setup, include=FALSE}\nknitr::opts_chunk$set(cache = TRUE)\n```\nNote that when caching is enabled for a .qmd document, its *_files directory will be copied rather than moved to the _site directory (since the cache requires references to generated figures in the *_files directory)."
   },
   {
     "objectID": "slides/week11.html#how-to-help-people-find-your-site",
     "href": "slides/week11.html#how-to-help-people-find-your-site",
-    "title": "Interactive Visualization 2: Building Websites",
+    "title": "Building a Website with Quarto and GitHub",
     "section": "How to help people find your site",
     "text": "How to help people find your site\nHelping people find your site, i.e. Search Engine Optimization, is the art of making a website easy for search engines like Google to understand. There are multiple books and moreover companies devoted to improving SEO. A few key points:\n\nThe title that you select for each page and post is a very important signal to Google and other search engines telling them what that page is about.\nDescription tags are also critical to explain what a page is about. In HTML documents, description tags are one way to provide metadata about the page. You can add a description to a page’s YAML header like:\n\ndescription: \"A brief description of this page that helps SEO find it!.\";\n\nURL structure matters.\n\nA good place to learn more is the Google Search Engine Optimization Starter Guide"
   },
   {
     "objectID": "slides/week11.html#deployment",
     "href": "slides/week11.html#deployment",
-    "title": "Interactive Visualization 2: Building Websites",
+    "title": "Building a Website with Quarto and GitHub",
     "section": "Deployment",
     "text": "Deployment\nAt this point, your static website is basically a folder containing static files.\n\nAll site content is copied into the docs directory, so deployment is simply a matter of moving that directory to the appropriate directory of a web server, and your website will be up and running shortly.\n\nThe key question is which web server you want to use.\n\nWe will focus on hosting websites through GitHub pages, because it’s a free, easy option and we already have some familiarity with GitHub.\n\nThere are other free sites for website hosting, and another popular and free choice is Netlify."
   },
   {
     "objectID": "slides/week11.html#deploying-with-github-pages",
     "href": "slides/week11.html#deploying-with-github-pages",
-    "title": "Interactive Visualization 2: Building Websites",
+    "title": "Building a Website with Quarto and GitHub",
     "section": "Deploying with GitHub Pages",
     "text": "Deploying with GitHub Pages\nThe workflow for deploying to GitHub Pages is as follows:\n\nMake a GitHub repository with a docs subdirectory (you can use GitHub Desktop to establish a link between your local repository and a new remote repository)\nGo to “Settings”\nClick “Pages” in the left column\nUnder “Source,” select “Deploy from a branch”\nUnder “Branch” select the main branch and specify the /docs folder"
   },
   {
     "objectID": "slides/week11.html#deploying-with-github-pages-cont.",
     "href": "slides/week11.html#deploying-with-github-pages-cont.",
-    "title": "Interactive Visualization 2: Building Websites",
+    "title": "Building a Website with Quarto and GitHub",
     "section": "Deploying with GitHub Pages (cont.)",
     "text": "Deploying with GitHub Pages (cont.)\nOnce you’ve done this, it should automatically set up a new workflow in the Actions tab of your repository. This workflow creates the public version of your website, typically at &lt;username&gt;.github.io/&lt;project&gt;/.\nNow, every time you push a new update to your website, GitHub Pages will automatically update it!"
   },
@@ -3644,7 +3644,7 @@
     "href": "slides/week04.html#maps-with-leaflet",
     "title": "Week 4: Data Visualization",
     "section": "Maps with leaflet",
-    "text": "Maps with leaflet\nLet’s create a map of monthly average temperatures at each of the weather stations and color the points by a temperature gradient. We need to create a color palette and we can add a legend.\n\nlibrary(leaflet)\nmet_avg2 &lt;- summarize(met,\n                      temp =     mean(temp, na.rm = TRUE),\n                      lat =      mean(lat, na.rm = TRUE),\n                      lon =      mean(lon, na.rm = TRUE),\n                      .by = c(USAFID))\nmet_avg2 &lt;- met_avg2[!is.na(met_avg2$temp), ]\n\n# Generating a color palette\ntemp.pal &lt;- colorNumeric(c('darkgreen','goldenrod','brown'), domain=met_avg2$temp)\n\ntemp.pal(20)\n\n[1] \"#B69A19\"\n\ntemp.pal\n\nfunction (x) \n{\n    if (length(x) == 0 || all(is.na(x))) {\n        return(pf(x))\n    }\n    if (is.null(rng)) \n        rng &lt;- range(x, na.rm = TRUE)\n    rescaled &lt;- scales::rescale(x, from = rng)\n    if (any(rescaled &lt; 0 | rescaled &gt; 1, na.rm = TRUE)) \n        warning(\"Some values were outside the color scale and will be treated as NA\")\n    if (reverse) {\n        rescaled &lt;- 1 - rescaled\n    }\n    pf(rescaled)\n}\n&lt;bytecode: 0x349153008&gt;\n&lt;environment: 0x34916b938&gt;\nattr(,\"colorType\")\n[1] \"numeric\"\nattr(,\"colorArgs\")\nattr(,\"colorArgs\")$na.color\n[1] \"#808080\""
+    "text": "Maps with leaflet\nLet’s create a map of monthly average temperatures at each of the weather stations and color the points by a temperature gradient. We need to create a color palette and we can add a legend.\n\nlibrary(leaflet)\nmet_avg2 &lt;- summarize(met,\n                      temp =     mean(temp, na.rm = TRUE),\n                      lat =      mean(lat, na.rm = TRUE),\n                      lon =      mean(lon, na.rm = TRUE),\n                      .by = c(USAFID))\nmet_avg2 &lt;- met_avg2[!is.na(met_avg2$temp), ]\n\n# Generating a color palette\ntemp.pal &lt;- colorNumeric(c('darkgreen','goldenrod','brown'), domain=met_avg2$temp)\n\ntemp.pal(20)\n\n[1] \"#B69A19\"\n\ntemp.pal\n\nfunction (x) \n{\n    if (length(x) == 0 || all(is.na(x))) {\n        return(pf(x))\n    }\n    if (is.null(rng)) \n        rng &lt;- range(x, na.rm = TRUE)\n    rescaled &lt;- scales::rescale(x, from = rng)\n    if (any(rescaled &lt; 0 | rescaled &gt; 1, na.rm = TRUE)) \n        warning(\"Some values were outside the color scale and will be treated as NA\")\n    if (reverse) {\n        rescaled &lt;- 1 - rescaled\n    }\n    pf(rescaled)\n}\n&lt;bytecode: 0x354e9c258&gt;\n&lt;environment: 0x354e9eb88&gt;\nattr(,\"colorType\")\n[1] \"numeric\"\nattr(,\"colorArgs\")\nattr(,\"colorArgs\")$na.color\n[1] \"#808080\""
   },
   {
     "objectID": "slides/week04.html#maps-with-leaflet-1",
