@@ -710,6 +710,7 @@ Useful tutorials:
 
  - Video series (ft. former PM 566 instructor Emil Hvitfeldt!): [Quarto Websites with Charlotte and Emil](https://www.youtube.com/playlist?list=PLitrm9Undxcu7eExaTg9Y-JYLv9O6uxGu)
  - Step-by-step tutorial: [Build a Quarto Website - Dan Yavorsky](https://www.danyavorsky.com/posts/020-quarto-websites/)
+ - Personal academic website: [Creating your personal website using Quarto](https://ucsb-meds.github.io/creating-quarto-websites/) 
 
 Interactive plots, `shiny`, and dashboards:
 
