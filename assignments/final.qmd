@@ -1,0 +1,56 @@
+---
+title: "Final Project"
+link-citations: true
+toc: false
+---
+
+Due date: Sunday December 7th, 2025, by 11:59pm Pacific Time.
+
+**Learning Objective**: To apply the skills learned in
+PM 566 by analyzing and interpreting a dataset of your choice. This should
+include at least one clear, overarching research question to guide your
+analysis. Remember that the answer to most worthwhile research questions is
+complicated, so don't be afraid to add follow-up analysis that clarifies your
+findings or deepens your understanding.
+
+## Deliverables
+Your final project will consist of a website, containing your full report, with
+interactive graphics. The only thing you need to submit is a URL directing us to
+your report. The report does not need to be on the main page of your website
+(for example, if you want to include your report on your personal website).
+
+### Report
+For the analysis, we will expect to see a cleaner report than for the midterm,
+with clear explanations and more sophisticated analysis. This should be intended
+for a general audience, as your website will be accessible to anyone with an
+internet connection.
+
+The report should have the following sections:
+
+ - **Introduction**: provide background on your dataset and research question.
+ - **Methods**: briefly discuss how the data was acquired and cleaned, and the tools you used for data exploration (further details should be provided on another page of your website).
+ - **Results**: provide final, publication-ready tables and figures from your analysis, including at least one interactive graphic. Make separate subsections as needed.
+ - **Conclusion and Summary**: a brief recap where you describe your findings.
+
+Your report can contain code, but please do not include any unformatted output
+(eg. from `cat()` or `nrow()`) or partial datasets (eg. `head()` or `str()`).
+And as always, be sure not to upload the dataset to GitHub.
+
+### Website
+Your website should be created with Quarto and hosted on GitHub Pages (so the
+URL will start with `<username>.github.io`). It should include at least one 
+interactive graphic.
+
+In addition to the main report, you should have another page on your website
+dedicated to describing how the data was acquired, processed, and explored. This
+page should be linked in the `navbar` and be called something like **"About the
+Data"** or **"Data Processing."** Describe the raw data in detail and every step you
+took to prepare it for your analysis. This is also where you should include any
+exploratory plots.
+
+**Make sure that your website actually works!** This means that the website is 
+live (accessible by anyone on the internet), and figures and interactive
+graphics render properly (Hint: double check the URL! Make sure you aren't
+looking at your local version).
+
+

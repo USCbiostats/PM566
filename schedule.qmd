@@ -15,8 +15,8 @@ title: "Schedule"
 | 8 | 10/24 | Efficiency and High Performance Computing | [Slides](slides/week08.qmd) | [Lab](labs/lab8.qmd) | [HW3](assignments/hw3.qmd) |
 | 9 | 10/31 | SQL and Managing Big Data	 | [Slides](slides/week09.qmd) | [Lab](labs/lab9.qmd) |  |
 | 10 | 11/7 | Interactive Visualization | [Slides](slides/week10.qmd) | [Lab](labs/lab10.qmd) | [HW4](assignments/hw4.qmd) |
-| 11 | 11/14 | Building a Website with Quarto and GitHub | [Slides](slides/week11.qmd) |  |  |
-| 12 | 11/21 | Nonparametric Statistics	 | Slides |  | Final |
+| 11 | 11/14 | Building a Website with Quarto and GitHub | [Slides](slides/week11.qmd) | [Lab](https://quarto.org/docs/publishing/github-pages.html) |  |
+| 12 | 11/21 | Nonparametric Statistics	 |  |  | [Final](assignments/final.qmd) |
 |    | 11/28 | NO CLASS - THANKSGIVING	 |  |  |  |
 | 13 | 12/5 | Final Project Workshop	 |  |  |  |
 
