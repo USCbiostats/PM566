@@ -29,6 +29,8 @@ removing stop words?
 3. (10 points) Tokenize the abstracts into bigrams. Find the 10 most common
 bigrams and visualize them.
 
+<!--# look at bigrams were at least one word is not a stop word -->
+
 4. (20 points) Calculate the TF-IDF value for each word-search term combination
 (here you want the search term to be the "document"). What are the 5 tokens from
 each search term with the highest TF-IDF value? How are the results different
