@@ -758,7 +758,7 @@ endometrial cancer  esophageal cancer        lung cancer     ovarian cancer
 <h2>Web scraping with <code>xml2</code> and the <code>rvest</code> package (cont. 2)</h2>
 <p>Now that we know the path, let’s use that and extract the table:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a>table <span class="ot">&lt;-</span> <span class="fu">xml_find_all</span>(covid, <span class="at">xpath =</span> <span class="st">'/html/body/div[2]/div/div[3]/main/div[3]/div[3]/div[1]/div[4]/table'</span>)</span>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a>table <span class="ot">&lt;-</span> <span class="fu">xml_find_all</span>(covid, <span class="at">xpath =</span> <span class="st">'/html/body/div[3]/div/div[3]/main/div[3]/div[3]/div[1]/div[6]/table'</span>)</span>
 <span id="cb19-2"><a></a><span class="fu">print</span>(table) <span class="co"># collection of tables in XML</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>{xml_nodeset (1)}

@@ -385,14 +385,14 @@ window.Quarto = {
 <p>This assignment is due by 11:59pm Pacific Time on Friday, November 21st, 2025.</p>
 <p>The learning objectives are to write faster code for a computational task requiring a loop and to implement some queries and basic data wrangling in SQL.</p>
 </section>
-<section id="hpc" class="level2">
-<h2 class="anchored" data-anchor-id="hpc">HPC</h2>
-<section id="make-things-run-faster" class="level3">
-<h3 class="anchored" data-anchor-id="make-things-run-faster">Make things run faster</h3>
-<p>Rewrite the following R functions to make them faster. It is OK (and recommended) to take a look at StackOverflow and Google.</p>
+<section id="hpc" class="level1">
+<h1>HPC</h1>
+<p>For Questions 1 and 2, rewrite the provided R functions to make them faster. It is OK (and recommended) to take a look at StackOverflow and Google.</p>
+<p>Using the synthetic dataset provided, show that your new function returns the same output as the original function. Then use <code>microbenchmark</code> to show that your version is faster and provide a visualization of the runtimes.</p>
+<section id="question-1-20-points" class="level3">
+<h3 class="anchored" data-anchor-id="question-1-20-points">Question 1 (20 points)</h3>
 <ul>
 <li><code>fun1</code>: Find the total for each row of a numeric matrix. Output should be a vector with length equal to the number of rows of the input matrix.</li>
-<li><code>fun2</code>: Calculate the running (cumulative) total along each row of a numeric matrix. Output should be a matrix with dimensions equal to the input matrix.</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Total for each row</span></span>
@@ -407,52 +407,44 @@ window.Quarto = {
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>fun1alt <span class="ot">&lt;-</span> <span class="cf">function</span>(mat) {</span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># YOUR CODE HERE</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># running cumulative sum by row</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>fun2 <span class="ot">&lt;-</span> <span class="cf">function</span>(mat) {</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(mat)</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  k <span class="ot">&lt;-</span> <span class="fu">ncol</span>(mat)</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  ans <span class="ot">&lt;-</span> mat</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n) {</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>k) {</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>      ans[i,j] <span class="ot">&lt;-</span> mat[i, j] <span class="sc">+</span> ans[i, j <span class="sc">-</span> <span class="dv">1</span>]</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>  ans</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>fun2alt <span class="ot">&lt;-</span> <span class="cf">function</span>(mat) {</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>  <span class="co"># YOUR CODE HERE</span></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="question-1-30-points" class="level3">
-<h3 class="anchored" data-anchor-id="question-1-30-points">Question 1 (30 points)</h3>
-<p>Using the dataset generated below (<code>dat</code>), check that both of your new functions produce the same outputs as the corresponding original functions.</p>
+<p>Generate synthetic data (<code>dat</code>):</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the data with this code</span></span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the functions with this data</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2315</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">200</span> <span class="sc">*</span> <span class="dv">100</span>), <span class="at">nrow =</span> <span class="dv">200</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Then use <code>microbenchmark</code> (as in the code below) to check that your version is actually faster. How much faster is it?</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Test for the first</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>microbenchmark<span class="sc">::</span><span class="fu">microbenchmark</span>(</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fun1</span>(dat),</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fun1alt</span>(dat), <span class="at">unit =</span> <span class="st">"relative"</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Test for the second</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>microbenchmark<span class="sc">::</span><span class="fu">microbenchmark</span>(</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fun2</span>(dat),</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fun2alt</span>(dat), <span class="at">unit =</span> <span class="st">"relative"</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 </section>
-<section id="make-things-run-faster-with-parallel-computing" class="level3">
-<h3 class="anchored" data-anchor-id="make-things-run-faster-with-parallel-computing">Make things run faster with parallel computing</h3>
-<p>The following function allows us to estimate the value of <span class="math inline">\(\pi\)</span> through simulation:</p>
+<section id="question-2-20-points" class="level3">
+<h3 class="anchored" data-anchor-id="question-2-20-points">Question 2 (20 points)</h3>
+<ul>
+<li><code>fun2</code>: Calculate the running (cumulative) total along each row of a numeric matrix. Output should be a matrix with dimensions equal to the input matrix.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># running cumulative sum by row</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>fun2 <span class="ot">&lt;-</span> <span class="cf">function</span>(mat) {</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(mat)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  k <span class="ot">&lt;-</span> <span class="fu">ncol</span>(mat)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  ans <span class="ot">&lt;-</span> mat</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n) {</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>k) {</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>      ans[i,j] <span class="ot">&lt;-</span> mat[i, j] <span class="sc">+</span> ans[i, j <span class="sc">-</span> <span class="dv">1</span>]</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  ans</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>fun2alt <span class="ot">&lt;-</span> <span class="cf">function</span>(mat) {</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># YOUR CODE HERE</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Use the same synthetic datset as above.</p>
+</section>
+<section id="question-3-20-points" class="level3">
+<h3 class="anchored" data-anchor-id="question-3-20-points">Question 3 (20 points)</h3>
+<p>For this question, we will ask you to parallelize a process for computationally estimating the value of <span class="math inline">\(\pi\)</span>.</p>
+<p>The following function allows us to estimate <span class="math inline">\(\pi\)</span> through a simple simulation:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>sim_pi <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="dv">1000</span>, <span class="at">i =</span> <span class="cn">NULL</span>) {</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">runif</span>(n<span class="sc">*</span><span class="dv">2</span>), <span class="at">ncol =</span> <span class="dv">2</span>)</span>
@@ -463,7 +455,7 @@ window.Quarto = {
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">156</span>)</span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">sim_pi</span>(<span class="dv">1000</span>) <span class="co"># 3.132</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>In order to get accurate estimates, we can run this function multiple times, with the following code:</p>
+<p>In order to get more accurate estimates, we can run this function multiple times and take the mean:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This runs the simulation a 4,000 times, each with 10,000 points</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1231</span>)</span>
@@ -472,9 +464,6 @@ window.Quarto = {
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">mean</span>(ans))</span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="question-2-30-points" class="level3">
-<h3 class="anchored" data-anchor-id="question-2-30-points">Question 2 (30 points)</h3>
 <p>Rewrite the previous code using <code>parLapply()</code> (or your parallelization method of choice) to parallelize it. Run the code once, using <code>system.time()</code>, to show that your version is faster.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YOUR CODE HERE</span></span>
@@ -485,10 +474,15 @@ window.Quarto = {
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># YOUR CODE HERE</span></span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>Visualize your results in two ways:</p>
+<ol type="1">
+<li>Show that both versions produce similar ranges of estimates for <span class="math inline">\(\pi\)</span>.</li>
+<li>Show that the parallel version runs faster.</li>
+</ol>
 </section>
 </section>
-<section id="sql" class="level2">
-<h2 class="anchored" data-anchor-id="sql">SQL</h2>
+<section id="sql" class="level1">
+<h1>SQL</h1>
 <p>Setup a temporary database of movie data by running the following code chunk:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(c("RSQLite", "DBI"))</span></span>
@@ -510,24 +504,25 @@ window.Quarto = {
 <span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="fu">dbWriteTable</span>(con, <span class="st">"category"</span>, category)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>When you write a new chunk, remember to replace the <code>r</code> with <code>sql, connection=con</code>. Some of these questions will require you to use an inner join. Read more about them here <a href="https://www.w3schools.com/sql/sql_join_inner.asp">https://www.w3schools.com/sql/sql_join_inner.asp</a></p>
-</section>
-<section id="question-3-10-points" class="level2">
-<h2 class="anchored" data-anchor-id="question-3-10-points">Question 3 (10 points)</h2>
-<p>How many many movies are available in each <code>rating</code> category?</p>
-</section>
+<p>Answer each of the questions below with SQL queries.</p>
 <section id="question-4-10-points" class="level2">
 <h2 class="anchored" data-anchor-id="question-4-10-points">Question 4 (10 points)</h2>
-<p>What is the average replacement cost and rental rate for each <code>rating</code> category?</p>
+<p>How many movies are available in each <code>rating</code> category?</p>
 </section>
 <section id="question-5-10-points" class="level2">
 <h2 class="anchored" data-anchor-id="question-5-10-points">Question 5 (10 points)</h2>
-<p>Use table <code>film_category</code> together with <code>film</code> to find how many films there are with each category ID.</p>
+<p>What is the average replacement cost and rental rate for each <code>rating</code> category?</p>
 </section>
 <section id="question-6-10-points" class="level2">
 <h2 class="anchored" data-anchor-id="question-6-10-points">Question 6 (10 points)</h2>
+<p>Use table <code>film_category</code> together with <code>film</code> to find how many films there are with each category ID.</p>
+</section>
+<section id="question-7-10-points" class="level2">
+<h2 class="anchored" data-anchor-id="question-7-10-points">Question 7 (10 points)</h2>
 <p>Incorporate the <code>category</code> table into the answer to the previous question to find the name of the most popular category.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

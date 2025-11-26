@@ -497,7 +497,7 @@ Live Example! (inspect elements in [Google Chrome](https://developers.google.com
 Now that we know the path, let's use that and extract the table:
 
 ```{r get-table-covid1, echo=TRUE}
-table <- xml_find_all(covid, xpath = '/html/body/div[2]/div/div[3]/main/div[3]/div[3]/div[1]/div[4]/table')
+table <- xml_find_all(covid, xpath = '/html/body/div[3]/div/div[3]/main/div[3]/div[3]/div[1]/div[6]/table')
 print(table) # collection of tables in XML
 ```
 

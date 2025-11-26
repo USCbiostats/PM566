@@ -11,16 +11,19 @@ This assignment is due by 11:59pm Pacific Time on Friday, November 21st, 2025.
 The learning objectives are to write faster code for a computational task
 requiring a loop and to implement some queries and basic data wrangling in SQL.
 
-## HPC
+# HPC
 
-### Make things run faster
+For Questions 1 and 2, rewrite the provided R functions to make them faster. It
+is OK (and recommended) to take a look at StackOverflow and Google.
 
-Rewrite the following R functions to make them faster. It is OK (and
-recommended) to take a look at StackOverflow and Google.
+Using the synthetic dataset provided, show that your new function returns the
+same output as the original function. Then use `microbenchmark` to show that
+your version is faster and provide a visualization of the runtimes.
+
+### Question 1 (20 points)
 
  - `fun1`: Find the total for each row of a numeric matrix. Output should be a vector with length equal to the number of rows of the input matrix.
- - `fun2`: Calculate the running (cumulative) total along each row of a numeric matrix. Output should be a matrix with dimensions equal to the input matrix.
- 
+
 ```{r, eval = FALSE}
 # Total for each row
 fun1 <- function(mat) {
@@ -35,7 +38,22 @@ fun1 <- function(mat) {
 fun1alt <- function(mat) {
   # YOUR CODE HERE
 }
+```
 
+Generate synthetic data (`dat`):
+
+```{r, eval = FALSE}
+# Use the functions with this data
+set.seed(2315)
+dat <- matrix(rnorm(200 * 100), nrow = 200)
+```
+
+
+### Question 2 (20 points)
+
+ - `fun2`: Calculate the running (cumulative) total along each row of a numeric matrix. Output should be a matrix with dimensions equal to the input matrix.
+
+```{r, eval = FALSE}
 # running cumulative sum by row
 fun2 <- function(mat) {
   n <- nrow(mat)
@@ -54,39 +72,14 @@ fun2alt <- function(mat) {
 }
 ```
 
-### Question 1 (30 points)
+Use the same synthetic datset as above.
 
-Using the dataset generated below (`dat`), check that both of your new functions
-produce the same outputs as the corresponding original functions.
+### Question 3 (20 points)
 
-```{r, eval = FALSE}
-# Use the data with this code
-set.seed(2315)
-dat <- matrix(rnorm(200 * 100), nrow = 200)
-```
+For this question, we will ask you to parallelize a process for computationally
+estimating the value of $\pi$.
 
-Then use `microbenchmark` (as in the code below) to check that your version is
-actually faster. How much faster is it?
-
-```{r, eval = FALSE}
-# Test for the first
-microbenchmark::microbenchmark(
-  fun1(dat),
-  fun1alt(dat), unit = "relative"
-)
-
-# Test for the second
-microbenchmark::microbenchmark(
-  fun2(dat),
-  fun2alt(dat), unit = "relative"
-)
-```
-
-
-### Make things run faster with parallel computing
-
-The following function allows us to estimate the value of $\pi$ through
-simulation:
+The following function allows us to estimate $\pi$ through a simple simulation:
 
 ```{r, eval = FALSE}
 sim_pi <- function(n = 1000, i = NULL) {
@@ -99,8 +92,8 @@ set.seed(156)
 sim_pi(1000) # 3.132
 ```
 
-In order to get accurate estimates, we can run this function multiple times,
-with the following code:
+In order to get more accurate estimates, we can run this function multiple
+times and take the mean:
 
 ```{r, eval = FALSE}
 # This runs the simulation a 4,000 times, each with 10,000 points
@@ -110,8 +103,6 @@ system.time({
   print(mean(ans))
 })
 ```
-
-### Question 2 (30 points)
 
 Rewrite the previous code using `parLapply()` (or your parallelization method of
 choice) to parallelize it. Run the code once, using `system.time()`, to show
@@ -127,7 +118,12 @@ system.time({
 })
 ```
 
-## SQL
+Visualize your results in two ways: 
+
+1. Show that both versions produce similar ranges of estimates for $\pi$.
+2. Show that the parallel version runs faster.
+
+# SQL
 
 Setup a temporary database of movie data by running the following code chunk:
 
@@ -155,20 +151,22 @@ When you write a new chunk, remember to replace the `r` with `sql,
 connection=con`. Some of these questions will require you to use an inner join.
 Read more about them here [https://www.w3schools.com/sql/sql_join_inner.asp](https://www.w3schools.com/sql/sql_join_inner.asp)
 
-## Question 3 (10 points)
-
-How many many movies are available in each `rating` category?
+Answer each of the questions below with SQL queries.
 
 ## Question 4 (10 points)
 
-What is the average replacement cost and rental rate for each `rating` category?
+How many movies are available in each `rating` category?
 
 ## Question 5 (10 points)
+
+What is the average replacement cost and rental rate for each `rating` category?
+
+## Question 6 (10 points)
 
 Use table `film_category` together with `film` to find how many films there are
 with each category ID.
 
-## Question 6 (10 points)
+## Question 7 (10 points)
 
 Incorporate the `category` table into the answer to the previous question to
 find the name of the most popular category.
