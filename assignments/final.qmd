@@ -16,8 +16,8 @@ findings or deepens your understanding.
 ## Deliverables
 Your final project will consist of a website, containing your full report, with
 interactive graphics. The only thing you need to submit is a URL directing us to
-your report. The report does not need to be on the main page of your website
-(for example, if you want to include your report on your personal website).
+your report. During our exam time in Finals Week, you will give a brief 
+presentation summarizing your data and results.
 
 ### Report
 For the analysis, we will expect to see a cleaner report than for the midterm,
@@ -30,7 +30,7 @@ The report should have the following sections:
  - **Introduction**: provide background on your dataset and research question.
  - **Methods**: briefly discuss how the data was acquired and cleaned, and the tools you used for data exploration (further details should be provided on another page of your website).
  - **Results**: provide final, publication-ready tables and figures from your analysis, including at least one interactive graphic. Make separate subsections as needed.
- - **Conclusion and Summary**: a brief recap where you describe your findings.
+ - **Conclusion**: a brief recap where you describe your findings.
 
 Your report can contain code, but please do not include any unformatted output
 (eg. from `cat()` or `nrow()`) or partial datasets (eg. `head()` or `str()`).
@@ -52,5 +52,13 @@ exploratory plots.
 live (accessible by anyone on the internet), and figures and interactive
 graphics render properly (Hint: double check the URL! Make sure you aren't
 looking at your local version).
+
+### Presentation
+During Finals Week, you will present your data and analysis using your website
+and/or report (no additional slides). You should plan for a **10-minute**
+presentation, with 5 minutes for questions. This presentation can be somewhat
+informal, but we want to see that you have a deep understanding of your dataset
+and results.
+
 
 
