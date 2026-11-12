@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.38">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -12,10 +12,13 @@
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
 */
-code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -39,14 +42,14 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-0a6b7249c26820e032cb0bd839ff02b1.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b85bc7c33db8c58e0ec93c3465666fed.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-6033a600180109c3731f6a886c29932c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-5685cd926c25366c96d9f1407e584118.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-6033a600180109c3731f6a886c29932c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-9d96f532d65220ca877c0304385df42f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-df07115ad9f15e2ef3479c789e6873c8.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-9d96f532d65220ca877c0304385df42f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -323,7 +326,7 @@ ul.task-list li input[type="checkbox"] {
 <p><strong>Learning Objective</strong>: To apply the skills learned in PM 566 by analyzing and interpreting a dataset of your choice. This should include at least one clear, overarching research question to guide your analysis. Remember that the answer to most worthwhile research questions is complicated, so don’t be afraid to add follow-up analysis that clarifies your findings or deepens your understanding.</p>
 <section id="deliverables" class="level2">
 <h2 class="anchored" data-anchor-id="deliverables">Deliverables</h2>
-<p>Your final project will consist of a website, containing your full report, with interactive graphics. The only thing you need to submit is a URL directing us to your report. The report does not need to be on the main page of your website (for example, if you want to include your report on your personal website).</p>
+<p>Your final project will consist of a website, containing your full report, with interactive graphics. The only thing you need to submit is a URL directing us to your report. During our exam time in Finals Week, you will give a brief presentation summarizing your data and results.</p>
 <section id="report" class="level3">
 <h3 class="anchored" data-anchor-id="report">Report</h3>
 <p>For the analysis, we will expect to see a cleaner report than for the midterm, with clear explanations and more sophisticated analysis. This should be intended for a general audience, as your website will be accessible to anyone with an internet connection.</p>
@@ -332,7 +335,7 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Introduction</strong>: provide background on your dataset and research question.</li>
 <li><strong>Methods</strong>: briefly discuss how the data was acquired and cleaned, and the tools you used for data exploration (further details should be provided on another page of your website).</li>
 <li><strong>Results</strong>: provide final, publication-ready tables and figures from your analysis, including at least one interactive graphic. Make separate subsections as needed.</li>
-<li><strong>Conclusion and Summary</strong>: a brief recap where you describe your findings.</li>
+<li><strong>Conclusion</strong>: a brief recap where you describe your findings.</li>
 </ul>
 <p>Your report can contain code, but please do not include any unformatted output (eg. from <code>cat()</code> or <code>nrow()</code>) or partial datasets (eg. <code>head()</code> or <code>str()</code>). And as always, be sure not to upload the dataset to GitHub.</p>
 </section>
@@ -341,6 +344,10 @@ ul.task-list li input[type="checkbox"] {
 <p>Your website should be created with Quarto and hosted on GitHub Pages (so the URL will start with <code>&lt;username&gt;.github.io</code>). It should include at least one interactive graphic.</p>
 <p>In addition to the main report, you should have another page on your website dedicated to describing how the data was acquired, processed, and explored. This page should be linked in the <code>navbar</code> and be called something like <strong>“About the Data”</strong> or <strong>“Data Processing.”</strong> Describe the raw data in detail and every step you took to prepare it for your analysis. This is also where you should include any exploratory plots.</p>
 <p><strong>Make sure that your website actually works!</strong> This means that the website is live (accessible by anyone on the internet), and figures and interactive graphics render properly (Hint: double check the URL! Make sure you aren’t looking at your local version).</p>
+</section>
+<section id="presentation" class="level3">
+<h3 class="anchored" data-anchor-id="presentation">Presentation</h3>
+<p>During Finals Week, you will present your data and analysis using your website and/or report (no additional slides). You should plan for a <strong>10-minute</strong> presentation, with 5 minutes for questions. This presentation can be somewhat informal, but we want to see that you have a deep understanding of your dataset and results.</p>
 
 
 </section>
