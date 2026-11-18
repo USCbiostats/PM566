@@ -7,8 +7,6 @@ toc: false
 
 
 ```{r setup, message=FALSE, echo=FALSE, warning=FALSE}
-#install.packages(c("data.table","leaflet"))
-library(leaflet)
 library(tidyverse)
 ```
 
@@ -82,8 +80,8 @@ We also have the issue of the minimum temperature being -40C, so we should remov
 
 ```{r, eval=FALSE}
 met <- met[met$temp > -40, ]
-met2 <- met[order(met$temp), ]
-head(met2)
+met <- met[order(met$temp), ]
+head(met)
 ```
 
 We again notice that there is a -17.2C temperature reading that seems suspicious.
@@ -98,20 +96,20 @@ Fix any problems that arise in your checks.
 
 ```{r, eval=FALSE}
 met <- met[met$temp > -15, ]
-met2 <- met[order(met$temp), ]
-head(met2)
+met <- met[order(met$temp), ]
+head(met)
 ```
 
  - Summarize that we removed temperatures colder than -15C. The new dataset has a minimum temp of -3C, which is reasonable.
 
 ### 6. Calculate summary statistics
 
-Remember to keep the initial question in mind. We want to pick out the weather station with maximum elevation and examine its windspeed and temperature.
+Remember to keep the initial question in mind. We want to pick out the weather station with maximum elevation and examine its wind speed and temperature.
 
 Some ideas: select the weather station with maximum elevation; look at the correlation between temperature and wind speed; look at the correlation between temperature and wind speed with hour and day of the month.
 
 ```{r, eval=FALSE}
-elev <- met[met$elev == max(met$elev), ]
+elev <- met[met$elev == max(met$elev, na.rm = TRUE), ]
 summary(elev)
 ```
 
@@ -140,9 +138,10 @@ One thing we should consider for later analyses is to log transform wind speed a
 Look at where the weather station with highest elevation is located.
 
 ```{r, eval=FALSE}
-leaflet(elev) %>%
-  addProviderTiles('OpenStreetMap') %>% 
-  addCircles(lat=~lat,lng=~lon, opacity=1, fillOpacity=1, radius=100)
+us_map <- map_data("state")
+ggplot(data = us_map, aes(x = long, y = lat, group = group)) +
+  geom_polygon(color='white') + 
+  geom_point(aes(x = elev$lon[1], y = elev$lat[1]), color="red")
 ```
 
 Look at the time series of temperature and wind speed at this location. For this we will need to create a date-time variable for the x-axis.

@@ -53,7 +53,7 @@ As in the previous question, calculate the median latitude and longitude for sta
 
 ## Question 3: In the middle?
 
-For each state, identify the station that is closest to the mean latitude and longitude for stations in that state. Combining these with the coordinates you identified in the previous question, use `leaflet()` to visualize all ~100 points in the same figure, applying different colors for those identified in this question.
+For each state, identify the station that is closest to the mean latitude and longitude for stations in that state. Combining these with the coordinates you identified in the previous question, use `ggplot` to visualize all ~100 points in the same figure, applying different colors for those identified in this question.
 
 
 ## Question 4: Means of means

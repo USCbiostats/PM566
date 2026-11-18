@@ -16,7 +16,7 @@ title: "Schedule"
 | 9 | 10/28 | SQL & Managing Big Data	 | [Slides](slides/week09.qmd) | [Lab](labs/lab9.qmd) |  |
 | 10 | 11/4 | Interactive Visualization | [Slides](slides/week10.qmd) | [Lab](labs/lab10.qmd) | [HW4](assignments/hw4.qmd) |
 | 11 | 11/11 | Building a Website (NO CLASS WED - VETERAN'S DAY) | [Slides](slides/week11.qmd) | [Lab](https://quarto.org/docs/publishing/github-pages.html) |  |
-| 12 | 11/18 | Unsupervised Learning OR Interactive Visualization II |  |  |  |
+| 12 | 11/18 | Interactive Visualization II: Shiny |  | [Docs](https://shiny.posit.co/r/getstarted/shiny-basics/lesson1/) |  |
 |    | 11/25 | NO CLASS - THANKSGIVING	 |  |  | [Final](assignments/final.qmd) |
 | 13 | 12/2 | Nonparametric Statistics	 |  |  |  |
 
